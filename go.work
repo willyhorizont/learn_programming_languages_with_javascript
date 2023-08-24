@@ -1,0 +1,17 @@
+go 1.20
+
+use (
+    ./codes/go/Array.every
+    ./codes/go/Array.filter
+    ./codes/go/Array.find
+    ./codes/go/Array.findIndex
+    ./codes/go/Array.includes
+    ./codes/go/Array.map
+    ./codes/go/Array.reduce
+    ./codes/go/Array.some
+    ./codes/go/operator_nullish_coalescing
+    ./codes/go/operator_optional_chaining
+    ./codes/go/operator_spread
+    ./codes/go/operator_ternary
+    ./codes/go/_chaos
+)

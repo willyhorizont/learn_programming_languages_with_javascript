@@ -1,0 +1,7 @@
+\ is to create reference
+-> is to dereference the reference
+@ is to for Array data type
+% is for hash (key value pair data type in Perl)
+$ is for primitive data types
+@, %, $ is called a "sigil"
+# is for comment

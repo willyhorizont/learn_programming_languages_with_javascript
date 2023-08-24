@@ -1,0 +1,101 @@
+=============================changelog==========================================
+23:36 | 11:36 PM | Thu | Aug | 24/08/2023
+0.0.14
+create operator_nullish_coalescing.js
+create operator_nullish_coalescing.py
+create operator_nullish_coalescing.php
+create operator_nullish_coalescing.go
+create operator_nullish_coalescing.pl
+=============================changelog==========================================
+21:44 | 09:44 PM | Thu | Aug | 24/08/2023
+0.0.13
+create operator_optional_chaining.js
+create operator_optional_chaining.py
+create operator_optional_chaining.php
+create operator_optional_chaining.go
+create operator_optional_chaining.pl
+=============================changelog==========================================
+15:07 | 03:07 PM | Wed | Aug | 23/08/2023
+0.0.12
+create operator_spread.js
+create operator_spread.py
+create operator_spread.php
+create operator_spread.go
+create operator_spread.pl
+=============================changelog==========================================
+00:40 | 12:40 AM | Wed | Aug | 23/08/2023
+0.0.11
+create operator_ternary.js
+create operator_ternary.py
+create operator_ternary.php
+create operator_ternary.go
+create operator_ternary.pl
+=============================changelog==========================================
+19:28 | 07:28 PM | Tue | Aug | 22/08/2023
+0.0.9
+create Array.some.js
+create Array.some.py
+create Array.some.php
+create Array.some.go
+create Array.some.pl
+=============================changelog==========================================
+17:36 | 05:36 PM | Tue | Aug | 22/08/2023
+0.0.8
+create Array.reduce.js
+create Array.reduce.py
+create Array.reduce.php
+create Array.reduce.go
+create Array.reduce.pl
+=============================changelog==========================================
+22:36 | 10:36 PM | Fri | Aug | 18/08/2023
+0.0.7
+fix all perl codes
+create Array.map.js
+create Array.map.py
+create Array.map.php
+create Array.map.go
+create Array.map.pl
+=============================changelog==========================================
+18:35 | 06:35 PM | Thu | Aug | 17/08/2023
+0.0.6
+create Array.includes.js
+create Array.includes.py
+create Array.includes.php
+create Array.includes.go
+create Array.includes.pl
+=============================changelog==========================================
+04:23 | 04:23 AM | Thu | Aug | 17/08/2023
+0.0.5
+create Array.findIndex.js
+create Array.findIndex.py
+create Array.findIndex.php
+create Array.findIndex.go
+create Array.findIndex.pl
+=============================changelog==========================================
+02:39 | 02:39 AM | Thu | Aug | 17/08/2023
+0.0.4
+restructure some files and folders
+=============================changelog==========================================
+02:29 | 02:29 AM | Thu | Aug | 17/08/2023
+0.0.3
+create Array.find.js
+create Array.find.py
+create Array.find.php
+create Array.find.go
+create Array.find.pl
+=============================changelog==========================================
+23:56 | 11:56 PM | Wed | Aug | 16/08/2023
+0.0.2
+create Array.filter.js
+create Array.filter.py
+create Array.filter.php
+create Array.filter.go
+create Array.filter.pl
+=============================changelog==========================================
+00:41 | 12:41 AM | Mon | Aug | 14/08/2023
+0.0.1
+create Array.every.js
+create Array.every.py
+create Array.every.php
+create Array.every.go
+create Array.every.pl

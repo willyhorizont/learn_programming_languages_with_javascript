@@ -1,0 +1,16 @@
+in go "&" is to make a pointer of a variable (copy by reference)
+and "*" is to access the value where the variable pointed to
+
+for example:
+a := 5
+b := &a
+fmt.Println(&a) // 0xc000012028
+fmt.Println(b) // 0xc000012028
+fmt.Println(*b) // 5
+
+to create module ("go.mod" file):
+go mod init modulename
+add path to go.work
+
+to create workspace ("go.work" file):
+go work init
