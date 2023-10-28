@@ -75,11 +75,11 @@ $JSON_OBJECT = [
 ];
 echo("\nJSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v1\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v1\"");
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v1($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v1\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v1\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v1($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
@@ -91,11 +91,11 @@ echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$op
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v2($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v3\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v3\"");
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v3($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v3\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v3\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v3($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
@@ -107,11 +107,11 @@ echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$op
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v4($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v5\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v5\"");
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v5($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v5\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v5\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v5($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
@@ -123,11 +123,11 @@ echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$op
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v6($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v7\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v7\"");
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v7($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\optional_chaining_v7\"");
+echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v7\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v7($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 

@@ -2,9 +2,6 @@ use strict;
 use warnings;
 use JSON;
 
-# There's no JavaScript-like Array.map() in Perl.
-# But, we can create our own function to mimic it in Perl.
-
 sub spread_syntax_object {
     my %new_object;
     for my $arg_ref (@_) {

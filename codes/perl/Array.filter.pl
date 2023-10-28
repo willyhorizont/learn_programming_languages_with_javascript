@@ -25,9 +25,32 @@ sub array_filter_v2 {
     my @filtered_data = ();
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
+        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
+        push(@filtered_data, $array_item) if ($is_condition_match);
+    }
+    return @filtered_data;
+};
+
+sub array_filter_v3 {
+    # JavaScript-like Array.filter() function
+    my ($callback_function, @an_array) = @_;
+    my @filtered_data = ();
+    for my $array_item_index (0..$#an_array) {
+        my $array_item = $an_array[$array_item_index];
         if ($callback_function->($array_item, $array_item_index, \@an_array)) {
             push(@filtered_data, $array_item);
         }
+    }
+    return @filtered_data;
+};
+
+sub array_filter_v4 {
+    # JavaScript-like Array.filter() function
+    my ($callback_function, @an_array) = @_;
+    my @filtered_data = ();
+    for my $array_item_index (0..$#an_array) {
+        my $array_item = $an_array[$array_item_index];
+        push(@filtered_data, $array_item) if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return @filtered_data;
 };
@@ -57,6 +80,26 @@ print("even numbers only: ", "[", join(", ", @even_numbers_only), "]", "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
 @odd_numbers_only = array_filter_v2(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+print("odd numbers only: ", "[", join(", ", @odd_numbers_only), "]", "\n");
+# odd numbers only: [27, 23, 65, 93, 87]
+
+print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
+
+@even_numbers_only = array_filter_v3(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+print("even numbers only: ", "[", join(", ", @even_numbers_only), "]", "\n");
+# even numbers only: [12, 34, 36, 4, 254]
+
+@odd_numbers_only = array_filter_v3(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+print("odd numbers only: ", "[", join(", ", @odd_numbers_only), "]", "\n");
+# odd numbers only: [27, 23, 65, 93, 87]
+
+print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
+
+@even_numbers_only = array_filter_v4(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+print("even numbers only: ", "[", join(", ", @even_numbers_only), "]", "\n");
+# even numbers only: [12, 34, 36, 4, 254]
+
+@odd_numbers_only = array_filter_v4(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
 print("odd numbers only: ", "[", join(", ", @odd_numbers_only), "]", "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
@@ -126,6 +169,62 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 # ]
 
 @products_with_price_more_than_or_equal_to_100_only = array_filter_v2(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_with_price_more_than_or_equal_to_100_only));
+# products with price >= 100 only: [
+#     {
+#         "code": "pasta",
+#         "price": 321
+#     },
+#     {
+#         "code": "bubble_gum",
+#         "price": 233
+#     },
+#     {
+#         "code": "towel",
+#         "price": 499
+#     }
+# ]
+
+print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
+
+@products_with_price_less_than_or_equal_to_100_only = array_filter_v3(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_with_price_less_than_or_equal_to_100_only));
+# products with price <= 100 only: [
+#     {
+#         "code": "potato_chips",
+#         "price": 5
+#     }
+# ]
+
+@products_with_price_more_than_or_equal_to_100_only = array_filter_v3(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_with_price_more_than_or_equal_to_100_only));
+# products with price >= 100 only: [
+#     {
+#         "code": "pasta",
+#         "price": 321
+#     },
+#     {
+#         "code": "bubble_gum",
+#         "price": 233
+#     },
+#     {
+#         "code": "towel",
+#         "price": 499
+#     }
+# ]
+
+print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
+
+@products_with_price_less_than_or_equal_to_100_only = array_filter_v4(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_with_price_less_than_or_equal_to_100_only));
+# products with price <= 100 only: [
+#     {
+#         "code": "potato_chips",
+#         "price": 5
+#     }
+# ]
+
+@products_with_price_more_than_or_equal_to_100_only = array_filter_v4(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_with_price_more_than_or_equal_to_100_only));
 # products with price >= 100 only: [
 #     {

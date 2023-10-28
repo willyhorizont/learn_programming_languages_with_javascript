@@ -1,19 +1,19 @@
 to run JavaScript code:
-1. cd code/javascript
+1. cd codes/javascript/src
 2. node filename.js
 
 to run Python code:
-1. cd code/python
+1. cd codes/python
 2. python filename.py
 
 to run PHP code:
-1. cd code/php
+1. cd codes/php
 2. php ./filename.php
 
 to run GO code:
-1. cd code/go/foldername
+1. cd codes/go/foldername
 2. go run filename.go
 
 to run Perl code:
-1. cd code/perl
+1. cd codes/perl
 2. perl filename.pl

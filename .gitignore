@@ -1,4 +1,6 @@
 __pycache__
 *.pyc
+*.jar
 *test*
 node_modules
+*.jar

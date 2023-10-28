@@ -1,4 +1,4 @@
-go 1.20
+go 1.21.0
 
 use (
     ./codes/go/Array.every
@@ -13,5 +13,7 @@ use (
     ./codes/go/operator_optional_chaining
     ./codes/go/operator_spread
     ./codes/go/operator_ternary
-    ./codes/go/_chaos
+    ./codes/go/factorial
+    ./codes/go/fizzbuzz
+    ./codes/go/0.chaos
 )
