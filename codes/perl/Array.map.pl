@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use JSON;
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub spread_syntax_object {
     my %new_object;
     for my $arg_ref (@_) {
@@ -48,14 +50,14 @@ sub array_map_v2 {
 print("\n# JavaScript-like Array.map() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", "[", join(", ", @numbers), "]", "\n");
+print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
-my @labeled_numbers;
+my @numbers_labeled;
 
 print("# using JavaScript-like Array.map() function \"array_map_v1\"\n");
 
-@labeled_numbers = array_map_v1(sub { my ($number) = @_; return { "$number" => $number % 2 == 0 ? "even" : "odd" } }, @numbers);
-print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@labeled_numbers));
+@numbers_labeled = array_map_v1(sub { my ($number) = @_; return { "$number" => $number % 2 == 0 ? "even" : "odd" } }, @numbers);
+print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@numbers_labeled));
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -91,8 +93,8 @@ print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@labeled_numb
 
 print("# using JavaScript-like Array.map() function \"array_map_v2\"\n");
 
-@labeled_numbers = array_map_v2(sub { my ($number) = @_; return { "$number" => $number % 2 == 0 ? "even" : "odd" } }, @numbers);
-print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@labeled_numbers));
+@numbers_labeled = array_map_v2(sub { my ($number) = @_; return { "$number" => $number % 2 == 0 ? "even" : "odd" } }, @numbers);
+print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@numbers_labeled));
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -128,8 +130,8 @@ print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@labeled_numb
 
 print("# using Perl Array.map() built-in function \"map\"\n");
 
-@labeled_numbers = map { my $number = $_; { "$number" => $number % 2 == 0 ? "even" : "odd" } } @numbers;
-print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@labeled_numbers));
+@numbers_labeled = map { my $number = $_; { "$number" => $number % 2 == 0 ? "even" : "odd" } } @numbers;
+print("labeled numbers ", JSON->new->allow_nonref->pretty->encode(\@numbers_labeled));
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -186,12 +188,12 @@ my @products = (
 
 print("products: ", JSON->new->allow_nonref->pretty->encode(\@products));
 
-my @labeled_products;
+my @products_labeled;
 
 print("# using JavaScript-like Array.map() function \"array_map_v1\"\n");
 
-@labeled_products = array_map_v1(sub { my ($product) = @_; return { spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) }; }, @products);
-print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@labeled_products));
+@products_labeled = array_map_v1(sub { my ($product) = @_; return { spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) }; }, @products);
+print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -217,8 +219,8 @@ print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@labeled_pr
 
 print("# using JavaScript-like Array.map() function \"array_map_v2\"\n");
 
-@labeled_products = array_map_v2(sub { my ($product) = @_; return { spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) }; }, @products);
-print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@labeled_products));
+@products_labeled = array_map_v2(sub { my ($product) = @_; return { spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) }; }, @products);
+print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -244,8 +246,8 @@ print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@labeled_pr
 
 print("# using Perl Array.map() built-in function \"map\"\n");
 
-@labeled_products = map { my $product = $_; +{ spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) } } @products;
-print("labeled products ", JSON->new->allow_nonref->pretty->encode(\@labeled_products));
+@products_labeled = map { my $product = $_; +{ spread_syntax_object($product, { "label" => $product->{'price'} > 100 ? "expensive" : "cheap" }) } } @products;
+print("labeled products ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
 #     {
 #         "code": "pasta",

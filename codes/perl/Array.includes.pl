@@ -6,6 +6,8 @@ use Scalar::Util qw(looks_like_number);
 # There's no JavaScript-like Array.includes() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub array_includes_v1 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
@@ -124,7 +126,7 @@ sub array_includes_v10 {
 print("\n# JavaScript-like Array.includes() in Perl\n");
 
 my @my_friends = ("Alisa", "Trivia");
-print("my friends: ", "[", join(", ", @my_friends), "]", "\n");
+print("my friends: ", pretty_array_of_primitives(@my_friends), "\n");
 
 my $name;
 my $is_my_friend;

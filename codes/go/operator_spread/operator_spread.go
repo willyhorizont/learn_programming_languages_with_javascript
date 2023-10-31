@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -143,7 +143,7 @@ func spreadSyntaxArray(arrayOfArray ...[]Any) []Any {
 }
 
 func main() {
-	fmt.Println("\n// Spread Syntax in Go Slice")
+	fmt.Println("\n// JavaScript-like Spread Syntax in Go Slice")
 
 	myFruitsInFridge := []Any{"apple", "mango", "orange"}
 	fmt.Println("my fruits in fridge: ", prettySliceOfPrimitives(myFruitsInFridge))

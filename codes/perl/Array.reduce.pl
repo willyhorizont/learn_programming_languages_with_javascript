@@ -6,6 +6,8 @@ use Scalar::Util qw(looks_like_number);
 # There's no JavaScript-like Array.reduce() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub spread_syntax_object {
     my %new_object;
     for my $arg_ref (@_) {
@@ -77,13 +79,13 @@ sub array_reduce {
 print("\n# JavaScript-like Array.reduce() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", "[", join(", ", @numbers), "]", "\n");
+print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
-my $total_number = array_reduce(sub { my ($current_total_number, $current_number) = @_; return $current_total_number + $current_number; }, \@numbers, 0);
-print("total number $total_number\n");
+my $numbers_total = array_reduce(sub { my ($current_result, $current_number) = @_; return $current_result + $current_number; }, \@numbers, 0);
+print("total number $numbers_total\n");
 # total number: 635
 
 print("\n# JavaScript-like Array.reduce() in Perl Array of Hashes\n");
@@ -111,5 +113,5 @@ print("products: ", JSON->new->allow_nonref->pretty->encode(\@products));
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
-my @grouped_products = array_reduce(sub { my ($current_grouped_products, $current_product) = @_; return $current_product->{"price"} > 100 ? { spread_syntax_object($current_grouped_products, { "expensive" => { spread_syntax_object($current_grouped_products->{"expensive"}, $current_product) } }) } : { spread_syntax_object($current_grouped_products, { "cheap" => { spread_syntax_object($current_grouped_products->{"cheap"}, $current_product) } }) }; }, \@products, { "expensive" => (), "cheap" => (), });
-print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@grouped_products));
+my @products_grouped = array_reduce(sub { my ($current_result, $current_product) = @_; return $current_product->{"price"} > 100 ? { spread_syntax_object($current_result, { "expensive" => { spread_syntax_object($current_result->{"expensive"}, $current_product) } }) } : { spread_syntax_object($current_result, { "cheap" => { spread_syntax_object($current_result->{"cheap"}, $current_product) } }) }; }, \@products, { "expensive" => (), "cheap" => (), });
+print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_grouped));

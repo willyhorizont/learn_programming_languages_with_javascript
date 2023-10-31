@@ -1,7 +1,7 @@
 import json
 
 
-def array_every_v1(callback_function, an_array) -> bool:
+def array_every_v1(callback_function, an_array):
     '''JavaScript-like Array.every() function'''
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
@@ -11,7 +11,7 @@ def array_every_v1(callback_function, an_array) -> bool:
     return is_condition_match
 
 
-def array_every_v2(callback_function, an_array) -> bool:
+def array_every_v2(callback_function, an_array):
     '''JavaScript-like Array.every() function'''
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
@@ -21,7 +21,7 @@ def array_every_v2(callback_function, an_array) -> bool:
     return is_condition_match
 
 
-def array_every_v3(callback_function, an_array) -> bool:
+def array_every_v3(callback_function, an_array):
     '''JavaScript-like Array.every() function'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
@@ -30,7 +30,7 @@ def array_every_v3(callback_function, an_array) -> bool:
     return True
 
 
-def array_every_v4(callback_function, an_array) -> bool:
+def array_every_v4(callback_function, an_array):
     '''JavaScript-like Array.every() function'''
     for array_item_index, array_item in enumerate(an_array):
         if callback_function(array_item, array_item_index, an_array) == False:
@@ -45,52 +45,52 @@ print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.every() function "array_every_v1"')
 
-is_all_numbers_less_than500 = array_every_v1(lambda number, *_: number < 500, numbers)
-print(f'is all numbers < 500: {"true" if is_all_numbers_less_than500 else "false"}')
+is_all_number_less_than_500 = array_every_v1(lambda number, *_: number < 500, numbers)
+print(f'is all number < 500: {"true" if is_all_number_less_than_500 == True else "false"}')
 # is all number < 500: true
 
-is_all_numbers_more_than500 = array_every_v1(lambda number, *_: number > 500, numbers)
-print(f'is all numbers > 500: {"true" if is_all_numbers_more_than500 else "false"}')
+is_all_number_more_than_500 = array_every_v1(lambda number, *_: number > 500, numbers)
+print(f'is all number > 500: {"true" if is_all_number_more_than_500 == False else "false"}')
 # is all number > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v2"')
 
-is_all_numbers_less_than500 = array_every_v2(lambda number, *_: number < 500, numbers)
-print(f'is all numbers < 500: {"true" if is_all_numbers_less_than500 else "false"}')
+is_all_number_less_than_500 = array_every_v2(lambda number, *_: number < 500, numbers)
+print(f'is all number < 500: {"true" if is_all_number_less_than_500 == True else "false"}')
 # is all number < 500: true
 
-is_all_numbers_more_than500 = array_every_v2(lambda number, *_: number > 500, numbers)
-print(f'is all numbers > 500: {"true" if is_all_numbers_more_than500 else "false"}')
+is_all_number_more_than_500 = array_every_v2(lambda number, *_: number > 500, numbers)
+print(f'is all number > 500: {"true" if is_all_number_more_than_500 == False else "false"}')
 # is all number > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v3"')
 
-is_all_numbers_less_than500 = array_every_v3(lambda number, *_: number < 500, numbers)
-print(f'is all numbers < 500: {"true" if is_all_numbers_less_than500 else "false"}')
+is_all_number_less_than_500 = array_every_v3(lambda number, *_: number < 500, numbers)
+print(f'is all number < 500: {"true" if is_all_number_less_than_500 == True else "false"}')
 # is all number < 500: true
 
-is_all_numbers_more_than500 = array_every_v3(lambda number, *_: number > 500, numbers)
-print(f'is all numbers > 500: {"true" if is_all_numbers_more_than500 else "false"}')
+is_all_number_more_than_500 = array_every_v3(lambda number, *_: number > 500, numbers)
+print(f'is all number > 500: {"true" if is_all_number_more_than_500 == False else "false"}')
 # is all number > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v4"')
 
-is_all_numbers_less_than500 = array_every_v4(lambda number, *_: number < 500, numbers)
-print(f'is all numbers < 500: {"true" if is_all_numbers_less_than500 else "false"}')
+is_all_number_less_than_500 = array_every_v4(lambda number, *_: number < 500, numbers)
+print(f'is all number < 500: {"true" if is_all_number_less_than_500 == True else "false"}')
 # is all number < 500: true
 
-is_all_numbers_more_than500 = array_every_v4(lambda number, *_: number > 500, numbers)
-print(f'is all numbers > 500: {"true" if is_all_numbers_more_than500 else "false"}')
+is_all_number_more_than_500 = array_every_v4(lambda number, *_: number > 500, numbers)
+print(f'is all number > 500: {"true" if is_all_number_more_than_500 == False else "false"}')
 # is all number > 500: false
 
 print('# using Python Array.every() built-in function "all", the "pythonic" way')
 
-is_all_numbers_less_than500 = all([number < 500 for number in numbers])
-print(f'is all numbers < 500: {"true" if is_all_numbers_less_than500 else "false"}')
+is_all_number_less_than_500 = all([number < 500 for number in numbers])
+print(f'is all number < 500: {"true" if is_all_number_less_than_500 == True else "false"}')
 # is all number < 500: true
 
-is_all_numbers_more_than500 = all([number > 500 for number in numbers])
-print(f'is all numbers > 500: {"true" if is_all_numbers_more_than500 else "false"}')
+is_all_number_more_than_500 = all([number > 500 for number in numbers])
+print(f'is all number > 500: {"true" if is_all_number_more_than_500 == False else "false"}')
 # is all number > 500: false
 
 print('\n# JavaScript-like Array.every() in Python List of Dictionaries')
@@ -117,50 +117,50 @@ print(f'products: {json.dumps(products, indent=4)}')
 
 print('# using JavaScript-like Array.every() function "array_every_v1"')
 
-is_all_products_price_less_than500 = array_every_v1(lambda product, *_: product['price'] < 500, products)
-print(f'is all products price < 500: {"true" if is_all_products_price_less_than500 else "false"}')
-# is all products price < 500: true
+is_all_product_price_less_than_500 = array_every_v1(lambda product, *_: product['price'] < 500, products)
+print(f'is all product price < 500: {"true" if is_all_product_price_less_than_500 == True else "false"}')
+# is all product price < 500: true
 
-is_all_products_price_more_than500 = array_every_v1(lambda product, *_: product['price'] > 500, products)
-print(f'is all products price > 500: {"true" if is_all_products_price_more_than500 else "false"}')
-# is all products price > 500: false
+is_all_product_price_more_than_500 = array_every_v1(lambda product, *_: product['price'] > 500, products)
+print(f'is all product price > 500: {"true" if is_all_product_price_more_than_500 == True else "false"}')
+# is all product price > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v2"')
 
-is_all_products_price_less_than500 = array_every_v2(lambda product, *_: product['price'] < 500, products)
-print(f'is all products price < 500: {"true" if is_all_products_price_less_than500 else "false"}')
-# is all products price < 500: true
+is_all_product_price_less_than_500 = array_every_v2(lambda product, *_: product['price'] < 500, products)
+print(f'is all product price < 500: {"true" if is_all_product_price_less_than_500 == True else "false"}')
+# is all product price < 500: true
 
-is_all_products_price_more_than500 = array_every_v2(lambda product, *_: product['price'] > 500, products)
-print(f'is all products price > 500: {"true" if is_all_products_price_more_than500 else "false"}')
-# is all products price > 500: false
+is_all_product_price_more_than_500 = array_every_v2(lambda product, *_: product['price'] > 500, products)
+print(f'is all product price > 500: {"true" if is_all_product_price_more_than_500 == True else "false"}')
+# is all product price > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v3"')
 
-is_all_products_price_less_than500 = array_every_v3(lambda product, *_: product['price'] < 500, products)
-print(f'is all products price < 500: {"true" if is_all_products_price_less_than500 else "false"}')
-# is all products price < 500: true
+is_all_product_price_less_than_500 = array_every_v3(lambda product, *_: product['price'] < 500, products)
+print(f'is all product price < 500: {"true" if is_all_product_price_less_than_500 == True else "false"}')
+# is all product price < 500: true
 
-is_all_products_price_more_than500 = array_every_v3(lambda product, *_: product['price'] > 500, products)
-print(f'is all products price > 500: {"true" if is_all_products_price_more_than500 else "false"}')
-# is all products price > 500: false
+is_all_product_price_more_than_500 = array_every_v3(lambda product, *_: product['price'] > 500, products)
+print(f'is all product price > 500: {"true" if is_all_product_price_more_than_500 == True else "false"}')
+# is all product price > 500: false
 
 print('# using JavaScript-like Array.every() function "array_every_v4"')
 
-is_all_products_price_less_than500 = array_every_v4(lambda product, *_: product['price'] < 500, products)
-print(f'is all products price < 500: {"true" if is_all_products_price_less_than500 else "false"}')
-# is all products price < 500: true
+is_all_product_price_less_than_500 = array_every_v4(lambda product, *_: product['price'] < 500, products)
+print(f'is all product price < 500: {"true" if is_all_product_price_less_than_500 == True else "false"}')
+# is all product price < 500: true
 
-is_all_products_price_more_than500 = array_every_v4(lambda product, *_: product['price'] > 500, products)
-print(f'is all products price > 500: {"true" if is_all_products_price_more_than500 else "false"}')
-# is all products price > 500: false
+is_all_product_price_more_than_500 = array_every_v4(lambda product, *_: product['price'] > 500, products)
+print(f'is all product price > 500: {"true" if is_all_product_price_more_than_500 == True else "false"}')
+# is all product price > 500: false
 
 print('# using Python Array.every() built-in function "all", the "pythonic" way')
 
-is_all_products_price_less_than500 = all([product['price'] < 500 for product in products])
-print(f'is all products price < 500: {"true" if is_all_products_price_less_than500 else "false"}')
-# is all products price < 500: true
+is_all_product_price_less_than_500 = all([product['price'] < 500 for product in products])
+print(f'is all product price < 500: {"true" if is_all_product_price_less_than_500 == True else "false"}')
+# is all product price < 500: true
 
-is_all_products_price_more_than500 = all([product['price'] > 500 for product in products])
-print(f'is all products price > 500: {"true" if is_all_products_price_more_than500 else "false"}')
-# is all products price > 500: false
+is_all_product_price_more_than_500 = all([product['price'] > 500 for product in products])
+print(f'is all product price > 500: {"true" if is_all_product_price_more_than_500 == True else "false"}')
+# is all product price > 500: false

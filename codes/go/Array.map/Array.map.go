@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -167,11 +167,11 @@ func main() {
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))
 
-	var labeledNumbers []Any
+	var numbersLabeled []Any
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV1\"")
 
-	labeledNumbers = arrayMapV1(func(number Any, _ int, _ []Any) Any {
+	numbersLabeled = arrayMapV1(func(number Any, _ int, _ []Any) Any {
 		var objectValue Any
 		if number.(int)%2 == 0 {
 			objectValue = "even"
@@ -182,7 +182,7 @@ func main() {
 			prettyJsonStringify(number): objectValue,
 		}
 	}, numbers)
-	fmt.Println("labeled numbers: ", prettyJsonStringify(labeledNumbers))
+	fmt.Println("labeled numbers: ", prettyJsonStringify(numbersLabeled))
 	// labeled numbers: [
 	//     {
 	//         "12": "even"
@@ -218,7 +218,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
-	labeledNumbers = arrayMapV2(func(number Any, _ int, _ []Any) Any {
+	numbersLabeled = arrayMapV2(func(number Any, _ int, _ []Any) Any {
 		var objectValue Any
 		if number.(int)%2 == 0 {
 			objectValue = "even"
@@ -229,7 +229,7 @@ func main() {
 			prettyJsonStringify(number): objectValue,
 		}
 	}, numbers)
-	fmt.Println("labeled numbers: ", prettyJsonStringify(labeledNumbers))
+	fmt.Println("labeled numbers: ", prettyJsonStringify(numbersLabeled))
 	// labeled numbers: [
 	//     {
 	//         "12": "even"
@@ -285,11 +285,11 @@ func main() {
 	}
 	fmt.Println("products:", prettyJsonStringify(products))
 
-	var labeledProducts []Any
+	var productsLabeled []Any
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV1\"")
 
-	labeledProducts = arrayMapV1(func(product Any, _ int, _ []Any) Any {
+	productsLabeled = arrayMapV1(func(product Any, _ int, _ []Any) Any {
 		var objectValue Any
 		if product.(Object)["price"].(int) > 100 {
 			objectValue = "expensive"
@@ -298,7 +298,7 @@ func main() {
 		}
 		return spreadSyntaxObject(product, Object{"label": objectValue})
 	}, products)
-	fmt.Println("labeled products:", prettyJsonStringify(labeledProducts))
+	fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
 	// labeled products: [
 	//     {
 	//         "code": "pasta",
@@ -324,7 +324,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
-	labeledProducts = arrayMapV2(func(product Any, _ int, _ []Any) Any {
+	productsLabeled = arrayMapV2(func(product Any, _ int, _ []Any) Any {
 		var objectValue Any
 		if product.(Object)["price"].(int) > 100 {
 			objectValue = "expensive"
@@ -333,7 +333,7 @@ func main() {
 		}
 		return spreadSyntaxObject(product, Object{"label": objectValue})
 	}, products)
-	fmt.Println("labeled products:", prettyJsonStringify(labeledProducts))
+	fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
 	// labeled products: [
 	//     {
 	//         "code": "pasta",

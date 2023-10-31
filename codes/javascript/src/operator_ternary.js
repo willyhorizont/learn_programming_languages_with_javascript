@@ -4,16 +4,13 @@ const CORRECT_ANSWER = 'foo';
 console.log(`correct answer: "${CORRECT_ANSWER}"`);
 
 let myAnswer;
-let isMyAnswerCorrect;
 
-myAnswer = 'hello';
+myAnswer = 'bar';
 console.log(`my answer: "${myAnswer}"`);
-isMyAnswerCorrect = myAnswer === CORRECT_ANSWER ? 'congrats!' : 'wrong answer!';
-console.log(`result: ${isMyAnswerCorrect}`);
-// result: wrong answer!
+console.log(`is my answer correct: ${((myAnswer === CORRECT_ANSWER) ? 'correct!' : 'wrong!')}`);
+// is my answer correct: wrong!
 
 myAnswer = 'foo';
 console.log(`my answer: "${myAnswer}"`);
-isMyAnswerCorrect = myAnswer === CORRECT_ANSWER ? 'congrats!' : 'wrong answer!';
-console.log(`result: ${isMyAnswerCorrect}`);
-// result: congrats!
+console.log(`is my answer correct: ${((myAnswer === CORRECT_ANSWER) ? 'correct!' : 'wrong!')}`);
+// is my answer correct: correct!

@@ -50,8 +50,8 @@ print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v1"')
 
-labeled_numbers = array_map_v1(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v1(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -87,8 +87,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v2"')
 
-labeled_numbers = array_map_v2(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v2(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -124,8 +124,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v3"')
 
-labeled_numbers = array_map_v3(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v3(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -161,8 +161,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v4"')
 
-labeled_numbers = array_map_v4(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v4(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -198,8 +198,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v5"')
 
-labeled_numbers = array_map_v5(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v5(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -235,8 +235,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v6"')
 
-labeled_numbers = array_map_v6(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = array_map_v6(lambda number, *_: {number: 'even' if number % 2 == 0 else 'odd'}, numbers)
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -272,8 +272,8 @@ print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
 
 print('# using Python Array.map() built-in function "map", the "pythonic" way')
 
-labeled_numbers = list(map(lambda number: {number: 'even' if number % 2 == 0 else 'odd'}, numbers))
-print(f'labeled numbers: {json.dumps(labeled_numbers, indent=4)}')
+numbers_labeled = list(map(lambda number: {number: 'even' if number % 2 == 0 else 'odd'}, numbers))
+print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -331,8 +331,8 @@ print(f'products: {json.dumps(products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v1"')
 
-labeled_products = array_map_v1(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v1(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -358,8 +358,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v2"')
 
-labeled_products = array_map_v2(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v2(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -385,8 +385,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v3"')
 
-labeled_products = array_map_v3(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v3(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -412,8 +412,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v4"')
 
-labeled_products = array_map_v4(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v4(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -439,8 +439,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v5"')
 
-labeled_products = array_map_v5(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v5(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -466,8 +466,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v6"')
 
-labeled_products = array_map_v6(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = array_map_v6(lambda product, *_: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products)
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -493,8 +493,8 @@ print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
 
 print('# using Python Array.map() built-in function "map", the "pythonic" way')
 
-labeled_products = list(map(lambda product: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products))
-print(f'labeled products: {json.dumps(labeled_products, indent=4)}')
+products_labeled = list(map(lambda product: {**product, 'label': 'expensive' if product['price'] > 100 else 'cheap'}, products))
+print(f'labeled products: {json.dumps(products_labeled, indent=4)}')
 # labeled products: [
 #     {
 #         "code": "pasta",

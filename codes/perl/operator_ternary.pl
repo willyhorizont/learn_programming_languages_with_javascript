@@ -8,16 +8,13 @@ my $CORRECT_ANSWER = "foo";
 print("correct answer: \"$CORRECT_ANSWER\"\n");
 
 my $my_answer;
-my $is_my_answer_correct;
 
-$my_answer = 'hello';
+$my_answer = 'bar';
 print("my answer: \"$my_answer\"\n");
-$is_my_answer_correct = $my_answer eq $CORRECT_ANSWER ? "congrats!" : "wrong answer!";
-print("result: $is_my_answer_correct\n");
-# result: wrong answer!
+print("is my answer correct: " . (($my_answer eq $CORRECT_ANSWER) ? "correct!" : "wrong!") . "\n");
+# is my answer correct: wrong!
 
 $my_answer = 'foo';
 print("my answer: \"$my_answer\"\n");
-$is_my_answer_correct = $my_answer eq $CORRECT_ANSWER ? "congrats!" : "wrong answer!";
-print("result: $is_my_answer_correct\n");
-# result: congrats!
+print("is my answer correct: " . (($my_answer eq $CORRECT_ANSWER) ? "correct!" : "wrong!") . "\n");
+# is my answer correct: correct!

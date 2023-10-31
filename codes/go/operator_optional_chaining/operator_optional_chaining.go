@@ -21,10 +21,10 @@ func prettyJsonStringify(anythingLikeJson Any) string {
 }
 
 func main() {
+	fmt.Println("\n// JavaScript-like Optional Chaining Operator (?.) in GO")
+
 	// There's no JavaScript-like Optional Chaining Operator (?.) in GO.
 	// But, we don't need that in GO.
-
-	fmt.Println("\n// JavaScript-like Optional Chaining Operator (?.) in GO")
 
 	JSON_OBJECT := Object{
 		"foo": Object{

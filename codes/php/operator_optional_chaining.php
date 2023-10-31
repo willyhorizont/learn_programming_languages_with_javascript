@@ -1,5 +1,7 @@
 <?php
 
+echo("\n\n// JavaScript-like Optional Chaining Operator (?.) in PHP");
+
 function array_reduce_v1 ($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.array_reduce() function
     $result = null;
@@ -34,39 +36,37 @@ function array_reduce_v1 ($callback_function, $an_array, $initial_value) {
     return $result;
 };
 
-function optional_chaining_v1($an_object=[], ...$object_properties) {
+function optional_chaining_v1($an_object=[], ...$object_properties_array) {
     // JavaScript-like Optional Chaining Operator (?.) function
-    return array_reduce($object_properties, fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), null);
+    return array_reduce($object_properties_array, fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), null);
 };
 
 // JavaScript-like Optional Chaining Operator (?.) function
-$optional_chaining_v2 = fn($an_object=[], ...$object_properties) => array_reduce($object_properties, fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), null);
+$optional_chaining_v2 = fn($an_object=[], ...$object_properties_array) => array_reduce($object_properties_array, fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), null);
 
-function optional_chaining_v3($an_object=[], ...$object_properties) {
+function optional_chaining_v3($an_object=[], ...$object_properties_array) {
     // JavaScript-like Optional Chaining Operator (?.) function
-    return array_reduce_v1(fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), $object_properties, null);
+    return array_reduce_v1(fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), $object_properties_array, null);
 };
 
 // JavaScript-like Optional Chaining Operator (?.) function
-$optional_chaining_v4 = fn($an_object=[], ...$object_properties) => array_reduce_v1(fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), $object_properties, null);
+$optional_chaining_v4 = fn($an_object=[], ...$object_properties_array) => array_reduce_v1(fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), $object_properties_array, null);
 
-function optional_chaining_v5($an_object=[], $dictionary_properties_string_separated_by_dot='') {
+function optional_chaining_v5($an_object=[], $object_properties_string='') {
     // JavaScript-like Optional Chaining Operator (?.) function
-    return array_reduce(explode(".", $dictionary_properties_string_separated_by_dot), fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), null);
+    return array_reduce(explode(".", $object_properties_string), fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), null);
 };
 
 // JavaScript-like Optional Chaining Operator (?.) function
-$optional_chaining_v6 = fn($an_object=[], $dictionary_properties_string_separated_by_dot='') => array_reduce(explode(".", $dictionary_properties_string_separated_by_dot), fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), null);
+$optional_chaining_v6 = fn($an_object=[], $object_properties_string='') => array_reduce(explode(".", $object_properties_string), fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), null);
 
-function optional_chaining_v7($an_object=[], $dictionary_properties_string_separated_by_dot='') {
+function optional_chaining_v7($an_object=[], $object_properties_string='') {
     // JavaScript-like Optional Chaining Operator (?.) function
-    return array_reduce_v1(fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), explode(".", $dictionary_properties_string_separated_by_dot), null);
+    return array_reduce_v1(fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), explode(".", $object_properties_string), null);
 };
 
 // JavaScript-like Optional Chaining Operator (?.) function
-$optional_chaining_v8 = fn($an_object=[], $dictionary_properties_string_separated_by_dot='') => array_reduce_v1(fn($current_result, $current_dictionary) => ($current_result === null ? @$an_object[$current_dictionary] : @$current_result[$current_dictionary]), explode(".", $dictionary_properties_string_separated_by_dot), null);
-
-echo("\n\n// JavaScript-like Optional Chaining Operator (?.) in PHP");
+$optional_chaining_v8 = fn($an_object=[], $object_properties_string='') => array_reduce_v1(fn($current_result, $current_item) => ($current_result === null ? @$an_object[$current_item] : @$current_result[$current_item]), explode(".", $object_properties_string), null);
 
 $JSON_OBJECT = [
     "foo" => [
@@ -76,66 +76,68 @@ $JSON_OBJECT = [
 echo("\nJSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v1\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v1($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v1\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v1($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v2\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . ($optional_chaining_v2($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v2\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v2($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v3\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v3($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v3\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v3($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v4\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . ($optional_chaining_v4($JSON_OBJECT, "foo", "bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v4\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v4($JSON_OBJECT, "foo", "baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v5\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v5($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v5\"");
+
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v5($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v6\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . ($optional_chaining_v6($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v6\"");
+
 echo("\nJSON_OBJECT?.foo?.baz: " . ($optional_chaining_v6($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v7\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . (optional_chaining_v7($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"optional_chaining_v7\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v7($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 
 echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v8\"");
+
 echo("\nJSON_OBJECT?.foo?.bar: " . ($optional_chaining_v8($JSON_OBJECT, "foo.bar") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: baz
 
-echo("\n// using JavaScript-like Optional Chaining Operator (?.) function \"\$optional_chaining_v8\"");
 echo("\nJSON_OBJECT?.foo?.baz: " . (optional_chaining_v7($JSON_OBJECT, "foo.baz") ?? "undefined"));
 // $JSON_OBJECT?.foo?.bar: undefined
 

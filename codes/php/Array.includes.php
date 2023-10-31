@@ -1,9 +1,13 @@
 <?php
 
 echo("\n\n// JavaScript-like Array.includes() in PHP");
+
+function pretty_array_of_primitives($an_array_of_primitives) {
+    return str_replace(",", ", ", json_encode($an_array_of_primitives));
+};
     
 $my_friends = ['Alisa', 'Trivia'];
-echo("\nmy friends: " . str_replace(",", ", ", json_encode($my_friends)));
+echo("\nmy friends: " . pretty_array_of_primitives($my_friends));
 
 $name = 'Alisa';
 echo("\nname: \"$name\"");

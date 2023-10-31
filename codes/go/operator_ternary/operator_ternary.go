@@ -27,25 +27,22 @@ func main() {
 	fmt.Println("correct answer:", prettyJsonStringify(CORRECT_ANSWER))
 
 	var myAnswer string
-	var isMyAnswerCorrect string
 
-	myAnswer = "hello"
+	myAnswer = "bar"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
 	if myAnswer == CORRECT_ANSWER {
-		isMyAnswerCorrect = "congrats!"
+		fmt.Println("is my answer correct: correct!")
 	} else {
-		isMyAnswerCorrect = "wrong answer!"
+		fmt.Println("is my answer correct: wrong!")
 	}
-	fmt.Println("result: " + isMyAnswerCorrect)
-	// result: wrong answer!
+	// is my answer correct: wrong!
 
 	myAnswer = "foo"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
 	if myAnswer == CORRECT_ANSWER {
-		isMyAnswerCorrect = "congrats!"
+		fmt.Println("is my answer correct: correct!")
 	} else {
-		isMyAnswerCorrect = "wrong answer!"
+		fmt.Println("is my answer correct: wrong!")
 	}
-	fmt.Println("result: " + isMyAnswerCorrect)
-	// result: congrats!
+	// is my answer correct: correct!
 }

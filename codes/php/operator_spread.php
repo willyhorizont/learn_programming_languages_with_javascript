@@ -1,15 +1,19 @@
 <?php
 
-echo("\n\n// Spread Syntax in PHP Array");
+echo("\n\n// JavaScript-like Spread Syntax in PHP Array");
+
+function pretty_array_of_primitives($an_array_of_primitives) {
+    return str_replace(",", ", ", json_encode($an_array_of_primitives));
+};
 
 $my_fruits_in_fridge = ["apple", "mango", "orange"];
-echo("\nmy fruits in fridge: " . str_replace(",", ", ", json_encode($my_fruits_in_fridge)));
+echo("\nmy fruits in fridge: " . pretty_array_of_primitives($my_fruits_in_fridge));
 
 $my_fruits_from_grocery_store = ["melon", "banana"];
-echo("\nmy fruits from grocery store: " . str_replace(",", ", ", json_encode($my_fruits_from_grocery_store)));
+echo("\nmy fruits from grocery store: " . pretty_array_of_primitives($my_fruits_from_grocery_store));
 
 $my_fruits = [...$my_fruits_in_fridge, ...$my_fruits_from_grocery_store];
-echo("\nmy fruits: " . str_replace(",", ", ", json_encode($my_fruits)));
+echo("\nmy fruits: " . pretty_array_of_primitives($my_fruits));
 // my fruits: ["apple", "mango", "orange", "melon", "banana"]
 
 echo("\n\n// Spread Syntax in PHP Associative Array");

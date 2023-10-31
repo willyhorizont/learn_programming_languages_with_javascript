@@ -1,0 +1,6 @@
+https://julialang.org/
+download and install julia from https://julialang.org/downloads/
+
+to work with JSON in Julia:
+https://github.com/JuliaIO/JSON.jl
+open Julia REPL, Type "] add JSON" and then hit ENTER at the REPL. You should see pkg> add JSON.

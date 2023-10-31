@@ -29,10 +29,10 @@ func nullishCoalescing(value Any, defaultValue Any) Any {
 }
 
 func main() {
+	fmt.Println("\n// JavaScript-like Nullish Coalescing Operator (??) in GO")
+
 	// There's no JavaScript-like Nullish Coalescing Operator (??) in GO.
 	// But, we can create our own function to mimic it in GO.
-
-	fmt.Println("\n// JavaScript-like Nullish Coalescing Operator (??) in GO")
 
 	JSON_OBJECT := Object{
 		"foo": Object{

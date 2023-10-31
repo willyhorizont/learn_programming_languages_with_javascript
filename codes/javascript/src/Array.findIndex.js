@@ -32,9 +32,9 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productIWant = 'pasta';
-console.log(`product I want: ${productIWant}`);
+const productToBuy = 'pasta';
+console.log(`product to buy: ${productToBuy}`);
 
-const productIWantIndex = products.findIndex((product) => product.code === productIWant);
-console.log(`product I want is at index: ${productIWantIndex}`);
-// product I want is at index: 0
+const productToBuyIndex = products.findIndex((product) => product.code === productToBuy);
+console.log(`product to buy is at index: ${productToBuyIndex}`);
+// product to buy is at index: 0

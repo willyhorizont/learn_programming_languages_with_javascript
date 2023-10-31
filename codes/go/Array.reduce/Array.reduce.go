@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -164,7 +164,18 @@ func arrayReduce(callbackFunction func(Any, Any, int, []Any) Any, anArray []Any,
 			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
 			continue
 		}
-		if initialValueType == reflect.Int || initialValueType == reflect.Int8 || initialValueType == reflect.Int16 || initialValueType == reflect.Int32 || initialValueType == reflect.Int64 || initialValueType == reflect.Float32 || initialValueType == reflect.Float64 {
+		if initialValueType == reflect.Int ||
+			initialValueType == reflect.Int8 ||
+			initialValueType == reflect.Int16 ||
+			initialValueType == reflect.Int32 ||
+			initialValueType == reflect.Int64 ||
+			initialValueType == reflect.Uint ||
+			initialValueType == reflect.Uint8 ||
+			initialValueType == reflect.Uint16 ||
+			initialValueType == reflect.Uint32 ||
+			initialValueType == reflect.Uint64 ||
+			initialValueType == reflect.Float32 ||
+			initialValueType == reflect.Float64 {
 			if result == nil {
 				result = 0
 			}
@@ -204,10 +215,10 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-	totalNumber := arrayReduce(func(currentTotalNumber Any, currentNumber Any, _ int, _ []Any) Any {
-		return currentTotalNumber.(int) + currentNumber.(int)
+	numbersTotal := arrayReduce(func(currentResult Any, currentNumber Any, _ int, _ []Any) Any {
+		return currentResult.(int) + currentNumber.(int)
 	}, numbers, 0)
-	fmt.Println("labeled numbers: ", prettyJsonStringify(totalNumber))
+	fmt.Println("labeled numbers: ", prettyJsonStringify(numbersTotal))
 	// total number: 635
 
 	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")
@@ -234,13 +245,13 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-	labeledProducts := arrayReduce(func(currentGroupedProducts Any, currentProduct Any, _ int, _ []Any) Any {
+	productsLabeled := arrayReduce(func(currentResult Any, currentProduct Any, _ int, _ []Any) Any {
 		if currentProduct.(Object)["price"].(int) > 100 {
-			return spreadSyntaxObject(currentGroupedProducts, Object{"expensive": spreadSyntaxObject(currentGroupedProducts.(Object)["expensive"], currentProduct)})
+			return spreadSyntaxObject(currentResult, Object{"expensive": spreadSyntaxObject(currentResult.(Object)["expensive"], currentProduct)})
 		}
-		return spreadSyntaxObject(currentGroupedProducts, Object{"cheap": spreadSyntaxObject(currentGroupedProducts.(Object)["cheap"], currentProduct)})
+		return spreadSyntaxObject(currentResult, Object{"cheap": spreadSyntaxObject(currentResult.(Object)["cheap"], currentProduct)})
 	}, products, Object{"expensive": Object{}, "cheap": Object{}})
-	fmt.Println("labeled products:", prettyJsonStringify(labeledProducts))
+	fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
 	// grouped products: {
 	//     "expensive": [
 	//         {

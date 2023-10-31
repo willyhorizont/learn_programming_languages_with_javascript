@@ -111,7 +111,7 @@ const fizzbuzzV5 = (stopNumber = 50) => {
     let number = 1;
     while (true) {
         result = ((result === "")
-            ? number
+            ? `${number}`
             : ((((number % 3) === 0) && ((number % 5) === 0))
                 ? `${result}, FizzBuzz`
                 : (((number % 3) === 0)
@@ -134,7 +134,7 @@ const fizzbuzzV6 = (stopNumber = 50) => {
     let number = 1;
     while (number <= stopNumber) {
         result = ((result === "")
-            ? number
+            ? `${number}`
             : ((((number % 3) === 0) && ((number % 5) === 0))
                 ? `${result}, FizzBuzz`
                 : (((number % 3) === 0)
@@ -155,7 +155,7 @@ const fizzbuzzV7 = (stopNumber = 50) => {
     let result = "";
     let number = 1;
     while (true) {
-        result = ((result === "") ? number : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
+        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
         number += 1;
         if (number > stopNumber) break;
     }
@@ -166,7 +166,7 @@ const fizzbuzzV8 = (stopNumber = 50) => {
     let result = "";
     let number = 1;
     while (number <= stopNumber) {
-        result = ((result === "") ? number : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
+        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
         number += 1;
     }
     return result;
@@ -218,7 +218,7 @@ const fizzbuzzV11 = (stopNumber = 50) => {
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
         result = ((result === "")
-            ? number
+            ? `${number}`
             : ((((number % 3) === 0) && ((number % 5) === 0))
                 ? `${result}, FizzBuzz`
                 : (((number % 3) === 0)
@@ -237,7 +237,7 @@ const fizzbuzzV11 = (stopNumber = 50) => {
 const fizzbuzzV12 = (stopNumber = 50) => {
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
-        result = ((result === "") ? number : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
+        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
     }
     return result;
 };

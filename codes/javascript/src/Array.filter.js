@@ -3,12 +3,12 @@ console.log('\n// Array.filter() in JavaScript Array');
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
-const evenNumbersOnly = numbers.filter((number) => number % 2 === 0);
-console.log(`even numbers only: ${JSON.stringify(evenNumbersOnly).split(',').join(', ')}`);
+const numbersEven = numbers.filter((number) => number % 2 === 0);
+console.log(`even numbers only: ${JSON.stringify(numbersEven).split(',').join(', ')}`);
 // even numbers only: [12, 34, 36, 4, 254]
 
-const oddNumbersOnly = numbers.filter((number) => number % 2 !== 0);
-console.log(`odd numbers only: ${JSON.stringify(oddNumbersOnly).split(',').join(', ')}`);
+const numbersOdd = numbers.filter((number) => number % 2 !== 0);
+console.log(`odd numbers only: ${JSON.stringify(numbersOdd).split(',').join(', ')}`);
 // odd numbers only: [27, 23, 65, 93, 87]
 
 console.log('\n// Array.filter() in JavaScript Array of Objects');
@@ -33,8 +33,8 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productsWithPriceLessThanOrEqualTo100Only = products.filter((product) => product.price <= 100);
-console.log(`products with price <= 100 only: ${JSON.stringify(productsWithPriceLessThanOrEqualTo100Only, null, ' '.repeat(4))}`);
+const productsBelow100 = products.filter((product) => product.price <= 100);
+console.log(`products with price <= 100 only: ${JSON.stringify(productsBelow100, null, ' '.repeat(4))}`);
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -42,8 +42,8 @@ console.log(`products with price <= 100 only: ${JSON.stringify(productsWithPrice
 //     }
 // ]
 
-const productsWithPriceMoreThanOrEqualTo100Only = products.filter((product) => product.price >= 100);
-console.log(`products with price >= 100 only: ${JSON.stringify(productsWithPriceMoreThanOrEqualTo100Only, null, ' '.repeat(4))}`);
+const productsAbove100 = products.filter((product) => product.price >= 100);
+console.log(`products with price >= 100 only: ${JSON.stringify(productsAbove100, null, ' '.repeat(4))}`);
 // products with price >= 100 only: [
 //     {
 //         "code": "pasta",

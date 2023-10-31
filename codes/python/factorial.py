@@ -5,7 +5,7 @@ def factorial_v1(number):
     if (number > 1) == False:
         return 1
     result = 1
-    for i in range(number, 1 - 1, -1):
+    for i in range(number, 0, -1):
         result *= i
     return result
 

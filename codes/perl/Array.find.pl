@@ -5,6 +5,8 @@ use JSON;
 # There's no JavaScript-like Array.find() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub array_find_v1 {
     # JavaScript-like Array.find() function
     my ($callback_function, @an_array) = @_;
@@ -133,7 +135,7 @@ sub array_find_v10 {
 print("\n# JavaScript-like Array.find() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", "[", join(", ", @numbers), "]", "\n");
+print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
 my $even_number_found;
 my $odd_number_found;

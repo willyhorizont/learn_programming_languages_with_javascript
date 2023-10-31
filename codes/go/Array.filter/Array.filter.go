@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -118,25 +118,25 @@ func prettySliceOfPrimitives(anArray []Any) string {
 
 func arrayFilterV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) []Any {
 	// JavaScript-like Array.filter() function
-	filteredData := []Any{}
+	dataFiltered := []Any{}
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch {
-			filteredData = append(filteredData, arrayItem)
+		if isConditionMatch == true {
+			dataFiltered = append(dataFiltered, arrayItem)
 		}
 	}
-	return filteredData
+	return dataFiltered
 }
 
 func arrayFilterV2(callbackFunction func(Any, int, []Any) bool, anArray []Any) []Any {
 	// JavaScript-like Array.filter() function
-	filteredData := []Any{}
+	dataFiltered := []Any{}
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) {
-			filteredData = append(filteredData, arrayItem)
+		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
+			dataFiltered = append(dataFiltered, arrayItem)
 		}
 	}
-	return filteredData
+	return dataFiltered
 }
 
 func main() {
@@ -145,35 +145,35 @@ func main() {
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))
 
-	var evenNumbersOnly []Any
-	var oddNumbersOnly []Any
+	var numbersEven []Any
+	var numbersOdd []Any
 
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
 
-	evenNumbersOnly = arrayFilterV1(func(number Any, _ int, _ []Any) bool {
+	numbersEven = arrayFilterV1(func(number Any, _ int, _ []Any) bool {
 		return number.(int)%2 == 0
 	}, numbers)
-	fmt.Println("even numbers only: ", prettySliceOfPrimitives(evenNumbersOnly))
+	fmt.Println("even numbers only: ", prettySliceOfPrimitives(numbersEven))
 	// even numbers only: [12, 34, 36, 4, 254]
 
-	oddNumbersOnly = arrayFilterV1(func(number Any, _ int, _ []Any) bool {
+	numbersOdd = arrayFilterV1(func(number Any, _ int, _ []Any) bool {
 		return number.(int)%2 != 0
 	}, numbers)
-	fmt.Println("odd numbers only: ", prettySliceOfPrimitives(oddNumbersOnly))
+	fmt.Println("odd numbers only: ", prettySliceOfPrimitives(numbersOdd))
 	// odd numbers only: [27, 23, 65, 93, 87]
 
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
 
-	evenNumbersOnly = arrayFilterV2(func(number Any, _ int, _ []Any) bool {
+	numbersEven = arrayFilterV2(func(number Any, _ int, _ []Any) bool {
 		return number.(int)%2 == 0
 	}, numbers)
-	fmt.Println("even numbers only: ", prettySliceOfPrimitives(evenNumbersOnly))
+	fmt.Println("even numbers only: ", prettySliceOfPrimitives(numbersEven))
 	// even numbers only: [12, 34, 36, 4, 254]
 
-	oddNumbersOnly = arrayFilterV2(func(number Any, _ int, _ []Any) bool {
+	numbersOdd = arrayFilterV2(func(number Any, _ int, _ []Any) bool {
 		return number.(int)%2 != 0
 	}, numbers)
-	fmt.Println("odd numbers only: ", prettySliceOfPrimitives(oddNumbersOnly))
+	fmt.Println("odd numbers only: ", prettySliceOfPrimitives(numbersOdd))
 	// odd numbers only: [27, 23, 65, 93, 87]
 
 	fmt.Println("\n// JavaScript-like Array.filter() in Slice of Maps")
@@ -198,15 +198,15 @@ func main() {
 	}
 	fmt.Println("products:", prettyJsonStringify(products))
 
-	var productsWithPriceLessThanOrEqualTo100Only []Any
-	var productsWithPriceMoreThanOrEqualTo100Only []Any
+	var productsBelow100 []Any
+	var productsAbove100 []Any
 
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
 
-	productsWithPriceLessThanOrEqualTo100Only = arrayFilterV1(func(product Any, _ int, _ []Any) bool {
+	productsBelow100 = arrayFilterV1(func(product Any, _ int, _ []Any) bool {
 		return product.(Object)["price"].(int) <= 100
 	}, products)
-	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsWithPriceLessThanOrEqualTo100Only))
+	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
 	// products with price <= 100 only: [
 	//     {
 	//         "code": "potato_chips",
@@ -214,10 +214,10 @@ func main() {
 	//     }
 	// ]
 
-	productsWithPriceMoreThanOrEqualTo100Only = arrayFilterV1(func(product Any, _ int, _ []Any) bool {
+	productsAbove100 = arrayFilterV1(func(product Any, _ int, _ []Any) bool {
 		return product.(Object)["price"].(int) >= 100
 	}, products)
-	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsWithPriceMoreThanOrEqualTo100Only))
+	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
 	// products with price >= 100 only: [
 	//     {
 	//         "code": "pasta",
@@ -235,10 +235,10 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
 
-	productsWithPriceLessThanOrEqualTo100Only = arrayFilterV2(func(product Any, _ int, _ []Any) bool {
+	productsBelow100 = arrayFilterV2(func(product Any, _ int, _ []Any) bool {
 		return product.(Object)["price"].(int) <= 100
 	}, products)
-	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsWithPriceLessThanOrEqualTo100Only))
+	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
 	// products with price <= 100 only: [
 	//     {
 	//         "code": "potato_chips",
@@ -246,10 +246,10 @@ func main() {
 	//     }
 	// ]
 
-	productsWithPriceMoreThanOrEqualTo100Only = arrayFilterV2(func(product Any, _ int, _ []Any) bool {
+	productsAbove100 = arrayFilterV2(func(product Any, _ int, _ []Any) bool {
 		return product.(Object)["price"].(int) >= 100
 	}, products)
-	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsWithPriceMoreThanOrEqualTo100Only))
+	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
 	// products with price >= 100 only: [
 	//     {
 	//         "code": "pasta",

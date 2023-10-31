@@ -9,7 +9,7 @@ def array_find_v1(callback_function, an_array):
     data_found = None
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match:
+        if is_condition_match == True:
             data_found = array_item
             break
     return data_found
@@ -30,7 +30,7 @@ def array_find_v3(callback_function, an_array):
     data_found = None
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match:
+        if is_condition_match == True:
             return array_item
     return data_found
 
@@ -48,7 +48,7 @@ def array_find_v5(callback_function, an_array):
     '''JavaScript-like Array.find() function'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match:
+        if is_condition_match == True:
             return array_item
     return None
 

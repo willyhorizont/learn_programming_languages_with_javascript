@@ -5,6 +5,8 @@ use JSON;
 # There's no JavaScript-like Spread Syntax in Perl.
 # But, we can create our own function to mimic it in Perl.
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub spread_syntax_object {
     my %new_object;
     for my $arg_ref (@_) {
@@ -34,20 +36,20 @@ sub spread_syntax_array {
     return @new_array;
 };
 
-print("\n# Spread Syntax in Perl Array\n");
+print("\n# JavaScript-like Spread Syntax in Perl Array\n");
 
 my @my_fruits_in_fridge = ("apple", "mango", "orange");
-print("my fruits in fridge: " , "[", join(", ", @my_fruits_in_fridge), "]", "\n");
+print("my fruits in fridge: " , pretty_array_of_primitives(@my_fruits_in_fridge), "\n");
 
 my @my_fruits_from_grocery_store = ("melon", "banana");
-print("my fruits from grocery store: " , "[", join(", ", @my_fruits_from_grocery_store), "]", "\n");
+print("my fruits from grocery store: " , pretty_array_of_primitives(@my_fruits_from_grocery_store), "\n");
 
 my @my_fruits1 = spread_syntax_array(\@my_fruits_in_fridge, \@my_fruits_from_grocery_store);
-print("my fruits1: " , "[", join(", ", @my_fruits1), "]", "\n");
+print("my fruits1: " , pretty_array_of_primitives(@my_fruits1), "\n");
 # my fruits: ["apple", "mango", "orange", "melon", "banana"]
 
 my @my_fruits2 = spread_syntax_array(\@my_fruits_in_fridge, ["kiwi"]);
-print("my fruits2: " , "[", join(", ", @my_fruits2), "]", "\n");
+print("my fruits2: " , pretty_array_of_primitives(@my_fruits2), "\n");
 # my fruits: ["apple", "mango", "orange", "melon", "banana"]
 
 print("\n# Spread Syntax in Perl Array of Hashes\n");
@@ -58,10 +60,7 @@ my %general_car = (
 );
 print("\ngeneral car: ", JSON->new->allow_nonref->pretty->encode(\%general_car));
 
-my %minivan_car_properties = (
-    "doors" => 4
-);
-my %minivan_car = spread_syntax_object(\%general_car, \%minivan_car_properties);
+my %minivan_car = spread_syntax_object(\%general_car, {"doors" => 4});
 print("\nminivan car: ", JSON->new->allow_nonref->pretty->encode(\%minivan_car));
 # minivan car: {
 #     "wheels": 4,

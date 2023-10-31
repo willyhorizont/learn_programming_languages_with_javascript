@@ -3,8 +3,8 @@ console.log('\n// Array.map() in JavaScript Array');
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
-const labeledNumbers = numbers.map((number) => ({ [number]: number % 2 === 0 ? 'even' : 'odd' }));
-console.log(`labeled numbers: ${JSON.stringify(labeledNumbers, null, ' '.repeat(4))}`);
+const numbersLabeled = numbers.map((number) => ({ [number]: number % 2 === 0 ? 'even' : 'odd' }));
+console.log(`labeled numbers: ${JSON.stringify(numbersLabeled, null, ' '.repeat(4))}`);
 // labeled numbers: [
 //     {
 //         "12": "even"
@@ -60,8 +60,8 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const labeledProducts = products.map((product) => ({ ...product, label: product.price > 100 ? 'expensive' : 'cheap' }));
-console.log(`labeled products: ${JSON.stringify(labeledProducts, null, ' '.repeat(4))}`);
+const productsLabeled = products.map((product) => ({ ...product, label: product.price > 100 ? 'expensive' : 'cheap' }));
+console.log(`labeled products: ${JSON.stringify(productsLabeled, null, ' '.repeat(4))}`);
 // labeled products: [
 //     {
 //         "code": "pasta",

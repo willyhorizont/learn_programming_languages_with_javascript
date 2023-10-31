@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -121,7 +121,7 @@ func arrayFindV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 	var dataFound Any
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch {
+		if isConditionMatch == true {
 			dataFound = arrayItem
 			break
 		}
@@ -133,7 +133,7 @@ func arrayFindV2(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 	// JavaScript-like Array.find() function
 	var dataFound Any
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) {
+		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
 			dataFound = arrayItem
 			break
 		}
@@ -146,7 +146,7 @@ func arrayFindV3(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 	var dataFound Any
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch {
+		if isConditionMatch == true {
 			return arrayItem
 		}
 	}
@@ -157,7 +157,7 @@ func arrayFindV4(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 	// JavaScript-like Array.find() function
 	var dataFound Any
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) {
+		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
 			return arrayItem
 		}
 	}
@@ -168,7 +168,7 @@ func arrayFindV5(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch {
+		if isConditionMatch == true {
 			return arrayItem
 		}
 	}
@@ -178,7 +178,7 @@ func arrayFindV5(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 func arrayFindV6(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any {
 	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) {
+		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
 			return arrayItem
 		}
 	}

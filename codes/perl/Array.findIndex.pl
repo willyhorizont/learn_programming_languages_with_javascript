@@ -5,6 +5,8 @@ use JSON;
 # There's no JavaScript-like Array.findIndex() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
+sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+
 sub array_find_index_v1 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, @an_array) = @_;
@@ -133,7 +135,7 @@ sub array_find_index_v10 {
 print("\n# JavaScript-like Array.findIndex() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", "[", join(", ", @numbers), "]", "\n");
+print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
 my $my_lucky_number = 27;
 print("my lucky number: ", $my_lucky_number, "\n");
@@ -223,67 +225,67 @@ my @products = (
 
 print("products: ", JSON->new->allow_nonref->pretty->encode(\@products));
 
-my $product_i_want = 'pasta';
-print("product I want: ", $product_i_want, "\n");
+my $product_to_buy = 'pasta';
+print("product to buy: ", $product_to_buy, "\n");
 
-my $product_i_want_index = -1;
+my $product_to_buy_index = -1;
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"\n");
 
-$product_i_want_index = array_find_index_v1(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v1(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"\n");
 
-$product_i_want_index = array_find_index_v2(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v2(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"\n");
 
-$product_i_want_index = array_find_index_v3(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v3(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"\n");
 
-$product_i_want_index = array_find_index_v4(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v4(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"\n");
 
-$product_i_want_index = array_find_index_v5(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v5(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"\n");
 
-$product_i_want_index = array_find_index_v6(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v6(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"\n");
 
-$product_i_want_index = array_find_index_v7(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v7(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"\n");
 
-$product_i_want_index = array_find_index_v8(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v8(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"\n");
 
-$product_i_want_index = array_find_index_v9(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v9(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"\n");
 
-$product_i_want_index = array_find_index_v10(sub { my ($product) = @_; return $product->{'code'} eq $product_i_want; }, @products);
-print("product I want is at index: ", $product_i_want_index, "\n");
-# product I want is at index: 0
+$product_to_buy_index = array_find_index_v10(sub { my ($product) = @_; return $product->{'code'} eq $product_to_buy; }, @products);
+print("product to buy is at index: ", $product_to_buy_index, "\n");
+# product to buy is at index: 0

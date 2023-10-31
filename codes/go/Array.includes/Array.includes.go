@@ -37,7 +37,7 @@ func prettySliceOfPrimitives(anArray []Any) string {
 		somethingType := reflect.TypeOf(something).Kind()
 		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
 	}, anArray)
-	if isNotSliceOfPrimitives {
+	if isNotSliceOfPrimitives == true {
 		return "undefined"
 	}
 	stringSlice := []string{}
@@ -121,7 +121,7 @@ func arrayIncludesV1(searchElement Any, anArray []Any) bool {
 	elementFound := false
 	for _, arrayItem := range anArray {
 		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch {
+		if isConditionMatch == true {
 			elementFound = true
 			break
 		}
@@ -146,7 +146,7 @@ func arrayIncludesV3(searchElement Any, anArray []Any) bool {
 	elementFound := false
 	for _, arrayItem := range anArray {
 		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch {
+		if isConditionMatch == true {
 			elementFound = true
 			return elementFound
 		}
@@ -169,7 +169,7 @@ func arrayIncludesV5(searchElement Any, anArray []Any) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
 		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch {
+		if isConditionMatch == true {
 			return true
 		}
 	}
