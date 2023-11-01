@@ -29,10 +29,10 @@ func nullishCoalescing(value Any, defaultValue Any) Any {
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Nullish Coalescing Operator (??) in GO")
+	fmt.Println("\n// JavaScript-like Nullish Coalescing Operator (??) in Go")
 
-	// There's no JavaScript-like Nullish Coalescing Operator (??) in GO.
-	// But, we can create our own function to mimic it in GO.
+	// There's no JavaScript-like Nullish Coalescing Operator (??) in Go.
+	// But, we can create our own function to mimic it in Go.
 
 	JSON_OBJECT := Object{
 		"foo": Object{
@@ -48,7 +48,7 @@ func main() {
 	fmt.Println("JSON_OBJECT?.foo?.baz:", nullishCoalescing(JSON_OBJECT["foo"].(Object)["baz"], "not found"))
 	// JSON_OBJECT?.foo?.baz: not found
 
-	fmt.Println("// using the GO way")
+	fmt.Println("// using the Go way")
 
 	foobar := JSON_OBJECT["foo"].(Object)["bar"]
 	foobaz := JSON_OBJECT["foo"].(Object)["baz"]

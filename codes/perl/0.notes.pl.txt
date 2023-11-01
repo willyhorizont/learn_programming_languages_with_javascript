@@ -5,3 +5,49 @@
 $ is for primitive data types
 @, %, $ is called a "sigil"
 # is for comment
+& is for subroutine invocation / calling function without parentheses
+
+sub say_hi {
+    my ($do_something2) = @_;
+    print("hi", "\n");
+    $do_something2 -> ();
+};
+
+sub say_how_are_you {
+    print("how are you?", "\n");
+};
+
+say_hi(\&say_how_are_you);
+
+# `\&` is used to create a reference to a subroutine (function)
+# Here's a breakdown of how it works:
+# 1. Reference Operator (\): The backslash (\) is the reference operator in Perl. It is used to create references to variables, data structures, or subroutines.
+# 2. Subroutine Reference (\&subroutine): When \& is used before the name of a subroutine, it creates a reference to that subroutine. For example, \&say_how_are_you creates a reference to the say_how_are_you subroutine.
+# 3. Passing Subroutine Reference: In the provided code, \&say_how_are_you is passed as an argument to the say_hi subroutine. This means that say_hi receives a reference to the say_how_are_you subroutine as its argument.
+# 4. Dereferencing and Invocation (->()): To invoke a subroutine reference, you use the ->() syntax. In say_hi, $do_something2->() is used to dereference and call the subroutine referenced by $do_something2.
+# So, in summary, \& is used to create a reference to a subroutine, and the resulting reference can be passed around or invoked later in the program.
+
+# Call the subroutine without parentheses
+&sayHi;
+
+my %simple_calculator = (
+    "exponentiation" => \&exponentiation,
+    "addition" => sub {
+        my ($a, $b) = @_;
+        return $a + $b;
+    },
+    "subtraction" => sub { my ($a, $b) = @_; return $a - $b; }
+);
+
+my $simple_calculator_result1 = $simple_calculator{"addition"}->(3, 4);
+
+my $simple_calculator = {
+    "exponentiation" => \&exponentiation,
+    "addition" => sub {
+        my ($a, $b) = @_;
+        return $a + $b;
+    },
+    "subtraction" => sub { my ($a, $b) = @_; return $a - $b; }
+};
+
+my $simple_calculator_result1 = $simple_calculator->{"addition"}->(3, 4);

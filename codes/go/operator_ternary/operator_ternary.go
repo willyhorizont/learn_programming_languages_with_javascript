@@ -21,7 +21,7 @@ func prettyJsonStringify(anythingLikeJson Any) string {
 }
 
 func main() {
-	fmt.Println("\n// Ternary Operator in GO")
+	fmt.Println("\n// Ternary Operator in Go")
 
 	const CORRECT_ANSWER = "foo"
 	fmt.Println("correct answer:", prettyJsonStringify(CORRECT_ANSWER))

@@ -161,7 +161,7 @@ func arrayEveryV4(callbackFunction func(Any, int, []Any) bool, anArray []Any) bo
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Array.every() in GO Slice")
+	fmt.Println("\n// JavaScript-like Array.every() in Go Slice")
 
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))

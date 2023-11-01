@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 print("\n# FizzBuzz(n) in Perl\n");
 
 sub fizzbuzz_v1 {

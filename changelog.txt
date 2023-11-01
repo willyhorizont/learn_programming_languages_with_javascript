@@ -1,4 +1,13 @@
 =============================changelog==========================================
+19:53 | 07:53 PM | Wed | Nov | 01/11/2023
+0.0.18
+create functions.js
+create functions.py
+create functions.php
+create functions.go
+create functions.pl
+create functions.jl
+=============================changelog==========================================
 19:38 | 07:38 PM | Tue | Oct | 31/10/2023
 0.0.17
 create Array.every.jl

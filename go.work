@@ -1,4 +1,4 @@
-go 1.21.0
+go 1.21.3
 
 use (
     ./codes/go/Array.every
@@ -15,5 +15,6 @@ use (
     ./codes/go/operator_ternary
     ./codes/go/factorial
     ./codes/go/fizzbuzz
+    ./codes/go/functions
     ./codes/go/0.chaos
 )

@@ -186,7 +186,7 @@ func arrayFindV6(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Array.find() in GO Slice")
+	fmt.Println("\n// JavaScript-like Array.find() in Go Slice")
 
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))

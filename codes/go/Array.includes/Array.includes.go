@@ -11,7 +11,6 @@ const EMPTY_STRING = ""
 const TAB = "    "
 
 type Any interface{}
-type Object map[string]Any
 
 func prettyJsonStringify(anythingLikeJson Any) string {
 	marshalledJson, err := json.MarshalIndent(anythingLikeJson, EMPTY_STRING, TAB)
@@ -187,7 +186,7 @@ func arrayIncludesV6(searchElement Any, anArray []Any) bool {
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Array.includes() in GO")
+	fmt.Println("\n// JavaScript-like Array.includes() in Go")
 
 	myFriends := []Any{"Alisa", "Trivia"}
 	fmt.Println("my friends:", prettySliceOfPrimitives(myFriends))

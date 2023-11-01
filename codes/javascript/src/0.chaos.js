@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-unused-vars */
 

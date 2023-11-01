@@ -208,7 +208,7 @@ func arrayReduce(callbackFunction func(Any, Any, int, []Any) Any, anArray []Any,
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Array.reduce() in GO Slice")
+	fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice")
 
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))

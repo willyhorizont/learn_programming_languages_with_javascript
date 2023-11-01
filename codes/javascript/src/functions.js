@@ -20,7 +20,7 @@ const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
 // }
 
 // ? named function expression 🤮
-const getRectangleAreaV3 = function doSomething(rectangleWidth, rectangleLength) {
+const getRectangleAreaV3 = function doSomething1(rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
 
@@ -39,34 +39,84 @@ const getRectangleAreaV5 = (rectangleWidth, rectangleLength) => rectangleWidth *
 /*
 ? In JavaScript, a function is a first-class citizen, which means it supports:
 ? • Passing functions as arguments to other functions
-? • Returning functions as values from other functions
 ? • Assigning functions to variables or storing them in data structures
+? • Returning functions as values from other functions (closure)
 */
 
 // ? Passing functions as arguments to other functions
 
-function getBlockVolume(getRectangleAreaFunction, blockHeight) {
-    return getRectangleAreaFunction() * blockHeight;
+function sayHi(doSomething2) {
+    console.log("hi");
+    doSomething2();
 }
-function getRectangleAreaV6(rectangleWidth, rectangleLength) {
+
+function sayHowAreYou() {
+    console.log("how are you?");
+}
+
+sayHi(sayHowAreYou);
+
+sayHi(function () {
+    console.log("how are you?");
+});
+
+sayHi(() => {
+    console.log("how are you?");
+});
+
+sayHi(() => console.log("how are you?"));
+
+// ? Assigning functions to variables or storing them in data structures
+
+const getRectangleAreaV7 = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
-}
-const blockVolume1 = getBlockVolume(getRectangleAreaV6, 10);
-const blockVolume2 = getBlockVolume(
+};
+
+const getRectangleAreaV8 = (rectangleWidth, rectangleLength) => {
+    return rectangleWidth * rectangleLength;
+};
+
+const getRectangleAreaV9 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
+
+const myArrayOfGetRectangleAreaFunctions = [
+    getRectangleAreaV1,
     function (rectangleWidth, rectangleLength) {
         return rectangleWidth * rectangleLength;
     },
-    10
-);
-const blockVolume3 = getBlockVolume(
     (rectangleWidth, rectangleLength) => {
         return rectangleWidth * rectangleLength;
     },
-    10
-);
-const blockVolume4 = getBlockVolume((rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength, 10);
+    (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
+];
+const getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0](3, 5);
+const getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1](3, 5);
+const getRectangleAreaFunction3 = myArrayOfGetRectangleAreaFunctions[2](3, 5);
+const getRectangleAreaFunction4 = myArrayOfGetRectangleAreaFunctions[3](3, 5);
 
-// ? Returning functions as values from other functions
+function exponentiation(a, b) {
+    return a ** b;
+}
+
+const simpleCalculator = {
+    exponentiation,
+    multiplication: function (a, b) {
+        return a * b;
+    },
+    division: (a, b) => {
+        return a / b;
+    },
+    addition: (a, b) => a + b,
+    subtraction(a, b) {
+        return a - b;
+    },
+};
+const simpleCalculatorResult1 = simpleCalculator.exponentiation(2, 4);
+const simpleCalculatorResult2 = simpleCalculator.multiplication(7, 5);
+const simpleCalculatorResult3 = simpleCalculator.division(81, 9);
+const simpleCalculatorResult4 = simpleCalculator.addition(3, 4);
+const simpleCalculatorResult5 = simpleCalculator.subtraction(35, 8);
+
+// ? Returning functions as values from other functions (closure)
 
 function multiplyV1(a) {
     function multiplyBy(b) {
@@ -239,41 +289,3 @@ const multiplyBy22Result = multiplyBy22(10); // 220
 const multiplyV22 = (a) => (b) => a * b;
 const multiplyBy23 = multiplyV22(23);
 const multiplyBy23Result = multiplyBy23(10); // 230
-
-// Assigning functions to variables or storing them in data structures
-
-const getRectangleAreaV7 = (rectangleWidth, rectangleLength) => {
-    return rectangleWidth * rectangleLength;
-};
-
-const getRectangleAreaV8 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
-
-const myArrayOfGetRectangleAreaFunctions = [
-    function (rectangleWidth, rectangleLength) {
-        return rectangleWidth * rectangleLength;
-    },
-    (rectangleWidth, rectangleLength) => {
-        return rectangleWidth * rectangleLength;
-    },
-    (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
-];
-const getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0](3, 5);
-const getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1](3, 5);
-const getRectangleAreaFunction3 = myArrayOfGetRectangleAreaFunctions[2](3, 5);
-
-const simpleCalculator = {
-    multiplication: function (a, b) {
-        return a * b;
-    },
-    division: (a, b) => {
-        return a / b;
-    },
-    addition: (a, b) => a + b,
-    subtraction(a, b) {
-        return a - b;
-    },
-};
-const simpleCalculatorResult1 = simpleCalculator.addition(7, 8);
-const simpleCalculatorResult2 = simpleCalculator.division(81, 9);
-const simpleCalculatorResult3 = simpleCalculator.addition(3, 4);
-const simpleCalculatorResult4 = simpleCalculator.subtraction(35, 8);

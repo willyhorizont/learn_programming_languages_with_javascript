@@ -10,10 +10,14 @@ to run PHP code:
 1. cd codes/php
 2. php ./filename.php
 
-to run GO code:
+to run Go code:
 1. cd codes/go/foldername
 2. go run filename.go
 
 to run Perl code:
 1. cd codes/perl
 2. perl filename.pl
+
+to run Julia code:
+1. cd codes/julia
+2. julia filename.jl
