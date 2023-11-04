@@ -5,6 +5,9 @@ import (
 )
 
 func fizzbuzzV1(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	number := 1
 	for true {
@@ -50,6 +53,9 @@ func fizzbuzzV1(stopNumber int) string {
 }
 
 func fizzbuzzV2(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	number := 1
 	for number <= stopNumber {
@@ -80,6 +86,9 @@ func fizzbuzzV2(stopNumber int) string {
 }
 
 func fizzbuzzV3(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	number := 1
 	for true {
@@ -103,6 +112,9 @@ func fizzbuzzV3(stopNumber int) string {
 }
 
 func fizzbuzzV4(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	number := 1
 	for number <= stopNumber {
@@ -123,6 +135,9 @@ func fizzbuzzV4(stopNumber int) string {
 }
 
 func fizzbuzzV5(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
 		if result == "" {
@@ -147,6 +162,9 @@ func fizzbuzzV5(stopNumber int) string {
 }
 
 func fizzbuzzV6(stopNumber int) string {
+	if stopNumber < 1 {
+		return "argument should be greater than 0"
+	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
 		if result == "" {

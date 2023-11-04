@@ -68,61 +68,61 @@ print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v1"')
 
-even_number_found = array_find_v1(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v1(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v1(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v1(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
 print('# using JavaScript-like Array.find() function "array_find_v2"')
 
-even_number_found = array_find_v2(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v2(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v2(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v2(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
 print('# using JavaScript-like Array.find() function "array_find_v3"')
 
-even_number_found = array_find_v3(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v3(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v3(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v3(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
 print('# using JavaScript-like Array.find() function "array_find_v4"')
 
-even_number_found = array_find_v4(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v4(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v4(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v4(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
 print('# using JavaScript-like Array.find() function "array_find_v5"')
 
-even_number_found = array_find_v5(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v5(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v5(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v5(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
 print('# using JavaScript-like Array.find() function "array_find_v6"')
 
-even_number_found = array_find_v6(lambda number, *_: number % 2 == 0, numbers)
+even_number_found = array_find_v6(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even number found: {even_number_found}')
 # even number found: 12
 
-odd_number_found = array_find_v6(lambda number, *_: number % 2 != 0, numbers)
+odd_number_found = array_find_v6(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 

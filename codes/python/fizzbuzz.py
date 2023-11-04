@@ -1,7 +1,13 @@
+from numbers import Number
+
 print('\n# FizzBuzz(n) in Python')
 
 
-def fizzbuzz_v1(stop_number=50):
+def fizzbuzz_v1(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while True:
@@ -36,7 +42,11 @@ def fizzbuzz_v1(stop_number=50):
     return result
 
 
-def fizzbuzz_v2(stop_number=50):
+def fizzbuzz_v2(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while (number <= stop_number):
@@ -61,7 +71,11 @@ def fizzbuzz_v2(stop_number=50):
     return result
 
 
-def fizzbuzz_v3(stop_number=50):
+def fizzbuzz_v3(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while True:
@@ -81,7 +95,11 @@ def fizzbuzz_v3(stop_number=50):
     return result
 
 
-def fizzbuzz_v4(stop_number=50):
+def fizzbuzz_v4(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while (number <= stop_number):
@@ -99,7 +117,11 @@ def fizzbuzz_v4(stop_number=50):
     return result
 
 
-def fizzbuzz_v5(stop_number=50):
+def fizzbuzz_v5(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while True:
@@ -110,7 +132,11 @@ def fizzbuzz_v5(stop_number=50):
     return result
 
 
-def fizzbuzz_v6(stop_number=50):
+def fizzbuzz_v6(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     number = 1
     while (number <= stop_number):
@@ -119,7 +145,11 @@ def fizzbuzz_v6(stop_number=50):
     return result
 
 
-def fizzbuzz_v7(stop_number=50):
+def fizzbuzz_v7(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     for number in range(1, stop_number + 1):
         if (result == ""):
@@ -138,7 +168,11 @@ def fizzbuzz_v7(stop_number=50):
     return result
 
 
-def fizzbuzz_v8(stop_number=50):
+def fizzbuzz_v8(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     for number in range(1, stop_number + 1):
         if (result == ""):
@@ -154,14 +188,18 @@ def fizzbuzz_v8(stop_number=50):
     return result
 
 
-def fizzbuzz_v9(stop_number=50):
+def fizzbuzz_v9(stop_number):
+    if (isinstance(stop_number, Number) == False):
+        return "argument should be a number"
+    if (stop_number < 1):
+        return "argument should be greater than 0"
     result = ""
     for number in range(1, stop_number + 1):
         result = f'{number}' if (result == "") else f'{result}, FizzBuzz' if (((number % 3) == 0) and ((number % 5) == 0)) else f'{result}, Fizz' if ((number % 3) == 0) else f'{result}, Buzz' if ((number % 5) == 0) else f'{result}, {number}'
     return result
 
 
-fizzbuzz_v10 = lambda stop_number=50: ', '.join(['FizzBuzz' if (((number % 3) == 0) and ((number % 5) == 0)) else 'Fizz' if ((number % 3) == 0) else 'Buzz' if ((number % 5) == 0) else f'{number}' for number in range(1, stop_number + 1)])
+fizzbuzz_v10 = lambda stop_number: "argument should be a number" if (isinstance(stop_number, Number) == False) else "argument should be greater than 0" if (stop_number < 1) else ", ".join(['FizzBuzz' if (((number % 3) == 0) and ((number % 5) == 0)) else 'Fizz' if ((number % 3) == 0) else 'Buzz' if ((number % 5) == 0) else f'{number}' for number in range(1, stop_number + 1)])
 
 print('# using fizzbuzz function "fizzbuzz_v1"')
 print('FizzBuzz(36):', fizzbuzz_v1(36))

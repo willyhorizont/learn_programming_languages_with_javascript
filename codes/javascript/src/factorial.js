@@ -1,6 +1,7 @@
 console.log('\n// Factorial(n) in JavaScript');
 
 const factorialV1 = (number) => {
+    if (typeof number !== "number") return "argument should be a number";
     if ((number > 1) === false) return 1;
     let result = 1;
     for (let i = number; i >= 1; i -= 1) {
@@ -10,6 +11,7 @@ const factorialV1 = (number) => {
 };
 
 const factorialV2 = (number) => {
+    if (typeof number !== "number") return "argument should be a number";
     if ((number > 1) === false) return 1;
     let result = 1;
     let i = number;
@@ -22,6 +24,7 @@ const factorialV2 = (number) => {
 };
 
 const factorialV3 = (number) => {
+    if (typeof number !== "number") return "argument should be a number";
     if ((number > 1) === false) return 1;
     let result = 1;
     let i = number;

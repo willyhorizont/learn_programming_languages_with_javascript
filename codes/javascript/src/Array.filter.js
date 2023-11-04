@@ -3,11 +3,11 @@ console.log('\n// Array.filter() in JavaScript Array');
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
-const numbersEven = numbers.filter((number) => number % 2 === 0);
+const numbersEven = numbers.filter((number) => ((number % 2) === 0));
 console.log(`even numbers only: ${JSON.stringify(numbersEven).split(',').join(', ')}`);
 // even numbers only: [12, 34, 36, 4, 254]
 
-const numbersOdd = numbers.filter((number) => number % 2 !== 0);
+const numbersOdd = numbers.filter((number) => ((number % 2) !== 0));
 console.log(`odd numbers only: ${JSON.stringify(numbersOdd).split(',').join(', ')}`);
 // odd numbers only: [27, 23, 65, 93, 87]
 

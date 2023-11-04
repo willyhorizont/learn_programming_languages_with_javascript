@@ -1,6 +1,8 @@
 console.log('\n// FizzBuzz(n) in JavaScript');
 
-const fizzbuzzV1 = (stopNumber = 50) => {
+const fizzbuzzV1 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (true) {
@@ -35,7 +37,9 @@ const fizzbuzzV1 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV2 = (stopNumber = 50) => {
+const fizzbuzzV2 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (number <= stopNumber) {
@@ -65,7 +69,9 @@ const fizzbuzzV2 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV3 = (stopNumber = 50) => {
+const fizzbuzzV3 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (true) {
@@ -86,7 +92,9 @@ const fizzbuzzV3 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV4 = (stopNumber = 50) => {
+const fizzbuzzV4 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (number <= stopNumber) {
@@ -106,7 +114,9 @@ const fizzbuzzV4 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV5 = (stopNumber = 50) => {
+const fizzbuzzV5 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (true) {
@@ -129,7 +139,9 @@ const fizzbuzzV5 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV6 = (stopNumber = 50) => {
+const fizzbuzzV6 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (number <= stopNumber) {
@@ -151,7 +163,9 @@ const fizzbuzzV6 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV7 = (stopNumber = 50) => {
+const fizzbuzzV7 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (true) {
@@ -162,7 +176,9 @@ const fizzbuzzV7 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV8 = (stopNumber = 50) => {
+const fizzbuzzV8 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     let number = 1;
     while (number <= stopNumber) {
@@ -172,7 +188,9 @@ const fizzbuzzV8 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV9 = (stopNumber = 50) => {
+const fizzbuzzV9 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
         if (result === "") {
@@ -196,7 +214,9 @@ const fizzbuzzV9 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV10 = (stopNumber = 50) => {
+const fizzbuzzV10 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
         if (result === "") {
@@ -214,7 +234,9 @@ const fizzbuzzV10 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV11 = (stopNumber = 50) => {
+const fizzbuzzV11 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
         result = ((result === "")
@@ -234,7 +256,9 @@ const fizzbuzzV11 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV12 = (stopNumber = 50) => {
+const fizzbuzzV12 = (stopNumber) => {
+    if (typeof stopNumber !== "number") return "argument should be a number";
+    if (stopNumber < 1) return "argument should be greater than 0";
     let result = "";
     for (let number = 1; number <= stopNumber; number += 1) {
         result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
@@ -242,24 +266,36 @@ const fizzbuzzV12 = (stopNumber = 50) => {
     return result;
 };
 
-const fizzbuzzV13 = (stopNumber = 50) => [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => {
-    if (((number % 3) === 0) && ((number % 5) === 0)) return 'FizzBuzz';
-    if ((number % 3) === 0) return 'Fizz';
-    if ((number % 5) === 0) return 'Buzz';
-    return `${number}`;
-}).join(', ');
+const fizzbuzzV13 = (stopNumber) => ((typeof stopNumber !== "number")
+    ? "argument should be a number"
+    : ((stopNumber < 1)
+        ? "argument should be greater than 0"
+        : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => {
+            if (((number % 3) === 0) && ((number % 5) === 0)) return 'FizzBuzz';
+            if ((number % 3) === 0) return 'Fizz';
+            if ((number % 5) === 0) return 'Buzz';
+            return `${number}`;
+        }).join(', ')
+    )
+);
 
-const fizzbuzzV14 = (stopNumber = 50) => [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => ((((number % 3) === 0) && ((number % 5) === 0)) ? 'FizzBuzz' : ((number % 3) === 0) ? 'Fizz' : ((number % 5) === 0) ? 'Buzz' : `${number}`)).join(', ');
+const fizzbuzzV14 = (stopNumber) => ((typeof stopNumber !== "number") ? "argument should be a number" : ((stopNumber < 1) ? "argument should be greater than 0" : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => ((((number % 3) === 0) && ((number % 5) === 0)) ? 'FizzBuzz' : ((number % 3) === 0) ? 'Fizz' : ((number % 5) === 0) ? 'Buzz' : `${number}`)).join(', ')));
 
-const fizzbuzzV15 = (stopNumber = 50) => [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => {
-    if (currentResult === "") return `${number}`;
-    if (((number % 3) === 0) && ((number % 5) === 0)) return `${currentResult}, FizzBuzz`;
-    if ((number % 3) === 0) return `${currentResult}, Fizz`;
-    if ((number % 5) === 0) return `${currentResult}, Buzz`;
-    return `${currentResult}, ${number}`;
-}, "");
+const fizzbuzzV15 = (stopNumber) => ((typeof stopNumber !== "number")
+    ? "argument should be a number"
+    : ((stopNumber < 1)
+        ? "argument should be greater than 0"
+        : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => {
+            if (currentResult === "") return `${number}`;
+            if (((number % 3) === 0) && ((number % 5) === 0)) return `${currentResult}, FizzBuzz`;
+            if ((number % 3) === 0) return `${currentResult}, Fizz`;
+            if ((number % 5) === 0) return `${currentResult}, Buzz`;
+            return `${currentResult}, ${number}`;
+        }, "")
+    )
+);
 
-const fizzbuzzV16 = (stopNumber = 50) => [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))), "");
+const fizzbuzzV16 = (stopNumber) => ((typeof stopNumber !== "number") ? "argument should be a number" : ((stopNumber < 1) ? "argument should be greater than 0" : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))), "")));
 
 console.log('// using fizzbuzz function "fizzbuzzV1"');
 console.log('FizzBuzz(36):', fizzbuzzV1(36));

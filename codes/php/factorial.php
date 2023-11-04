@@ -3,6 +3,7 @@
 echo("\n\n// Factorial(n) in PHP");
 
 function factorial_v1($number) {
+    if (is_numeric($number) === false) return "argument should be a number";
     if (($number > 1) === false) return 1;
     $result = 1;
     for ($i = $number; $i >= 1; $i -= 1) {
@@ -12,6 +13,7 @@ function factorial_v1($number) {
 };
 
 function factorial_v2($number) {
+    if (is_numeric($number) === false) return "argument should be a number";
     if (($number > 1) === false) return 1;
     $result = 1;
     $i = $number;
@@ -24,6 +26,7 @@ function factorial_v2($number) {
 };
 
 function factorial_v3($number) {
+    if (is_numeric($number) === false) return "argument should be a number";
     if (($number > 1) === false) return 1;
     $result = 1;
     $i = $number;

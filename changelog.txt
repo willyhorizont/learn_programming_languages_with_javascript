@@ -1,4 +1,29 @@
 =============================changelog==========================================
+02:34 | 02:34 AM | Sun | Nov | 05/11/2023
+0.0.19
+create Array.every.lua
+create Array.filter.lua
+create Array.find.lua
+create Array.findIndex.lua
+create Array.includes.lua
+create Array.map.lua
+create Array.reduce.lua
+create Array.some.lua
+create operator_nullish_coalescing.lua
+create operator_optional_chaining.lua
+create operator_spread.lua
+create operator_ternary.lua
+create factorial.lua
+create fizzbuzz.lua
+create functions.lua
+create Array.js
+create Array.py
+create Array.php
+create Array.go
+create Array.pl
+create Array.jl
+create Array.lua
+=============================changelog==========================================
 19:53 | 07:53 PM | Wed | Nov | 01/11/2023
 0.0.18
 create functions.js

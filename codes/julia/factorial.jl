@@ -3,7 +3,7 @@ using Statistics
 
 println("\n# Factorial(n) in Julia")
 
-function factorial_v1(number)
+function factorial_v1(number::Int)
     if ((number > 1) === false)
         return 1
     end
@@ -14,7 +14,7 @@ function factorial_v1(number)
     return result
 end
 
-function factorial_v2(number)
+function factorial_v2(number::Int)
     if ((number > 1) === false)
         return 1
     end
@@ -30,7 +30,7 @@ function factorial_v2(number)
     return result
 end
 
-function factorial_v3(number)
+function factorial_v3(number::Int)
     if ((number > 1) === false)
         return 1
     end

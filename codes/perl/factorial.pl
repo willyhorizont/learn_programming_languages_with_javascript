@@ -1,21 +1,24 @@
 use strict;
 use warnings;
 use JSON;
+use Scalar::Util qw(looks_like_number);
 
 print("\n# Factorial(n) in Perl\n");
 
 sub factorial_v1 {
     my ($number) = @_;
+    return "argument should be a number" if !(looks_like_number($number));
     return 1 if !($number > 1);
     my $result = 1;
     for (my $i = $number; $i >= 1; $i -= 1) {
         $result *= $i;
     }
     return $result;
-};
+}
 
 sub factorial_v2 {
     my ($number) = @_;
+    return "argument should be a number" if !(looks_like_number($number));
     return 1 if !($number > 1);
     my $result = 1;
     my $i = $number;
@@ -25,10 +28,11 @@ sub factorial_v2 {
         last if $i <= 0;
     }
     return $result;
-};
+}
 
 sub factorial_v3 {
     my ($number) = @_;
+    return "argument should be a number" if !(looks_like_number($number));
     return 1 if !($number > 1);
     my $result = 1;
     my $i = $number;
@@ -37,7 +41,7 @@ sub factorial_v3 {
         $i -= 1;
     }
     return $result;
-};
+}
 
 print("# using factorial function \"factorial_v1\"\n");
 print("Factorial(5): ", factorial_v1(5), "\n");

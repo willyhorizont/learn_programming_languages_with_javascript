@@ -6,9 +6,9 @@ use warnings;
 sub get_rectangle_area_v1 {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
-};
+}
 
-sub get_rectangle_area_v2 { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
+sub get_rectangle_area_v2 { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
 
 # ? function expression
 
@@ -39,11 +39,11 @@ sub say_hi {
     my ($do_something2) = @_;
     print("hi", "\n");
     $do_something2 -> ();
-};
+}
 
 sub say_how_are_you {
     print("how are you?", "\n");
-};
+}
 
 say_hi(\&say_how_are_you);
 
@@ -78,7 +78,7 @@ my $get_rectangle_area_function3 = $my_array_of_get_rectangle_area_functions[2](
 sub exponentiation {
     my ($a, $b) = @_;
     return $a ** $b;
-};
+}
 
 my $simple_calculator = {
     "exponentiation" => \&exponentiation,
@@ -102,7 +102,7 @@ sub multiply_v1 {
         return $a * $b;
     };
     return $multiply_by;
-};
+}
 my $multiply_by2 = multiply_v1(2);
 my $multiply_by2_result = $multiply_by2->(10); # 20
 
@@ -112,7 +112,7 @@ sub multiply_v2 {
         my ($b) = @_;
         return $a * $b;
     };
-};
+}
 my $multiply_by3 = multiply_v2(3);
 my $multiply_by3_result = $multiply_by3->(10); # 30
 

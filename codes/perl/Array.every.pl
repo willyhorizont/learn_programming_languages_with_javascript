@@ -2,8 +2,23 @@ use strict;
 use warnings;
 use JSON;
 use List::Util qw(all);
+use Scalar::Util qw(looks_like_number);
 
-sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+sub pretty_array_of_primitives {
+    my (@an_array_of_primitives) = @_;
+    my $result = "[";
+    for my $array_item_index (0..$#an_array_of_primitives) {
+        my $array_item = $an_array_of_primitives[$array_item_index];
+        my $isString = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $isNumber = looks_like_number($array_item);
+        last if (!$isString && !$isNumber);
+        $result = $result . "\"" . $array_item . "\"" if ($isString);
+        $result = $result . $array_item if ($isNumber);
+        $result = $result . ", " if ($array_item_index != $#an_array_of_primitives);
+    }
+    $result = $result . "]";
+    return $result;
+}
 
 sub array_every_v1 {
     # JavaScript-like Array.every() function
@@ -17,7 +32,7 @@ sub array_every_v1 {
         }
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v2 {
     # JavaScript-like Array.every() function
@@ -29,7 +44,7 @@ sub array_every_v2 {
         last if (!$is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v3 {
     # JavaScript-like Array.every() function
@@ -41,7 +56,7 @@ sub array_every_v3 {
         last unless ($is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v4 {
     # JavaScript-like Array.every() function
@@ -55,7 +70,7 @@ sub array_every_v4 {
         }
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v5 {
     # JavaScript-like Array.every() function
@@ -67,7 +82,7 @@ sub array_every_v5 {
         return $is_condition_match if (!$is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v6 {
     # JavaScript-like Array.every() function
@@ -79,7 +94,7 @@ sub array_every_v6 {
         return $is_condition_match unless ($is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_every_v7 {
     # JavaScript-like Array.every() function
@@ -92,7 +107,7 @@ sub array_every_v7 {
         }
     }
     return 1;
-};
+}
 
 sub array_every_v8 {
     # JavaScript-like Array.every() function
@@ -103,7 +118,7 @@ sub array_every_v8 {
         return 0 if (!$is_condition_match);
     }
     return 1;
-};
+}
 
 sub array_every_v9 {
     # JavaScript-like Array.every() function
@@ -114,7 +129,7 @@ sub array_every_v9 {
         return 0 unless ($is_condition_match);
     }
     return 1;
-};
+}
 
 sub array_every_v10 {
     # JavaScript-like Array.every() function
@@ -126,7 +141,7 @@ sub array_every_v10 {
         }
     }
     return 1;
-};
+}
 
 sub array_every_v11 {
     # JavaScript-like Array.every() function
@@ -136,7 +151,7 @@ sub array_every_v11 {
         return 0 if (!$callback_function->($array_item, $array_item_index, \@an_array));
     }
     return 1;
-};
+}
 
 sub array_every_v12 {
     # JavaScript-like Array.every() function
@@ -146,7 +161,7 @@ sub array_every_v12 {
         return 0 unless ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return 1;
-};
+}
 
 print("\n# JavaScript-like Array.every() in Perl Array\n");
 

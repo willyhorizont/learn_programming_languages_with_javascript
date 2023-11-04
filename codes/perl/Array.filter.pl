@@ -1,11 +1,26 @@
 use strict;
 use warnings;
 use JSON;
+use Scalar::Util qw(looks_like_number);
 
 # There's no JavaScript-like Array.filter() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
-sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+sub pretty_array_of_primitives {
+    my (@an_array_of_primitives) = @_;
+    my $result = "[";
+    for my $array_item_index (0..$#an_array_of_primitives) {
+        my $array_item = $an_array_of_primitives[$array_item_index];
+        my $isString = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $isNumber = looks_like_number($array_item);
+        last if (!$isString && !$isNumber);
+        $result = $result . "\"" . $array_item . "\"" if ($isString);
+        $result = $result . $array_item if ($isNumber);
+        $result = $result . ", " if ($array_item_index != $#an_array_of_primitives);
+    }
+    $result = $result . "]";
+    return $result;
+}
 
 sub array_filter_v1 {
     # JavaScript-like Array.filter() function
@@ -19,7 +34,7 @@ sub array_filter_v1 {
         }
     }
     return @data_filtered;
-};
+}
 
 sub array_filter_v2 {
     # JavaScript-like Array.filter() function
@@ -31,7 +46,7 @@ sub array_filter_v2 {
         push(@data_filtered, $array_item) if ($is_condition_match);
     }
     return @data_filtered;
-};
+}
 
 sub array_filter_v3 {
     # JavaScript-like Array.filter() function
@@ -44,7 +59,7 @@ sub array_filter_v3 {
         }
     }
     return @data_filtered;
-};
+}
 
 sub array_filter_v4 {
     # JavaScript-like Array.filter() function
@@ -55,7 +70,7 @@ sub array_filter_v4 {
         push(@data_filtered, $array_item) if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return @data_filtered;
-};
+}
 
 print("\n# JavaScript-like Array.filter() in Perl Array\n");
 
@@ -67,41 +82,41 @@ my @numbers_odd;
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
-@numbers_even = array_filter_v1(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+@numbers_even = array_filter_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v1(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+@numbers_odd = array_filter_v1(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
-@numbers_even = array_filter_v2(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+@numbers_even = array_filter_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v2(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+@numbers_odd = array_filter_v2(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
 
-@numbers_even = array_filter_v3(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+@numbers_even = array_filter_v3(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v3(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+@numbers_odd = array_filter_v3(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
 
-@numbers_even = array_filter_v4(sub { my ($number) = @_; return $number % 2 == 0; }, @numbers);
+@numbers_even = array_filter_v4(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v4(sub { my ($number) = @_; return $number % 2 != 0; }, @numbers);
+@numbers_odd = array_filter_v4(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 

@@ -21,3 +21,7 @@ to run Perl code:
 to run Julia code:
 1. cd codes/julia
 2. julia filename.jl
+
+to run Lua code:
+1. cd codes/lua
+2. lua filename.lua

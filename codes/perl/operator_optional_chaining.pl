@@ -12,7 +12,7 @@ my %JSON_OBJECT = (
         "bar" => "baz"
     },
 );
-print("JSON_OBJECT?.foo?.bar: ", JSON->new->allow_nonref->pretty->encode(\%JSON_OBJECT));
+print("JSON_OBJECT: ", JSON->new->allow_nonref->pretty->encode(\%JSON_OBJECT));
 
 print("JSON_OBJECT?.foo?.bar: ", JSON->new->allow_nonref->pretty->encode($JSON_OBJECT{"foo"}{"bar"}));
 # JSON_OBJECT?.foo?.bar: "baz"

@@ -22,6 +22,12 @@ is_my_friend = array_includes_v1(name, my_friends)
 print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
 # is my friends includes "Alisa": true
 
+name = 'Trivia'
+print(f'name: "{name}"')
+is_my_friend = array_includes_v1(name, my_friends)
+print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
+# is my friends includes "Trivia": true
+
 name = 'Tony'
 print(f'name: "{name}"')
 is_my_friend = array_includes_v1(name, my_friends)
@@ -42,6 +48,12 @@ is_my_friend = array_includes_v2(name, my_friends)
 print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
 # is my friends includes "Alisa": true
 
+name = 'Trivia'
+print(f'name: "{name}"')
+is_my_friend = array_includes_v2(name, my_friends)
+print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
+# is my friends includes "Trivia": true
+
 name = 'Tony'
 print(f'name: "{name}"')
 is_my_friend = array_includes_v2(name, my_friends)
@@ -61,6 +73,12 @@ print(f'name: "{name}"')
 is_my_friend = name in my_friends
 print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
 # is my friends includes "Alisa": true
+
+name = 'Trivia'
+print(f'name: "{name}"')
+is_my_friend = name in my_friends
+print(f'is my friends includes "{name}": {"true" if is_my_friend == True else "false"}')
+# is my friends includes "Trivia": true
 
 name = 'Tony'
 print(f'name: "{name}"')

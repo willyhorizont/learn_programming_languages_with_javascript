@@ -5,9 +5,10 @@ const JSON_OBJECT = {
         "bar": "baz",
     }
 };
+console.log(`JSON_OBJECT: ${JSON.stringify(JSON_OBJECT, null, ' '.repeat(4))}`);
 
-console.log('JSON_OBJECT?.foo?.bar:', JSON_OBJECT?.foo?.bar ?? "not found");
-// JSON_OBJECT?.foo?.bar: baz
+console.log('JSON_OBJECT?.foo?.bar ?? "not found":', JSON_OBJECT?.foo?.bar ?? "not found");
+// JSON_OBJECT?.foo?.bar ?? "not found": baz
 
-console.log('JSON_OBJECT?.foo?.baz:', JSON_OBJECT?.foo?.baz ?? "not found");
-// JSON_OBJECT?.foo?.baz: not found
+console.log('JSON_OBJECT?.foo?.baz ?? "not found":', JSON_OBJECT?.foo?.baz ?? "not found");
+// JSON_OBJECT?.foo?.baz ?? "not found": not found

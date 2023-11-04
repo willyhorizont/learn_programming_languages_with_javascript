@@ -6,122 +6,138 @@ use Scalar::Util qw(looks_like_number);
 # There's no JavaScript-like Array.includes() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
-sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+sub pretty_array_of_primitives {
+    my (@an_array_of_primitives) = @_;
+    my $result = "[";
+    for my $array_item_index (0..$#an_array_of_primitives) {
+        my $array_item = $an_array_of_primitives[$array_item_index];
+        my $isString = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $isNumber = looks_like_number($array_item);
+        last if (!$isString && !$isNumber);
+        $result = $result . "\"" . $array_item . "\"" if ($isString);
+        $result = $result . $array_item if ($isNumber);
+        $result = $result . ", " if ($array_item_index != $#an_array_of_primitives);
+    }
+    $result = $result . "]";
+    return $result;
+}
 
 sub array_includes_v1 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : 0;
+        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
         if ($is_condition_match) {
             $element_found = 1;
             last;
         }
     }
     return $element_found;
-};
+}
 
 sub array_includes_v2 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     my $element_found = 0;
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : 0) {
+        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
             $element_found = 1;
             last;
         }
     }
     return $element_found;
-};
+}
 
 sub array_includes_v3 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : 0;
+        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
         if ($is_condition_match) {
+            $element_found = 1;
             return $element_found;
         }
     }
     return $element_found;
-};
+}
 
 sub array_includes_v4 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : 0;
-        return $element_found if ($is_condition_match);
-    }
-    return $element_found;
-};
-
-sub array_includes_v5 {
-    # JavaScript-like Array.includes() function
-    my ($search_element, @an_array) = @_;
-    my $element_found = 0;
-    for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : 0) {
+        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
+            $element_found = 1;
             return $element_found;
         }
     }
     return $element_found;
-};
+}
 
-sub array_includes_v6 {
-    # JavaScript-like Array.includes() function
-    my ($search_element, @an_array) = @_;
-    my $element_found = 0;
-    for my $array_item (@an_array) {
-        return $element_found if (looks_like_number($array_item) ? $array_item == $search_element : 0);
-    }
-    return $element_found;
-};
-
-sub array_includes_v7 {
+sub array_includes_v5 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : 0;
+        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
         if ($is_condition_match) {
             return 1;
         }
     }
     return 0;
-};
+}
+
+sub array_includes_v6 {
+    # JavaScript-like Array.includes() function
+    my ($search_element, @an_array) = @_;
+    for my $array_item (@an_array) {
+        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+sub array_includes_v7 {
+    # JavaScript-like Array.includes() function
+    my ($search_element, @an_array) = @_;
+    my $element_found = 0;
+    for my $array_item (@an_array) {
+        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        return 1 if ($is_condition_match);
+    }
+    return $element_found;
+}
 
 sub array_includes_v8 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
+    my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : 0;
-        return 1 if ($is_condition_match);
+        return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
     }
-    return 0;
-};
+    return $element_found;
+}
 
 sub array_includes_v9 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : 0) {
-            return 1;
-        }
+        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        return 1 if ($is_condition_match);
     }
     return 0;
-};
+}
 
 sub array_includes_v10 {
     # JavaScript-like Array.includes() function
     my ($search_element, @an_array) = @_;
     for my $array_item (@an_array) {
-        return 1 if (looks_like_number($array_item) ? $array_item == $search_element : 0);
+        return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
     }
     return 0;
-};
+}
 
 print("\n# JavaScript-like Array.includes() in Perl\n");
 
@@ -138,6 +154,12 @@ print("name: \"$name\"\n");
 $is_my_friend = array_includes_v1($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
+
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v1($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
 
 $name = "Tony";
 print("name: \"$name\"\n");
@@ -159,6 +181,12 @@ $is_my_friend = array_includes_v2($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
 
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v2($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
+
 $name = "Tony";
 print("name: \"$name\"\n");
 $is_my_friend = array_includes_v2($name, @my_friends) ? "true" : "false";
@@ -178,6 +206,12 @@ print("name: \"$name\"\n");
 $is_my_friend = array_includes_v3($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
+
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v3($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
 
 $name = "Tony";
 print("name: \"$name\"\n");
@@ -199,6 +233,12 @@ $is_my_friend = array_includes_v4($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
 
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v4($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
+
 $name = "Tony";
 print("name: \"$name\"\n");
 $is_my_friend = array_includes_v4($name, @my_friends) ? "true" : "false";
@@ -218,6 +258,12 @@ print("name: \"$name\"\n");
 $is_my_friend = array_includes_v5($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
+
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v5($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
 
 $name = "Tony";
 print("name: \"$name\"\n");
@@ -239,6 +285,12 @@ $is_my_friend = array_includes_v6($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
 
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v6($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
+
 $name = "Tony";
 print("name: \"$name\"\n");
 $is_my_friend = array_includes_v6($name, @my_friends) ? "true" : "false";
@@ -258,6 +310,12 @@ print("name: \"$name\"\n");
 $is_my_friend = array_includes_v7($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
+
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v7($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
 
 $name = "Tony";
 print("name: \"$name\"\n");
@@ -279,6 +337,12 @@ $is_my_friend = array_includes_v8($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
 
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v8($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
+
 $name = "Tony";
 print("name: \"$name\"\n");
 $is_my_friend = array_includes_v8($name, @my_friends) ? "true" : "false";
@@ -299,6 +363,12 @@ $is_my_friend = array_includes_v9($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
 
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v9($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
+
 $name = "Tony";
 print("name: \"$name\"\n");
 $is_my_friend = array_includes_v9($name, @my_friends) ? "true" : "false";
@@ -318,6 +388,12 @@ print("name: \"$name\"\n");
 $is_my_friend = array_includes_v10($name, @my_friends) ? "true" : "false";
 print("is my friends includes \"$name\": $is_my_friend\n");
 # is my friends includes "Alisa": true
+
+$name = "Trivia";
+print("name: \"$name\"\n");
+$is_my_friend = array_includes_v10($name, @my_friends) ? "true" : "false";
+print("is my friends includes \"$name\": $is_my_friend\n");
+# is my friends includes "Trivia": true
 
 $name = "Tony";
 print("name: \"$name\"\n");

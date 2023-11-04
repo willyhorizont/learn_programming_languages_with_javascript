@@ -5,6 +5,7 @@ const JSON_OBJECT = {
         "bar": "baz",
     }
 };
+console.log(`JSON_OBJECT: ${JSON.stringify(JSON_OBJECT, null, ' '.repeat(4))}`);
 
 console.log('JSON_OBJECT?.foo?.bar:', JSON_OBJECT?.foo?.bar);
 // JSON_OBJECT?.foo?.bar: baz

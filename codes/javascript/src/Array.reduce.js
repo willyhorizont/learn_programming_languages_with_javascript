@@ -29,7 +29,7 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productsGrouped = products.reduce((currentResult, currentProduct) => (currentProduct.price > 100 ? { ...currentResult, expensive: [...currentResult.expensive, currentProduct] } : { ...currentResult, cheap: [...currentResult.cheap, currentProduct] }), { expensive: [], cheap: [] });
+const productsGrouped = products.reduce((currentResult, currentProduct) => ((currentProduct.price > 100) ? { ...currentResult, expensive: [...currentResult.expensive, currentProduct] } : { ...currentResult, cheap: [...currentResult.cheap, currentProduct] }), { expensive: [], cheap: [] });
 console.log('grouped products:', JSON.stringify(productsGrouped, null, ' '.repeat(4)));
 // grouped products: {
 //     "expensive": [

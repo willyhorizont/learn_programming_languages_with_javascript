@@ -54,71 +54,71 @@ print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.filter() function "array_filter_v1"')
 
-numbers_even = array_filter_v1(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v1(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v1(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v1(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using JavaScript-like Array.filter() function "array_filter_v2"')
 
-numbers_even = array_filter_v2(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v2(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v2(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v2(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using JavaScript-like Array.filter() function "array_filter_v3"')
 
-numbers_even = array_filter_v3(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v3(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v3(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v3(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using JavaScript-like Array.filter() function "array_filter_v4"')
 
-numbers_even = array_filter_v4(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v4(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v4(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v4(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using JavaScript-like Array.filter() function "array_filter_v5"')
 
-numbers_even = array_filter_v5(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v5(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v5(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v5(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using JavaScript-like Array.filter() function "array_filter_v6"')
 
-numbers_even = array_filter_v6(lambda number, *_: number % 2 == 0, numbers)
+numbers_even = array_filter_v6(lambda number, *_: ((number % 2) == 0), numbers)
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = array_filter_v6(lambda number, *_: number % 2 != 0, numbers)
+numbers_odd = array_filter_v6(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print('# using Python Array.filter() built-in function "filter", the "pythonic" way')
 
-numbers_even = list(filter(lambda number: number % 2 == 0, numbers))
+numbers_even = list(filter(lambda number: ((number % 2) == 0), numbers))
 print(f'even numbers only: {json.dumps(numbers_even)}')
 # even numbers only: [12, 34, 36, 4, 254]
 
-numbers_odd = list(filter(lambda number: number % 2 != 0, numbers))
+numbers_odd = list(filter(lambda number: ((number % 2) != 0), numbers))
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 

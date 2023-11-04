@@ -12,6 +12,12 @@ isMyFriend = myFriends.includes(name);
 console.log(`is my friends includes "${name}": ${isMyFriend}`);
 // is my friends includes "Alisa": true
 
+name = 'Trivia';
+console.log(`name: "${name}"`);
+isMyFriend = myFriends.includes(name);
+console.log(`is my friends includes "${name}": ${isMyFriend}`);
+// is my friends includes "Trivia": true
+
 name = 'Tony';
 console.log(`name: "${name}"`);
 isMyFriend = myFriends.includes(name);

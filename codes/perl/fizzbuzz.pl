@@ -1,15 +1,17 @@
 use strict;
 use warnings;
+use Scalar::Util qw(looks_like_number);
 
 print("\n# FizzBuzz(n) in Perl\n");
 
 sub fizzbuzz_v1 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
             $number += 1;
             last if $number > $stop_number;
@@ -38,15 +40,16 @@ sub fizzbuzz_v1 {
         last if $number > $stop_number;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v2 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
             $number += 1;
             next;
@@ -70,15 +73,16 @@ sub fizzbuzz_v2 {
         $number += 1;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v3 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
         } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
             $result = "$result, FizzBuzz";
@@ -93,15 +97,16 @@ sub fizzbuzz_v3 {
         last if $number > $stop_number;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v4 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
         } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
             $result = "$result, FizzBuzz";
@@ -115,15 +120,16 @@ sub fizzbuzz_v4 {
         $number += 1;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v5 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
-        $result = (($result == "")
+        $result = (($result eq "")
             ? "$number"
             : (((($number % 3) == 0) && (($number % 5) == 0))
                 ? "$result, FizzBuzz"
@@ -140,15 +146,16 @@ sub fizzbuzz_v5 {
         last if $number > $stop_number;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v6 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
-        $result = (($result == "")
+        $result = (($result eq "")
             ? "$number"
             : (((($number % 3) == 0) && (($number % 5) == 0))
                 ? "$result, FizzBuzz"
@@ -164,39 +171,42 @@ sub fizzbuzz_v6 {
         $number += 1;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v7 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
-        $result = (($result == "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
+        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
         $number += 1;
         last if $number > $stop_number;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v8 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
-        $result = (($result == "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
+        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
         $number += 1;
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v9 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number += 1) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
             next;
         }
@@ -215,14 +225,15 @@ sub fizzbuzz_v9 {
         $result = "$result, $number";
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v10 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
             next;
         }
@@ -241,14 +252,15 @@ sub fizzbuzz_v10 {
         $result = "$result, $number";
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v11 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
         } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
             $result = "$result, FizzBuzz";
@@ -261,14 +273,15 @@ sub fizzbuzz_v11 {
         }
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v12 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
-        if ($result == "") {
+        if ($result eq "") {
             $result = "$number";
         } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
             $result = "$result, FizzBuzz";
@@ -281,14 +294,15 @@ sub fizzbuzz_v12 {
         }
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v13 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
-        $result = (($result == "")
+        $result = (($result eq "")
             ? "$number"
             : (((($number % 3) == 0) && (($number % 5) == 0))
                 ? "$result, FizzBuzz"
@@ -303,14 +317,15 @@ sub fizzbuzz_v13 {
         );
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v14 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
-        $result = (($result == "")
+        $result = (($result eq "")
             ? "$number"
             : (((($number % 3) == 0) && (($number % 5) == 0))
                 ? "$result, FizzBuzz"
@@ -325,29 +340,31 @@ sub fizzbuzz_v14 {
         );
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v15 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
-        $result = (($result == "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
+        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
     }
     return $result;
-};
+}
 
 sub fizzbuzz_v16 {
     my ($stop_number) = @_;
-    $stop_number //= 50;
+    return "argument should be a number" if !(looks_like_number($stop_number));
+    return "argument should be greater than 0" if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
-        $result = (($result == "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
+        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
     }
     return $result;
-};
+}
 
-sub fizzbuzz_v17 { my ($stop_number) = @_; $stop_number //= 50; return join(", ", map { my $number = $_; (((($number % 3) == 0) && (($number % 5) == 0)) ? "FizzBuzz" : ((($number % 3) == 0) ? "Fizz" : ((($number % 5) == 0) ? "Buzz" : "$number"))) } 1..$stop_number); };
+sub fizzbuzz_v17 { my ($stop_number) = @_; return (!(looks_like_number($stop_number)) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : join(", ", map { my $number = $_; (((($number % 3) == 0) && (($number % 5) == 0)) ? "FizzBuzz" : ((($number % 3) == 0) ? "Fizz" : ((($number % 5) == 0) ? "Buzz" : "$number"))) } 1..$stop_number))); }
 
 print("# using fizzbuzz function \"fizzbuzz_v1\"\n");
 print("FizzBuzz(36): ", fizzbuzz_v1(36), "\n");

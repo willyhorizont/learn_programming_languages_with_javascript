@@ -5,7 +5,25 @@ using JSON
 # There's no JavaScript-like Spread Syntax in Perl.
 # But, we can create our own function to mimic it in Perl.
 
-pretty_array_of_primitives = (an_array_of_primitives) -> string("[", join(an_array_of_primitives, ", "), "]")
+function pretty_array_of_primitives(an_array_of_primitives)
+    result = "["
+    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
+        if isa(array_item, AbstractString) === false && isa(array_item, Number) === false
+            continue
+        end
+        if isa(array_item, AbstractString) === true
+            result = string(result, "\"", array_item, "\"")
+        end
+        if isa(array_item, Number) === true
+            result = string(result, array_item)
+        end
+        if array_item_index != length(an_array_of_primitives)
+            result = string(result, ", ")
+        end
+    end
+    result = string(result, "]")
+    return result
+end
 
 println("\n# JavaScript-like Spread Syntax in Julia Array")
 

@@ -51,3 +51,21 @@ my $simple_calculator = {
 };
 
 my $simple_calculator_result1 = $simple_calculator->{"addition"}->(3, 4);
+
+$result = reduce {
+    my ($current_result, $current_product) = @_;
+    return $current_result;
+} $initial_value, @an_array;
+
+sub spread_syntax_object {
+    my %new_object;
+    for my $arg_ref (@_) {
+        if (ref $arg_ref eq 'HASH') {
+            %new_object = (%new_object, %$arg_ref);
+        }
+        if (ref $arg_ref eq 'ARRAY') {
+            @new_object{0..$#{$arg_ref}} = @{$arg_ref};
+        }
+    }
+    return \%new_object;
+}

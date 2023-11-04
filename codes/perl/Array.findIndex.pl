@@ -1,11 +1,26 @@
 use strict;
 use warnings;
 use JSON;
+use Scalar::Util qw(looks_like_number);
 
 # There's no JavaScript-like Array.findIndex() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
-sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+sub pretty_array_of_primitives {
+    my (@an_array_of_primitives) = @_;
+    my $result = "[";
+    for my $array_item_index (0..$#an_array_of_primitives) {
+        my $array_item = $an_array_of_primitives[$array_item_index];
+        my $isString = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $isNumber = looks_like_number($array_item);
+        last if (!$isString && !$isNumber);
+        $result = $result . "\"" . $array_item . "\"" if ($isString);
+        $result = $result . $array_item if ($isNumber);
+        $result = $result . ", " if ($array_item_index != $#an_array_of_primitives);
+    }
+    $result = $result . "]";
+    return $result;
+}
 
 sub array_find_index_v1 {
     # JavaScript-like Array.findIndex() function
@@ -20,7 +35,7 @@ sub array_find_index_v1 {
         }
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v2 {
     # JavaScript-like Array.findIndex() function
@@ -34,7 +49,7 @@ sub array_find_index_v2 {
         }
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v3 {
     # JavaScript-like Array.findIndex() function
@@ -48,7 +63,7 @@ sub array_find_index_v3 {
         }
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v4 {
     # JavaScript-like Array.findIndex() function
@@ -60,7 +75,7 @@ sub array_find_index_v4 {
         return $array_item_index if ($is_condition_match);
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v5 {
     # JavaScript-like Array.findIndex() function
@@ -73,7 +88,7 @@ sub array_find_index_v5 {
         }
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v6 {
     # JavaScript-like Array.findIndex() function
@@ -84,7 +99,7 @@ sub array_find_index_v6 {
         return $array_item_index if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return $item_index;
-};
+}
 
 sub array_find_index_v7 {
     # JavaScript-like Array.findIndex() function
@@ -97,7 +112,7 @@ sub array_find_index_v7 {
         }
     }
     return -1;
-};
+}
 
 sub array_find_index_v8 {
     # JavaScript-like Array.findIndex() function
@@ -108,7 +123,7 @@ sub array_find_index_v8 {
         return $array_item_index if ($is_condition_match);
     }
     return -1;
-};
+}
 
 sub array_find_index_v9 {
     # JavaScript-like Array.findIndex() function
@@ -120,7 +135,7 @@ sub array_find_index_v9 {
         }
     }
     return -1;
-};
+}
 
 sub array_find_index_v10 {
     # JavaScript-like Array.findIndex() function
@@ -130,7 +145,7 @@ sub array_find_index_v10 {
         return $array_item_index if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return -1;
-};
+}
 
 print("\n# JavaScript-like Array.findIndex() in Perl Array\n");
 

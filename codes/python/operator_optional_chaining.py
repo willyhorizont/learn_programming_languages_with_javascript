@@ -1,5 +1,4 @@
 import json
-from numbers import Number
 from functools import reduce
 
 print('\n# JavaScript-like Optional Chaining Operator (?.) in Python')
@@ -9,31 +8,7 @@ def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
     result = None
     for array_item_index, array_item in enumerate(an_array):
-        result = initial_value if result is None else result
-        if isinstance(initial_value, list) == True:
-            result = [] if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
-        if isinstance(initial_value, dict) == True:
-            result = {} if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
-        if isinstance(initial_value, Number) == True:
-            result = 0 if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
-        if isinstance(initial_value, str) == True:
-            result = '' if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
-        if isinstance(initial_value, bool) == True:
-            result = False if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
-        if initial_value is None:
-            result = None if result is None else result
-            result = callback_function(result, array_item, array_item_index, an_array)
-            continue
+        result = callback_function(initial_value if (array_item_index == 0) else result, array_item, array_item_index, an_array)
     return result
 
 
@@ -143,15 +118,4 @@ print(f'JSON_OBJECT?.foo?.bar: {optional_chaining_v8(JSON_OBJECT, "foo.bar")}')
 # JSON_OBJECT?.foo?.bar: baz
 
 print(f'JSON_OBJECT?.foo?.baz: {optional_chaining_v8(JSON_OBJECT, "foo.baz")}')
-# JSON_OBJECT?.foo?.bar: None
-
-print('# change JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v6" to "qmd" to make it shorter')
-
-# qmd stands for question mark dot / Optional Chaining Operator (?.)
-qmd = optional_chaining_v6
-
-print(f'JSON_OBJECT?.foo?.bar: {qmd(JSON_OBJECT, "foo.bar")}')
-# JSON_OBJECT?.foo?.bar: baz
-
-print(f'JSON_OBJECT?.foo?.baz: {qmd(JSON_OBJECT, "foo.baz")}')
 # JSON_OBJECT?.foo?.bar: None

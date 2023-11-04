@@ -2,8 +2,23 @@ use strict;
 use warnings;
 use JSON;
 use List::Util qw(any);
+use Scalar::Util qw(looks_like_number);
 
-sub pretty_array_of_primitives { "[", join(", ", @_), "]", "\n" }
+sub pretty_array_of_primitives {
+    my (@an_array_of_primitives) = @_;
+    my $result = "[";
+    for my $array_item_index (0..$#an_array_of_primitives) {
+        my $array_item = $an_array_of_primitives[$array_item_index];
+        my $isString = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $isNumber = looks_like_number($array_item);
+        last if (!$isString && !$isNumber);
+        $result = $result . "\"" . $array_item . "\"" if ($isString);
+        $result = $result . $array_item if ($isNumber);
+        $result = $result . ", " if ($array_item_index != $#an_array_of_primitives);
+    }
+    $result = $result . "]";
+    return $result;
+}
 
 sub array_some_v1 {
     # JavaScript-like Array.some() function
@@ -17,7 +32,7 @@ sub array_some_v1 {
         }
     }
     return $is_condition_match;
-};
+}
 
 sub array_some_v2 {
     # JavaScript-like Array.some() function
@@ -29,7 +44,7 @@ sub array_some_v2 {
         last if ($is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_some_v3 {
     # JavaScript-like Array.some() function
@@ -43,7 +58,7 @@ sub array_some_v3 {
         }
     }
     return $is_condition_match;
-};
+}
 
 sub array_some_v4 {
     # JavaScript-like Array.some() function
@@ -55,7 +70,7 @@ sub array_some_v4 {
         return $is_condition_match if ($is_condition_match);
     }
     return $is_condition_match;
-};
+}
 
 sub array_some_v5 {
     # JavaScript-like Array.some() function
@@ -68,7 +83,7 @@ sub array_some_v5 {
         }
     }
     return 0;
-};
+}
 
 sub array_some_v6 {
     # JavaScript-like Array.some() function
@@ -79,7 +94,7 @@ sub array_some_v6 {
         return 1 if ($is_condition_match);
     }
     return 0;
-};
+}
 
 sub array_some_v7 {
     # JavaScript-like Array.some() function
@@ -91,7 +106,7 @@ sub array_some_v7 {
         }
     }
     return 0;
-};
+}
 
 sub array_some_v8 {
     # JavaScript-like Array.some() function
@@ -101,7 +116,7 @@ sub array_some_v8 {
         return 1 if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
     return 0;
-};
+}
 
 print("\n# JavaScript-like Array.some() in Perl Array\n");
 

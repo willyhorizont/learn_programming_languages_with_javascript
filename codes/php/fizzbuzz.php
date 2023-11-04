@@ -2,7 +2,9 @@
 
 echo("\n\n// FizzBuzz(n) in PHP");
 
-function fizzbuzz_v1($stop_number = 50) {
+function fizzbuzz_v1($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while (true) {
@@ -37,7 +39,9 @@ function fizzbuzz_v1($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v2($stop_number = 50) {
+function fizzbuzz_v2($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while ($number <= $stop_number) {
@@ -67,7 +71,9 @@ function fizzbuzz_v2($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v3($stop_number = 50) {
+function fizzbuzz_v3($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while (true) {
@@ -88,7 +94,9 @@ function fizzbuzz_v3($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v4($stop_number = 50) {
+function fizzbuzz_v4($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while ($number <= $stop_number) {
@@ -108,7 +116,9 @@ function fizzbuzz_v4($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v5($stop_number = 50) {
+function fizzbuzz_v5($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while (true) {
@@ -131,7 +141,9 @@ function fizzbuzz_v5($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v6($stop_number = 50) {
+function fizzbuzz_v6($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while ($number <= $stop_number) {
@@ -153,7 +165,9 @@ function fizzbuzz_v6($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v7 ($stop_number = 50) {
+function fizzbuzz_v7 ($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while (true) {
@@ -164,7 +178,9 @@ function fizzbuzz_v7 ($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v8($stop_number = 50) {
+function fizzbuzz_v8($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     $number = 1;
     while ($number <= $stop_number) {
@@ -174,7 +190,9 @@ function fizzbuzz_v8($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v9($stop_number = 50) {
+function fizzbuzz_v9($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     for ($number = 1; $number <= $stop_number; $number += 1) {
         if ($result === "") {
@@ -198,7 +216,9 @@ function fizzbuzz_v9($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v10($stop_number = 50) {
+function fizzbuzz_v10($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     for ($number = 1; $number <= $stop_number; $number += 1) {
         if ($result === "") {
@@ -216,7 +236,9 @@ function fizzbuzz_v10($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v11($stop_number = 50) {
+function fizzbuzz_v11($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     for ($number = 1; $number <= $stop_number; $number += 1) {
         $result = (($result === "")
@@ -236,7 +258,9 @@ function fizzbuzz_v11($stop_number = 50) {
     return $result;
 };
 
-function fizzbuzz_v12($stop_number = 50) {
+function fizzbuzz_v12($stop_number) {
+    if (is_numeric($stop_number) === false) return "argument should be a number";
+    if ($stop_number < 1) return "argument should be greater than 0";
     $result = "";
     for ($number = 1; $number <= $stop_number; $number += 1) {
         $result = (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number"))));
@@ -244,9 +268,9 @@ function fizzbuzz_v12($stop_number = 50) {
     return $result;
 };
 
-$fizzbuzz_v13 = fn($stop_number = 50) => join(", ", array_map(fn($number) => (((($number % 3) === 0) && (($number % 5) === 0)) ? "FizzBuzz" : ((($number % 3) === 0) ? "Fizz" : ((($number % 5) === 0) ? "Buzz" : "$number"))), range(1, $stop_number)));
+$fizzbuzz_v13 = fn($stop_number) => ((is_numeric($stop_number) === false) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : join(", ", array_map(fn($number) => (((($number % 3) === 0) && (($number % 5) === 0)) ? "FizzBuzz" : ((($number % 3) === 0) ? "Fizz" : ((($number % 5) === 0) ? "Buzz" : "$number"))), range(1, $stop_number)))));
 
-$fizzbuzz_v14 = fn($stop_number = 50) => array_reduce(range(1, $stop_number), fn($current_result, $number) => (($current_result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$current_result, FizzBuzz" : ((($number % 3) === 0) ? "$current_result, Fizz" : ((($number % 5) === 0) ? "$current_result, Buzz" : "$current_result, $number")))), "");
+$fizzbuzz_v14 = fn($stop_number) => ((is_numeric($stop_number) === false) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : array_reduce(range(1, $stop_number), fn($current_result, $number) => (($current_result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$current_result, FizzBuzz" : ((($number % 3) === 0) ? "$current_result, Fizz" : ((($number % 5) === 0) ? "$current_result, Buzz" : "$current_result, $number")))), "")));
 
 echo("\n// using fizzbuzz function \"fizzbuzz_v1\"");
 echo("\nFizzBuzz(36): " . fizzbuzz_v1(36));

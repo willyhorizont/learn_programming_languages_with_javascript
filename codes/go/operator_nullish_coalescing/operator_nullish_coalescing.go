@@ -43,10 +43,10 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Nullish Coalescing Operator (??) function \"nullishCoalescing\"")
 
-	fmt.Println("JSON_OBJECT?.foo?.bar:", nullishCoalescing(JSON_OBJECT["foo"].(Object)["bar"], "not found"))
-	// JSON_OBJECT?.foo?.bar: baz
-	fmt.Println("JSON_OBJECT?.foo?.baz:", nullishCoalescing(JSON_OBJECT["foo"].(Object)["baz"], "not found"))
-	// JSON_OBJECT?.foo?.baz: not found
+	fmt.Println("JSON_OBJECT?.foo?.bar ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(Object)["bar"], "not found"))
+	// JSON_OBJECT?.foo?.bar ?? "not found": baz
+	fmt.Println("JSON_OBJECT?.foo?.baz ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(Object)["baz"], "not found"))
+	// JSON_OBJECT?.foo?.baz ?? "not found": not found
 
 	fmt.Println("// using the Go way")
 
@@ -58,8 +58,8 @@ func main() {
 	if foobaz == nil {
 		foobaz = "not found"
 	}
-	fmt.Println("JSON_OBJECT?.foo?.bar:", foobar)
-	// JSON_OBJECT?.foo?.bar: baz
-	fmt.Println("JSON_OBJECT?.foo?.baz:", foobaz)
-	// JSON_OBJECT?.foo?.baz: not found
+	fmt.Println("JSON_OBJECT?.foo?.bar ?? \"not found\":", foobar)
+	// JSON_OBJECT?.foo?.bar ?? "not found": baz
+	fmt.Println("JSON_OBJECT?.foo?.baz ?? \"not found\":", foobaz)
+	// JSON_OBJECT?.foo?.baz ?? "not found": not found
 }

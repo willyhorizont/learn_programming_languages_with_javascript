@@ -4,7 +4,23 @@
 // But, we can create our own function to mimic it in PHP.
 
 function pretty_array_of_primitives($an_array_of_primitives) {
-    return str_replace(",", ", ", json_encode($an_array_of_primitives));
+    $result = "[";
+    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
+        if (is_numeric($array_item) === false && gettype($array_item) !== "string") {
+            continue;
+        }
+        if (gettype($array_item) === "string") {
+            $result = $result . "\"" . $array_item . "\"";
+        }
+        if (is_numeric($array_item) === true) {
+            $result = $result . $array_item;
+        }
+        if (($array_item_index + 1) !== count($an_array_of_primitives)){
+            $result = $result . ", ";
+        }
+    }
+    $result = $result . "]";
+    return $result;
 };
 
 function array_some_v1($callback_function, $an_array) {

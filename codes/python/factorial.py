@@ -1,7 +1,11 @@
+from numbers import Number
+
 print('\n# Factorial(n) in Python')
 
 
-def factorial_v1(number):
+def factorial_v1(number: int) -> int:
+    if (isinstance(number, Number) == False):
+        return "argument should be a number"
     if (number > 1) == False:
         return 1
     result = 1
@@ -10,7 +14,9 @@ def factorial_v1(number):
     return result
 
 
-def factorial_v2(number):
+def factorial_v2(number: int) -> int:
+    if (isinstance(number, Number) == False):
+        return "argument should be a number"
     if (number > 1) == False:
         return 1
     result = 1
@@ -23,7 +29,9 @@ def factorial_v2(number):
     return result
 
 
-def factorial_v3(number):
+def factorial_v3(number: int) -> int:
+    if (isinstance(number, Number) == False):
+        return "argument should be a number"
     if (number > 1) == False:
         return 1
     result = 1

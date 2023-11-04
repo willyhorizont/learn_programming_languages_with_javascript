@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
-	"strings"
 )
 
 const EMPTY_STRING = ""
@@ -22,98 +21,83 @@ func prettyJsonStringify(anythingLikeJson Any) string {
 	return "undefined"
 }
 
-func arrayEvery(callbackFunction func(Any, int, []Any) bool, anArray []Any) bool {
-	// JavaScript-like Array.every() function
-	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) == false {
-			return false
-		}
-	}
-	return true
-}
-
-func prettySliceOfPrimitives(anArray []Any) string {
-	isNotSliceOfPrimitives := arrayEvery(func(something Any, _ int, _ []Any) bool {
-		somethingType := reflect.TypeOf(something).Kind()
-		return somethingType != reflect.Int && somethingType != reflect.Int8 && somethingType != reflect.Int16 && somethingType != reflect.Int32 && somethingType != reflect.Int64 && somethingType != reflect.String && somethingType != reflect.Bool && somethingType != reflect.Float32 && somethingType != reflect.Float64
-	}, anArray)
-	if isNotSliceOfPrimitives == true {
-		return "undefined"
-	}
-	stringSlice := []string{}
+func prettyArrayOfPrimitives(anArray []Any) string {
+	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
+		if arrayItemType != reflect.Float32 &&
+			arrayItemType != reflect.Float64 &&
+			arrayItemType != reflect.Int &&
+			arrayItemType != reflect.Int8 &&
+			arrayItemType != reflect.Int16 &&
+			arrayItemType != reflect.Int32 &&
+			arrayItemType != reflect.Int64 &&
+			arrayItemType != reflect.Uint &&
+			arrayItemType != reflect.Uint8 &&
+			arrayItemType != reflect.Uint16 &&
+			arrayItemType != reflect.Uint32 &&
+			arrayItemType != reflect.Uint64 &&
+			arrayItemType != reflect.String {
+			continue
+		}
+		if arrayItemType == reflect.String {
+			stringArrayItem := arrayItem.(string)
+			result = result + "\"" + stringArrayItem + "\""
+		}
 		if arrayItemType == reflect.Float32 {
 			stringArrayItem := fmt.Sprint(arrayItem.(float32))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Float64 {
 			stringArrayItem := fmt.Sprint(arrayItem.(float64))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Int {
 			stringArrayItem := fmt.Sprint(arrayItem.(int))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Int8 {
 			stringArrayItem := fmt.Sprint(arrayItem.(int8))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Int16 {
 			stringArrayItem := fmt.Sprint(arrayItem.(int16))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Int32 {
 			stringArrayItem := fmt.Sprint(arrayItem.(int32))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
 		if arrayItemType == reflect.Int64 {
 			stringArrayItem := fmt.Sprint(arrayItem.(int64))
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+			result = result + stringArrayItem
 		}
-		if arrayItemType == reflect.Bool {
-			stringArrayItem := prettyJsonStringify(arrayItem)
-			if arrayItemIndex != len(anArray)-1 {
-				stringArrayItem += ", "
-			}
-			stringSlice = append(stringSlice, stringArrayItem)
-			continue
+		if arrayItemType == reflect.Uint {
+			stringArrayItem := fmt.Sprint(arrayItem.(uint))
+			result = result + stringArrayItem
 		}
-		stringArrayItem := "\"" + arrayItem.(string) + "\""
-		if arrayItemIndex != len(anArray)-1 {
-			stringArrayItem += ", "
+		if arrayItemType == reflect.Uint8 {
+			stringArrayItem := fmt.Sprint(arrayItem.(uint8))
+			result = result + stringArrayItem
 		}
-		stringSlice = append(stringSlice, stringArrayItem)
+		if arrayItemType == reflect.Uint16 {
+			stringArrayItem := fmt.Sprint(arrayItem.(uint16))
+			result = result + stringArrayItem
+		}
+		if arrayItemType == reflect.Uint32 {
+			stringArrayItem := fmt.Sprint(arrayItem.(uint32))
+			result = result + stringArrayItem
+		}
+		if arrayItemType == reflect.Int64 {
+			stringArrayItem := fmt.Sprint(arrayItem.(uint64))
+			result = result + stringArrayItem
+		}
+		if (arrayItemIndex + 1) != len(anArray) {
+			result = result + ", "
+		}
 	}
-	return "[" + strings.Join(stringSlice, EMPTY_STRING) + "]"
+	result = result + "]"
+	return result
 }
 
 func arrayFindV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) Any {
@@ -189,7 +173,7 @@ func main() {
 	fmt.Println("\n// JavaScript-like Array.find() in Go Slice")
 
 	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-	fmt.Println("numbers:", prettySliceOfPrimitives(numbers))
+	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
 	var evenNumberFound Any
 	var oddNumberFound Any
@@ -197,13 +181,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 
 	evenNumberFound = arrayFindV1(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV1(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
@@ -211,13 +195,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV2\"")
 
 	evenNumberFound = arrayFindV2(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV2(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
@@ -225,13 +209,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV3\"")
 
 	evenNumberFound = arrayFindV3(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV3(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
@@ -239,13 +223,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
 	evenNumberFound = arrayFindV4(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV4(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
@@ -253,13 +237,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
 
 	evenNumberFound = arrayFindV5(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV5(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
@@ -267,13 +251,13 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
 
 	evenNumberFound = arrayFindV6(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 == 0
+		return ((number.(int) % 2) == 0)
 	}, numbers)
 	fmt.Println("even number found:", evenNumberFound)
 	// even number found: 12
 
 	oddNumberFound = arrayFindV6(func(number Any, _ int, _ []Any) bool {
-		return number.(int)%2 != 0
+		return ((number.(int) % 2) != 0)
 	}, numbers)
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27

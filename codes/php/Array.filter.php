@@ -1,7 +1,23 @@
 <?php
 
 function pretty_array_of_primitives($an_array_of_primitives) {
-    return str_replace(",", ", ", json_encode($an_array_of_primitives));
+    $result = "[";
+    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
+        if (is_numeric($array_item) === false && gettype($array_item) !== "string") {
+            continue;
+        }
+        if (gettype($array_item) === "string") {
+            $result = $result . "\"" . $array_item . "\"";
+        }
+        if (is_numeric($array_item) === true) {
+            $result = $result . $array_item;
+        }
+        if (($array_item_index + 1) !== count($an_array_of_primitives)){
+            $result = $result . ", ";
+        }
+    }
+    $result = $result . "]";
+    return $result;
 };
 
 function array_filter_v1($callback_function, $an_array) {
@@ -49,51 +65,51 @@ echo("\nnumbers: " . pretty_array_of_primitives($numbers));
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v1\"");
 
-$numbers_even = array_filter_v1(fn($number) => $number % 2 === 0, $numbers);
+$numbers_even = array_filter_v1(fn($number) => (($number % 2) === 0), $numbers);
 echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
 // even numbers only: [12,34,36,4,254]
 
-$numbers_odd = array_filter_v1(fn($number) => $number % 2 !== 0, $numbers);
+$numbers_odd = array_filter_v1(fn($number) => (($number % 2) !== 0), $numbers);
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v2\"");
 
-$numbers_even = array_filter_v2(fn($number) => $number % 2 === 0, $numbers);
+$numbers_even = array_filter_v2(fn($number) => (($number % 2) === 0), $numbers);
 echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
 // even numbers only: [12,34,36,4,254]
 
-$numbers_odd = array_filter_v2(fn($number) => $number % 2 !== 0, $numbers);
+$numbers_odd = array_filter_v2(fn($number) => (($number % 2) !== 0), $numbers);
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v3\"");
 
-$numbers_even = array_filter_v3(fn($number) => $number % 2 === 0, $numbers);
+$numbers_even = array_filter_v3(fn($number) => (($number % 2) === 0), $numbers);
 echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
 // even numbers only: [12,34,36,4,254]
 
-$numbers_odd = array_filter_v3(fn($number) => $number % 2 !== 0, $numbers);
+$numbers_odd = array_filter_v3(fn($number) => (($number % 2) !== 0), $numbers);
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v4\"");
 
-$numbers_even = array_filter_v4(fn($number) => $number % 2 === 0, $numbers);
+$numbers_even = array_filter_v4(fn($number) => (($number % 2) === 0), $numbers);
 echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
 // even numbers only: [12,34,36,4,254]
 
-$numbers_odd = array_filter_v4(fn($number) => $number % 2 !== 0, $numbers);
+$numbers_odd = array_filter_v4(fn($number) => (($number % 2) !== 0), $numbers);
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
 echo("\n// using PHP Array.filter() built-in function \"array_filter\"");
 
-$numbers_even = array_filter($numbers, fn($number) => $number % 2 === 0);
+$numbers_even = array_filter($numbers, fn($number) => (($number % 2) === 0));
 echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
 // even numbers only: [12,34,36,4,254]
 
-$numbers_odd = array_filter($numbers, fn($number) => $number % 2 !== 0);
+$numbers_odd = array_filter($numbers, fn($number) => (($number % 2) !== 0));
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
