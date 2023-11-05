@@ -148,7 +148,7 @@ my @products_above_100;
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
-@products_below_100 = array_filter_v1(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+@products_below_100 = array_filter_v1(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -157,7 +157,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v1(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+@products_above_100 = array_filter_v1(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -176,7 +176,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
-@products_below_100 = array_filter_v2(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+@products_below_100 = array_filter_v2(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -185,7 +185,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v2(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+@products_above_100 = array_filter_v2(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -204,7 +204,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
 
-@products_below_100 = array_filter_v3(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+@products_below_100 = array_filter_v3(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -213,7 +213,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v3(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+@products_above_100 = array_filter_v3(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -232,7 +232,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
 
-@products_below_100 = array_filter_v4(sub { my ($product) = @_; return $product->{'price'} <= 100; }, @products);
+@products_below_100 = array_filter_v4(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -241,7 +241,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v4(sub { my ($product) = @_; return $product->{'price'} >= 100; }, @products);
+@products_above_100 = array_filter_v4(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {

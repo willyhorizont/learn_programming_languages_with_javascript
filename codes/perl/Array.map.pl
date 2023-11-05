@@ -211,7 +211,7 @@ print("# using JavaScript-like Array.map() function \"array_map_v1\"\n");
 
 @products_labeled = array_map_v1(sub {
     my ($product) = @_;
-    my %new_product = spread_syntax_object($product, { "label" => (($product->{'price'} > 100) ? "expensive" : "cheap") });
+    my %new_product = spread_syntax_object($product, { "label" => (($product->{"price"} > 100) ? "expensive" : "cheap") });
     return \%new_product;
 }, @products);
 print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
@@ -240,7 +240,7 @@ print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_l
 
 @products_labeled = array_map_v1(sub {
     my ($product) = @_;
-    return { spread_syntax_object($product, { "label" => (($product->{'price'} > 100) ? "expensive" : "cheap") }) };
+    return { spread_syntax_object($product, { "label" => (($product->{"price"} > 100) ? "expensive" : "cheap") }) };
 }, @products);
 print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
@@ -270,7 +270,7 @@ print("# using JavaScript-like Array.map() function \"array_map_v2\"\n");
 
 @products_labeled = array_map_v2(sub {
     my ($product) = @_;
-    my %new_product = spread_syntax_object($product, { "label" => (($product->{'price'} > 100) ? "expensive" : "cheap") });
+    my %new_product = spread_syntax_object($product, { "label" => (($product->{"price"} > 100) ? "expensive" : "cheap") });
     return \%new_product;
 }, @products);
 print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
@@ -299,7 +299,7 @@ print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_l
 
 @products_labeled = array_map_v2(sub {
     my ($product) = @_;
-    return { spread_syntax_object($product, { "label" => (($product->{'price'} > 100) ? "expensive" : "cheap") }) };
+    return { spread_syntax_object($product, { "label" => (($product->{"price"} > 100) ? "expensive" : "cheap") }) };
 }, @products);
 print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
@@ -327,7 +327,7 @@ print("labeled products: ", JSON->new->allow_nonref->pretty->encode(\@products_l
 
 print("# using Perl Array.map() built-in function \"map\"\n");
 
-@products_labeled = map { my $product = $_; +{ spread_syntax_object($product, { "label" => (($product->{'price'} > 100) ? "expensive" : "cheap") }) } } @products;
+@products_labeled = map { my $product = $_; +{ spread_syntax_object($product, { "label" => (($product->{"price"} > 100) ? "expensive" : "cheap") }) } } @products;
 print("labeled products ", JSON->new->allow_nonref->pretty->encode(\@products_labeled));
 # labeled products: [
 #     {

@@ -282,7 +282,7 @@ my $product_found;
 
 print("# using JavaScript-like Array.find() function \"array_find_v1\"\n");
 
-$product_found = array_find_v1(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v1(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -291,7 +291,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v2\"\n");
 
-$product_found = array_find_v2(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v2(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -300,7 +300,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v3\"\n");
 
-$product_found = array_find_v3(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v3(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -309,7 +309,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v4\"\n");
 
-$product_found = array_find_v4(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v4(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -318,7 +318,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v5\"\n");
 
-$product_found = array_find_v5(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v5(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -327,7 +327,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v6\"\n");
 
-$product_found = array_find_v6(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v6(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -336,7 +336,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v7\"\n");
 
-$product_found = array_find_v7(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v7(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -345,7 +345,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v8\"\n");
 
-$product_found = array_find_v8(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v8(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -354,7 +354,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v9\"\n");
 
-$product_found = array_find_v9(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v9(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",
@@ -363,7 +363,7 @@ print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pret
 
 print("# using JavaScript-like Array.find() function \"array_find_v10\"\n");
 
-$product_found = array_find_v10(sub { my ($product) = @_; return ($product->{'code'} eq 'bubble_gum'); }, @products);
+$product_found = array_find_v10(sub { my ($product) = @_; return ($product->{"code"} eq "bubble_gum"); }, @products);
 print("product found: ", defined($product_found) ? JSON->new->allow_nonref->pretty->encode(\%$product_found) : "undefined\n");
 # product found: {
 #     "code": "bubble_gum",

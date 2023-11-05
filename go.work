@@ -17,5 +17,7 @@ use (
     ./codes/go/factorial
     ./codes/go/fizzbuzz
     ./codes/go/functions
+    ./codes/go/conditionals
+    ./codes/go/comments
     ./codes/go/0.chaos
 )
