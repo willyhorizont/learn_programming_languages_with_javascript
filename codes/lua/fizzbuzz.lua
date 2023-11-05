@@ -16,7 +16,7 @@ function fizzbuzz_v1(stop_number)
             if number > stop_number then
                 break
             end
-            goto last
+            goto next
         end
         if (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
@@ -24,7 +24,7 @@ function fizzbuzz_v1(stop_number)
             if number > stop_number then
                 break
             end
-            goto last
+            goto next
         end
         if ((number % 3) == 0) then
             result = result .. ", Fizz"
@@ -32,7 +32,7 @@ function fizzbuzz_v1(stop_number)
             if number > stop_number then
                 break
             end
-            goto last
+            goto next
         end
         if ((number % 5) == 0) then
             result = result .. ", Buzz"
@@ -40,14 +40,14 @@ function fizzbuzz_v1(stop_number)
             if number > stop_number then
                 break
             end
-            goto last
+            goto next
         end
         result = result .. ", " .. number
         number = number + 1
         if number > stop_number then
             break
         end
-        ::last::
+        ::next::
     end
     return result
 end
@@ -65,26 +65,26 @@ function fizzbuzz_v2(stop_number)
         if result == "" then
             result = tostring(number)
             number = number + 1
-            goto last
+            goto next
         end
         if (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
             number = number + 1
-            goto last
+            goto next
         end
         if ((number % 3) == 0) then
             result = result .. ", Fizz"
             number = number + 1
-            goto last
+            goto next
         end
         if ((number % 5) == 0) then
             result = result .. ", Buzz"
             number = number + 1
-            goto last
+            goto next
         end
         result = result .. ", " .. number
         number = number + 1
-        ::last::
+        ::next::
     end
     return result
 end
@@ -249,22 +249,22 @@ function fizzbuzz_v9(stop_number)
     for number = 1, stop_number do
         if result == "" then
             result = tostring(number)
-            goto last
+            goto next
         end
         if (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
-            goto last
+            goto next
         end
         if ((number % 3) == 0) then
             result = result .. ", Fizz"
-            goto last
+            goto next
         end
         if ((number % 5) == 0) then
             result = result .. ", Buzz"
-            goto last
+            goto next
         end
         result = result .. ", " .. number
-        ::last::
+        ::next::
     end
     return result
 end

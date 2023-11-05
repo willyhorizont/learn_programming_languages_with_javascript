@@ -1,4 +1,9 @@
 =============================changelog==========================================
+15:34 | 03:34 PM | Sun | Nov | 05/11/2023
+0.0.20
+small update in *.lua
+small update in operator_ternary.lua and operator_ternary.go
+=============================changelog==========================================
 02:34 | 02:34 AM | Sun | Nov | 05/11/2023
 0.0.19
 create Array.every.lua

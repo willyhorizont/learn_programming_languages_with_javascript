@@ -9,7 +9,7 @@ function pretty_array_of_primitives(an_array_of_primitives)
     local result = "["
     for array_item_index, array_item in ipairs(an_array_of_primitives) do
         if type(array_item) ~= "string" and type(array_item) ~= "number" then
-            goto last
+            goto next
         end
         if type(array_item) == "string" then
             result = result .. "\"" .. array_item .. "\""
@@ -20,7 +20,7 @@ function pretty_array_of_primitives(an_array_of_primitives)
         if array_item_index ~= #an_array_of_primitives then
             result = result .. ", "
         end
-        ::last::
+        ::next::
     end
     result = result .. "]"
     return result
