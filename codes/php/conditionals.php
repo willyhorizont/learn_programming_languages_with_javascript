@@ -106,44 +106,28 @@ echo("\n\$my_age: " . $my_age);
 $has_driving_license = false;
 echo("\n\$has_driving_license: " . print_bool($has_driving_license));
 echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
-if (($my_age >= 17) && ($has_driving_license == true)) {
-    echo("\nYou are allowed to drive");
-} else {
-    echo("\nYou are not allowed to drive");
-}
+echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = true;
 echo("\n\$has_driving_license: " . print_bool($has_driving_license));
 echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
-if (($my_age >= 17) && ($has_driving_license == true)) {
-    echo("\nYou are allowed to drive");
-} else {
-    echo("\nYou are not allowed to drive");
-}
+echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = false;
 echo("\n\$has_driving_license: " . print_bool($has_driving_license));
 echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
-if (($my_age >= 17) and ($has_driving_license == true)) {
-    echo("\nYou are allowed to drive");
-} else {
-    echo("\nYou are not allowed to drive");
-}
+echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = true;
 echo("\n\$has_driving_license: " . print_bool($has_driving_license));
 echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
-if (($my_age >= 17) and ($has_driving_license == true)) {
-    echo("\nYou are allowed to drive");
-} else {
-    echo("\nYou are not allowed to drive");
-}
+echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 echo("\n\n// Logical OR [\"||\", \"or\"]\n");
 

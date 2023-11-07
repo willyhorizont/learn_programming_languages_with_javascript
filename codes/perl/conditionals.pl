@@ -204,44 +204,28 @@ print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 0;
 print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
 print("((\$my_age >= 17) && \$has_driving_license): " . "\n");
-if (($my_age >= 17) && $has_driving_license) {
-    print("You are allowed to drive" . "\n");
-} else {
-    print("You are not allowed to drive" . "\n");
-}
+print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" . "\n" : "You are not allowed to drive" . "\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 1;
 print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
 print("((\$my_age >= 17) && \$has_driving_license): " . "\n");
-if (($my_age >= 17) && $has_driving_license) {
-    print("You are allowed to drive" . "\n");
-} else {
-    print("You are not allowed to drive" . "\n");
-}
+print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" . "\n" : "You are not allowed to drive" . "\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 0;
 print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
 print("((\$my_age >= 17) and \$has_driving_license): " . "\n");
-if (($my_age >= 17) and $has_driving_license) {
-    print("You are allowed to drive" . "\n");
-} else {
-    print("You are not allowed to drive" . "\n");
-}
+print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" . "\n" : "You are not allowed to drive" . "\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 1;
 print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
 print("((\$my_age >= 17) and \$has_driving_license): " . "\n");
-if (($my_age >= 17) and $has_driving_license) {
-    print("You are allowed to drive" . "\n");
-} else {
-    print("You are not allowed to drive" . "\n");
-}
+print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" . "\n" : "You are not allowed to drive" . "\n"));
 
 print("\n# Logical OR [||, or]\n");
 

@@ -118,48 +118,228 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
-func spreadSyntaxArray(parameters ...[]Any) []Any {
+func spreadSyntaxArray(parameters ...Any) []Any {
 	var newArray = []Any{}
-	for _, anArray := range parameters {
-		newArray = append(newArray, anArray...)
+	for _, parameter := range parameters {
+		parameterType := reflect.TypeOf(parameter).Kind()
+		if parameterType == reflect.Map {
+			if len(parameter.(Object)) == 1 {
+				for _, objectValue := range parameter.(Object) {
+					newArray = append(newArray, objectValue)
+				}
+				continue
+			}
+			newArray = append(newArray, parameter)
+			continue
+		}
+		if parameterType == reflect.Slice {
+			newArray = append(newArray, parameter.([]Any)...)
+			continue
+		}
 	}
 	return newArray
 }
 
 func main() {
-	fmt.Println("\n// JavaScript-like Spread Syntax in Go Slice")
+	fmt.Println("\n// JavaScript-like Spread Syntax (...) in Go")
 
-	myFruitsInFridge := []Any{"apple", "mango", "orange"}
-	fmt.Println("my fruits in fridge: ", prettyArrayOfPrimitives(myFruitsInFridge))
+	fruits := []Any{"Mango", "Melon", "Banana"}
+	fmt.Println("fruits: ", prettyArrayOfPrimitives(fruits))
 
-	myFruitsFromGroceryStore := []Any{"melon", "banana"}
-	fmt.Println("my fruits from grocery store: ", prettyArrayOfPrimitives(myFruitsFromGroceryStore))
+	vegetables := []Any{"Carrot", "Tomato"}
+	fmt.Println("vegetables: ", prettyArrayOfPrimitives(vegetables))
 
-	myFruits := spreadSyntaxArray(myFruitsInFridge, myFruitsFromGroceryStore)
-	fmt.Println("my fruits: ", prettyArrayOfPrimitives(myFruits))
-	// my fruits: ["apple", "mango", "orange", "melon", "banana"]
-
-	fmt.Println("\n// Spread Syntax in Go Slice of Maps")
-
-	generalCar := Object{
-		"wheels": 4,
-		"tires":  4,
+	countryCapitalsInAsia := Object{
+		"Thailand": "Bangkok",
+		"China":    "Beijing",
+		"Japan":    "Tokyo",
 	}
-	fmt.Println("general car: ", prettyJsonStringify(generalCar))
+	fmt.Println("country capitals in asia: ", prettyJsonStringify(countryCapitalsInAsia))
 
-	minivanCar := spreadSyntaxObject(generalCar, Object{"doors": 4})
-	fmt.Println("minivan car: ", prettyJsonStringify(minivanCar))
-	// minivan car: {
-	//     "wheels": 4,
-	//     "tires": 4,
-	//     "doors": 4
+	countryCapitalsInEurope := Object{
+		"France":  "Paris",
+		"England": "London",
+	}
+	fmt.Println("country capitals in europe: ", prettyJsonStringify(countryCapitalsInEurope))
+
+	print("// [...array1, ...array2]:")
+
+	combination1 := spreadSyntaxArray(fruits, vegetables)
+	fmt.Println("combination1: ", prettyJsonStringify(combination1))
+	// combination1: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     "Carrot",
+	//     "Tomato"
+	// ]
+
+	combination2 := spreadSyntaxArray(fruits, []Any{"Cucumber", "Onions"})
+	fmt.Println("combination2: ", prettyJsonStringify(combination2))
+	// combination2: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     "Cucumber",
+	//     "Onions"
+	// ]
+
+	print("// { ...object1, ...object2 }:")
+
+	combination3 := spreadSyntaxObject(countryCapitalsInAsia, countryCapitalsInEurope)
+	fmt.Println("combination3: ", prettyJsonStringify(combination3))
+	// combination3: {
+	//     "Thailand": "Bangkok",
+	//     "China": "Beijing",
+	//     "Japan": "Tokyo",
+	//     "France": "Paris",
+	//     "England": "London"
 	// }
 
-	superCar := spreadSyntaxObject(generalCar, Object{"doors": 2})
-	fmt.Println("super car: ", prettyJsonStringify(superCar))
-	// super car: {
-	//     "wheels": 4,
-	//     "tires": 4,
-	//     "doors": 2
+	combination4 := spreadSyntaxObject(countryCapitalsInAsia, Object{"Germany": "Berlin", "Italy": "Rome"})
+	fmt.Println("combination4: ", prettyJsonStringify(combination4))
+	// combination4: {
+	//     "Thailand": "Bangkok",
+	//     "China": "Beijing",
+	//     "Japan": "Tokyo",
+	//     "Germany": "Berlin",
+	//     "Italy": "Rome"
 	// }
+
+	print("// [...array1, array2]:")
+
+	combination5 := spreadSyntaxArray(fruits, Object{"vegetables": vegetables})
+	fmt.Println("combination5: ", prettyJsonStringify(combination5))
+	// combination5: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     [
+	//         "Carrot",
+	//         "Tomato"
+	//     ]
+	// ]
+
+	combination6 := spreadSyntaxArray(fruits, Object{"vegetables": []Any{"Cucumber", "Onions"}})
+	fmt.Println("combination6: ", prettyJsonStringify(combination6))
+	// combination6: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     [
+	//         "Cucumber",
+	//         "Onions"
+	//     ]
+	// ]
+
+	print("// [...array1, object1]:")
+
+	combination7 := spreadSyntaxArray(fruits, Object{"countryCapitalsInAsia": countryCapitalsInAsia})
+	fmt.Println("combination7: ", prettyJsonStringify(combination7))
+	// combination7: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     {
+	//         "Thailand": "Bangkok",
+	//         "China": "Beijing",
+	//         "Japan": "Tokyo"
+	//     }
+	// ]
+
+	combination8 := spreadSyntaxArray(fruits, Object{"Germany": "Berlin", "Italy": "Rome"})
+	fmt.Println("combination8: ", prettyJsonStringify(combination8))
+	// combination8: [
+	//     "Mango",
+	//     "Melon",
+	//     "Banana",
+	//     {
+	//         "Germany": "Berlin",
+	//         "Italy": "Rome"
+	//     }
+	// ]
+
+	print("// { ...object1, object2 }:")
+
+	combination9 := spreadSyntaxObject(countryCapitalsInAsia, Object{"countryCapitalsInEurope": countryCapitalsInEurope})
+	fmt.Println("combination9: ", prettyJsonStringify(combination9))
+	// combination9: {
+	//    "Thailand" : "Bangkok",
+	//    "China" : "Beijing",
+	//    "Japan" : "Tokyo",
+	//    "countryCapitalsInEurope" : {
+	//       "France" : "Paris",
+	//       "England" : "London"
+	//    }
+	// }
+
+	combination10 := spreadSyntaxObject(countryCapitalsInAsia, Object{"countryCapitalsInEurope": Object{"Germany": "Berlin", "Italy": "Rome"}})
+	fmt.Println("combination10: ", prettyJsonStringify(combination10))
+	//combination10: {
+	//	"Thailand": "Bangkok",
+	//	"China": "Beijing",
+	//	"Japan": "Tokyo",
+	//	"countryCapitalsInEurope": {
+	//		"Germany": "Berlin",
+	//		"Italy": "Rome"
+	//	}
+	//}
+
+	print("// { ...object1, array2 }:")
+
+	combination11 := spreadSyntaxObject(countryCapitalsInAsia, Object{"vegetables": vegetables})
+	fmt.Println("combination11: ", prettyJsonStringify(combination11))
+	// combination11: {
+	//     "Thailand": "Bangkok",
+	//     "China": "Beijing",
+	//     "Japan": "Tokyo",
+	//     "vegetables": [
+	//         "Carrot",
+	//         "Tomato"
+	//     ]
+	// }
+
+	combination12 := spreadSyntaxObject(countryCapitalsInAsia, Object{"vegetables": []Any{"Cucumber", "Onions"}})
+	fmt.Println("combination12: ", prettyJsonStringify(combination12))
+	// combination12: {
+	//     "Thailand": "Bangkok",
+	//     "China": "Beijing",
+	//     "Japan": "Tokyo",
+	//     "vegetables": [
+	//         "Cucumber",
+	//         "Onions"
+	//     ]
+	// }
+
+	print("// { ...object1, ...array2 }:")
+
+	combination13 := spreadSyntaxObject(countryCapitalsInAsia, vegetables)
+	fmt.Println("combination13: ", prettyJsonStringify(combination13))
+	// combination13: {
+	//    "Thailand" : "Bangkok",
+	//    "China" : "Beijing",
+	//    "Japan" : "Tokyo",
+	//    "0" : "Carrot",
+	//    "1" : "Tomato"
+	// }
+
+	combination14 := spreadSyntaxObject(countryCapitalsInAsia, []Any{"Cucumber", "Onions"})
+	fmt.Println("combination14: ", prettyJsonStringify(combination14))
+	// combination14: {
+	//    "Thailand" : "Bangkok",
+	//    "China" : "Beijing",
+	//    "Japan" : "Tokyo",
+	//    "0" : "Cucumber",
+	//    "1" : "Onions"
+	// }
+
+	// print("// [...array1, ...object1]: // this combination throw an error in JavaScript")
+
+	// this combination throw an error in JavaScript
+	// combinationErrorInJavaScript1 := spreadSyntaxObject(fruits, countryCapitalsInAsia)
+	// fmt.Println("combinationErrorInJavaScript1: ", prettyJsonStringify(combinationErrorInJavaScript1))
+
+	// this combination throw an error in JavaScript
+	// combinationErrorInJavaScript2 := spreadSyntaxObject(fruits, Object{"Germany": "Berlin", "Italy": "Rome"})
+	// fmt.Println("combinationErrorInJavaScript2: ", prettyJsonStringify(combinationErrorInJavaScript2))
 }

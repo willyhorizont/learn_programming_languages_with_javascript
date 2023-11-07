@@ -1,16 +1,22 @@
 -- ? function statement or function declaration
+
 function get_rectangle_area_v1(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
+-- call the function example: get_rectangle_area_v1(3, 4)
 
 function get_rectangle_area_v2(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
+-- call the function example: get_rectangle_area_v2(3, 4)
 
 -- ? function expression
+
 get_rectangle_area_v3 = function(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
+-- call the function example: get_rectangle_area_v3(3, 4)
 
 get_rectangle_area_v4 = function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
+-- call the function example: get_rectangle_area_v4(3, 4)
 
 -- ? anonymous function
 
@@ -31,8 +37,8 @@ get_rectangle_area_v4 = function(rectangle_width, rectangle_length) return recta
 
 -- ? Passing functions as arguments to other functions
 
-function say_hi(do_something)
-    print("hi")
+function say_hello(do_something)
+    print("hello")
     do_something()
 end
 
@@ -40,21 +46,21 @@ function say_how_are_you()
     print("how are you?")
 end
 
-say_hi(say_how_are_you)
+say_hello(say_how_are_you)
 
-say_hi(function ()
+say_hello(function ()
     print("how are you?")
 end)
 
-say_hi(function() print("how are you?") end)
+say_hello(function() print("how are you?") end)
 
 -- ? Assigning functions to variables or storing them in data structures
 
-get_rectangle_area_v5 = function(rectangle_width, rectangle_length)
+get_rectangle_area_v3 = function(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
 
-get_rectangle_area_v6 = function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
+get_rectangle_area_v4 = function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
 
 my_array_of_get_rectangle_area_functions = {
     get_rectangle_area_v1,
@@ -63,10 +69,9 @@ my_array_of_get_rectangle_area_functions = {
     end,
     function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
 }
-
-get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[1](3, 5)
-get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[2](3, 5)
-get_rectangle_area_function3 = my_array_of_get_rectangle_area_functions[3](3, 5)
+get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[1](3, 4)
+get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[2](3, 4)
+get_rectangle_area_function3 = my_array_of_get_rectangle_area_functions[3](3, 4)
 
 function exponentiation(a, b)
     return a ^ b
@@ -79,9 +84,8 @@ simple_calculator = {
     end,
     subtraction = function(a, b) return a - b end
 }
-
 simple_calculator_result1 = simple_calculator.exponentiation(2, 4)
-simple_calculator_result2 = simple_calculator.addition(3, 4)
+simple_calculator_result2 = simple_calculator.addition(9, 3)
 simple_calculator_result3 = simple_calculator.subtraction(35, 8)
 
 -- ? Returning functions as values from other functions (closure)

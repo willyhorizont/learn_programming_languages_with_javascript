@@ -106,22 +106,14 @@ console.log("myAge:", myAge);
 hasDrivingLicense = false;
 console.log("has driving license:", hasDrivingLicense);
 console.log("((myAge >= 17) && (hasDrivingLicense === true)):");
-if ((myAge >= 17) && (hasDrivingLicense === true)) {
-    console.log("You are allowed to drive");
-} else {
-    console.log("You are not allowed to drive");
-}
+console.log((((myAge >= 17) && (hasDrivingLicense === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 myAge = 17;
 console.log("myAge:", myAge);
 hasDrivingLicense = true;
 console.log("has driving license:", hasDrivingLicense);
 console.log("((myAge >= 17) && (hasDrivingLicense === true)):");
-if ((myAge >= 17) && (hasDrivingLicense === true)) {
-    console.log("You are allowed to drive");
-} else {
-    console.log("You are not allowed to drive");
-}
+console.log((((myAge >= 17) && (hasDrivingLicense === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 console.log("\n// Logical OR (||)\n");
 

@@ -1,0 +1,40 @@
+ruby tutorial -"Mobile Legends" -"mobile legends" -"mobile_legends" -"ML" -"ml" -"MLBB" -"mlbb"
+
+the "!" can indicate that the method will modify the object in-place. This is often seen with methods that have non-mutating counterparts.
+These methods typically indicate that they perform a more dangerous or in-place operation compared to their non-bang counterparts.
+array1 = [1, 2, 3]
+array1.reverse! # Reverses the array1 in-place
+puts array1  # Output: [3, 2, 1]
+
+array2.sort!  # Sorts the array2 in-place
+puts array2  # Output: [1, 2, 3]
+
+In general, the ! in method names is a convention, and it doesn't have a special meaning to the Ruby interpreter. It often implies a more destructive or risky version of a method.
+def save!
+  # Performs a save operation with potential side effects
+end
+This is a common convention in Ruby to indicate that the method might raise an exception or have other side effects.
+
+In method names, the ? is often used as a convention to indicate that the method returns a boolean value.
+def even?(number)
+  number % 2 == 0
+end
+
+Some Ruby methods ending with ? are known as predicate methods. They return a boolean value to indicate whether a certain condition is true or false.
+array.empty?
+string.nil?
+
+In general, the ? is used as a naming convention to indicate methods or variables related to boolean checks or conditions.
+is_ready_to_save?
+has_permission?
+
+&a_block
+The & is to convert a block into a proc
+def say_hi(&do_something)
+    puts("hi")
+    do_something.()
+end
+say_hi() { puts("how are you?") }
+say_hi() do
+    puts("how are you?")
+end

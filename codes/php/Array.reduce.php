@@ -75,6 +75,10 @@ echo("\ngrouped products:" . json_encode($products_grouped, JSON_PRETTY_PRINT));
 // grouped products: {
 //     "expensive": [
 //         {
+//             "code": "pasta",
+//             "price": 321
+//         },
+//         {
 //             "code": "bubble_gum",
 //             "price": 233
 //         },
@@ -84,10 +88,6 @@ echo("\ngrouped products:" . json_encode($products_grouped, JSON_PRETTY_PRINT));
 //         }
 //     ],
 //     "cheap": [
-//         {
-//             "code": "pasta",
-//             "price": 30
-//         },
 //         {
 //             "code": "potato_chips",
 //             "price": 5
@@ -102,6 +102,10 @@ echo("\ngrouped products:" . json_encode($products_grouped, JSON_PRETTY_PRINT));
 // grouped products: {
 //     "expensive": [
 //         {
+//             "code": "pasta",
+//             "price": 321
+//         },
+//         {
 //             "code": "bubble_gum",
 //             "price": 233
 //         },
@@ -111,10 +115,6 @@ echo("\ngrouped products:" . json_encode($products_grouped, JSON_PRETTY_PRINT));
 //         }
 //     ],
 //     "cheap": [
-//         {
-//             "code": "pasta",
-//             "price": 30
-//         },
 //         {
 //             "code": "potato_chips",
 //             "price": 5

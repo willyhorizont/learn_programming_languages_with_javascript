@@ -30,6 +30,9 @@ function get_type(something)
     if type(something) ~= "table" then
        return type(something) 
     end
+    if next(something) == nil then
+        return "empty_table"
+    end
     for k, v in pairs(something) do
         if type(k) == "number" and (k >= 1 and k <= #something) then
             return "array"
@@ -38,20 +41,32 @@ function get_type(something)
     return "object"
 end
 
+function get_object_length(an_object)
+    local object_length = 0
+    for object_key, object_value in pairs(an_object) do
+        object_length = object_length + 1
+    end
+    return object_length
+end
+
 spread_syntax_object = function(...)
     local parameters = {...}
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
-        if get_type(parameter) == "object" then
+        local parameter_type = get_type(parameter)
+        if parameter_type == "object" then
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
             end
+            goto next
         end
-        if get_type(parameter) == "array" then
+        if parameter_type == "array" then
             for array_item_index, array_item in ipairs(parameter) do
                 new_object[tostring(array_item_index)] = array_item
             end
+            goto next
         end
+        ::next::
     end
     return new_object
 end
@@ -59,10 +74,26 @@ end
 spread_syntax_array = function(...)
     local parameters = {...}
     local new_array = {}
-    for parameter_index, an_array in ipairs(parameters) do
-        for array_item_index, array_item in ipairs(an_array) do
-            table.insert(new_array, array_item)
+    for parameter_index, parameter in ipairs(parameters) do
+        local parameter_type = get_type(parameter)
+        if parameter_type == "object" then
+            local object_length = get_object_length(parameter)
+            if object_length == 1 then
+                for object_key, object_value in pairs(parameter) do
+                    table.insert(new_array, object_value)
+                end
+                goto next
+            end
+            table.insert(new_array, parameter)
+            goto next
         end
+        if parameter_type == "array" then
+            for array_item_index, array_item in ipairs(parameter) do
+                table.insert(new_array, array_item)
+            end
+            goto next
+        end
+        ::next::
     end
     return new_array
 end
@@ -111,10 +142,14 @@ print("products: " .. pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.reduce() function \"array_reduce\"")
 
-products_grouped = array_reduce(function(current_result, current_product) return (((current_product.price > 100) and spread_syntax_object(current_result, { expensive = spread_syntax_array(current_result.expensive, current_product) })) or spread_syntax_object(current_result, { cheap = spread_syntax_array(current_result.cheap, current_product) })) end, products, { expensive = {}, cheap = {} })
+products_grouped = array_reduce(function(current_result, current_product) return (((current_product.price > 100) and spread_syntax_object(current_result, { expensive = spread_syntax_array(current_result.expensive, { current_product = current_product }) })) or spread_syntax_object(current_result, { cheap = spread_syntax_array(current_result.cheap, { current_product = current_product }) })) end, products, { expensive = {}, cheap = {} })
 print("grouped products: " .. pretty_json_stringify(products_grouped))
 -- grouped products: {
 --     "expensive": [
+--         {
+--             "code": "pasta",
+--             "price": 321
+--         },
 --         {
 --             "code": "bubble_gum",
 --             "price": 233
@@ -125,10 +160,6 @@ print("grouped products: " .. pretty_json_stringify(products_grouped))
 --         }
 --     ],
 --     "cheap": [
---         {
---             "code": "pasta",
---             "price": 30
---         },
 --         {
 --             "code": "potato_chips",
 --             "price": 5

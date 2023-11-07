@@ -3,14 +3,17 @@
 function get_rectangle_area_v1(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
+# call the function example: get_rectangle_area_v1(3, 4)
 
 get_rectangle_area_v2(rectangle_width, rectangle_length) = rectangle_width * rectangle_length
+# call the function example: get_rectangle_area_v2(3, 4)
 
 # ? function expression
 
 get_rectangle_area_v3 = function (rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
+# call the function example: get_rectangle_area_v3(3, 4)
 
 # ? anonymous function
 
@@ -23,15 +26,18 @@ end
 get_rectangle_area_v4 = function do_something1(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
+# call the function example: get_rectangle_area_v4(3, 4)
 
-# ? arrow function or named arrow function
+# ? function expression with arrow function or named arrow function
 
 get_rectangle_area_v5 = (rectangle_width, rectangle_length) ->
     begin
         return rectangle_width * rectangle_length
     end
+# call the function example: get_rectangle_area_v5(3, 4)
 
 get_rectangle_area_v6 = (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
+# call the function example: get_rectangle_area_v6(3, 4)
 
 # ? anonymous arrow function
 
@@ -43,16 +49,16 @@ get_rectangle_area_v6 = (rectangle_width, rectangle_length) -> rectangle_width *
 (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
 
 #=
-? In Julia, a function is a first-class citizen, which means it supports:
-? • Passing functions as arguments to other functions
-? • Assigning functions to variables or storing them in data structures
-? • Returning functions as values from other functions (closure)
+    ? In Julia, a function is a first-class citizen, which means it supports:
+    ? • Passing functions as arguments to other functions
+    ? • Assigning functions to variables or storing them in data structures
+    ? • Returning functions as values from other functions (closure)
 =#
 
 # ? Passing functions as arguments to other functions
 
-function say_hi(do_something2)
-    println("hi")
+function say_hello(do_something2)
+    println("hello")
     do_something2()
 end
 
@@ -60,21 +66,26 @@ function say_how_are_you()
     println("how are you ?")
 end
 
-say_hi(say_how_are_you)
+say_hello(say_how_are_you)
 
-say_hi(function ()
+say_hello(function ()
     println("how are you ?")
 end)
 
-say_hi(() -> println("how are you ?"))
+say_hello(() -> println("how are you ?"))
 
 # ? Assigning functions to variables or storing them in data structures
 
-get_rectangle_area_v7 = function (rectangle_width, rectangle_length)
+get_rectangle_area_v3 = function (rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
 
-get_rectangle_area_v8 = (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
+get_rectangle_area_v5 = (rectangle_width, rectangle_length) ->
+    begin
+        return rectangle_width * rectangle_length
+    end
+
+get_rectangle_area_v6 = (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
 
 my_array_of_get_rectangle_area_functions = [
     get_rectangle_area_v1,
@@ -83,9 +94,9 @@ my_array_of_get_rectangle_area_functions = [
     end,
     (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
 ]
-get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[1](3, 5)
-get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[2](3, 5)
-get_rectangle_area_function3 = my_array_of_get_rectangle_area_functions[3](3, 5)
+get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[1](3, 4)
+get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[2](3, 4)
+get_rectangle_area_function3 = my_array_of_get_rectangle_area_functions[3](3, 4)
 
 function exponentiation(a, b)
     return a ^ b
@@ -98,9 +109,8 @@ simple_calculator = Dict(
     end,
     "subtraction" => (a, b) -> a - b
 )
-
 simple_calculator_result_1 = simple_calculator["exponentiation"](2, 4)
-simple_calculator_result_2 = simple_calculator["addition"](3, 4)
+simple_calculator_result_2 = simple_calculator["addition"](9, 3)
 simple_calculator_result_3 = simple_calculator["subtraction"](35, 8)
 
 # ? Returning functions as values from other functions (closure)

@@ -177,25 +177,25 @@ func main() {
 	}, products, Object{"expensive": Object{}, "cheap": Object{}})
 	fmt.Println("grouped products:", prettyJsonStringify(productsGrouped))
 	// grouped products: {
-	//     "expensive": [
-	//         {
-	//             "code": "bubble_gum",
-	//             "price": 233
-	//         },
-	//         {
-	//             "code": "towel",
-	//             "price": 499
-	//         }
-	//     ],
-	//     "cheap": [
-	//         {
-	//             "code": "pasta",
-	//             "price": 30
-	//         },
-	//         {
-	//             "code": "potato_chips",
-	//             "price": 5
-	//         }
-	//     ]
+	// 	"expensive": [
+	// 		{
+	// 			"code": "pasta",
+	// 			"price": 321
+	// 		},
+	// 		{
+	// 			"code": "bubble_gum",
+	// 			"price": 233
+	// 		},
+	// 		{
+	// 			"code": "towel",
+	// 			"price": 499
+	// 		}
+	// 	],
+	// 	"cheap": [
+	// 		{
+	// 			"code": "potato_chips",
+	// 			"price": 5
+	// 		}
+	// 	]
 	// }
 }

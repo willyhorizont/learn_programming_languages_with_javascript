@@ -57,6 +57,10 @@ print('grouped products:', json.dumps(products_grouped, indent=4))
 # grouped products: {
 #     "expensive": [
 #         {
+#             "code": "pasta",
+#             "price": 321
+#         },
+#         {
 #             "code": "bubble_gum",
 #             "price": 233
 #         },
@@ -66,10 +70,6 @@ print('grouped products:', json.dumps(products_grouped, indent=4))
 #         }
 #     ],
 #     "cheap": [
-#         {
-#             "code": "pasta",
-#             "price": 30
-#         },
 #         {
 #             "code": "potato_chips",
 #             "price": 5
@@ -84,6 +84,10 @@ print('grouped products:', json.dumps(products_grouped, indent=4))
 # grouped products: {
 #     "expensive": [
 #         {
+#             "code": "pasta",
+#             "price": 321
+#         },
+#         {
 #             "code": "bubble_gum",
 #             "price": 233
 #         },
@@ -93,10 +97,6 @@ print('grouped products:', json.dumps(products_grouped, indent=4))
 #         }
 #     ],
 #     "cheap": [
-#         {
-#             "code": "pasta",
-#             "price": 30
-#         },
 #         {
 #             "code": "potato_chips",
 #             "price": 5

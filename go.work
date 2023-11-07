@@ -16,8 +16,9 @@ use (
     ./codes/go/operator_ternary
     ./codes/go/factorial
     ./codes/go/fizzbuzz
-    ./codes/go/functions
+    ./codes/go/function
     ./codes/go/conditionals
-    ./codes/go/comments
+    ./codes/go/comment
+    ./codes/go/hello_world
     ./codes/go/0.chaos
 )

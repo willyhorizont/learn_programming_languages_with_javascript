@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable object-shorthand */
 /* eslint-disable arrow-body-style */
 /* eslint-disable prefer-arrow-callback */
@@ -5,48 +6,60 @@
 /* eslint-disable no-unused-vars */
 
 // ? function statement or function declaration
+
 function getRectangleAreaV1(rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 }
+// call the function example: getRectangleAreaV1(3, 4)
 
 // ? function expression
+
 const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
+// call the function example: getRectangleAreaV2(3, 4)
 
 // ? anonymous function
+
 // function (rectangleWidth, rectangleLength) {
 //     return rectangleWidth * rectangleLength;
 // }
 
 // ? named function expression 🤮
+
 const getRectangleAreaV3 = function doSomething1(rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
+// call the function example: getRectangleAreaV3(3, 4)
 
-// ? arrow function or named arrow function
+// ? function expression with arrow function or named arrow function
+
 const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => {
     return rectangleWidth * rectangleLength;
 };
+// call the function example: getRectangleAreaV4(3, 4)
+
 const getRectangleAreaV5 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
+// call the function example: getRectangleAreaV5(3, 4)
 
 // ? anonymous arrow function
+
 // (rectangleWidth, rectangleLength) => {
 //     return rectangleWidth * rectangleLength;
 // };
 // (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
 
 /*
-? In JavaScript, a function is a first-class citizen, which means it supports:
-? • Passing functions as arguments to other functions
-? • Assigning functions to variables or storing them in data structures
-? • Returning functions as values from other functions (closure)
+    ? In JavaScript, a function is a first-class citizen, which means it supports:
+    ? • Passing functions as arguments to other functions
+    ? • Assigning functions to variables or storing them in data structures
+    ? • Returning functions as values from other functions (closure)
 */
 
 // ? Passing functions as arguments to other functions
 
-function sayHi(doSomething2) {
-    console.log("hi");
+function sayHello(doSomething2) {
+    console.log("hello");
     doSomething2();
 }
 
@@ -54,29 +67,29 @@ function sayHowAreYou() {
     console.log("how are you?");
 }
 
-sayHi(sayHowAreYou);
+sayHello(sayHowAreYou);
 
-sayHi(function () {
+sayHello(function () {
     console.log("how are you?");
 });
 
-sayHi(() => {
+sayHello(() => {
     console.log("how are you?");
 });
 
-sayHi(() => console.log("how are you?"));
+sayHello(() => console.log("how are you?"));
 
 // ? Assigning functions to variables or storing them in data structures
 
-const getRectangleAreaV7 = function (rectangleWidth, rectangleLength) {
+const getRectangleAreaV2Copy = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
 
-const getRectangleAreaV8 = (rectangleWidth, rectangleLength) => {
+const getRectangleAreaV4Copy = (rectangleWidth, rectangleLength) => {
     return rectangleWidth * rectangleLength;
 };
 
-const getRectangleAreaV9 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
+const getRectangleAreaV5Copy = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
 
 const myArrayOfGetRectangleAreaFunctions = [
     getRectangleAreaV1,
@@ -88,10 +101,10 @@ const myArrayOfGetRectangleAreaFunctions = [
     },
     (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
 ];
-const getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0](3, 5);
-const getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1](3, 5);
-const getRectangleAreaFunction3 = myArrayOfGetRectangleAreaFunctions[2](3, 5);
-const getRectangleAreaFunction4 = myArrayOfGetRectangleAreaFunctions[3](3, 5);
+const getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0](3, 4);
+const getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1](3, 4);
+const getRectangleAreaFunction3 = myArrayOfGetRectangleAreaFunctions[2](3, 4);
+const getRectangleAreaFunction4 = myArrayOfGetRectangleAreaFunctions[3](3, 4);
 
 function exponentiation(a, b) {
     return a ** b;
@@ -113,7 +126,7 @@ const simpleCalculator = {
 const simpleCalculatorResult1 = simpleCalculator.exponentiation(2, 4);
 const simpleCalculatorResult2 = simpleCalculator.multiplication(7, 5);
 const simpleCalculatorResult3 = simpleCalculator.division(81, 9);
-const simpleCalculatorResult4 = simpleCalculator.addition(3, 4);
+const simpleCalculatorResult4 = simpleCalculator.addition(9, 3);
 const simpleCalculatorResult5 = simpleCalculator.subtraction(35, 8);
 
 // ? Returning functions as values from other functions (closure)

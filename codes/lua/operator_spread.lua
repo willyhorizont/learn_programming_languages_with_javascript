@@ -30,6 +30,9 @@ function get_type(something)
     if type(something) ~= "table" then
        return type(something) 
     end
+    if next(something) == nil then
+        return "empty_table"
+    end
     for k, v in pairs(something) do
         if type(k) == "number" and (k >= 1 and k <= #something) then
             return "array"
@@ -38,20 +41,32 @@ function get_type(something)
     return "object"
 end
 
+function get_object_length(an_object)
+    local object_length = 0
+    for object_key, object_value in pairs(an_object) do
+        object_length = object_length + 1
+    end
+    return object_length
+end
+
 spread_syntax_object = function(...)
     local parameters = {...}
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
-        if get_type(parameter) == "object" then
+        local parameter_type = get_type(parameter)
+        if parameter_type == "object" then
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
             end
+            goto next
         end
-        if get_type(parameter) == "array" then
+        if parameter_type == "array" then
             for array_item_index, array_item in ipairs(parameter) do
                 new_object[tostring(array_item_index)] = array_item
             end
+            goto next
         end
+        ::next::
     end
     return new_object
 end
@@ -59,46 +74,226 @@ end
 spread_syntax_array = function(...)
     local parameters = {...}
     local new_array = {}
-    for parameter_index, an_array in ipairs(parameters) do
-        for array_item_index, array_item in ipairs(an_array) do
-            table.insert(new_array, array_item)
+    for parameter_index, parameter in ipairs(parameters) do
+        local parameter_type = get_type(parameter)
+        if parameter_type == "object" then
+            local object_length = get_object_length(parameter)
+            if object_length == 1 then
+                for object_key, object_value in pairs(parameter) do
+                    table.insert(new_array, object_value)
+                end
+                goto next
+            end
+            table.insert(new_array, parameter)
+            goto next
         end
+        if parameter_type == "array" then
+            for array_item_index, array_item in ipairs(parameter) do
+                table.insert(new_array, array_item)
+            end
+            goto next
+        end
+        ::next::
     end
     return new_array
 end
 
-print('\n-- JavaScript-like Spread Syntax in JavaScript-like Array Lua table')
+print('\n-- JavaScript-like Spread Syntax (...) in Lua')
 
-my_fruits_in_fridge = {"apple", "mango", "orange"}
-print("my fruits in fridge: " .. pretty_array_of_primitives(my_fruits_in_fridge))
+fruits = {"Mango", "Melon", "Banana"}
+print("fruits: " .. pretty_array_of_primitives(fruits))
 
-my_fruits_from_grocery_store = {"melon", "banana"}
-print("my fruits from grocery store: " .. pretty_array_of_primitives(my_fruits_from_grocery_store))
+vegetables = {"Carrot", "Tomato"}
+print("vegetables: " .. pretty_array_of_primitives(vegetables))
 
-my_fruits = spread_syntax_array(my_fruits_in_fridge, my_fruits_from_grocery_store)
-print("my fruits: " .. pretty_array_of_primitives(my_fruits))
--- my fruits: ["apple", "mango", "orange", "melon", "banana"]
-
-print('\n-- JavaScript-like Spread Syntax in JavaScript-like Array of Objects Lua table')
-
-general_car = {
-    wheels = 4,
-    tires = 4,
+country_capitals_in_asia = {
+    Thailand = "Bangkok",
+    China = "Beijing",
+    Japan = "Tokyo"
 }
-print("general car: " .. pretty_json_stringify(general_car))
+print("country capitals in asia: " .. pretty_json_stringify(country_capitals_in_asia))
 
-minivan_car = spread_syntax_object(general_car, { doors = 4 })
-print("minivan car: " .. pretty_json_stringify(minivan_car))
--- minivan car: {
---     "wheels": 4,
---     "tires": 4,
---     "doors": 4
+country_capitals_in_europe = {
+    France = "Paris",
+    England = "London"
+}
+print("country capitals in europe: " .. pretty_json_stringify(country_capitals_in_europe))
+
+print("\n-- [...array1, ...array2]:\n")
+
+combination1 = spread_syntax_array(fruits, vegetables)
+print("combination1: " .. pretty_json_stringify(combination1))
+-- combination1: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     "Carrot",
+--     "Tomato"
+-- ]
+
+combination2 = spread_syntax_array(fruits, {"Cucumber", "Onions"})
+print("combination2: " .. pretty_json_stringify(combination2))
+-- combination2: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     "Cucumber",
+--     "Onions"
+-- ]
+
+print("\n-- { ...object1, ...object2 }:\n")
+
+combination3 = spread_syntax_object(country_capitals_in_asia, country_capitals_in_europe)
+print("combination3: " .. pretty_json_stringify(combination3))
+-- combination3: {
+--     "Thailand": "Bangkok",
+--     "China": "Beijing",
+--     "Japan": "Tokyo",
+--     "France": "Paris",
+--     "England": "London"
 -- }
 
-super_car = spread_syntax_object(general_car, { doors = 2 })
-print("super car: " .. pretty_json_stringify(super_car))
--- super car: {
---     "wheels": 4,
---     "tires": 4,
---     "doors": 2
+combination4 = spread_syntax_object(country_capitals_in_asia, { Germany = "Berlin", Italy = "Rome" })
+print("combination4: " .. pretty_json_stringify(combination4))
+-- combination4: {
+--     "Thailand": "Bangkok",
+--     "China": "Beijing",
+--     "Japan": "Tokyo",
+--     "Germany": "Berlin",
+--     "Italy": "Rome"
 -- }
+
+print("\n-- [...array1, array2]:\n")
+
+combination5 = spread_syntax_array(fruits, { vegetables = vegetables })
+print("combination5: " .. pretty_json_stringify(combination5))
+-- combination5: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     [
+--         "Carrot",
+--         "Tomato"
+--     ]
+-- ]
+
+combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Onions"} })
+print("combination6: " .. pretty_json_stringify(combination6))
+-- combination6: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     [
+--         "Cucumber",
+--         "Onions"
+--     ]
+-- ]
+
+print("\n-- [...array1, object1]:\n")
+
+combination7 = spread_syntax_array(fruits, { country_capitals_in_asia = country_capitals_in_asia })
+print("combination7: " .. pretty_json_stringify(combination7))
+-- combination7: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     {
+--         "Thailand": "Bangkok",
+--         "China": "Beijing",
+--         "Japan": "Tokyo"
+--     }
+-- ]
+
+combination8 = spread_syntax_array(fruits, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
+print("combination8: " .. pretty_json_stringify(combination8))
+-- combination8: [
+--     "Mango",
+--     "Melon",
+--     "Banana",
+--     {
+--         "Germany": "Berlin",
+--         "Italy": "Rome"
+--     }
+-- ]
+
+print("\n-- { ...object1, object2 }:\n")
+
+combination9 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = country_capitals_in_europe })
+print("combination9: " .. pretty_json_stringify(combination9))
+-- combination9: {
+--     "Thailand" : "Bangkok",
+--     "China" : "Beijing",
+--     "Japan" : "Tokyo",
+--     "country_capitals_in_europe" : {
+--        "France" : "Paris",
+--        "England" : "London"
+--     }
+--  }
+
+combination10 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
+print("combination10: " .. pretty_json_stringify(combination10))
+-- combination10: {
+--     "Thailand": "Bangkok",
+--     "China": "Beijing",
+--     "Japan": "Tokyo",
+--     "country_capitals_in_europe": {
+--         "Germany": "Berlin",
+--         "Italy": "Rome"
+--     }
+-- }
+
+print("\n-- { ...object1, array2 }:\n")
+
+combination11 = spread_syntax_object(country_capitals_in_asia, { vegetables = vegetables })
+print("combination11: " .. pretty_json_stringify(combination11))
+-- combination11: {
+--     "Thailand": "Bangkok",
+--     "China": "Beijing",
+--     "Japan": "Tokyo",
+--     "vegetables": [
+--         "Carrot",
+--         "Tomato"
+--     ]
+-- }
+
+combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Onions"} })
+print("combination12: " .. pretty_json_stringify(combination12))
+-- combination12: {
+--     "Thailand": "Bangkok",
+--     "China": "Beijing",
+--     "Japan": "Tokyo",
+--     "vegetables": [
+--         "Cucumber",
+--         "Onions"
+--     ]
+-- }
+
+print("\n-- { ...object1, ...array2 }:\n")
+
+combination13 = spread_syntax_object(country_capitals_in_asia, vegetables)
+print("combination13: " .. pretty_json_stringify(combination13))
+-- combination13: {
+--     "Thailand" : "Bangkok",
+--     "China" : "Beijing",
+--     "Japan" : "Tokyo",
+--     "1" : "Carrot",
+--     "2" : "Tomato"
+--  }
+
+combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Onions"})
+print("combination14: " .. pretty_json_stringify(combination14))
+-- combination14: {
+--     "Thailand" : "Bangkok",
+--     "China" : "Beijing",
+--     "Japan" : "Tokyo",
+--     "1" : "Cucumber",
+--     "2" : "Onions"
+--  }
+
+-- print("\n-- [...array1, ...object1]: -- this combination throw an error in JavaScript\n")
+
+-- combination_error_in_javascript1 = spread_syntax_array(fruits, country_capitals_in_asia)
+-- print("combination_error_in_javascript1: " .. pretty_json_stringify(combination_error_in_javascript1))
+
+-- combination_error_in_javascript2 = spread_syntax_array(fruits, { Germany = "Berlin", Italy = "Rome" })
+-- print("combination_error_in_javascript2: " .. pretty_json_stringify(combination_error_in_javascript2))

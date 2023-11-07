@@ -23,7 +23,11 @@ my_answer = 100.0
 println("my_answer: ", my_answer)
 println("CORRECT_ANSWER: ", CORRECT_ANSWER)
 println("(my_answer == CORRECT_ANSWER): ")
-if (my_answer == CORRECT_ANSWER) println("Your answer is correct") else println("Your answer is wrong") end
+if (my_answer == CORRECT_ANSWER)
+    println("Your answer is correct")
+else
+    println("Your answer is wrong")
+end
 
 println("\n# not equal to (!=)\n")
 
@@ -31,7 +35,11 @@ my_answer = 25.0
 println("my_answer: ", my_answer)
 println("CORRECT_ANSWER: ", CORRECT_ANSWER)
 println("(my_answer != CORRECT_ANSWER): ")
-if (my_answer != CORRECT_ANSWER) println("Your answer is correct") else println("Your answer is wrong") end
+if (my_answer != CORRECT_ANSWER)
+    println("Your answer is correct")
+else
+    println("Your answer is wrong")
+end
 
 println("\n# identical to (===)\n")
 
@@ -39,7 +47,11 @@ my_answer = 100.0
 println("my_answer: ", my_answer)
 println("CORRECT_ANSWER: ", CORRECT_ANSWER)
 println("(my_answer === CORRECT_ANSWER): ")
-if (my_answer === CORRECT_ANSWER) println("Your answer is correct") else println("Your answer is wrong") end
+if (my_answer === CORRECT_ANSWER)
+    println("Your answer is correct")
+else
+    println("Your answer is wrong")
+end
 
 println("\n# not identical to (!==)\n")
 
@@ -47,7 +59,11 @@ my_answer = 25.0
 println("my_answer: ", my_answer)
 println("CORRECT_ANSWER: ", CORRECT_ANSWER)
 println("(my_answer !== CORRECT_ANSWER): ")
-if (my_answer !== CORRECT_ANSWER) println("Your answer is correct") else println("Your answer is wrong") end
+if (my_answer !== CORRECT_ANSWER)
+    println("Your answer is correct")
+else
+    println("Your answer is wrong")
+end
 
 println("\n# greater than (>)\n")
 
@@ -84,22 +100,14 @@ println("my_age: ", my_age)
 has_driving_license = false
 println("has_driving_license: ", has_driving_license)
 println("((my_age >= 17) && (has_driving_license === true)): ")
-if ((my_age >= 17) && (has_driving_license === true))
-    println("You are allowed to drive")
-else
-    println("You are not allowed to drive")
-end
+if ((my_age >= 17) && (has_driving_license === true)) println("You are allowed to drive") else println("You are not allowed to drive") end
 
 my_age = 17
 println("my_age: ", my_age)
 has_driving_license = true
 println("has_driving_license: ", has_driving_license)
 println("((my_age >= 17) && (has_driving_license === true)): ")
-if ((my_age >= 17) && (has_driving_license === true))
-    println("You are allowed to drive")
-else
-    println("You are not allowed to drive")
-end
+if ((my_age >= 17) && (has_driving_license === true)) println("You are allowed to drive") else println("You are not allowed to drive") end
 
 println("\n# Logical OR (||)\n")
 

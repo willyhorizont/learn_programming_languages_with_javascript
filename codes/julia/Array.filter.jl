@@ -74,8 +74,9 @@ function array_filter_v5(callback_function, an_array)
     # JavaScript-like Array.filter() function
     data_filtered = []
     for (array_item_index, array_item) in enumerate(an_array)
-        if callback_function(array_item, array_item_index, an_array) === true
-            push!(data_filtered, array_item)
+        is_condition_match = callback_function(array_item, array_item_index, an_array)
+        if is_condition_match === true
+            data_filtered = [data_filtered..., array_item]
         end
     end
     return data_filtered
@@ -86,7 +87,7 @@ function array_filter_v6(callback_function, an_array)
     data_filtered = []
     for (array_item_index, array_item) in enumerate(an_array)
         if callback_function(array_item, array_item_index, an_array) === true
-            append!(data_filtered, [array_item])
+            push!(data_filtered, array_item)
         end
     end
     return data_filtered
@@ -97,7 +98,7 @@ function array_filter_v7(callback_function, an_array)
     data_filtered = []
     for (array_item_index, array_item) in enumerate(an_array)
         if callback_function(array_item, array_item_index, an_array) === true
-            data_filtered = [data_filtered; [array_item]]
+            append!(data_filtered, [array_item])
         end
     end
     return data_filtered
@@ -108,7 +109,7 @@ function array_filter_v8(callback_function, an_array)
     data_filtered = []
     for (array_item_index, array_item) in enumerate(an_array)
         if callback_function(array_item, array_item_index, an_array) === true
-            data_filtered = vcat(data_filtered, array_item)
+            data_filtered = [data_filtered; [array_item]]
         end
     end
     return data_filtered
@@ -116,11 +117,33 @@ end
 
 function array_filter_v9(callback_function, an_array)
     # JavaScript-like Array.filter() function
+    data_filtered = []
+    for (array_item_index, array_item) in enumerate(an_array)
+        if callback_function(array_item, array_item_index, an_array) === true
+            data_filtered = vcat(data_filtered, array_item)
+        end
+    end
+    return data_filtered
+end
+
+function array_filter_v10(callback_function, an_array)
+    # JavaScript-like Array.filter() function
+    data_filtered = []
+    for (array_item_index, array_item) in enumerate(an_array)
+        if callback_function(array_item, array_item_index, an_array) === true
+            data_filtered = [data_filtered..., array_item]
+        end
+    end
+    return data_filtered
+end
+
+function array_filter_v11(callback_function, an_array)
+    # JavaScript-like Array.filter() function
     return [array_item for (array_item_index, array_item) in enumerate(an_array) if callback_function(array_item, array_item_index, an_array) === true]
 end
 
 # JavaScript-like Array.filter() function
-array_filter_v10 = (callback_function, an_array) -> [array_item for (array_item_index, array_item) in enumerate(an_array) if callback_function(array_item, array_item_index, an_array) === true]
+array_filter_v12 = (callback_function, an_array) -> [array_item for (array_item_index, array_item) in enumerate(an_array) if callback_function(array_item, array_item_index, an_array) === true]
 
 println("\n# JavaScript-like Array.filter() in Julia Array")
 
@@ -224,6 +247,26 @@ println("even numbers only: ", pretty_array_of_primitives(numbers_even))
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v10((number, _, _) -> ((number % 2) != 0), numbers)
+println("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
+# odd numbers only: [27, 23, 65, 93, 87]
+
+println("# using JavaScript-like Array.filter() function \"array_filter_v11\"")
+
+numbers_even = array_filter_v11((number, _, _) -> ((number % 2) === 0), numbers)
+println("even numbers only: ", pretty_array_of_primitives(numbers_even))
+# even numbers only: [12, 34, 36, 4, 254]
+
+numbers_odd = array_filter_v11((number, _, _) -> ((number % 2) != 0), numbers)
+println("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
+# odd numbers only: [27, 23, 65, 93, 87]
+
+println("# using JavaScript-like Array.filter() function \"array_filter_v12\"")
+
+numbers_even = array_filter_v12((number, _, _) -> ((number % 2) === 0), numbers)
+println("even numbers only: ", pretty_array_of_primitives(numbers_even))
+# even numbers only: [12, 34, 36, 4, 254]
+
+numbers_odd = array_filter_v12((number, _, _) -> ((number % 2) != 0), numbers)
 println("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
 # odd numbers only: [27, 23, 65, 93, 87]
 
@@ -523,6 +566,62 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 # ]
 
 products_above_100 = array_filter_v10((product, _, _) -> (product["price"] >= 0), products)
+println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
+# products with price >= 100 only: [
+#     {
+#         "code": "pasta",
+#         "price": 321
+#     },
+#     {
+#         "code": "bubble_gum",
+#         "price": 233
+#     },
+#     {
+#         "code": "towel",
+#         "price": 499
+#     }
+# ]
+
+println("# using JavaScript-like Array.filter() function \"array_filter_v11\"")
+
+products_below_100 = array_filter_v11((product, _, _) -> (product["price"] <= 100), products)
+println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
+# products with price <= 100 only: [
+#     {
+#         "code": "potato_chips",
+#         "price": 5
+#     }
+# ]
+
+products_above_100 = array_filter_v11((product, _, _) -> (product["price"] >= 0), products)
+println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
+# products with price >= 100 only: [
+#     {
+#         "code": "pasta",
+#         "price": 321
+#     },
+#     {
+#         "code": "bubble_gum",
+#         "price": 233
+#     },
+#     {
+#         "code": "towel",
+#         "price": 499
+#     }
+# ]
+
+println("# using JavaScript-like Array.filter() function \"array_filter_v12\"")
+
+products_below_100 = array_filter_v12((product, _, _) -> (product["price"] <= 100), products)
+println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
+# products with price <= 100 only: [
+#     {
+#         "code": "potato_chips",
+#         "price": 5
+#     }
+# ]
+
+products_above_100 = array_filter_v12((product, _, _) -> (product["price"] >= 0), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {

@@ -1,0 +1,8 @@
+[...array1, ...array2]
+{ ...object1, ...object2 }
+[...array1, array2]
+[...array1, object1]
+{ ...object1, object2 }
+{ ...object1, array2 }
+{ ...object1, ...array2 }
+[...array1, ...object1] // this combination throw an error in JavaScript

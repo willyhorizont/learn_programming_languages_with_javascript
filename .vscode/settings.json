@@ -1,3 +1,12 @@
 {
-    "workbench.colorTheme": "Noctis Bordo"
+    "workbench.colorTheme": "Noctis Bordo",
+    "[ruby]": {
+        // All of these settings are scoped only to the Ruby language
+        "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+        "editor.formatOnSave": true, // Format files automatically when saving
+        "editor.tabSize": 4, // Use 2 spaces for indentation
+        "editor.insertSpaces": true, // Use spaces and not tabs for indentantion
+        "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
+        "editor.formatOnType": true // Enable formatting while typing
+    }
 }

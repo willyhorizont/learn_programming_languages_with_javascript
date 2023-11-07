@@ -21,7 +21,11 @@ my_answer = 100.0
 print("my_answer: " .. my_answer)
 print("CORRECT_ANSWER: " .. tostring(CORRECT_ANSWER))
 print("(my_answer == CORRECT_ANSWER): ")
-if (my_answer == CORRECT_ANSWER) then print("Your answer is correct") else print("Your answer is wrong") end
+if (my_answer == CORRECT_ANSWER) then
+    print("Your answer is correct")
+else
+    print("Your answer is wrong")
+end
 
 print("\n-- not equal to (~=)\n")
 
@@ -29,7 +33,11 @@ my_answer = 25.0
 print("my_answer: " .. my_answer)
 print("CORRECT_ANSWER: " .. tostring(CORRECT_ANSWER))
 print("(my_answer ~= CORRECT_ANSWER): ")
-if (my_answer ~= CORRECT_ANSWER) then print("Your answer is correct") else print("Your answer is wrong") end
+if (my_answer ~= CORRECT_ANSWER) then
+    print("Your answer is correct")
+else
+    print("Your answer is wrong")
+end
 
 print("\n-- greater than (>)\n")
 

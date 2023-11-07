@@ -30,6 +30,9 @@ function get_type(something)
     if type(something) ~= "table" then
        return type(something) 
     end
+    if next(something) == nil then
+        return "empty_table"
+    end
     for k, v in pairs(something) do
         if type(k) == "number" and (k >= 1 and k <= #something) then
             return "array"
@@ -42,12 +45,13 @@ spread_syntax_object = function(...)
     local parameters = {...}
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
-        if get_type(parameter) == "object" then
+        local parameter_type = get_type(parameter)
+        if parameter_type == "object" then
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
             end
         end
-        if get_type(parameter) == "array" then
+        if parameter_type == "array" then
             for array_item_index, array_item in ipairs(parameter) do
                 new_object[tostring(array_item_index)] = array_item
             end

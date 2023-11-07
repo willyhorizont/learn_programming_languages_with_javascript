@@ -39,7 +39,7 @@ my %simple_calculator = (
     "subtraction" => sub { my ($a, $b) = @_; return $a - $b; }
 );
 
-my $simple_calculator_result1 = $simple_calculator{"addition"}->(3, 4);
+my $simple_calculator_result1 = $simple_calculator{"addition"}->(9, 3);
 
 my $simple_calculator = {
     "exponentiation" => \&exponentiation,
@@ -50,7 +50,7 @@ my $simple_calculator = {
     "subtraction" => sub { my ($a, $b) = @_; return $a - $b; }
 };
 
-my $simple_calculator_result1 = $simple_calculator->{"addition"}->(3, 4);
+my $simple_calculator_result1 = $simple_calculator->{"addition"}->(9, 3);
 
 $result = reduce {
     my ($current_result, $current_product) = @_;

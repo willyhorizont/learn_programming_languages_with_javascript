@@ -1,4 +1,8 @@
 =============================changelog==========================================
+18:37 | 06:37 PM | Tue | Nov | 07/11/2023
+0.0.23
+update and fix so many things
+=============================changelog==========================================
 22:09 | 10:09 PM | Sun | Nov | 05/11/2023
 0.0.21
 create comments.js, conditionals.js
@@ -30,7 +34,7 @@ create operator_spread.lua
 create operator_ternary.lua
 create factorial.lua
 create fizzbuzz.lua
-create functions.lua
+create function.lua
 create Array.js
 create Array.py
 create Array.php
@@ -41,12 +45,12 @@ create Array.lua
 =============================changelog==========================================
 19:53 | 07:53 PM | Wed | Nov | 01/11/2023
 0.0.18
-create functions.js
-create functions.py
-create functions.php
-create functions.go
-create functions.pl
-create functions.jl
+create function.js
+create function.py
+create function.php
+create function.go
+create function.pl
+create function.jl
 =============================changelog==========================================
 19:38 | 07:38 PM | Tue | Oct | 31/10/2023
 0.0.17

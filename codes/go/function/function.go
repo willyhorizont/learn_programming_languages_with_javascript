@@ -5,22 +5,23 @@ import (
 )
 
 // ? function statement or function declaration
+
 func getRectangleAreaV1(rectangleWidth int, rectangleLength int) int {
 	return rectangleWidth * rectangleLength
 }
 
+// call the function example: getRectangleAreaV1(3, 4)
+
 // ? Passing functions as arguments to other functions
 
-func sayHi(doSomething func()) {
-	fmt.Println("hi")
+func sayHelllo(doSomething func()) {
+	fmt.Println("hello")
 	doSomething()
 }
 
 func sayHowAreYou() {
 	fmt.Println("how are you?")
 }
-
-// ===================================================
 
 func addition(a int, b int) int {
 	return a + b
@@ -41,17 +42,18 @@ func multiplyV2(a int) func(b int) int {
 	}
 }
 
-// ===================================================
-
 func main() {
 	// ? function expression
+
 	getRectangleAreaV2 := func(rectangleWidth int, rectangleLength int) int {
 		return rectangleWidth * rectangleLength
 	}
+	// call the function example: getRectangleAreaV2(3, 4)
 
 	// ? anonymous function
+
 	// func(rectangleWidth int, rectangleLength int) int {
-	// 	return rectangleWidth * rectangleLength
+	// 	   return rectangleWidth * rectangleLength
 	// }
 
 	/*
@@ -63,15 +65,15 @@ func main() {
 
 	// ? Passing functions as arguments to other functions
 
-	sayHi(sayHowAreYou)
+	sayHelllo(sayHowAreYou)
 
-	sayHi(func() {
+	sayHelllo(func() {
 		fmt.Println("how are you?")
 	})
 
 	// ? Assigning functions to variables or storing them in data structures
 
-	getRectangleAreaV3 := func(rectangleWidth int, rectangleLength int) int {
+	getRectangleAreaV2Copy := func(rectangleWidth int, rectangleLength int) int {
 		return rectangleWidth * rectangleLength
 	}
 
@@ -81,9 +83,8 @@ func main() {
 			return rectangleWidth * rectangleLength
 		},
 	}
-
-	getRectangleAreaFunction1 := myArrayOfGetRectangleAreaFunctions[0](3, 5)
-	getRectangleAreaFunction2 := myArrayOfGetRectangleAreaFunctions[1](3, 5)
+	getRectangleAreaFunction1 := myArrayOfGetRectangleAreaFunctions[0](3, 4)
+	getRectangleAreaFunction2 := myArrayOfGetRectangleAreaFunctions[1](3, 4)
 
 	simpleCalculator := map[string]func(int, int) int{
 		"addition": addition,
@@ -91,8 +92,7 @@ func main() {
 			return rectangleWidth - rectangleLength
 		},
 	}
-
-	simpleCalculatorResult1 := simpleCalculator["addition"](3, 4)
+	simpleCalculatorResult1 := simpleCalculator["addition"](9, 3)
 	simpleCalculatorResult2 := simpleCalculator["subtraction"](35, 8)
 
 	// ? Returning functions as values from other functions (closure)
@@ -112,8 +112,8 @@ func main() {
 	multiplyBy4 := multiplyV3(4)
 	multiplyBy4Result := multiplyBy4(10) // 40
 
-	fmt.Println("getRectangleAreaV2(3, 5):", getRectangleAreaV2(3, 5))
-	fmt.Println("getRectangleAreaV3(3, 5):", getRectangleAreaV3(3, 5))
+	fmt.Println("getRectangleAreaV2(3, 4):", getRectangleAreaV2(3, 4))
+	fmt.Println("getRectangleAreaV2Copy(3, 4):", getRectangleAreaV2Copy(3, 4))
 	fmt.Println("getRectangleAreaFunction1:", getRectangleAreaFunction1)
 	fmt.Println("getRectangleAreaFunction2:", getRectangleAreaFunction2)
 	fmt.Println("simpleCalculatorResult1:", simpleCalculatorResult1)

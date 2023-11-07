@@ -34,6 +34,10 @@ console.log('grouped products:', JSON.stringify(productsGrouped, null, ' '.repea
 // grouped products: {
 //     "expensive": [
 //         {
+//             "code": "pasta",
+//             "price": 321
+//         },
+//         {
 //             "code": "bubble_gum",
 //             "price": 233
 //         },
@@ -43,10 +47,6 @@ console.log('grouped products:', JSON.stringify(productsGrouped, null, ' '.repea
 //         }
 //     ],
 //     "cheap": [
-//         {
-//             "code": "pasta",
-//             "price": 30
-//         },
 //         {
 //             "code": "potato_chips",
 //             "price": 5

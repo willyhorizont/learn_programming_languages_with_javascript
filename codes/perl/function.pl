@@ -7,8 +7,10 @@ sub get_rectangle_area_v1 {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 }
+# call the function example: get_rectangle_area_v1(3, 4)
 
 sub get_rectangle_area_v2 { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
+# call the function example: get_rectangle_area_v2(3, 4)
 
 # ? function expression
 
@@ -16,8 +18,10 @@ my $get_rectangle_area_v3 = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 };
+# call the function example: $get_rectangle_area_v3(3, 4)
 
 my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
+# call the function example: $get_rectangle_area_v4(3, 4)
 
 # ? anonymous function
 
@@ -35,9 +39,9 @@ my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_;
 
 # ? Passing functions as arguments to other functions
 
-sub say_hi {
+sub say_hello {
     my ($do_something2) = @_;
-    print("hi", "\n");
+    print("hello", "\n");
     $do_something2 -> ();
 }
 
@@ -45,22 +49,22 @@ sub say_how_are_you {
     print("how are you?", "\n");
 }
 
-say_hi(\&say_how_are_you);
+say_hello(\&say_how_are_you);
 
-say_hi(sub {
+say_hello(sub {
     print("how are you?", "\n");
 });
 
-say_hi(sub { print("how are you?", "\n") });
+say_hello(sub { print("how are you?", "\n") });
 
 # ? Assigning functions to variables or storing them in data structures
 
-my $get_rectangle_area_v5 = sub {
+my $get_rectangle_area_v3_copy = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 };
 
-my $get_rectangle_area_v6 = sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
+my $get_rectangle_area_v4_copy = sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
 
 my @my_array_of_get_rectangle_area_functions = (
     \&get_rectangle_area_v1,
@@ -71,9 +75,9 @@ my @my_array_of_get_rectangle_area_functions = (
     sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
 );
 
-my $get_rectangle_area_function1 = $my_array_of_get_rectangle_area_functions[0](3, 5);
-my $get_rectangle_area_function2 = $my_array_of_get_rectangle_area_functions[1](3, 5);
-my $get_rectangle_area_function3 = $my_array_of_get_rectangle_area_functions[2](3, 5);
+my $get_rectangle_area_function1 = $my_array_of_get_rectangle_area_functions[0](3, 4);
+my $get_rectangle_area_function2 = $my_array_of_get_rectangle_area_functions[1](3, 4);
+my $get_rectangle_area_function3 = $my_array_of_get_rectangle_area_functions[2](3, 4);
 
 sub exponentiation {
     my ($a, $b) = @_;
@@ -90,7 +94,7 @@ my $simple_calculator = {
 };
 
 my $simple_calculator_result1 = $simple_calculator->{"exponentiation"}->(2, 4);
-my $simple_calculator_result2 = $simple_calculator->{"addition"}->(3, 4);
+my $simple_calculator_result2 = $simple_calculator->{"addition"}->(9, 3);
 my $simple_calculator_result3 = $simple_calculator->{"subtraction"}->(35, 8);
 
 # ? Returning functions as values from other functions (closure)

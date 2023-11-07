@@ -1,23 +1,12 @@
-# 
-function get_rectangle_area_v1(rectangle_width, rectangle_length)
-    return rectangle_width * rectangle_length
-end
+using Printf
+using Statistics
+using JSON
 
-# x
-get_rectangle_area_v2(rectangle_width, rectangle_length) = rectangle_width * rectangle_length
+country_capitals_in_asia = Dict(
+    "Thailand" => "Bangkok",
+    "China" => "Beijing",
+    "Japan" => "Tokyo"
+)
 
-# 
-get_rectangle_area_v3 = function (rectangle_width, rectangle_length)
-    return rectangle_width * rectangle_length
-end
-
-# 
-function (rectangle_width, rectangle_length)
-    return rectangle_width * rectangle_length
-end
-
-# 
-get_rectangle_area_v6 = (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
-
-# 
-(rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
+country_capitals_in_asia_new = Dict(country_capitals_in_asia..., "Japan" => "Hiroshima")
+println("country_capitals_in_asia_new: ", JSON.json(country_capitals_in_asia_new, 4))

@@ -23,7 +23,10 @@ my_answer = 100.0
 print("my_answer: ", my_answer)
 print("CORRECT_ANSWER: ", CORRECT_ANSWER)
 print("(my_answer == CORRECT_ANSWER): ")
-print("Your answer is correct") if (my_answer == CORRECT_ANSWER) else print("Your answer is wrong")
+if (my_answer == CORRECT_ANSWER):
+    print("Your answer is correct")
+else:
+    print("Your answer is wrong")
 
 print("\n# not equal to (!=)\n")
 
@@ -31,7 +34,10 @@ my_answer = 25.0
 print("my_answer: ", my_answer)
 print("CORRECT_ANSWER: ", CORRECT_ANSWER)
 print("(my_answer != CORRECT_ANSWER): ")
-print("Your answer is correct") if (my_answer != CORRECT_ANSWER) else print("Your answer is wrong")
+if (my_answer != CORRECT_ANSWER):
+    print("Your answer is correct")
+else:
+    print("Your answer is wrong")
 
 print("\n# identical to (is)\n")
 
@@ -39,7 +45,10 @@ my_answer = 100.0
 print("my_answer: ", my_answer)
 print("CORRECT_ANSWER: ", CORRECT_ANSWER)
 print("(my_answer is CORRECT_ANSWER): ")
-print("Your answer is correct") if (my_answer is CORRECT_ANSWER) else print("Your answer is wrong")
+if (my_answer is CORRECT_ANSWER):
+    print("Your answer is correct")
+else:
+    print("Your answer is wrong")
 
 print("\n# not identical to (not)\n")
 
@@ -47,7 +56,10 @@ my_answer = 25.0
 print("my_answer: ", my_answer)
 print("CORRECT_ANSWER: ", CORRECT_ANSWER)
 print("(my_answer is not CORRECT_ANSWER): ")
-print("Your answer is correct") if (my_answer is not CORRECT_ANSWER) else print("Your answer is wrong")
+if (my_answer is not CORRECT_ANSWER):
+    print("Your answer is correct")
+else:
+    print("Your answer is wrong")
 
 print("\n# greater than (>)\n")
 
@@ -88,20 +100,14 @@ print("my_age: ", my_age)
 has_driving_license = False
 print("has_driving_license: ", has_driving_license)
 print("((my_age >= 17) and (has_driving_license == True)): ")
-if ((my_age >= 17) and (has_driving_license == True)):
-    print("You are allowed to drive")
-else:
-    print("You are not allowed to drive")
+print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
 my_age = 17
 print("my_age: ", my_age)
 has_driving_license = True
 print("has_driving_license: ", has_driving_license)
 print("((my_age >= 17) and (has_driving_license == True)): ")
-if ((my_age >= 17) and (has_driving_license == True)):
-    print("You are allowed to drive")
-else:
-    print("You are not allowed to drive")
+print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
 print("\n# Logical OR (or)\n")
 
