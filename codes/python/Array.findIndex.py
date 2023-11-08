@@ -127,41 +127,41 @@ products = [
 ]
 print(f'products: {json.dumps(products, indent=4)}')
 
-product_to_buy = 'pasta'
-print(f'product to buy: {product_to_buy}')
+product_found = 'pasta'
+print(f'product to buy: {product_found}')
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v1"')
 
-product_to_buy_index = array_find_index_v1(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v1(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v2"')
 
-product_to_buy_index = array_find_index_v2(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v2(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v3"')
 
-product_to_buy_index = array_find_index_v3(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v3(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v4"')
 
-product_to_buy_index = array_find_index_v4(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v4(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v5"')
 
-product_to_buy_index = array_find_index_v5(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v5(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v6"')
 
-product_to_buy_index = array_find_index_v6(lambda product, *_: product['code'] == product_to_buy, products)
-print(f'product to buy is at index: {product_to_buy_index}')
-# product to buy is at index: 0
+product_found_index = array_find_index_v6(lambda product, *_: product['code'] == product_found, products)
+print(f'product found index: {product_found_index}')
+# product found index: 0

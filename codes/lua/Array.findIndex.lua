@@ -161,41 +161,41 @@ products = {
 }
 print("products: " .. pretty_json_stringify(products))
 
-product_to_buy = "pasta"
-print("product to buy: " .. product_to_buy)
+product_found = "pasta"
+print("product to buy: " .. product_found)
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
-product_to_buy_index = array_find_index_v1(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v1(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
-product_to_buy_index = array_find_index_v2(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v2(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
-product_to_buy_index = array_find_index_v3(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v3(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
-product_to_buy_index = array_find_index_v4(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v4(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
-product_to_buy_index = array_find_index_v5(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v5(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
-product_to_buy_index = array_find_index_v6(function (product) return (product.code == product_to_buy) end, products)
-print("product to buy is at index: " .. product_to_buy_index)
--- product to buy is at index: 1
+product_found_index = array_find_index_v6(function (product) return (product.code == product_found) end, products)
+print("product found index: " .. product_found_index)
+-- product found index: 1

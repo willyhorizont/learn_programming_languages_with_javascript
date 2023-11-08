@@ -53,7 +53,7 @@ function fizzbuzz_v2(stop_number::Int)
     if (stop_number < 1) return "argument should be greater than 0" end
     result = ""
     number = 1
-    while number <= stop_number
+    while (number <= stop_number)
         if (result === "")
             result = string(number)
             number += 1
@@ -108,7 +108,7 @@ function fizzbuzz_v4(stop_number::Int)
     if (stop_number < 1) return "argument should be greater than 0" end
     result = ""
     number = 1
-    while number <= stop_number
+    while (number <= stop_number)
         if (result === "")
             result = string(number)
         elseif (((number % 3) === 0) && ((number % 5) === 0))
@@ -155,7 +155,7 @@ function fizzbuzz_v6(stop_number::Int)
     if (stop_number < 1) return "argument should be greater than 0" end
     result = ""
     number = 1
-    while number <= stop_number
+    while (number <= stop_number)
         result = ((result === "")
             ? string(number)
             : ((((number % 3) === 0) && ((number % 5) === 0))
@@ -192,7 +192,7 @@ function fizzbuzz_v8(stop_number::Int)
     if (stop_number < 1) return "argument should be greater than 0" end
     result = ""
     number = 1
-    while number <= stop_number
+    while (number <= stop_number)
         result = ((result === "") ? string(number) : ((((number % 3) === 0) && ((number % 5) === 0)) ? string(result, ", FizzBuzz") : (((number % 3) === 0) ? string(result, ", Fizz") : (((number % 5) === 0) ? string(result, ", Buzz") : string(result, ", ", number)))))
         number += 1
     end

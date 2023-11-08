@@ -6,16 +6,6 @@ function factorial_v1($number) {
     if (is_numeric($number) === false) return "argument should be a number";
     if (($number > 1) === false) return 1;
     $result = 1;
-    for ($i = $number; $i >= 1; $i -= 1) {
-        $result *= $i;
-    }
-    return $result;
-};
-
-function factorial_v2($number) {
-    if (is_numeric($number) === false) return "argument should be a number";
-    if (($number > 1) === false) return 1;
-    $result = 1;
     $i = $number;
     while (true) {
         $result *= $i;
@@ -25,7 +15,7 @@ function factorial_v2($number) {
     return $result;
 };
 
-function factorial_v3($number) {
+function factorial_v2($number) {
     if (is_numeric($number) === false) return "argument should be a number";
     if (($number > 1) === false) return 1;
     $result = 1;
@@ -33,6 +23,16 @@ function factorial_v3($number) {
     while ($i >= 1) {
         $result *= $i;
         $i -= 1;
+    }
+    return $result;
+};
+
+function factorial_v3($number) {
+    if (is_numeric($number) === false) return "argument should be a number";
+    if (($number > 1) === false) return 1;
+    $result = 1;
+    for ($i = $number; $i >= 1; $i -= 1) {
+        $result *= $i;
     }
     return $result;
 };

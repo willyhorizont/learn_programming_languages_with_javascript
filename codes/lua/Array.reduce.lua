@@ -88,6 +88,9 @@ spread_syntax_array = function(...)
             goto next
         end
         if parameter_type == "array" then
+            if #parameter == 0 then
+                goto next
+            end
             for array_item_index, array_item in ipairs(parameter) do
                 table.insert(new_array, array_item)
             end

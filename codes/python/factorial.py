@@ -9,8 +9,12 @@ def factorial_v1(number: int) -> int:
     if (number > 1) == False:
         return 1
     result = 1
-    for i in range(number, 0, -1):
+    i = number
+    while True:
         result *= i
+        i -= 1
+        if (i <= 0):
+            break
     return result
 
 
@@ -21,11 +25,9 @@ def factorial_v2(number: int) -> int:
         return 1
     result = 1
     i = number
-    while True:
+    while (i >= 1):
         result *= i
         i -= 1
-        if i <= 0:
-            break
     return result
 
 
@@ -35,10 +37,8 @@ def factorial_v3(number: int) -> int:
     if (number > 1) == False:
         return 1
     result = 1
-    i = number
-    while (i >= 1):
+    for i in range(number, 0, -1):
         result *= i
-        i -= 1
     return result
 
 

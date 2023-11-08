@@ -73,29 +73,29 @@ my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = false
 print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) && (has_driving_license === true)): ")
-if ((my_age >= 17) && (has_driving_license === true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
+print("((my_age >= 17) && (has_driving_license == true)): ")
+if ((my_age >= 17) && (has_driving_license == true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
 
 my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = true
 print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) && (has_driving_license === true)): ")
-if ((my_age >= 17) && (has_driving_license === true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
+print("((my_age >= 17) && (has_driving_license == true)): ")
+if ((my_age >= 17) && (has_driving_license == true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
 
 my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = false
 print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) and (has_driving_license === true)): ")
-if ((my_age >= 17) and (has_driving_license === true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
+print("((my_age >= 17) and (has_driving_license == true)): ")
+if ((my_age >= 17) and (has_driving_license == true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
 
 my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = true
 print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) and (has_driving_license === true)): ")
-if ((my_age >= 17) and (has_driving_license === true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
+print("((my_age >= 17) and (has_driving_license == true)): ")
+if ((my_age >= 17) and (has_driving_license == true)) then print("You are allowed to drive") else print("You are not allowed to drive") end
 
 print("\n# Logical OR [||, or]\n")
 

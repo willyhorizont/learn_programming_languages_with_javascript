@@ -313,7 +313,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v1((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v1((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -341,7 +341,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v2((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v2((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -369,7 +369,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v3((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v3((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -397,7 +397,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v4((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v4((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -425,7 +425,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v5((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v5((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -453,7 +453,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v6((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v6((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -481,7 +481,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v7((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v7((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -509,7 +509,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v8((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v8((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -537,7 +537,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v9((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v9((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -565,7 +565,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v10((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v10((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -593,7 +593,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v11((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v11((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -621,7 +621,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = array_filter_v12((product, _, _) -> (product["price"] >= 0), products)
+products_above_100 = array_filter_v12((product, _, _) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {
@@ -649,7 +649,7 @@ println("products with price <= 100 only: ", JSON.json(products_below_100, 4))
 #     }
 # ]
 
-products_above_100 = filter((product) -> (product["price"] >= 0), products)
+products_above_100 = filter((product) -> (product["price"]  >= 100), products)
 println("products with price >= 100 only: ", JSON.json(products_above_100, 4))
 # products with price >= 100 only: [
 #     {

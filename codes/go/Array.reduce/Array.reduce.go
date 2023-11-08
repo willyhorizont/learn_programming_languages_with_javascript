@@ -118,6 +118,31 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
+func spreadSyntaxArray(parameters ...Any) []Any {
+	var newArray = []Any{}
+	for _, parameter := range parameters {
+		parameterType := reflect.TypeOf(parameter).Kind()
+		if parameterType == reflect.Map {
+			if len(parameter.(Object)) == 1 {
+				for _, objectValue := range parameter.(Object) {
+					newArray = append(newArray, objectValue)
+				}
+				continue
+			}
+			newArray = append(newArray, parameter)
+			continue
+		}
+		if parameterType == reflect.Slice {
+			if len(parameter.([]Any)) == 0 {
+				continue
+			}
+			newArray = append(newArray, parameter.([]Any)...)
+			continue
+		}
+	}
+	return newArray
+}
+
 func arrayReduce(callbackFunction func(Any, Any, int, []Any) Any, anArray []Any, initialValue Any) Any {
 	// JavaScript-like Array.reduce() function
 	var result Any
@@ -171,10 +196,10 @@ func main() {
 
 	productsGrouped := arrayReduce(func(currentResult Any, currentProduct Any, _ int, _ []Any) Any {
 		if currentProduct.(Object)["price"].(int) > 100 {
-			return spreadSyntaxObject(currentResult, Object{"expensive": spreadSyntaxObject(currentResult.(Object)["expensive"], currentProduct)})
+			return spreadSyntaxObject(currentResult, Object{"expensive": spreadSyntaxArray(currentResult.(Object)["expensive"], Object{"currentProduct": currentProduct})})
 		}
-		return spreadSyntaxObject(currentResult, Object{"cheap": spreadSyntaxObject(currentResult.(Object)["cheap"], currentProduct)})
-	}, products, Object{"expensive": Object{}, "cheap": Object{}})
+		return spreadSyntaxObject(currentResult, Object{"cheap": spreadSyntaxArray(currentResult.(Object)["cheap"], Object{"currentProduct": currentProduct})})
+	}, products, Object{"expensive": []Any{}, "cheap": []Any{}})
 	fmt.Println("grouped products:", prettyJsonStringify(productsGrouped))
 	// grouped products: {
 	// 	"expensive": [

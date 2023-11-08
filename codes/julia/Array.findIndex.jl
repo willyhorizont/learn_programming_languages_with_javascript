@@ -165,47 +165,47 @@ products = [
 ]
 println("products: ", JSON.json(products, 4))
 
-product_to_buy = "pasta"
-println("product to buy: ", product_to_buy)
+product_found = "pasta"
+println("product to buy: ", product_found)
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
-product_to_buy_index = array_find_index_v1((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v1((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
-product_to_buy_index = array_find_index_v2((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v2((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
-product_to_buy_index = array_find_index_v3((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v3((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
-product_to_buy_index = array_find_index_v4((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v4((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
-product_to_buy_index = array_find_index_v5((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v5((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
-product_to_buy_index = array_find_index_v6((product, _, _) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = array_find_index_v6((product, _, _) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1
 
 println("# using Julia Array.findIndex() built-in function \"findfirst\"")
 
-product_to_buy_index = findfirst((product) -> (product["code"] === product_to_buy), products)
-println("product to buy is at index: ", product_to_buy_index)
-# product to buy is at index: 1
+product_found_index = findfirst((product) -> (product["code"] === product_found), products)
+println("product found index: ", product_found_index)
+# product found index: 1

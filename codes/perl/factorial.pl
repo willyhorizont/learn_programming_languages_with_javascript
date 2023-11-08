@@ -10,8 +10,11 @@ sub factorial_v1 {
     return "argument should be a number" if !(looks_like_number($number));
     return 1 if !($number > 1);
     my $result = 1;
-    for (my $i = $number; $i >= 1; $i -= 1) {
+    my $i = $number;
+    while (1) {
         $result *= $i;
+        $i -= 1;
+        last if ($i <= 0);
     }
     return $result;
 }
@@ -22,10 +25,9 @@ sub factorial_v2 {
     return 1 if !($number > 1);
     my $result = 1;
     my $i = $number;
-    while (1) {
+    while ($i >= 1) {
         $result *= $i;
         $i -= 1;
-        last if $i <= 0;
     }
     return $result;
 }
@@ -35,10 +37,8 @@ sub factorial_v3 {
     return "argument should be a number" if !(looks_like_number($number));
     return 1 if !($number > 1);
     my $result = 1;
-    my $i = $number;
-    while ($i >= 1) {
+    for (my $i = $number; $i >= 1; $i -= 1) {
         $result *= $i;
-        $i -= 1;
     }
     return $result;
 }

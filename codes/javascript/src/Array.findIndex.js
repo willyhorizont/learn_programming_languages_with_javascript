@@ -6,7 +6,7 @@ console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 const myLuckyNumber = 27;
 console.log(`my lucky number: ${myLuckyNumber}`);
 
-const myLuckyNumberIndex = numbers.findIndex((number) => number === myLuckyNumber);
+const myLuckyNumberIndex = numbers.findIndex((number) => (number === myLuckyNumber));
 console.log(`my lucky number is at index: ${myLuckyNumberIndex}`);
 // my lucky number is at index: 2
 
@@ -32,9 +32,9 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productToBuy = 'pasta';
-console.log(`product to buy: ${productToBuy}`);
+const productFound = 'pasta';
+console.log(`product to buy: ${productFound}`);
 
-const productToBuyIndex = products.findIndex((product) => product.code === productToBuy);
-console.log(`product to buy is at index: ${productToBuyIndex}`);
-// product to buy is at index: 0
+const productFoundIndex = products.findIndex((product) => (product?.code === productFound));
+console.log(`product found index: ${productFoundIndex}`);
+// product found index: 0

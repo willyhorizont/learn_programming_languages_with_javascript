@@ -50,12 +50,15 @@ spread_syntax_object = function(...)
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
             end
+            goto next
         end
         if parameter_type == "array" then
             for array_item_index, array_item in ipairs(parameter) do
                 new_object[tostring(array_item_index)] = array_item
             end
+            goto next
         end
+        ::next::
     end
     return new_object
 end

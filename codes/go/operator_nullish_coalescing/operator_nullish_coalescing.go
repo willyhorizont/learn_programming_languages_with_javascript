@@ -20,11 +20,11 @@ func prettyJsonStringify(anythingLikeJson Any) string {
 	return "undefined"
 }
 
-func nullishCoalescing(value Any, defaultValue Any) Any {
-	if value == nil {
+func nullishCoalescing(anything Any, defaultValue Any) Any {
+	if anything == nil {
 		return defaultValue
 	} else {
-		return value
+		return anything
 	}
 }
 

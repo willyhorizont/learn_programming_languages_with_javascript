@@ -9,17 +9,6 @@ func factorialV1(number int) int {
 		return 1
 	}
 	result := 1
-	for i := number; i >= 1; i -= 1 {
-		result *= i
-	}
-	return result
-}
-
-func factorialV2(number int) int {
-	if (number > 1) == false {
-		return 1
-	}
-	result := 1
 	i := number
 	for true {
 		result *= i
@@ -31,7 +20,7 @@ func factorialV2(number int) int {
 	return result
 }
 
-func factorialV3(number int) int {
+func factorialV2(number int) int {
 	if (number > 1) == false {
 		return 1
 	}
@@ -40,6 +29,17 @@ func factorialV3(number int) int {
 	for i >= 1 {
 		result *= i
 		i -= 1
+	}
+	return result
+}
+
+func factorialV3(number int) int {
+	if (number > 1) == false {
+		return 1
+	}
+	result := 1
+	for i := number; i >= 1; i -= 1 {
+		result *= i
 	}
 	return result
 }

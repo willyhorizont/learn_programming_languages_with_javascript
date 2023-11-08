@@ -33,7 +33,7 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productsBelow100 = products.filter((product) => product.price <= 100);
+const productsBelow100 = products.filter((product) => (product?.price <= 100));
 console.log(`products with price <= 100 only: ${JSON.stringify(productsBelow100, null, ' '.repeat(4))}`);
 // products with price <= 100 only: [
 //     {
@@ -42,7 +42,7 @@ console.log(`products with price <= 100 only: ${JSON.stringify(productsBelow100,
 //     }
 // ]
 
-const productsAbove100 = products.filter((product) => product.price >= 100);
+const productsAbove100 = products.filter((product) => (product?.price >= 100));
 console.log(`products with price >= 100 only: ${JSON.stringify(productsAbove100, null, ' '.repeat(4))}`);
 // products with price >= 100 only: [
 //     {

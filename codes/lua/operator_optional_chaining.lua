@@ -19,7 +19,7 @@ end
 function optional_chaining_v1(an_object, ...)
     -- JavaScript-like Optional Chaining Operator (?.) function
     local object_properties_array = {...}
-    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or "undefined")) or (current_result[current_item] or "undefined")) end, object_properties_array, nil)
+    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or nil)) or (current_result[current_item] or nil)) end, object_properties_array, nil)
 end
 
 function optional_chaining_v2(an_object, object_properties_string)
@@ -28,7 +28,7 @@ function optional_chaining_v2(an_object, object_properties_string)
     for match in object_properties_string:gmatch("([^%.]+)") do
         table.insert(object_properties_array, match)
     end
-    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or "undefined")) or (current_result[current_item] or "undefined")) end, object_properties_array, nil)
+    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or nil)) or (current_result[current_item] or nil)) end, object_properties_array, nil)
 end
 
 JSON_OBJECT = {

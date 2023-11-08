@@ -148,9 +148,12 @@ products = [
 ]
 print(f'products: {json.dumps(products, indent=4)}')
 
+product_to_find = "bubble_gum"
+print(f'product to find: "{product_to_find}"')
+
 print('# using JavaScript-like Array.find() function "array_find_v1"')
 
-product_found = array_find_v1(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v1(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -159,7 +162,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v2"')
 
-product_found = array_find_v2(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v2(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -168,7 +171,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v3"')
 
-product_found = array_find_v3(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v3(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -177,7 +180,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v4"')
 
-product_found = array_find_v4(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v4(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -186,7 +189,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v5"')
 
-product_found = array_find_v5(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v5(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -195,7 +198,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v6"')
 
-product_found = array_find_v6(lambda product, *_: product['code'] == 'bubble_gum', products)
+product_found = array_find_v6(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",

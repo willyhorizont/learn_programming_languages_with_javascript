@@ -286,10 +286,13 @@ func main() {
 
 	var productFound Any
 
+	productToFind := "bubble_gum"
+	fmt.Println("product to find:", prettyJsonStringify(productToFind))
+
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 
 	productFound = arrayFindV1(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gu"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -300,7 +303,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV2\"")
 
 	productFound = arrayFindV2(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gum"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -311,7 +314,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV3\"")
 
 	productFound = arrayFindV3(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gum"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -322,7 +325,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
 	productFound = arrayFindV4(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gum"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -333,7 +336,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
 
 	productFound = arrayFindV5(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gum"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -344,7 +347,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
 
 	productFound = arrayFindV6(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == "bubble_gum"
+		return product.(Object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {

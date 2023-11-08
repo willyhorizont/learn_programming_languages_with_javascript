@@ -22,13 +22,16 @@ function optional_chaining_v2(an_object, object_properties_string)
     for match in object_properties_string:gmatch("([^%.]+)") do
         table.insert(object_properties_array, match)
     end
-    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or "undefined")) or (current_result[current_item] or "undefined")) end, object_properties_array, nil)
+    return array_reduce(function (current_result, current_item) return (((current_result == nil) and (an_object[current_item] or nil)) or (current_result[current_item] or nil)) end, object_properties_array, nil)
 end
 
-function nullish_coalescing(an_object, object_properties_string)
+function nullish_coalescing(anything, default_value)
     -- JavaScript-like Nullish Coalescing Operator (??) function
-    local value = optional_chaining_v2(an_object, object_properties_string)
-    return (((value == nil) and default_value) or value)
+    if (anything == nil) then
+        return default_value
+    else
+        return anything
+    end
 end
 
 JSON_OBJECT = {
@@ -40,8 +43,8 @@ print("JSON_OBJECT: " .. pretty_json_stringify(JSON_OBJECT))
 
 print("-- using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
 
-print("JSON_OBJECT?.foo?.bar ?? \"not found\": " .. nullish_coalescing(JSON_OBJECT, "foo.bar", "not found"))
+print("JSON_OBJECT?.foo?.bar ?? \"not found\": " .. nullish_coalescing(optional_chaining_v2(JSON_OBJECT, "foo.bar"), "not found"))
 -- JSON_OBJECT?.foo?.bar ?? "not found": baz
 
-print("JSON_OBJECT?.foo?.baz ?? \"not found\": " .. nullish_coalescing(JSON_OBJECT, "foo.baz", "not found"))
+print("JSON_OBJECT?.foo?.baz ?? \"not found\": " .. nullish_coalescing(optional_chaining_v2(JSON_OBJECT, "foo.baz"), "not found"))
 -- JSON_OBJECT?.foo?.baz ?? "not found": not found

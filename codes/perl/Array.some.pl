@@ -22,7 +22,8 @@ sub pretty_array_of_primitives {
 
 sub array_some_v1 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -36,7 +37,8 @@ sub array_some_v1 {
 
 sub array_some_v2 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -48,7 +50,8 @@ sub array_some_v2 {
 
 sub array_some_v3 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -62,7 +65,8 @@ sub array_some_v3 {
 
 sub array_some_v4 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -74,7 +78,8 @@ sub array_some_v4 {
 
 sub array_some_v5 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
@@ -87,7 +92,8 @@ sub array_some_v5 {
 
 sub array_some_v6 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
@@ -98,7 +104,8 @@ sub array_some_v6 {
 
 sub array_some_v7 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
         if ($callback_function->($array_item, $array_item_index, \@an_array)) {
@@ -110,7 +117,8 @@ sub array_some_v7 {
 
 sub array_some_v8 {
     # JavaScript-like Array.some() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
         return 1 if ($callback_function->($array_item, $array_item_index, \@an_array));
@@ -128,91 +136,91 @@ my $is_any_number_more_than_500;
 
 print("# using JavaScript-like Array.some() function \"array_some_v1\"\n");
 
-$is_any_number_less_than_500 = (array_some_v1(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v1(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v1(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v1(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v2\"\n");
 
-$is_any_number_less_than_500 = (array_some_v2(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v2(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v2(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v2(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v3\"\n");
 
-$is_any_number_less_than_500 = (array_some_v3(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v3(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v3(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v3(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v4\"\n");
 
-$is_any_number_less_than_500 = (array_some_v4(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v4(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v4(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v4(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v5\"\n");
 
-$is_any_number_less_than_500 = (array_some_v5(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v5(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v5(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v5(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v6\"\n");
 
-$is_any_number_less_than_500 = (array_some_v6(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v6(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v6(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v6(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v7\"\n");
 
-$is_any_number_less_than_500 = (array_some_v7(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v7(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v7(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v7(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v8\"\n");
 
-$is_any_number_less_than_500 = (array_some_v8(sub { my ($number) = @_; return $number < 500; }, @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = (array_some_v8(sub { my ($number) = @_; return ($number < 500); }, \@numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = (array_some_v8(sub { my ($number) = @_; return $number > 500; }, @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = (array_some_v8(sub { my ($number) = @_; return ($number > 500); }, \@numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
 print("# using Perl Array.some() built-in function List::Util any\n");
 
-$is_any_number_less_than_500 = ((any { my $number = $_; return $number < 500; } @numbers) ? "true" : "false");
+$is_any_number_less_than_500 = ((any { my $number = $_; return ($number < 500); } @numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = ((any { my $number = $_; return $number > 500; } @numbers) ? "true" : "false");
+$is_any_number_more_than_500 = ((any { my $number = $_; return ($number > 500); } @numbers) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
@@ -244,90 +252,90 @@ my $is_any_product_price_more_than_500;
 
 print("# using JavaScript-like Array.some() function \"array_some_v1\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v1(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v1(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v1(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v1(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v2\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v2(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v2(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v2(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v2(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v3\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v3(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v3(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v3(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v3(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v4\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v4(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v4(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v4(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v4(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v5\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v5(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v5(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v5(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v5(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v6\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v6(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v6(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v6(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v6(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v7\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v7(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v7(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v7(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v7(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using JavaScript-like Array.some() function \"array_some_v8\"\n");
 
-$is_any_product_price_less_than_500 = (array_some_v8(sub { my ($product) = @_; return $product->{"price"} < 500; }, @products) ? "true" : "false");
+$is_any_product_price_less_than_500 = (array_some_v8(sub { my ($product) = @_; return ($product->{"price"} < 500); }, \@products) ? "true" : "false");
 print("is any product price < 500: $is_any_product_price_less_than_500\n");
 # is any product price < 500: true
 
-$is_any_product_price_more_than_500 = (array_some_v8(sub { my ($product) = @_; return $product->{"price"} > 500; }, @products) ? "true" : "false");
+$is_any_product_price_more_than_500 = (array_some_v8(sub { my ($product) = @_; return ($product->{"price"} > 500); }, \@products) ? "true" : "false");
 print("is any product price > 500: $is_any_product_price_more_than_500\n");
 # is any product price > 500: false
 
 print("# using Perl Array.some() built-in function \"List::Util\" \"any\"\n");
 
-$is_any_number_less_than_500 = ((any { my $product = $_; return $product->{"price"} < 500; } @products) ? "true" : "false");
+$is_any_number_less_than_500 = ((any { my $product = $_; return ($product->{"price"} < 500); } @products) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");
 # is any number < 500: true
 
-$is_any_number_more_than_500 = ((any { my $product = $_; return $product->{"price"} > 500; } @products) ? "true" : "false");
+$is_any_number_more_than_500 = ((any { my $product = $_; return ($product->{"price"} > 500); } @products) ? "true" : "false");
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false

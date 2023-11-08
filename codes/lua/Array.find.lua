@@ -182,9 +182,12 @@ products = {
 }
 print("products: " .. pretty_json_stringify(products))
 
+product_to_find = "bubble_gum"
+print("product to find: " .. "\"" .. product_to_find .. "\"")
+
 print("-- using JavaScript-like Array.find() function \"array_find_v1\"")
 
-product_found = array_find_v1(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v1(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
@@ -193,7 +196,7 @@ print("products with price <= 100 only: " .. pretty_json_stringify(product_found
 
 print("-- using JavaScript-like Array.find() function \"array_find_v2\"")
 
-product_found = array_find_v2(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v2(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
@@ -202,7 +205,7 @@ print("products with price <= 100 only: " .. pretty_json_stringify(product_found
 
 print("-- using JavaScript-like Array.find() function \"array_find_v3\"")
 
-product_found = array_find_v3(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v3(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
@@ -211,7 +214,7 @@ print("products with price <= 100 only: " .. pretty_json_stringify(product_found
 
 print("-- using JavaScript-like Array.find() function \"array_find_v4\"")
 
-product_found = array_find_v4(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v4(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
@@ -220,7 +223,7 @@ print("products with price <= 100 only: " .. pretty_json_stringify(product_found
 
 print("-- using JavaScript-like Array.find() function \"array_find_v5\"")
 
-product_found = array_find_v5(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v5(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
@@ -229,7 +232,7 @@ print("products with price <= 100 only: " .. pretty_json_stringify(product_found
 
 print("-- using JavaScript-like Array.find() function \"array_find_v6\"")
 
-product_found = array_find_v6(function (product) return (product.code == "bubble_gum") end, products)
+product_found = array_find_v6(function (product) return (product.code == product_to_find) end, products)
 print("products with price <= 100 only: " .. pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",

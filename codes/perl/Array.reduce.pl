@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use JSON;
-use List::Util qw(reduce);
 use Scalar::Util qw(looks_like_number);
 
 sub pretty_array_of_primitives {
@@ -52,28 +51,6 @@ sub spread_syntax_object_v1 {
         my $object_key = $_[$i];
         my $object_value = $_[$i + 1];
         $new_object{$object_key} = $object_value;
-    }
-    return %new_object;
-}
-
-sub spread_syntax_object_v2 {
-    my %new_object;
-    for my $ref (@_) {
-        if (ref $ref eq "HASH") {
-            my %an_object = %$ref;
-            while (my ($object_key, $object_value) = each %an_object) {
-                $new_object{$object_key} = $object_value;
-            }
-            next;
-        }
-        if (ref $ref eq "ARRAY") {
-            my @an_array = @$ref;
-            for my $array_item_index (0..$#an_array) {
-                my $array_item = $an_array[$array_item_index];
-                $new_object{$array_item_index} = $array_item;
-            }
-            next;
-        }
     }
     return %new_object;
 }

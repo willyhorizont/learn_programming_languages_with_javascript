@@ -8,8 +8,13 @@ function factorial_v1(number)
         return 1
     end
     local result = 1
-    for i = number, 1, -1 do
+    local i = number
+    while true do
         result = result * i
+        i = i - 1
+        if  (i <= 0) then
+            break
+        end
     end
     return result
 end
@@ -23,12 +28,9 @@ function factorial_v2(number)
     end
     local result = 1
     local i = number
-    while true do
+    while (i >= 1) do
         result = result * i
         i = i - 1
-        if  i <= 0 then
-            break
-        end
     end
     return result
 end
@@ -41,10 +43,8 @@ function factorial_v3(number)
         return 1
     end
     local result = 1
-    local i = number
-    while (i >= 1) do
+    for i = number, 1, -1 do
         result = result * i
-        i = i - 1
     end
     return result
 end

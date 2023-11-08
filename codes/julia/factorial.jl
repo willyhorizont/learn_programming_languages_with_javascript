@@ -8,17 +8,6 @@ function factorial_v1(number::Int)
         return 1
     end
     result = 1
-    for i in number:-1:1
-        result *= i
-    end
-    return result
-end
-
-function factorial_v2(number::Int)
-    if ((number > 1) === false)
-        return 1
-    end
-    result = 1
     i = number
     while true
         result *= i
@@ -30,15 +19,26 @@ function factorial_v2(number::Int)
     return result
 end
 
-function factorial_v3(number::Int)
+function factorial_v2(number::Int)
     if ((number > 1) === false)
         return 1
     end
     result = 1
     i = number
-    while i >= 1
+    while (i >= 1)
         result *= i
         i -= 1
+    end
+    return result
+end
+
+function factorial_v3(number::Int)
+    if ((number > 1) === false)
+        return 1
+    end
+    result = 1
+    for i in number:-1:1
+        result *= i
     end
     return result
 end

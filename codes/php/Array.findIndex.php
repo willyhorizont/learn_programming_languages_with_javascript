@@ -158,41 +158,41 @@ $products = [
 ];
 echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
 
-$product_to_buy = 'pasta';
-echo("\nproduct I want: $product_to_buy");
+$product_found = 'pasta';
+echo("\nproduct I want: $product_found");
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v1\"");
 
-$product_to_buy_index = array_find_index_v1(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v1(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v2\"");
 
-$product_to_buy_index = array_find_index_v2(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v2(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v3\"");
 
-$product_to_buy_index = array_find_index_v3(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v3(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
-$product_to_buy_index = array_find_index_v4(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v4(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v5\"");
 
-$product_to_buy_index = array_find_index_v5(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v5(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v6\"");
 
-$product_to_buy_index = array_find_index_v6(fn($product) => @$product['code'] === $product_to_buy, $products);
-echo("\nproduct I want is at index: $product_to_buy_index");
-// product to buy is at index: 0
+$product_found_index = array_find_index_v6(fn($product) => @$product['code'] === $product_found, $products);
+echo("\nproduct I want is at index: $product_found_index");
+// product found index: 0

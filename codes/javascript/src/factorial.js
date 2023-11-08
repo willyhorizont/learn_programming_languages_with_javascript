@@ -4,16 +4,6 @@ const factorialV1 = (number) => {
     if (typeof number !== "number") return "argument should be a number";
     if ((number > 1) === false) return 1;
     let result = 1;
-    for (let i = number; i >= 1; i -= 1) {
-        result *= i;
-    }
-    return result;
-};
-
-const factorialV2 = (number) => {
-    if (typeof number !== "number") return "argument should be a number";
-    if ((number > 1) === false) return 1;
-    let result = 1;
     let i = number;
     while (true) {
         result *= i;
@@ -23,7 +13,7 @@ const factorialV2 = (number) => {
     return result;
 };
 
-const factorialV3 = (number) => {
+const factorialV2 = (number) => {
     if (typeof number !== "number") return "argument should be a number";
     if ((number > 1) === false) return 1;
     let result = 1;
@@ -31,6 +21,16 @@ const factorialV3 = (number) => {
     while (i >= 1) {
         result *= i;
         i -= 1;
+    }
+    return result;
+};
+
+const factorialV3 = (number) => {
+    if (typeof number !== "number") return "argument should be a number";
+    if ((number > 1) === false) return 1;
+    let result = 1;
+    for (let i = number; i >= 1; i -= 1) {
+        result *= i;
     }
     return result;
 };

@@ -33,7 +33,10 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productFound = products.find((product) => (product.code === 'bubble_gum'));
+const productToFind = "bubble_gum";
+console.log(`product to find: "${productToFind}"`);
+
+const productFound = products.find((product) => (product?.code === productToFind));
 console.log(`product found: ${JSON.stringify(productFound, null, ' '.repeat(4))}`);
 // product found: {
 //     "code": "bubble_gum",

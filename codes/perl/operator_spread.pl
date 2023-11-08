@@ -24,14 +24,6 @@ sub pretty_array_of_primitives {
     return $result;
 }
 
-sub spread_syntax_array2 {
-    my @new_array;
-    for my $parameter (@_) {
-        push(@new_array, $parameter);
-    }
-    return @new_array;
-}
-
 sub spread_syntax_array {
     my @new_array;
     for my $parameter (@_) {

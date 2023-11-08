@@ -1,4 +1,27 @@
 =============================changelog==========================================
+23:58 | 11:58 PM | Wed | Nov | 08/11/2023
+0.0.24
+create comment.rb
+create conditionals.rb
+create Array.rb
+create Array.every.rb
+create Array.filter.rb
+create Array.find.rb
+create Array.findIndex.rb
+create Array.includes.rb
+create Array.map.rb
+create Array.reduce.rb
+create Array.some.rb
+create factorial.rb
+create fizzbuzz.rb
+create function.rb
+create hello_world.rb
+create operator_nullish_coalescing.rb
+create operator_optional_chaining.rb
+create operator_spread.rb
+create operator_ternary.rb
+create, update and fix so many things
+=============================changelog==========================================
 18:37 | 06:37 PM | Tue | Nov | 07/11/2023
 0.0.23
 update and fix so many things

@@ -60,7 +60,7 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-const productsLabeled = products.map((product) => ({ ...product, label: ((product.price > 100) ? 'expensive' : 'cheap') }));
+const productsLabeled = products.map((product) => ({ ...product, label: ((product?.price > 100) ? 'expensive' : 'cheap') }));
 console.log(`labeled products: ${JSON.stringify(productsLabeled, null, ' '.repeat(4))}`);
 // labeled products: [
 //     {

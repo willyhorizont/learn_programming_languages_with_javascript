@@ -197,9 +197,12 @@ products = [
 ]
 println("products: ", JSON.json(products, 4))
 
+product_to_find = "bubble_gum"
+println("product to find: \"$product_to_find\"")
+
 println("# using JavaScript-like Array.find() function \"array_find_v1\"")
 
-product_found = array_find_v1((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v1((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -208,7 +211,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v2\"")
 
-product_found = array_find_v2((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v2((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -217,7 +220,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v3\"")
 
-product_found = array_find_v3((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v3((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -226,7 +229,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v4\"")
 
-product_found = array_find_v4((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v4((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -235,7 +238,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v5\"")
 
-product_found = array_find_v5((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v5((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -244,7 +247,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v6\"")
 
-product_found = array_find_v6((product, _, _) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v6((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",
@@ -253,7 +256,7 @@ println("product found: ", JSON.json(product_found, 4))
 
 println("# using JavaScript-like Array.find() function \"array_find_v7\"")
 
-product_found = array_find_v7((product) -> (product["code"] === "bubble_gum"), products)
+product_found = array_find_v7((product) -> (product["code"] === product_to_find), products)
 println("product found: ", JSON.json(product_found, 4))
 # product found: {
 #     "code": "bubble_gum",

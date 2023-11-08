@@ -18,19 +18,13 @@ def array_reduce(callback_function, an_array, initial_value):
 optional_chaining_v6 = lambda an_object={}, object_properties_string='': array_reduce(lambda current_result, current_item, *_: an_object.get(current_item) if current_result is None else current_result.get(current_item), object_properties_string.split('.'), None)
 
 
-def nullish_coalescing_v1(an_object={}, object_properties_string='', default_value=None):
+def nullish_coalescing_v1(anything, default_value):
     '''JavaScript-like Nullish Coalescing Operator (??) function'''
-    value = optional_chaining_v6(an_object, object_properties_string)
-    return default_value if value is None else value
-
-
-def nullish_coalescing_v2(an_object={}, object_properties_string='', default_value=None):
-    '''JavaScript-like Nullish Coalescing Operator (??) function'''
-    return default_value if (value := optional_chaining_v6(an_object, object_properties_string)) is None else value
+    return default_value if anything is None else anything
 
 
 '''JavaScript-like Nullish Coalescing Operator (??) function'''
-nullish_coalescing_v3 = lambda an_object={}, object_properties_string='', default_value=None: default_value if (value := optional_chaining_v6(an_object, object_properties_string)) is None else value
+nullish_coalescing_v2 = lambda anything, default_value: default_value if anything is None else anything
 
 JSON_OBJECT = {
     "foo": {
@@ -41,32 +35,16 @@ print(f'JSON_OBJECT: {json.dumps(JSON_OBJECT, indent=4)}')
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v1"')
 
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v1(JSON_OBJECT, "foo.bar", "not found")}')
+print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v6(JSON_OBJECT, "foo.bar"), "not found")}')
 # JSON_OBJECT?.foo?.bar ?? "not found": baz
 
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v1(JSON_OBJECT, "foo.baz", "not found")}')
+print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v6(JSON_OBJECT, "foo.baz"), "not found")}')
 # JSON_OBJECT?.foo?.baz ?? "not found": not found
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v2"')
 
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v2(JSON_OBJECT, "foo.bar", "not found")}')
+print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v6(JSON_OBJECT, "foo.bar"), "not found")}')
 # JSON_OBJECT?.foo?.bar ?? "not found": baz
 
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v2(JSON_OBJECT, "foo.baz", "not found")}')
-# JSON_OBJECT?.foo?.baz ?? "not found": not found
-
-print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v3"')
-
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v3(JSON_OBJECT, "foo.bar", "not found")}')
-# JSON_OBJECT?.foo?.bar ?? "not found": baz
-
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v3(JSON_OBJECT, "foo.baz", "not found")}')
-# JSON_OBJECT?.foo?.baz ?? "not found": not found
-
-print('# using the "pythonic" way')
-
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {"not found" if (result := optional_chaining_v6(JSON_OBJECT, "foo.bar")) is None else result}')
-# JSON_OBJECT?.foo?.bar ?? "not found": baz
-
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {"not found" if (result := optional_chaining_v6(JSON_OBJECT, "foo.baz")) is None else result}')
+print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v6(JSON_OBJECT, "foo.baz"), "not found")}')
 # JSON_OBJECT?.foo?.baz ?? "not found": not found

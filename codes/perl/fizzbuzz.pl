@@ -364,8 +364,6 @@ sub fizzbuzz_v16 {
     return $result;
 }
 
-sub fizzbuzz_v17 { my ($stop_number) = @_; return (!(looks_like_number($stop_number)) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : join(", ", map { my $number = $_; (((($number % 3) == 0) && (($number % 5) == 0)) ? "FizzBuzz" : ((($number % 3) == 0) ? "Fizz" : ((($number % 5) == 0) ? "Buzz" : "$number"))) } 1..$stop_number))); }
-
 print("# using fizzbuzz function \"fizzbuzz_v1\"\n");
 print("FizzBuzz(36): ", fizzbuzz_v1(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
@@ -428,8 +426,4 @@ print("FizzBuzz(36): ", fizzbuzz_v15(36), "\n");
 
 print("# using fizzbuzz function \"fizzbuzz_v16\"\n");
 print("FizzBuzz(36): ", fizzbuzz_v16(36), "\n");
-# FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-print("# using fizzbuzz function \"fizzbuzz_v17\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v17(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

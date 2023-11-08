@@ -25,3 +25,7 @@ to run Julia code:
 to run Lua code:
 1. cd codes/lua
 2. lua filename.lua
+
+to run Ruby code:
+1. cd codes/ruby
+2. ruby filename.rb

@@ -24,7 +24,8 @@ sub pretty_array_of_primitives {
 
 sub array_filter_v1 {
     # JavaScript-like Array.filter() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my @data_filtered = ();
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -38,7 +39,8 @@ sub array_filter_v1 {
 
 sub array_filter_v2 {
     # JavaScript-like Array.filter() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my @data_filtered = ();
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -50,7 +52,8 @@ sub array_filter_v2 {
 
 sub array_filter_v3 {
     # JavaScript-like Array.filter() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my @data_filtered = ();
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -63,7 +66,8 @@ sub array_filter_v3 {
 
 sub array_filter_v4 {
     # JavaScript-like Array.filter() function
-    my ($callback_function, @an_array) = @_;
+    my ($callback_function, $an_array_ref) = @_;
+    my @an_array = @$an_array_ref;
     my @data_filtered = ();
     for my $array_item_index (0..$#an_array) {
         my $array_item = $an_array[$array_item_index];
@@ -82,41 +86,41 @@ my @numbers_odd;
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
-@numbers_even = array_filter_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
+@numbers_even = array_filter_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v1(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
+@numbers_odd = array_filter_v1(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
-@numbers_even = array_filter_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
+@numbers_even = array_filter_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v2(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
+@numbers_odd = array_filter_v2(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
 
-@numbers_even = array_filter_v3(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
+@numbers_even = array_filter_v3(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v3(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
+@numbers_odd = array_filter_v3(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
 
-@numbers_even = array_filter_v4(sub { my ($number) = @_; return (($number % 2) == 0); }, @numbers);
+@numbers_even = array_filter_v4(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
 print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
-@numbers_odd = array_filter_v4(sub { my ($number) = @_; return (($number % 2) != 0); }, @numbers);
+@numbers_odd = array_filter_v4(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
 print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
@@ -148,7 +152,7 @@ my @products_above_100;
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
-@products_below_100 = array_filter_v1(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
+@products_below_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -157,7 +161,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v1(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
+@products_above_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -176,7 +180,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
-@products_below_100 = array_filter_v2(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
+@products_below_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -185,7 +189,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v2(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
+@products_above_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -204,7 +208,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v3\"\n");
 
-@products_below_100 = array_filter_v3(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
+@products_below_100 = array_filter_v3(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -213,7 +217,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v3(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
+@products_above_100 = array_filter_v3(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {
@@ -232,7 +236,7 @@ print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->enco
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v4\"\n");
 
-@products_below_100 = array_filter_v4(sub { my ($product) = @_; return $product->{"price"} <= 100; }, @products);
+@products_below_100 = array_filter_v4(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
 print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_below_100));
 # products with price <= 100 only: [
 #     {
@@ -241,7 +245,7 @@ print("products with price <= 100 only: ", JSON->new->allow_nonref->pretty->enco
 #     }
 # ]
 
-@products_above_100 = array_filter_v4(sub { my ($product) = @_; return $product->{"price"} >= 100; }, @products);
+@products_above_100 = array_filter_v4(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
 print("products with price >= 100 only: ", JSON->new->allow_nonref->pretty->encode(\@products_above_100));
 # products with price >= 100 only: [
 #     {

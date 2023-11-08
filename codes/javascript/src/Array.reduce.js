@@ -3,7 +3,7 @@ console.log('\n// Array.reduce() in JavaScript Array');
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
-const numbersTotal = numbers.reduce((currentResult, currentNumber) => currentResult + currentNumber, 0);
+const numbersTotal = numbers.reduce((currentResult, currentNumber) => (currentResult + currentNumber), 0);
 console.log('total number:', numbersTotal);
 // total numbers: 635
 
