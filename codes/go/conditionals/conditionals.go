@@ -21,10 +21,22 @@ func main() {
 	*/
 	CORRECT_ANSWER := 100
 
-	var myAge int
 	var myAnswer int
+	var myAge int
 	var hasDrivingLicense bool
 	var canDrive bool
+
+	fmt.Println("\n// basic conditional control flow\n")
+
+	myAge = 10
+	fmt.Println("myAge:", myAge)
+	if myAge > 24 {
+		fmt.Println("you are old")
+	} else if myAge > 17 {
+		fmt.Println("you are young")
+	} else {
+		fmt.Println("you are under age")
+	}
 
 	fmt.Println("\n// equal to (==)\n")
 
@@ -45,9 +57,9 @@ func main() {
 	fmt.Println("CORRECT_ANSWER:", CORRECT_ANSWER)
 	fmt.Println("(myAnswer != CORRECT_ANSWER):")
 	if myAnswer != CORRECT_ANSWER {
-		fmt.Println("Your answer is correct")
-	} else {
 		fmt.Println("Your answer is wrong")
+	} else {
+		fmt.Println("Your answer is correct")
 	}
 
 	fmt.Println("\n// greater than (>)\n")
@@ -91,7 +103,7 @@ func main() {
 	myAge = 17
 	fmt.Println("myAge:", myAge)
 	hasDrivingLicense = false
-	fmt.Println("has driving license:", hasDrivingLicense)
+	fmt.Println("hasDrivingLicense:", hasDrivingLicense)
 	fmt.Println("((myAge >= 17) && (hasDrivingLicense == true)):")
 	if (myAge >= 17) && (hasDrivingLicense == true) {
 		fmt.Println("You are allowed to drive")
@@ -102,7 +114,7 @@ func main() {
 	myAge = 17
 	fmt.Println("myAge:", myAge)
 	hasDrivingLicense = true
-	fmt.Println("has driving license:", hasDrivingLicense)
+	fmt.Println("hasDrivingLicense:", hasDrivingLicense)
 	fmt.Println("((myAge >= 17) && (hasDrivingLicense == true)):")
 	if (myAge >= 17) && (hasDrivingLicense == true) {
 		fmt.Println("You are allowed to drive")

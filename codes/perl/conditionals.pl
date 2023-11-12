@@ -1,16 +1,16 @@
 =begin
-Relational Operators / Comparison Operators:
-equal to [==, eq]
-not equal to [!=, ne]
-greater than [>, gt]
-less than [<, lt]
-greater then or equal to [>=, ge]
-less then or equal to [<=, le]
+    Relational Operators / Comparison Operators:
+    equal to [==, eq]
+    not equal to [!=, ne]
+    greater than [>, gt]
+    less than [<, lt]
+    greater then or equal to [>=, ge]
+    less then or equal to [<=, le]
 
-Logical Operators:
-Logical AND [&&, and]
-Logical OR [||, or]
-Logical NOT [!, not]
+    Logical Operators:
+    Logical AND [&&, and]
+    Logical OR [||, or]
+    Logical NOT [!, not]
 =cut
 
 sub print_bool {
@@ -24,6 +24,26 @@ my $my_age;
 my $my_answer;
 my $has_driving_license;
 my $can_drive;
+
+print("\n# basic conditional control flow\n");
+
+$my_age = 10;
+print("\$my_age: " . $my_age . "\n");
+if ($my_age > 24) {
+    print("you are old\n");
+} elsif ($my_age > 17) {
+    print("you are young\n");
+} else {
+    print("you are under age\n");
+}
+
+$my_age = 10;
+print("\$my_age: " . $my_age . "\n");
+unless ($my_age <= 24) {
+    print("you are old\n");
+} else {
+    print("you are young\n");
+}
 
 print("\n# equal to [==, eq]\n");
 
@@ -74,9 +94,9 @@ print("\$my_answer: " . $my_answer . "\n");
 print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
 print("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
 if ($my_answer != $CORRECT_ANSWER) {
-    print("Your answer is correct" . "\n");
-} else {
     print("Your answer is wrong" . "\n");
+} else {
+    print("Your answer is correct" . "\n");
 }
 
 $my_answer = "25";
@@ -84,9 +104,9 @@ print("\$my_answer: " . $my_answer . "\n");
 print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
 print("(\$my_answer ne \$CORRECT_ANSWER): " . "\n");
 if ($my_answer ne $CORRECT_ANSWER) {
-    print("Your answer is correct" . "\n");
-} else {
     print("Your answer is wrong" . "\n");
+} else {
+    print("Your answer is correct" . "\n");
 }
 
 $my_answer = 25;
@@ -94,9 +114,9 @@ print("\$my_answer: " . $my_answer . "\n");
 print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
 print("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
 if ($my_answer != $CORRECT_ANSWER) {
-    print("Your answer is correct" . "\n");
-} else {
     print("Your answer is wrong" . "\n");
+} else {
+    print("Your answer is correct" . "\n");
 }
 
 $my_answer = 25;
@@ -104,9 +124,9 @@ print("\$my_answer: " . $my_answer . "\n");
 print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
 print("(\$my_answer ne \$CORRECT_ANSWER): " . "\n");
 if ($my_answer ne $CORRECT_ANSWER) {
-    print("Your answer is correct" . "\n");
-} else {
     print("Your answer is wrong" . "\n");
+} else {
+    print("Your answer is correct" . "\n");
 }
 
 print("\n# greater than [>, gt]\n");

@@ -15,13 +15,6 @@ get_rectangle_area_v2 = lambda rectangle_width, rectangle_length: rectangle_widt
 # ? anonymous function or anonymous lambda function or lambda function
 lambda rectangle_width, rectangle_length: rectangle_width * rectangle_length
 
-'''
-    In Python, a function is a first-class citizen, which means it supports:
-    • Passing functions as arguments to other functions
-    • Assigning functions to variables or storing them in data structures
-    • Returning functions as values from other functions (closure)
-'''
-
 # ? Passing functions as arguments to other functions
 
 

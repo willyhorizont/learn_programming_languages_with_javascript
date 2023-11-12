@@ -8,16 +8,16 @@ using JSON
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if isa(array_item, AbstractString) === false && isa(array_item, Number) === false
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
             continue
         end
-        if isa(array_item, AbstractString) === true
+        if (isa(array_item, AbstractString) === true)
             result = string(result, "\"", array_item, "\"")
         end
-        if isa(array_item, Number) === true
+        if (isa(array_item, Number) === true)
             result = string(result, array_item)
         end
-        if array_item_index != length(an_array_of_primitives)
+        if (array_item_index !== length(an_array_of_primitives))
             result = string(result, ", ")
         end
     end
@@ -30,7 +30,7 @@ function array_find_v1(callback_function, an_array)
     data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             data_found = array_item
             break
         end
@@ -42,7 +42,7 @@ function array_find_v2(callback_function, an_array)
     # JavaScript-like Array.find() function
     data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
-        if callback_function(array_item, array_item_index, an_array) === true
+        if (callback_function(array_item, array_item_index, an_array) === true)
             data_found = array_item
             break
         end
@@ -55,7 +55,7 @@ function array_find_v3(callback_function, an_array)
     data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             return array_item
         end
     end
@@ -66,7 +66,7 @@ function array_find_v4(callback_function, an_array)
     # JavaScript-like Array.find() function
     data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
-        if callback_function(array_item, array_item_index, an_array) === true
+        if (callback_function(array_item, array_item_index, an_array) === true)
             return array_item
         end
     end
@@ -77,7 +77,7 @@ function array_find_v5(callback_function, an_array)
     # JavaScript-like Array.find() function
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             return array_item
         end
     end
@@ -87,7 +87,7 @@ end
 function array_find_v6(callback_function, an_array)
     # JavaScript-like Array.find() function
     for (array_item_index, array_item) in enumerate(an_array)
-        if callback_function(array_item, array_item_index, an_array) === true
+        if (callback_function(array_item, array_item_index, an_array) === true)
             return array_item
         end
     end
@@ -111,7 +111,7 @@ even_number_found = array_find_v1((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v1((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v1((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -121,7 +121,7 @@ even_number_found = array_find_v2((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v2((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v2((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -131,7 +131,7 @@ even_number_found = array_find_v3((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v3((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v3((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -141,7 +141,7 @@ even_number_found = array_find_v4((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v4((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v4((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -151,7 +151,7 @@ even_number_found = array_find_v5((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v5((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v5((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -161,7 +161,7 @@ even_number_found = array_find_v6((number, _, _) -> ((number % 2) === 0), number
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v6((number, _, _) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v6((number, _, _) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -171,7 +171,7 @@ even_number_found = array_find_v7((number) -> ((number % 2) === 0), numbers)
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v7((number) -> ((number % 2) != 0), numbers)
+odd_numbers_found = array_find_v7((number) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 

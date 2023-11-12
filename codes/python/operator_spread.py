@@ -19,13 +19,13 @@ country_capitals_in_asia = {
     "China": "Beijing",
     "Japan": "Tokyo"
 }
-print(f'country capitals in asia: {json.dumps(country_capitals_in_asia, indent=4)}')
+print(f'country_capitals_in_asia: {json.dumps(country_capitals_in_asia, indent=4)}')
 
 country_capitals_in_europe = {
     "France": "Paris",
     "England": "London"
 }
-print(f'country capitals in europe: {json.dumps(country_capitals_in_europe, indent=4)}')
+print(f'country_capitals_in_europe: {json.dumps(country_capitals_in_europe, indent=4)}')
 
 print("\n# [...array1, ...array2]:\n")
 

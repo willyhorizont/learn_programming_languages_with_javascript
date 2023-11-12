@@ -5,16 +5,16 @@ using JSON
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if isa(array_item, AbstractString) === false && isa(array_item, Number) === false
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
             continue
         end
-        if isa(array_item, AbstractString) === true
+        if (isa(array_item, AbstractString) === true)
             result = string(result, "\"", array_item, "\"")
         end
-        if isa(array_item, Number) === true
+        if (isa(array_item, Number) === true)
             result = string(result, array_item)
         end
-        if array_item_index != length(an_array_of_primitives)
+        if (array_item_index !== length(an_array_of_primitives))
             result = string(result, ", ")
         end
     end
@@ -27,7 +27,7 @@ function array_some_v1(callback_function, an_array)
     is_condition_match = false
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             break
         end
     end
@@ -39,7 +39,7 @@ function array_some_v2(callback_function, an_array)
     is_condition_match = false
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             return is_condition_match
         end
     end
@@ -50,7 +50,7 @@ function array_some_v3(callback_function, an_array)
     # JavaScript-like Array.some() function
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match === true
+        if (is_condition_match === true)
             return true
         end
     end
@@ -60,7 +60,7 @@ end
 function array_some_v4(callback_function, an_array)
     # JavaScript-like Array.some() function
     for (array_item_index, array_item) in enumerate(an_array)
-        if callback_function(array_item, array_item_index, an_array) === true
+        if (callback_function(array_item, array_item_index, an_array) === true)
             return true
         end
     end

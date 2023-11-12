@@ -11,7 +11,7 @@ sub pretty_array_of_primitives {
     my $result = "[";
     for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
         my $array_item = $_[$array_item_index];
-        my $is_string = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
         $result = $result . "\"" . $array_item . "\"" if ($is_string);
@@ -162,70 +162,70 @@ print("\n# JavaScript-like Array.findIndex() in Perl Array\n");
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
 print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
-my $my_lucky_number = 27;
-print("my lucky number: ", $my_lucky_number, "\n");
+my $number_to_find = 27;
+print("number to find: ", $number_to_find, "\n");
 
-my $my_lucky_number_index = -1;
+my $number_found_index;
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"\n");
 
-$my_lucky_number_index = array_find_index_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v1(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"\n");
 
-$my_lucky_number_index = array_find_index_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v2(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"\n");
 
-$my_lucky_number_index = array_find_index_v3(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v3(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"\n");
 
-$my_lucky_number_index = array_find_index_v4(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v4(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"\n");
 
-$my_lucky_number_index = array_find_index_v5(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v5(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"\n");
 
-$my_lucky_number_index = array_find_index_v6(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v6(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"\n");
 
-$my_lucky_number_index = array_find_index_v7(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v7(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"\n");
 
-$my_lucky_number_index = array_find_index_v8(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v8(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"\n");
 
-$my_lucky_number_index = array_find_index_v9(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v9(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"\n");
 
-$my_lucky_number_index = array_find_index_v10(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("my lucky number is at index: ", $my_lucky_number_index, "\n");
-# my lucky number is at index: 2
+$number_found_index = array_find_index_v10(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
+print("number found index: ", $number_found_index, "\n");
+# number found index: 2
 
 print("\n# JavaScript-like Array.findIndex() in Perl Array of Hashes\n");
 
@@ -250,67 +250,67 @@ my @products = (
 
 print("products: ", JSON->new->allow_nonref->pretty->encode(\@products));
 
-my $product_found = "pasta";
-print("product to buy: ", $product_found, "\n");
+my $product_to_find = "pasta";
+print("product to find: ", $product_to_find, "\n");
 
-my $product_found_index = -1;
+my $product_found_index;
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"\n");
 
-$product_found_index = array_find_index_v1(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v1(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"\n");
 
-$product_found_index = array_find_index_v2(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v2(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"\n");
 
-$product_found_index = array_find_index_v3(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v3(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"\n");
 
-$product_found_index = array_find_index_v4(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v4(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"\n");
 
-$product_found_index = array_find_index_v5(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v5(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"\n");
 
-$product_found_index = array_find_index_v6(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v6(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"\n");
 
-$product_found_index = array_find_index_v7(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v7(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"\n");
 
-$product_found_index = array_find_index_v8(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v8(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"\n");
 
-$product_found_index = array_find_index_v9(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v9(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"\n");
 
-$product_found_index = array_find_index_v10(sub { my ($product) = @_; return ($product->{"code"} eq $product_found); }, \@products);
+$product_found_index = array_find_index_v10(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: ", $product_found_index, "\n");
 # product found index: 0

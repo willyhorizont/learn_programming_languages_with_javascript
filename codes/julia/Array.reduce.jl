@@ -5,16 +5,16 @@ using JSON
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if isa(array_item, AbstractString) === false && isa(array_item, Number) === false
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
             continue
         end
-        if isa(array_item, AbstractString) === true
+        if (isa(array_item, AbstractString) === true)
             result = string(result, "\"", array_item, "\"")
         end
-        if isa(array_item, Number) === true
+        if (isa(array_item, Number) === true)
             result = string(result, array_item)
         end
-        if array_item_index != length(an_array_of_primitives)
+        if (array_item_index !== length(an_array_of_primitives))
             result = string(result, ", ")
         end
     end

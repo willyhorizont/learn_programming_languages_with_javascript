@@ -5,7 +5,7 @@ print('\n-- JavaScript-like Optional Chaining Operator (?.) in Lua')
 -- There's no JavaScript-like Optional Chaining Operator (?.) in Lua.
 -- But, we can create our own function to mimic it in Lua.
 
-function pretty_json_stringify(aJson) return JSON:encode_pretty(aJson, 'etc', { pretty=true, indent="    ", array_newline=true }) end
+function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
 
 function array_reduce(callback_function, an_array, initial_value)
     -- JavaScript-like Array.reduce() function

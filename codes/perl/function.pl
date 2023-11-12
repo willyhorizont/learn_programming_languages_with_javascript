@@ -32,11 +32,6 @@ my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_;
 
 # sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
 
-# ? In Perl, a function is a first-class citizen, which means it supports:
-# ? • Passing functions as arguments to other functions
-# ? • Assigning functions to variables or storing them in data structures
-# ? • Returning functions as values from other functions (closure)
-
 # ? Passing functions as arguments to other functions
 
 sub say_hello {

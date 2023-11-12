@@ -5,7 +5,7 @@ echo("\n\n// JavaScript-like Spread Syntax (...) in PHP");
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && gettype($array_item) !== "string") {
+        if (is_numeric($array_item) === false && (gettype($array_item) !== "string")) {
             continue;
         }
         if (gettype($array_item) === "string") {
@@ -33,13 +33,13 @@ $country_capitals_in_asia = [
     "China" => "Beijing",
     "Japan" => "Tokyo"
 ];
-echo("\ncountry capitals in asia: " . json_encode($country_capitals_in_asia, JSON_PRETTY_PRINT));
+echo("\ncountry_capitals_in_asia: " . json_encode($country_capitals_in_asia, JSON_PRETTY_PRINT));
 
 $country_capitals_in_europe = [
     "France" => "Paris",
     "England" => "London"
 ];
-echo("\ncountry capitals in europe: " . json_encode($country_capitals_in_europe, JSON_PRETTY_PRINT));
+echo("\ncountry_capitals_in_asia: " . json_encode($country_capitals_in_europe, JSON_PRETTY_PRINT));
 
 echo("\n\n// [...array1, ...array2]:\n");
 
@@ -214,8 +214,10 @@ echo("\n\$combination14: " . json_encode($combination14, JSON_PRETTY_PRINT));
 
 // echo("\n\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n");
 
+// this combination throw an error in JavaScript
 // $combinationErrorInJavaScript1 = [...$fruits, ...$country_capitals_in_asia];
 // echo("\n\$combinationErrorInJavaScript1: " . json_encode($combinationErrorInJavaScript1, JSON_PRETTY_PRINT));
 
+// this combination throw an error in JavaScript
 // $combinationErrorInJavaScript2 = [...$fruits, ...["Germany" => "Berlin", "Italy" => "Rome"]];
 // echo("\n\$combinationErrorInJavaScript2: " . json_encode($combinationErrorInJavaScript2, JSON_PRETTY_PRINT));

@@ -6,7 +6,7 @@
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && gettype($array_item) !== "string") {
+        if (is_numeric($array_item) === false && (gettype($array_item) !== "string")) {
             continue;
         }
         if (gettype($array_item) === "string") {
@@ -97,44 +97,44 @@ echo("\n\n// JavaScript-like Array.findIndex() in PHP Array");
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\nnumbers: " . pretty_array_of_primitives($numbers));
 
-$my_lucky_number = 27;
-echo("\nmy_lucky_number: $my_lucky_number");
+$number_to_find = 27;
+echo("\nnumber to find: $number_to_find");
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v1\"");
 
-$my_lucky_number_index = array_find_index_v1(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v1(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v2\"");
 
-$my_lucky_number_index = array_find_index_v2(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v2(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v3\"");
 
-$my_lucky_number_index = array_find_index_v3(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v3(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
-$my_lucky_number_index = array_find_index_v4(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v4(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v5\"");
 
-$my_lucky_number_index = array_find_index_v5(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v5(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v6\"");
 
-$my_lucky_number_index = array_find_index_v6(fn($number) => $number === $my_lucky_number, $numbers);
-echo("\nmy lucky number is at index: $my_lucky_number_index");
-// my lucky number is at index: 2
+$number_found_index = array_find_index_v6(fn($number) => $number === $number_to_find, $numbers);
+echo("\nnumber found index: $number_found_index");
+// number found index: 2
 
 echo("\n\n// JavaScript-like Array.findIndex() in PHP Associative Array");
 
@@ -158,41 +158,41 @@ $products = [
 ];
 echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
 
-$product_found = 'pasta';
-echo("\nproduct I want: $product_found");
+$product_to_find = 'pasta';
+echo("\nproduct to find: $product_to_find");
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v1\"");
 
-$product_found_index = array_find_index_v1(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v1(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v2\"");
 
-$product_found_index = array_find_index_v2(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v2(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v3\"");
 
-$product_found_index = array_find_index_v3(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v3(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
-$product_found_index = array_find_index_v4(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v4(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v5\"");
 
-$product_found_index = array_find_index_v5(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v5(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v6\"");
 
-$product_found_index = array_find_index_v6(fn($product) => @$product['code'] === $product_found, $products);
-echo("\nproduct I want is at index: $product_found_index");
+$product_found_index = array_find_index_v6(fn($product) => @$product['code'] === $product_to_find, $products);
+echo("\nproduct found index: $product_found_index");
 // product found index: 0

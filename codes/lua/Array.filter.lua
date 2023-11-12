@@ -3,21 +3,21 @@ JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work,
 -- There's no JavaScript-like Array.filter() in Lua.
 -- But, we can create our own function to mimic it in Lua.
 
-function pretty_json_stringify(aJson) return JSON:encode_pretty(aJson, 'etc', { pretty=true, indent="    ", array_newline=true }) end
+function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
 
 function pretty_array_of_primitives(an_array_of_primitives)
     local result = "["
     for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if type(array_item) ~= "string" and type(array_item) ~= "number" then
+        if ((type(array_item) ~= "string") and (type(array_item) ~= "number")) then
             goto next
         end
-        if type(array_item) == "string" then
+        if (type(array_item) == "string") then
             result = result .. "\"" .. array_item .. "\""
         end
-        if type(array_item) == "number" then
+        if (type(array_item) == "number") then
             result = result .. array_item
         end
-        if array_item_index ~= #an_array_of_primitives then
+        if (array_item_index ~= #an_array_of_primitives) then
             result = result .. ", "
         end
         ::next::
@@ -49,7 +49,7 @@ function array_filter_v2(callback_function, an_array)
     return data_filtered
 end
 
-print('\n-- JavaScript-like Array.filter() in JavaScript-like Array Lua table')
+print('\n-- JavaScript-like Array.filter() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 print("numbers: " .. pretty_array_of_primitives(numbers))
@@ -74,7 +74,7 @@ numbers_odd = array_filter_v2(function (number) return ((number % 2) ~= 0) end, 
 print("odd numbers only: " .. pretty_array_of_primitives(numbers_odd))
 -- odd numbers only: [27, 23, 65, 93, 87]
 
-print('\n-- JavaScript-like Array.filter() in JavaScript-like Array of Objects Lua table')
+print('\n-- JavaScript-like Array.filter() in JavaScript-like-Array-of-Objects Lua table')
 
 products = {
     {

@@ -5,7 +5,7 @@ use Scalar::Util qw(looks_like_number);
 
 print("\n# JavaScript-like Spread Syntax (...) in Perl\n");
 
-# There's no JavaScript-like Spread Syntax in Perl.
+# There's no JavaScript-like Spread Syntax (...) in Perl.
 # But, we can create our own function to mimic it in Perl.
 
 sub pretty_array_of_primitives {
@@ -13,7 +13,7 @@ sub pretty_array_of_primitives {
     my $result = "[";
     for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
         my $array_item = $_[$array_item_index];
-        my $is_string = defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/;
+        my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
         $result = $result . "\"" . $array_item . "\"" if ($is_string);
@@ -93,13 +93,13 @@ my %country_capitals_in_asia = (
     "China" => "Beijing",
     "Japan" => "Tokyo"
 );
-print("country capitals in asia: ", JSON->new->allow_nonref->pretty->encode(\%country_capitals_in_asia));
+print("country_capitals_in_asia: ", JSON->new->allow_nonref->pretty->encode(\%country_capitals_in_asia));
 
 my %country_capitals_in_europe = (
     "France" => "Paris",
     "England" => "London"
 );
-print("country capitals in europe: ", JSON->new->allow_nonref->pretty->encode(\%country_capitals_in_europe));
+print("country_capitals_in_europe: ", JSON->new->allow_nonref->pretty->encode(\%country_capitals_in_europe));
 
 print("\n// [...array1, ...array2]:\n\n");
 

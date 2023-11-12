@@ -6,7 +6,7 @@ def array_filter_v1(callback_function, an_array):
     data_filtered = []
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == True:
+        if (is_condition_match == True):
             data_filtered.append(array_item)
     return data_filtered
 
@@ -16,7 +16,7 @@ def array_filter_v2(callback_function, an_array):
     data_filtered = []
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == True:
+        if (is_condition_match == True):
             data_filtered = [*data_filtered, array_item]
     return data_filtered
 
@@ -25,7 +25,7 @@ def array_filter_v3(callback_function, an_array):
     '''JavaScript-like Array.filter() function'''
     data_filtered = []
     for array_item_index, array_item in enumerate(an_array):
-        if callback_function(array_item, array_item_index, an_array) == True:
+        if (callback_function(array_item, array_item_index, an_array) == True):
             data_filtered.append(array_item)
     return data_filtered
 
@@ -34,18 +34,18 @@ def array_filter_v4(callback_function, an_array):
     '''JavaScript-like Array.filter() function'''
     data_filtered = []
     for array_item_index, array_item in enumerate(an_array):
-        if callback_function(array_item, array_item_index, an_array) == True:
+        if (callback_function(array_item, array_item_index, an_array) == True):
             data_filtered = [*data_filtered, array_item]
     return data_filtered
 
 
 def array_filter_v5(callback_function, an_array):
     '''JavaScript-like Array.filter() function'''
-    return [array_item for array_item_index, array_item in enumerate(an_array) if callback_function(array_item, array_item_index, an_array) == True]
+    return [array_item for array_item_index, array_item in enumerate(an_array) if (callback_function(array_item, array_item_index, an_array) == True)]
 
 
 # JavaScript-like Array.filter() function
-array_filter_v6 = lambda callback_function, an_array: [array_item for array_item_index, array_item in enumerate(an_array) if callback_function(array_item, array_item_index, an_array) == True]
+array_filter_v6 = lambda callback_function, an_array: [array_item for array_item_index, array_item in enumerate(an_array) if (callback_function(array_item, array_item_index, an_array) == True)]
 
 print('\n# JavaScript-like Array.filter() in Python List')
 

@@ -1,62 +1,75 @@
 '''
-Relational Operators / Comparison Operators:
-equal to (==)
-not equal to (!=)
-identical to (is) *compares if it is the exact same object in memory.
-not identical to (not) *compares if it is the exact same object in memory.
-greater than (>)
-less than (<)
-greater then or equal to (>=)
-less then or equal to (<=)
+    Relational Operators / Comparison Operators:
+    equal to (==)
+    not equal to (!=)
+    identical to (is) *compares if it is the exact same object in memory.
+    not identical to (not) *compares if it is the exact same object in memory.
+    greater than (>)
+    less than (<)
+    greater then or equal to (>=)
+    less then or equal to (<=)
 
-Logical Operators:
-Logical AND (and)
-Logical OR (or)
-Logical NOT (not)
+    Logical Operators:
+    Logical AND (and)
+    Logical OR (or)
+    Logical NOT (not)
 '''
 
-CORRECT_ANSWER = 100
+print("\n# basic conditional control flow\n")
+
+my_age = 10
+print("my_age: ", my_age)
+if (my_age > 24):
+    print("you are old")
+elif (my_age > 17):
+    print("you are young")
+else:
+    print("you are under age")
 
 print("\n# equal to (==)\n")
 
+correct_answer = 100
 my_answer = 100.0
 print("my_answer: ", my_answer)
-print("CORRECT_ANSWER: ", CORRECT_ANSWER)
-print("(my_answer == CORRECT_ANSWER): ")
-if (my_answer == CORRECT_ANSWER):
+print("correct_answer: ", correct_answer)
+print("(my_answer == correct_answer): ")
+if (my_answer == correct_answer):
     print("Your answer is correct")
 else:
     print("Your answer is wrong")
 
 print("\n# not equal to (!=)\n")
 
+correct_answer = 100
 my_answer = 25.0
 print("my_answer: ", my_answer)
-print("CORRECT_ANSWER: ", CORRECT_ANSWER)
-print("(my_answer != CORRECT_ANSWER): ")
-if (my_answer != CORRECT_ANSWER):
+print("correct_answer: ", correct_answer)
+print("(my_answer != correct_answer): ")
+if (my_answer != correct_answer):
     print("Your answer is correct")
 else:
     print("Your answer is wrong")
 
 print("\n# identical to (is)\n")
 
+correct_answer = 100
 my_answer = 100.0
 print("my_answer: ", my_answer)
-print("CORRECT_ANSWER: ", CORRECT_ANSWER)
-print("(my_answer is CORRECT_ANSWER): ")
-if (my_answer is CORRECT_ANSWER):
+print("correct_answer: ", correct_answer)
+print("(my_answer is correct_answer): ")
+if (my_answer is correct_answer):
     print("Your answer is correct")
 else:
     print("Your answer is wrong")
 
 print("\n# not identical to (not)\n")
 
+correct_answer = 100
 my_answer = 25.0
 print("my_answer: ", my_answer)
-print("CORRECT_ANSWER: ", CORRECT_ANSWER)
-print("(my_answer is not CORRECT_ANSWER): ")
-if (my_answer is not CORRECT_ANSWER):
+print("correct_answer: ", correct_answer)
+print("(my_answer is not correct_answer): ")
+if (my_answer is not correct_answer):
     print("Your answer is correct")
 else:
     print("Your answer is wrong")

@@ -4,7 +4,7 @@ function factorial_v1(number)
     if type(number) ~= "number" then
         return "argument should be a number"
     end
-    if (number > 1) == false then
+    if ((number > 1) == false) then
         return 1
     end
     local result = 1
@@ -23,7 +23,7 @@ function factorial_v2(number)
     if type(number) ~= "number" then
         return "argument should be a number"
     end
-    if (number > 1) == false then
+    if ((number > 1) == false) then
         return 1
     end
     local result = 1
@@ -39,7 +39,7 @@ function factorial_v3(number)
     if type(number) ~= "number" then
         return "argument should be a number"
     end
-    if (number > 1) == false then
+    if ((number > 1) == false) then
         return 1
     end
     local result = 1

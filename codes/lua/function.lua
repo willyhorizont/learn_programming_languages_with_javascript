@@ -28,13 +28,6 @@ get_rectangle_area_v4 = function(rectangle_width, rectangle_length) return recta
 
 -- function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
 
---[[
-    ? In Lua, a function is a first-class citizen, which means it supports:
-    ? • Passing functions as arguments to other functions
-    ? • Assigning functions to variables or storing them in data structures
-    ? • Returning functions as values from other functions (closure)
-]]
-
 -- ? Passing functions as arguments to other functions
 
 function say_hello(do_something)

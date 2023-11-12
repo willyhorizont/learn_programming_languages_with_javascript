@@ -56,13 +56,6 @@ func main() {
 	// 	   return rectangleWidth * rectangleLength
 	// }
 
-	/*
-		? In Go, a function is a first-class citizen, which means it supports:
-		? • Passing functions as arguments to other functions
-		? • Assigning functions to variables or storing them in data structures
-		? • Returning functions as values from other functions (closure)
-	*/
-
 	// ? Passing functions as arguments to other functions
 
 	sayHelllo(sayHowAreYou)

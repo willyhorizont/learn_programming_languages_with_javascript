@@ -5,16 +5,16 @@ using JSON
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if isa(array_item, AbstractString) === false && isa(array_item, Number) === false
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
             continue
         end
-        if isa(array_item, AbstractString) === true
+        if (isa(array_item, AbstractString) === true)
             result = string(result, "\"", array_item, "\"")
         end
-        if isa(array_item, Number) === true
+        if (isa(array_item, Number) === true)
             result = string(result, array_item)
         end
-        if array_item_index != length(an_array_of_primitives)
+        if (array_item_index !== length(an_array_of_primitives))
             result = string(result, ", ")
         end
     end
@@ -43,13 +43,13 @@ country_capitals_in_asia = Dict(
     "China" => "Beijing",
     "Japan" => "Tokyo"
 )
-println("country capitals in asia: ", JSON.json(country_capitals_in_asia, 4))
+println("country_capitals_in_asia: ", JSON.json(country_capitals_in_asia, 4))
 
 country_capitals_in_europe = Dict(
     "France" => "Paris",
     "England" => "London"
 )
-println("country capitals in europe: ", JSON.json(country_capitals_in_europe, 4))
+println("country_capitals_in_europe: ", JSON.json(country_capitals_in_europe, 4))
 
 println("# [...array1, ...array2]:\n")
 

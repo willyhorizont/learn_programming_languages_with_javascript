@@ -6,7 +6,7 @@ print('\n# Factorial(n) in Python')
 def factorial_v1(number: int) -> int:
     if (isinstance(number, Number) == False):
         return "argument should be a number"
-    if (number > 1) == False:
+    if ((number > 1) == False):
         return 1
     result = 1
     i = number
@@ -21,7 +21,7 @@ def factorial_v1(number: int) -> int:
 def factorial_v2(number: int) -> int:
     if (isinstance(number, Number) == False):
         return "argument should be a number"
-    if (number > 1) == False:
+    if ((number > 1) == False):
         return 1
     result = 1
     i = number
@@ -34,7 +34,7 @@ def factorial_v2(number: int) -> int:
 def factorial_v3(number: int) -> int:
     if (isinstance(number, Number) == False):
         return "argument should be a number"
-    if (number > 1) == False:
+    if ((number > 1) == False):
         return 1
     result = 1
     for i in range(number, 0, -1):

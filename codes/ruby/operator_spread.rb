@@ -21,13 +21,13 @@ country_capitals_in_asia = {
     "China" => "Beijing",
     "Japan" => "Tokyo"
 }
-print("\ncountry capitals in asia: ", JSON.pretty_generate(country_capitals_in_asia, { "indent": " " * 4 }))
+print("\ncountry_capitals_in_asia: ", JSON.pretty_generate(country_capitals_in_asia, { "indent": " " * 4 }))
 
 country_capitals_in_europe = {
     "France" => "Paris",
     "England" => "London"
 }
-print("\ncountry capitals in europe: ", JSON.pretty_generate(country_capitals_in_europe, { "indent": " " * 4 }))
+print("\ncountry_capitals_in_europe: ", JSON.pretty_generate(country_capitals_in_europe, { "indent": " " * 4 }))
 
 print("\n# [...array1, ...array2]:\n")
 

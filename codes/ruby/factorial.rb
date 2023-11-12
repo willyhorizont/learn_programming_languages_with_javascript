@@ -1,6 +1,6 @@
 def factorial_v1(number)
     return "argument should be a number" if (number.is_a?(Numeric) == false)
-    return 1 if (number > 1) == false
+    return 1 if ((number > 1) == false)
     result = 1
     i = number
     while true
@@ -13,7 +13,7 @@ end
 
 def factorial_v2(number)
     return "argument should be a number" unless (number.is_a?(Numeric) == true)
-    return 1 unless (number > 1) == true
+    return 1 unless ((number > 1) == true)
     result = 1
     i = number
     while true
@@ -26,7 +26,7 @@ end
 
 def factorial_v3(number)
     return "argument should be a number" if (number.is_a?(Numeric) == false)
-    return 1 if (number > 1) == false
+    return 1 if ((number > 1) == false)
     result = 1
     i = number
     while (i >= 1)
@@ -38,7 +38,7 @@ end
 
 def factorial_v4(number)
     return "argument should be a number" unless (number.is_a?(Numeric) == true)
-    return 1 unless (number > 1) == true
+    return 1 unless ((number > 1) == true)
     result = 1
     i = number
     while (i >= 1)
@@ -50,7 +50,7 @@ end
 
 def factorial_v5(number)
     return "argument should be a number" if (number.is_a?(Numeric) == false)
-    return 1 if (number > 1) == false
+    return 1 if ((number > 1) == false)
     result = 1
     (number.downto(1)).each do |i|
         result *= i
@@ -60,7 +60,7 @@ end
 
 def factorial_v6(number)
     return "argument should be a number" unless (number.is_a?(Numeric) == true)
-    return 1 unless (number > 1) == true
+    return 1 unless ((number > 1) == true)
     result = 1
     (number.downto(1)).each do |i|
         result *= i

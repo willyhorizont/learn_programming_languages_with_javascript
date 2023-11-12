@@ -29,3 +29,7 @@ to run Lua code:
 to run Ruby code:
 1. cd codes/ruby
 2. ruby filename.rb
+
+to run R code:
+1. cd codes/r
+2. Rscript filename.r

@@ -1,19 +1,19 @@
 /* eslint-disable eqeqeq */
 /*
-Relational Operators / Comparison Operators:
-equal to (==) *checks for equality after performing type coercion. It converts operands to the same type before making the comparison.
-not equal to (!=) *checks for inequality after performing type coercion. It converts operands to the same type before making the comparison.
-strict equal to (===) *checks for strict equality without type coercion. It requires both the value and the type to be the same.
-strict not equal to (!==) *checks for strict inequality without type coercion. It requires both the value and the type to be the same.
-greater than (>)
-less than (<)
-greater then or equal to (>=)
-less then or equal to (<=)
+    Relational Operators / Comparison Operators:
+    equal to (==) *checks for equality after performing type coercion. It converts operands to the same type before making the comparison.
+    not equal to (!=) *checks for inequality after performing type coercion. It converts operands to the same type before making the comparison.
+    strict equal to (===) *checks for strict equality without type coercion. It requires both the value and the type to be the same.
+    strict not equal to (!==) *checks for strict inequality without type coercion. It requires both the value and the type to be the same.
+    greater than (>)
+    less than (<)
+    greater then or equal to (>=)
+    less then or equal to (<=)
 
-Logical Operators:
-Logical AND (&&)
-Logical OR (||)
-Logical NOT (!)
+    Logical Operators:
+    Logical AND (&&)
+    Logical OR (||)
+    Logical NOT (!)
 */
 
 const CORRECT_ANSWER = 100;
@@ -22,6 +22,18 @@ let myAge;
 let myAnswer;
 let hasDrivingLicense;
 let canDrive;
+
+console.log("\n// basic conditional control flow\n");
+
+myAge = 10;
+console.log("myAge:", myAge);
+if (myAge > 24) {
+    console.log("you are old");
+} else if (myAge > 17) {
+    console.log("you are young");
+} else {
+    console.log("you are under age");
+}
 
 console.log("\n// equal to (==)\n");
 
@@ -42,9 +54,9 @@ console.log("myAnswer:", myAnswer);
 console.log("CORRECT_ANSWER:", CORRECT_ANSWER);
 console.log("(myAnswer != CORRECT_ANSWER):");
 if (myAnswer != CORRECT_ANSWER) {
-    console.log("Your answer is correct");
-} else {
     console.log("Your answer is wrong");
+} else {
+    console.log("Your answer is correct");
 }
 
 console.log("\n// strict equal to (===)\n");
@@ -104,14 +116,14 @@ console.log("\n// Logical AND (&&)\n");
 myAge = 17;
 console.log("myAge:", myAge);
 hasDrivingLicense = false;
-console.log("has driving license:", hasDrivingLicense);
+console.log("hasDrivingLicense:", hasDrivingLicense);
 console.log("((myAge >= 17) && (hasDrivingLicense === true)):");
 console.log((((myAge >= 17) && (hasDrivingLicense === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 myAge = 17;
 console.log("myAge:", myAge);
 hasDrivingLicense = true;
-console.log("has driving license:", hasDrivingLicense);
+console.log("hasDrivingLicense:", hasDrivingLicense);
 console.log("((myAge >= 17) && (hasDrivingLicense === true)):");
 console.log((((myAge >= 17) && (hasDrivingLicense === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 

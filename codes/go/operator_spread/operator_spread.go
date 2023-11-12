@@ -6,14 +6,17 @@ import (
 	"reflect"
 )
 
+// There's no JavaScript-like Spread Syntax (...) in Go.
+// But, we can create our own function to mimic it in Go.
+
 const EMPTY_STRING = ""
 const TAB = "    "
 
 type Any interface{}
 type Object map[string]Any
 
-func prettyJsonStringify(anythingLikeJson Any) string {
-	marshalledJson, err := json.MarshalIndent(anythingLikeJson, EMPTY_STRING, TAB)
+func prettyJsonStringify(anything Any) string {
+	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
 	}
@@ -154,13 +157,13 @@ func main() {
 		"China":    "Beijing",
 		"Japan":    "Tokyo",
 	}
-	fmt.Println("country capitals in asia: ", prettyJsonStringify(countryCapitalsInAsia))
+	fmt.Println("countryCapitalsInAsia: ", prettyJsonStringify(countryCapitalsInAsia))
 
 	countryCapitalsInEurope := Object{
 		"France":  "Paris",
 		"England": "London",
 	}
-	fmt.Println("country capitals in europe: ", prettyJsonStringify(countryCapitalsInEurope))
+	fmt.Println("countryCapitalsInEurope: ", prettyJsonStringify(countryCapitalsInEurope))
 
 	print("// [...array1, ...array2]:")
 

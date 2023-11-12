@@ -3,21 +3,21 @@ JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work,
 -- There's no JavaScript-like Array.reduce() in Lua.
 -- But, we can create our own function to mimic it in Lua.
 
-function pretty_json_stringify(aJson) return JSON:encode_pretty(aJson, 'etc', { pretty=true, indent="    ", array_newline=true }) end
+function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
 
 function pretty_array_of_primitives(an_array_of_primitives)
     local result = "["
     for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if type(array_item) ~= "string" and type(array_item) ~= "number" then
+        if ((type(array_item) ~= "string") and (type(array_item) ~= "number")) then
             goto next
         end
-        if type(array_item) == "string" then
+        if (type(array_item) == "string") then
             result = result .. "\"" .. array_item .. "\""
         end
-        if type(array_item) == "number" then
+        if (type(array_item) == "number") then
             result = result .. array_item
         end
-        if array_item_index ~= #an_array_of_primitives then
+        if (array_item_index ~= #an_array_of_primitives) then
             result = result .. ", "
         end
         ::next::
@@ -26,15 +26,15 @@ function pretty_array_of_primitives(an_array_of_primitives)
     return result
 end
 
-function get_type(something)
-    if type(something) ~= "table" then
-       return type(something) 
+function get_type(anything)
+    if (type(anything) ~= "table") then
+       return type(anything) 
     end
-    if next(something) == nil then
+    if (next(anything) == nil) then
         return "empty_table"
     end
-    for k, v in pairs(something) do
-        if type(k) == "number" and (k >= 1 and k <= #something) then
+    for k, v in pairs(anything) do
+        if ((type(k) == "number") and ((k >= 1) and (k <= #anything))) then
             return "array"
         end
     end
@@ -54,13 +54,13 @@ spread_syntax_object = function(...)
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
         local parameter_type = get_type(parameter)
-        if parameter_type == "object" then
+        if (parameter_type == "object") then
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
             end
             goto next
         end
-        if parameter_type == "array" then
+        if (parameter_type == "array") then
             for array_item_index, array_item in ipairs(parameter) do
                 new_object[tostring(array_item_index)] = array_item
             end
@@ -76,9 +76,9 @@ spread_syntax_array = function(...)
     local new_array = {}
     for parameter_index, parameter in ipairs(parameters) do
         local parameter_type = get_type(parameter)
-        if parameter_type == "object" then
+        if (parameter_type == "object") then
             local object_length = get_object_length(parameter)
-            if object_length == 1 then
+            if (object_length == 1) then
                 for object_key, object_value in pairs(parameter) do
                     table.insert(new_array, object_value)
                 end
@@ -87,10 +87,7 @@ spread_syntax_array = function(...)
             table.insert(new_array, parameter)
             goto next
         end
-        if parameter_type == "array" then
-            if #parameter == 0 then
-                goto next
-            end
+        if (parameter_type == "array") then
             for array_item_index, array_item in ipairs(parameter) do
                 table.insert(new_array, array_item)
             end
@@ -110,7 +107,7 @@ function array_reduce(callback_function, an_array, initial_value)
     return result
 end
 
-print('\n-- JavaScript-like Array.reduce() in JavaScript-like Array Lua table')
+print('\n-- JavaScript-like Array.reduce() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 print("numbers: " .. pretty_array_of_primitives(numbers))
@@ -121,7 +118,7 @@ numbers_total = array_reduce(function(current_result, current_number) return (cu
 print("total number: " .. pretty_json_stringify(numbers_total))
 -- total number: 635
 
-print('\n-- JavaScript-like Array.reduce() in JavaScript-like Array of Objects Lua table')
+print('\n-- JavaScript-like Array.reduce() in JavaScript-like-Array-of-Objects Lua table')
 
 products = {
     {

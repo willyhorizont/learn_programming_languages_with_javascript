@@ -11,13 +11,13 @@ const countryCapitalsInAsia = {
     "China": "Beijing",
     "Japan": "Tokyo"
 };
-console.log(`country capitals in asia: ${JSON.stringify(countryCapitalsInAsia, null, ' '.repeat(4))}`);
+console.log(`countryCapitalsInAsia: ${JSON.stringify(countryCapitalsInAsia, null, ' '.repeat(4))}`);
 
 const countryCapitalsInEurope = {
     "France": "Paris",
     "England": "London"
 };
-console.log(`country capitals in europe: ${JSON.stringify(countryCapitalsInEurope, null, ' '.repeat(4))}`);
+console.log(`countryCapitalsInEurope: ${JSON.stringify(countryCapitalsInEurope, null, ' '.repeat(4))}`);
 
 console.log("\n// [...array1, ...array2]:\n");
 

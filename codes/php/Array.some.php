@@ -6,7 +6,7 @@
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && gettype($array_item) !== "string") {
+        if (is_numeric($array_item) === false && (gettype($array_item) !== "string")) {
             continue;
         }
         if (gettype($array_item) === "string") {

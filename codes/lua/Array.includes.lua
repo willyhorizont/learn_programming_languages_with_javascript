@@ -4,16 +4,16 @@
 function pretty_array_of_primitives(an_array_of_primitives)
     local result = "["
     for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if type(array_item) ~= "string" and type(array_item) ~= "number" then
+        if ((type(array_item) ~= "string") and (type(array_item) ~= "number")) then
             goto next
         end
-        if type(array_item) == "string" then
+        if (type(array_item) == "string") then
             result = result .. "\"" .. array_item .. "\""
         end
-        if type(array_item) == "number" then
+        if (type(array_item) == "number") then
             result = result .. array_item
         end
-        if array_item_index ~= #an_array_of_primitives then
+        if (array_item_index ~= #an_array_of_primitives) then
             result = result .. ", "
         end
         ::next::
@@ -26,8 +26,8 @@ function array_includes_v1(search_element, an_array)
     -- JavaScript-like Array.includes() function
     local element_found = false
     for _, array_item in ipairs(an_array) do
-        local is_condition_match = array_item == search_element
-        if is_condition_match == true then
+        local is_condition_match = (array_item == search_element)
+        if (is_condition_match == true) then
             element_found = true
             break
         end
@@ -39,7 +39,7 @@ function array_includes_v2(search_element, an_array)
     -- JavaScript-like Array.includes() function
     local element_found = false
     for _, array_item in ipairs(an_array) do
-        if array_item == search_element then
+        if (array_item == search_element) then
             element_found = true
             break
         end
@@ -51,8 +51,8 @@ function array_includes_v3(search_element, an_array)
     -- JavaScript-like Array.includes() function
     local element_found = false
     for _, array_item in ipairs(an_array) do
-        local is_condition_match = array_item == search_element
-        if is_condition_match == true then
+        local is_condition_match = (array_item == search_element)
+        if (is_condition_match == true) then
             element_found = true
             return element_found
         end
@@ -64,7 +64,7 @@ function array_includes_v4(search_element, an_array)
     -- JavaScript-like Array.includes() function
     local element_found = false
     for _, array_item in ipairs(an_array) do
-        if array_item == search_element then
+        if (array_item == search_element) then
             element_found = true
             return element_found
         end
@@ -75,8 +75,8 @@ end
 function array_includes_v5(search_element, an_array)
     -- JavaScript-like Array.includes() function
     for _, array_item in ipairs(an_array) do
-        local is_condition_match = array_item == search_element
-        if is_condition_match == true then
+        local is_condition_match = (array_item == search_element)
+        if (is_condition_match == true) then
             return true
         end
     end
@@ -86,7 +86,7 @@ end
 function array_includes_v6(search_element, an_array)
     -- JavaScript-like Array.includes() function
     for _, array_item in ipairs(an_array) do
-        if array_item == search_element then
+        if (array_item == search_element) then
             return true
         end
     end

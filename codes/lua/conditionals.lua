@@ -1,27 +1,38 @@
 --[[
-Relational Operators / Comparison Operators:
-equal to (==)
-not equal to (~=)
-greater than (>)
-less than (<)
-greater then or equal to (>=)
-less then or equal to (<=)
+    Relational Operators / Comparison Operators:
+    equal to (==)
+    not equal to (~=)
+    greater than (>)
+    less than (<)
+    greater then or equal to (>=)
+    less then or equal to (<=)
 
-Logical Operators:
-Logical AND (and)
-Logical OR (or)
-Logical NOT (not)
+    Logical Operators:
+    Logical AND (and)
+    Logical OR (or)
+    Logical NOT (not)
 ]]
 
-CORRECT_ANSWER = 100
+print("\n-- basic conditional control flow\n")
+
+my_age = 10
+print("my_age: " .. my_age)
+if (my_age > 24) then
+    print("you are old")
+elseif (my_age > 17) then
+    print("you are young")
+else
+    print("you are under age")
+end
 
 print("\n-- equal to (==)\n")
 
-my_answer = 100.0
+correct_answer = 100
+my_answer = 100
 print("my_answer: " .. my_answer)
-print("CORRECT_ANSWER: " .. tostring(CORRECT_ANSWER))
-print("(my_answer == CORRECT_ANSWER): ")
-if (my_answer == CORRECT_ANSWER) then
+print("correct_answer: " .. tostring(correct_answer))
+print("(my_answer == correct_answer): ")
+if (my_answer == correct_answer) then
     print("Your answer is correct")
 else
     print("Your answer is wrong")
@@ -29,14 +40,15 @@ end
 
 print("\n-- not equal to (~=)\n")
 
-my_answer = 25.0
+correct_answer = 100
+my_answer = 25
 print("my_answer: " .. my_answer)
-print("CORRECT_ANSWER: " .. tostring(CORRECT_ANSWER))
-print("(my_answer ~= CORRECT_ANSWER): ")
-if (my_answer ~= CORRECT_ANSWER) then
-    print("Your answer is correct")
-else
+print("correct_answer: " .. tostring(correct_answer))
+print("(my_answer ~= correct_answer): ")
+if (my_answer ~= correct_answer) then
     print("Your answer is wrong")
+else
+    print("Your answer is correct")
 end
 
 print("\n-- greater than (>)\n")

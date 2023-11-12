@@ -1,29 +1,40 @@
 #=
-Relational Operators / Comparison Operators:
-equal to (==)
-not equal to (!=)
-identical to (===) *also compares by location in memory.
-not identical to (!==) *also compares by location in memory.
-greater than (>)
-less than (<)
-greater then or equal to (>=)
-less then or equal to (<=)
+    Relational Operators / Comparison Operators:
+    equal to (==)
+    not equal to (!=)
+    identical to (===) *also compares by location in memory.
+    not identical to (!==) *also compares by location in memory.
+    greater than (>)
+    less than (<)
+    greater then or equal to (>=)
+    less then or equal to (<=)
 
-Logical Operators:
-Logical AND (&&)
-Logical OR (||)
-Logical NOT (!)
+    Logical Operators:
+    Logical AND (&&)
+    Logical OR (||)
+    Logical NOT (!)
 =#
 
-CORRECT_ANSWER = 100
+println("\n# basic conditional control flow\n")
+
+my_age = 10
+println("my_age: ", my_age)
+if (my_age > 24)
+    println("you are old")
+elseif (my_age > 17)
+    println("you are young")
+else
+    println("you are under age")
+end
 
 println("\n# equal to (==)\n")
 
+correct_answer = 100
 my_answer = 100.0
 println("my_answer: ", my_answer)
-println("CORRECT_ANSWER: ", CORRECT_ANSWER)
-println("(my_answer == CORRECT_ANSWER): ")
-if (my_answer == CORRECT_ANSWER)
+println("correct_answer: ", correct_answer)
+println("(my_answer == correct_answer): ")
+if (my_answer == correct_answer)
     println("Your answer is correct")
 else
     println("Your answer is wrong")
@@ -31,11 +42,12 @@ end
 
 println("\n# not equal to (!=)\n")
 
+correct_answer = 100
 my_answer = 25.0
 println("my_answer: ", my_answer)
-println("CORRECT_ANSWER: ", CORRECT_ANSWER)
-println("(my_answer != CORRECT_ANSWER): ")
-if (my_answer != CORRECT_ANSWER)
+println("correct_answer: ", correct_answer)
+println("(my_answer !== correct_answer): ")
+if (my_answer !== correct_answer)
     println("Your answer is correct")
 else
     println("Your answer is wrong")
@@ -43,11 +55,12 @@ end
 
 println("\n# identical to (===)\n")
 
+correct_answer = 100
 my_answer = 100.0
 println("my_answer: ", my_answer)
-println("CORRECT_ANSWER: ", CORRECT_ANSWER)
-println("(my_answer === CORRECT_ANSWER): ")
-if (my_answer === CORRECT_ANSWER)
+println("correct_answer: ", correct_answer)
+println("(my_answer === correct_answer): ")
+if (my_answer === correct_answer)
     println("Your answer is correct")
 else
     println("Your answer is wrong")
@@ -55,14 +68,15 @@ end
 
 println("\n# not identical to (!==)\n")
 
+correct_answer = 100
 my_answer = 25.0
 println("my_answer: ", my_answer)
-println("CORRECT_ANSWER: ", CORRECT_ANSWER)
-println("(my_answer !== CORRECT_ANSWER): ")
-if (my_answer !== CORRECT_ANSWER)
-    println("Your answer is correct")
-else
+println("correct_answer: ", correct_answer)
+println("(my_answer !== correct_answer): ")
+if (my_answer !== correct_answer)
     println("Your answer is wrong")
+else
+    println("Your answer is correct")
 end
 
 println("\n# greater than (>)\n")

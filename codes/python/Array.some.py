@@ -6,7 +6,7 @@ def array_some_v1(callback_function, an_array):
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == True:
+        if (is_condition_match == True):
             break
     return is_condition_match
 
@@ -15,7 +15,7 @@ def array_some_v2(callback_function, an_array):
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == True:
+        if (is_condition_match == True):
             return is_condition_match
     return is_condition_match
 
@@ -24,14 +24,14 @@ def array_some_v3(callback_function, an_array):
     '''JavaScript-like Array.some() function'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == True:
+        if (is_condition_match == True):
             return True
     return False
 
 def array_some_v4(callback_function, an_array):
     '''JavaScript-like Array.some() function'''
     for array_item_index, array_item in enumerate(an_array):
-        if callback_function(array_item, array_item_index, an_array) == True:
+        if (callback_function(array_item, array_item_index, an_array) == True):
             return True
     return False
 

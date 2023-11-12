@@ -3,21 +3,21 @@ JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work,
 -- There's no JavaScript-like Array.findIndex() in Lua.
 -- But, we can create our own function to mimic it in Lua.
 
-function pretty_json_stringify(aJson) return JSON:encode_pretty(aJson, 'etc', { pretty=true, indent="    ", array_newline=true }) end
+function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
 
 function pretty_array_of_primitives(an_array_of_primitives)
     local result = "["
     for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if type(array_item) ~= "string" and type(array_item) ~= "number" then
+        if ((type(array_item) ~= "string") and (type(array_item) ~= "number")) then
             goto next
         end
-        if type(array_item) == "string" then
+        if (type(array_item) == "string") then
             result = result .. "\"" .. array_item .. "\""
         end
-        if type(array_item) == "number" then
+        if (type(array_item) == "number") then
             result = result .. array_item
         end
-        if array_item_index ~= #an_array_of_primitives then
+        if (array_item_index ~= #an_array_of_primitives) then
             result = result .. ", "
         end
         ::next::
@@ -95,51 +95,51 @@ function array_find_index_v6(callback_function, an_array)
     return -1
 end
 
-print('\n-- JavaScript-like Array.findIndex() in JavaScript-like Array Lua table')
+print('\n-- JavaScript-like Array.findIndex() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 print("numbers: " .. pretty_array_of_primitives(numbers))
 
-my_lucky_number = 27
-print("my lucky number: " .. my_lucky_number)
+number_to_find = 27
+print("number to find: " .. number_to_find)
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
-my_lucky_number_index = array_find_index_v1(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v1(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
-my_lucky_number_index = array_find_index_v2(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v2(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
-my_lucky_number_index = array_find_index_v3(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v3(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
-my_lucky_number_index = array_find_index_v4(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v4(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
-my_lucky_number_index = array_find_index_v5(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v5(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
-my_lucky_number_index = array_find_index_v6(function (number) return (number == my_lucky_number) end, numbers)
-print("my lucky number is at index: " .. my_lucky_number_index)
--- my lucky number is at index: 3
+number_found_index = array_find_index_v6(function (number) return (number == number_to_find) end, numbers)
+print("number found index: " .. number_found_index)
+-- number found index: 3
 
-print('\n-- JavaScript-like Array.findIndex() in JavaScript-like Array of Objects Lua table')
+print('\n-- JavaScript-like Array.findIndex() in JavaScript-like-Array-of-Objects Lua table')
 
 products = {
     {
@@ -161,41 +161,41 @@ products = {
 }
 print("products: " .. pretty_json_stringify(products))
 
-product_found = "pasta"
-print("product to buy: " .. product_found)
+product_to_find = "pasta"
+print("product to find: " .. product_to_find)
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
-product_found_index = array_find_index_v1(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v1(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
-product_found_index = array_find_index_v2(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v2(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
-product_found_index = array_find_index_v3(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v3(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
-product_found_index = array_find_index_v4(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v4(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
-product_found_index = array_find_index_v5(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v5(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
-product_found_index = array_find_index_v6(function (product) return (product.code == product_found) end, products)
+product_found_index = array_find_index_v6(function (product) return (product.code == product_to_find) end, products)
 print("product found index: " .. product_found_index)
 -- product found index: 1

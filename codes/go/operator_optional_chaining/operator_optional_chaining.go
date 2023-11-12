@@ -11,8 +11,8 @@ const TAB = "    "
 type Any interface{}
 type Object map[string]Any
 
-func prettyJsonStringify(anythingLikeJson Any) string {
-	marshalledJson, err := json.MarshalIndent(anythingLikeJson, EMPTY_STRING, TAB)
+func prettyJsonStringify(anything Any) string {
+	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
 	}
