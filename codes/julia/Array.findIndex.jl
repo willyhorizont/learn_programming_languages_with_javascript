@@ -2,8 +2,6 @@ using Printf
 using Statistics
 using JSON
 
-# FYI: Julia uses 0-based indexing
-
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)

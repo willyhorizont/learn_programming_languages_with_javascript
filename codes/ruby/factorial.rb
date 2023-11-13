@@ -52,7 +52,7 @@ def factorial_v5(number)
     return "argument should be a number" if (number.is_a?(Numeric) == false)
     return 1 if ((number > 1) == false)
     result = 1
-    (number.downto(1)).each do |i|
+    (number.step(1, -1)).each do |i|
         result *= i
     end
     return result
@@ -62,7 +62,7 @@ def factorial_v6(number)
     return "argument should be a number" unless (number.is_a?(Numeric) == true)
     return 1 unless ((number > 1) == true)
     result = 1
-    (number.downto(1)).each do |i|
+    (number.step(1, -1)).each do |i|
         result *= i
     end
     return result

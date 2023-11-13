@@ -12,7 +12,7 @@ sub pretty_array_of_primitives {
         my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
-        $result = $result . "\"" . $array_item . "\"" if ($is_string);
+        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
         $result = $result . $array_item if ($is_number);
         $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
     }
@@ -25,7 +25,7 @@ sub array_some_v1 {
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         if ($is_condition_match) {
@@ -40,7 +40,7 @@ sub array_some_v2 {
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         last if ($is_condition_match);
@@ -53,7 +53,7 @@ sub array_some_v3 {
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         if ($is_condition_match) {
@@ -68,7 +68,7 @@ sub array_some_v4 {
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
     my $is_condition_match = 0;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         return $is_condition_match if ($is_condition_match);
@@ -80,7 +80,7 @@ sub array_some_v5 {
     # JavaScript-like Array.some() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         if ($is_condition_match) {
@@ -94,7 +94,7 @@ sub array_some_v6 {
     # JavaScript-like Array.some() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         return 1 if ($is_condition_match);
@@ -106,7 +106,7 @@ sub array_some_v7 {
     # JavaScript-like Array.some() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         if ($callback_function->($array_item, $array_item_index, \@an_array)) {
             return 1;
@@ -119,7 +119,7 @@ sub array_some_v8 {
     # JavaScript-like Array.some() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @$an_array_ref;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         return 1 if ($callback_function->($array_item, $array_item_index, \@an_array));
     }

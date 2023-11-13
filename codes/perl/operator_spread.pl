@@ -16,7 +16,7 @@ sub pretty_array_of_primitives {
         my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
-        $result = $result . "\"" . $array_item . "\"" if ($is_string);
+        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
         $result = $result . $array_item if ($is_number);
         $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
     }
@@ -42,7 +42,7 @@ sub spread_syntax_array {
 sub array_to_object {
     my %new_object;
     my (@an_array) = @_;
-    for my $array_item_index (0..$#an_array) {
+    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         $new_object{$array_item_index} = $array_item;
     }
@@ -72,7 +72,7 @@ sub spread_syntax_object_v2 {
         }
         if (ref $ref eq "ARRAY") {
             my @an_array = @$ref;
-            for my $array_item_index (0..$#an_array) {
+            for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
                 my $array_item = $an_array[$array_item_index];
                 $new_object{$array_item_index} = $array_item;
             }

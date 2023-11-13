@@ -1,4 +1,11 @@
 =============================changelog==========================================
+01:08 | 01:08 AM | Tue | Nov | 14/11/2023
+0.0.26
+update 1.Arrays.js, 1.Arrays.go, 1.Arrays.php, 1.Arrays.pl, 1.Arrays.py, 1.Arrays.jl, 1.Arrays.lua, 1.Arrays.rb, 1.Arrays.r
+create 1.Objects.js, 1.Objects.go, 1.Objects.php, 1.Objects.pl, 1.Objects.py, 1.Objects.jl, 1.Objects.lua, 1.Objects.rb, 1.Objects.r
+create 1.Loops.js, 1.Loops.go, 1.Loops.php, 1.Loops.pl, 1.Loops.py, 1.Loops.jl, 1.Loops.lua, 1.Loops.rb, 1.Loops.r
+update and fix so many things
+=============================changelog==========================================
 01:33 | 01:33 AM | Mon | Nov | 13/11/2023
 0.0.25
 create Array.every.r
@@ -7,7 +14,7 @@ create Array.find.r
 create Array.findIndex.r
 create Array.includes.r
 create Array.map.r
-create Array.r
+create 1.Arrays.r
 create Array.reduce.r
 create Array.some.r
 create comment.r
@@ -26,7 +33,7 @@ update and fix so many things
 0.0.24
 create comment.rb
 create conditionals.rb
-create Array.rb
+create 1.Arrays.rb
 create Array.every.rb
 create Array.filter.rb
 create Array.find.rb
@@ -81,13 +88,13 @@ create operator_ternary.lua
 create factorial.lua
 create fizzbuzz.lua
 create function.lua
-create Array.js
-create Array.py
-create Array.php
-create Array.go
-create Array.pl
-create Array.jl
-create Array.lua
+create 1.Arrays.js
+create 1.Arrays.py
+create 1.Arrays.php
+create 1.Arrays.go
+create 1.Arrays.pl
+create 1.Arrays.jl
+create 1.Arrays.lua
 =============================changelog==========================================
 19:53 | 07:53 PM | Wed | Nov | 01/11/2023
 0.0.18

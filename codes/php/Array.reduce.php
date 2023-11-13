@@ -46,7 +46,7 @@ $numbers_total = array_reduce($numbers,  fn($current_result, $current_number) =>
 echo("\ntotal number: $numbers_total");
 // total number: 635
 
-echo("\n\n// JavaScript-like Array.reduce() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.reduce() in PHP Array of Associative-Arrays");
 
 $products = [
     [

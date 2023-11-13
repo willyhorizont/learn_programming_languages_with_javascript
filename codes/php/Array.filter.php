@@ -113,7 +113,7 @@ $numbers_odd = array_filter($numbers, fn($number) => (($number % 2) !== 0));
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n\n// JavaScript-like Array.filter() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.filter() in PHP Array of Associative-Arrays");
 
 $products = [
     [

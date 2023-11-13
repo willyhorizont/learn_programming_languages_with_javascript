@@ -143,7 +143,7 @@ def fizzbuzz_v7(stop_number)
     return "argument should be a number" if (stop_number.is_a?(Numeric) == false)
     return "argument should be greater than 0" if (stop_number < 1)
     result = ""
-    (1..stop_number).each do |number|
+    (1.step(stop_number, 1)).each do |number|
         if (result == "")
             result = "#{number}"
             next
@@ -169,7 +169,7 @@ def fizzbuzz_v7(stop_number)
     return "argument should be a number" if (stop_number.is_a?(Numeric) == false)
     return "argument should be greater than 0" if (stop_number < 1)
     result = ""
-    (1..stop_number).each do |number|
+    (1.step(stop_number, 1)).each do |number|
         if (result == "")
             result = "#{number}"
         elsif (((number % 3) === 0) && ((number % 5) === 0))
@@ -189,13 +189,13 @@ def fizzbuzz_v8(stop_number)
     return "argument should be a number" if (stop_number.is_a?(Numeric) == false)
     return "argument should be greater than 0" if (stop_number < 1)
     result = ""
-    (1..stop_number).each do |number|
+    (1.step(stop_number, 1)).each do |number|
         result = ((result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{result}, FizzBuzz" : (((number % 3) === 0) ? "#{result}, Fizz" : (((number % 5) === 0) ? "#{result}, Buzz" : "#{result}, #{number}"))))
     end
     return result
 end
 
-fizzbuzz_v9 = ->(stop_number) { ((stop_number.is_a?(Numeric) == false) ? "argument should be a number" : ((stop_number < 1) ? "argument should be greater than 0" : (1..stop_number).reduce("") { |current_result, number| ((current_result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{current_result}, FizzBuzz" : (((number % 3) === 0) ? "#{current_result}, Fizz" : (((number % 5) === 0) ? "#{current_result}, Buzz" : "#{current_result}, #{number}")))) })) }
+fizzbuzz_v9 = ->(stop_number) { ((stop_number.is_a?(Numeric) == false) ? "argument should be a number" : ((stop_number < 1) ? "argument should be greater than 0" : (1.step(stop_number, 1)).reduce("") { |current_result, number| ((current_result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{current_result}, FizzBuzz" : (((number % 3) === 0) ? "#{current_result}, Fizz" : (((number % 5) === 0) ? "#{current_result}, Buzz" : "#{current_result}, #{number}")))) })) }
 
 print("\n# using fizzbuzz function \"fizzbuzz_v1\"")
 print("\nFizzBuzz(36): ", fizzbuzz_v1(36))

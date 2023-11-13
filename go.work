@@ -1,7 +1,9 @@
 go 1.21.3
 
 use (
-    ./codes/go/Array
+    ./codes/go/1.Arrays
+    ./codes/go/1.Objects
+    ./codes/go/1.Loops
     ./codes/go/Array.every
     ./codes/go/Array.filter
     ./codes/go/Array.find

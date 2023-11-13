@@ -107,7 +107,7 @@ echo("\nis any number > 500: $is_any_number_more_than_500");
 
 // ======================================================================================================================================================
 
-echo("\n\n// JavaScript-like Array.some() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.some() in PHP Array of Associative-Arrays");
 
 $products = [
     [

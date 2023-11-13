@@ -9,10 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -21,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray []any) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -100,17 +101,17 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func spreadSyntaxObject(parameters ...Any) Object {
-	var newObject = make(Object)
+func spreadSyntaxObject(parameters ...any) object {
+	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			for objectKey, objectValue := range parameter.(Object) {
+			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
 		if parameterType == reflect.Slice {
-			for arrayItemIndex, arrayItem := range parameter.([]Any) {
+			for arrayItemIndex, arrayItem := range parameter.([]any) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
 		}
@@ -118,10 +119,24 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
-func spreadSyntaxArray(parameters ...[]Any) []Any {
-	var newArray = []Any{}
-	for _, anArray := range parameters {
-		newArray = append(newArray, anArray...)
+func spreadSyntaxArray(parameters ...any) []any {
+	var newArray = []any{}
+	for _, parameter := range parameters {
+		parameterType := reflect.TypeOf(parameter).Kind()
+		if parameterType == reflect.Map {
+			if len(parameter.(object)) == 1 {
+				for _, objectValue := range parameter.(object) {
+					newArray = append(newArray, objectValue)
+				}
+				continue
+			}
+			newArray = append(newArray, parameter)
+			continue
+		}
+		if parameterType == reflect.Slice {
+			newArray = append(newArray, parameter.([]any)...)
+			continue
+		}
 	}
 	return newArray
 }

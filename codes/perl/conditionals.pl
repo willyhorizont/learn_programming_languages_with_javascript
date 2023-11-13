@@ -18,8 +18,7 @@ sub print_bool {
     return $val ? "true" : "false";
 }
 
-my $CORRECT_ANSWER = 100;
-
+my $correct_answer;
 my $my_age;
 my $my_answer;
 my $has_driving_license;
@@ -49,9 +48,10 @@ print("\n# equal to [==, eq]\n");
 
 $my_answer = "100";
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer == \$CORRECT_ANSWER): " . "\n");
-if ($my_answer == $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer == \$correct_answer): " . "\n");
+if ($my_answer == $correct_answer) {
     print("Your answer is correct" . "\n");
 } else {
     print("Your answer is wrong" . "\n");
@@ -59,9 +59,10 @@ if ($my_answer == $CORRECT_ANSWER) {
 
 $my_answer = "100";
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer eq \$CORRECT_ANSWER): " . "\n");
-if ($my_answer eq $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer eq \$correct_answer): " . "\n");
+if ($my_answer eq $correct_answer) {
     print("Your answer is correct" . "\n");
 } else {
     print("Your answer is wrong" . "\n");
@@ -69,9 +70,10 @@ if ($my_answer eq $CORRECT_ANSWER) {
 
 $my_answer = 100;
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer == \$CORRECT_ANSWER): " . "\n");
-if ($my_answer == $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer == \$correct_answer): " . "\n");
+if ($my_answer == $correct_answer) {
     print("Your answer is correct" . "\n");
 } else {
     print("Your answer is wrong" . "\n");
@@ -79,9 +81,10 @@ if ($my_answer == $CORRECT_ANSWER) {
 
 $my_answer = 100;
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer eq \$CORRECT_ANSWER): " . "\n");
-if ($my_answer eq $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer eq \$correct_answer): " . "\n");
+if ($my_answer eq $correct_answer) {
     print("Your answer is correct" . "\n");
 } else {
     print("Your answer is wrong" . "\n");
@@ -91,9 +94,10 @@ print("\n# not equal to [!=, ne]\n");
 
 $my_answer = "25";
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
-if ($my_answer != $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer != \$correct_answer): " . "\n");
+if ($my_answer != $correct_answer) {
     print("Your answer is wrong" . "\n");
 } else {
     print("Your answer is correct" . "\n");
@@ -101,9 +105,10 @@ if ($my_answer != $CORRECT_ANSWER) {
 
 $my_answer = "25";
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer ne \$CORRECT_ANSWER): " . "\n");
-if ($my_answer ne $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer ne \$correct_answer): " . "\n");
+if ($my_answer ne $correct_answer) {
     print("Your answer is wrong" . "\n");
 } else {
     print("Your answer is correct" . "\n");
@@ -111,9 +116,10 @@ if ($my_answer ne $CORRECT_ANSWER) {
 
 $my_answer = 25;
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
-if ($my_answer != $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer != \$correct_answer): " . "\n");
+if ($my_answer != $correct_answer) {
     print("Your answer is wrong" . "\n");
 } else {
     print("Your answer is correct" . "\n");
@@ -121,9 +127,10 @@ if ($my_answer != $CORRECT_ANSWER) {
 
 $my_answer = 25;
 print("\$my_answer: " . $my_answer . "\n");
-print("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-print("(\$my_answer ne \$CORRECT_ANSWER): " . "\n");
-if ($my_answer ne $CORRECT_ANSWER) {
+$correct_answer = 100;
+print("\$correct_answer: " . $correct_answer . "\n");
+print("(\$my_answer ne \$correct_answer): " . "\n");
+if ($my_answer ne $correct_answer) {
     print("Your answer is wrong" . "\n");
 } else {
     print("Your answer is correct" . "\n");

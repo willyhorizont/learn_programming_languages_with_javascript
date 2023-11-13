@@ -248,7 +248,7 @@ echo("\nlabeled numbers: " . json_encode($numbers_labeled, JSON_PRETTY_PRINT));
 //     }
 // ]
 
-echo("\n\n// JavaScript-like Array.map() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.map() in PHP Array of Associative-Arrays");
 
 $products = [
     [

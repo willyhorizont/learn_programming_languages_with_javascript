@@ -136,7 +136,7 @@ $number_found_index = array_find_index_v6(fn($number) => $number === $number_to_
 echo("\nnumber found index: $number_found_index");
 // number found index: 2
 
-echo("\n\n// JavaScript-like Array.findIndex() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.findIndex() in PHP Array of Associative-Arrays");
 
 $products = [
     [

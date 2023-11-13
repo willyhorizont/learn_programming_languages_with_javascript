@@ -105,7 +105,7 @@ $is_all_number_more_than_500 = array_every_v4(fn($number) => $number > 500, $num
 echo("\nis all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
-echo("\n\n// JavaScript-like Array.every() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.every() in PHP Array of Associative-Arrays");
 
 $products = [
     [

@@ -26,7 +26,8 @@
         "quote-props": "off",
         "no-unneeded-ternary": "off",
         "global-require": "off",
-        "no-continue": "off"
+        "no-continue": "off",
+        "no-console":"off"
     }
   }
   

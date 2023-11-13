@@ -14,7 +14,7 @@ sub pretty_array_of_primitives {
         my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
-        $result = $result . "\"" . $array_item . "\"" if ($is_string);
+        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
         $result = $result . $array_item if ($is_number);
         $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
     }

@@ -157,7 +157,7 @@ $odd_number_found = array_find_v6(fn($number) => (($number % 2) !== 0), $numbers
 echo("\nodd number found: $odd_number_found");
 // odd number found: 27
 
-echo("\n\n// JavaScript-like Array.find() in PHP Associative Array");
+echo("\n\n// JavaScript-like Array.find() in PHP Array of Associative-Arrays");
 
 $products = [
     [
