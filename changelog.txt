@@ -1,4 +1,9 @@
 =============================changelog==========================================
+13:21 | 01:21 PM | Tue | Nov | 14/11/2023
+0.0.27
+update readme.txt and add notes.txt
+small update in most .go file
+=============================changelog==========================================
 01:08 | 01:08 AM | Tue | Nov | 14/11/2023
 0.0.26
 update 1.Arrays.js, 1.Arrays.go, 1.Arrays.php, 1.Arrays.pl, 1.Arrays.py, 1.Arrays.jl, 1.Arrays.lua, 1.Arrays.rb, 1.Arrays.r

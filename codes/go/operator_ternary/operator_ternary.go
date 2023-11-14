@@ -8,10 +8,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -20,7 +21,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func ternaryOperator(conditionIsTrue bool, resultIfConditionIsTrue Any, resultIfConditionIsFalse Any) Any {
+func ternaryOperator(conditionIsTrue bool, resultIfConditionIsTrue any, resultIfConditionIsFalse any) any {
 	if conditionIsTrue {
 		return resultIfConditionIsTrue
 	}

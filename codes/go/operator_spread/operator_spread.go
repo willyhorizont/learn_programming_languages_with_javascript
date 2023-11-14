@@ -12,10 +12,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -24,7 +25,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -103,17 +104,17 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func spreadSyntaxObject(parameters ...Any) Object {
-	var newObject = make(Object)
+func spreadSyntaxObject(parameters ...any) object {
+	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			for objectKey, objectValue := range parameter.(Object) {
+			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
 		if parameterType == reflect.Slice {
-			for arrayItemIndex, arrayItem := range parameter.([]Any) {
+			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
 		}
@@ -121,13 +122,13 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
-func spreadSyntaxArray(parameters ...Any) []Any {
-	var newArray = []Any{}
+func spreadSyntaxArray(parameters ...any) array {
+	var newArray = array{}
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			if len(parameter.(Object)) == 1 {
-				for _, objectValue := range parameter.(Object) {
+			if len(parameter.(object)) == 1 {
+				for _, objectValue := range parameter.(object) {
 					newArray = append(newArray, objectValue)
 				}
 				continue
@@ -136,7 +137,7 @@ func spreadSyntaxArray(parameters ...Any) []Any {
 			continue
 		}
 		if parameterType == reflect.Slice {
-			newArray = append(newArray, parameter.([]Any)...)
+			newArray = append(newArray, parameter.(array)...)
 			continue
 		}
 	}
@@ -146,20 +147,20 @@ func spreadSyntaxArray(parameters ...Any) []Any {
 func main() {
 	fmt.Println("\n// JavaScript-like Spread Syntax (...) in Go")
 
-	fruits := []Any{"Mango", "Melon", "Banana"}
+	fruits := array{"Mango", "Melon", "Banana"}
 	fmt.Println("fruits: ", prettyArrayOfPrimitives(fruits))
 
-	vegetables := []Any{"Carrot", "Tomato"}
+	vegetables := array{"Carrot", "Tomato"}
 	fmt.Println("vegetables: ", prettyArrayOfPrimitives(vegetables))
 
-	countryCapitalsInAsia := Object{
+	countryCapitalsInAsia := object{
 		"Thailand": "Bangkok",
 		"China":    "Beijing",
 		"Japan":    "Tokyo",
 	}
 	fmt.Println("countryCapitalsInAsia: ", prettyJsonStringify(countryCapitalsInAsia))
 
-	countryCapitalsInEurope := Object{
+	countryCapitalsInEurope := object{
 		"France":  "Paris",
 		"England": "London",
 	}
@@ -177,7 +178,7 @@ func main() {
 	//     "Tomato"
 	// ]
 
-	combination2 := spreadSyntaxArray(fruits, []Any{"Cucumber", "Onions"})
+	combination2 := spreadSyntaxArray(fruits, array{"Cucumber", "Onions"})
 	fmt.Println("combination2: ", prettyJsonStringify(combination2))
 	// combination2: [
 	//     "Mango",
@@ -199,7 +200,7 @@ func main() {
 	//     "England": "London"
 	// }
 
-	combination4 := spreadSyntaxObject(countryCapitalsInAsia, Object{"Germany": "Berlin", "Italy": "Rome"})
+	combination4 := spreadSyntaxObject(countryCapitalsInAsia, object{"Germany": "Berlin", "Italy": "Rome"})
 	fmt.Println("combination4: ", prettyJsonStringify(combination4))
 	// combination4: {
 	//     "Thailand": "Bangkok",
@@ -211,7 +212,7 @@ func main() {
 
 	print("// [...array1, array2]:")
 
-	combination5 := spreadSyntaxArray(fruits, Object{"vegetables": vegetables})
+	combination5 := spreadSyntaxArray(fruits, object{"vegetables": vegetables})
 	fmt.Println("combination5: ", prettyJsonStringify(combination5))
 	// combination5: [
 	//     "Mango",
@@ -223,7 +224,7 @@ func main() {
 	//     ]
 	// ]
 
-	combination6 := spreadSyntaxArray(fruits, Object{"vegetables": []Any{"Cucumber", "Onions"}})
+	combination6 := spreadSyntaxArray(fruits, object{"vegetables": array{"Cucumber", "Onions"}})
 	fmt.Println("combination6: ", prettyJsonStringify(combination6))
 	// combination6: [
 	//     "Mango",
@@ -237,7 +238,7 @@ func main() {
 
 	print("// [...array1, object1]:")
 
-	combination7 := spreadSyntaxArray(fruits, Object{"countryCapitalsInAsia": countryCapitalsInAsia})
+	combination7 := spreadSyntaxArray(fruits, object{"countryCapitalsInAsia": countryCapitalsInAsia})
 	fmt.Println("combination7: ", prettyJsonStringify(combination7))
 	// combination7: [
 	//     "Mango",
@@ -250,7 +251,7 @@ func main() {
 	//     }
 	// ]
 
-	combination8 := spreadSyntaxArray(fruits, Object{"Germany": "Berlin", "Italy": "Rome"})
+	combination8 := spreadSyntaxArray(fruits, object{"Germany": "Berlin", "Italy": "Rome"})
 	fmt.Println("combination8: ", prettyJsonStringify(combination8))
 	// combination8: [
 	//     "Mango",
@@ -264,7 +265,7 @@ func main() {
 
 	print("// { ...object1, object2 }:")
 
-	combination9 := spreadSyntaxObject(countryCapitalsInAsia, Object{"countryCapitalsInEurope": countryCapitalsInEurope})
+	combination9 := spreadSyntaxObject(countryCapitalsInAsia, object{"countryCapitalsInEurope": countryCapitalsInEurope})
 	fmt.Println("combination9: ", prettyJsonStringify(combination9))
 	// combination9: {
 	//    "Thailand" : "Bangkok",
@@ -276,7 +277,7 @@ func main() {
 	//    }
 	// }
 
-	combination10 := spreadSyntaxObject(countryCapitalsInAsia, Object{"countryCapitalsInEurope": Object{"Germany": "Berlin", "Italy": "Rome"}})
+	combination10 := spreadSyntaxObject(countryCapitalsInAsia, object{"countryCapitalsInEurope": object{"Germany": "Berlin", "Italy": "Rome"}})
 	fmt.Println("combination10: ", prettyJsonStringify(combination10))
 	//combination10: {
 	//	"Thailand": "Bangkok",
@@ -290,7 +291,7 @@ func main() {
 
 	print("// { ...object1, array2 }:")
 
-	combination11 := spreadSyntaxObject(countryCapitalsInAsia, Object{"vegetables": vegetables})
+	combination11 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": vegetables})
 	fmt.Println("combination11: ", prettyJsonStringify(combination11))
 	// combination11: {
 	//     "Thailand": "Bangkok",
@@ -302,7 +303,7 @@ func main() {
 	//     ]
 	// }
 
-	combination12 := spreadSyntaxObject(countryCapitalsInAsia, Object{"vegetables": []Any{"Cucumber", "Onions"}})
+	combination12 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Onions"}})
 	fmt.Println("combination12: ", prettyJsonStringify(combination12))
 	// combination12: {
 	//     "Thailand": "Bangkok",
@@ -326,7 +327,7 @@ func main() {
 	//    "1" : "Tomato"
 	// }
 
-	combination14 := spreadSyntaxObject(countryCapitalsInAsia, []Any{"Cucumber", "Onions"})
+	combination14 := spreadSyntaxObject(countryCapitalsInAsia, array{"Cucumber", "Onions"})
 	fmt.Println("combination14: ", prettyJsonStringify(combination14))
 	// combination14: {
 	//    "Thailand" : "Bangkok",
@@ -343,6 +344,6 @@ func main() {
 	// fmt.Println("combinationErrorInJavaScript1: ", prettyJsonStringify(combinationErrorInJavaScript1))
 
 	// this combination throw an error in JavaScript
-	// combinationErrorInJavaScript2 := spreadSyntaxObject(fruits, Object{"Germany": "Berlin", "Italy": "Rome"})
+	// combinationErrorInJavaScript2 := spreadSyntaxObject(fruits, object{"Germany": "Berlin", "Italy": "Rome"})
 	// fmt.Println("combinationErrorInJavaScript2: ", prettyJsonStringify(combinationErrorInJavaScript2))
 }

@@ -8,10 +8,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -20,7 +21,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func nullishCoalescing(anything Any, defaultValue Any) Any {
+func nullishCoalescing(anything any, defaultValue any) any {
 	if anything == nil {
 		return defaultValue
 	} else {
@@ -34,8 +35,8 @@ func main() {
 	// There's no JavaScript-like Nullish Coalescing Operator (??) in Go.
 	// But, we can create our own function to mimic it in Go.
 
-	JSON_OBJECT := Object{
-		"foo": Object{
+	JSON_OBJECT := object{
+		"foo": object{
 			"bar": "baz",
 		},
 	}
@@ -43,15 +44,15 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Nullish Coalescing Operator (??) function \"nullishCoalescing\"")
 
-	fmt.Println("JSON_OBJECT?.foo?.bar ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(Object)["bar"], "not found"))
+	fmt.Println("JSON_OBJECT?.foo?.bar ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(object)["bar"], "not found"))
 	// JSON_OBJECT?.foo?.bar ?? "not found": baz
-	fmt.Println("JSON_OBJECT?.foo?.baz ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(Object)["baz"], "not found"))
+	fmt.Println("JSON_OBJECT?.foo?.baz ?? \"not found\":", nullishCoalescing(JSON_OBJECT["foo"].(object)["baz"], "not found"))
 	// JSON_OBJECT?.foo?.baz ?? "not found": not found
 
 	fmt.Println("// using the Go way")
 
-	foobar := JSON_OBJECT["foo"].(Object)["bar"]
-	foobaz := JSON_OBJECT["foo"].(Object)["baz"]
+	foobar := JSON_OBJECT["foo"].(object)["bar"]
+	foobaz := JSON_OBJECT["foo"].(object)["baz"]
 	if foobar == nil {
 		foobar = "not found"
 	}

@@ -22,7 +22,7 @@ func prettyJsonStringify(anything any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -111,7 +111,7 @@ func spreadSyntaxObject(parameters ...any) object {
 			}
 		}
 		if parameterType == reflect.Slice {
-			for arrayItemIndex, arrayItem := range parameter.([]any) {
+			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
 		}
@@ -119,8 +119,8 @@ func spreadSyntaxObject(parameters ...any) object {
 	return newObject
 }
 
-func spreadSyntaxArray(parameters ...any) []any {
-	var newArray = []any{}
+func spreadSyntaxArray(parameters ...any) array {
+	var newArray = array{}
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
@@ -134,7 +134,7 @@ func spreadSyntaxArray(parameters ...any) []any {
 			continue
 		}
 		if parameterType == reflect.Slice {
-			newArray = append(newArray, parameter.([]any)...)
+			newArray = append(newArray, parameter.(array)...)
 			continue
 		}
 	}

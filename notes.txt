@@ -1,0 +1,79 @@
+1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type
+```javascript
+let something = 123
+something = "foo"
+something = true
+something = [1, 2, 3]
+something = { "foo": "bar" }
+```
+
+2. has option to make variable can store dynamic data type and dynamic value
+```go
+type Any interface{}
+type Array []Any
+type Object map[string]Any
+```
+
+3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+```javascript
+const myObject = { "my_string": "foo", "my_number": 17, "my_bool": true, "my_obj": { "foo": "bar" }, "my_array": [1, 2, 3] }
+```
+
+4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+```javascript
+const myArray = ["foo", 17, true, [1, 2, 3], { "foo": "bar" }]
+```
+
+5. support passing functions as arguments to other functions
+```javascript
+function sayHello(callbackFunction) {
+    console.log("hello");
+    callbackFunction();
+}
+sayHello(function () {
+    console.log("how are you?");
+});
+```
+
+6. support returning functions as values from other functions (closure)
+```javascript
+function multiply(a) {
+    return function multiplyBy(b) {
+        return a * b;
+    };
+}
+const multiplyBy2 = multiply(2);
+const result = multiplyBy2(10); // 20
+```
+
+7. support assigning functions to variables
+```javascript
+const getRectangleArea = function (rectangleWidth, rectangleLength) {
+    return rectangleWidth * rectangleLength;
+};
+getRectangleArea(3, 4);
+```
+
+8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+```javascript
+const myArray = [
+    function (rectangleWidth, rectangleLength) {
+        return rectangleWidth * rectangleLength;
+    },
+    "foo",
+    123
+];
+myArray[0](3, 4);
+
+const myObject = {
+    "multiplication": function (a, b) {
+        return a * b;
+    },
+    "foo": "bar",
+    "age": 17
+};
+myObject.multiplication(7, 5);
+```
+
+nice to have:
+9. has ability to encode data structure to JSON and decode JSON to data structure

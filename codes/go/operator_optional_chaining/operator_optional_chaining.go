@@ -8,10 +8,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -26,15 +27,15 @@ func main() {
 	// There's no JavaScript-like Optional Chaining Operator (?.) in Go.
 	// But, we don't need that in Go.
 
-	JSON_OBJECT := Object{
-		"foo": Object{
+	JSON_OBJECT := object{
+		"foo": object{
 			"bar": "baz",
 		},
 	}
 	fmt.Println("JSON_OBJECT:", prettyJsonStringify(JSON_OBJECT))
 
-	fmt.Println("JSON_OBJECT?.foo?.bar:", prettyJsonStringify(JSON_OBJECT["foo"].(Object)["bar"]))
+	fmt.Println("JSON_OBJECT?.foo?.bar:", prettyJsonStringify(JSON_OBJECT["foo"].(object)["bar"]))
 	// JSON_OBJECT?.foo?.bar: "baz"
-	fmt.Println("JSON_OBJECT?.foo?.baz:", prettyJsonStringify(JSON_OBJECT["foo"].(Object)["baz"]))
+	fmt.Println("JSON_OBJECT?.foo?.baz:", prettyJsonStringify(JSON_OBJECT["foo"].(object)["baz"]))
 	// JSON_OBJECT?.foo?.baz: null
 }

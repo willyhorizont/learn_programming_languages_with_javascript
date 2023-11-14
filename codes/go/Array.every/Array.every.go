@@ -9,10 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -21,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -100,7 +101,7 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func arrayEveryV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) bool {
+func arrayEveryV1(callbackFunction func(any, int, array) bool, anArray array) bool {
 	// JavaScript-like Array.every() function
 	isConditionMatch := false
 	for arrayItemIndex, arrayItem := range anArray {
@@ -112,7 +113,7 @@ func arrayEveryV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) bo
 	return isConditionMatch
 }
 
-func arrayEveryV2(callbackFunction func(Any, int, []Any) bool, anArray []Any) bool {
+func arrayEveryV2(callbackFunction func(any, int, array) bool, anArray array) bool {
 	// JavaScript-like Array.every() function
 	isConditionMatch := false
 	for arrayItemIndex, arrayItem := range anArray {
@@ -124,7 +125,7 @@ func arrayEveryV2(callbackFunction func(Any, int, []Any) bool, anArray []Any) bo
 	return isConditionMatch
 }
 
-func arrayEveryV3(callbackFunction func(Any, int, []Any) bool, anArray []Any) bool {
+func arrayEveryV3(callbackFunction func(any, int, array) bool, anArray array) bool {
 	// JavaScript-like Array.every() function
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
@@ -135,7 +136,7 @@ func arrayEveryV3(callbackFunction func(Any, int, []Any) bool, anArray []Any) bo
 	return true
 }
 
-func arrayEveryV4(callbackFunction func(Any, int, []Any) bool, anArray []Any) bool {
+func arrayEveryV4(callbackFunction func(any, int, array) bool, anArray array) bool {
 	// JavaScript-like Array.every() function
 	for arrayItemIndex, arrayItem := range anArray {
 		if callbackFunction(arrayItem, arrayItemIndex, anArray) == false {
@@ -148,7 +149,7 @@ func arrayEveryV4(callbackFunction func(Any, int, []Any) bool, anArray []Any) bo
 func main() {
 	fmt.Println("\n// JavaScript-like Array.every() in Go Slice")
 
-	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+	numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
 	var isAllNumberLessThan500 bool
@@ -156,13 +157,13 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV1\"")
 
-	isAllNumberLessThan500 = arrayEveryV1(func(number Any, _ int, _ []Any) bool {
+	isAllNumberLessThan500 = arrayEveryV1(func(number any, _ int, _ array) bool {
 		return number.(int) < 500
 	}, numbers)
 	fmt.Println("is all number < 500: ", prettyJsonStringify(isAllNumberLessThan500))
 	// is all number < 500: true
 
-	isAllNumberMoreThan500 = arrayEveryV1(func(number Any, _ int, _ []Any) bool {
+	isAllNumberMoreThan500 = arrayEveryV1(func(number any, _ int, _ array) bool {
 		return number.(int) > 500
 	}, numbers)
 	fmt.Println("is all number > 500: ", prettyJsonStringify(isAllNumberMoreThan500))
@@ -170,13 +171,13 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV2\"")
 
-	isAllNumberLessThan500 = arrayEveryV2(func(number Any, _ int, _ []Any) bool {
+	isAllNumberLessThan500 = arrayEveryV2(func(number any, _ int, _ array) bool {
 		return number.(int) < 500
 	}, numbers)
 	fmt.Println("is all number < 500: ", prettyJsonStringify(isAllNumberLessThan500))
 	// is all number < 500: true
 
-	isAllNumberMoreThan500 = arrayEveryV2(func(number Any, _ int, _ []Any) bool {
+	isAllNumberMoreThan500 = arrayEveryV2(func(number any, _ int, _ array) bool {
 		return number.(int) > 500
 	}, numbers)
 	fmt.Println("is all number > 500: ", prettyJsonStringify(isAllNumberMoreThan500))
@@ -184,13 +185,13 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV3\"")
 
-	isAllNumberLessThan500 = arrayEveryV3(func(number Any, _ int, _ []Any) bool {
+	isAllNumberLessThan500 = arrayEveryV3(func(number any, _ int, _ array) bool {
 		return number.(int) < 500
 	}, numbers)
 	fmt.Println("is all number < 500: ", prettyJsonStringify(isAllNumberLessThan500))
 	// is all number < 500: true
 
-	isAllNumberMoreThan500 = arrayEveryV3(func(number Any, _ int, _ []Any) bool {
+	isAllNumberMoreThan500 = arrayEveryV3(func(number any, _ int, _ array) bool {
 		return number.(int) > 500
 	}, numbers)
 	fmt.Println("is all number > 500: ", prettyJsonStringify(isAllNumberMoreThan500))
@@ -198,13 +199,13 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV4\"")
 
-	isAllNumberLessThan500 = arrayEveryV4(func(number Any, _ int, _ []Any) bool {
+	isAllNumberLessThan500 = arrayEveryV4(func(number any, _ int, _ array) bool {
 		return number.(int) < 500
 	}, numbers)
 	fmt.Println("is all number < 500: ", prettyJsonStringify(isAllNumberLessThan500))
 	// is all number < 500: true
 
-	isAllNumberMoreThan500 = arrayEveryV4(func(number Any, _ int, _ []Any) bool {
+	isAllNumberMoreThan500 = arrayEveryV4(func(number any, _ int, _ array) bool {
 		return number.(int) > 500
 	}, numbers)
 	fmt.Println("is all number > 500: ", prettyJsonStringify(isAllNumberMoreThan500))
@@ -212,20 +213,20 @@ func main() {
 
 	fmt.Println("\n// JavaScript-like Array.every() in Slice of Maps")
 
-	products := []Any{
-		Object{
+	products := array{
+		object{
 			"code":  "pasta",
 			"price": 321,
 		},
-		Object{
+		object{
 			"code":  "bubble_gum",
 			"price": 233,
 		},
-		Object{
+		object{
 			"code":  "potato_chips",
 			"price": 5,
 		},
-		Object{
+		object{
 			"code":  "towel",
 			"price": 499,
 		},
@@ -238,56 +239,56 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV1\"")
 
-	isAllProductPriceLessThan500 = arrayEveryV1(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) < 500
+	isAllProductPriceLessThan500 = arrayEveryV1(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) < 500
 	}, products)
 	fmt.Println("is all product price < 500:", prettyJsonStringify(isAllProductPriceLessThan500))
 	// is all product price < 500: true
 
-	isAllProductPriceMoreThan500 = arrayEveryV1(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) > 500
+	isAllProductPriceMoreThan500 = arrayEveryV1(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) > 500
 	}, products)
 	fmt.Println("is all product price > 500:", prettyJsonStringify(isAllProductPriceMoreThan500))
 	// is all product price > 500: false
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV2\"")
 
-	isAllProductPriceLessThan500 = arrayEveryV2(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) < 500
+	isAllProductPriceLessThan500 = arrayEveryV2(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) < 500
 	}, products)
 	fmt.Println("is all product price < 500:", prettyJsonStringify(isAllProductPriceLessThan500))
 	// is all product price < 500: true
 
-	isAllProductPriceMoreThan500 = arrayEveryV2(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) > 500
+	isAllProductPriceMoreThan500 = arrayEveryV2(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) > 500
 	}, products)
 	fmt.Println("is all product price > 500:", prettyJsonStringify(isAllProductPriceMoreThan500))
 	// is all product price > 500: false
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV3\"")
 
-	isAllProductPriceLessThan500 = arrayEveryV3(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) < 500
+	isAllProductPriceLessThan500 = arrayEveryV3(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) < 500
 	}, products)
 	fmt.Println("is all product price < 500:", prettyJsonStringify(isAllProductPriceLessThan500))
 	// is all product price < 500: true
 
-	isAllProductPriceMoreThan500 = arrayEveryV3(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) > 500
+	isAllProductPriceMoreThan500 = arrayEveryV3(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) > 500
 	}, products)
 	fmt.Println("is all product price > 500:", prettyJsonStringify(isAllProductPriceMoreThan500))
 	// is all product price > 500: false
 
 	fmt.Println("// using JavaScript-like Array.every() function \"arrayEveryV4\"")
 
-	isAllProductPriceLessThan500 = arrayEveryV4(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) < 500
+	isAllProductPriceLessThan500 = arrayEveryV4(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) < 500
 	}, products)
 	fmt.Println("is all product price < 500:", prettyJsonStringify(isAllProductPriceLessThan500))
 	// is all product price < 500: true
 
-	isAllProductPriceMoreThan500 = arrayEveryV4(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["price"].(int) > 500
+	isAllProductPriceMoreThan500 = arrayEveryV4(func(product any, _ int, _ array) bool {
+		return product.(object)["price"].(int) > 500
 	}, products)
 	fmt.Println("is all product price > 500:", prettyJsonStringify(isAllProductPriceMoreThan500))
 	// is all product price > 500: false

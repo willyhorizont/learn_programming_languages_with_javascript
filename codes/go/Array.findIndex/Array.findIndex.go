@@ -9,10 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -21,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -100,7 +101,7 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func arrayFindIndexV1(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV1(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	itemIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
@@ -113,7 +114,7 @@ func arrayFindIndexV1(callbackFunction func(Any, int, []Any) bool, anArray []Any
 	return itemIndex
 }
 
-func arrayFindIndexV2(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV2(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	itemIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
@@ -125,7 +126,7 @@ func arrayFindIndexV2(callbackFunction func(Any, int, []Any) bool, anArray []Any
 	return itemIndex
 }
 
-func arrayFindIndexV3(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV3(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	itemIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
@@ -137,7 +138,7 @@ func arrayFindIndexV3(callbackFunction func(Any, int, []Any) bool, anArray []Any
 	return itemIndex
 }
 
-func arrayFindIndexV4(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV4(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	itemIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
@@ -148,7 +149,7 @@ func arrayFindIndexV4(callbackFunction func(Any, int, []Any) bool, anArray []Any
 	return itemIndex
 }
 
-func arrayFindIndexV5(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV5(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
@@ -159,7 +160,7 @@ func arrayFindIndexV5(callbackFunction func(Any, int, []Any) bool, anArray []Any
 	return -1
 }
 
-func arrayFindIndexV6(callbackFunction func(Any, int, []Any) bool, anArray []Any) int {
+func arrayFindIndexV6(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
 	for arrayItemIndex, arrayItem := range anArray {
 		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
@@ -172,7 +173,7 @@ func arrayFindIndexV6(callbackFunction func(Any, int, []Any) bool, anArray []Any
 func main() {
 	fmt.Println("\n// JavaScript-like Array.findIndex() in Go Slice")
 
-	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+	numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
 	numberToFind := 27
@@ -182,7 +183,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 
-	numberFoundIndex = arrayFindIndexV1(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV1(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -190,7 +191,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
 
-	numberFoundIndex = arrayFindIndexV2(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV2(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -198,7 +199,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
 
-	numberFoundIndex = arrayFindIndexV3(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV3(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -206,7 +207,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
 
-	numberFoundIndex = arrayFindIndexV4(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV4(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -214,7 +215,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"")
 
-	numberFoundIndex = arrayFindIndexV5(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV5(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -222,7 +223,7 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"")
 
-	numberFoundIndex = arrayFindIndexV6(func(number Any, _ int, _ []Any) bool {
+	numberFoundIndex = arrayFindIndexV6(func(number any, _ int, _ array) bool {
 		return number.(int) == numberToFind
 	}, numbers)
 	fmt.Println("number found index:", numberFoundIndex)
@@ -230,20 +231,20 @@ func main() {
 
 	fmt.Println("\n// JavaScript-like Array.findIndex() in Slice of Maps")
 
-	products := []Any{
-		Object{
+	products := array{
+		object{
 			"code":  "pasta",
 			"price": 321,
 		},
-		Object{
+		object{
 			"code":  "bubble_gum",
 			"price": 233,
 		},
-		Object{
+		object{
 			"code":  "potato_chips",
 			"price": 5,
 		},
-		Object{
+		object{
 			"code":  "towel",
 			"price": 499,
 		},
@@ -257,48 +258,48 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 
-	productFoundIndex = arrayFindIndexV1(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV1(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
 
-	productFoundIndex = arrayFindIndexV2(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV2(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
 
-	productFoundIndex = arrayFindIndexV3(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV3(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
 
-	productFoundIndex = arrayFindIndexV4(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV4(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"")
 
-	productFoundIndex = arrayFindIndexV5(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV5(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"")
 
-	productFoundIndex = arrayFindIndexV6(func(product Any, _ int, _ []Any) bool {
-		return product.(Object)["code"] == productToFind
+	productFoundIndex = arrayFindIndexV6(func(product any, _ int, _ array) bool {
+		return product.(object)["code"] == productToFind
 	}, products)
 	fmt.Println("product found index:", productFoundIndex)
 	// product found index: 0

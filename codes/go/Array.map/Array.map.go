@@ -9,10 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -21,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -100,17 +101,17 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func spreadSyntaxObject(parameters ...Any) Object {
-	var newObject = make(Object)
+func spreadSyntaxObject(parameters ...any) object {
+	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			for objectKey, objectValue := range parameter.(Object) {
+			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
 		if parameterType == reflect.Slice {
-			for arrayItemIndex, arrayItem := range parameter.([]Any) {
+			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
 		}
@@ -118,9 +119,9 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
-func arrayMapV1(callbackFunction func(Any, int, []Any) Any, anArray []Any) []Any {
+func arrayMapV1(callbackFunction func(any, int, array) any, anArray array) array {
 	// JavaScript-like Array.map() function
-	newArray := []Any{}
+	newArray := array{}
 	for arrayItemIndex, arrayItem := range anArray {
 		newArrayItem := callbackFunction(arrayItem, arrayItemIndex, anArray)
 		newArray = append(newArray, newArrayItem)
@@ -128,9 +129,9 @@ func arrayMapV1(callbackFunction func(Any, int, []Any) Any, anArray []Any) []Any
 	return newArray
 }
 
-func arrayMapV2(callbackFunction func(Any, int, []Any) Any, anArray []Any) []Any {
+func arrayMapV2(callbackFunction func(any, int, array) any, anArray array) array {
 	// JavaScript-like Array.map() function
-	newArray := []Any{}
+	newArray := array{}
 	for arrayItemIndex, arrayItem := range anArray {
 		newArray = append(newArray, callbackFunction(arrayItem, arrayItemIndex, anArray))
 	}
@@ -140,21 +141,21 @@ func arrayMapV2(callbackFunction func(Any, int, []Any) Any, anArray []Any) []Any
 func main() {
 	fmt.Println("\n// JavaScript-like Array.map() in Go Slice")
 
-	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+	numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
-	var numbersLabeled []Any
+	var numbersLabeled array
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV1\"")
 
-	numbersLabeled = arrayMapV1(func(number Any, _ int, _ []Any) Any {
-		var objectValue Any
+	numbersLabeled = arrayMapV1(func(number any, _ int, _ array) any {
+		var objectValue any
 		if number.(int)%2 == 0 {
 			objectValue = "even"
 		} else {
 			objectValue = "odd"
 		}
-		return Object{
+		return object{
 			prettyJsonStringify(number): objectValue,
 		}
 	}, numbers)
@@ -194,14 +195,14 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
-	numbersLabeled = arrayMapV2(func(number Any, _ int, _ []Any) Any {
-		var objectValue Any
+	numbersLabeled = arrayMapV2(func(number any, _ int, _ array) any {
+		var objectValue any
 		if number.(int)%2 == 0 {
 			objectValue = "even"
 		} else {
 			objectValue = "odd"
 		}
-		return Object{
+		return object{
 			prettyJsonStringify(number): objectValue,
 		}
 	}, numbers)
@@ -241,38 +242,38 @@ func main() {
 
 	fmt.Println("\n// JavaScript-like Array.map() in Slice of Maps")
 
-	products := []Any{
-		Object{
+	products := array{
+		object{
 			"code":  "pasta",
 			"price": 321,
 		},
-		Object{
+		object{
 			"code":  "bubble_gum",
 			"price": 233,
 		},
-		Object{
+		object{
 			"code":  "potato_chips",
 			"price": 5,
 		},
-		Object{
+		object{
 			"code":  "towel",
 			"price": 499,
 		},
 	}
 	fmt.Println("products:", prettyJsonStringify(products))
 
-	var productsLabeled []Any
+	var productsLabeled array
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV1\"")
 
-	productsLabeled = arrayMapV1(func(product Any, _ int, _ []Any) Any {
-		var objectValue Any
-		if product.(Object)["price"].(int) > 100 {
+	productsLabeled = arrayMapV1(func(product any, _ int, _ array) any {
+		var objectValue any
+		if product.(object)["price"].(int) > 100 {
 			objectValue = "expensive"
 		} else {
 			objectValue = "cheap"
 		}
-		return spreadSyntaxObject(product, Object{"label": objectValue})
+		return spreadSyntaxObject(product, object{"label": objectValue})
 	}, products)
 	fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
 	// labeled products: [
@@ -300,14 +301,14 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
-	productsLabeled = arrayMapV2(func(product Any, _ int, _ []Any) Any {
-		var objectValue Any
-		if product.(Object)["price"].(int) > 100 {
+	productsLabeled = arrayMapV2(func(product any, _ int, _ array) any {
+		var objectValue any
+		if product.(object)["price"].(int) > 100 {
 			objectValue = "expensive"
 		} else {
 			objectValue = "cheap"
 		}
-		return spreadSyntaxObject(product, Object{"label": objectValue})
+		return spreadSyntaxObject(product, object{"label": objectValue})
 	}, products)
 	fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
 	// labeled products: [

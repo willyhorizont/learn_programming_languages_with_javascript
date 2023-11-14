@@ -9,9 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -20,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -99,7 +101,7 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func arrayIncludesV1(searchElement Any, anArray []Any) bool {
+func arrayIncludesV1(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
@@ -112,7 +114,7 @@ func arrayIncludesV1(searchElement Any, anArray []Any) bool {
 	return elementFound
 }
 
-func arrayIncludesV2(searchElement Any, anArray []Any) bool {
+func arrayIncludesV2(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
@@ -124,7 +126,7 @@ func arrayIncludesV2(searchElement Any, anArray []Any) bool {
 	return elementFound
 }
 
-func arrayIncludesV3(searchElement Any, anArray []Any) bool {
+func arrayIncludesV3(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
@@ -137,7 +139,7 @@ func arrayIncludesV3(searchElement Any, anArray []Any) bool {
 	return elementFound
 }
 
-func arrayIncludesV4(searchElement Any, anArray []Any) bool {
+func arrayIncludesV4(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
@@ -149,7 +151,7 @@ func arrayIncludesV4(searchElement Any, anArray []Any) bool {
 	return elementFound
 }
 
-func arrayIncludesV5(searchElement Any, anArray []Any) bool {
+func arrayIncludesV5(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
 		isConditionMatch := arrayItem == searchElement
@@ -160,7 +162,7 @@ func arrayIncludesV5(searchElement Any, anArray []Any) bool {
 	return false
 }
 
-func arrayIncludesV6(searchElement Any, anArray []Any) bool {
+func arrayIncludesV6(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
 		if arrayItem == searchElement {
@@ -173,11 +175,11 @@ func arrayIncludesV6(searchElement Any, anArray []Any) bool {
 func main() {
 	fmt.Println("\n// JavaScript-like Array.includes() in Go")
 
-	myFriends := []Any{"Alisa", "Trivia"}
+	myFriends := array{"Alisa", "Trivia"}
 	fmt.Println("my friends:", prettyArrayOfPrimitives(myFriends))
 
-	var name Any
-	var isMyFriend Any
+	var name any
+	var isMyFriend any
 
 	fmt.Println("// using JavaScript-like Array.includes() function \"arrayIncludesV1\"")
 

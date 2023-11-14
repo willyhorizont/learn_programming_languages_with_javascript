@@ -9,10 +9,11 @@ import (
 const EMPTY_STRING = ""
 const TAB = "    "
 
-type Any interface{}
-type Object map[string]Any
+// type any interface{}
+type array []any
+type object map[string]any
 
-func prettyJsonStringify(anything Any) string {
+func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
 	if err == nil {
 		return string(marshalledJson)
@@ -21,7 +22,7 @@ func prettyJsonStringify(anything Any) string {
 	return "undefined"
 }
 
-func prettyArrayOfPrimitives(anArray []Any) string {
+func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
 		arrayItemType := reflect.TypeOf(arrayItem).Kind()
@@ -100,17 +101,17 @@ func prettyArrayOfPrimitives(anArray []Any) string {
 	return result
 }
 
-func spreadSyntaxObject(parameters ...Any) Object {
-	var newObject = make(Object)
+func spreadSyntaxObject(parameters ...any) object {
+	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			for objectKey, objectValue := range parameter.(Object) {
+			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
 		if parameterType == reflect.Slice {
-			for arrayItemIndex, arrayItem := range parameter.([]Any) {
+			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
 		}
@@ -118,13 +119,13 @@ func spreadSyntaxObject(parameters ...Any) Object {
 	return newObject
 }
 
-func spreadSyntaxArray(parameters ...Any) []Any {
-	var newArray = []Any{}
+func spreadSyntaxArray(parameters ...any) array {
+	var newArray = array{}
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
 		if parameterType == reflect.Map {
-			if len(parameter.(Object)) == 1 {
-				for _, objectValue := range parameter.(Object) {
+			if len(parameter.(object)) == 1 {
+				for _, objectValue := range parameter.(object) {
 					newArray = append(newArray, objectValue)
 				}
 				continue
@@ -133,19 +134,19 @@ func spreadSyntaxArray(parameters ...Any) []Any {
 			continue
 		}
 		if parameterType == reflect.Slice {
-			if len(parameter.([]Any)) == 0 {
+			if len(parameter.(array)) == 0 {
 				continue
 			}
-			newArray = append(newArray, parameter.([]Any)...)
+			newArray = append(newArray, parameter.(array)...)
 			continue
 		}
 	}
 	return newArray
 }
 
-func arrayReduce(callbackFunction func(Any, Any, int, []Any) Any, anArray []Any, initialValue Any) Any {
+func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
 	// JavaScript-like Array.reduce() function
-	var result Any
+	var result any
 	for arrayItemIndex, arrayItem := range anArray {
 		if arrayItemIndex == 0 {
 			result = callbackFunction(initialValue, arrayItem, arrayItemIndex, anArray)
@@ -159,12 +160,12 @@ func arrayReduce(callbackFunction func(Any, Any, int, []Any) Any, anArray []Any,
 func main() {
 	fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice")
 
-	numbers := []Any{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+	numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
 	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-	numbersTotal := arrayReduce(func(currentResult Any, currentNumber Any, _ int, _ []Any) Any {
+	numbersTotal := arrayReduce(func(currentResult any, currentNumber any, _ int, _ array) any {
 		return currentResult.(int) + currentNumber.(int)
 	}, numbers, 0)
 	fmt.Println("total numbers: ", prettyJsonStringify(numbersTotal))
@@ -172,20 +173,20 @@ func main() {
 
 	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")
 
-	products := []Any{
-		Object{
+	products := array{
+		object{
 			"code":  "pasta",
 			"price": 321,
 		},
-		Object{
+		object{
 			"code":  "bubble_gum",
 			"price": 233,
 		},
-		Object{
+		object{
 			"code":  "potato_chips",
 			"price": 5,
 		},
-		Object{
+		object{
 			"code":  "towel",
 			"price": 499,
 		},
@@ -194,12 +195,12 @@ func main() {
 
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-	productsGrouped := arrayReduce(func(currentResult Any, currentProduct Any, _ int, _ []Any) Any {
-		if currentProduct.(Object)["price"].(int) > 100 {
-			return spreadSyntaxObject(currentResult, Object{"expensive": spreadSyntaxArray(currentResult.(Object)["expensive"], Object{"currentProduct": currentProduct})})
+	productsGrouped := arrayReduce(func(currentResult any, currentProduct any, _ int, _ array) any {
+		if currentProduct.(object)["price"].(int) > 100 {
+			return spreadSyntaxObject(currentResult, object{"expensive": spreadSyntaxArray(currentResult.(object)["expensive"], object{"currentProduct": currentProduct})})
 		}
-		return spreadSyntaxObject(currentResult, Object{"cheap": spreadSyntaxArray(currentResult.(Object)["cheap"], Object{"currentProduct": currentProduct})})
-	}, products, Object{"expensive": []Any{}, "cheap": []Any{}})
+		return spreadSyntaxObject(currentResult, object{"cheap": spreadSyntaxArray(currentResult.(object)["cheap"], object{"currentProduct": currentProduct})})
+	}, products, object{"expensive": array{}, "cheap": array{}})
 	fmt.Println("grouped products:", prettyJsonStringify(productsGrouped))
 	// grouped products: {
 	// 	"expensive": [
