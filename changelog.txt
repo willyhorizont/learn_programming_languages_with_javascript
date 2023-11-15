@@ -1,4 +1,9 @@
 =============================changelog==========================================
+23:04 | 11:04 PM | Wed | Nov | 15/11/2023
+0.0.28
+learn and add Kotlin (*.kt)
+update and fix so many things
+=============================changelog==========================================
 13:21 | 01:21 PM | Tue | Nov | 14/11/2023
 0.0.27
 update readme.txt and add notes.txt
@@ -22,7 +27,7 @@ create Array.map.r
 create 1.Arrays.r
 create Array.reduce.r
 create Array.some.r
-create comment.r
+create 0.comment.r
 create conditionals.r
 create factorial.r
 create fizzbuzz.r
@@ -36,7 +41,7 @@ update and fix so many things
 =============================changelog==========================================
 23:58 | 11:58 PM | Wed | Nov | 08/11/2023
 0.0.24
-create comment.rb
+create 0.comment.rb
 create conditionals.rb
 create 1.Arrays.rb
 create Array.every.rb

@@ -14,3 +14,19 @@ add path to go.work
 
 to create workspace ("go.work" file):
 go work init
+
+numeric data types in Go:
+Int
+Int8
+Int16
+Int32
+Int64
+Uint
+Uint8
+Uint16
+Uint32
+Uint64
+Float32
+Float64
+Complex64
+Complex128

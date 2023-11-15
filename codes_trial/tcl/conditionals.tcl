@@ -3,8 +3,8 @@
 # not equal to [!=, ne]
 # greater than [>, gt]
 # less than [<, lt]
-# greater then or equal to [>=, ge]
-# less then or equal to [<=, le]
+# greater than or equal to [>=, ge]
+# less than or equal to [<=, le]
 
 # Logical Operators:
 # Logical AND (&&)
@@ -175,7 +175,7 @@ if {$my_age < 20} {
 #     puts "you are young"
 # }
 
-puts "\n# greater then or equal to \[>=, ge\]\n"
+puts "\n# greater than or equal to \[>=, ge\]\n"
 
 set my_age "73"
 puts "\$my_age: $my_age"
@@ -205,7 +205,7 @@ if {$my_age >= 65} {
 #     puts "You are allowed to retire"
 # }
 
-puts "\n# less then or equal to \[<=, le\]\n"
+puts "\n# less than or equal to \[<=, le\]\n"
 
 set my_age "14"
 puts "\$my_age: $my_age"

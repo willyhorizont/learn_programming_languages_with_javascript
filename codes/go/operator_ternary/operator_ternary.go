@@ -21,11 +21,11 @@ func prettyJsonStringify(anything any) string {
 	return "undefined"
 }
 
-func ternaryOperator(conditionIsTrue bool, resultIfConditionIsTrue any, resultIfConditionIsFalse any) any {
-	if conditionIsTrue {
-		return resultIfConditionIsTrue
+func ternaryOperator(isConditionTrue bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
+	if isConditionTrue {
+		return valueIfConditionIsTrue
 	}
-	return resultIfConditionIsFalse
+	return valueIfConditionIsFalse
 }
 
 func main() {

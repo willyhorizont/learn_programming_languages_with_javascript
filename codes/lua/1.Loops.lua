@@ -30,10 +30,18 @@ end
 
 -- for loop
 
-for i3 = 1, 5, 1 do
+for i3 = 1, 5, 1 do -- start, stop, step
     if (i3 == 2) then
         goto next
     end
-    print("for loop, i3 is " .. i3)
+    print("for loop ascending, i3 is " .. i3)
+    ::next::
+end
+
+for i3 = 5, 1, -1 do -- start, stop, step
+    if (i3 == 2) then
+        goto next
+    end
+    print("for loop descending, i3 is " .. i3)
     ::next::
 end

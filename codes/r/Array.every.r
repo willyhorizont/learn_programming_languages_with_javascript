@@ -69,8 +69,8 @@ cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
 
 cat("# using JavaScript-like Array.every() function \"arrayEveryV1\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV1(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- arrayEveryV1(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- arrayEveryV1(function(number, ...) (number > 500), numbers)
@@ -79,8 +79,8 @@ cat(paste(sep = "", "is all number > 500: ", isAllNumberMoreThan500, "\n"))
 
 cat("# using JavaScript-like Array.every() function \"arrayEveryV2\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV2(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- arrayEveryV2(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- arrayEveryV2(function(number, ...) (number > 500), numbers)
@@ -89,8 +89,8 @@ cat(paste(sep = "", "is all number > 500: ", isAllNumberMoreThan500, "\n"))
 
 cat("# using JavaScript-like Array.every() function \"arrayEveryV3\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV3(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- arrayEveryV3(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- arrayEveryV3(function(number, ...) (number > 500), numbers)
@@ -99,8 +99,8 @@ cat(paste(sep = "", "is all number > 500: ", isAllNumberMoreThan500, "\n"))
 
 cat("# using JavaScript-like Array.every() function \"arrayEveryV4\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV4(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- arrayEveryV4(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- arrayEveryV4(function(number, ...) (number > 500), numbers)
@@ -109,16 +109,16 @@ cat(paste(sep = "", "is all number > 500: ", isAllNumberMoreThan500, "\n"))
 
 cat("# using R Array.every() built-in function \"all\"\n")
 
-isAllProductPriceLessThan500 <- all(sapply(numbers, function(number) (number < 500)))
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- all(sapply(numbers, function(number) (number < 500)))
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- all(sapply(numbers, function(number) (number > 500)))
 cat(paste(sep = "", "is all number > 500: ", isAllNumberMoreThan500, "\n"))
 # is all number > 500: FALSE
 
-isAllProductPriceLessThan500 <- all((numbers < 500))
-cat(paste(sep = "", "is all number < 500: ", isAllProductPriceLessThan500, "\n"))
+isAllNumberLessThan500 <- all((numbers < 500))
+cat(paste(sep = "", "is all number < 500: ", isAllNumberLessThan500, "\n"))
 # is all number < 500: TRUE
 
 isAllNumberMoreThan500 <- all((numbers > 500))

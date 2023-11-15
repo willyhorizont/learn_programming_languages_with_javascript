@@ -46,3 +46,7 @@ to run Ruby code:
 to run R code:
 1. cd codes/r
 2. Rscript filename.r
+
+to compile and run Kotlin code:
+1. cd codes/kotlin
+2. kotlinc filename.kt -include-runtime -d filename.jar && kotlin filename.jar

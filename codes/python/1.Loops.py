@@ -22,7 +22,12 @@ while (i <= 5):
 
 # for loop
 
-for i in range(1, (5 + 1), 1):
+for i in range(1, (5 + 1), 1): # (start, stop, step)
     if (i == 2):
         continue
-    print(f"for loop v1, i is {i}")
+    print(f"for loop ascending, i is {i}")
+
+for i in range(5, (1 - 1), -1): # (start, stop, step)
+    if (i == 2):
+        continue
+    print(f"for loop descending, i is {i}")

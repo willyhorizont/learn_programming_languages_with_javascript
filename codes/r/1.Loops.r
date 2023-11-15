@@ -26,5 +26,10 @@ while (i <= 5) {
 
 for (i in seq(1, 5, by = 1)) {
     if (i == 2) next
-    cat(paste(sep="", "for loop, i is ", i, "\n"))
+    cat(paste(sep="", "for loop ascending, i is ", i, "\n"))
+}
+
+for (i in seq(5, 1, by = -1)) {
+    if (i == 2) next
+    cat(paste(sep="", "for loop descending, i is ", i, "\n"))
 }

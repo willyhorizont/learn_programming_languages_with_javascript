@@ -30,9 +30,16 @@ end
 
 # for loop
 
-for i in 1:1:5
+for i in 1:1:5 # start:step:stop
     if (i === 2)
         continue
     end
-    println("for loop, i is ", i)
+    println("for loop ascending, i is ", i)
+end
+
+for i in 5:-1:1 # start:step:stop
+    if (i === 2)
+        continue
+    end
+    println("for loop descending, i is ", i)
 end

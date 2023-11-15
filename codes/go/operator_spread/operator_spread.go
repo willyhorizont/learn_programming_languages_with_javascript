@@ -28,73 +28,13 @@ func prettyJsonStringify(anything any) string {
 func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
-		arrayItemType := reflect.TypeOf(arrayItem).Kind()
-		if arrayItemType != reflect.Float32 &&
-			arrayItemType != reflect.Float64 &&
-			arrayItemType != reflect.Int &&
-			arrayItemType != reflect.Int8 &&
-			arrayItemType != reflect.Int16 &&
-			arrayItemType != reflect.Int32 &&
-			arrayItemType != reflect.Int64 &&
-			arrayItemType != reflect.Uint &&
-			arrayItemType != reflect.Uint8 &&
-			arrayItemType != reflect.Uint16 &&
-			arrayItemType != reflect.Uint32 &&
-			arrayItemType != reflect.Uint64 &&
-			arrayItemType != reflect.String {
+		switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
+		case reflect.String:
+			result += "\"" + arrayItem.(string) + "\""
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+			result += fmt.Sprint(arrayItem)
+		default:
 			continue
-		}
-		if arrayItemType == reflect.String {
-			stringArrayItem := arrayItem.(string)
-			result = result + "\"" + stringArrayItem + "\""
-		}
-		if arrayItemType == reflect.Float32 {
-			stringArrayItem := fmt.Sprint(arrayItem.(float32))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Float64 {
-			stringArrayItem := fmt.Sprint(arrayItem.(float64))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int {
-			stringArrayItem := fmt.Sprint(arrayItem.(int))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int8 {
-			stringArrayItem := fmt.Sprint(arrayItem.(int8))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int16 {
-			stringArrayItem := fmt.Sprint(arrayItem.(int16))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int32 {
-			stringArrayItem := fmt.Sprint(arrayItem.(int32))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int64 {
-			stringArrayItem := fmt.Sprint(arrayItem.(int64))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Uint {
-			stringArrayItem := fmt.Sprint(arrayItem.(uint))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Uint8 {
-			stringArrayItem := fmt.Sprint(arrayItem.(uint8))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Uint16 {
-			stringArrayItem := fmt.Sprint(arrayItem.(uint16))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Uint32 {
-			stringArrayItem := fmt.Sprint(arrayItem.(uint32))
-			result = result + stringArrayItem
-		}
-		if arrayItemType == reflect.Int64 {
-			stringArrayItem := fmt.Sprint(arrayItem.(uint64))
-			result = result + stringArrayItem
 		}
 		if (arrayItemIndex + 1) != len(anArray) {
 			result = result + ", "
