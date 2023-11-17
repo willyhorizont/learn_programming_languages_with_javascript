@@ -2,9 +2,9 @@ require 'json'
 
 array_reduce = ->(callback_function, an_array, initial_value) do
     # JavaScript-like Array.reduce() function
-    result = nil
+    result = initial_value
     an_array.each_with_index do |array_item, array_item_index|
-        result = callback_function.(((array_item_index == 0) ? initial_value : result), array_item, array_item_index, an_array)
+        result = callback_function.(result, array_item, array_item_index, an_array)
     end
     return result
 end

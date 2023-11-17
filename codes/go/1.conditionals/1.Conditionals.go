@@ -30,9 +30,9 @@ func main() {
 
 	myAge = 10
 	fmt.Println("myAge:", myAge)
-	if myAge > 24 {
+	if (myAge > 24) {
 		fmt.Println("you are old")
-	} else if myAge > 17 {
+	} else if (myAge > 17) {
 		fmt.Println("you are young")
 	} else {
 		fmt.Println("you are under age")
@@ -44,7 +44,7 @@ func main() {
 	fmt.Println("myAnswer:", myAnswer)
 	fmt.Println("CORRECT_ANSWER:", CORRECT_ANSWER)
 	fmt.Println("(myAnswer == CORRECT_ANSWER):")
-	if myAnswer == CORRECT_ANSWER {
+	if (myAnswer == CORRECT_ANSWER) {
 		fmt.Println("Your answer is correct")
 	} else {
 		fmt.Println("Your answer is wrong")
@@ -56,7 +56,7 @@ func main() {
 	fmt.Println("myAnswer:", myAnswer)
 	fmt.Println("CORRECT_ANSWER:", CORRECT_ANSWER)
 	fmt.Println("(myAnswer != CORRECT_ANSWER):")
-	if myAnswer != CORRECT_ANSWER {
+	if (myAnswer != CORRECT_ANSWER) {
 		fmt.Println("Your answer is wrong")
 	} else {
 		fmt.Println("Your answer is correct")
@@ -67,7 +67,7 @@ func main() {
 	myAge = 70
 	fmt.Println("myAge:", myAge)
 	fmt.Println("(myAge > 50):")
-	if myAge > 50 {
+	if (myAge > 50) {
 		fmt.Println("You are old")
 	}
 
@@ -76,7 +76,7 @@ func main() {
 	myAge = 16
 	fmt.Println("myAge:", myAge)
 	fmt.Println("(myAge < 20):")
-	if myAge < 20 {
+	if (myAge < 20) {
 		fmt.Println("You are young")
 	}
 
@@ -85,7 +85,7 @@ func main() {
 	myAge = 73
 	fmt.Println("myAge:", myAge)
 	fmt.Println("(myAge >= 65):")
-	if myAge >= 65 {
+	if (myAge >= 65) {
 		fmt.Println("You are allowed to retire")
 	}
 
@@ -94,7 +94,7 @@ func main() {
 	myAge = 14
 	fmt.Println("myAge:", myAge)
 	fmt.Println("(myAge <= 16):")
-	if myAge <= 16 {
+	if (myAge <= 16) {
 		fmt.Println("You are not allowed to drive")
 	}
 
@@ -105,7 +105,7 @@ func main() {
 	hasDrivingLicense = false
 	fmt.Println("hasDrivingLicense:", hasDrivingLicense)
 	fmt.Println("((myAge >= 17) && (hasDrivingLicense == true)):")
-	if (myAge >= 17) && (hasDrivingLicense == true) {
+	if ((myAge >= 17) && (hasDrivingLicense == true)) {
 		fmt.Println("You are allowed to drive")
 	} else {
 		fmt.Println("You are not allowed to drive")
@@ -116,7 +116,7 @@ func main() {
 	hasDrivingLicense = true
 	fmt.Println("hasDrivingLicense:", hasDrivingLicense)
 	fmt.Println("((myAge >= 17) && (hasDrivingLicense == true)):")
-	if (myAge >= 17) && (hasDrivingLicense == true) {
+	if ((myAge >= 17) && (hasDrivingLicense == true)) {
 		fmt.Println("You are allowed to drive")
 	} else {
 		fmt.Println("You are not allowed to drive")
@@ -127,14 +127,14 @@ func main() {
 	myAge = 2
 	fmt.Println("myAge:", myAge)
 	fmt.Println("((myAge <= 3) || (myAge >= 65)):")
-	if (myAge <= 3) || (myAge >= 65) {
+	if ((myAge <= 3) || (myAge >= 65)) {
 		fmt.Println("You should stay home")
 	}
 
 	myAge = 89
 	fmt.Println("myAge:", myAge)
 	fmt.Println("((myAge <= 3) || (myAge >= 65)):")
-	if (myAge <= 3) || (myAge >= 65) {
+	if ((myAge <= 3) || (myAge >= 65)) {
 		fmt.Println("You should stay home")
 	}
 

@@ -38,10 +38,10 @@ for i3 = 1, 5, 1 do -- start, stop, step
     ::next::
 end
 
-for i3 = 5, 1, -1 do -- start, stop, step
-    if (i3 == 2) then
+for i4 = 5, 1, -1 do -- start, stop, step
+    if (i4 == 2) then
         goto next
     end
-    print("for loop descending, i3 is " .. i3)
+    print("for loop descending, i4 is " .. i4)
     ::next::
 end

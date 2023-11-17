@@ -25,6 +25,6 @@ while ($i2 <= 5) {
 # for loop
 
 for (my $i3 = 1; $i3 <= 5; $i3 += 1) {
-    next if ($i2 == 2);
+    next if ($i3 == 2);
     print("for loop, \$i3 is $i3\n");
 }

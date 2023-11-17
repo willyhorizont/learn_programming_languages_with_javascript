@@ -5,9 +5,9 @@ from functools import reduce
 
 def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
-    result = None
+    result = initial_value
     for array_item_index, array_item in enumerate(an_array):
-        result = callback_function(initial_value if (array_item_index == 0) else result, array_item, array_item_index, an_array)
+        result = callback_function(result, array_item, array_item_index, an_array)
     return result
 
 

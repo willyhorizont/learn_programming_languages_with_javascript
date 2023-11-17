@@ -7,7 +7,6 @@ In this repository, I am attempting to learn every programming language that has
 6. support returning functions as values from other functions (closure)
 7. support assigning functions to variables
 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
-9. has ability to encode data structure to JSON and decode JSON to data structure
 
 HOW TO RUN THE CODES:
 

@@ -118,11 +118,11 @@ fun main() {
 
     println("\nLogical NOT (!)\n")
 
-    canDrive = false;
-    println("canDrive: ${canDrive}");
-    println("!canDrive: ${!canDrive}");
+    canDrive = false
+    println("canDrive: ${canDrive}")
+    println("!canDrive: ${!canDrive}")
 
-    canDrive = true;
-    println("canDrive: ${canDrive}");
-    println("!canDrive: ${!canDrive}");
+    canDrive = true
+    println("canDrive: ${canDrive}")
+    println("!canDrive: ${!canDrive}")
 }

@@ -7,6 +7,15 @@ $fruits = ["apple", "mango", "orange"];
 echo("\n" . "fruits, length: " . count($fruits));
 // fruits, length: 3
 
+echo("\n" . "fruits, get mango: " . $fruits[1]);
+// fruits, get mango: mango
+
+echo("\n" . "fruits, first element: " . $fruits[0]);
+// fruits, first element: apple
+
+echo("\n" . "fruits, last element: " . end($fruits));
+// fruits, last element: orange
+
 foreach ($fruits as $array_item_index => $array_item) {
     echo("\n" . "fruits, foreach loop, index: " . $array_item_index . ", value: " . $array_item);
 }
@@ -26,9 +35,6 @@ $products = [
         "name" => "potato chips"
     ]
 ];
-
-echo("\n" . "products, length: " . count($products));
-// products, length: 2
 
 foreach ($products as $array_item_index => $array_item) {
     foreach ($array_item as $object_key => $object_value) {

@@ -33,7 +33,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 		default:
 			continue
 		}
-		if (arrayItemIndex + 1) != len(anArray) {
+		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
 		}
 	}
@@ -45,12 +45,12 @@ func spreadSyntaxObject(parameters ...any) object {
 	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
-		if parameterType == reflect.Map {
+		if (parameterType == reflect.Map) {
 			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
-		if parameterType == reflect.Slice {
+		if (parameterType == reflect.Slice) {
 			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
@@ -63,8 +63,8 @@ func spreadSyntaxArray(parameters ...any) array {
 	var newArray = array{}
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
-		if parameterType == reflect.Map {
-			if len(parameter.(object)) == 1 {
+		if (parameterType == reflect.Map) {
+			if (len(parameter.(object)) == 1) {
 				for _, objectValue := range parameter.(object) {
 					newArray = append(newArray, objectValue)
 				}
@@ -73,7 +73,7 @@ func spreadSyntaxArray(parameters ...any) array {
 			newArray = append(newArray, parameter)
 			continue
 		}
-		if parameterType == reflect.Slice {
+		if (parameterType == reflect.Slice) {
 			newArray = append(newArray, parameter.(array)...)
 			continue
 		}

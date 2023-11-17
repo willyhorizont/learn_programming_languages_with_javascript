@@ -33,7 +33,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 		default:
 			continue
 		}
-		if (arrayItemIndex + 1) != len(anArray) {
+		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
 		}
 	}
@@ -45,8 +45,8 @@ func arrayIncludesV1(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
-		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch == true {
+		isConditionMatch := (arrayItem == searchElement)
+		if (isConditionMatch == true) {
 			elementFound = true
 			break
 		}
@@ -58,7 +58,7 @@ func arrayIncludesV2(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
-		if arrayItem == searchElement {
+		if (arrayItem == searchElement) {
 			elementFound = true
 			break
 		}
@@ -70,8 +70,8 @@ func arrayIncludesV3(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
-		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch == true {
+		isConditionMatch := (arrayItem == searchElement)
+		if (isConditionMatch == true) {
 			elementFound = true
 			return elementFound
 		}
@@ -83,7 +83,7 @@ func arrayIncludesV4(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	elementFound := false
 	for _, arrayItem := range anArray {
-		if arrayItem == searchElement {
+		if (arrayItem == searchElement) {
 			elementFound = true
 			return elementFound
 		}
@@ -94,8 +94,8 @@ func arrayIncludesV4(searchElement any, anArray array) bool {
 func arrayIncludesV5(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
-		isConditionMatch := arrayItem == searchElement
-		if isConditionMatch == true {
+		isConditionMatch := (arrayItem == searchElement)
+		if (isConditionMatch == true) {
 			return true
 		}
 	}
@@ -105,7 +105,7 @@ func arrayIncludesV5(searchElement any, anArray array) bool {
 func arrayIncludesV6(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
-		if arrayItem == searchElement {
+		if (arrayItem == searchElement) {
 			return true
 		}
 	}

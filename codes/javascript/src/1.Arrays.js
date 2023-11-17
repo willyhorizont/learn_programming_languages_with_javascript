@@ -5,6 +5,15 @@ const fruits = ["apple", "mango", "orange"];
 console.log("fruits, length:", fruits.length);
 // fruits, length: 3
 
+console.log("fruits, get mango:", fruits[1]);
+// fruits, get mango: mango
+
+console.log("fruits, first element:", fruits[0]);
+// fruits, first element: apple
+
+console.log("fruits, last element:", fruits[fruits.length - 1]);
+// fruits, last element: mango
+
 fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}`));
 // fruits, foreach loop, index: 0, value: apple
 // fruits, foreach loop, index: 1, value: mango
@@ -22,9 +31,6 @@ const products = [
         "name": "potato chips"
     }
 ];
-
-console.log("products, length:", products.length);
-// products, length: 2
 
 products.forEach((product, productIndex) => Object.entries(product).forEach(([objectKey, objectValue]) => console.log(`products, foreach loop, index: ${productIndex}, key: ${objectKey}, value: ${objectValue}`)));
 // products, foreach loop, index: 0, key: id, value: P1

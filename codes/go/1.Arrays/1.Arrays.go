@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 const EMPTY_STRING = ""
@@ -17,11 +16,20 @@ func main() {
 
 	fruits := array{"apple", "mango", "orange"}
 
-	fmt.Println(strings.Join([]string{"fruits, length:", fmt.Sprint(len(fruits))}, ""))
+	fmt.Println("fruits, length:", fmt.Sprint(len(fruits)))
 	// fruits, length: 3
 
+	fmt.Println("fruits, get mango:", fmt.Sprint(fruits[1]))
+	// fruits, get mango: mango
+
+	fmt.Println("fruits, first element:", fmt.Sprint(fruits[0]))
+	// fruits, first element: apple
+
+	fmt.Println("fruits, last element:", fmt.Sprint(fruits[len(fruits)-1]))
+	// fruits, last element: orange
+
 	for arrayItemIndex, arrayItem := range fruits {
-		fmt.Println(strings.Join([]string{"fruits, for loop, index:", fmt.Sprint(arrayItemIndex), ", value:", fmt.Sprint(arrayItem)}, ""))
+		fmt.Println("fruits, for loop, index:", fmt.Sprint(arrayItemIndex), "\b, value:", fmt.Sprint(arrayItem))
 	}
 	// fruits, for loop, index: 0, value: apple
 	// fruits, for loop, index: 1, value: mango
@@ -40,12 +48,9 @@ func main() {
 		},
 	}
 
-	fmt.Println("products, length:", len(products))
-	// products, length: 2
-
 	for arrayItemIndex, arrayItem := range products {
 		for objectKey, objectValue := range arrayItem.(object) {
-			fmt.Println(strings.Join([]string{"products, loop, index: ", fmt.Sprint(arrayItemIndex), ", key: ", fmt.Sprint(objectKey), ", value: ", fmt.Sprint(objectValue)}, ""))
+			fmt.Println("products, loop, index:", fmt.Sprint(arrayItemIndex), "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
 		}
 	}
 	// products, loop, index: 0, key: id, value: P1

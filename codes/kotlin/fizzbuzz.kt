@@ -193,43 +193,43 @@ fun main() {
 
     val fizzbuzzV10 = { stopNumber: Int -> (1..stopNumber step 1).fold("") { currentResult: String, number: Int ->  if (currentResult == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${currentResult}, FizzBuzz" else if ((number % 3) == 0) "${currentResult}, Fizz" else if ((number % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${number}" } }
 
-    println("// using fizzbuzz function \"fizzbuzzV1\"");
-    println("FizzBuzz(36): ${fizzbuzzV1(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV1\"")
+    println("FizzBuzz(36): ${fizzbuzzV1(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV2\"");
-    println("FizzBuzz(36): ${fizzbuzzV2(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV2\"")
+    println("FizzBuzz(36): ${fizzbuzzV2(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV3\"");
-    println("FizzBuzz(36): ${fizzbuzzV3(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV3\"")
+    println("FizzBuzz(36): ${fizzbuzzV3(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV4\"");
-    println("FizzBuzz(36): ${fizzbuzzV4(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV4\"")
+    println("FizzBuzz(36): ${fizzbuzzV4(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV5\"");
-    println("FizzBuzz(36): ${fizzbuzzV5(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV5\"")
+    println("FizzBuzz(36): ${fizzbuzzV5(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV6\"");
-    println("FizzBuzz(36): ${fizzbuzzV6(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV6\"")
+    println("FizzBuzz(36): ${fizzbuzzV6(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV7\"");
-    println("FizzBuzz(36): ${fizzbuzzV7(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV7\"")
+    println("FizzBuzz(36): ${fizzbuzzV7(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV8\"");
-    println("FizzBuzz(36): ${fizzbuzzV8(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV8\"")
+    println("FizzBuzz(36): ${fizzbuzzV8(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV9\"");
-    println("FizzBuzz(36): ${fizzbuzzV9(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV9\"")
+    println("FizzBuzz(36): ${fizzbuzzV9(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    println("// using fizzbuzz function \"fizzbuzzV10\"");
-    println("FizzBuzz(36): ${fizzbuzzV10(36)}");
+    println("// using fizzbuzz function \"fizzbuzzV10\"")
+    println("FizzBuzz(36): ${fizzbuzzV10(36)}")
     // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 }

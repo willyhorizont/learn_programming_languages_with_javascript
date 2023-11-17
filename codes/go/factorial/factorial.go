@@ -5,7 +5,7 @@ import (
 )
 
 func factorialV1(number int) int {
-	if (number > 1) == false {
+	if ((number > 1) == false) {
 		return 1
 	}
 	result := 1
@@ -13,7 +13,7 @@ func factorialV1(number int) int {
 	for true {
 		result *= i
 		i -= 1
-		if i <= 0 {
+		if (i <= 0) {
 			break
 		}
 	}
@@ -21,12 +21,12 @@ func factorialV1(number int) int {
 }
 
 func factorialV2(number int) int {
-	if (number > 1) == false {
+	if ((number > 1) == false) {
 		return 1
 	}
 	result := 1
 	i := number
-	for i >= 1 {
+	for (i >= 1) {
 		result *= i
 		i -= 1
 	}
@@ -34,7 +34,7 @@ func factorialV2(number int) int {
 }
 
 func factorialV3(number int) int {
-	if (number > 1) == false {
+	if ((number > 1) == false) {
 		return 1
 	}
 	result := 1

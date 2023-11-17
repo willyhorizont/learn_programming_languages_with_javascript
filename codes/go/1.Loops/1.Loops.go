@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 const EMPTY_STRING = ""
@@ -17,36 +16,36 @@ func main() {
 
 	i1 := 1
 	for true {
-		if i1 == 2 {
+		if (i1 == 2) {
 			i1 += 1
-			if i1 > 5 {
+			if (i1 > 5) {
 				break
 			}
 			continue
 		}
-		fmt.Println(strings.Join([]string{"while loop v1, i1 is", fmt.Sprint(i1)}, ""))
+		fmt.Println("while loop v1, i1 is", fmt.Sprint(i1))
 		i1 += 1
-		if i1 > 5 {
+		if (i1 > 5) {
 			break
 		}
 	}
 
 	i2 := 1
-	for i2 <= 5 {
-		if i2 == 2 {
+	for (i2 <= 5) {
+		if (i2 == 2) {
 			i2 += 1
 			continue
 		}
-		fmt.Println(strings.Join([]string{"while loop v2, i2 is", fmt.Sprint(i2)}, ""))
+		fmt.Println("while loop v2, i2 is", fmt.Sprint(i2))
 		i2 += 1
 	}
 
 	// for loop
 
 	for i3 := 1; i3 <= 5; i3 += 1 {
-		if i3 == 2 {
+		if (i3 == 2) {
 			continue
 		}
-		fmt.Println(strings.Join([]string{"for loop, i3 is", fmt.Sprint(i3)}, ""))
+		fmt.Println("for loop, i3 is", fmt.Sprint(i3))
 	}
 }

@@ -33,7 +33,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 		default:
 			continue
 		}
-		if (arrayItemIndex + 1) != len(anArray) {
+		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
 		}
 	}
@@ -46,7 +46,7 @@ func arrayFindV1(callbackFunction func(any, int, array) bool, anArray array) any
 	var dataFound any
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch == true {
+		if (isConditionMatch == true) {
 			dataFound = arrayItem
 			break
 		}
@@ -58,7 +58,7 @@ func arrayFindV2(callbackFunction func(any, int, array) bool, anArray array) any
 	// JavaScript-like Array.find() function
 	var dataFound any
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
+		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
 			dataFound = arrayItem
 			break
 		}
@@ -71,7 +71,7 @@ func arrayFindV3(callbackFunction func(any, int, array) bool, anArray array) any
 	var dataFound any
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch == true {
+		if (isConditionMatch == true) {
 			return arrayItem
 		}
 	}
@@ -82,7 +82,7 @@ func arrayFindV4(callbackFunction func(any, int, array) bool, anArray array) any
 	// JavaScript-like Array.find() function
 	var dataFound any
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
+		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
 			return arrayItem
 		}
 	}
@@ -93,7 +93,7 @@ func arrayFindV5(callbackFunction func(any, int, array) bool, anArray array) any
 	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch == true {
+		if (isConditionMatch == true) {
 			return arrayItem
 		}
 	}
@@ -103,7 +103,7 @@ func arrayFindV5(callbackFunction func(any, int, array) bool, anArray array) any
 func arrayFindV6(callbackFunction func(any, int, array) bool, anArray array) any {
 	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
+		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
 			return arrayItem
 		}
 	}
@@ -233,7 +233,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 
 	productFound = arrayFindV1(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -244,7 +244,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV2\"")
 
 	productFound = arrayFindV2(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -255,7 +255,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV3\"")
 
 	productFound = arrayFindV3(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -266,7 +266,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
 	productFound = arrayFindV4(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -277,7 +277,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
 
 	productFound = arrayFindV5(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {
@@ -288,7 +288,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
 
 	productFound = arrayFindV6(func(product any, _ int, _ array) bool {
-		return product.(object)["code"] == productToFind
+		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))
 	// product found: {

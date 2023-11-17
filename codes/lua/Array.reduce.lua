@@ -100,9 +100,9 @@ end
 
 function array_reduce(callback_function, an_array, initial_value)
     -- JavaScript-like Array.reduce() function
-    local result = nil
+    local result = initial_value
     for array_item_index, array_item in ipairs(an_array) do
-        result = callback_function((((array_item_index == 1) and initial_value) or result), array_item, array_item_index, an_array)
+        result = callback_function(result, array_item, array_item_index, an_array)
     end
     return result
 end

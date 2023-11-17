@@ -11,7 +11,7 @@ sub pretty_array_of_primitives {
     my $result = "[";
     for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
         my $array_item = $_[$array_item_index];
-        my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
+        my $is_string = (defined($array_item) && ref($array_item) eq "");
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
         $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
@@ -25,7 +25,7 @@ sub pretty_array_of_primitives {
 sub array_includes_v1 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
@@ -40,7 +40,7 @@ sub array_includes_v1 {
 sub array_includes_v2 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
@@ -54,7 +54,7 @@ sub array_includes_v2 {
 sub array_includes_v3 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
@@ -69,7 +69,7 @@ sub array_includes_v3 {
 sub array_includes_v4 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
@@ -83,7 +83,7 @@ sub array_includes_v4 {
 sub array_includes_v5 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
         my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
         if ($is_condition_match) {
@@ -96,7 +96,7 @@ sub array_includes_v5 {
 sub array_includes_v6 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
         if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
             return 1;
@@ -108,7 +108,7 @@ sub array_includes_v6 {
 sub array_includes_v7 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
@@ -120,7 +120,7 @@ sub array_includes_v7 {
 sub array_includes_v8 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
         return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
@@ -131,7 +131,7 @@ sub array_includes_v8 {
 sub array_includes_v9 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
         my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
         return 1 if ($is_condition_match);
@@ -142,7 +142,7 @@ sub array_includes_v9 {
 sub array_includes_v10 {
     # JavaScript-like Array.includes() function
     my ($search_element, $an_array_ref) = @_;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
         return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
     }

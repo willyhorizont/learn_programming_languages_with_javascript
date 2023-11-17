@@ -9,6 +9,15 @@ fun main() {
 
     println("fruits, length: ${fruits.size}")
     // fruits, length: 3
+
+    println("fruits, get mango: ${fruits[1]}")
+    // fruits, get mango: mango
+
+    println("fruits, first element: ${fruits.first()}")
+    // fruits, first element: apple
+
+    println("fruits, last element: ${fruits.last()}")
+    // fruits, last element: orange
     
     fruits.forEachIndexed { arrayItemIndex, arrayItem -> println("fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}") }
     // fruits, foreach loop, index: 0, value: apple
@@ -34,9 +43,6 @@ fun main() {
             "name" to "potato chips"
         ),
     )
-
-    println("products, length: ${products.size}")
-    // products, length: 2
 
     products.forEachIndexed { arrayItemIndex, arrayItem -> (arrayItem as MutableMap<String, Any?>).forEach { (objectKey, objectValue) -> println("products, loop, index: ${arrayItemIndex}, key: ${objectKey}, value: ${objectValue}") } }
     // products, loop, index: 0, key: id, value: P1

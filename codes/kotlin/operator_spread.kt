@@ -141,7 +141,7 @@ fun main() {
     )
     println("countryCapitalsInEurope: ${prettyJsonStringify(countryCapitalsInEurope)}")
 
-    println("\n// [...array1, ...array2]:\n");
+    println("\n// [...array1, ...array2]:\n")
 
     val combination1 = spreadSyntaxArray(fruits, vegetables)
     println("combination1: ${prettyJsonStringify(combination1)}")
@@ -163,7 +163,7 @@ fun main() {
     //     "Onions"
     // ]
 
-    println("\n// { ...object1, ...object2 }:\n");
+    println("\n// { ...object1, ...object2 }:\n")
 
     val combination3 = spreadSyntaxObject(countryCapitalsInAsia, countryCapitalsInEurope)
     println("combination3: ${prettyJsonStringify(combination3)}")
@@ -185,7 +185,7 @@ fun main() {
     //     "Italy": "Rome"
     // }
 
-    println("\n// [...array1, array2]:\n");
+    println("\n// [...array1, array2]:\n")
 
     val combination5 = spreadSyntaxArray(fruits, mutableMapOf<String, Any?>("vegetables" to vegetables))
     println("combination5: ${prettyJsonStringify(combination5)}")
@@ -211,7 +211,7 @@ fun main() {
     //     ]
     // ]
 
-    println("\n// [...array1, object1]:\n");
+    println("\n// [...array1, object1]:\n")
 
     val combination7 = spreadSyntaxArray(fruits, mutableMapOf<String, Any?>("countryCapitalsInAsia" to countryCapitalsInAsia))
     println("combination7: ${prettyJsonStringify(combination7)}")
@@ -238,7 +238,7 @@ fun main() {
     //     }
     // ]
 
-    println("\n// { ...object1, object2 }:\n");
+    println("\n// { ...object1, object2 }:\n")
 
     val combination9 = spreadSyntaxObject(countryCapitalsInAsia, mutableMapOf<String, Any?>("countryCapitalsInEurope" to countryCapitalsInEurope))
     println("combination9: ${prettyJsonStringify(combination9)}")
@@ -264,7 +264,7 @@ fun main() {
     //     }
     // }
 
-    println("\n// { ...object1, array2 }:\n");
+    println("\n// { ...object1, array2 }:\n")
 
     val combination11 = spreadSyntaxObject(countryCapitalsInAsia, mutableMapOf<String, Any?>("vegetables" to vegetables))
     println("combination11: ${prettyJsonStringify(combination11)}")
@@ -290,7 +290,7 @@ fun main() {
     //     ]
     // }
 
-    println("\n// { ...object1, ...array2 }:\n");
+    println("\n// { ...object1, ...array2 }:\n")
 
     val combination13 = spreadSyntaxObject(countryCapitalsInAsia, vegetables)
     println("combination13: ${prettyJsonStringify(combination13)}")
@@ -312,5 +312,5 @@ fun main() {
     //     "1": "Onions"
     // }
 
-    // println("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n");
+    // println("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n")
 }

@@ -5,6 +5,15 @@ fruits = ["apple", "mango", "orange"]
 print(f"fruits, length: {len(fruits)}")
 # fruits, length: 3
 
+print(f"fruits, get mango: {fruits[1]}")
+# fruits, get mango: mango
+
+print(f"fruits, first element: {fruits[0]}")
+# fruits, first element: apple
+
+print(f"fruits, last element: {fruits[-1]}")
+# fruits, last element: orange
+
 
 for (array_item_index, array_item) in enumerate(fruits):
     print(f"fruits, for loop, index: {array_item_index}, value: {array_item}")
@@ -26,9 +35,6 @@ products = [
         "name": "potato chips"
     }
 ]
-
-print(f"products, length: {len(products)}")
-# products, length: 2
 
 for array_item_index, array_item in enumerate(products):
     for object_key, object_value in array_item.items():

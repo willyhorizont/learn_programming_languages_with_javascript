@@ -25,7 +25,7 @@ function array_map_v1($callback_function, $an_array) {
     $new_array = [];
     foreach ($an_array as $array_item_index => $array_item) {
         $new_array_item = $callback_function($array_item, $array_item_index, $an_array);
-        array_push($new_array, $new_array_item);
+        $new_array[count($new_array)] = $new_array_item;
     }
     return $new_array;
 };
@@ -44,7 +44,7 @@ function array_map_v3($callback_function, $an_array) {
     // JavaScript-like Array.map() function
     $new_array = [];
     foreach ($an_array as $array_item_index => $array_item) {
-        array_push($new_array, $callback_function($array_item, $array_item_index, $an_array));
+        $new_array[count($new_array)] = $callback_function($array_item, $array_item_index, $an_array);
     }
     return $new_array;
 };

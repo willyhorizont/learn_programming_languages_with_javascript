@@ -5,6 +5,15 @@ fruits = ["apple", "mango", "orange"]
 println("fruits, length: ", length(fruits))
 # fruits, length: 3
 
+println("fruits, get mango: ", fruits[2])
+# fruits, get mango: mango
+
+println("fruits, first element: ", fruits[1])
+# fruits, first element: apple
+
+println("fruits, last element: ", fruits[end])
+# fruits, last element: orange
+
 for (array_item_index, array_item) in enumerate(fruits)
     println("fruits, for loop, index: ", array_item_index, ", value: ", array_item)
 end
@@ -24,9 +33,6 @@ products = [
         "name" => "potato chips"
     )
 ]
-
-println("products, length: ", length(products))
-# products, length: 2
 
 for (array_item_index, array_item) in enumerate(products)
     for (object_key, object_value) in array_item

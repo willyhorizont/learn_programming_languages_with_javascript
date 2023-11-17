@@ -7,7 +7,7 @@ import (
 // ? function statement or function declaration
 
 func getRectangleAreaV1(rectangleWidth int, rectangleLength int) int {
-	return rectangleWidth * rectangleLength
+	return (rectangleWidth * rectangleLength)
 }
 
 // call the function example: getRectangleAreaV1(3, 4)
@@ -24,21 +24,21 @@ func sayHowAreYou() {
 }
 
 func addition(a int, b int) int {
-	return a + b
+	return (a + b)
 }
 
 // ? Returning functions as values from other functions (closure)
 
 func multiplyV1(a int) func(b int) int {
 	multiplyBy := func(b int) int {
-		return a * b
+		return (a * b)
 	}
 	return multiplyBy
 }
 
 func multiplyV2(a int) func(b int) int {
 	return func(b int) int {
-		return a * b
+		return (a * b)
 	}
 }
 
@@ -46,14 +46,14 @@ func main() {
 	// ? function expression
 
 	getRectangleAreaV2 := func(rectangleWidth int, rectangleLength int) int {
-		return rectangleWidth * rectangleLength
+		return (rectangleWidth * rectangleLength)
 	}
 	// call the function example: getRectangleAreaV2(3, 4)
 
 	// ? anonymous function
 
 	// func(rectangleWidth int, rectangleLength int) int {
-	// 	   return rectangleWidth * rectangleLength
+	// 	   return (rectangleWidth * rectangleLength)
 	// }
 
 	// ? Passing functions as arguments to other functions
@@ -67,13 +67,13 @@ func main() {
 	// ? Assigning functions to variables or storing them in data structures
 
 	getRectangleAreaV2Copy := func(rectangleWidth int, rectangleLength int) int {
-		return rectangleWidth * rectangleLength
+		return (rectangleWidth * rectangleLength)
 	}
 
 	myArrayOfGetRectangleAreaFunctions := []func(int, int) int{
 		getRectangleAreaV1,
 		func(rectangleWidth int, rectangleLength int) int {
-			return rectangleWidth * rectangleLength
+			return (rectangleWidth * rectangleLength)
 		},
 	}
 	getRectangleAreaFunction1 := myArrayOfGetRectangleAreaFunctions[0](3, 4)
@@ -82,7 +82,7 @@ func main() {
 	simpleCalculator := map[string]func(int, int) int{
 		"addition": addition,
 		"subtraction": func(rectangleWidth int, rectangleLength int) int {
-			return rectangleWidth - rectangleLength
+			return (rectangleWidth - rectangleLength)
 		},
 	}
 	simpleCalculatorResult1 := simpleCalculator["addition"](9, 3)
@@ -98,7 +98,7 @@ func main() {
 
 	multiplyV3 := func(a int) func(b int) int {
 		return func(b int) int {
-			return a * b
+			return (a * b)
 		}
 	}
 

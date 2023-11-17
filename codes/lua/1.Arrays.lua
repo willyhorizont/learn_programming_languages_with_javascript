@@ -5,6 +5,15 @@ fruits = {"apple", "mango", "orange"}
 print("fruits, length: " .. #fruits)
 -- fruits, length: 3
 
+print("fruits, get mango: " .. fruits[2])
+-- fruits, get mango: mango
+
+print("fruits, first element: " .. fruits[1])
+-- fruits, first element: apple
+
+print("fruits, last element: " .. fruits[#fruits])
+-- fruits, last element: orange
+
 for array_item_index, array_item in ipairs(fruits) do
     print("fruits, for loop, index: " .. array_item_index .. ", value: " .. array_item)
 end
@@ -24,9 +33,6 @@ products = {
         name = "bubble gum"
     }
 }
-
-print("products, length: " .. #products)
--- products, length: 2
 
 for array_item_index, array_item in ipairs(products) do
     for object_key, object_value in pairs(array_item) do

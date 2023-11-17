@@ -22,9 +22,9 @@ function pretty_array_of_primitives($an_array_of_primitives) {
 
 function array_reduce_v2($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.reduce() function
-    $result = null;
+    $result = $initial_value;
     foreach ($an_array as $array_item_index => $array_item) {
-        $result = $callback_function((($array_item_index === 0) ? $initial_value : $result), $array_item, $array_item_index, $an_array);
+        $result = $callback_function($result, $array_item, $array_item_index, $an_array);
     }
     return $result;
 };

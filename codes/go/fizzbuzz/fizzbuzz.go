@@ -5,47 +5,47 @@ import (
 )
 
 func fizzbuzzV1(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	number := 1
 	for true {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
 			number += 1
-			if number > stopNumber {
+			if (number > stopNumber) {
 				break
 			}
 			continue
 		}
-		if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
+		if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
 			number += 1
-			if number > stopNumber {
+			if (number > stopNumber) {
 				break
 			}
 			continue
 		}
-		if (number % 3) == 0 {
-			result = result + ", Fizz"
+		if ((number % 3) == 0) {
+			result = (result + ", Fizz")
 			number += 1
-			if number > stopNumber {
+			if (number > stopNumber) {
 				break
 			}
 			continue
 		}
-		if (number % 5) == 0 {
-			result = result + ", Buzz"
+		if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 			number += 1
-			if number > stopNumber {
+			if (number > stopNumber) {
 				break
 			}
 			continue
 		}
-		result = result + ", " + fmt.Sprint(number)
+		result = (result + ", " + fmt.Sprint(number))
 		number += 1
-		if number > stopNumber {
+		if (number > stopNumber) {
 			break
 		}
 	}
@@ -53,58 +53,58 @@ func fizzbuzzV1(stopNumber int) string {
 }
 
 func fizzbuzzV2(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	number := 1
 	for number <= stopNumber {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
 			number += 1
 			continue
 		}
-		if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
+		if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
 			number += 1
 			continue
 		}
-		if (number % 3) == 0 {
-			result = result + ", Fizz"
+		if ((number % 3) == 0) {
+			result = (result + ", Fizz")
 			number += 1
 			continue
 		}
-		if (number % 5) == 0 {
-			result = result + ", Buzz"
+		if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 			number += 1
 			continue
 		}
-		result = result + ", " + fmt.Sprint(number)
+		result = (result + ", " + fmt.Sprint(number))
 		number += 1
 	}
 	return result
 }
 
 func fizzbuzzV3(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	number := 1
 	for true {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
-		} else if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
-		} else if (number % 3) == 0 {
-			result = result + ", Fizz"
-		} else if (number % 5) == 0 {
-			result = result + ", Buzz"
+		} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
+		} else if ((number % 3) == 0) {
+			result = (result + ", Fizz")
+		} else if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 		} else {
-			result = result + ", " + fmt.Sprint(number)
+			result = (result + ", " + fmt.Sprint(number))
 		}
 		number += 1
-		if number > stopNumber {
+		if (number > stopNumber) {
 			break
 		}
 	}
@@ -112,22 +112,22 @@ func fizzbuzzV3(stopNumber int) string {
 }
 
 func fizzbuzzV4(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	number := 1
 	for number <= stopNumber {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
-		} else if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
-		} else if (number % 3) == 0 {
-			result = result + ", Fizz"
-		} else if (number % 5) == 0 {
-			result = result + ", Buzz"
+		} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
+		} else if ((number % 3) == 0) {
+			result = (result + ", Fizz")
+		} else if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 		} else {
-			result = result + ", " + fmt.Sprint(number)
+			result = (result + ", " + fmt.Sprint(number))
 		}
 		number += 1
 	}
@@ -135,48 +135,48 @@ func fizzbuzzV4(stopNumber int) string {
 }
 
 func fizzbuzzV5(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
 			continue
 		}
-		if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
+		if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
 			continue
 		}
-		if (number % 3) == 0 {
-			result = result + ", Fizz"
+		if ((number % 3) == 0) {
+			result = (result + ", Fizz")
 			continue
 		}
-		if (number % 5) == 0 {
-			result = result + ", Buzz"
+		if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 			continue
 		}
-		result = result + ", " + fmt.Sprint(number)
+		result = (result + ", " + fmt.Sprint(number))
 	}
 	return result
 }
 
 func fizzbuzzV6(stopNumber int) string {
-	if stopNumber < 1 {
+	if (stopNumber < 1) {
 		return "argument should be greater than 0"
 	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
-		if result == "" {
+		if (result == "") {
 			result = fmt.Sprint(number)
-		} else if ((number % 3) == 0) && ((number % 5) == 0) {
-			result = result + ", FizzBuzz"
-		} else if (number % 3) == 0 {
-			result = result + ", Fizz"
-		} else if (number % 5) == 0 {
-			result = result + ", Buzz"
+		} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+			result = (result + ", FizzBuzz")
+		} else if ((number % 3) == 0) {
+			result = (result + ", Fizz")
+		} else if ((number % 5) == 0) {
+			result = (result + ", Buzz")
 		} else {
-			result = result + ", " + fmt.Sprint(number)
+			result = (result + ", " + fmt.Sprint(number))
 		}
 	}
 	return result

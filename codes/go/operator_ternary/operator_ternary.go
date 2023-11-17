@@ -21,8 +21,8 @@ func prettyJsonStringify(anything any) string {
 	return "undefined"
 }
 
-func ternaryOperator(isConditionTrue bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
-	if isConditionTrue {
+func ternaryOperator(trueCondition bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
+	if (trueCondition == true) {
 		return valueIfConditionIsTrue
 	}
 	return valueIfConditionIsFalse
@@ -36,7 +36,7 @@ func main() {
 
 	var myAnswer string
 
-	print("-- using Ternary Operator function \"ternaryOperator\"")
+	fmt.Println("// using Ternary Operator function \"ternaryOperator\"")
 
 	myAnswer = "bar"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
@@ -46,25 +46,5 @@ func main() {
 	myAnswer = "foo"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
 	fmt.Println("is my answer correct:", ternaryOperator((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
-	// is my answer correct: correct!
-
-	print("-- using the Go way")
-
-	myAnswer = "bar"
-	fmt.Println("my answer: \"" + myAnswer + "\"")
-	if myAnswer == CORRECT_ANSWER {
-		fmt.Println("is my answer correct: correct!")
-	} else {
-		fmt.Println("is my answer correct: wrong!")
-	}
-	// is my answer correct: wrong!
-
-	myAnswer = "foo"
-	fmt.Println("my answer: \"" + myAnswer + "\"")
-	if myAnswer == CORRECT_ANSWER {
-		fmt.Println("is my answer correct: correct!")
-	} else {
-		fmt.Println("is my answer correct: wrong!")
-	}
 	// is my answer correct: correct!
 }

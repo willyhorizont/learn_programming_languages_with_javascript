@@ -1,16 +1,16 @@
 # ? function statement or function declaration and function expression
 
 getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
-  return(rectangleWidth * rectangleLength)
+    return(rectangleWidth * rectangleLength)
 }
 
 getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
 
 # ? anonymous function
 function(rectangleWidth, rectangleLength) {
-  return(rectangleWidth * rectangleLength)
+    return(rectangleWidth * rectangleLength)
 }
-function(rectangleWidth, rectangleLength) rectangleWidth* rectangleLength
+function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
 
 # ? Passing functions as arguments to other functions
 
@@ -34,7 +34,7 @@ sayHello(function() cat("how are you?\n"))
 # ? Assigning functions to variables or storing them in data structures
 
 getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
-  return(rectangleWidth * rectangleLength)
+    return(rectangleWidth * rectangleLength)
 }
 
 getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
@@ -53,7 +53,7 @@ getRectangleAreaFunction2 <- myArrayOfGetRectangleAreaFunctions[[2]](3, 4)
 getRectangleAreaFunction3 <- myArrayOfGetRectangleAreaFunctions[[3]](3, 4)
 
 exponentiation <- function(a, b) {
-  return(a ^ b)
+    return(a ^ b)
 }
 
 simpleCalculator <- list(

@@ -83,14 +83,10 @@ spreadSyntaxArray <- function(...) {
 
 arrayReduce <- function(callbackFunction, anArray, initialValue) {
     # JavaScript-like Array.reduce() function
-    result <- NULL
+    result <- initialValue
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
-        if (arrayItemIndex == 1) {
-            result <- callbackFunction(initialValue, arrayItem, arrayItemIndex, anArray)
-        } else {
-            result <- callbackFunction(result, arrayItem, arrayItemIndex, anArray)
-        }
+        result <- callbackFunction(result, arrayItem, arrayItemIndex, anArray)
     }
     return(result)
 }

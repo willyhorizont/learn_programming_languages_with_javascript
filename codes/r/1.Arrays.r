@@ -5,9 +5,18 @@ fruits <- list("apple", "mango", "orange")
 cat(paste(sep = "", "fruits, length: ", length(fruits), "\n"))
 # fruits, length: 3
 
+cat(paste(sep = "", "fruits, get mango: ", fruits[2], "\n"))
+# fruits, get mango: mango
+
+cat(paste(sep = "", "fruits, first element: ", fruits[1], "\n"))
+# fruits, first element: apple
+
+cat(paste(sep = "", "fruits, last element: ", fruits[length(fruits)], "\n"))
+# fruits, last element: orange
+
 for (arrayItemIndex in seq_along(fruits)) {
     arrayItem <- fruits[[arrayItemIndex]]
-    cat(paste(sep="", "fruits, for loop, index: ", arrayItemIndex, ", value: ", arrayItem, "\n"))
+    cat(paste(sep = "", "fruits, for loop, index: ", arrayItemIndex, ", value: ", arrayItem, "\n"))
 }
 # fruits, foreach loop, index: 1, value: apple
 # fruits, foreach loop, index: 2, value: mango
@@ -26,14 +35,11 @@ products <- list(
     )
 )
 
-cat(paste(sep = "", "products, length: ", length(products), "\n"))
-# products, length: 2
-
 for (arrayItemIndex in seq_along(products)) {
     arrayItem <- products[[arrayItemIndex]]
     for (objectKey in names(arrayItem)) {
         objectValue <- arrayItem[[objectKey]]
-        cat(paste(sep="", "products, for loop, index: ", arrayItemIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
+        cat(paste(sep = "", "products, for loop, index: ", arrayItemIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
     }
 }
 # products, for loop, index: 1, key: id, value: P1

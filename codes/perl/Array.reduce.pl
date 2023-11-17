@@ -3,12 +3,18 @@ use warnings;
 use JSON;
 use Scalar::Util qw(looks_like_number);
 
+sub pretty_json_stringify {
+    my ($anything) = @_;
+    use JSON;
+    return JSON->new->allow_nonref->pretty->encode($anything);
+}
+
 sub pretty_array_of_primitives {
     my $number_of_parameters = @_;
     my $result = "[";
     for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
         my $array_item = $_[$array_item_index];
-        my $is_string = (defined($array_item) && $array_item =~ /[0-9a-zA-Z`~!@#%&_=;':", \(\)\[\]\{\}\|\*\+\?\^\$\/\\\<\>\.\-]/);
+        my $is_string = (defined($array_item) && ref($array_item) eq "");
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
         $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
@@ -22,14 +28,7 @@ sub pretty_array_of_primitives {
 sub spread_syntax_array {
     my @new_array;
     for my $parameter (@_) {
-        if (ref $parameter eq "ARRAY") {
-            my @an_array = @$parameter;
-            my $array_length = scalar(@an_array);
-            next if ($array_length == 0);
-            push(@new_array, $parameter);
-            next;
-        }
-        push(@new_array, $parameter);
+        $new_array[scalar(@new_array)] = $parameter;
     }
     return @new_array;
 }
@@ -58,15 +57,15 @@ sub spread_syntax_object_v1 {
 sub array_reduce {
     # JavaScript-like Array.reduce() function
     my ($callback_function, $an_array_ref, $initial_value) = @_;
-    my $result;
-    my @an_array = @$an_array_ref;
+    my @an_array = @{$an_array_ref};
+    my $result = $initial_value;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        $result = $callback_function->((($array_item_index == 0) ? $initial_value : $result), $array_item, $array_item_index, \@an_array);
+        $result = $callback_function->($result, $array_item, $array_item_index, \@an_array);
     }
-    return %$result if (ref $result eq "HASH");
-    return @$result if (ref $result eq "ARRAY");
-    return $$result if (ref $result eq "SCALAR");
+    return %{$result} if (ref($result) eq "HASH");
+    return @{$result} if (ref($result) eq "ARRAY");
+    return ${$result} if (ref($result) eq "SCALAR");
     return $result;
 }
 
@@ -101,7 +100,7 @@ my @products = (
         "price" => 499
     }
 );
-print("products: ", JSON->new->allow_nonref->pretty->encode(\@products));
+print("products: ", pretty_json_stringify(\@products));
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
@@ -111,14 +110,14 @@ my %products_grouped;
     my ($current_result, $current_product) = @_;
     if ($current_product->{"price"} > 100) {
         my @current_result_new_expensive_value = spread_syntax_array(@{$current_result->{"expensive"}}, $current_product);
-        my %current_result_new = spread_syntax_object_v1(%$current_result, ("expensive" => \@current_result_new_expensive_value));
+        my %current_result_new = spread_syntax_object_v1(%{$current_result}, ("expensive" => \@current_result_new_expensive_value));
         return \%current_result_new;
     }
     my @current_result_new_cheap_value = spread_syntax_array(@{$current_result->{"cheap"}}, $current_product);
-    my %current_result_new = spread_syntax_object_v1(%$current_result, ("cheap" => \@current_result_new_cheap_value));
+    my %current_result_new = spread_syntax_object_v1(%{$current_result}, ("cheap" => \@current_result_new_cheap_value));
     return \%current_result_new;
 }, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: ", JSON->new->allow_nonref->pretty->encode(\%products_grouped));
+print("grouped products: ", pretty_json_stringify(\%products_grouped));
 # grouped products: {
 #     "expensive": [
 #         {
@@ -142,8 +141,8 @@ print("grouped products: ", JSON->new->allow_nonref->pretty->encode(\%products_g
 #     ]
 # }
 
-%products_grouped = array_reduce(sub { my ($current_result, $current_product) = @_; return (($current_product->{"price"} > 100) ? {spread_syntax_object_v1(%$current_result, ("expensive" => [spread_syntax_array(@{$current_result->{"expensive"}}, $current_product)]))} : {spread_syntax_object_v1(%$current_result, ("cheap" => [spread_syntax_array(@{$current_result->{"cheap"}}, $current_product)]))}); }, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: ", JSON->new->allow_nonref->pretty->encode(\%products_grouped));
+%products_grouped = array_reduce(sub { my ($current_result, $current_product) = @_; return (($current_product->{"price"} > 100) ? {spread_syntax_object_v1(%{$current_result}, ("expensive" => [spread_syntax_array(@{$current_result->{"expensive"}}, $current_product)]))} : {spread_syntax_object_v1(%{$current_result}, ("cheap" => [spread_syntax_array(@{$current_result->{"cheap"}}, $current_product)]))}); }, \@products, { "expensive" => [], "cheap" => [] });
+print("grouped products: ", pretty_json_stringify(\%products_grouped));
 # grouped products: {
 #     "expensive": [
 #         {

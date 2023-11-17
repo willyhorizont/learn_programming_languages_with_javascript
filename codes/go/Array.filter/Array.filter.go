@@ -33,7 +33,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 		default:
 			continue
 		}
-		if (arrayItemIndex + 1) != len(anArray) {
+		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
 		}
 	}
@@ -46,7 +46,7 @@ func arrayFilterV1(callbackFunction func(any, int, array) bool, anArray array) a
 	dataFiltered := array{}
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if isConditionMatch == true {
+		if (isConditionMatch == true) {
 			dataFiltered = append(dataFiltered, arrayItem)
 		}
 	}
@@ -57,7 +57,7 @@ func arrayFilterV2(callbackFunction func(any, int, array) bool, anArray array) a
 	// JavaScript-like Array.filter() function
 	dataFiltered := array{}
 	for arrayItemIndex, arrayItem := range anArray {
-		if callbackFunction(arrayItem, arrayItemIndex, anArray) == true {
+		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
 			dataFiltered = append(dataFiltered, arrayItem)
 		}
 	}
@@ -78,13 +78,13 @@ func main() {
 	numbersEven = arrayFilterV1(func(number any, _ int, _ array) bool {
 		return ((number.(int) % 2) == 0)
 	}, numbers)
-	fmt.Println("even numbers only: ", prettyArrayOfPrimitives(numbersEven))
+	fmt.Println("even numbers only:", prettyArrayOfPrimitives(numbersEven))
 	// even numbers only: [12, 34, 36, 4, 254]
 
 	numbersOdd = arrayFilterV1(func(number any, _ int, _ array) bool {
 		return ((number.(int) % 2) != 0)
 	}, numbers)
-	fmt.Println("odd numbers only: ", prettyArrayOfPrimitives(numbersOdd))
+	fmt.Println("odd numbers only:", prettyArrayOfPrimitives(numbersOdd))
 	// odd numbers only: [27, 23, 65, 93, 87]
 
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
@@ -92,13 +92,13 @@ func main() {
 	numbersEven = arrayFilterV2(func(number any, _ int, _ array) bool {
 		return ((number.(int) % 2) == 0)
 	}, numbers)
-	fmt.Println("even numbers only: ", prettyArrayOfPrimitives(numbersEven))
+	fmt.Println("even numbers only:", prettyArrayOfPrimitives(numbersEven))
 	// even numbers only: [12, 34, 36, 4, 254]
 
 	numbersOdd = arrayFilterV2(func(number any, _ int, _ array) bool {
 		return ((number.(int) % 2) != 0)
 	}, numbers)
-	fmt.Println("odd numbers only: ", prettyArrayOfPrimitives(numbersOdd))
+	fmt.Println("odd numbers only:", prettyArrayOfPrimitives(numbersOdd))
 	// odd numbers only: [27, 23, 65, 93, 87]
 
 	fmt.Println("\n// JavaScript-like Array.filter() in Slice of Maps")
@@ -129,7 +129,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
 
 	productsBelow100 = arrayFilterV1(func(product any, _ int, _ array) bool {
-		return product.(object)["price"].(int) <= 100
+		return (product.(object)["price"].(int) <= 100)
 	}, products)
 	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
 	// products with price <= 100 only: [
@@ -140,7 +140,7 @@ func main() {
 	// ]
 
 	productsAbove100 = arrayFilterV1(func(product any, _ int, _ array) bool {
-		return product.(object)["price"].(int) >= 100
+		return (product.(object)["price"].(int) >= 100)
 	}, products)
 	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
 	// products with price >= 100 only: [
@@ -161,7 +161,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
 
 	productsBelow100 = arrayFilterV2(func(product any, _ int, _ array) bool {
-		return product.(object)["price"].(int) <= 100
+		return (product.(object)["price"].(int) <= 100)
 	}, products)
 	fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
 	// products with price <= 100 only: [
@@ -172,7 +172,7 @@ func main() {
 	// ]
 
 	productsAbove100 = arrayFilterV2(func(product any, _ int, _ array) bool {
-		return product.(object)["price"].(int) >= 100
+		return (product.(object)["price"].(int) >= 100)
 	}, products)
 	fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
 	// products with price >= 100 only: [

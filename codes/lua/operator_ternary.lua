@@ -1,14 +1,14 @@
 print('\n-- Ternary Operator in Lua')
 
-function ternary_operator_v1(is_condition_true, value_if_condition_is_true, value_if_condition_is_false)
-    if is_condition_true then
+function ternary_operator_v1(true_condition, value_if_condition_is_true, value_if_condition_is_false)
+    if true_condition then
         return value_if_condition_is_true
     end
     return value_if_condition_is_false
 end
 
-function ternary_operator_v2(is_condition_true, value_if_condition_is_true, value_if_condition_is_false)
-    return is_condition_true and value_if_condition_is_true or value_if_condition_is_false
+function ternary_operator_v2(true_condition, value_if_condition_is_true, value_if_condition_is_false)
+    return ((true_condition and value_if_condition_is_true) or value_if_condition_is_false)
 end
 
 CORRECT_ANSWER = "foo"

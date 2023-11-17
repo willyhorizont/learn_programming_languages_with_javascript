@@ -6,6 +6,15 @@ my @fruits1 = ("apple", "mango", "orange");
 print("fruits1, length: ", scalar(@fruits1), "\n");
 # fruits1, length: 3
 
+print("fruits1, get mango: ", $fruits1[1], "\n");
+# fruits1, get mango: mango
+
+print("fruits1, first element: ", $fruits1[0], "\n");
+# fruits1, first element: apple
+
+print("fruits1, last element: ", $fruits1[-1], "\n");
+# fruits1, last element: orange
+
 for my $array_item_index (0..(scalar(@fruits1) - 1)) { # we can also replace `(scalar(@fruits1) - 1)` with `$#fruits1`
     my $array_item = $fruits1[$array_item_index];
     print("fruits1, index: $array_item_index, value: $array_item\n");
@@ -19,6 +28,33 @@ my $fruits2 = ["apple", "mango", "orange"];
 
 print("fruits2, length: ", scalar(@{$fruits2}), "\n");
 # fruits2, length: 3
+
+print("fruits2, get mango: ", $$fruits2[1], "\n");
+# fruits2, get mango: mango
+
+print("fruits2, get mango: ", ${$fruits2}[1], "\n");
+# fruits2, get mango: mango
+
+print("fruits2, get mango: ", $fruits2->[1], "\n");
+# fruits2, get mango: mango
+
+print("fruits2, first element: ", $$fruits2[0], "\n");
+# fruits2, first element: apple
+
+print("fruits2, first element: ", ${$fruits2}[0], "\n");
+# fruits2, first element: apple
+
+print("fruits2, first element: ", $fruits2->[0], "\n");
+# fruits2, first element: apple
+
+print("fruits2, last element: ", $$fruits2[-1], "\n");
+# fruits2, last element: orange
+
+print("fruits2, last element: ", ${$fruits2}[-1], "\n");
+# fruits2, last element: orange
+
+print("fruits2, last element: ", $fruits2->[-1], "\n");
+# fruits2, last element: orange
 
 for my $array_item_index (0..(scalar(@{$fruits2}) - 1)) { # we can also replace `(scalar(@{$fruits2}) - 1)` with `$#fruits2`
     my $array_item = @{$fruits2}[$array_item_index];
@@ -41,9 +77,6 @@ my @products1 = (
         "name" => "potato chips"
     }
 );
-
-print("products1, length: ", scalar(@products1), "\n");
-# products1, length: 2
 
 for my $product_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$product_index];
@@ -81,9 +114,6 @@ my $products2 = [
         "name" => "potato chips"
     }
 ];
-
-print("products2, length: ", scalar(@{$products2}), "\n");
-# products2, length: 2
 
 for my $product_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$product_index];

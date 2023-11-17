@@ -74,6 +74,3 @@ const myObject = {
 };
 myObject.multiplication(7, 5);
 ```
-
-nice to have:
-9. has ability to encode data structure to JSON and decode JSON to data structure

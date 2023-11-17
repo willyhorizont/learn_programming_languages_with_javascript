@@ -33,7 +33,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 		default:
 			continue
 		}
-		if (arrayItemIndex + 1) != len(anArray) {
+		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
 		}
 	}
@@ -45,12 +45,12 @@ func spreadSyntaxObject(parameters ...any) object {
 	var newObject = make(object)
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
-		if parameterType == reflect.Map {
+		if (parameterType == reflect.Map) {
 			for objectKey, objectValue := range parameter.(object) {
 				newObject[objectKey] = objectValue
 			}
 		}
-		if parameterType == reflect.Slice {
+		if (parameterType == reflect.Slice) {
 			for arrayItemIndex, arrayItem := range parameter.(array) {
 				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
 			}
@@ -63,8 +63,8 @@ func spreadSyntaxArray(parameters ...any) array {
 	var newArray = array{}
 	for _, parameter := range parameters {
 		parameterType := reflect.TypeOf(parameter).Kind()
-		if parameterType == reflect.Map {
-			if len(parameter.(object)) == 1 {
+		if (parameterType == reflect.Map) {
+			if (len(parameter.(object)) == 1) {
 				for _, objectValue := range parameter.(object) {
 					newArray = append(newArray, objectValue)
 				}
@@ -73,10 +73,7 @@ func spreadSyntaxArray(parameters ...any) array {
 			newArray = append(newArray, parameter)
 			continue
 		}
-		if parameterType == reflect.Slice {
-			if len(parameter.(array)) == 0 {
-				continue
-			}
+		if (parameterType == reflect.Slice) {
 			newArray = append(newArray, parameter.(array)...)
 			continue
 		}
@@ -86,13 +83,9 @@ func spreadSyntaxArray(parameters ...any) array {
 
 func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
 	// JavaScript-like Array.reduce() function
-	var result any
+	result := initialValue
 	for arrayItemIndex, arrayItem := range anArray {
-		if arrayItemIndex == 0 {
-			result = callbackFunction(initialValue, arrayItem, arrayItemIndex, anArray)
-		} else {
-			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
-		}
+		result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
 	}
 	return result
 }
@@ -106,9 +99,9 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 	numbersTotal := arrayReduce(func(currentResult any, currentNumber any, _ int, _ array) any {
-		return currentResult.(int) + currentNumber.(int)
+		return (currentResult.(int) + currentNumber.(int))
 	}, numbers, 0)
-	fmt.Println("total numbers: ", prettyJsonStringify(numbersTotal))
+	fmt.Println("total numbers:", prettyJsonStringify(numbersTotal))
 	// total number: 635
 
 	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")
@@ -136,7 +129,7 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 	productsGrouped := arrayReduce(func(currentResult any, currentProduct any, _ int, _ array) any {
-		if currentProduct.(object)["price"].(int) > 100 {
+		if (currentProduct.(object)["price"].(int) > 100) {
 			return spreadSyntaxObject(currentResult, object{"expensive": spreadSyntaxArray(currentResult.(object)["expensive"], object{"currentProduct": currentProduct})})
 		}
 		return spreadSyntaxObject(currentResult, object{"cheap": spreadSyntaxArray(currentResult.(object)["cheap"], object{"currentProduct": currentProduct})})

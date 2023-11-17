@@ -1,4 +1,22 @@
 =============================changelog==========================================
+17:49 | 05:49 PM | Fri | Nov | 17/11/2023
+0.0.29
+update parentheses in *.go files
+change JSON->new->allow_nonref->pretty->encode to pretty_json_stringify in *.pl
+update operator_nullish_coalescing.*
+update optional chaining add array example too
+update Array.reduce.*
+update PHP array_push, perl push, Julia push!, append!, [;], vcat()
+update pretty_array_of_primitives, prettyArrayOfPrimitives, getType
+update pretty_array_of_primitives in *.pl
+add get element, get first element, get last element in 1.Arrays.*
+add get element in 1.Objects.*
+add iterate over and get each key-value pair and iteration index in 1.Objects.*
+change MutableList<*> to MutableList<Any?>
+change MutableMap<*, *> to MutableMap<String, Any?>
+change for 0..$# to traditional for loop < scalar(@an_array) in *.pl
+change Associative Array to Array of Associative Arrays in *.php
+=============================changelog==========================================
 23:04 | 11:04 PM | Wed | Nov | 15/11/2023
 0.0.28
 learn and add Kotlin (*.kt)
