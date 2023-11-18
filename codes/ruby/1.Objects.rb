@@ -13,7 +13,7 @@ friend.each { |object_key, object_value| print("friend, foreach loop, key: #{obj
 # friend, foreach loop, key: country value: Finland
 # friend, foreach loop, key: age value: 25
 
-# iterate over and get each key-value pair and iteration index
+# iterate over and get each key-value pair and iteration/entry index
 friend.each_with_index do |(object_key, object_value), iteration_index|
     print("friend, foreach loop, index: #{iteration_index}, key: #{object_key} value: #{object_value}\n")
 end

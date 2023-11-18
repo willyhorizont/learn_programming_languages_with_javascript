@@ -26,7 +26,7 @@ fun main() {
 	// fruits, for loop, key: 1, value: mango
 	// fruits, for loop, key: 2, value: orange
 
-    // iterate over and get each key-value pair and iteration index
+    // iterate over and get each key-value pair and iteration/entry index
     friend.entries.forEachIndexed { iterationIndex, entryItem ->
         val objectKey = entryItem.key
         val objectValue = entryItem.value

@@ -40,8 +40,8 @@ my_array_of_get_rectangle_area_functions = [
     lambda rectangle_width, rectangle_length: rectangle_width * rectangle_length
 ]
 
-get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[0](3, 4)
-get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[1](3, 4)
+get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[0](3, 4)
+get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[1](3, 4)
 
 
 def exponentiation(a, b):

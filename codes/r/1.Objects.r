@@ -16,7 +16,7 @@ for (objectKey in names(friend)) {
 # friend, for loop, key: country, value: Finland
 # friend, for loop, key: age, value: 25
 
-# iterate over and get each key-value pair and iteration index
+# iterate over and get each key-value pair and iteration/entry index
 for (iterationIndex in seq_along(friend)) {
     objectKey <- names(friend)[iterationIndex]
     objectValue <- friend[[iterationIndex]]

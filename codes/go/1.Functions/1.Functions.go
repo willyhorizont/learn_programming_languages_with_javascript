@@ -76,8 +76,8 @@ func main() {
 			return (rectangleWidth * rectangleLength)
 		},
 	}
-	getRectangleAreaFunction1 := myArrayOfGetRectangleAreaFunctions[0](3, 4)
-	getRectangleAreaFunction2 := myArrayOfGetRectangleAreaFunctions[1](3, 4)
+	getRectangleAreaFunctionResult1 := myArrayOfGetRectangleAreaFunctions[0](3, 4)
+	getRectangleAreaFunctionResult2 := myArrayOfGetRectangleAreaFunctions[1](3, 4)
 
 	simpleCalculator := map[string]func(int, int) int{
 		"addition": addition,
@@ -107,8 +107,8 @@ func main() {
 
 	fmt.Println("getRectangleAreaV2(3, 4):", getRectangleAreaV2(3, 4))
 	fmt.Println("getRectangleAreaV2Copy(3, 4):", getRectangleAreaV2Copy(3, 4))
-	fmt.Println("getRectangleAreaFunction1:", getRectangleAreaFunction1)
-	fmt.Println("getRectangleAreaFunction2:", getRectangleAreaFunction2)
+	fmt.Println("getRectangleAreaFunctionResult1:", getRectangleAreaFunctionResult1)
+	fmt.Println("getRectangleAreaFunctionResult2:", getRectangleAreaFunctionResult2)
 	fmt.Println("simpleCalculatorResult1:", simpleCalculatorResult1)
 	fmt.Println("simpleCalculatorResult2:", simpleCalculatorResult2)
 	fmt.Println("multiplyBy2Result:", multiplyBy2Result)

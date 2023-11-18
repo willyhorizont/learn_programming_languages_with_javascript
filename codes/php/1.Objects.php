@@ -17,7 +17,7 @@ foreach ($friend as $object_key => $object_value) {
 // friend, foreach loop, key: country, value: Finland
 // friend, foreach loop, key: age, value: 25
 
-// iterate over and get each key-value pair and iteration index
+// iterate over and get each key-value pair and iteration/entry index
 $iteration_index = 0;
 foreach ($friend as $object_key => $object_value) {
     echo("\n" . "friend, foreach loop, index: " . $iteration_index . ", key: " . $object_key . ", value: " . $object_value);

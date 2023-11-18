@@ -29,7 +29,7 @@ func main() {
 	// fruits, for loop, key: 1, value: mango
 	// fruits, for loop, key: 2, value: orange
 
-	// iterate over and get each key-value pair and iteration index
+	// iterate over and get each key-value pair and iteration/entry index
 	iterationIndex := 0
 	for objectKey, objectValue := range friend {
 		fmt.Println("friend, for loop, index:", iterationIndex, "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))

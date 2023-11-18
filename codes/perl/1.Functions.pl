@@ -70,9 +70,9 @@ my @my_array_of_get_rectangle_area_functions = (
     sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
 );
 
-my $get_rectangle_area_function1 = $my_array_of_get_rectangle_area_functions[0](3, 4);
-my $get_rectangle_area_function2 = $my_array_of_get_rectangle_area_functions[1](3, 4);
-my $get_rectangle_area_function3 = $my_array_of_get_rectangle_area_functions[2](3, 4);
+my $get_rectangle_area_function_result1 = $my_array_of_get_rectangle_area_functions[0](3, 4);
+my $get_rectangle_area_function_result2 = $my_array_of_get_rectangle_area_functions[1](3, 4);
+my $get_rectangle_area_function_result3 = $my_array_of_get_rectangle_area_functions[2](3, 4);
 
 sub exponentiation {
     my ($a, $b) = @_;

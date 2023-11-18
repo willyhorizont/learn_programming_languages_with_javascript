@@ -101,10 +101,10 @@ const myArrayOfGetRectangleAreaFunctions = [
     },
     (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
 ];
-const getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0](3, 4);
-const getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1](3, 4);
-const getRectangleAreaFunction3 = myArrayOfGetRectangleAreaFunctions[2](3, 4);
-const getRectangleAreaFunction4 = myArrayOfGetRectangleAreaFunctions[3](3, 4);
+const getRectangleAreaFunctionResult1 = myArrayOfGetRectangleAreaFunctions[0](3, 4);
+const getRectangleAreaFunctionResult2 = myArrayOfGetRectangleAreaFunctions[1](3, 4);
+const getRectangleAreaFunctionResult3 = myArrayOfGetRectangleAreaFunctions[2](3, 4);
+const getRectangleAreaFunctionResult4 = myArrayOfGetRectangleAreaFunctions[3](3, 4);
 
 function exponentiation(a, b) {
     return a ** b;

@@ -67,10 +67,10 @@ fun main() {
         },
         { rectangleWidth: Int, rectangleLength: Int -> rectangleWidth * rectangleLength }
     )
-    val getRectangleAreaFunction1 = (myArrayOfGetRectangleAreaFunctions[0] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunction2 = (myArrayOfGetRectangleAreaFunctions[1] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunction3 = (myArrayOfGetRectangleAreaFunctions[2] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunction4 = (myArrayOfGetRectangleAreaFunctions[3] as (Int, Int) -> Int)(3, 4)
+    val getRectangleAreaFunctionResult1 = (myArrayOfGetRectangleAreaFunctions[0] as (Int, Int) -> Int)(3, 4)
+    val getRectangleAreaFunctionResult2 = (myArrayOfGetRectangleAreaFunctions[1] as (Int, Int) -> Int)(3, 4)
+    val getRectangleAreaFunctionResult3 = (myArrayOfGetRectangleAreaFunctions[2] as (Int, Int) -> Int)(3, 4)
+    val getRectangleAreaFunctionResult4 = (myArrayOfGetRectangleAreaFunctions[3] as (Int, Int) -> Int)(3, 4)
 
     fun exponentiation(a: Double, b: Double): Double {
         return Math.pow(a, b)

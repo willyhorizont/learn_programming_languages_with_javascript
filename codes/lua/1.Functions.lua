@@ -62,9 +62,9 @@ my_array_of_get_rectangle_area_functions = {
     end,
     function(rectangle_width, rectangle_length) return rectangle_width * rectangle_length end
 }
-get_rectangle_area_function1 = my_array_of_get_rectangle_area_functions[1](3, 4)
-get_rectangle_area_function2 = my_array_of_get_rectangle_area_functions[2](3, 4)
-get_rectangle_area_function3 = my_array_of_get_rectangle_area_functions[3](3, 4)
+get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[1](3, 4)
+get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[2](3, 4)
+get_rectangle_area_function_result3 = my_array_of_get_rectangle_area_functions[3](3, 4)
 
 function exponentiation(a, b)
     return a ^ b

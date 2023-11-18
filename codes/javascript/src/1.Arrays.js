@@ -12,7 +12,7 @@ console.log("fruits, first element:", fruits[0]);
 // fruits, first element: apple
 
 console.log("fruits, last element:", fruits[fruits.length - 1]);
-// fruits, last element: mango
+// fruits, last element: orange
 
 fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}`));
 // fruits, foreach loop, index: 0, value: apple
