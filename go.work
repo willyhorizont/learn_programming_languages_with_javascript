@@ -1,18 +1,17 @@
 go 1.21.3
 
 use (
-    ./codes/go/x.chaos
-    ./codes/go/1.comment
-    ./codes/go/2.hello_world
-    ./codes/go/3.Conditionals
-    ./codes/go/4.Loops
-    ./codes/go/5.Objects
-    ./codes/go/6.Arrays
-    ./codes/go/7.Functions
-    ./codes/go/8.operator_ternary
-    ./codes/go/9.operator_optional_chaining
-    ./codes/go/10.operator_nullish_coalescing
-    ./codes/go/11.operator_spread
+    ./codes/go/001.comment
+    ./codes/go/002.hello_world
+    ./codes/go/003.Conditionals
+    ./codes/go/004.Loops
+    ./codes/go/005.Objects
+    ./codes/go/006.Arrays
+    ./codes/go/007.Functions
+    ./codes/go/008.operator_ternary
+    ./codes/go/009.operator_optional_chaining
+    ./codes/go/010.operator_nullish_coalescing
+    ./codes/go/011.operator_spread
     ./codes/go/Array.every
     ./codes/go/Array.filter
     ./codes/go/Array.find
@@ -23,4 +22,5 @@ use (
     ./codes/go/Array.some
     ./codes/go/factorial
     ./codes/go/fizzbuzz
+    ./codes/go/xxx.chaos
 )
