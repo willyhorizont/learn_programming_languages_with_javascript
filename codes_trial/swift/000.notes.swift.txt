@@ -1,0 +1,8 @@
+create folder "C:\WSL_Documents\Swift"
+download swift latest binary release for ubuntu at https://www.swift.org/download/#releases
+example $downloaded_filename: swift-5.9.1-RELEASE-ubuntu22.04.tar.gz
+move the downloaded file to "C:\WSL_Documents\Swift"
+tar -zxvf $downloaded_filename (tar -zxvf swift-5.9.1-RELEASE-ubuntu22.04.tar.gz)
+export PATH=/mnt/c/WSL_Documents/Swift/swift-5.9.1-RELEASE-ubuntu22.04/usr/bin:"${PATH}"
+cd /mnt/d/my_codes/learn_programming_languages_with_javascript/codes_trial/swift
+swiftc --version

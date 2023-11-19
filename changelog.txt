@@ -1,4 +1,9 @@
 =============================changelog==========================================
+19:10 | 07:10 PM | Sun | Nov | 19/11/2023
+0.0.32
+install mojo and swift in WSL Ubuntu
+try mojo, dart, swift
+=============================changelog==========================================
 02:07 | 02:07 AM | Sun | Nov | 19/11/2023
 0.0.31
 reorder file names
