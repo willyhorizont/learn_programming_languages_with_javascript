@@ -278,8 +278,10 @@ cat(paste(sep = "", "combination14: ", prettyJsonStringify(combination14), "\n")
 
 # cat("\n# [...array1, ...object1]: // this combination throw an error in JavaScript\n")
 
+# this combination throw an error in JavaScript
 # combinationErrorInJavascript1 <- spreadSyntaxArray(fruits, countryCapitalsInAsia)
 # cat(paste(sep = "", "combinationErrorInJavascript1: ", prettyJsonStringify(combinationErrorInJavascript1), "\n"))
 
+# this combination throw an error in JavaScript
 # combinationErrorInJavascript2 <- spreadSyntaxArray(fruits, list(Germany = "Berlin", Italy = "Rome"))
 # cat(paste(sep = "", "combinationErrorInJavascript2: ", prettyJsonStringify(combinationErrorInJavascript2), "\n"))

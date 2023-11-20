@@ -228,7 +228,7 @@ func main() {
 	var productFound any
 
 	productToFind := "bubble_gum"
-	fmt.Println("product to find:", prettyJsonStringify(productToFind))
+	fmt.Println("product to find:", productToFind)
 
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 

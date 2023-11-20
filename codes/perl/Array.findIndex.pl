@@ -256,10 +256,10 @@ my @products = (
 
 print("products: ", pretty_json_stringify(\@products));
 
+my $product_found_index;
+
 my $product_to_find = "pasta";
 print("product to find: ", $product_to_find, "\n");
-
-my $product_found_index;
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"\n");
 

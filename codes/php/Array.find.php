@@ -180,7 +180,7 @@ $products = [
 echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
 
 $product_to_find = "bubble_gum";
-echo("\nproduct to find: " . "\"" . $product_to_find . "\"");
+echo("\nproduct to find: " . $product_to_find);
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v1\"");
 

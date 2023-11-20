@@ -16,6 +16,7 @@ compiled_extensions = [
     ".exe"
 ]
 
+
 def delete_compiled(path_code):
     for filename in os.listdir(path_code):
         path_filename = os.path.join(path_code, filename)
@@ -29,6 +30,7 @@ def delete_compiled(path_code):
 def main():
     for path_code in PATH_CODES:
         delete_compiled(path_code)
+
 
 if __name__ == "__main__":
     main()

@@ -183,7 +183,7 @@ products = {
 print("products: " .. pretty_json_stringify(products))
 
 product_to_find = "bubble_gum"
-print("product to find: " .. "\"" .. product_to_find .. "\"")
+print("product to find: " .. product_to_find)
 
 print("-- using JavaScript-like Array.find() function \"array_find_v1\"")
 

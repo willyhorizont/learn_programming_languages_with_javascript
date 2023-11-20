@@ -149,7 +149,7 @@ products = [
 print(f'products: {json.dumps(products, indent=4)}')
 
 product_to_find = "bubble_gum"
-print(f'product to find: "{product_to_find}"')
+print(f'product to find: {product_to_find}')
 
 print('# using JavaScript-like Array.find() function "array_find_v1"')
 

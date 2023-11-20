@@ -190,11 +190,11 @@ func main() {
 		},
 	}
 	fmt.Println("products:", prettyJsonStringify(products))
+	
+	var productFoundIndex int
 
 	productToFind := "pasta"
 	fmt.Println("product to find:", productToFind)
-
-	var productFoundIndex int
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 

@@ -49,3 +49,7 @@ to run R code:
 to compile and run Kotlin code:
 1. cd codes/kotlin
 2. kotlinc filename.kt -include-runtime -d filename.jar && kotlin filename.jar
+
+to compile and run Swift code:
+1. cd codes/swift
+2. swiftc filename.swift && ./filename

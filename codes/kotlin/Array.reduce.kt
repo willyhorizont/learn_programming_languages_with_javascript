@@ -24,16 +24,16 @@ fun main() {
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
         fun prettyJsonStringifyInnerFunction(anything: Any? = null, indent: String = "    "): String {
+            if (anything == null) return "undefined"
             if (anything == "null") return "null"
             if (anything == "undefined") return "undefined"
-            if (anything == null) return "undefined"
             if (anything is String) return "\"${anything}\""
             if (anything is Number || anything is Boolean) return "${anything}"
             if (anything is MutableList<*>) {
                 indentLevel += 1
                 var result = "[\n${indent.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anything.withIndex()) {
-                    result += prettyJsonStringifyInnerFunction(arrayItem)
+                    result += prettyJsonStringifyInnerFunction(arrayItem, indent)
                     if ((arrayItemIndex + 1) != anything.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -48,7 +48,7 @@ fun main() {
                 anything.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue)}"
+                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue, indent)}"
                     if ((entryIndex + 1) != anything.entries.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -63,9 +63,9 @@ fun main() {
     }
 
     fun getType(anything: Any? = null): String {
+        if (anything == null) return "undefined"
         if (anything == "null") return "null"
         if (anything == "undefined") return "undefined"
-        if (anything == null) return "undefined"
         if (anything is String) return "String"
         if (anything is Number) return "Number"
         if (anything is Boolean) return "Boolean"
@@ -175,7 +175,7 @@ fun main() {
     println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
     productsGrouped = arrayReduce({ currentResult: Any?, currentProduct: Any?, _: Int, _: MutableList<Any?> -> (if (((currentProduct as MutableMap<String, Any?>)["price"] as Int) > 100) spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("expensive" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["expensive"], mutableMapOf<String, Any?>("currentProduct" to currentProduct)))) else spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("cheap" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["cheap"], mutableMapOf<String, Any?>("currentProduct" to currentProduct))))) }, products, mutableMapOf<String, Any?>("expensive" to mutableListOf<Any?>(), "cheap" to mutableListOf<Any?>()))
-    println("labeled products: ${prettyJsonStringify(productsGrouped)}")
+    println("grouped products: ${prettyJsonStringify(productsGrouped)}")
     // grouped products: {
 	// 	"expensive": [
 	// 		{
@@ -202,7 +202,7 @@ fun main() {
     println("// using Kotlin Array.reduce() built-in function \"fold\"")
 
     productsGrouped = products.fold(mutableMapOf<String, Any?>("expensive" to mutableListOf<Any?>(), "cheap" to mutableListOf<Any?>())) { currentResult: Any?, currentProduct: Any? -> (if (((currentProduct as MutableMap<String, Any?>)["price"] as Int) > 100) spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("expensive" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["expensive"], mutableMapOf<String, Any?>("currentProduct" to currentProduct)))) else spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("cheap" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["cheap"], mutableMapOf<String, Any?>("currentProduct" to currentProduct))))) }
-    println("labeled products: ${prettyJsonStringify(productsGrouped)}")
+    println("grouped products: ${prettyJsonStringify(productsGrouped)}")
     // grouped products: {
 	// 	"expensive": [
 	// 		{

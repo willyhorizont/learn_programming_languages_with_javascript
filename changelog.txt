@@ -1,8 +1,40 @@
 =============================changelog==========================================
+00:23 | 12:23 AM | Tue | Nov | 21/11/2023
+0.0.34
+finish learn swift
+add 000.notes.swift
+add 001.comment.swift
+add 002.hello_world.swift
+add 003.Conditionals.swift
+add 004.Loops.swift
+add 005.Objects.swift
+add 006.Arrays.swift
+add 007.Functions.swift
+add 008.operator_ternary.swift
+add 009.operator_optional_chaining.swift
+add 010.operator_nullish_coalescing.swift
+add 011.operator_spread.swift
+add Array.every.swift
+add Array.filter.swift
+add Array.find.swift
+add Array.findIndex.swift
+add Array.includes.swift
+add Array.map.swift
+add Array.reduce.swift
+add Array.some.swift
+add factorial.swift
+add fizzbuzz.swift
+add xxx.chaos.swift
+update and fix so many things
+=============================changelog==========================================
 19:10 | 07:10 PM | Sun | Nov | 19/11/2023
-0.0.32
+0.0.33
 install mojo and swift in WSL Ubuntu
 try mojo, dart, swift
+=============================changelog==========================================
+03:09 | 03:09 AM | Sun | Nov | 19/11/2023
+0.0.32
+try V
 =============================changelog==========================================
 02:07 | 02:07 AM | Sun | Nov | 19/11/2023
 0.0.31

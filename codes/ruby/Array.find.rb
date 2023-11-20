@@ -280,7 +280,7 @@ products = [
 print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
 product_to_find = "bubble_gum"
-print("\nproduct to find: \"#{product_to_find}\"")
+print("\nproduct to find: #{product_to_find}")
 
 print("\n# using JavaScript-like Array.find() function \"array_find_v1\"")
 

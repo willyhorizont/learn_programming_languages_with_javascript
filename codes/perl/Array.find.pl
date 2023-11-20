@@ -295,7 +295,7 @@ my @products = (
 print("products: ", pretty_json_stringify(\@products));
 
 my $product_to_find = "bubble_gum";
-print("product to find: \"$product_to_find\"\n");
+print("product to find: $product_to_find\n");
 
 my $product_found;
 

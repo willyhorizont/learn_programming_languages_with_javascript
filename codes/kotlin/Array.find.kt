@@ -24,16 +24,16 @@ fun main() {
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
         fun prettyJsonStringifyInnerFunction(anything: Any? = null, indent: String = "    "): String {
+            if (anything == null) return "undefined"
             if (anything == "null") return "null"
             if (anything == "undefined") return "undefined"
-            if (anything == null) return "undefined"
             if (anything is String) return "\"${anything}\""
             if (anything is Number || anything is Boolean) return "${anything}"
             if (anything is MutableList<*>) {
                 indentLevel += 1
                 var result = "[\n${indent.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anything.withIndex()) {
-                    result += prettyJsonStringifyInnerFunction(arrayItem)
+                    result += prettyJsonStringifyInnerFunction(arrayItem, indent)
                     if ((arrayItemIndex + 1) != anything.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -48,7 +48,7 @@ fun main() {
                 anything.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue)}"
+                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue, indent)}"
                     if ((entryIndex + 1) != anything.entries.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -171,6 +171,26 @@ fun main() {
     println("odd number found: ${oddNumberFound}")
     // odd number found: 27
     
+    println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
+
+    evenNumberFound = arrayFindV5({ number: Any?, _: Int, _: MutableList<Any?> -> (((number as Int) % 2) == 0) }, numbers)
+    println("even number found: ${evenNumberFound}")
+    // even number found: 12
+
+    oddNumberFound = arrayFindV5({ number: Any?, _: Int, _: MutableList<Any?> -> (((number as Int) % 2) != 0) }, numbers)
+    println("odd number found: ${oddNumberFound}")
+    // odd number found: 27
+    
+    println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
+
+    evenNumberFound = arrayFindV6({ number: Any?, _: Int, _: MutableList<Any?> -> (((number as Int) % 2) == 0) }, numbers)
+    println("even number found: ${evenNumberFound}")
+    // even number found: 12
+
+    oddNumberFound = arrayFindV6({ number: Any?, _: Int, _: MutableList<Any?> -> (((number as Int) % 2) != 0) }, numbers)
+    println("odd number found: ${oddNumberFound}")
+    // odd number found: 27
+    
     println("// using Kotlin Array.find() built-in function \"find\"")
 
     evenNumberFound = numbers.find { number: Any? -> (((number as Int) % 2) == 0) }
@@ -206,7 +226,7 @@ fun main() {
     var productFound: Any?
 
     val productToFind = "bubble_gum"
-    println("product to find: ${prettyJsonStringify(productToFind)}")
+    println("product to find: ${productToFind}")
 
     println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 
@@ -238,6 +258,24 @@ fun main() {
     println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
     productFound = arrayFindV4({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
+    println("product found: ${prettyJsonStringify(productFound)}")
+    // product found: {
+	//     "code":"bubble_gum",
+	//     "price": 233
+	// }
+
+    println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
+
+    productFound = arrayFindV5({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
+    println("product found: ${prettyJsonStringify(productFound)}")
+    // product found: {
+	//     "code":"bubble_gum",
+	//     "price": 233
+	// }
+
+    println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
+
+    productFound = arrayFindV6({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
 	//     "code":"bubble_gum",

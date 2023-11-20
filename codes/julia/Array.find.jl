@@ -198,7 +198,7 @@ products = [
 println("products: ", JSON.json(products, 4))
 
 product_to_find = "bubble_gum"
-println("product to find: \"$product_to_find\"")
+println("product to find: $product_to_find")
 
 println("# using JavaScript-like Array.find() function \"array_find_v1\"")
 

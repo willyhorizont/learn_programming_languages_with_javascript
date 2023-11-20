@@ -24,16 +24,16 @@ fun main() {
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
         fun prettyJsonStringifyInnerFunction(anything: Any? = null, indent: String = "    "): String {
+            if (anything == null) return "undefined"
             if (anything == "null") return "null"
             if (anything == "undefined") return "undefined"
-            if (anything == null) return "undefined"
             if (anything is String) return "\"${anything}\""
             if (anything is Number || anything is Boolean) return "${anything}"
             if (anything is MutableList<*>) {
                 indentLevel += 1
                 var result = "[\n${indent.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anything.withIndex()) {
-                    result += prettyJsonStringifyInnerFunction(arrayItem)
+                    result += prettyJsonStringifyInnerFunction(arrayItem, indent)
                     if ((arrayItemIndex + 1) != anything.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -48,7 +48,7 @@ fun main() {
                 anything.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue)}"
+                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue, indent)}"
                     if ((entryIndex + 1) != anything.entries.size) {
                         result += ",\n${indent.repeat(indentLevel)}"
                     }
@@ -63,9 +63,9 @@ fun main() {
     }
 
     fun getType(anything: Any? = null): String {
+        if (anything == null) return "undefined"
         if (anything == "null") return "null"
         if (anything == "undefined") return "undefined"
-        if (anything == null) return "undefined"
         if (anything is String) return "String"
         if (anything is Number) return "Number"
         if (anything is Boolean) return "Boolean"
@@ -313,4 +313,12 @@ fun main() {
     // }
 
     // println("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n")
+
+    // this combination throw an error in JavaScript
+    // let combinationErrorInJavascript1 = spreadSyntaxArray(fruits, countryCapitalsInAsia)
+    // println("combinationErrorInJavascript1: ${prettyJsonStringify(combinationErrorInJavascript1)}")
+
+    // this combination throw an error in JavaScript
+    // let combinationErrorInJavascript2 = spreadSyntaxArray(fruits, mutableMapOf<String, Any?>("Germany" to "Berlin", "Italy" to "Rome"))
+    // println("combinationErrorInJavascript2: ${prettyJsonStringify(combinationErrorInJavascript2)}")
 }
