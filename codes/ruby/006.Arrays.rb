@@ -1,6 +1,9 @@
+require 'json'
+
 # Array in Ruby
 
 fruits = ["apple", "mango", "orange"]
+print("\nfruits: ", fruits)
 
 print("fruits, length: #{fruits.size}\n")
 # fruits, length: 3
@@ -46,6 +49,7 @@ products = [
         "name" => "potato chips"
     }
 ]
+print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
 products.each_with_index { |array_item, array_item_index| array_item.each { |object_key, object_value| print("products, foreach loop, index: #{array_item_index}, key: #{object_key} value: #{object_value}\n") } }
 # products, foreach loop, index: 0, key: id value: P1

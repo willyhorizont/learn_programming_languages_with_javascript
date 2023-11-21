@@ -1,11 +1,66 @@
+import Foundation
+
 typealias MyObject = [String: Any?]
 typealias MyArray = [Any?]
+
+func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> String {
+    var indentLevel = 0
+    func prettyJsonStringifyInnerFunction(_ anything: Any? = nil, _ indent: String? = "    ") -> String {
+        guard let anything = anything else {
+            return "undefined"
+        }
+        if (anything as? String == "null") {
+            return "null"
+        }
+        if (anything as? String == "undefined") {
+            return "undefined"
+        }
+        if let anything = anything as? String {
+            return "\"\(anything)\""
+        }
+        if let anything = anything as? NSNumber {
+            return "\(anything)"
+        }
+        if let anything = anything as? Bool {
+            return "\(anything)"
+        }
+        if let anything = anything as? MyArray {
+            indentLevel += 1
+            var result = "[\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+            for (arrayItemIndex, arrayItem) in anything.enumerated() {
+                result += prettyJsonStringifyInnerFunction(arrayItem, indent)
+                if ((arrayItemIndex + 1) != anything.count) {
+                    result += ",\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+                }
+            }
+            indentLevel -= 1
+            result += "\n\(String(repeating: indent ?? "    ", count: indentLevel))]"
+            return result
+        }
+        if let anything = anything as? MyObject {
+            indentLevel += 1
+            var result = "{\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+            for (entryIndex, (objectKey, objectValue)) in anything.enumerated() {
+                result += "\"\(objectKey)\": \(prettyJsonStringifyInnerFunction(objectValue, indent))"
+                if ((entryIndex + 1) != anything.count) {
+                    result += ",\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+                }
+            }
+            indentLevel -= 1
+            result += "\n\(String(repeating: indent ?? "    ", count: indentLevel))}"
+            return result
+        }
+        return "undefined"
+    }
+    return prettyJsonStringifyInnerFunction(anything, indent)
+}
 
 let friend: MyObject = [
     "name": "Alisa",
     "country": "Finland",
     "age": 25
 ]
+print("friend: \(prettyArrayOfPrimitives(friend))")
 
 print("friend, get country: \((friend["country"] ?? "undefined") ?? "undefined")")
 // friend, get country: Finland

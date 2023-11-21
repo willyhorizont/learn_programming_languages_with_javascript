@@ -1,6 +1,31 @@
+using Printf
+using Statistics
+using JSON
+
+function pretty_array_of_primitives(an_array_of_primitives)
+    result = "["
+    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
+            continue
+        end
+        if (isa(array_item, AbstractString) === true)
+            result = string(result, "\"", array_item, "\"")
+        end
+        if (isa(array_item, Number) === true)
+            result = string(result, array_item)
+        end
+        if (array_item_index !== length(an_array_of_primitives))
+            result = string(result, ", ")
+        end
+    end
+    result = string(result, "]")
+    return result
+end
+
 # Array in Julia
 
 fruits = ["apple", "mango", "orange"]
+println("fruits: ", pretty_array_of_primitives(fruits))
 
 println("fruits, length: ", length(fruits))
 # fruits, length: 3
@@ -33,6 +58,7 @@ products = [
         "name" => "potato chips"
     )
 ]
+println("products: ", JSON.json(products, 4))
 
 for (array_item_index, array_item) in enumerate(products)
     for (object_key, object_value) in array_item

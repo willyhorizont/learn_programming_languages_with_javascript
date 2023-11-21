@@ -1,7 +1,34 @@
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+
+sub pretty_json_stringify {
+    my ($anything) = @_;
+    use JSON;
+    return JSON->new->allow_nonref->pretty->encode($anything);
+}
+
+sub pretty_array_of_primitives {
+    my $number_of_parameters = @_;
+    my $result = "[";
+    for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
+        my $array_item = $_[$array_item_index];
+        my $is_string = (defined($array_item) && ref($array_item) eq "");
+        my $is_number = looks_like_number($array_item);
+        last if (!$is_string && !$is_number);
+        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
+        $result = $result . $array_item if ($is_number);
+        $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
+    }
+    $result = $result . "]";
+    return $result;
+}
+
 # Array in Perl
 
 # initialization v1
 my @fruits1 = ("apple", "mango", "orange");
+print("fruits1: ", pretty_array_of_primitives(@fruits1), "\n");
 
 print("fruits1, length: ", scalar(@fruits1), "\n");
 # fruits1, length: 3
@@ -25,6 +52,7 @@ for my $array_item_index (0..(scalar(@fruits1) - 1)) { # we can also replace `(s
 
 # initialization v2
 my $fruits2 = ["apple", "mango", "orange"];
+print("fruits2: ", pretty_array_of_primitives($fruits2), "\n");
 
 print("fruits2, length: ", scalar(@{$fruits2}), "\n");
 # fruits2, length: 3
@@ -77,6 +105,7 @@ my @products1 = (
         "name" => "potato chips"
     }
 );
+print("products1: ", pretty_json_stringify(\@products1));
 
 for my $product_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$product_index];
@@ -114,6 +143,7 @@ my $products2 = [
         "name" => "potato chips"
     }
 ];
+print("products2: ", pretty_json_stringify($products2));
 
 for my $product_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$product_index];

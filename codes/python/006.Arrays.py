@@ -1,6 +1,9 @@
+import json
+
 # Array in Python
 
 fruits = ["apple", "mango", "orange"]
+print(f'fruits: {json.dumps(fruits)}')
 
 print(f"fruits, length: {len(fruits)}")
 # fruits, length: 3
@@ -35,6 +38,7 @@ products = [
         "name": "potato chips"
     }
 ]
+print(f'products: {json.dumps(products, indent=4)}')
 
 for array_item_index, array_item in enumerate(products):
     for object_key, object_value in array_item.items():

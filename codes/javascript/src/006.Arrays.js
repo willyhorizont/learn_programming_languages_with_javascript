@@ -1,6 +1,7 @@
 // Array
 
 const fruits = ["apple", "mango", "orange"];
+console.log(`fruits: ${JSON.stringify(fruits).split(',').join(', ')}`);
 
 console.log("fruits, length:", fruits.length);
 // fruits, length: 3
@@ -31,6 +32,7 @@ const products = [
         "name": "potato chips"
     }
 ];
+console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
 products.forEach((product, productIndex) => Object.entries(product).forEach(([objectKey, objectValue]) => console.log(`products, foreach loop, index: ${productIndex}, key: ${objectKey}, value: ${objectValue}`)));
 // products, foreach loop, index: 0, key: id, value: P1

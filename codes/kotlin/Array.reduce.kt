@@ -142,7 +142,7 @@ fun main() {
     println("total numbers: ${numbersTotal}")
     // total number: 635
 
-    println("// using Kotlin Array.reduce() built-in function \"fold\"")
+    println("// using Kotlin Array.reduce() built-in method \"Array.fold\"")
 
     numbersTotal = numbers.fold(0) { currentResult: Any?, currentNumber: Any? -> ((currentResult as Int) + (currentNumber as Int)) }
     println("total numbers: ${numbersTotal}")
@@ -199,7 +199,7 @@ fun main() {
 	// 	]
 	// }
 
-    println("// using Kotlin Array.reduce() built-in function \"fold\"")
+    println("// using Kotlin Array.reduce() built-in method \"Array.fold\"")
 
     productsGrouped = products.fold(mutableMapOf<String, Any?>("expensive" to mutableListOf<Any?>(), "cheap" to mutableListOf<Any?>())) { currentResult: Any?, currentProduct: Any? -> (if (((currentProduct as MutableMap<String, Any?>)["price"] as Int) > 100) spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("expensive" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["expensive"], mutableMapOf<String, Any?>("currentProduct" to currentProduct)))) else spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("cheap" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["cheap"], mutableMapOf<String, Any?>("currentProduct" to currentProduct))))) }
     println("grouped products: ${prettyJsonStringify(productsGrouped)}")

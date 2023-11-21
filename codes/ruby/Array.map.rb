@@ -98,7 +98,7 @@ print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": "
 #     }
 # ]
 
-print("\n# using Ruby Array.map() built-in function \"map\"")
+print("\n# using Ruby Array.map() built-in method \"Array.map\"")
 
 numbers_labeled = numbers.map { |number| { number => (((number % 2) == 0) ? "even" : "odd")} }
 print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
@@ -211,7 +211,7 @@ print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent":
 #     }
 # ]
 
-print("\n# using Ruby Array.map() built-in function \"map\"")
+print("\n# using Ruby Array.map() built-in method \"Array.map\"")
 
 products_labeled = products.map { |product| {**product, "label" => ((product["price"] > 100) ? "expensive" : "cheap")} }
 print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))

@@ -71,7 +71,7 @@ simpleCalculator = struct( ...
 simpleCalculatorResult1 = simpleCalculator.exponentiation(2, 4);
 simpleCalculatorResult2 = simpleCalculator.addition(9, 3);
 
-% ? Returning functions as values from other functions (closure)
+% ? Returning functions as values from other functions
 
 function result = multiplyV1(a)
     multiplyBy = @(b) a * b;

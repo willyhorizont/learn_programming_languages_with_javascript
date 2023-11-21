@@ -97,7 +97,7 @@ if let simpleCalculatorFunction2 = simpleCalculator["subtraction"] as? (Int, Int
     simpleCalculatorResult2 = simpleCalculatorFunction2(35, 8)
 }
 
-// ? Returning functions as values from other functions (closure)
+// ? Returning functions as values from other functions
 
 func multiplyV1(_ a: Int) -> (Int) -> Int {
     func multiplyBy(_ b: Int) -> Int {

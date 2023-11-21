@@ -159,7 +159,7 @@ is_any_number_more_than_500 = array_some_v8.(->(number, _, _) { (number > 500) }
 print("\nis any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using Ruby Array.some() built-in function \"any?\"")
+print("\n# using Ruby Array.some() built-in method \"Array.any?\"")
 
 is_any_number_less_than_500 = numbers.any? { |number| (number < 500) }
 print("\nis any number < 500: ", is_any_number_less_than_500)
@@ -271,7 +271,7 @@ is_any_product_price_more_than_500 = array_some_v8.(->(product, _, _) { (product
 print("\nis any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using Ruby Array.some() built-in function \"any?\"")
+print("\n# using Ruby Array.some() built-in method \"Array.any?\"")
 
 is_any_product_price_less_than_500 = products.any? { |product| (product["price"] < 500) }
 print("\nis any product price < 500: ", is_any_product_price_less_than_500)

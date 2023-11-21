@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"reflect"
 )
 
 const EMPTY_STRING = ""
@@ -11,10 +13,39 @@ const TAB = "    "
 type array []any
 type object map[string]any
 
+func prettyArrayOfPrimitives(anArray array) string {
+	result := "["
+	for arrayItemIndex, arrayItem := range anArray {
+		switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
+		case reflect.String:
+			result += "\"" + arrayItem.(string) + "\""
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+			result += fmt.Sprint(arrayItem)
+		default:
+			continue
+		}
+		if ((arrayItemIndex + 1) != len(anArray)) {
+			result = result + ", "
+		}
+	}
+	result = result + "]"
+	return result
+}
+
+func prettyJsonStringify(anything any) string {
+	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
+	if err == nil {
+		return string(marshalledJson)
+	}
+
+	return "undefined"
+}
+
 func main() {
 	// Array in Go
 
 	fruits := array{"apple", "mango", "orange"}
+	fmt.Println("fruits:", prettyArrayOfPrimitives(fruits))
 
 	fmt.Println("fruits, length:", fmt.Sprint(len(fruits)))
 	// fruits, length: 3
@@ -47,6 +78,7 @@ func main() {
 			"name": "potato chips",
 		},
 	}
+	fmt.Println("products:", prettyJsonStringify(products))
 
 	for arrayItemIndex, arrayItem := range products {
 		for objectKey, objectValue := range arrayItem.(object) {

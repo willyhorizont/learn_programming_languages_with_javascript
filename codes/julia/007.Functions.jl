@@ -1,3 +1,6 @@
+using Printf
+using Statistics
+
 # ? function statement or function declaration
 
 function get_rectangle_area_v1(rectangle_width, rectangle_length)
@@ -106,7 +109,7 @@ simple_calculator_result_1 = simple_calculator["exponentiation"](2, 4)
 simple_calculator_result_2 = simple_calculator["addition"](9, 3)
 simple_calculator_result_3 = simple_calculator["subtraction"](35, 8)
 
-# ? Returning functions as values from other functions (closure)
+# ? Returning functions as values from other functions
 
 function multiply_v1(a)
     function multiply_by(b)

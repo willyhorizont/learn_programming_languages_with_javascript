@@ -27,7 +27,7 @@ func addition(a int, b int) int {
 	return (a + b)
 }
 
-// ? Returning functions as values from other functions (closure)
+// ? Returning functions as values from other functions
 
 func multiplyV1(a int) func(b int) int {
 	multiplyBy := func(b int) int {
@@ -88,7 +88,7 @@ func main() {
 	simpleCalculatorResult1 := simpleCalculator["addition"](9, 3)
 	simpleCalculatorResult2 := simpleCalculator["subtraction"](35, 8)
 
-	// ? Returning functions as values from other functions (closure)
+	// ? Returning functions as values from other functions
 
 	multiplyBy2 := multiplyV1(2)
 	multiplyBy2Result := multiplyBy2(10) // 20

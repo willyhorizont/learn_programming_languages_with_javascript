@@ -1,6 +1,6 @@
 <?php
 
-// There's no such JavaScript-like Array.every() built-in function in PHP.
+// There's no JavaScript-like Array.every() in PHP.
 // But, we can create our own function to mimic it in PHP.
 
 function pretty_array_of_primitives($an_array_of_primitives) {

@@ -218,13 +218,13 @@ number_found_index = array_find_index_v12.(->(number, _, _) { (number === number
 print("\nnumber found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in function \"find_index\"")
+print("\n# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
 
 number_found_index = numbers.find_index { |number| (number === number_to_find) }
 print("\nnumber found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in function \"index\"")
+print("\n# using Ruby Array.findIndex() built-in method \"Array.index\"")
 
 number_found_index = numbers.index { |number| (number === number_to_find) }
 print("\nnumber found index: ", number_found_index)
@@ -327,13 +327,13 @@ product_found_index = array_find_index_v12.(->(product, _, _) { (product["code"]
 print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in function \"find_index\"")
+print("\n# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
 
 product_found_index = products.find_index { |product| (product["code"] == product_to_find) }
 print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 ## product found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in function \"index\"")
+print("\n# using Ruby Array.findIndex() built-in method \"Array.index\"")
 
 product_found_index = products.index { |product| (product["code"] == product_to_find) }
 print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))

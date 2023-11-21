@@ -92,7 +92,7 @@ my $simple_calculator_result1 = $simple_calculator->{"exponentiation"}->(2, 4);
 my $simple_calculator_result2 = $simple_calculator->{"addition"}->(9, 3);
 my $simple_calculator_result3 = $simple_calculator->{"subtraction"}->(35, 8);
 
-# ? Returning functions as values from other functions (closure)
+# ? Returning functions as values from other functions
 
 sub multiply_v1 {
     my ($a) = @_;

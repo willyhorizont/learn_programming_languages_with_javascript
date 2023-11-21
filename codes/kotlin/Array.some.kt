@@ -147,7 +147,7 @@ fun main() {
     println("is any number > 500: ${isAnyNumberMoreThan500}")
     // is any number > 500: false
     
-    println("// using Kotlin Array.some() built-in function \"any\"")
+    println("// using Kotlin Array.some() built-in method \"Array.any\"")
 
     isAnyNumberLessThan500 = numbers.any { number: Any? -> ((number as Int) < 500) }
     println("is any number < 500: ${isAnyNumberLessThan500}")
@@ -222,7 +222,7 @@ fun main() {
     println("is any product price > 500: ${isAnyProductPriceMoreThan500}")
     // is any product price > 500: false
     
-    println("// using Kotlin Array.some() built-in function \"any\"")
+    println("// using Kotlin Array.some() built-in method \"Array.any\"")
 
     isAnyProductPriceLessThan500 = products.any { product: Any? -> (((product as MutableMap<String, Any?>)["price"] as Int) < 500) }
     println("is any product price < 500: ${isAnyProductPriceLessThan500}")

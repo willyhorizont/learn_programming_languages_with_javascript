@@ -194,7 +194,7 @@ fun main() {
 	//     }
 	// ]
 
-    println("// using Kotlin Array.map() built-in function \"map\"")
+    println("// using Kotlin Array.map() built-in method \"Array.map\"")
 
     numbersLabeled = numbers.map { number: Any? -> mutableMapOf<String, Any?>(number.toString() to (if (((number as Int) % 2) == 0) "even" else "odd")) }
     println("labeled numbers: ${prettyJsonStringify(numbersLabeled)}")
@@ -309,7 +309,7 @@ fun main() {
 	//     }
 	// ]
 
-    println("// using Kotlin Array.map() built-in function \"map\"")
+    println("// using Kotlin Array.map() built-in method \"Array.map\"")
 
     productsLabeled = products.map { product: Any? -> spreadSyntaxObject(product, mutableMapOf<String, Any?>("label" to (if (((product as MutableMap<String, Any?>)["price"] as Int) > 100) "expensive" else "cheap"))) }
     println("labeled products: ${prettyJsonStringify(productsLabeled)}")

@@ -5,6 +5,7 @@ $friend = [
     "country" => "Finland",
     "age" => 25
 ];
+echo("\nfriend: " . json_encode($friend, JSON_PRETTY_PRINT));
 
 echo("\n" . "friend, get country: " . $friend["country"]);
 // friend, get country: Finland

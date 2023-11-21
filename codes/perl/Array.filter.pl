@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use JSON;
 use Scalar::Util qw(looks_like_number);
 
 # There's no JavaScript-like Array.filter() in Perl.

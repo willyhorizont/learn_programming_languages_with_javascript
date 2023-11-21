@@ -113,7 +113,7 @@ fun main() {
     println("odd numbers only: ${numbersOdd}")
     // odd numbers only: [27, 23, 65, 93, 87]
     
-    println("// using Kotlin Array.filter() built-in function \"filter\"")
+    println("// using Kotlin Array.filter() built-in method \"Array.filter\"")
 
     numbersEven = numbers.filter { number: Any? -> (((number as Int) % 2) == 0) }
     println("even numbers only: ${numbersEven}")
@@ -204,7 +204,7 @@ fun main() {
 	//     }
 	// ]
     
-    println("// using Kotlin Array.filter() built-in function \"filter\"")
+    println("// using Kotlin Array.filter() built-in method \"Array.filter\"")
 
     productsBelow100 = products.filter { product: Any? -> (((product as MutableMap<String, Any?>)["price"] as Int) <= 100) }
     println("products with price <= 100 only: ${prettyJsonStringify(productsBelow100)}")

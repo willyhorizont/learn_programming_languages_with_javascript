@@ -247,7 +247,7 @@ odd_numbers_found = array_find_v12.(->(number, _, _) { ((number % 2) != 0) }, nu
 print("\nodd number found: ", odd_numbers_found)
 # odd number found: 27
 
-print("\n# using Ruby Array.find() built-in function \"find\"")
+print("\n# using Ruby Array.find() built-in method \"Array.find\"")
 
 even_number_found = numbers.find { |number| ((number % 2) == 0) }
 print("\neven number found: ", even_number_found)
@@ -390,7 +390,7 @@ print("\nproduct found: ", JSON.pretty_generate(product_found, { "indent": " " *
 #     "price": 233
 # }
 
-print("\n# using Ruby Array.find() built-in function \"find\"")
+print("\n# using Ruby Array.find() built-in method \"Array.find\"")
 
 product_found = products.find { |product| (product["code"] == product_to_find) }
 print("\nproduct found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))

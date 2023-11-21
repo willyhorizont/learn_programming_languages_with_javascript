@@ -93,7 +93,7 @@ fun main() {
     val simpleCalculatorResult3 = (simpleCalculator["multiplication"] as (Int, Int) -> Int)(7, 5)
     val simpleCalculatorResult4 = (simpleCalculator["division"] as (Int, Int) -> Int)(81, 9)
 
-    // Returning functions as values from other functions (closure)
+    // Returning functions as values from other functions
 
     fun multiplyV1(a: Int): (Int) -> Int {
         fun multiplyBy(b: Int): Int {

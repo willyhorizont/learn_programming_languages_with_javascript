@@ -20,7 +20,7 @@ numbers_total = array_reduce.(->(current_result, current_number, _, _) { (curren
 print("\ntotal number: ", numbers_total)
 # total number: 635
 
-print("\n# using Ruby Array.reduce() built-in function \"reduce\"")
+print("\n# using Ruby Array.reduce() built-in method \"Array.reduce\"")
 
 numbers_total = numbers.reduce(0) { |current_result, current_number| (current_result + current_number) }
 print("\ntotal number: ", numbers_total)
@@ -75,7 +75,7 @@ print("\ngrouped products: ", JSON.pretty_generate(products_grouped, { "indent":
 #     ]
 # }
 
-print("\n# using Ruby Array.reduce() built-in function \"reduce\"")
+print("\n# using Ruby Array.reduce() built-in method \"Array.reduce\"")
 
 products_grouped = products.reduce({"expensive" => [], "cheap" => []}) { |current_result, current_product| ((current_product["price"] > 100) ? {**current_result, "expensive" => [*current_result["expensive"], current_product]} : {**current_result, "cheap" => [*current_result["cheap"], current_product]}) }
 print("\ngrouped products: ", JSON.pretty_generate(products_grouped, { "indent": " " * 4 }))

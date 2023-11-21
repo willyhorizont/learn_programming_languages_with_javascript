@@ -81,7 +81,7 @@ simple_calculator_result1 = simple_calculator.exponentiation(2, 4)
 simple_calculator_result2 = simple_calculator.addition(9, 3)
 simple_calculator_result3 = simple_calculator.subtraction(35, 8)
 
--- ? Returning functions as values from other functions (closure)
+-- ? Returning functions as values from other functions
 
 function multiply_v1(a)
     function multiply_by(b)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
@@ -11,12 +12,22 @@ const TAB = "    "
 type array []any
 type object map[string]any
 
+func prettyJsonStringify(anything any) string {
+	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
+	if err == nil {
+		return string(marshalledJson)
+	}
+
+	return "undefined"
+}
+
 func main() {
 	friend := object{
 		"name":    "Alisa",
 		"country": "Finland",
 		"age":     25,
 	}
+	fmt.Println("friend:", prettyJsonStringify(friend))
 
 	fmt.Println("friend, get country:", friend["country"])
 	// friend, get country: Finland

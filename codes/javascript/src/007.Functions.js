@@ -53,7 +53,7 @@ const getRectangleAreaV5 = (rectangleWidth, rectangleLength) => rectangleWidth *
     ? In JavaScript, a function is a first-class citizen, which means it supports:
     ? • Passing functions as arguments to other functions
     ? • Assigning functions to variables or storing them in data structures
-    ? • Returning functions as values from other functions (closure)
+    ? • Returning functions as values from other functions
 */
 
 // ? Passing functions as arguments to other functions
@@ -129,7 +129,7 @@ const simpleCalculatorResult3 = simpleCalculator.division(81, 9);
 const simpleCalculatorResult4 = simpleCalculator.addition(9, 3);
 const simpleCalculatorResult5 = simpleCalculator.subtraction(35, 8);
 
-// ? Returning functions as values from other functions (closure)
+// ? Returning functions as values from other functions
 
 function multiplyV1(a) {
     function multiplyBy(b) {

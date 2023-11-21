@@ -283,7 +283,7 @@ simple_calculator_result8 = simple_calculator["get_smallest"].(66, 33)
 simple_calculator_result9 = simple_calculator["get_biggest"].(78, 76)
 simple_calculator_result10 = simple_calculator["get_average"].(3, 5)
 
-# ? Returning functions as values from other functions (closure)
+# ? Returning functions as values from other functions
 
 def multiply_v1(a)
     multiply_by = Proc.new { |b| a * b }

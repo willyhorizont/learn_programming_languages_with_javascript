@@ -1,6 +1,30 @@
+library(jsonlite)
+
+prettyJsonStringify <- function(anything) (if (is.null(anything) == TRUE) "NULL" else if (is.character(anything) == TRUE) paste(sep = "", "\"", anything, "\"") else prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4))
+
+prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
+    result <- "["
+    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
+        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
+        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE)) next
+        if (is.character(arrayItem) == TRUE) {
+            result <- paste(sep = "", result, "\"", arrayItem, "\"")
+        }
+        if (is.numeric(arrayItem) == TRUE) {
+            result <- paste(sep = "", result, arrayItem)
+        }
+        if (arrayItemIndex != length(anArrayOfPrimitives)) {
+            result <- paste(sep = "", result, ", ")
+        }
+    }
+    result <- paste(sep = "", result, "]")
+    return(result)
+}
+
 # Array in R
 
 fruits <- list("apple", "mango", "orange")
+cat(paste(sep = "", "fruits: ", prettyArrayOfPrimitives(fruits), "\n"))
 
 cat(paste(sep = "", "fruits, length: ", length(fruits), "\n"))
 # fruits, length: 3
@@ -34,6 +58,7 @@ products <- list(
         name = "potato chips"
     )
 )
+cat(paste(sep = "", "products: ", prettyJsonStringify(products)))
 
 for (arrayItemIndex in seq_along(products)) {
     arrayItem <- products[[arrayItemIndex]]

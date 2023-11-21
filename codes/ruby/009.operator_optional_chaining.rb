@@ -10,7 +10,7 @@ JSON_OBJECT = {
 }
 print("\nJSON_OBJECT: ", JSON.pretty_generate(JSON_OBJECT, { "indent": " " * 4 }))
 
-print("\n# using Ruby Optional Chaining Operator (?.) built-in function \"dig\"")
+print("\n# using Ruby Optional Chaining Operator (?.) built-in method \"dig\"")
 
 print("\nJSON_OBJECT?.foo?.bar: ", JSON.pretty_generate(JSON_OBJECT.dig("foo", "bar"), { "indent": " " * 4 }))
 # JSON_OBJECT?.foo?.bar: "baz"

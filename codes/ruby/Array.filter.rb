@@ -83,7 +83,7 @@ numbers_odd = array_filter_v4.(->(number, _, _) { ((number % 2) != 0) }, numbers
 print("\nodd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# using Ruby Array.filter() built-in function \"select\"")
+print("\n# using Ruby Array.filter() built-in method \"Array.select\"")
 
 numbers_even = numbers.select { |number| ((number % 2) == 0) }
 print("\neven numbers only: ", numbers_even)
@@ -227,7 +227,7 @@ print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above
 #     }
 # ]
 
-print("\n# using Ruby Array.filter() built-in function \"select\"")
+print("\n# using Ruby Array.filter() built-in method \"Array.select\"")
 
 products_below_100 = products.select { |product| (product["price"] <= 100) }
 print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))

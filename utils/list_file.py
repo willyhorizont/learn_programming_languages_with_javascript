@@ -16,6 +16,7 @@ def list_file():
     PATH_CODES_RUBY = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'ruby')
     PATH_CODES_R = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'r')
     PATH_CODES_KOTLIN = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'kotlin')
+    PATH_CODES_SWIFT = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'swift')
 
     FILE_CODES_JAVASCRIPT = [filename for filename in os.listdir(PATH_CODES_JAVASCRIPT)]
     FILE_CODES_GO = [filename + ".go" for filename in os.listdir(PATH_CODES_GO)]
@@ -27,6 +28,7 @@ def list_file():
     FILE_CODES_RUBY = [filename for filename in os.listdir(PATH_CODES_RUBY)]
     FILE_CODES_R = [filename for filename in os.listdir(PATH_CODES_R)]
     FILE_CODES_KOTLIN = [filename for filename in os.listdir(PATH_CODES_KOTLIN)]
+    FILE_CODES_SWIFT = [filename for filename in os.listdir(PATH_CODES_SWIFT)]
 
     FILE_CODES_JAVASCRIPT = ["JAVASCRIPT", *FILE_CODES_JAVASCRIPT]
     FILE_CODES_GO = ["GO", *FILE_CODES_GO]
@@ -38,6 +40,7 @@ def list_file():
     FILE_CODES_RUBY = ["RUBY", *FILE_CODES_RUBY]
     FILE_CODES_R = ["R", *FILE_CODES_R]
     FILE_CODES_KOTLIN = ["KOTLIN", *FILE_CODES_KOTLIN]
+    FILE_CODES_SWIFT = ["SWIFT", *FILE_CODES_SWIFT]
 
     FILE_CODES = [
         FILE_CODES_JAVASCRIPT,
@@ -49,7 +52,8 @@ def list_file():
         FILE_CODES_LUA,
         FILE_CODES_RUBY,
         FILE_CODES_R,
-        FILE_CODES_KOTLIN
+        FILE_CODES_KOTLIN,
+        FILE_CODES_SWIFT
     ]
 
     if os.path.isfile(PATH_CSV_OUTPUT_LIST_FILE):

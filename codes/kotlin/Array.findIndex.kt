@@ -157,7 +157,7 @@ fun main() {
     println("number found index: ${numberFoundIndex}")
     // number found index: 2
     
-    println("// using Kotlin Array.findIndex() built-in function \"indexOfFirst\"")
+    println("// using Kotlin Array.findIndex() built-in method \"Array.indexOfFirst\"")
 
     numberFoundIndex = numbers.indexOfFirst { number: Any? -> ((number as Int) == numberToFind) }
     println("number found index: ${numberFoundIndex}")
@@ -214,7 +214,7 @@ fun main() {
     println("product found index: ${productFoundIndex}")
     // product found index: 0
     
-    println("// using Kotlin Array.findIndex() built-in function \"indexOfFirst\"")
+    println("// using Kotlin Array.findIndex() built-in method \"Array.indexOfFirst\"")
 
     productFoundIndex = products.indexOfFirst { product: Any? -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }
     println("product found index: ${productFoundIndex}")

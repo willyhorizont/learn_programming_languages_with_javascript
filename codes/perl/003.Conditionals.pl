@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 =begin
     Relational Operators / Comparison Operators:
     equal to [==, eq]

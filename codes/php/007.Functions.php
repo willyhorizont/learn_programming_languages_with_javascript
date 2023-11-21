@@ -83,7 +83,7 @@ $simple_calculator_result1 = $simple_calculator["exponentiation"](2, 4);
 $simple_calculator_result2 = $simple_calculator["multiplication"](7, 5);
 $simple_calculator_result3 = $simple_calculator["division"](81, 9);
 
-// ? Returning functions as values from other functions (closure)
+// ? Returning functions as values from other functions
 
 function multiply_v1($a) {
     $multiply_by = function ($b) use ($a) {

@@ -1,8 +1,11 @@
+import json
+
 friend = {
     "name": "Alisa",
     "country": "Finland",
     "age": 25
 }
+print(f'friend: {json.dumps(friend, indent=4)}')
 
 print(f"friend, get country: {friend['country']}")
 # friend, get country: Finland

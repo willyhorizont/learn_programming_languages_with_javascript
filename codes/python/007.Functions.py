@@ -56,7 +56,7 @@ simple_calculator = {
 simple_calculator_result1 = simple_calculator["exponentiation"](2, 4)
 simple_calculator_result2 = simple_calculator["addition"](9, 3)
 
-# ? Returning functions as values from other functions (closure)
+# ? Returning functions as values from other functions
 
 
 def multiply_v1(a):

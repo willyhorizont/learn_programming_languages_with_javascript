@@ -35,12 +35,13 @@ sayHello(function () {
 });
 ```
 
-6. support returning functions as values from other functions (closure)
+6. support returning functions as values from other functions
 ```javascript
 function multiply(a) {
-    return function multiplyBy(b) {
+    function multiplyBy(b) {
         return a * b;
     };
+    return multiplyBy;
 }
 const multiplyBy2 = multiply(2);
 const result = multiplyBy2(10); // 20
@@ -61,7 +62,11 @@ const myArray = [
         return rectangleWidth * rectangleLength;
     },
     "foo",
-    123
+    123,
+    true,
+    null
+    [1, 2, 3],
+    { "foo": "bar" }
 ];
 myArray[0](3, 4);
 
@@ -70,7 +75,11 @@ const myObject = {
         return a * b;
     },
     "foo": "bar",
-    "age": 17
+    "age": 17,
+    "canDrive": true,
+    "hobbies": null,
+    "favorites": [1, 2, 3],
+    "additional": { "foo": "bar" }
 };
 myObject.multiplication(7, 5);
 ```

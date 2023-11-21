@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 # while loop
 
 my $i1 = 1;

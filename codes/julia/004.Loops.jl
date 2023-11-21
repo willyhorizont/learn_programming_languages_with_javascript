@@ -1,3 +1,6 @@
+using Printf
+using Statistics
+
 # while loop
 
 i = 1

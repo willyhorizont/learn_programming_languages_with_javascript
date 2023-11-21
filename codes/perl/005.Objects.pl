@@ -1,9 +1,20 @@
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+
+sub pretty_json_stringify {
+    my ($anything) = @_;
+    use JSON;
+    return JSON->new->allow_nonref->pretty->encode($anything);
+}
+
 # initialization v1
 my %friend1 = (
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 );
+print("friend1: ", pretty_json_stringify(\%friend1));
 
 print("friend1, get country: " . $friend1{"country"} . "\n");
 # friend1, get country: Finland
@@ -75,6 +86,7 @@ my $friend2 = {
     "country" => "Finland",
     "age" => 25
 };
+print("friend2: ", pretty_json_stringify($friend2));
 
 print("friend2, get country: " . $$friend2{"country"} . "\n");
 # friend2, get country: Finland

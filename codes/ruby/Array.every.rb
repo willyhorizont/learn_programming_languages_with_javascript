@@ -159,7 +159,7 @@ is_all_number_more_than_500 = array_every_v8.(->(number, _, _) { (number > 500) 
 print("\nis all number > 500: ", is_all_number_more_than_500)
 # is all number > 500: false
 
-print("\n# using Ruby Array.every() built-in function \"all?\"")
+print("\n# using Ruby Array.every() built-in method \"Array.all?\"")
 
 is_all_number_less_than_500 = numbers.all? { |number| (number < 500) }
 print("\nis all number < 500: ", is_all_number_less_than_500)
@@ -271,7 +271,7 @@ is_all_product_price_more_than_500 = array_every_v8.(->(product, _, _) { (produc
 print("\nis all product price > 500: ", is_all_product_price_more_than_500)
 # is all product price > 500: false
 
-print("\n# using Ruby Array.every() built-in function \"all?\"")
+print("\n# using Ruby Array.every() built-in method \"Array.all?\"")
 
 is_all_product_price_less_than_500 = products.all? { |product| (product["price"] < 500) }
 print("\nis all product price < 500: ", is_all_product_price_less_than_500)

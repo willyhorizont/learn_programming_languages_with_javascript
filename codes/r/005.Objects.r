@@ -1,8 +1,13 @@
+library(jsonlite)
+
+prettyJsonStringify <- function(anything) (if (is.null(anything) == TRUE) "NULL" else if (is.character(anything) == TRUE) paste(sep = "", "\"", anything, "\"") else prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4))
+
 friend <- list(
     name = "Alisa",
     country = "Finland",
     age = 25
 )
+cat(paste(sep = "", "friend: ", prettyJsonStringify(friend)))
 
 cat(paste(sep = "", "friend, get country: ", friend[["country"]], "\n"))
 # friend, get country: Finland

@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use JSON;
 use List::Util qw(any);
 use Scalar::Util qw(looks_like_number);
 
@@ -220,7 +219,7 @@ $is_any_number_more_than_500 = (array_some_v8(sub { my ($number) = @_; return ($
 print("is any number > 500: $is_any_number_more_than_500\n");
 # is any number > 500: false
 
-print("# using Perl Array.some() built-in function List::Util any\n");
+print("# using Perl Array.some() built-in function \"List::Util\" \"any\"\n");
 
 $is_any_number_less_than_500 = ((any { my $number = $_; return ($number < 500); } @numbers) ? "true" : "false");
 print("is any number < 500: $is_any_number_less_than_500\n");

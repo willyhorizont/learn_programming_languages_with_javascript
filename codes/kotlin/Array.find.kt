@@ -191,7 +191,7 @@ fun main() {
     println("odd number found: ${oddNumberFound}")
     // odd number found: 27
     
-    println("// using Kotlin Array.find() built-in function \"find\"")
+    println("// using Kotlin Array.find() built-in method \"Array.find\"")
 
     evenNumberFound = numbers.find { number: Any? -> (((number as Int) % 2) == 0) }
     println("even number found: ${evenNumberFound}")
@@ -282,7 +282,7 @@ fun main() {
 	//     "price": 233
 	// }
     
-    println("// using Kotlin Array.find() built-in function \"find\"")
+    println("// using Kotlin Array.find() built-in method \"Array.find\"")
 
     productFound = products.find { product: Any? -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }
     println("product found: ${prettyJsonStringify(productFound)}")
