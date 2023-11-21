@@ -1,4 +1,9 @@
 =============================changelog==========================================
+17:40 | 05:40 PM | Tue | Nov | 21/11/2023
+0.0.36
+small update
+try more crystal and mojo and give up
+=============================changelog==========================================
 13:22 | 01:22 PM | Tue | Nov | 21/11/2023
 0.0.35
 print data in 005.Objects.* and 006.Arrays.*

@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 print("\n# JavaScript-like Optional Chaining Operator (?.) in Ruby")
 

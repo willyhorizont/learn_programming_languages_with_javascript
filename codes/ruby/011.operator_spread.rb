@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 array_to_object = ->(an_array) do
     new_object = {}

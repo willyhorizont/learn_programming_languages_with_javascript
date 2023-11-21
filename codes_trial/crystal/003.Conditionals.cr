@@ -1,17 +1,15 @@
-=begin
-    Relational Operators / Comparison Operators:
-    equal to (==)
-    not equal to (!=)
-    greater than (>)
-    less than (<)
-    greater than or equal to (>=)
-    less than or equal to (<=)
+# Relational Operators / Comparison Operators:
+# equal to (==)
+# not equal to (!=)
+# greater than (>)
+# less than (<)
+# greater than or equal to (>=)
+# less than or equal to (<=)
 
-    Logical Operators:
-    Logical AND [&&, and]
-    Logical OR [||, or]
-    Logical NOT [!, not(x)]
-=end
+# Logical Operators:
+# Logical AND (&&)
+# Logical OR (||)
+# Logical NOT (!)
 
 print("\n# basic conditional control flow\n")
 
@@ -87,59 +85,47 @@ print("my_age: ", my_age, "\n")
 print("(my_age <= 16): \n")
 print("You are not allowed to drive\n") if (my_age <= 16)
 
-print("\n# Logical AND [&&, and]\n")
+print("\n# Logical AND (&&)\n")
 
 my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = false
 print("has_driving_license: ", has_driving_license, "\n")
 print("((my_age >= 17) && (has_driving_license == true)): \n")
-if ((my_age >= 17) && (has_driving_license == true)) then print("You are allowed to drive\n") else print("You are not allowed to drive\n") end
+if ((my_age >= 17) && (has_driving_license == true))
+    print("You are allowed to drive\n")
+else
+    print("You are not allowed to drive\n")
+end
 
 my_age = 17
 print("my_age: ", my_age, "\n")
 has_driving_license = true
 print("has_driving_license: ", has_driving_license, "\n")
 print("((my_age >= 17) && (has_driving_license == true)): \n")
-if ((my_age >= 17) && (has_driving_license == true)) then print("You are allowed to drive\n") else print("You are not allowed to drive\n") end
+if ((my_age >= 17) && (has_driving_license == true))
+    print("You are allowed to drive\n")
+else
+    print("You are not allowed to drive\n")
+end
 
-my_age = 17
-print("my_age: ", my_age, "\n")
-has_driving_license = false
-print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) and (has_driving_license == true)): \n")
-if ((my_age >= 17) and (has_driving_license == true)) then print("You are allowed to drive\n") else print("You are not allowed to drive\n") end
-
-my_age = 17
-print("my_age: ", my_age, "\n")
-has_driving_license = true
-print("has_driving_license: ", has_driving_license, "\n")
-print("((my_age >= 17) and (has_driving_license == true)): \n")
-if ((my_age >= 17) and (has_driving_license == true)) then print("You are allowed to drive\n") else print("You are not allowed to drive\n") end
-
-print("\n# Logical OR [||, or]\n")
+print("\n# Logical OR (||)\n")
 
 my_age = 2
 print("my_age: ", my_age, "\n")
 print("((my_age <= 3) || (my_age >= 65)): \n")
-print("You should stay home\n") if ((my_age <= 3) || (my_age >= 65))
+if ((my_age <= 3) || (my_age >= 65))
+    print("You should stay home\n")
+end
 
 my_age = 89
 print("my_age: ", my_age, "\n")
 print("((my_age <= 3) || (my_age >= 65)): \n")
-print("You should stay home\n") if ((my_age <= 3) || (my_age >= 65))
+if ((my_age <= 3) || (my_age >= 65))
+    print("You should stay home\n")
+end
 
-my_age = 2
-print("my_age: ", my_age, "\n")
-print("((my_age <= 3) or (my_age >= 65)): \n")
-print("You should stay home\n") if ((my_age <= 3) or (my_age >= 65))
-
-my_age = 89
-print("my_age: ", my_age, "\n")
-print("((my_age <= 3) or (my_age >= 65)): \n")
-print("You should stay home\n") if ((my_age <= 3) or (my_age >= 65))
-
-print("\n# Logical NOT [!, not]\n")
+print("\n# Logical NOT (!)\n")
 
 can_drive = false
 print("can_drive: ", can_drive, "\n")
@@ -148,11 +134,3 @@ print("!can_drive: ", !can_drive, "\n")
 can_drive = true
 print("can_drive: ", can_drive, "\n")
 print("!can_drive: ", !can_drive, "\n")
-
-can_drive = false
-print("can_drive: ", can_drive, "\n")
-print("not can_drive: ", not(can_drive), "\n")
-
-can_drive = true
-print("can_drive: ", can_drive, "\n")
-print("not can_drive: ", not(can_drive), "\n")

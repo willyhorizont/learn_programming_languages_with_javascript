@@ -6,7 +6,7 @@ In this repository, I am attempting to learn every programming language that has
 5. support passing functions as arguments to other functions
 6. support returning functions as values from other functions
 7. support assigning functions to variables
-8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+8. support storing functions in data structures like array/list/slice/ordered-list-data-structure and object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
 
 HOW TO RUN THE CODES:
 

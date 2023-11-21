@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 array_some_v1 = ->(canyback_function, an_array) do
     # JavaScript-like Array.some() function

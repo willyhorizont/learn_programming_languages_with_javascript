@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 array_every_v1 = ->(callback_function, an_array) do
     # JavaScript-like Array.every() function

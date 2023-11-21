@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 array_find_index_v1 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function

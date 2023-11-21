@@ -77,7 +77,7 @@ end
 # ? Passing functions as arguments to other functions
 
 def say_hello_v1(callback_function)
-    puts("hello")
+    print("hello\n")
     callback_function.()
 end
 
@@ -86,19 +86,19 @@ def say_hello_v2(&callback_function)
     # & is to convert a block to a proc
     # &callback_function is needed so we can call callback_function function, example: callback_function.() or callback_function.call()
     if (!block_given?)
-        puts("no block given")
+        print("no block given\n")
         return
     end
-    puts("hello")
+    print("hello\n")
     callback_function.()
 end
 
 def say_hello_v3()
     if (!block_given?)
-        puts("no block given")
+        print("no block given\n")
         return
     end
-    puts("hello")
+    print("hello\n")
     yield()
     # yield or yield() is just like a callbackFunction(...arguments)
     # use yield foo, bar, baz or yield(foo, bar, baz) if we need to pass foo, bar, baz to a callback function as arguments
@@ -106,31 +106,31 @@ def say_hello_v3()
 end
 
 def say_how_are_you_v1()
-    puts("how are you?")
+    print("how are you?\n")
 end
 
-say_how_are_you_v2 = Proc.new { puts("how are you?") }
+say_how_are_you_v2 = Proc.new { print("how are you?\n") }
 
-say_how_are_you_v3 = proc { puts("how are you?") }
+say_how_are_you_v3 = proc { print("how are you?\n") }
 
 say_how_are_you_v4 = Proc.new do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
 say_how_are_you_v5 = proc do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
-say_how_are_you_v6 = lambda { puts("how are you?") }
+say_how_are_you_v6 = lambda { print("how are you?\n") }
 
-say_how_are_you_v7 = -> { puts("how are you?") }
+say_how_are_you_v7 = -> { print("how are you?\n") }
 
 say_how_are_you_v8 = lambda do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
 say_how_are_you_v9 = -> do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
 say_hello_v1(method(:say_how_are_you_v1))
@@ -151,40 +151,40 @@ say_hello_v1(say_how_are_you_v8)
 
 say_hello_v1(say_how_are_you_v9)
 
-say_hello_v1(Proc.new { puts("how are you?") })
+say_hello_v1(Proc.new { print("how are you?\n") })
 
-say_hello_v1(proc { puts("how are you?") })
+say_hello_v1(proc { print("how are you?\n") })
 
 say_hello_v1(Proc.new do
-    puts("how are you?")
+    print("how are you?\n")
 end)
 
 say_hello_v1(proc do
-    puts("how are you?")
+    print("how are you?\n")
 end)
 
-say_hello_v1(lambda { puts("how are you?") })
+say_hello_v1(lambda { print("how are you?\n") })
 
-say_hello_v1(-> { puts("how are you?") })
+say_hello_v1(-> { print("how are you?\n") })
 
 say_hello_v1(lambda do
-    puts("how are you?")
+    print("how are you?\n")
 end)
 
 say_hello_v1(-> do
-    puts("how are you?")
+    print("how are you?\n")
 end)
 
-say_hello_v2 { puts("how are you?") }
+say_hello_v2 { print("how are you?\n") }
 
 say_hello_v2 do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
-say_hello_v3 { puts("how are you?") }
+say_hello_v3 { print("how are you?\n") }
 
 say_hello_v3 do
-    puts("how are you?")
+    print("how are you?\n")
 end
 
 # ? Assigning functions to variables or storing them in data structures

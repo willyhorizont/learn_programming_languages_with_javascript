@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 array_reduce = ->(callback_function, an_array, initial_value) do
     # JavaScript-like Array.reduce() function
