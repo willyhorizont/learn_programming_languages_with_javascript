@@ -84,7 +84,7 @@ print("fruits2, last element: ", ${$fruits2}[-1], "\n");
 print("fruits2, last element: ", $fruits2->[-1], "\n");
 # fruits2, last element: orange
 
-for my $array_item_index (0..(scalar(@{$fruits2}) - 1)) { # we can also replace `(scalar(@{$fruits2}) - 1)` with `$#fruits2`
+for my $array_item_index (0..(scalar(@{$fruits2}) - 1)) { # we can also replace `(scalar(@{$fruits2}) - 1)` with `$#{$fruits2}`
     my $array_item = @{$fruits2}[$array_item_index];
     print("fruits2, index: $array_item_index, value: $array_item\n");
 }
@@ -107,30 +107,47 @@ my @products1 = (
 );
 print("products1: ", pretty_json_stringify(\@products1));
 
-for my $product_index (0..(scalar(@products1) - 1)) {
-    my $array_item = $products1[$product_index];
+for my $array_item_index (0..(scalar(@products1) - 1)) {
+    my $array_item = $products1[$array_item_index];
     my @object_entries = %{$array_item};
-    for (my $object_entry_index = 0; $object_entry_index < scalar(@object_entries); $object_entry_index += 2) {
-        my $object_key = $object_entries[$object_entry_index];
-        my $object_value = $object_entries[$object_entry_index + 1];
-        print("products1, loop, index: $product_index, key: $object_key, value: $object_value\n");
+    for (my $entry_index = 0; $entry_index < scalar(@object_entries); $entry_index += 2) {
+        my $iteration_index = $entry_index / 2;
+        my $object_key = $object_entries[$entry_index];
+        my $object_value = $object_entries[$entry_index + 1];
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
     }
 }
-# products1, loop, index: 0, key: id, value: P1
-# products1, loop, index: 0, key: name, value: bubble gum
-# products1, loop, index: 1, key: id, value: P2
-# products1, loop, index: 1, key: name, value: potato chips
+# products1, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products1, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products1, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products1, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 
-for my $product_index (0..(scalar(@products1) - 1)) {
-    my $array_item = $products1[$product_index];
-    while (my ($object_key, $object_value) = each %{$array_item}) {
-        print("products1, loop, index: $product_index, key: $object_key, value: $object_value\n");
+for my $array_item_index (0..(scalar(@products1) - 1)) {
+    my $array_item = $products1[$array_item_index];
+    my $iteration_index = 0;
+    foreach my $object_key (keys %{$array_item}) {
+        my $object_value = %{$array_item}{$object_key};
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+        $iteration_index += 1;
     }
 }
-# products1, loop, index: 0, key: id, value: P1
-# products1, loop, index: 0, key: name, value: bubble gum
-# products1, loop, index: 1, key: id, value: P2
-# products1, loop, index: 1, key: name, value: potato chips
+# products1, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products1, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products1, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products1, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+
+for my $array_item_index (0..(scalar(@products1) - 1)) {
+    my $array_item = $products1[$array_item_index];
+    my $iteration_index = 0;
+    while (my ($object_key, $object_value) = each %{$array_item}) {
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+        $iteration_index += 1;
+    }
+}
+# products1, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products1, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products1, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products1, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 
 # initialization v2
 my $products2 = [
@@ -145,27 +162,58 @@ my $products2 = [
 ];
 print("products2: ", pretty_json_stringify($products2));
 
-for my $product_index (0..(scalar(@{$products2}) - 1)) {
-    my $array_item = @{$products2}[$product_index];
+for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
+    my $array_item = @{$products2}[$array_item_index];
     my @object_entries = %{$array_item};
-    for (my $object_entry_index = 0; $object_entry_index < scalar(@object_entries); $object_entry_index += 2) {
-        my $object_key = $object_entries[$object_entry_index];
-        my $object_value = $object_entries[$object_entry_index + 1];
-        print("products2, loop, index: $product_index, key: $object_key, value: $object_value\n");
+    for (my $entry_index = 0; $entry_index < scalar(@object_entries); $entry_index += 2) {
+        my $iteration_index = $entry_index / 2;
+        my $object_key = $object_entries[$entry_index];
+        my $object_value = $object_entries[$entry_index + 1];
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
     }
 }
-# products2, loop, index: 0, key: id, value: P1
-# products2, loop, index: 0, key: name, value: bubble gum
-# products2, loop, index: 1, key: id, value: P2
-# products2, loop, index: 1, key: name, value: potato chips
+# products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products2, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products2, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products2, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 
-for my $product_index (0..(scalar(@{$products2}) - 1)) {
-    my $array_item = @{$products2}[$product_index];
-    while (my ($object_key, $object_value) = each %{$array_item}) {
-        print("products2, loop, index: $product_index, key: $object_key, value: $object_value\n");
+for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
+    my $array_item = @{$products2}[$array_item_index];
+    my $iteration_index = 0;
+    foreach my $object_key (keys %{$array_item}) {
+        my $object_value = %{$array_item}{$object_key};
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+        $iteration_index += 1;
     }
 }
-# products2, loop, index: 0, key: id, value: P1
-# products2, loop, index: 0, key: name, value: bubble gum
-# products2, loop, index: 1, key: id, value: P2
-# products2, loop, index: 1, key: name, value: potato chips
+# products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products2, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products2, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products2, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+
+for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
+    my $array_item = @{$products2}[$array_item_index];
+    my $iteration_index = 0;
+    foreach my $object_key (keys %{$array_item}) {
+        my $object_value = $array_item->{$object_key};
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+        $iteration_index += 1;
+    }
+}
+# products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products2, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products2, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products2, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+
+for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
+    my $array_item = @{$products2}[$array_item_index];
+    my $iteration_index = 0;
+    while (my ($object_key, $object_value) = each %{$array_item}) {
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+        $iteration_index += 1;
+    }
+}
+# products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products2, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products2, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products2, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips

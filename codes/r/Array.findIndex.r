@@ -26,50 +26,50 @@ prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
 
 arrayFindIndexV1 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
-    itemIndex <- -1
+    dataFoundIndex <- -1
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == TRUE) {
-            itemIndex <- arrayItemIndex
+            dataFoundIndex <- arrayItemIndex
             break
         }
     }
-    return(itemIndex)
+    return(dataFoundIndex)
 }
 
 arrayFindIndexV2 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
-    itemIndex <- -1
+    dataFoundIndex <- -1
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == TRUE) {
-            itemIndex <- arrayItemIndex
+            dataFoundIndex <- arrayItemIndex
             break
         }
     }
-    return(itemIndex)
+    return(dataFoundIndex)
 }
 
 arrayFindIndexV3 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
-    itemIndex <- -1
+    dataFoundIndex <- -1
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == TRUE) return(arrayItemIndex)
     }
-    return(itemIndex)
+    return(dataFoundIndex)
 }
 
 arrayFindIndexV4 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
-    itemIndex <- -1
+    dataFoundIndex <- -1
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == TRUE) return(arrayItemIndex)
     }
-    return(itemIndex)
+    return(dataFoundIndex)
 }
 
 arrayFindIndexV5 <- function(callbackFunction, anArray) {

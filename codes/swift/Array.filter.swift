@@ -102,7 +102,7 @@ func arrayFilterV2(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: 
     return dataFiltered
 }
 
-print("\n// JavaScript-like Array.filter() in Swift [Any?]")
+print("\n// JavaScript-like Array.filter() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -150,7 +150,7 @@ numbersOdd = arrayFilterV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
 print("odd numbers only: \(numbersOdd)")
 // odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [

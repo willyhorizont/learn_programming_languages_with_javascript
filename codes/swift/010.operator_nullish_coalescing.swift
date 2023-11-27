@@ -67,70 +67,70 @@ print("JSON_OBJECT: \(prettyJsonStringify(JSON_OBJECT))")
 
 if let result = JSON_OBJECT["foo"] as? MyObject {
     if let result = result["bar"] {
-        print("JSON_OBJECT?.foo?.bar:", result ?? "not found")
+        print("JSON_OBJECT?.foo?.bar ?? \"not found\":", result ?? "not found")
     } else {
-        print("JSON_OBJECT?.foo?.bar: not found")
+        print("JSON_OBJECT?.foo?.bar ?? \"not found\": not found")
     }
 } else {
-    print("JSON_OBJECT?.foo?.bar: not found")
+    print("JSON_OBJECT?.foo?.bar ?? \"not found\": not found")
 }
-// JSON_OBJECT?.foo?.bar: baz
+// JSON_OBJECT?.foo?.bar ?? "not found": baz
 
 if let result = JSON_OBJECT["foo"] as? MyObject {
     if let result = result["baz"] {
-        print("JSON_OBJECT?.foo?.baz:", result ?? "not found")
+        print("JSON_OBJECT?.foo?.baz ?? \"not found\":", result ?? "not found")
     } else {
-        print("JSON_OBJECT?.foo?.baz: not found")
+        print("JSON_OBJECT?.foo?.baz ?? \"not found\": not found")
     }
 } else {
-    print("JSON_OBJECT?.foo?.baz: not found")
+    print("JSON_OBJECT?.foo?.baz ?? \"not found\": not found")
 }
-// JSON_OBJECT?.foo?.baz: not found
+// JSON_OBJECT?.foo?.baz ?? "not found": not found
 
-print("JSON_OBJECT?.foo?.bar:", { () -> Any? in
+print("JSON_OBJECT?.foo?.bar ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["bar"] else {
         return nil
     }
     return result
 }() ?? "not found")
-// JSON_OBJECT?.foo?.bar: baz
+// JSON_OBJECT?.foo?.bar ?? "not found": baz
 
-print("JSON_OBJECT?.foo?.baz:", { () -> Any? in
+print("JSON_OBJECT?.foo?.baz ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["baz"] else {
         return nil
     }
     return result
 }() ?? "not found")
-// JSON_OBJECT?.foo?.baz: not found
+// JSON_OBJECT?.foo?.baz ?? "not found": not found
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
     let result = result.indices.contains(2) ? result[2] : nil
-    print("JSON_OBJECT?.fruits?.[2]:", result ?? "not found")
+    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", result ?? "not found")
 } else {
-    print("JSON_OBJECT?.fruits?.[2]: not found")
+    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\": not found")
 }
-// JSON_OBJECT?.fruits?.[2]: banana
+// JSON_OBJECT?.fruits?.[2] ?? "not found": banana
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
     let result = result.indices.contains(5) ? result[5] : nil
-    print("JSON_OBJECT?.fruits?.[5]:", result ?? "not found")
+    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", result ?? "not found")
 } else {
-    print("JSON_OBJECT?.fruits?.[5]: not found")
+    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\": not found")
 }
-// JSON_OBJECT?.fruits?.[5]: not found
+// JSON_OBJECT?.fruits?.[5] ?? "not found": not found
 
-print("JSON_OBJECT?.fruits?.[2]:", { () -> Any? in
+print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
     return result.indices.contains(2) ? result[2] : nil
 }() ?? "not found")
-// JSON_OBJECT?.fruits?.[2]: banana
+// JSON_OBJECT?.fruits?.[2] ?? "not found": banana
 
-print("JSON_OBJECT?.fruits?.[5]:", { () -> Any? in
+print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
     return result.indices.contains(5) ? result[5] : nil
 }() ?? "not found")
-// JSON_OBJECT?.fruits?.[5]: not found
+// JSON_OBJECT?.fruits?.[5] ?? "not found": not found

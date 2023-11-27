@@ -120,7 +120,7 @@ func arrayMapV2(_ callbackFunction: (Any?, Int, MyArray) -> Any?, _ anArray: MyA
     return newArray
 }
 
-print("\n// JavaScript-like Array.map() in Swift [Any?]")
+print("\n// JavaScript-like Array.map() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -259,7 +259,7 @@ print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
 //     }
 // ]
 
-print("\n// JavaScript-like Array.map() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [

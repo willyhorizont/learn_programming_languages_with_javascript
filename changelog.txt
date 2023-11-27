@@ -1,4 +1,32 @@
 =============================changelog==========================================
+21:40 | 09:40 PM | Mon | Nov | 27/11/2023
+0.0.37
+finish learn dart
+add 000.notes.dart
+add 001.comment.dart
+add 002.hello_world.dart
+add 003.Conditionals.dart
+add 004.Loops.dart
+add 005.Objects.dart
+add 006.Arrays.dart
+add 007.Functions.dart
+add 008.operator_ternary.dart
+add 009.operator_optional_chaining.dart
+add 010.operator_nullish_coalescing.dart
+add 011.operator_spread.dart
+add Array.every.dart
+add Array.filter.dart
+add Array.find.dart
+add Array.findIndex.dart
+add Array.includes.dart
+add Array.map.dart
+add Array.reduce.dart
+add Array.some.dart
+add factorial.dart
+add fizzbuzz.dart
+add xxx.chaos.dart
+update and fix so many things
+=============================changelog==========================================
 17:40 | 05:40 PM | Tue | Nov | 21/11/2023
 0.0.36
 small update

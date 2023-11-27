@@ -121,7 +121,7 @@ func arrayEveryV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: M
     return true
 }
 
-print("\n// JavaScript-like Array.every() in Swift [Any?]")
+print("\n// JavaScript-like Array.every() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -229,7 +229,7 @@ isAllNumberMoreThan500 = numbers.allSatisfy { (number: Any?) -> Bool in
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [

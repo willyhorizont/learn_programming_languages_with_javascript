@@ -89,7 +89,7 @@ fun main() {
     println("is my friends includes \"${name}\": ${isMyFriend}")
     // is my friends includes "Ezekiel": false
 
-    println("// using Kotlin \"in\" keyword")
+    println("// using Kotlin \"in\" operator")
 
     name = "Alisa"
     println("name: \"${name}\"")

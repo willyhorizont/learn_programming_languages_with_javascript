@@ -62,12 +62,13 @@ cat(paste(sep = "", "products: ", prettyJsonStringify(products)))
 
 for (arrayItemIndex in seq_along(products)) {
     arrayItem <- products[[arrayItemIndex]]
-    for (objectKey in names(arrayItem)) {
-        objectValue <- arrayItem[[objectKey]]
-        cat(paste(sep = "", "products, for loop, index: ", arrayItemIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
+    for (entryIndex in seq_along(arrayItem)) {
+        objectKey <- names(arrayItem)[entryIndex]
+        objectValue <- arrayItem[[entryIndex]]
+        cat(paste(sep = "", "products, for loop, array item index: ", arrayItemIndex, ", iteration/entry index: ", entryIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
     }
 }
-# products, for loop, index: 1, key: id, value: P1
-# products, for loop, index: 1, key: name, value: bubble gum
-# products, for loop, index: 2, key: id, value: P2
-# products, for loop, index: 2, key: name, value: potato chips
+# products, for loop, array item index: 1, iteration/entry index: 1, key: id, value: P1
+# products, for loop, array item index: 1, iteration/entry index: 2, key: name, value: bubble gum
+# products, for loop, array item index: 2, iteration/entry index: 1, key: id, value: P2
+# products, for loop, array item index: 2, iteration/entry index: 2, key: name, value: potato chips

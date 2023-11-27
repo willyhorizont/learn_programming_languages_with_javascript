@@ -121,7 +121,7 @@ func arraySomeV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
     return false
 }
 
-print("\n// JavaScript-like Array.some() in Swift [Any?]")
+print("\n// JavaScript-like Array.some() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -229,7 +229,7 @@ isAnyNumberMoreThan500 = numbers.contains { (number: Any?) -> Bool in
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [

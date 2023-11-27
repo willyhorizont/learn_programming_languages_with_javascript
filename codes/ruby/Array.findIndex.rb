@@ -2,98 +2,98 @@ require "json"
 
 array_find_index_v1 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         is_condition_match = callback_function.(array_item, array_item_index, an_array)
         if is_condition_match == true
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v2 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         is_condition_match = callback_function.(array_item, array_item_index, an_array)
         unless is_condition_match == false
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v3 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         if callback_function.(array_item, array_item_index, an_array) == true
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v4 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         unless callback_function.(array_item, array_item_index, an_array) == false
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v5 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         is_condition_match = callback_function.(array_item, array_item_index, an_array)
         if is_condition_match == true
             return array_item_index
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v6 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         is_condition_match = callback_function.(array_item, array_item_index, an_array)
         unless is_condition_match == false
             return array_item_index
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v7 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         if callback_function.(array_item, array_item_index, an_array) == true
             return array_item_index
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v8 = ->(callback_function, an_array) do
     # JavaScript-like Array.findIndex() function
-    item_index = -1
+    data_found_index = -1
     an_array.each_with_index do |array_item, array_item_index|
         unless callback_function.(array_item, array_item_index, an_array) == false
             return array_item_index
         end
     end
-    return item_index
+    return data_found_index
 end
 
 array_find_index_v9 = ->(callback_function, an_array) do

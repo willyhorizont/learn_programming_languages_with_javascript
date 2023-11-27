@@ -178,7 +178,7 @@ print("fruits, last element:", { () -> Any in
 // fruits, last element: orange
 
 for (arrayItemIndex, arrayItem) in fruits.enumerated() {
-    print("friend, for loop, index: \(arrayItemIndex), value: \(arrayItem ?? "undefined")")
+    print("fruits, for loop, index: \(arrayItemIndex), value: \(arrayItem ?? "undefined")")
 }
 // fruits, for loop, index: 0, value: apple
 // fruits, for loop, index: 1, value: mango
@@ -200,27 +200,27 @@ print("products: \(prettyJsonStringify(products))")
 
 for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
-    if let product = arrayItem as? MyObject {
-        for (objectKey, objectValue) in product {
-            print("friend, for loop, index: \(arrayItemIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
+    if let arrayItem = arrayItem as? MyObject {
+        for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
+            print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
         }
     }
 }
-// friend, for loop, index: 0, key: name, value: bubble gum
-// friend, for loop, index: 0, key: id, value: P1
-// friend, for loop, index: 1, key: name, value: potato chips
-// friend, for loop, index: 1, key: id, value: P2
+// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 
 for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
-    guard let product = arrayItem as? MyObject else {
+    guard let arrayItem = arrayItem as? MyObject else {
         continue
     }
-    for (objectKey, objectValue) in product {
-        print("friend, for loop, index: \(arrayItemIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
+    for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
+        print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
     }
 }
-// friend, for loop, index: 0, key: name, value: bubble gum
-// friend, for loop, index: 0, key: id, value: P1
-// friend, for loop, index: 1, key: name, value: potato chips
-// friend, for loop, index: 1, key: id, value: P2
+// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips

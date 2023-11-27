@@ -86,7 +86,7 @@ is_my_friend = array_includes_v2(name, my_friends)
 println("is my friends includes \"$name\": $is_my_friend")
 # is my friends includes "Ezekiel": true
 
-println("# using Julia \"in\" keyword")
+println("# using Julia \"in\" operator")
 
 name = "Alisa"
 println("name: \"$name\"")

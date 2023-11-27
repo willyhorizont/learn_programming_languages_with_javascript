@@ -19,28 +19,28 @@ const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
 };
 // call the function example: getRectangleAreaV2(3, 4)
 
+// ? function expression with arrow function or named arrow function
+
+const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
+    return rectangleWidth * rectangleLength;
+};
+// call the function example: getRectangleAreaV3(3, 4)
+
+const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
+// call the function example: getRectangleAreaV4(3, 4)
+
+// ? named function expression 🤮
+
+const getRectangleAreaV5 = function doSomething(rectangleWidth, rectangleLength) {
+    return rectangleWidth * rectangleLength;
+};
+// call the function example: getRectangleAreaV5(3, 4)
+
 // ? anonymous function
 
 // function (rectangleWidth, rectangleLength) {
 //     return rectangleWidth * rectangleLength;
 // }
-
-// ? named function expression 🤮
-
-const getRectangleAreaV3 = function doSomething(rectangleWidth, rectangleLength) {
-    return rectangleWidth * rectangleLength;
-};
-// call the function example: getRectangleAreaV3(3, 4)
-
-// ? function expression with arrow function or named arrow function
-
-const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => {
-    return rectangleWidth * rectangleLength;
-};
-// call the function example: getRectangleAreaV4(3, 4)
-
-const getRectangleAreaV5 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
-// call the function example: getRectangleAreaV5(3, 4)
 
 // ? anonymous arrow function
 
@@ -85,11 +85,11 @@ const getRectangleAreaV2Copy = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
 
-const getRectangleAreaV4Copy = (rectangleWidth, rectangleLength) => {
+const getRectangleAreaV3Copy = (rectangleWidth, rectangleLength) => {
     return rectangleWidth * rectangleLength;
 };
 
-const getRectangleAreaV5Copy = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
+const getRectangleAreaV4Copy = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
 
 const myArrayOfGetRectangleAreaFunctions = [
     getRectangleAreaV1,

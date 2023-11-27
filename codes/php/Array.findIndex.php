@@ -25,50 +25,50 @@ function pretty_array_of_primitives($an_array_of_primitives) {
 
 function array_find_index_v1($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
-    $item_index = -1;
+    $data_found_index = -1;
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
         if ($is_condition_match === true) {
-            $item_index = $array_item_index;
+            $data_found_index = $array_item_index;
             break;
         }
     }
-    return $item_index;
+    return $data_found_index;
 };
 
 function array_find_index_v2($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
-    $item_index = -1;
+    $data_found_index = -1;
     foreach ($an_array as $array_item_index => $array_item) {
         if ($callback_function($array_item, $array_item_index, $an_array) === true) {
-            $item_index = $array_item_index;
+            $data_found_index = $array_item_index;
             break;
         }
     }
-    return $item_index;
+    return $data_found_index;
 };
 
 function array_find_index_v3($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
-    $item_index = -1;
+    $data_found_index = -1;
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
         if ($is_condition_match === true) {
             return $array_item_index;
         }
     }
-    return $item_index;
+    return $data_found_index;
 };
 
 function array_find_index_v4($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
-    $item_index = -1;
+    $data_found_index = -1;
     foreach ($an_array as $array_item_index => $array_item) {
         if ($callback_function($array_item, $array_item_index, $an_array) === true) {
             return $array_item_index;
         }
     }
-    return $item_index;
+    return $data_found_index;
 };
 
 function array_find_index_v5($callback_function, $an_array) {

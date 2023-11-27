@@ -14,18 +14,18 @@ print("friend, get country: " .. friend["country"])
 
 -- iterate over and get each key-value pair
 for object_key, object_value in pairs(friend) do
-    print("friend, loop, key: " .. object_key .. ", value: " .. object_value)
+    print("friend, for loop, key: " .. object_key .. ", value: " .. object_value)
 end
--- friend, loop, key: age, value: 25
--- friend, loop, key: name, value: Alisa
--- friend, loop, key: country, value: Finland
+-- friend, for loop, key: age, value: 25
+-- friend, for loop, key: name, value: Alisa
+-- friend, for loop, key: country, value: Finland
 
 -- iterate over and get each key-value pair and iteration/entry index
 iteration_index = 0
 for object_key, object_value in pairs(friend) do
-    print("friend, loop, index: " .. iteration_index .. ", key: " .. object_key .. ", value: " .. object_value)
+    print("friend, for loop, iteration/entry index: " .. iteration_index .. ", key: " .. object_key .. ", value: " .. object_value)
     iteration_index = iteration_index + 1
 end
--- friend, loop, index: 0, key: name, value: Alisa
--- friend, loop, index: 1, key: age, value: 25
--- friend, loop, index: 2, key: country, value: Finland
+-- friend, for loop, iteration/entry index: 0, key: name, value: Alisa
+-- friend, for loop, iteration/entry index: 1, key: age, value: 25
+-- friend, for loop, iteration/entry index: 2, key: country, value: Finland

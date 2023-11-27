@@ -64,46 +64,46 @@ fun main() {
 
     fun arrayFindIndexV1(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
-        var itemIndex = -1
+        var dataFoundIndex = -1
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             val isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
             if (isConditionMatch == true) {
-                itemIndex = arrayItemIndex
+                dataFoundIndex = arrayItemIndex
                 break
             }
         }
-        return itemIndex
+        return dataFoundIndex
     }
 
     fun arrayFindIndexV2(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
-        var itemIndex = -1
+        var dataFoundIndex = -1
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-                itemIndex = arrayItemIndex
+                dataFoundIndex = arrayItemIndex
                 break
             }
         }
-        return itemIndex
+        return dataFoundIndex
     }
 
     fun arrayFindIndexV3(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
-        var itemIndex = -1
+        var dataFoundIndex = -1
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             val isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
             if (isConditionMatch == true) return arrayItemIndex
         }
-        return itemIndex
+        return dataFoundIndex
     }
 
     fun arrayFindIndexV4(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
-        var itemIndex = -1
+        var dataFoundIndex = -1
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItemIndex
         }
-        return itemIndex
+        return dataFoundIndex
     }
 
     fun arrayFindIndexV5(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
@@ -123,7 +123,7 @@ fun main() {
         return -1
     }
 
-    println("\n// JavaScript-like Array.findIndex() in Kotlin mutableListOf<Any?>")
+    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList<Any?> (List)")
     
     val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
@@ -163,7 +163,7 @@ fun main() {
     println("number found index: ${numberFoundIndex}")
     // number found index: 2
 
-    println("\n// JavaScript-like Array.findIndex() in Kotlin mutableListOf<mutableMapOf<String, Any?>>")
+    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(
@@ -184,11 +184,11 @@ fun main() {
         )
     )
     println("products: ${prettyJsonStringify(products)}")
-
-    var productFoundIndex: Any?
     
     val productToFind = "pasta"
     println("product to find: ${productToFind}")
+
+    var productFoundIndex: Any?
 
     println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 

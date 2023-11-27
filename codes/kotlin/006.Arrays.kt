@@ -105,19 +105,27 @@ fun main() {
     )
     println("products: ${prettyJsonStringify(products)}")
 
-    products.forEachIndexed { arrayItemIndex, arrayItem -> (arrayItem as MutableMap<String, Any?>).forEach { (objectKey, objectValue) -> println("products, loop, index: ${arrayItemIndex}, key: ${objectKey}, value: ${objectValue}") } }
-    // products, loop, index: 0, key: id, value: P1
-    // products, loop, index: 0, key: name, value: bubble gum
-    // products, loop, index: 1, key: id, value: P2
-    // products, loop, index: 1, key: name, value: potato chips
-
-    for ((arrayItemIndex, arrayItem) in products.withIndex()) {
-        for ((objectKey, objectValue) in arrayItem as MutableMap<String, Any?>) {
-            println("products, loop, index: ${arrayItemIndex}, key: ${objectKey}, value: ${objectValue}")
+    products.forEachIndexed { arrayItemIndex, arrayItem ->
+        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { entryIndex, entryItem ->
+            val objectKey = entryItem.key
+            val objectValue = entryItem.value
+            println("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}")
         }
     }
-    // products, loop, index: 0, key: id, value: P1
-    // products, loop, index: 0, key: name, value: bubble gum
-    // products, loop, index: 1, key: id, value: P2
-    // products, loop, index: 1, key: name, value: potato chips
+    // products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+    // products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+    // products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+    // products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+
+    for ((arrayItemIndex, arrayItem) in products.withIndex()) {
+        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { entryIndex, entryItem ->
+            val objectKey = entryItem.key
+            val objectValue = entryItem.value
+            println("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}")
+        }
+    }
+    // products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+    // products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+    // products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+    // products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 }

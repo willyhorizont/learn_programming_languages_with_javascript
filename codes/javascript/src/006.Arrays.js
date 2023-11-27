@@ -34,8 +34,8 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-products.forEach((product, productIndex) => Object.entries(product).forEach(([objectKey, objectValue]) => console.log(`products, foreach loop, index: ${productIndex}, key: ${objectKey}, value: ${objectValue}`)));
-// products, foreach loop, index: 0, key: id, value: P1
-// products, foreach loop, index: 0, key: name, value: bubble gum
-// products, foreach loop, index: 1, key: id, value: P2
-// products, foreach loop, index: 1, key: name, value: potato chips
+products.forEach((arrayItem, arrayItemIndex) => Object.entries(arrayItem).forEach(([objectKey, objectValue], entryIndex) => console.log(`products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}`)));
+// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips

@@ -43,10 +43,10 @@ func main() {
 	// iterate over and get each key-value pair and iteration/entry index
 	iterationIndex := 0
 	for objectKey, objectValue := range friend {
-		fmt.Println("friend, for loop, index:", iterationIndex, "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
+		fmt.Println("friend, for loop, iteration/entry index:", iterationIndex, "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
 		iterationIndex += 1
 	}
-	// friend, for loop, index: 0 ,key: name, value: Alisa
-	// friend, for loop, index: 1 ,key: country, value: Finland
-	// friend, for loop, index: 2 ,key: age, value: 25
+	// friend, for loop, iteration/entry index: 0 ,key: name, value: Alisa
+	// friend, for loop, iteration/entry index: 1 ,key: country, value: Finland
+	// friend, for loop, iteration/entry index: 2 ,key: age, value: 25
 }

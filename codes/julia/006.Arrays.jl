@@ -61,11 +61,11 @@ products = [
 println("products: ", JSON.json(products, 4))
 
 for (array_item_index, array_item) in enumerate(products)
-    for (object_key, object_value) in array_item
-        println("products, loop, index: ", array_item_index, ", key: ", object_key, ", value: ", object_value)
+    for (iteration_index, (object_key, object_value)) in enumerate(pairs(array_item))
+        println("products, for loop, array item index: ", array_item_index, ", iteration/entry index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
     end
 end
-# products, loop, index: 1, key: name, value: bubble gum
-# products, loop, index: 1, key: id, value: P1
-# products, loop, index: 2, key: name, value: potato chips
-# products, loop, index: 2, key: id, value: P2
+# products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: bubble gum
+# products, for loop, array item index: 1, iteration/entry index: 2, key: id, value: P1
+# products, for loop, array item index: 2, iteration/entry index: 1, key: name, value: potato chips
+# products, for loop, array item index: 2, iteration/entry index: 2, key: id, value: P2

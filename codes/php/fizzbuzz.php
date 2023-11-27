@@ -268,9 +268,7 @@ function fizzbuzz_v12($stop_number) {
     return $result;
 };
 
-$fizzbuzz_v13 = fn($stop_number) => ((is_numeric($stop_number) === false) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : join(", ", array_map(fn($number) => (((($number % 3) === 0) && (($number % 5) === 0)) ? "FizzBuzz" : ((($number % 3) === 0) ? "Fizz" : ((($number % 5) === 0) ? "Buzz" : "$number"))), range(1, $stop_number)))));
-
-$fizzbuzz_v14 = fn($stop_number) => ((is_numeric($stop_number) === false) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : array_reduce(range(1, $stop_number), fn($current_result, $number) => (($current_result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$current_result, FizzBuzz" : ((($number % 3) === 0) ? "$current_result, Fizz" : ((($number % 5) === 0) ? "$current_result, Buzz" : "$current_result, $number")))), "")));
+$fizzbuzz_v13 = fn($stop_number) => ((is_numeric($stop_number) === false) ? "argument should be a number" : (($stop_number < 1) ? "argument should be greater than 0" : array_reduce(range(1, $stop_number), fn($result, $number) => (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number")))), "")));
 
 echo("\n// using fizzbuzz function \"fizzbuzz_v1\"");
 echo("\nFizzBuzz(36): " . fizzbuzz_v1(36));
@@ -322,8 +320,4 @@ echo("\nFizzBuzz(36): " . fizzbuzz_v12(36));
 
 echo("\n// using fizzbuzz function \"\$fizzbuzz_v13\"");
 echo("\nFizzBuzz(36): " . $fizzbuzz_v13(36));
-// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-echo("\n// using fizzbuzz function \"\$fizzbuzz_v14\"");
-echo("\nFizzBuzz(36): " . $fizzbuzz_v14(36));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

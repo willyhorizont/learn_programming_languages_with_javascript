@@ -49,10 +49,10 @@ products = [
         "name" => "potato chips"
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
+print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }), "\n")
 
-products.each_with_index { |array_item, array_item_index| array_item.each { |object_key, object_value| print("products, foreach loop, index: #{array_item_index}, key: #{object_key} value: #{object_value}\n") } }
-# products, foreach loop, index: 0, key: id value: P1
-# products, foreach loop, index: 0, key: name value: bubble gum
-# products, foreach loop, index: 1, key: id value: P2
-# products, foreach loop, index: 1, key: name value: potato chips
+products.each_with_index { |array_item, array_item_index| array_item.each_with_index { |(object_key, object_value), iteration_index| print("products, foreach loop, array item index: #{array_item_index}, iteration/entry index: #{iteration_index}, key: #{object_key}, value: #{object_value}\n") } }
+# products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips

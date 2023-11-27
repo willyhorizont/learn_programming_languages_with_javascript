@@ -37,14 +37,29 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
 		return anything
 	}
 	return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
-		if (currentResult == nil) {
+		var currentItemTypeString any = nil
+		switch currentItemType := reflect.TypeOf(currentItem).Kind(); currentItemType {
+		case reflect.String:
+			currentItemTypeString = "String"
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+			currentItemTypeString = "Number"
+		default:
+			currentItemTypeString = nil
+		}
+		if (currentItemTypeString == nil) {
+			return nil
+		}
+		if (currentResult == nil && (anythingType == reflect.Map) && (currentItemTypeString == "String")) {
 			return anything.(object)[currentItem.(string)]
 		}
+		if (currentResult == nil && (anythingType == reflect.Slice) && (currentItemTypeString == "Number")) {
+			return anything.(array)[currentItem.(int)]
+		}
 		currentResultType := reflect.TypeOf(currentResult).Kind()
-		if (currentResultType == reflect.Map) {
+		if (currentResultType == reflect.Map && (currentItemTypeString == "String")) {
 			return currentResult.(object)[currentItem.(string)]
 		}
-		if ((currentItem.(int) >= 0) && (currentItem.(int) < len(currentResult.(array)))) {
+		if ((currentResultType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (currentItem.(int) < len(currentResult.(array)))) {
 			return currentResult.(array)[currentItem.(int)]
 		}
 		return nil

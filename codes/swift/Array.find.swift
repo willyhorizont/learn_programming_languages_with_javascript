@@ -148,7 +148,7 @@ func arrayFindV6(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
     return nil
 }
 
-print("\n// JavaScript-like Array.find() in Swift [Any?]")
+print("\n// JavaScript-like Array.find() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -276,7 +276,7 @@ oddNumberFound = arrayFindV6({ (number: Any?, _: Int, _: MyArray) -> Bool in
 print("odd number found: \(oddNumberFound ?? "undefined")")
 // odd number found: 27
 
-print("\n// JavaScript-like Array.find() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.find() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [
@@ -298,10 +298,10 @@ let products: MyArray = [
 ]
 print("products: \(prettyJsonStringify(products))")
 
-var productFound: Any? = nil
-
 let productToFind = "bubble_gum"
 print("product to find: \(productToFind)")
+
+var productFound: Any? = nil
 
 print("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 

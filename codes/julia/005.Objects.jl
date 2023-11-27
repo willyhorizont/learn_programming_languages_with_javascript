@@ -22,8 +22,8 @@ end
 
 # iterate over and get each key-value pair and iteration/entry index
 for (iteration_index, (object_key, object_value)) in enumerate(pairs(friend))
-    println("friend, for loop, index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
+    println("friend, for loop, iteration/entry index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
 end
-# friend, for loop, index: 1, key: name, value: Alisa
-# friend, for loop, index: 2, key: country, value: Finland
-# friend, for loop, index: 3, key: age, value: 25
+# friend, for loop, iteration/entry index: 1, key: name, value: Alisa
+# friend, for loop, iteration/entry index: 2, key: country, value: Finland
+# friend, for loop, iteration/entry index: 3, key: age, value: 25

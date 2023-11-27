@@ -31,38 +31,38 @@ sub array_find_index_v1 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         if ($is_condition_match) {
-            $item_index = $array_item_index;
+            $data_found_index = $array_item_index;
             last;
         }
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v2 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         if ($callback_function->($array_item, $array_item_index, \@an_array)) {
-            $item_index = $array_item_index;
+            $data_found_index = $array_item_index;
             last;
         }
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v3 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
@@ -70,46 +70,46 @@ sub array_find_index_v3 {
             return $array_item_index;
         }
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v4 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
         return $array_item_index if ($is_condition_match);
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v5 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         if ($callback_function->($array_item, $array_item_index, \@an_array)) {
             return $array_item_index;
         }
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v6 {
     # JavaScript-like Array.findIndex() function
     my ($callback_function, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $item_index = -1;
+    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         return $array_item_index if ($callback_function->($array_item, $array_item_index, \@an_array));
     }
-    return $item_index;
+    return $data_found_index;
 }
 
 sub array_find_index_v7 {
@@ -255,10 +255,10 @@ my @products = (
 
 print("products: ", pretty_json_stringify(\@products));
 
-my $product_found_index;
-
 my $product_to_find = "pasta";
 print("product to find: ", $product_to_find, "\n");
+
+my $product_found_index;
 
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"\n");
 

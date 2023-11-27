@@ -41,11 +41,11 @@ print("fruits, last element: " .. fruits[#fruits])
 -- fruits, last element: orange
 
 for array_item_index, array_item in ipairs(fruits) do
-    print("fruits, for loop, index: " .. array_item_index .. ", value: " .. array_item)
+    print("fruits, for for loop, index: " .. array_item_index .. ", value: " .. array_item)
 end
--- fruits, for loop, index: 1, value: apple
--- fruits, for loop, index: 2, value: mango
--- fruits, for loop, index: 3, value: orange
+-- fruits, for for loop, index: 1, value: apple
+-- fruits, for for loop, index: 2, value: mango
+-- fruits, for for loop, index: 3, value: orange
 
 -- Array of Objects in Lua
 
@@ -62,11 +62,13 @@ products = {
 print("products: " .. pretty_json_stringify(products))
 
 for array_item_index, array_item in ipairs(products) do
+    iteration_index = 0
     for object_key, object_value in pairs(array_item) do
-        print("products, loop, index: " .. array_item_index .. ", key: " .. object_key .. ", value: " .. object_value)
+        print("products, for loop, array item index: " .. array_item_index .. ", iteration/entry index: " .. iteration_index .. ", key: " .. object_key .. ", value: " .. object_value)
+        iteration_index = iteration_index + 1
     end
 end
--- products, loop, index: 1, key: id, value: P1
--- products, loop, index: 1, key: name, value: bubble gum
--- products, loop, index: 2, key: id, value: P1
--- products, loop, index: 2, key: name, value: bubble gum
+-- products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P1
+-- products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: bubble gum
+-- products, for loop, array item index: 2, iteration/entry index: 0, key: id, value: P1
+-- products, for loop, array item index: 2, iteration/entry index: 1, key: name, value: bubble gum

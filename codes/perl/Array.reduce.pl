@@ -32,16 +32,6 @@ sub spread_syntax_array {
     return @new_array;
 }
 
-sub array_to_object {
-    my %new_object;
-    my (@an_array) = @_;
-    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
-        my $array_item = $an_array[$array_item_index];
-        $new_object{$array_item_index} = $array_item;
-    }
-    return %new_object;
-}
-
 sub spread_syntax_object_v1 {
     my %new_object;
     my $number_of_parameters = @_;

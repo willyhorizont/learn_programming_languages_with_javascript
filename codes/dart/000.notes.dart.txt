@@ -1,0 +1,5 @@
+to compile to executable and run it:
+dart compile exe filename.dart && ./filename.exe
+
+to run the code in interpreter:
+dart run filename.dart

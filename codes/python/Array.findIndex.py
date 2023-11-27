@@ -6,42 +6,42 @@ import json
 
 def array_find_index_v1(callback_function, an_array):
     '''JavaScript-like Array.findIndex() function'''
-    item_index = -1
+    data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
-    return item_index
+    return data_found_index
 
 
 def array_find_index_v2(callback_function, an_array):
     '''JavaScript-like Array.findIndex() function'''
-    item_index = -1
+    data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
-            item_index = array_item_index
+            data_found_index = array_item_index
             break
-    return item_index
+    return data_found_index
 
 
 def array_find_index_v3(callback_function, an_array):
     '''JavaScript-like Array.findIndex() function'''
-    item_index = -1
+    data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
             return array_item_index
-    return item_index
+    return data_found_index
 
 
 def array_find_index_v4(callback_function, an_array):
     '''JavaScript-like Array.findIndex() function'''
-    item_index = -1
+    data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
             return array_item_index
-    return item_index
+    return data_found_index
 
 
 def array_find_index_v5(callback_function, an_array):

@@ -129,7 +129,7 @@ fun main() {
         return result
     }
 
-    println("\n// JavaScript-like Array.reduce() in Kotlin mutableListOf<Any?>")
+    println("\n// JavaScript-like Array.reduce() in Kotlin MutableList<Any?> (List)")
     
     val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
@@ -148,7 +148,7 @@ fun main() {
     println("total numbers: ${numbersTotal}")
     // total number: 635
 
-    println("\n// JavaScript-like Array.reduce() in Kotlin mutableListOf<mutableMapOf<String, Any?>>")
+    println("\n// JavaScript-like Array.reduce() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(

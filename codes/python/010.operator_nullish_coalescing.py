@@ -1,4 +1,5 @@
 import json
+from numbers import Number
 
 print('\n# JavaScript-like Nullish Coalescing Operator (??) in Python')
 
@@ -19,14 +20,15 @@ def optional_chaining_v1(anything, *object_properties_array):
     if (((isinstance(anything, dict) == False) and (isinstance(anything, list) == False)) or (len(object_properties_array) == 0)):
         return anything
     def array_reduce_callback(current_result, current_item, *_):
-        if current_result is None:
-            return anything.get(current_item)
-        if isinstance(current_result, dict):
-            return current_result.get(current_item)
-        try:
+        if current_result is None and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True):
+            return anything.get(str(current_item))
+        if current_result is None and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True):
+            return anything[int(current_item)]
+        if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)):
+            return current_result.get(str(current_item))
+        if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (int(current_item) < len(current_result))):
             return current_result[int(current_item)]
-        except:
-            return None
+        return None
     return array_reduce(array_reduce_callback, object_properties_array, None)
 
 

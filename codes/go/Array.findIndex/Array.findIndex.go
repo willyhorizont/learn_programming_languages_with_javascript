@@ -43,50 +43,50 @@ func prettyArrayOfPrimitives(anArray array) string {
 
 func arrayFindIndexV1(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
-	itemIndex := -1
+	dataFoundIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
 		if (isConditionMatch == true) {
-			itemIndex = arrayItemIndex
+			dataFoundIndex = arrayItemIndex
 			break
 		}
 	}
-	return itemIndex
+	return dataFoundIndex
 }
 
 func arrayFindIndexV2(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
-	itemIndex := -1
+	dataFoundIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
 		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-			itemIndex = arrayItemIndex
+			dataFoundIndex = arrayItemIndex
 			break
 		}
 	}
-	return itemIndex
+	return dataFoundIndex
 }
 
 func arrayFindIndexV3(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
-	itemIndex := -1
+	dataFoundIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
 		if (isConditionMatch == true) {
 			return arrayItemIndex
 		}
 	}
-	return itemIndex
+	return dataFoundIndex
 }
 
 func arrayFindIndexV4(callbackFunction func(any, int, array) bool, anArray array) int {
 	// JavaScript-like Array.findIndex() function
-	itemIndex := -1
+	dataFoundIndex := -1
 	for arrayItemIndex, arrayItem := range anArray {
 		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
 			return arrayItemIndex
 		}
 	}
-	return itemIndex
+	return dataFoundIndex
 }
 
 func arrayFindIndexV5(callbackFunction func(any, int, array) bool, anArray array) int {
@@ -191,10 +191,10 @@ func main() {
 	}
 	fmt.Println("products:", prettyJsonStringify(products))
 	
+		productToFind := "pasta"
+		fmt.Println("product to find:", productToFind)
+	
 	var productFoundIndex int
-
-	productToFind := "pasta"
-	fmt.Println("product to find:", productToFind)
 
 	fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 

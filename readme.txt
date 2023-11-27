@@ -53,3 +53,7 @@ to compile and run Kotlin code:
 to compile and run Swift code:
 1. cd codes/swift
 2. swiftc filename.swift && ./filename
+
+to run Dart code:
+1. cd codes/dart
+2. dart run filename.dart

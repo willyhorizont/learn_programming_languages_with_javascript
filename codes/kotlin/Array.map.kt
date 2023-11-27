@@ -113,7 +113,7 @@ fun main() {
         return newArray
     }
 
-    println("\n// JavaScript-like Array.map() in Kotlin mutableListOf<Any?>")
+    println("\n// JavaScript-like Array.map() in Kotlin MutableList<Any?> (List)")
     
     val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
@@ -231,7 +231,7 @@ fun main() {
 	//     }
 	// ]
 
-    println("\n// JavaScript-like Array.map() in Kotlin mutableListOf<mutableMapOf<String, Any?>>")
+    println("\n// JavaScript-like Array.map() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(

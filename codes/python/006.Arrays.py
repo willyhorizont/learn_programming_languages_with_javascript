@@ -41,9 +41,9 @@ products = [
 print(f'products: {json.dumps(products, indent=4)}')
 
 for array_item_index, array_item in enumerate(products):
-    for object_key, object_value in array_item.items():
-        print(f"products, loop, index: {array_item_index}, key: {object_key}, value: {object_value}")
-# products, loop, index: 0, key: id, value: P1
-# products, loop, index: 0, key: name, value: bubble gum
-# products, loop, index: 1, key: id, value: P2
-# products, loop, index: 1, key: name, value: potato chips
+    for iteration_index, (object_key, object_value) in enumerate(array_item.items()):
+        print(f"products, for loop, array item index: {array_item_index}, iteration/entry index: {iteration_index}, key: {object_key}, value: {object_value}")
+# products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+# products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+# products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+# products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips

@@ -270,32 +270,17 @@ const fizzbuzzV13 = (stopNumber) => ((typeof stopNumber !== "number")
     ? "argument should be a number"
     : ((stopNumber < 1)
         ? "argument should be greater than 0"
-        : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => {
-            if (((number % 3) === 0) && ((number % 5) === 0)) return 'FizzBuzz';
-            if ((number % 3) === 0) return 'Fizz';
-            if ((number % 5) === 0) return 'Buzz';
-            return `${number}`;
-        }).join(', ')
-    )
-);
-
-const fizzbuzzV14 = (stopNumber) => ((typeof stopNumber !== "number") ? "argument should be a number" : ((stopNumber < 1) ? "argument should be greater than 0" : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).map((number) => ((((number % 3) === 0) && ((number % 5) === 0)) ? 'FizzBuzz' : ((number % 3) === 0) ? 'Fizz' : ((number % 5) === 0) ? 'Buzz' : `${number}`)).join(', ')));
-
-const fizzbuzzV15 = (stopNumber) => ((typeof stopNumber !== "number")
-    ? "argument should be a number"
-    : ((stopNumber < 1)
-        ? "argument should be greater than 0"
-        : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => {
-            if (currentResult === "") return `${number}`;
-            if (((number % 3) === 0) && ((number % 5) === 0)) return `${currentResult}, FizzBuzz`;
-            if ((number % 3) === 0) return `${currentResult}, Fizz`;
-            if ((number % 5) === 0) return `${currentResult}, Buzz`;
-            return `${currentResult}, ${number}`;
+        : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((result, number) => {
+            if (result === "") return `${number}`;
+            if (((number % 3) === 0) && ((number % 5) === 0)) return `${result}, FizzBuzz`;
+            if ((number % 3) === 0) return `${result}, Fizz`;
+            if ((number % 5) === 0) return `${result}, Buzz`;
+            return `${result}, ${number}`;
         }, "")
     )
 );
 
-const fizzbuzzV16 = (stopNumber) => ((typeof stopNumber !== "number") ? "argument should be a number" : ((stopNumber < 1) ? "argument should be greater than 0" : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))), "")));
+const fizzbuzzV14 = (stopNumber) => ((typeof stopNumber !== "number") ? "argument should be a number" : ((stopNumber < 1) ? "argument should be greater than 0" : [...Array(stopNumber).keys()].map((numberIndex) => numberIndex + 1).reduce((result, number) => ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`)))), "")));
 
 console.log('// using fizzbuzz function "fizzbuzzV1"');
 console.log('FizzBuzz(36):', fizzbuzzV1(36));
@@ -351,12 +336,4 @@ console.log('FizzBuzz(36):', fizzbuzzV13(36));
 
 console.log('// using fizzbuzz function "fizzbuzzV14"');
 console.log('FizzBuzz(36):', fizzbuzzV14(36));
-// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-console.log('// using fizzbuzz function "fizzbuzzV15"');
-console.log('FizzBuzz(36):', fizzbuzzV15(36));
-// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-console.log('// using fizzbuzz function "fizzbuzzV16"');
-console.log('FizzBuzz(36):', fizzbuzzV16(36));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

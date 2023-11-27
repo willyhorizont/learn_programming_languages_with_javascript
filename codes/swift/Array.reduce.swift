@@ -139,7 +139,7 @@ func arrayReduce(_ callbackFunction: (Any?, Any?, Int, MyArray) -> Any?, _ anArr
     return result
 }
 
-print("\n// JavaScript-like Array.reduce() in Swift [Any?]")
+print("\n// JavaScript-like Array.reduce() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -168,7 +168,7 @@ numbersTotal = numbers.reduce(0) { (currentResult: Any?, currentNumber: Any?) ->
 print("total number: \(numbersTotal ?? "undefined")")
 // total number: 635
 
-print("\n// JavaScript-like Array.map() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [

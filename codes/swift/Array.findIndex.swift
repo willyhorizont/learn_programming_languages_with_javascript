@@ -81,50 +81,50 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> St
 
 func arrayFindIndexV1(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
-    var itemIndex = -1
+    var dataFoundIndex = -1
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == true) {
-            itemIndex = arrayItemIndex
+            dataFoundIndex = arrayItemIndex
             break
         }
     }
-    return itemIndex
+    return dataFoundIndex
 }
 
 func arrayFindIndexV2(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
-    var itemIndex = -1
+    var dataFoundIndex = -1
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-            itemIndex = arrayItemIndex
+            dataFoundIndex = arrayItemIndex
             break
         }
     }
-    return itemIndex
+    return dataFoundIndex
 }
 
 func arrayFindIndexV3(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
-    let itemIndex = -1
+    let dataFoundIndex = -1
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == true) {
             return arrayItemIndex
         }
     }
-    return itemIndex
+    return dataFoundIndex
 }
 
 func arrayFindIndexV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
-    let itemIndex = -1
+    let dataFoundIndex = -1
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
             return arrayItemIndex
         }
     }
-    return itemIndex
+    return dataFoundIndex
 }
 
 func arrayFindIndexV5(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
@@ -148,7 +148,7 @@ func arrayFindIndexV6(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArra
     return -1
 }
 
-print("\n// JavaScript-like Array.findIndex() in Swift [Any?]")
+print("\n// JavaScript-like Array.findIndex() in Swift [Any?] (Array)")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -235,7 +235,7 @@ numberFoundIndex = numbers.firstIndex { (number: Any?) -> Bool in
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
 
-print("\n// JavaScript-like Array.findIndex() in Swift [[String, Any?]]")
+print("\n// JavaScript-like Array.findIndex() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
     [
@@ -257,10 +257,10 @@ let products: MyArray = [
 ]
 print("products: \(prettyJsonStringify(products))")
 
-var productFoundIndex: Int
-
 let productToFind = "pasta"
 print("product to find: \(productToFind)")
+
+var productFoundIndex: Int
 
 print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 

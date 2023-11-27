@@ -81,12 +81,14 @@ func main() {
 	fmt.Println("products:", prettyJsonStringify(products))
 
 	for arrayItemIndex, arrayItem := range products {
+		iterationIndex := 0
 		for objectKey, objectValue := range arrayItem.(object) {
-			fmt.Println("products, loop, index:", fmt.Sprint(arrayItemIndex), "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
+			fmt.Println("products, for loop, array item index:", arrayItemIndex,  "\b, iteration/entry index:", iterationIndex, "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
+			iterationIndex += 1
 		}
 	}
-	// products, loop, index: 0, key: id, value: P1
-	// products, loop, index: 0, key: name, value: bubble gum
-	// products, loop, index: 1, key: id, value: P2
-	// products, loop, index: 1, key: name, value: potato chips
+	// products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
+	// products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
+	// products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
+	// products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
 }
