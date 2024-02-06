@@ -50,10 +50,10 @@ while (my ($object_key, $object_value) = each %friend1) {
 # iterate over and get each key-value pair and iteration/entry index
 my @friend1_entries2 = %friend1;
 for (my $friend1_entry_index = 0; $friend1_entry_index < scalar(@friend1_entries2); $friend1_entry_index += 2) {
-    my $iteration_index = $friend1_entry_index / 2;
+    my $entry_index = $friend1_entry_index / 2;
     my $object_key = $friend1_entries2[$friend1_entry_index];
     my $object_value = $friend1_entries2[$friend1_entry_index + 1];
-    print("friend1, for loop, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+    print("friend1, for loop, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
 }
 # friend1, for loop, iteration/entry index: 0, key: name, value: Alisa
 # friend1, for loop, iteration/entry index: 1, key: country, value: Finland
@@ -146,10 +146,10 @@ while (my ($object_key, $object_value) = each %{$friend2}) {
 # iterate over and get each key-value pair and iteration/entry index
 my @friend2_entries2 = %{$friend2};
 for (my $friend2_entry_index = 0; $friend2_entry_index < scalar(@friend2_entries2); $friend2_entry_index += 2) {
-    my $iteration_index = $friend2_entry_index / 2;
+    my $entry_index = $friend2_entry_index / 2;
     my $object_key = $friend2_entries2[$friend2_entry_index];
     my $object_value = $friend2_entries2[$friend2_entry_index + 1];
-    print("friend2, for loop, iteration/entry index: $iteration_index, key: $object_key, value: $object_value\n");
+    print("friend2, for loop, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
 }
 # friend2, for loop, iteration/entry index: 0, key: name, value: Alisa
 # friend2, for loop, iteration/entry index: 1, key: country, value: Finland

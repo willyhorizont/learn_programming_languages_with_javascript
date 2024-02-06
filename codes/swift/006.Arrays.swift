@@ -76,7 +76,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> St
     return prettyJsonStringifyInnerFunction(anything, indent)
 }
 
-// Array
+// Array in Swift
 
 let fruits: MyArray = ["apple", "mango", "orange"]
 print("fruits: \(prettyArrayOfPrimitives(fruits))")
@@ -184,7 +184,7 @@ for (arrayItemIndex, arrayItem) in fruits.enumerated() {
 // fruits, for loop, index: 1, value: mango
 // fruits, for loop, index: 2, value: orange
 
-// Array of Objects
+// Array of Objects in Swift
 
 let products: MyArray = [
     [

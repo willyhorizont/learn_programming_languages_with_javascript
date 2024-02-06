@@ -168,9 +168,9 @@ if (($my_age <= 3) or ($my_age >= 65)) echo("\nYou should stay home");
 echo("\n\n// Logical NOT (!)\n");
 
 $can_drive = false;
-echo("\n\$can_drive:" . print_bool($can_drive));
-echo("\n!\$can_drive:" . print_bool(!$can_drive));
+echo("\n\$can_drive: " . print_bool($can_drive));
+echo("\n!\$can_drive: " . print_bool(!$can_drive));
 
 $can_drive = true;
-echo("\n\$can_drive:" . print_bool($can_drive));
-echo("\n!\$can_drive:" . print_bool(!$can_drive));
+echo("\n\$can_drive: " . print_bool($can_drive));
+echo("\n!\$can_drive: " . print_bool(!$can_drive));

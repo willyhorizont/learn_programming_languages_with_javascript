@@ -1,0 +1,19 @@
+Raku (Perl 6)
+Rakudo is the compiler
+
+file extension are: .raku or .p6
+
+Single line comment use #
+
+Multi-line comments start with a two-character combination #` and are followed by a pair of enclosing characters ( ), { }, [ ], or < > or their repeated copies: (( )), [[[ ]]], etc.
+
+variable & naming convention:
+kebab-case
+camelCase
+snake_case
+choose between those 3 and be consistence.
+most popular naming convention is kebab-case but I prefer snake_case/camelCase because kebab-case variable is hard to be selected
+
+get type:
+my $stuff = "bag";
+print("\$Stuff type is {$stuff.^name}\n");
