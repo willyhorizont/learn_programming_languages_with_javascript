@@ -1,4 +1,10 @@
 =============================changelog==========================================
+03:06 | 03:06 AM | Thu | Feb | 08/02/2024
+0.0.39
+update list_file.py
+update file_list.csv
+add www.codewars abbreviate_name
+=============================changelog==========================================
 05:56 | 05:56 AM | Wed | Feb | 07/02/2024
 0.0.38
 small updates

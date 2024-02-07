@@ -1,4 +1,4 @@
-go 1.21.3
+go 1.21.4
 
 use (
     ./codes/go/001.comment
@@ -23,4 +23,5 @@ use (
     ./codes/go/factorial
     ./codes/go/fizzbuzz
     ./codes/go/xxx.chaos
+    ./codes/go/www.codewars/www.001.abbreviate_name
 )
