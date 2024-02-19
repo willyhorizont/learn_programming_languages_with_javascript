@@ -4,30 +4,39 @@ import (
 	"fmt"
 )
 
-// ? function statement or function declaration
+// ? < function statement or function declaration
 
 func getRectangleAreaV1(rectangleWidth int, rectangleLength int) int {
 	return (rectangleWidth * rectangleLength)
 }
-
 // call the function example: getRectangleAreaV1(3, 4)
 
-// ? Passing functions as arguments to other functions
+// ? function statement or function declaration />
 
-func sayHelllo(callbackFunction func()) {
+
+
+// ? < Passing functions as arguments to other functions
+
+func sayHellloV1(callbackFunction func()) {
 	fmt.Println("hello")
 	callbackFunction()
 }
 
-func sayHowAreYou() {
+func sayHowAreYouV1() {
 	fmt.Println("how are you?")
 }
+
+// ? Passing functions as arguments to other functions />
+
+
 
 func addition(a int, b int) int {
 	return (a + b)
 }
 
-// ? Returning functions as values from other functions
+
+
+// ? < Returning functions as values from other functions
 
 func multiplyV1(a int) func(b int) int {
 	multiplyBy := func(b int) int {
@@ -41,6 +50,10 @@ func multiplyV2(a int) func(b int) int {
 		return (a * b)
 	}
 }
+
+// ? Returning functions as values from other functions />
+
+
 
 func main() {
 	// ? function expression
@@ -58,9 +71,24 @@ func main() {
 
 	// ? Passing functions as arguments to other functions
 
-	sayHelllo(sayHowAreYou)
+	sayHellloV1(sayHowAreYouV1)
 
-	sayHelllo(func() {
+	sayHellloV1(func() {
+		fmt.Println("how are you?")
+	})
+
+	sayHellloV2 := func(callbackFunction func()) {
+		fmt.Println("hello")
+		callbackFunction()
+	}
+	
+	sayHowAreYouV2 := func() {
+		fmt.Println("how are you?")
+	}
+
+	sayHellloV2(sayHowAreYouV2)
+
+	sayHellloV2(func() {
 		fmt.Println("how are you?")
 	})
 

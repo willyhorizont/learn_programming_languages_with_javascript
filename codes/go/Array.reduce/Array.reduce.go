@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"math"
 	"reflect"
 )
 
@@ -15,23 +17,35 @@ type object map[string]any
 
 func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-	if err == nil {
+	if (err == nil) {
 		return string(marshalledJson)
 	}
-
 	return "undefined"
 }
 
 func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
-		switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-		case reflect.String:
-			result += "\"" + arrayItem.(string) + "\""
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-			result += fmt.Sprint(arrayItem)
-		default:
-			continue
+		if (arrayItem == nil) {
+			result += "nil"
+		}
+		if (arrayItem != nil) {
+			switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
+			case reflect.String:
+				result += "\"" + arrayItem.(string) + "\""
+			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+				result += fmt.Sprint(arrayItem)
+			case reflect.Bool:
+				if arrayItem.(bool) {
+					result += "true"
+				} else {
+					result += "false"
+				}
+			case reflect.Invalid:
+				result += "nil"
+			default:
+				continue
+			}
 		}
 		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "
@@ -39,6 +53,51 @@ func prettyArrayOfPrimitives(anArray array) string {
 	}
 	result = result + "]"
 	return result
+}
+
+func getFloatV1(anything any) (float64, error) {
+    switch anythingNew := anything.(type) {
+    case float64:
+        return anythingNew, nil
+    case float32:
+        return float64(anythingNew), nil
+    case int64:
+        return float64(anythingNew), nil
+    case int32: // rune
+        return float64(anythingNew), nil
+    case int16:
+        return float64(anythingNew), nil
+    case int8:
+        return float64(anythingNew), nil
+    case int:
+        return float64(anythingNew), nil
+    case uint64:
+        return float64(anythingNew), nil
+    case uint32:
+        return float64(anythingNew), nil
+    case uint16:
+        return float64(anythingNew), nil
+    case uint8: // byte
+        return float64(anythingNew), nil
+    case uint:
+        return float64(anythingNew), nil
+    case complex128:
+        return real(anythingNew), nil
+    case complex64:
+        return float64(real(anythingNew)), nil
+    default:
+        return math.NaN(), errors.New("NON-NUMERIC TYPE COULD NOT BE CONVERTED TO FLOAT")
+    }
+}
+
+func getFloatV2(anything any) (float64, error) {
+    value := reflect.ValueOf(anything)
+    value = reflect.Indirect(value)
+    if (value.Type().ConvertibleTo(reflect.TypeOf(float64(0))) == false) {
+        return math.NaN(), fmt.Errorf("CANNOT CONVERT %v TO FLOAT64", value.Type())
+    }
+    finalValue := value.Convert(reflect.TypeOf(float64(0)))
+    return finalValue.Float(), nil
 }
 
 func spreadSyntaxObject(parameters ...any) object {
@@ -93,16 +152,23 @@ func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array,
 func main() {
 	fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice")
 
-	numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+	numbers := array{36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
 	fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
 
 	fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 	numbersTotal := arrayReduce(func(currentResult any, currentNumber any, _ int, _ array) any {
-		return (currentResult.(int) + currentNumber.(int))
-	}, numbers, 0)
+		// currentResultF64, currentResultF64Error := getFloatV2(currentResult)
+		// currentNumberF64, currentNumberF64Error := getFloatV2(currentNumber)
+		currentResultF64, currentResultF64Error := getFloatV1(currentResult)
+		currentNumberF64, currentNumberF64Error := getFloatV1(currentNumber)
+		if (currentResultF64Error == nil && currentNumberF64Error == nil) {
+			return (currentResultF64 + currentNumberF64)
+		}
+		return currentResult
+	}, numbers, 0.0)
 	fmt.Println("total numbers:", prettyJsonStringify(numbersTotal))
-	// total number: 635
+	// total number: 41.2
 
 	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")
 

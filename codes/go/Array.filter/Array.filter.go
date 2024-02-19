@@ -15,23 +15,35 @@ type object map[string]any
 
 func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-	if err == nil {
+	if (err == nil) {
 		return string(marshalledJson)
 	}
-
 	return "undefined"
 }
 
 func prettyArrayOfPrimitives(anArray array) string {
 	result := "["
 	for arrayItemIndex, arrayItem := range anArray {
-		switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-		case reflect.String:
-			result += "\"" + arrayItem.(string) + "\""
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-			result += fmt.Sprint(arrayItem)
-		default:
-			continue
+		if (arrayItem == nil) {
+			result += "nil"
+		}
+		if (arrayItem != nil) {
+			switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
+			case reflect.String:
+				result += "\"" + arrayItem.(string) + "\""
+			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+				result += fmt.Sprint(arrayItem)
+			case reflect.Bool:
+				if arrayItem.(bool) {
+					result += "true"
+				} else {
+					result += "false"
+				}
+			case reflect.Invalid:
+				result += "nil"
+			default:
+				continue
+			}
 		}
 		if ((arrayItemIndex + 1) != len(anArray)) {
 			result = result + ", "

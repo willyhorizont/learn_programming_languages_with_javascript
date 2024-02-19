@@ -6,19 +6,29 @@ typealias MyArray = [Any?]
 func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) {
+        guard let arrayItem = arrayItem else {
+            result += "undefined"
+            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
+                result += ", "
+            }
+            continue
+        }
+        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
             continue
         }
         if let arrayItem = arrayItem as? String {
             result += "\"\(arrayItem)\""
         }
-        if let arrayItem = arrayItem as? NSNumber {
+        if let arrayItem = arrayItem as? Bool {
             result += "\(arrayItem)"
+        } else {
+            if let arrayItem = arrayItem as? NSNumber {
+                result += "\(arrayItem)"
+            }
         }
         if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
             result += ", "
         }
-        
     }
     result += "]"
     return result

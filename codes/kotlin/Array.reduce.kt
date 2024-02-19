@@ -6,11 +6,11 @@ fun main() {
     fun prettyArrayOfPrimitives(anArrayOfPrimitives: MutableList<Any?>): String {
         var result = "["
         for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
-            if (((arrayItem is String) == false) && ((arrayItem is Number) == false)) continue
+            if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
             if (arrayItem is String) {
                 result += "\"${arrayItem}\""
             }
-            if (arrayItem is Number) {
+            if ((arrayItem is Number) || (arrayItem is Boolean) || arrayItem == null) {
                 result += "${arrayItem}"
             }
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) {
@@ -131,22 +131,60 @@ fun main() {
 
     println("\n// JavaScript-like Array.reduce() in Kotlin MutableList<Any?> (List)")
     
-    val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
+    val numbers = mutableListOf<Any?>(36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
 
     var numbersTotal: Any?
 
     println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> ((currentResult as Int) + (currentNumber as Int)) }, numbers, 0)
+    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
+        if (currentResult is Number && currentNumber is Number) {
+            currentResult.toDouble() + currentNumber.toDouble()
+        } else {
+            currentResult
+        }
+    }, numbers, 0.0)
     println("total numbers: ${numbersTotal}")
-    // total number: 635
+    // total number: 41.2
+
+    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
+        when {
+            currentResult is Number && currentNumber is Number -> currentResult.toDouble() + currentNumber.toDouble()
+            else -> currentResult
+        }
+    }, numbers, 0.0)
+    println("total numbers: ${numbersTotal}")
+    // total number: 41.2
+    
+    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }, numbers, 0.0)
+    println("total numbers: ${numbersTotal}")
+    // total number: 41.2
 
     println("// using Kotlin Array.reduce() built-in method \"Array.fold\"")
 
-    numbersTotal = numbers.fold(0) { currentResult: Any?, currentNumber: Any? -> ((currentResult as Int) + (currentNumber as Int)) }
+    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
+        if (currentResult is Number && currentNumber is Number) {
+            currentResult.toDouble() + currentNumber.toDouble()
+        } else {
+            currentResult
+        }
+    }
     println("total numbers: ${numbersTotal}")
-    // total number: 635
+    // total number: 41.2
+
+    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
+        when {
+            currentResult is Number && currentNumber is Number -> currentResult.toDouble() + currentNumber.toDouble()
+            else -> currentResult // Return currentResult unchanged if types are incompatible
+        }
+    }
+    println("total numbers: ${numbersTotal}")
+    // total number: 41.2
+
+    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }
+    println("total numbers: ${numbersTotal}")
+    // total number: 41.2
 
     println("\n// JavaScript-like Array.reduce() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
 

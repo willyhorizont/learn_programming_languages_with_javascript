@@ -6,19 +6,29 @@ typealias MyArray = [Any?]
 func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) {
+        guard let arrayItem = arrayItem else {
+            result += "undefined"
+            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
+                result += ", "
+            }
+            continue
+        }
+        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
             continue
         }
         if let arrayItem = arrayItem as? String {
             result += "\"\(arrayItem)\""
         }
-        if let arrayItem = arrayItem as? NSNumber {
+        if let arrayItem = arrayItem as? Bool {
             result += "\(arrayItem)"
+        } else {
+            if let arrayItem = arrayItem as? NSNumber {
+                result += "\(arrayItem)"
+            }
         }
         if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
             result += ", "
         }
-        
     }
     result += "]"
     return result
@@ -39,10 +49,10 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> St
         if let anything = anything as? String {
             return "\"\(anything)\""
         }
-        if let anything = anything as? NSNumber {
+        if let anything = anything as? Bool {
             return "\(anything)"
         }
-        if let anything = anything as? Bool {
+        if let anything = anything as? NSNumber {
             return "\(anything)"
         }
         if let anything = anything as? MyArray {
@@ -130,6 +140,61 @@ func spreadSyntaxArray(_ parameters: Any?...) -> MyArray {
     return newArray
 }
 
+func getDouble(_ anything: Any?) -> Double? {
+    guard let anything = anything else {
+        return nil
+    }
+    if let doubleValue = anything as? Double {
+        return doubleValue
+    }
+    if let floatValue = anything as? Float {
+        return Double(floatValue)
+    }
+    if let floatValue = anything as? Float16 {
+        return Double(floatValue)
+    }
+    if let floatValue = anything as? Float32 {
+        return Double(floatValue)
+    }
+    if let floatValue = anything as? Float64 {
+        return Double(floatValue)
+    }
+    if let floatValue = anything as? Float80 {
+        return Double(floatValue)
+    }
+    if let intValue = anything as? Int {
+        return Double(intValue)
+    }
+    if let intValue = anything as? Int8 {
+        return Double(intValue)
+    }
+    if let intValue = anything as? Int16 {
+        return Double(intValue)
+    }
+    if let intValue = anything as? Int32 {
+        return Double(intValue)
+    }
+    if let intValue = anything as? Int64 {
+        return Double(intValue)
+    }
+    if let uintValue = anything as? UInt {
+        return Double(uintValue)
+    }
+    if let uintValue = anything as? UInt8 {
+        return Double(uintValue)
+    }
+    if let uintValue = anything as? UInt16 {
+        return Double(uintValue)
+    }
+    if let uintValue = anything as? UInt32 {
+        return Double(uintValue)
+    }
+    if let uintValue = anything as? UInt64 {
+        return Double(uintValue)
+    }
+    return nil
+}
+
 func arrayReduce(_ callbackFunction: (Any?, Any?, Int, MyArray) -> Any?, _ anArray: MyArray, _ initialValue: Any?) -> Any? {
     // JavaScript-like Array.reduce() function
     var result = initialValue
@@ -141,7 +206,7 @@ func arrayReduce(_ callbackFunction: (Any?, Any?, Int, MyArray) -> Any?, _ anArr
 
 print("\n// JavaScript-like Array.reduce() in Swift [Any?] (Array)")
 
-let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
+let numbers: MyArray = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
 
 var numbersTotal: Any?
@@ -149,24 +214,24 @@ var numbersTotal: Any?
 print("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 numbersTotal = arrayReduce({ (currentResult: Any?, currentNumber: Any?, _: Int, _: MyArray) -> Any? in
-    guard let currentResult = currentResult as? Int, let currentNumber = currentNumber as? Int else {
-        return nil
+    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+        return currentResultDouble + currentNumberDouble
     }
-    return currentResult + currentNumber
-}, numbers, 0)
+    return currentResult
+}, numbers, 0.0)
 print("total number: \(numbersTotal ?? "undefined")")
-// total number: 635
+// total number: 41.2
 
 print("// using Swift Array.reduce() built-in method \"Array.reduce\"")
 
-numbersTotal = numbers.reduce(0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
-    guard let currentResult = currentResult as? Int, let currentNumber = currentNumber as? Int else {
-        return nil
+numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
+    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+        return currentResultDouble + currentNumberDouble
     }
-    return currentResult + currentNumber
+    return currentResult
 }
 print("total number: \(numbersTotal ?? "undefined")")
-// total number: 635
+// total number: 41.2
 
 print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Dictionaries)")
 

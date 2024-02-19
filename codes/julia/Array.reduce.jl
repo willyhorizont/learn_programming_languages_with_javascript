@@ -5,13 +5,16 @@ using JSON
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false))
+        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false) && (isa(array_item, Bool) === false) && array_item !== nothing)
             continue
         end
         if (isa(array_item, AbstractString) === true)
             result = string(result, "\"", array_item, "\"")
         end
-        if (isa(array_item, Number) === true)
+        if (array_item === nothing)
+            result = string(result, "null")
+        end
+        if ((isa(array_item, Number) === true) || (isa(array_item, Bool) === true))
             result = string(result, array_item)
         end
         if (array_item_index !== length(an_array_of_primitives))
@@ -33,26 +36,26 @@ end
 
 println("\n# JavaScript-like Array.reduce() in Julia Array")
 
-numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
+numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
 println("numbers: ", pretty_array_of_primitives(numbers))
 
 println("# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
 numbers_total = array_reduce((current_result, current_number, _, _) -> (current_result + current_number), numbers, 0)
 println("total number: ", numbers_total)
-# total number: 635
+# total number: 41.2
 
 println("# using Julia Array.reduce() built-in function \"reduce\"")
 
 numbers_total = reduce((current_result, current_number) -> (current_result + current_number), numbers; init=0)
 println("total number: ", numbers_total)
-# total number: 635
+# total number: 41.2
 
 println("# using Julia Array.reduce() built-in function \"foldl\"")
 
 numbers_total = foldl((current_result, current_number) -> (current_result + current_number), numbers; init=0)
 println("total number: ", numbers_total)
-# total number: 635
+# total number: 41.2
 
 println("\n# JavaScript-like Array.reduce() in Julia Array of Dicts")
 

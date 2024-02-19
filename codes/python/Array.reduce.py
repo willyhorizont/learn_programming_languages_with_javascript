@@ -12,20 +12,20 @@ def array_reduce(callback_function, an_array, initial_value):
 
 print('\n# JavaScript-like Array.reduce() in Python List')
 
-numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
+numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
 print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.map() function "array_reduce"')
 
 numbers_total = array_reduce(lambda current_result, current_number, *_: current_result + current_number, numbers, 0)
 print(f'total number: {numbers_total}')
-# total number: 635
+# total number: 41.2
 
 print('# using Python Array.map() built-in function "functools.reduce"')
 
 numbers_total = reduce(lambda current_result, current_number: current_result + current_number, numbers, 0)
 print(f'total number: {numbers_total}')
-# total number: 635
+# total number: 41.2
 
 print('\n# JavaScript-like Array.reduce() in Python List of Dictionaries')
 

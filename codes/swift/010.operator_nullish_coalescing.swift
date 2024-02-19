@@ -20,10 +20,10 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> St
         if let anything = anything as? String {
             return "\"\(anything)\""
         }
-        if let anything = anything as? NSNumber {
+        if let anything = anything as? Bool {
             return "\(anything)"
         }
-        if let anything = anything as? Bool {
+        if let anything = anything as? NSNumber {
             return "\(anything)"
         }
         if let anything = anything as? MyArray {

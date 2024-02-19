@@ -5,8 +5,17 @@ echo("\n\n// JavaScript-like Array.includes() in PHP");
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && (gettype($array_item) !== "string")) {
+        if (is_numeric($array_item) === false && (gettype($array_item) !== "string") && (is_bool($array_item) === false) && $array_item !== null) {
             continue;
+        }
+        if ($array_item === null) {
+            $result = $result . "null";
+        }
+        if ($array_item === true) {
+            $result = $result . "true";
+        }
+        if ($array_item === false) {
+            $result = $result . "false";
         }
         if (gettype($array_item) === "string") {
             $result = $result . "\"" . $array_item . "\"";

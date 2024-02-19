@@ -1,3 +1,12 @@
+function s_print(...)
+    local parameters = {...}
+    local result = ""
+    for _, parameter in ipairs(parameters) do
+        result = result .. tostring(parameter)
+    end
+    print(result)
+end
+
 print('\n-- Factorial(n) in Lua')
 
 function factorial_v1(number)
@@ -50,13 +59,13 @@ function factorial_v3(number)
 end
 
 print("-- using factorial function \"factorial_v1\"")
-print("Factorial(5): " .. tostring(factorial_v1(5)))
+s_print("Factorial(5): ", factorial_v1(5))
 -- Factorial(5): 120
 
 print("-- using factorial function \"factorial_v2\"")
-print("Factorial(5): " .. tostring(factorial_v2(5)))
+s_print("Factorial(5): ", factorial_v2(5))
 -- Factorial(5): 120
 
 print("-- using factorial function \"factorial_v3\"")
-print("Factorial(5): " .. tostring(factorial_v3(5)))
+s_print("Factorial(5): ", factorial_v3(5))
 -- Factorial(5): 120

@@ -60,14 +60,14 @@ sub array_reduce {
 
 print("\n# JavaScript-like Array.reduce() in Perl Array\n");
 
-my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
+my @numbers = (36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3);
 print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
 my $numbers_total = array_reduce(sub { my ($current_result, $current_number) = @_; return ($current_result + $current_number); }, \@numbers, 0);
 print("total number $numbers_total\n");
-# total number: 635
+# total number: 41.2
 
 print("\n# JavaScript-like Array.reduce() in Perl Array of Hashes\n");
 

@@ -16,9 +16,9 @@ use warnings;
     Logical NOT [!, not]
 =cut
 
-sub print_bool {
-    my ($val) = @_;
-    return $val ? "true" : "false";
+sub bool_as_string {
+    my ($anything) = @_;
+    return $anything ? "true" : "false";
 }
 
 my $correct_answer;
@@ -232,28 +232,28 @@ print("\n# Logical AND [&&, and]\n");
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 0;
-print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
+print("\$has_driving_license: " . bool_as_string($has_driving_license) . "\n");
 print("((\$my_age >= 17) && \$has_driving_license): \n");
 print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive\n" : "You are not allowed to drive\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 1;
-print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
+print("\$has_driving_license: " . bool_as_string($has_driving_license) . "\n");
 print("((\$my_age >= 17) && \$has_driving_license): \n");
 print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive\n" : "You are not allowed to drive\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 0;
-print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
+print("\$has_driving_license: " . bool_as_string($has_driving_license) . "\n");
 print("((\$my_age >= 17) and \$has_driving_license): \n");
 print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive\n" : "You are not allowed to drive\n"));
 
 $my_age = 17;
 print("\$my_age: " . $my_age . "\n");
 $has_driving_license = 1;
-print("\$has_driving_license: " . print_bool($has_driving_license) . "\n");
+print("\$has_driving_license: " . bool_as_string($has_driving_license) . "\n");
 print("((\$my_age >= 17) and \$has_driving_license): \n");
 print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive\n" : "You are not allowed to drive\n"));
 
@@ -282,17 +282,17 @@ print("You should stay home\n") if (($my_age <= 3) or ($my_age >= 65));
 print("\n# Logical NOT [!, not]\n");
 
 $can_drive = 0;
-print("\$can_drive: " . print_bool($can_drive) . "\n");
-print("!\$can_drive: " . print_bool(!$can_drive) . "\n");
+print("\$can_drive: " . bool_as_string($can_drive) . "\n");
+print("!\$can_drive: " . bool_as_string(!$can_drive) . "\n");
 
 $can_drive = 1;
-print("\$can_drive: " . print_bool($can_drive) . "\n");
-print("!\$can_drive: " . print_bool(!$can_drive) . "\n");
+print("\$can_drive: " . bool_as_string($can_drive) . "\n");
+print("!\$can_drive: " . bool_as_string(!$can_drive) . "\n");
 
 $can_drive = 0;
-print("\$can_drive: " . print_bool($can_drive) . "\n");
-print("not \$can_drive: " . print_bool(not $can_drive) . "\n");
+print("\$can_drive: " . bool_as_string($can_drive) . "\n");
+print("not \$can_drive: " . bool_as_string(not $can_drive) . "\n");
 
 $can_drive = 1;
-print("\$can_drive: " . print_bool($can_drive) . "\n");
-print("not \$can_drive: " . print_bool(not $can_drive) . "\n");
+print("\$can_drive: " . bool_as_string($can_drive) . "\n");
+print("not \$can_drive: " . bool_as_string(not $can_drive) . "\n");

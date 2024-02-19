@@ -11,20 +11,20 @@ end
 
 print("\n# JavaScript-like Array.reduce() in Ruby Array")
 
-numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
+numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
 print("\nnumbers: ", numbers)
 
 print("\n# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
 numbers_total = array_reduce.(->(current_result, current_number, _, _) { (current_result + current_number) }, numbers, 0)
 print("\ntotal number: ", numbers_total)
-# total number: 635
+# total number: 41.2
 
 print("\n# using Ruby Array.reduce() built-in method \"Array.reduce\"")
 
 numbers_total = numbers.reduce(0) { |current_result, current_number| (current_result + current_number) }
 print("\ntotal number: ", numbers_total)
-# total number: 635
+# total number: 41.2
 
 print("\n# JavaScript-like Array.reduce() in Ruby Array of Hashes")
 

@@ -15,10 +15,9 @@ type object map[string]any
 
 func prettyJsonStringify(anything any) string {
 	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-	if err == nil {
+	if (err == nil) {
 		return string(marshalledJson)
 	}
-
 	return "undefined"
 }
 

@@ -9,12 +9,15 @@ prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
     result <- "["
     for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
         arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE)) next
+        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
         if (is.character(arrayItem) == TRUE) {
             result <- paste(sep = "", result, "\"", arrayItem, "\"")
         }
-        if (is.numeric(arrayItem) == TRUE) {
+        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
             result <- paste(sep = "", result, arrayItem)
+        }
+        if (is.null(arrayItem) == TRUE) {
+            result <- paste(sep = "", result, "NULL")
         }
         if (arrayItemIndex != length(anArrayOfPrimitives)) {
             result <- paste(sep = "", result, ", ")

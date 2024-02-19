@@ -1,8 +1,8 @@
 /* eslint-disable dot-notation */
 const friend = {
-    name: "Alisa",
-    country: "Finland",
-    age: 25
+    "name": "Alisa",
+    "country": "Finland",
+    "age": 25
 };
 console.log(`friend: ${JSON.stringify(friend, null, ' '.repeat(4))}`);
 

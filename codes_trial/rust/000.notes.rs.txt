@@ -1,0 +1,1 @@
+setup rust or run it online in https://play.rust-lang.org/?version=stable&mode=debug&edition=2021

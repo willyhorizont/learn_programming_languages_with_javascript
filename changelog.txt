@@ -1,4 +1,13 @@
 =============================changelog==========================================
+14:17 | 02:17 PM | Mon | Feb | 19/02/2024
+0.0.40
+update Array.reduce.*
+add s_print in *.lua, change some print to s_print
+fix prettyArrayOfPrimitives in *.go, *.kt, *.r
+fix pretty_array_of_primitives in *.jl, *.lua, *.php, *.swift
+fix prettyJsonStringify in *.swift
+try rust
+=============================changelog==========================================
 03:06 | 03:06 AM | Thu | Feb | 08/02/2024
 0.0.39
 update list_file.py

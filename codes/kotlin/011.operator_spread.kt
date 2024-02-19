@@ -6,11 +6,11 @@ fun main() {
     fun prettyArrayOfPrimitives(anArrayOfPrimitives: MutableList<Any?>): String {
         var result = "["
         for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
-            if (((arrayItem is String) == false) && ((arrayItem is Number) == false)) continue
+            if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
             if (arrayItem is String) {
                 result += "\"${arrayItem}\""
             }
-            if (arrayItem is Number) {
+            if ((arrayItem is Number) || (arrayItem is Boolean) || arrayItem == null) {
                 result += "${arrayItem}"
             }
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) {

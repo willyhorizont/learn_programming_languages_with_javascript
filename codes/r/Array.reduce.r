@@ -6,12 +6,15 @@ prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
     result <- "["
     for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
         arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE)) next
+        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
         if (is.character(arrayItem) == TRUE) {
             result <- paste(sep = "", result, "\"", arrayItem, "\"")
         }
-        if (is.numeric(arrayItem) == TRUE) {
+        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
             result <- paste(sep = "", result, arrayItem)
+        }
+        if (is.null(arrayItem) == TRUE) {
+            result <- paste(sep = "", result, "NULL")
         }
         if (arrayItemIndex != length(anArrayOfPrimitives)) {
             result <- paste(sep = "", result, ", ")
@@ -93,20 +96,20 @@ arrayReduce <- function(callbackFunction, anArray, initialValue) {
 
 cat("\n# JavaScript-like Array.reduce() in JavaScript-like-Array R list\n")
 
-numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
+numbers <- list(36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
 
 cat("# using JavaScript-like Array.reduce() function \"arrayReduce\"\n")
 
 numbersTotal <- arrayReduce(function(currentResult, currentNumber, ...) (currentResult + currentNumber), numbers, 0)
 cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
-# total number: 635
+# total number: 41.2
 
 cat("# using R Array.reduce() built-in function \"Reduce\"\n")
 
 numbersTotal <- Reduce(function(currentResult, currentNumber) (currentResult + currentNumber), numbers, 0)
 cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
-# total number: 635
+# total number: 41.2
 
 cat("\n# JavaScript-like Array.map() in JavaScript-like-Array-of-Objects R list\n")
 

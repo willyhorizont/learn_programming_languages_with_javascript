@@ -1,11 +1,11 @@
 console.log('\n// Array.reduce() in JavaScript Array');
 
-const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
+const numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3];
 console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
 const numbersTotal = numbers.reduce((currentResult, currentNumber) => (currentResult + currentNumber), 0);
 console.log('total number:', numbersTotal);
-// total numbers: 635
+// total numbers: 41.2
 
 console.log('\n// Array.reduce() in JavaScript Array of Objects');
 

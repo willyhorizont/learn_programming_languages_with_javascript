@@ -18,7 +18,6 @@ func prettyJsonStringify(anything any) string {
 	if (err == nil) {
 		return string(marshalledJson)
 	}
-
 	return "undefined"
 }
 
