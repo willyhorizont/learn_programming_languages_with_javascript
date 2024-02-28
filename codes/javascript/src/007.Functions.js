@@ -10,31 +10,31 @@
 function getRectangleAreaV1(rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 }
-// call the function example: getRectangleAreaV1(3, 4)
+// call the function example: getRectangleAreaV1(7, 5)
 
 // ? function expression
 
 const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
-// call the function example: getRectangleAreaV2(3, 4)
+// call the function example: getRectangleAreaV2(7, 5)
 
 // ? function expression with arrow function or named arrow function
 
 const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
     return rectangleWidth * rectangleLength;
 };
-// call the function example: getRectangleAreaV3(3, 4)
+// call the function example: getRectangleAreaV3(7, 5)
 
 const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength;
-// call the function example: getRectangleAreaV4(3, 4)
+// call the function example: getRectangleAreaV4(7, 5)
 
 // ? named function expression 🤮
 
 const getRectangleAreaV5 = function doSomething(rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
 };
-// call the function example: getRectangleAreaV5(3, 4)
+// call the function example: getRectangleAreaV5(7, 5)
 
 // ? anonymous function
 
@@ -101,10 +101,10 @@ const myArrayOfGetRectangleAreaFunctions = [
     },
     (rectangleWidth, rectangleLength) => rectangleWidth * rectangleLength
 ];
-const getRectangleAreaFunctionResult1 = myArrayOfGetRectangleAreaFunctions[0](3, 4);
-const getRectangleAreaFunctionResult2 = myArrayOfGetRectangleAreaFunctions[1](3, 4);
-const getRectangleAreaFunctionResult3 = myArrayOfGetRectangleAreaFunctions[2](3, 4);
-const getRectangleAreaFunctionResult4 = myArrayOfGetRectangleAreaFunctions[3](3, 4);
+const getRectangleAreaFunctionResult1 = myArrayOfGetRectangleAreaFunctions[0](7, 5);
+const getRectangleAreaFunctionResult2 = myArrayOfGetRectangleAreaFunctions[1](7, 5);
+const getRectangleAreaFunctionResult3 = myArrayOfGetRectangleAreaFunctions[2](7, 5);
+const getRectangleAreaFunctionResult4 = myArrayOfGetRectangleAreaFunctions[3](7, 5);
 
 function exponentiation(a, b) {
     return a ** b;

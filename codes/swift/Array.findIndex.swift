@@ -37,56 +37,64 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     return result
 }
 
-func prettyJsonStringify(_ anything: Any? = nil, indent: String? = "    ") -> String {
+func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
     var indentLevel = 0
-    func prettyJsonStringifyInnerFunction(_ anything: Any? = nil, _ indent: String? = "    ") -> String {
-        guard let anything = anything else {
+    func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+        guard let anythingInner = anythingInner else {
             return "undefined"
         }
-        if (anything as? String == "null") {
+        if (anythingInner as? String == "null") {
             return "null"
         }
-        if (anything as? String == "undefined") {
+        if (anythingInner as? String == "undefined") {
             return "undefined"
         }
-        if let anything = anything as? String {
-            return "\"\(anything)\""
+        if let anythingInner = anythingInner as? String {
+            return "\"\(anythingInner)\""
         }
-        if let anything = anything as? Bool {
-            return "\(anything)"
+        if let anythingInner = anythingInner as? Bool {
+            return "\(anythingInner)"
         }
-        if let anything = anything as? NSNumber {
-            return "\(anything)"
+        if let anythingInner = anythingInner as? NSNumber {
+            return "\(anythingInner)"
         }
-        if let anything = anything as? MyArray {
+        if let anythingInner = anythingInner as? MyArray {
+            if (anythingInner.count == 0) {
+                let result = "[]"
+                return result
+            }
             indentLevel += 1
-            var result = "[\n\(String(repeating: indent ?? "    ", count: indentLevel))"
-            for (arrayItemIndex, arrayItem) in anything.enumerated() {
-                result += prettyJsonStringifyInnerFunction(arrayItem, indent)
-                if ((arrayItemIndex + 1) != anything.count) {
-                    result += ",\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+            var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
+            for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
+                result += prettyJsonStringifyInner(arrayItem, indentInner)
+                if ((arrayItemIndex + 1) != anythingInner.count) {
+                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indent ?? "    ", count: indentLevel))]"
+            result += "\n\(String(repeating: indentInner, count: indentLevel))]"
             return result
         }
-        if let anything = anything as? MyObject {
+        if let anythingInner = anythingInner as? MyObject {
+            if (anythingInner.count == 0) {
+                let result = "{}"
+                return result
+            }
             indentLevel += 1
-            var result = "{\n\(String(repeating: indent ?? "    ", count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anything.enumerated() {
-                result += "\"\(objectKey)\": \(prettyJsonStringifyInnerFunction(objectValue, indent))"
-                if ((entryIndex + 1) != anything.count) {
-                    result += ",\n\(String(repeating: indent ?? "    ", count: indentLevel))"
+            var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
+            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+                result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
+                if ((entryIndex + 1) != anythingInner.count) {
+                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indent ?? "    ", count: indentLevel))}"
+            result += "\n\(String(repeating: indentInner, count: indentLevel))}"
             return result
         }
         return "undefined"
     }
-    return prettyJsonStringifyInnerFunction(anything, indent)
+    return prettyJsonStringifyInner(anything, indent)
 }
 
 func arrayFindIndexV1(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {

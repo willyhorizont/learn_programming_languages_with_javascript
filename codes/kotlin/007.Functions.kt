@@ -8,14 +8,14 @@ fun main() {
     fun getRectangleAreaV1(rectangleWidth: Int, rectangleLength: Int): Int {
         return rectangleWidth * rectangleLength
     }
-    // call the function example: getRectangleAreaV1(3, 4)
+    // call the function example: getRectangleAreaV1(7, 5)
 
     // ? function expression
 
     val getRectangleAreaV2 = fun(rectangleWidth: Int, rectangleLength: Int): Int {
         return rectangleWidth * rectangleLength
     }
-    // call the function example: getRectangleAreaV2(3, 4)
+    // call the function example: getRectangleAreaV2(7, 5)
 
     // ? anonymous function
 
@@ -26,7 +26,7 @@ fun main() {
     // ? function expression with lambda function
 
     val getRectangleAreaV3: (Int, Int) -> Int = { rectangleWidth, rectangleLength -> rectangleWidth * rectangleLength }
-    // call the function example: getRectangleAreaV3(3, 4)
+    // call the function example: getRectangleAreaV3(7, 5)
 
     // ? anonymous lambda function
 
@@ -67,10 +67,10 @@ fun main() {
         },
         { rectangleWidth: Int, rectangleLength: Int -> rectangleWidth * rectangleLength }
     )
-    val getRectangleAreaFunctionResult1 = (myArrayOfGetRectangleAreaFunctions[0] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunctionResult2 = (myArrayOfGetRectangleAreaFunctions[1] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunctionResult3 = (myArrayOfGetRectangleAreaFunctions[2] as (Int, Int) -> Int)(3, 4)
-    val getRectangleAreaFunctionResult4 = (myArrayOfGetRectangleAreaFunctions[3] as (Int, Int) -> Int)(3, 4)
+    val getRectangleAreaFunctionResult1 = (myArrayOfGetRectangleAreaFunctions[0] as (Int, Int) -> Int)(7, 5)
+    val getRectangleAreaFunctionResult2 = (myArrayOfGetRectangleAreaFunctions[1] as (Int, Int) -> Int)(7, 5)
+    val getRectangleAreaFunctionResult3 = (myArrayOfGetRectangleAreaFunctions[2] as (Int, Int) -> Int)(7, 5)
+    val getRectangleAreaFunctionResult4 = (myArrayOfGetRectangleAreaFunctions[3] as (Int, Int) -> Int)(7, 5)
 
     fun exponentiation(a: Double, b: Double): Double {
         return Math.pow(a, b)

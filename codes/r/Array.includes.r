@@ -260,3 +260,29 @@ cat(paste(sep = "", "name: ", prettyJsonStringify(name), "\n"))
 isMyFriend <- arrayIncludesV6(name, myFriends)
 cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(name), ": ", isMyFriend, "\n"))
 # is my friends includes "Ezekiel": FALSE
+
+cat("# using R Array.includes() built-in operator \"%in%\"\n")
+
+name <- "Alisa"
+cat(paste(sep = "", "name: ", prettyJsonStringify(name), "\n"))
+isMyFriend <- name %in% myFriends
+cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(name), ": ", isMyFriend, "\n"))
+# is my friends includes "Alisa": TRUE
+
+name <- "Trivia"
+cat(paste(sep = "", "name: ", prettyJsonStringify(name), "\n"))
+isMyFriend <- name %in% myFriends
+cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(name), ": ", isMyFriend, "\n"))
+# is my friends includes "Trivia": TRUE
+
+name <- "Tony"
+cat(paste(sep = "", "name: ", prettyJsonStringify(name), "\n"))
+isMyFriend <- name %in% myFriends
+cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(name), ": ", isMyFriend, "\n"))
+# is my friends includes "Tony": FALSE
+
+name <- "Ezekiel"
+cat(paste(sep = "", "name: ", prettyJsonStringify(name), "\n"))
+isMyFriend <- name %in% myFriends
+cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(name), ": ", isMyFriend, "\n"))
+# is my friends includes "Ezekiel": FALSE

@@ -1,9 +1,11 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
 
 /*
+Source:
+    https://www.codewars.com/kata/57eadb7ecd143f4c9c0000a3
 Title:
     Abbreviate a Two Word Name
-Instructions:
+Description:
     Write a function to convert a name into initials. This kata strictly takes two words with one space in between them.
     The output should be two capital letters with a dot separating them.
     It should look like this:
@@ -12,9 +14,9 @@ Instructions:
 */
 
 fun main() {
-    val abbrevName: (String) -> String = { completeName -> completeName.split(" ").toMutableList().map { name: String -> name.first().uppercase() }.joinToString(".") }
-    println(abbrevName("Sam Harris"))
+    val abbreviateName: (String) -> String = { completeName -> completeName.split(" ").toMutableList().map { name: String -> name.first().uppercase() }.joinToString(".") }
+    println(abbreviateName("Sam Harris"))
     // S.H
-    println(abbrevName("patrick feeney"))
+    println(abbreviateName("patrick feeney"))
     // P.F
 }

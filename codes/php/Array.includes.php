@@ -2,6 +2,11 @@
 
 echo("\n\n// JavaScript-like Array.includes() in PHP");
 
+function bool_to_string($anything) {
+    if (is_bool($anything) === false) return "not bool";
+    return (($anything === true) ? "true" : "false");
+}
+
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
@@ -36,24 +41,24 @@ echo("\nmy friends: " . pretty_array_of_primitives($my_friends));
 
 $name = 'Alisa';
 echo("\nname: \"$name\"");
-$is_my_friend = in_array($name, $my_friends) === false ? 'false' : 'true';
+$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
 echo("\nis my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Alisa": true
 
 $name = 'Trivia';
 echo("\nname: \"$name\"");
-$is_my_friend = in_array($name, $my_friends) === false ? 'false' : 'true';
+$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
 echo("\nis my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Trivia": true
 
 $name = 'Tony';
 echo("\nname: \"$name\"");
-$is_my_friend = in_array($name, $my_friends) === false ? 'false' : 'true';
+$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
 echo("\nis my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Tony": false
 
 $name = 'Ezekiel';
 echo("\nname: \"$name\"");
-$is_my_friend = in_array($name, $my_friends) === false ? 'false' : 'true';
+$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
 echo("\nis my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Ezekiel": false

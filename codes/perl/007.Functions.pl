@@ -7,10 +7,10 @@ sub get_rectangle_area_v1 {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 }
-# call the function example: get_rectangle_area_v1(3, 4)
+# call the function example: get_rectangle_area_v1(7, 5)
 
 sub get_rectangle_area_v2 { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
-# call the function example: get_rectangle_area_v2(3, 4)
+# call the function example: get_rectangle_area_v2(7, 5)
 
 # ? function expression
 
@@ -18,10 +18,10 @@ my $get_rectangle_area_v3 = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 };
-# call the function example: $get_rectangle_area_v3(3, 4)
+# call the function example: $get_rectangle_area_v3(7, 5)
 
 my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
-# call the function example: $get_rectangle_area_v4(3, 4)
+# call the function example: $get_rectangle_area_v4(7, 5)
 
 # ? anonymous function
 
@@ -70,9 +70,9 @@ my @my_array_of_get_rectangle_area_functions = (
     sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; }
 );
 
-my $get_rectangle_area_function_result1 = $my_array_of_get_rectangle_area_functions[0](3, 4);
-my $get_rectangle_area_function_result2 = $my_array_of_get_rectangle_area_functions[1](3, 4);
-my $get_rectangle_area_function_result3 = $my_array_of_get_rectangle_area_functions[2](3, 4);
+my $get_rectangle_area_function_result1 = $my_array_of_get_rectangle_area_functions[0](7, 5);
+my $get_rectangle_area_function_result2 = $my_array_of_get_rectangle_area_functions[1](7, 5);
+my $get_rectangle_area_function_result3 = $my_array_of_get_rectangle_area_functions[2](7, 5);
 
 sub exponentiation {
     my ($a, $b) = @_;

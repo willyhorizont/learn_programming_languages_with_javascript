@@ -44,42 +44,42 @@ print(f'numbers: {json.dumps(numbers)}')
 print('# using JavaScript-like Array.some() function "array_some_v1"')
 
 is_any_numbers_less_than500 = array_some_v1(lambda number, *_: number < 500, numbers)
-print(f'is any number < 500: {"true" if is_any_numbers_less_than500 == True else "false"}')
-# is any number < 500: true
+print(f'is any number < 500: {is_any_numbers_less_than500}')
+# is any number < 500: True
 
 is_any_numbers_more_than500 = array_some_v1(lambda number, *_: number > 500, numbers)
-print(f'is any number > 500: {"true" if is_any_numbers_more_than500 == True else "false"}')
-# is any number > 500: false
+print(f'is any number > 500: {is_any_numbers_more_than500}')
+# is any number > 500: False
 
 print('# using JavaScript-like Array.some() function "array_some_v2"')
 
 is_any_numbers_less_than500 = array_some_v2(lambda number, *_: number < 500, numbers)
-print(f'is any number < 500: {"true" if is_any_numbers_less_than500 == True else "false"}')
-# is any number < 500: true
+print(f'is any number < 500: {is_any_numbers_less_than500}')
+# is any number < 500: True
 
 is_any_numbers_more_than500 = array_some_v2(lambda number, *_: number > 500, numbers)
-print(f'is any number > 500: {"true" if is_any_numbers_more_than500 == True else "false"}')
-# is any number > 500: false
+print(f'is any number > 500: {is_any_numbers_more_than500}')
+# is any number > 500: False
 
 print('# using JavaScript-like Array.some() function "array_some_v3"')
 
 is_any_numbers_less_than500 = array_some_v3(lambda number, *_: number < 500, numbers)
-print(f'is any number < 500: {"true" if is_any_numbers_less_than500 == True else "false"}')
-# is any number < 500: true
+print(f'is any number < 500: {is_any_numbers_less_than500}')
+# is any number < 500: True
 
 is_any_numbers_more_than500 = array_some_v3(lambda number, *_: number > 500, numbers)
-print(f'is any number > 500: {"true" if is_any_numbers_more_than500 == True else "false"}')
-# is any number > 500: false
+print(f'is any number > 500: {is_any_numbers_more_than500}')
+# is any number > 500: False
 
 print('# using Python Array.some() built-in function "any", the "pythonic" way')
 
 is_any_numbers_less_than500 = any([number < 500 for number in numbers])
-print(f'is any number < 500: {"true" if is_any_numbers_less_than500 == True else "false"}')
-# is any number < 500: true
+print(f'is any number < 500: {is_any_numbers_less_than500}')
+# is any number < 500: True
 
 is_any_numbers_more_than500 = any([number > 500 for number in numbers])
-print(f'is any number > 500: {"true" if is_any_numbers_more_than500 == True else "false"}')
-# is any number > 500: false
+print(f'is any number > 500: {is_any_numbers_more_than500}')
+# is any number > 500: False
 
 print('\n# JavaScript-like Array.some() in Python List of Dictionaries')
 
@@ -106,49 +106,49 @@ print(f'products: {json.dumps(products, indent=4)}')
 print('# using JavaScript-like Array.every() function "array_some_v1"')
 
 is_any_product_price_less_than_500 = array_some_v1(lambda product, *_: product['price'] < 500, products)
-print(f'is any product price < 500: {"true" if is_any_product_price_less_than_500 == True else "false"}')
-# is any product price < 500: true
+print(f'is any product price < 500: {is_any_product_price_less_than_500}')
+# is any product price < 500: True
 
 is_any_product_price_more_than_500 = array_some_v1(lambda product, *_: product['price'] > 500, products)
-print(f'is any product price > 500: {"true" if is_any_product_price_more_than_500 == True else "false"}')
-# is any product price > 500: false
+print(f'is any product price > 500: {is_any_product_price_more_than_500}')
+# is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v2"')
 
 is_any_product_price_less_than_500 = array_some_v2(lambda product, *_: product['price'] < 500, products)
-print(f'is any product price < 500: {"true" if is_any_product_price_less_than_500 == True else "false"}')
-# is any product price < 500: true
+print(f'is any product price < 500: {is_any_product_price_less_than_500}')
+# is any product price < 500: True
 
 is_any_product_price_more_than_500 = array_some_v2(lambda product, *_: product['price'] > 500, products)
-print(f'is any product price > 500: {"true" if is_any_product_price_more_than_500 == True else "false"}')
-# is any product price > 500: false
+print(f'is any product price > 500: {is_any_product_price_more_than_500}')
+# is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v3"')
 
 is_any_product_price_less_than_500 = array_some_v3(lambda product, *_: product['price'] < 500, products)
-print(f'is any product price < 500: {"true" if is_any_product_price_less_than_500 == True else "false"}')
-# is any product price < 500: true
+print(f'is any product price < 500: {is_any_product_price_less_than_500}')
+# is any product price < 500: True
 
 is_any_product_price_more_than_500 = array_some_v3(lambda product, *_: product['price'] > 500, products)
-print(f'is any product price > 500: {"true" if is_any_product_price_more_than_500 == True else "false"}')
-# is any product price > 500: false
+print(f'is any product price > 500: {is_any_product_price_more_than_500}')
+# is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v4"')
 
 is_any_product_price_less_than_500 = array_some_v4(lambda product, *_: product['price'] < 500, products)
-print(f'is any product price < 500: {"true" if is_any_product_price_less_than_500 == True else "false"}')
-# is any product price < 500: true
+print(f'is any product price < 500: {is_any_product_price_less_than_500}')
+# is any product price < 500: True
 
 is_any_product_price_more_than_500 = array_some_v4(lambda product, *_: product['price'] > 500, products)
-print(f'is any product price > 500: {"true" if is_any_product_price_more_than_500 == True else "false"}')
-# is any product price > 500: false
+print(f'is any product price > 500: {is_any_product_price_more_than_500}')
+# is any product price > 500: False
 
 print('# using Python Array.some() built-in function "any", the "pythonic" way')
 
 is_any_product_price_less_than_500 = any([product['price'] < 500 for product in products])
-print(f'is any product price < 500: {"true" if is_any_product_price_less_than_500 == True else "false"}')
-# is any product price < 500: true
+print(f'is any product price < 500: {is_any_product_price_less_than_500}')
+# is any product price < 500: True
 
 is_any_product_price_more_than_500 = any([product['price'] > 500 for product in products])
-print(f'is any product price > 500: {"true" if is_any_product_price_more_than_500 == True else "false"}')
-# is any product price > 500: false
+print(f'is any product price > 500: {is_any_product_price_more_than_500}')
+# is any product price > 500: False

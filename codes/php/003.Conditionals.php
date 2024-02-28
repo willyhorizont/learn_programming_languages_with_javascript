@@ -17,7 +17,7 @@
     Logical NOT (!)
 */
 
-function bool_as_string($anything) {
+function bool_to_string($anything) {
     if (is_bool($anything) === false) return "not bool";
     return (($anything === true) ? "true" : "false");
 }
@@ -119,28 +119,28 @@ echo("\n\n// Logical AND [\"&&\", \"and\"]\n");
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = false;
-echo("\n\$has_driving_license: " . bool_as_string($has_driving_license));
+echo("\n\$has_driving_license: " . bool_to_string($has_driving_license));
 echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
 echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = true;
-echo("\n\$has_driving_license: " . bool_as_string($has_driving_license));
+echo("\n\$has_driving_license: " . bool_to_string($has_driving_license));
 echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
 echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = false;
-echo("\n\$has_driving_license: " . bool_as_string($has_driving_license));
+echo("\n\$has_driving_license: " . bool_to_string($has_driving_license));
 echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
 echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
 $my_age = 17;
 echo("\n\$my_age: " . $my_age);
 $has_driving_license = true;
-echo("\n\$has_driving_license: " . bool_as_string($has_driving_license));
+echo("\n\$has_driving_license: " . bool_to_string($has_driving_license));
 echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
 echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\nYou are allowed to drive" : "\nYou are not allowed to drive"));
 
@@ -169,9 +169,9 @@ if (($my_age <= 3) or ($my_age >= 65)) echo("\nYou should stay home");
 echo("\n\n// Logical NOT (!)\n");
 
 $can_drive = false;
-echo("\n\$can_drive: " . bool_as_string($can_drive));
-echo("\n!\$can_drive: " . bool_as_string(!$can_drive));
+echo("\n\$can_drive: " . bool_to_string($can_drive));
+echo("\n!\$can_drive: " . bool_to_string(!$can_drive));
 
 $can_drive = true;
-echo("\n\$can_drive: " . bool_as_string($can_drive));
-echo("\n!\$can_drive: " . bool_as_string(!$can_drive));
+echo("\n\$can_drive: " . bool_to_string($can_drive));
+echo("\n!\$can_drive: " . bool_to_string(!$can_drive));

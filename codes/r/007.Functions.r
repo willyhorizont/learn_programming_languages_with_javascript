@@ -48,9 +48,9 @@ myArrayOfGetRectangleAreaFunctions <- list(
 )
 
 # In R, when we store functions in a list, we should use double square brackets [[ ]] to access and call them.
-getRectangleAreaFunctionResult1 <- myArrayOfGetRectangleAreaFunctions[[1]](3, 4)
-getRectangleAreaFunctionResult2 <- myArrayOfGetRectangleAreaFunctions[[2]](3, 4)
-getRectangleAreaFunctionResult3 <- myArrayOfGetRectangleAreaFunctions[[3]](3, 4)
+getRectangleAreaFunctionResult1 <- myArrayOfGetRectangleAreaFunctions[[1]](7, 5)
+getRectangleAreaFunctionResult2 <- myArrayOfGetRectangleAreaFunctions[[2]](7, 5)
+getRectangleAreaFunctionResult3 <- myArrayOfGetRectangleAreaFunctions[[3]](7, 5)
 
 exponentiation <- function(a, b) {
     return(a ^ b)

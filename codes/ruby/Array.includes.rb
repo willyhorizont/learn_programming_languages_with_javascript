@@ -1,5 +1,7 @@
 print("\n# JavaScript-like Array.includes() in Ruby")
 
+print("\n# using Ruby Array.includes() built-in method \"include?\"")
+
 my_friends = ["Alisa", "Trivia"]
 print("\nmy friends: ", my_friends)
 

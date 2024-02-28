@@ -6,17 +6,17 @@ using Statistics
 function get_rectangle_area_v1(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
-# call the function example: get_rectangle_area_v1(3, 4)
+# call the function example: get_rectangle_area_v1(7, 5)
 
 get_rectangle_area_v2(rectangle_width, rectangle_length) = rectangle_width * rectangle_length
-# call the function example: get_rectangle_area_v2(3, 4)
+# call the function example: get_rectangle_area_v2(7, 5)
 
 # ? function expression
 
 get_rectangle_area_v3 = function (rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
-# call the function example: get_rectangle_area_v3(3, 4)
+# call the function example: get_rectangle_area_v3(7, 5)
 
 # ? anonymous function
 
@@ -29,7 +29,7 @@ end
 get_rectangle_area_v4 = function do_something(rectangle_width, rectangle_length)
     return rectangle_width * rectangle_length
 end
-# call the function example: get_rectangle_area_v4(3, 4)
+# call the function example: get_rectangle_area_v4(7, 5)
 
 # ? function expression with arrow function or named arrow function
 
@@ -37,10 +37,10 @@ get_rectangle_area_v5 = (rectangle_width, rectangle_length) ->
     begin
         return rectangle_width * rectangle_length
     end
-# call the function example: get_rectangle_area_v5(3, 4)
+# call the function example: get_rectangle_area_v5(7, 5)
 
 get_rectangle_area_v6 = (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
-# call the function example: get_rectangle_area_v6(3, 4)
+# call the function example: get_rectangle_area_v6(7, 5)
 
 # ? anonymous arrow function
 
@@ -90,9 +90,9 @@ my_array_of_get_rectangle_area_functions = [
     end,
     (rectangle_width, rectangle_length) -> rectangle_width * rectangle_length
 ]
-get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[1](3, 4)
-get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[2](3, 4)
-get_rectangle_area_function_result3 = my_array_of_get_rectangle_area_functions[3](3, 4)
+get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[1](7, 5)
+get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[2](7, 5)
+get_rectangle_area_function_result3 = my_array_of_get_rectangle_area_functions[3](7, 5)
 
 function exponentiation(a, b)
     return a ^ b

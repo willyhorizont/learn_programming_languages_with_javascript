@@ -112,6 +112,16 @@ $numbers_odd = array_filter_v4(fn($number) => (($number % 2) !== 0), $numbers);
 echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
 // odd numbers only: [27,23,65,93,87]
 
+echo("\n// using PHP Array.filter() built-in function \"array_values(array_filter)\"");
+
+$numbers_even = array_values(array_filter($numbers, fn($number) => (($number % 2) === 0)));
+echo("\neven numbers only: " . pretty_array_of_primitives($numbers_even));
+// even numbers only: [12,34,36,4,254]
+
+$numbers_odd = array_values(array_filter($numbers, fn($number) => (($number % 2) !== 0)));
+echo("\nodd numbers only: " . pretty_array_of_primitives($numbers_odd));
+// odd numbers only: [27,23,65,93,87]
+
 echo("\n\n// JavaScript-like Array.filter() in PHP Array of Associative-Arrays");
 
 $products = [
@@ -230,6 +240,34 @@ echo("\nproducts with price <= 100 only: " . json_encode($products_below_100, JS
 // ]
 
 $products_above_100 = array_filter_v4(fn($product) => $product['price'] >= 100, $products);
+echo("\nproducts with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+// products with price >= 100 only: [
+//     {
+//         "code": "pasta",
+//         "price": 321
+//     },
+//     {
+//         "code": "bubble_gum",
+//         "price": 233
+//     },
+//     {
+//         "code": "towel",
+//         "price": 499
+//     }
+// ]
+
+echo("\n// using PHP Array.filter() built-in function \"array_values(array_filter)\"");
+
+$products_below_100 = array_values(array_filter($products, fn($product) => $product['price'] <= 100));
+echo("\nproducts with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+// products with price <= 100 only: [
+//     {
+//         "code": "potato_chips",
+//         "price": 5
+//     }
+// ]
+
+$products_above_100 = array_values(array_filter($products, fn($product) => $product['price'] >= 100));
 echo("\nproducts with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {

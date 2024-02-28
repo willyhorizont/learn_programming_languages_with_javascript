@@ -4,20 +4,20 @@ void main() {
 	dynamic getRectangleAreaV1(dynamic rectangleWidth, dynamic rectangleLength) {
 		return rectangleWidth * rectangleLength;
 	}
-	// call the function example: getRectangleAreaV1(3, 4)
+	// call the function example: getRectangleAreaV1(7, 5)
 
 	dynamic getRectangleAreaV2(dynamic rectangleWidth, dynamic rectangleLength) => rectangleWidth * rectangleLength;
-	// call the function example: getRectangleAreaV2(3, 4)
+	// call the function example: getRectangleAreaV2(7, 5)
 
 	// ? function expression
 
 	final getRectangleAreaV3 = (dynamic rectangleWidth, dynamic rectangleLength) {
 		return rectangleWidth * rectangleLength;
 	};
-	// call the function example: getRectangleAreaV3(3, 4)
+	// call the function example: getRectangleAreaV3(7, 5)
 
 	final getRectangleAreaV4 = (dynamic rectangleWidth, dynamic rectangleLength) => rectangleWidth * rectangleLength;
-	// call the function example: getRectangleAreaV4(3, 4)
+	// call the function example: getRectangleAreaV4(7, 5)
 
 	// ? anonymous function
 
@@ -60,9 +60,9 @@ void main() {
 		},
 		(dynamic rectangleWidth, dynamic rectangleLength) => rectangleWidth * rectangleLength
 	];
-	final getRectangleAreaFunctionResult1 = myArrayOfGetRectangleAreaFunctions[0](3, 4);
-	final getRectangleAreaFunctionResult2 = myArrayOfGetRectangleAreaFunctions[1](3, 4);
-	final getRectangleAreaFunctionResult3 = myArrayOfGetRectangleAreaFunctions[2](3, 4);
+	final getRectangleAreaFunctionResult1 = myArrayOfGetRectangleAreaFunctions[0](7, 5);
+	final getRectangleAreaFunctionResult2 = myArrayOfGetRectangleAreaFunctions[1](7, 5);
+	final getRectangleAreaFunctionResult3 = myArrayOfGetRectangleAreaFunctions[2](7, 5);
 
 	dynamic exponentiation(dynamic a, dynamic b) {
 		return a ^ b;

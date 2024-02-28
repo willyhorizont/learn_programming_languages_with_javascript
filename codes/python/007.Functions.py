@@ -5,12 +5,12 @@ def get_rectangle_area_v1(rectangle_width, rectangle_length):
     return rectangle_width * rectangle_length
 
 
-# call the function example: get_rectangle_area_v1(3, 4)
+# call the function example: get_rectangle_area_v1(7, 5)
 
 # ? function expression with lambda function or named lambda function
 
 get_rectangle_area_v2 = lambda rectangle_width, rectangle_length: rectangle_width * rectangle_length
-# call the function example: get_rectangle_area_v2(3, 4)
+# call the function example: get_rectangle_area_v2(7, 5)
 
 # ? anonymous function or anonymous lambda function or lambda function
 lambda rectangle_width, rectangle_length: rectangle_width * rectangle_length
@@ -40,8 +40,8 @@ my_array_of_get_rectangle_area_functions = [
     lambda rectangle_width, rectangle_length: rectangle_width * rectangle_length
 ]
 
-get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[0](3, 4)
-get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[1](3, 4)
+get_rectangle_area_function_result1 = my_array_of_get_rectangle_area_functions[0](7, 5)
+get_rectangle_area_function_result2 = my_array_of_get_rectangle_area_functions[1](7, 5)
 
 
 def exponentiation(a, b):

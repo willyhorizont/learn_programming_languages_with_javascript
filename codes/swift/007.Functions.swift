@@ -6,25 +6,25 @@ typealias MyArray = [Any?]
 func getRectangleAreaV1(rectangleWidth: Int, rectangleLength: Int) -> Int {
     return rectangleWidth * rectangleLength
 }
-// call the function example: getRectangleAreaV1(3, 4)
+// call the function example: getRectangleAreaV1(7, 5)
 
 // ? function expression with anonymous function
 
 let getRectangleAreaV2: (Int, Int) -> Int = { (rectangleWidth, rectangleLength) in
     return rectangleWidth * rectangleLength
 }
-// call the function example: getRectangleAreaV2(3, 4)
+// call the function example: getRectangleAreaV2(7, 5)
 
 let getRectangleAreaV3: (Int, Int) -> Int = { (rectangleWidth, rectangleLength) in rectangleWidth * rectangleLength }
-// call the function example: getRectangleAreaV3(3, 4)
+// call the function example: getRectangleAreaV3(7, 5)
 
 let getRectangleAreaV4 = { (rectangleWidth: Int, rectangleLength: Int) -> Int in
     return rectangleWidth * rectangleLength
 }
-// call the function example: getRectangleAreaV4(3, 4)
+// call the function example: getRectangleAreaV4(7, 5)
 
 let getRectangleAreaV5 = { (rectangleWidth: Int, rectangleLength: Int) -> Int in rectangleWidth * rectangleLength }
-// call the function example: getRectangleAreaV5(3, 4)
+// call the function example: getRectangleAreaV5(7, 5)
 
 // ? anonymous function
 // { (rectangleWidth: Int, rectangleLength: Int) -> Int in
@@ -71,11 +71,11 @@ let myArrayOfGetRectangleAreaFunctions: MyArray = [
 ]
 var getRectangleAreaFunctionResult1: Any?
 if let getRectangleAreaFunction1 = myArrayOfGetRectangleAreaFunctions[0] as? (Int, Int) -> Int {
-    getRectangleAreaFunctionResult1 = getRectangleAreaFunction1(3, 4)
+    getRectangleAreaFunctionResult1 = getRectangleAreaFunction1(7, 5)
 }
 var getRectangleAreaFunctionResult2: Any?
 if let getRectangleAreaFunction2 = myArrayOfGetRectangleAreaFunctions[1] as? (Int, Int) -> Int {
-    getRectangleAreaFunctionResult2 = getRectangleAreaFunction2(3, 4)
+    getRectangleAreaFunctionResult2 = getRectangleAreaFunction2(7, 5)
 }
 
 func addition(a: Int, b: Int) -> Int {

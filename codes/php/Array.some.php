@@ -3,6 +3,11 @@
 // There's no JavaScript-like Array.some() in PHP.
 // But, we can create our own function to mimic it in PHP.
 
+function bool_to_string($anything) {
+    if (is_bool($anything) === false) return "not bool";
+    return (($anything === true) ? "true" : "false");
+}
+
 function pretty_array_of_primitives($an_array_of_primitives) {
     $result = "[";
     foreach ($an_array_of_primitives as $array_item_index => $array_item) {
@@ -76,41 +81,41 @@ echo("\nnumbers: " . pretty_array_of_primitives($numbers));
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v1\"");
 
-$is_any_number_less_than_500 = array_some_v1(fn($number) => $number < 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_less_than_500 = bool_to_string(array_some_v1(fn($number) => $number < 500, $numbers) === false);
 echo("\nis any number < 500: $is_any_number_less_than_500");
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v1(fn($number) => $number > 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_more_than_500 = bool_to_string(array_some_v1(fn($number) => $number > 500, $numbers) === false);
 echo("\nis any number > 500: $is_any_number_more_than_500");
 // is any number > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v2\"");
 
-$is_any_number_less_than_500 = array_some_v2(fn($number) => $number < 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_less_than_500 = bool_to_string(array_some_v2(fn($number) => $number < 500, $numbers) === false);
 echo("\nis any number < 500: $is_any_number_less_than_500");
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v2(fn($number) => $number > 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_more_than_500 = bool_to_string(array_some_v2(fn($number) => $number > 500, $numbers) === false);
 echo("\nis any number > 500: $is_any_number_more_than_500");
 // is any number > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v3\"");
 
-$is_any_number_less_than_500 = array_some_v3(fn($number) => $number < 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_less_than_500 = bool_to_string(array_some_v3(fn($number) => $number < 500, $numbers) === false);
 echo("\nis any number < 500: $is_any_number_less_than_500");
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v3(fn($number) => $number > 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_more_than_500 = bool_to_string(array_some_v3(fn($number) => $number > 500, $numbers) === false);
 echo("\nis any number > 500: $is_any_number_more_than_500");
 // is any number > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v4\"");
 
-$is_any_number_less_than_500 = array_some_v4(fn($number) => $number < 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_less_than_500 = bool_to_string(array_some_v4(fn($number) => $number < 500, $numbers) === false);
 echo("\nis any number < 500: $is_any_number_less_than_500");
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v4(fn($number) => $number > 500, $numbers) === false ? 'false' : 'true';
+$is_any_number_more_than_500 = bool_to_string(array_some_v4(fn($number) => $number > 500, $numbers) === false);
 echo("\nis any number > 500: $is_any_number_more_than_500");
 // is any number > 500: false
 
@@ -140,40 +145,40 @@ echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v1\"");
 
-$is_any_product_price_less_than_500 = array_some_v1(fn($product) => @$product['price'] < 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_less_than_500 = bool_to_string(array_some_v1(fn($product) => @$product['price'] < 500, $products) === false);
 echo("\nis any product price < 500: $is_any_product_price_less_than_500");
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v1(fn($product) => @$product['price'] > 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_more_than_500 = bool_to_string(array_some_v1(fn($product) => @$product['price'] > 500, $products) === false);
 echo("\nis any product price > 500: $is_any_product_price_more_than_500");
 // is any product price > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v2\"");
 
-$is_any_product_price_less_than_500 = array_some_v2(fn($product) => @$product['price'] < 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_less_than_500 = bool_to_string(array_some_v2(fn($product) => @$product['price'] < 500, $products) === false);
 echo("\nis any product price < 500: $is_any_product_price_less_than_500");
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v2(fn($product) => @$product['price'] > 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_more_than_500 = bool_to_string(array_some_v2(fn($product) => @$product['price'] > 500, $products) === false);
 echo("\nis any product price > 500: $is_any_product_price_more_than_500");
 // is any product price > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v3\"");
 
-$is_any_product_price_less_than_500 = array_some_v3(fn($product) => @$product['price'] < 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_less_than_500 = bool_to_string(array_some_v3(fn($product) => @$product['price'] < 500, $products) === false);
 echo("\nis any product price < 500: $is_any_product_price_less_than_500");
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v3(fn($product) => @$product['price'] > 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_more_than_500 = bool_to_string(array_some_v3(fn($product) => @$product['price'] > 500, $products) === false);
 echo("\nis any product price > 500: $is_any_product_price_more_than_500");
 // is any product price > 500: false
 
 echo("\n// using JavaScript-like Array.some() function \"array_some_v4\"");
 
-$is_any_product_price_less_than_500 = array_some_v4(fn($product) => @$product['price'] < 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_less_than_500 = bool_to_string(array_some_v4(fn($product) => @$product['price'] < 500, $products) === false);
 echo("\nis any product price < 500: $is_any_product_price_less_than_500");
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v4(fn($product) => @$product['price'] > 500, $products) === false ? 'false' : 'true';
+$is_any_product_price_more_than_500 = bool_to_string(array_some_v4(fn($product) => @$product['price'] > 500, $products) === false);
 echo("\nis any product price > 500: $is_any_product_price_more_than_500");
 // is any product price > 500: false

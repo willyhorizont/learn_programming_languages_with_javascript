@@ -1,0 +1,4 @@
+newline:
+vbCrLf
+vbNewLine
+Environment.NewLine

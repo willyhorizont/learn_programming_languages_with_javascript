@@ -5,14 +5,14 @@
 function get_rectangle_area_v1($rectangle_width, $rectangle_length) {
     return $rectangle_width * $rectangle_length;
 }
-// call the function example: get_rectangle_area_v1(3, 4)
+// call the function example: get_rectangle_area_v1(7, 5)
 
 // ? function expression
 
 $get_rectangle_area_v2 = function ($rectangle_width, $rectangle_length) {
     return $rectangle_width * $rectangle_length;
 };
-// call the function example: $get_rectangle_area_v2(3, 4)
+// call the function example: $get_rectangle_area_v2(7, 5)
 
 // ? anonymous function
 
@@ -23,7 +23,7 @@ function ($rectangle_width, $rectangle_length) {
 // ? function expression with arrow function or named arrow function
 
 $get_rectangle_area_v3 = fn($rectangle_width, $rectangle_length) => $rectangle_width * $rectangle_length;
-// call the function example: $get_rectangle_area_v3(3, 4)
+// call the function example: $get_rectangle_area_v3(7, 5)
 
 // ? anonymous arrow function
 
@@ -64,9 +64,9 @@ $my_array_of_get_rectangle_area_functions = [
     fn($rectangle_width, $rectangle_length) => $rectangle_width * $rectangle_length
 ];
 
-$get_rectangle_area_function_result1 = $my_array_of_get_rectangle_area_functions[0](3, 4);
-$get_rectangle_area_function_result2 = $my_array_of_get_rectangle_area_functions[1](3, 4);
-$get_rectangle_area_function_result3 = $my_array_of_get_rectangle_area_functions[2](3, 4);
+$get_rectangle_area_function_result1 = $my_array_of_get_rectangle_area_functions[0](7, 5);
+$get_rectangle_area_function_result2 = $my_array_of_get_rectangle_area_functions[1](7, 5);
+$get_rectangle_area_function_result3 = $my_array_of_get_rectangle_area_functions[2](7, 5);
 
 function exponentiation($a, $b) {
     return $a ** $b;

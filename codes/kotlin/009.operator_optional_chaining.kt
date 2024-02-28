@@ -7,43 +7,51 @@ fun main() {
 
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
-        fun prettyJsonStringifyInnerFunction(anything: Any? = null, indent: String = "    "): String {
-            if (anything == null) return "undefined"
-            if (anything == "null") return "null"
-            if (anything == "undefined") return "undefined"
-            if (anything is String) return "\"${anything}\""
-            if (anything is Number || anything is Boolean) return "${anything}"
-            if (anything is MutableList<*>) {
+        fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
+            if (anythingInner == null) return "undefined"
+            if (anythingInner == "null") return "null"
+            if (anythingInner == "undefined") return "undefined"
+            if (anythingInner is String) return "\"${anythingInner}\""
+            if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
+            if (anythingInner is MutableList<*>) {
+                if (anythingInner.size == 0) {
+                    val result = "[]"
+                    return result
+                }
                 indentLevel += 1
-                var result = "[\n${indent.repeat(indentLevel)}"
-                for ((arrayItemIndex, arrayItem) in anything.withIndex()) {
-                    result += prettyJsonStringifyInnerFunction(arrayItem, indent)
-                    if ((arrayItemIndex + 1) != anything.size) {
-                        result += ",\n${indent.repeat(indentLevel)}"
+                var result = "[\n${indentInner.repeat(indentLevel)}"
+                for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
+                    result += prettyJsonStringifyInner(arrayItem, indentInner)
+                    if ((arrayItemIndex + 1) != anythingInner.size) {
+                        result += ",\n${indentInner.repeat(indentLevel)}"
                     }
                 }
                 indentLevel -= 1
-                result += "\n${indent.repeat(indentLevel)}]"
+                result += "\n${indentInner.repeat(indentLevel)}]"
                 return result
             }
-            if (anything is MutableMap<*, *>) {
+            if (anythingInner is MutableMap<*, *>) {
+                if (anythingInner.entries.size == 0) {
+                    val result = "{}"
+                    return result
+                }
                 indentLevel += 1
-                var result = "{\n${indent.repeat(indentLevel)}"
-                anything.entries.forEachIndexed { entryIndex, entryItem ->
+                var result = "{\n${indentInner.repeat(indentLevel)}"
+                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInnerFunction(objectValue, indent)}"
-                    if ((entryIndex + 1) != anything.entries.size) {
-                        result += ",\n${indent.repeat(indentLevel)}"
+                    result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
+                    if ((entryIndex + 1) != anythingInner.entries.size) {
+                        result += ",\n${indentInner.repeat(indentLevel)}"
                     }
                 }
                 indentLevel -= 1
-                result += "\n${indent.repeat(indentLevel)}}"
+                result += "\n${indentInner.repeat(indentLevel)}}"
                 return result
             }
             return "undefined"
         }
-        return prettyJsonStringifyInnerFunction(anything, indent)
+        return prettyJsonStringifyInner(anything, indent)
     }
 
     // There's no JavaScript-like Optional Chaining Operator (?.) in Kotlin.

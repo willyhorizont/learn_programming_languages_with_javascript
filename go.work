@@ -24,4 +24,5 @@ use (
     ./codes/go/fizzbuzz
     ./codes/go/xxx.chaos
     ./codes/go/www.codewars/www.001.abbreviate_name
+    ./codes/go/www.codewars/www.002.count_vowels
 )

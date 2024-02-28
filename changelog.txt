@@ -1,4 +1,15 @@
 =============================changelog==========================================
+21:57 | 09:57 PM | Wed | Feb | 28/02/2024
+0.0.41
+add online_playgrounds.txt
+update requirements.txt
+update www.001.abbreviate_name.[js, py, php, go, pl, jl, lua, rb, r, kt, swift, dart]
+add www.002.count_vowels.[js, py, php, go, pl, jl, lua, rb, r, kt, swift, dart]
+update prettyJsonStringify in *.kt, *.swift
+add bool_to_string to *.pl, *.php
+update Array.filter.pl, Array.filter.php, Array.includes.r
+try vb, c#, elixir, java
+=============================changelog==========================================
 14:17 | 02:17 PM | Mon | Feb | 19/02/2024
 0.0.40
 update Array.reduce.*
