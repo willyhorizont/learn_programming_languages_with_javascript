@@ -1,28 +1,28 @@
 go 1.21.4
 
 use (
-    ./codes/go/001.comment
-    ./codes/go/002.hello_world
-    ./codes/go/003.Conditionals
-    ./codes/go/004.Loops
-    ./codes/go/005.Objects
-    ./codes/go/006.Arrays
-    ./codes/go/007.Functions
-    ./codes/go/008.operator_ternary
-    ./codes/go/009.operator_optional_chaining
-    ./codes/go/010.operator_nullish_coalescing
-    ./codes/go/011.operator_spread
-    ./codes/go/Array.every
-    ./codes/go/Array.filter
-    ./codes/go/Array.find
-    ./codes/go/Array.findIndex
-    ./codes/go/Array.includes
-    ./codes/go/Array.map
-    ./codes/go/Array.reduce
-    ./codes/go/Array.some
+    ./codes/go/001_comment
+    ./codes/go/002_hello_world
+    ./codes/go/003_conditionals
+    ./codes/go/004_loops
+    ./codes/go/005_objects
+    ./codes/go/006_arrays
+    ./codes/go/007_functions
+    ./codes/go/008_operator_ternary
+    ./codes/go/009_operator_optional_chaining
+    ./codes/go/010_operator_nullish_coalescing
+    ./codes/go/011_operator_spread
+    ./codes/go/array_every
+    ./codes/go/array_filter
+    ./codes/go/array_find
+    ./codes/go/array_find_index
+    ./codes/go/array_includes
+    ./codes/go/array_map
+    ./codes/go/array_reduce
+    ./codes/go/array_some
     ./codes/go/factorial
     ./codes/go/fizzbuzz
-    ./codes/go/xxx.chaos
-    ./codes/go/www.codewars/www.001.abbreviate_name
-    ./codes/go/www.codewars/www.002.count_vowels
+    ./codes/go/xxx_chaos
+    ./codes/go/www_001_abbreviate_name
+    ./codes/go/www_002_count_vowels
 )

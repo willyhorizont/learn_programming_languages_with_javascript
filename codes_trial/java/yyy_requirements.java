@@ -12,17 +12,17 @@ class yyy_requirements {
         1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type
         ```javascript
         let something = 123;
-        console.log("something: ", something);
+        console.log("something:", something);
         something = "foo";
-        console.log("something: ", something);
+        console.log("something:", something);
         something = true;
-        console.log("something: ", something);
+        console.log("something:", something);
         something = null;
-        console.log("something: ", something);
+        console.log("something:", something);
         something = [1, 2, 3];
-        console.log("something: ", something);
+        console.log("something:", something);
         something = { "foo": "bar" };
-        console.log("something: ", something);
+        console.log("something:", something);
         ```
         */
         Object something = 123;
