@@ -37,28 +37,28 @@ function pretty_array_of_primitives($an_array_of_primitives) {
 };
     
 $my_friends = ['Alisa', 'Trivia'];
-echo("\nmy friends: " . pretty_array_of_primitives($my_friends));
+echo("\n" . "my friends: " . pretty_array_of_primitives($my_friends));
 
 $name = 'Alisa';
-echo("\nname: \"$name\"");
+echo("\n" . "name: \"$name\"");
 $is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\nis my friends includes \"$name\": $is_my_friend");
+echo("\n" . "is my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Alisa": true
 
 $name = 'Trivia';
-echo("\nname: \"$name\"");
+echo("\n" . "name: \"$name\"");
 $is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\nis my friends includes \"$name\": $is_my_friend");
+echo("\n" . "is my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Trivia": true
 
 $name = 'Tony';
-echo("\nname: \"$name\"");
+echo("\n" . "name: \"$name\"");
 $is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\nis my friends includes \"$name\": $is_my_friend");
+echo("\n" . "is my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Tony": false
 
 $name = 'Ezekiel';
-echo("\nname: \"$name\"");
+echo("\n" . "name: \"$name\"");
 $is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\nis my friends includes \"$name\": $is_my_friend");
+echo("\n" . "is my friends includes \"$name\": $is_my_friend");
 // is my friends includes "Ezekiel": false

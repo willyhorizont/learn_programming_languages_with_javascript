@@ -32,7 +32,7 @@ function pretty_array_of_primitives($an_array_of_primitives) {
 // Array in PHP
 
 $fruits = ["apple", "mango", "orange"];
-echo("\nfruits: " . pretty_array_of_primitives($fruits));
+echo("\n" . "fruits: " . pretty_array_of_primitives($fruits));
 
 echo("\n" . "fruits, length: " . count($fruits));
 // fruits, length: 3
@@ -65,7 +65,7 @@ $products = [
         "name" => "potato chips"
     ]
 ];
-echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
 
 foreach ($products as $array_item_index => $array_item) {
     $iteration_index = 0;

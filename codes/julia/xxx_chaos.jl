@@ -9,4 +9,4 @@ country_capitals_in_asia = Dict(
 )
 
 country_capitals_in_asia_new = Dict(country_capitals_in_asia..., "Japan" => "Hiroshima")
-println("country_capitals_in_asia_new: ", JSON.json(country_capitals_in_asia_new, 4))
+println("country_capitals_in_asia_new: ", chomp(JSON.json(country_capitals_in_asia_new, 4)))

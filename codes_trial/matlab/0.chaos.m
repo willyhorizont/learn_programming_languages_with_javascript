@@ -15,7 +15,7 @@
 disp("Hello, World!");
 
 something = 123;
-something = "foo";
+something = 123;
 something = true;
 something = {1, 2, 3};
 something = struct("foo", "bar");

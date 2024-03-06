@@ -77,46 +77,46 @@ function array_every_v4($callback_function, $an_array) {
 echo("\n\n// JavaScript-like Array.every() in PHP Array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-echo("\nnumbers: " . pretty_array_of_primitives($numbers));
+echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v1\"");
 
 $is_all_number_less_than_500 = bool_to_string(array_every_v1(fn($number) => $number < 500, $numbers) === false);
-echo("\nis all number < 500: $is_all_number_less_than_500");
+echo("\n" . "is all number < 500: $is_all_number_less_than_500");
 // is all number < 500: true
 
 $is_all_number_more_than_500 = bool_to_string(array_every_v1(fn($number) => $number > 500, $numbers) === false);
-echo("\nis all number > 500: $is_all_number_more_than_500");
+echo("\n" . "is all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v2\"");
 
 $is_all_number_less_than_500 = bool_to_string(array_every_v2(fn($number) => $number < 500, $numbers) === false);
-echo("\nis all number < 500: $is_all_number_less_than_500");
+echo("\n" . "is all number < 500: $is_all_number_less_than_500");
 // is all number < 500: true
 
 $is_all_number_more_than_500 = bool_to_string(array_every_v2(fn($number) => $number > 500, $numbers) === false);
-echo("\nis all number > 500: $is_all_number_more_than_500");
+echo("\n" . "is all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v3\"");
 
 $is_all_number_less_than_500 = bool_to_string(array_every_v3(fn($number) => $number < 500, $numbers) === false);
-echo("\nis all number < 500: $is_all_number_less_than_500");
+echo("\n" . "is all number < 500: $is_all_number_less_than_500");
 // is all number < 500: true
 
 $is_all_number_more_than_500 = bool_to_string(array_every_v3(fn($number) => $number > 500, $numbers) === false);
-echo("\nis all number > 500: $is_all_number_more_than_500");
+echo("\n" . "is all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v4\"");
 
 $is_all_number_less_than_500 = bool_to_string(array_every_v4(fn($number) => $number < 500, $numbers) === false);
-echo("\nis all number < 500: $is_all_number_less_than_500");
+echo("\n" . "is all number < 500: $is_all_number_less_than_500");
 // is all number < 500: true
 
 $is_all_number_more_than_500 = bool_to_string(array_every_v4(fn($number) => $number > 500, $numbers) === false);
-echo("\nis all number > 500: $is_all_number_more_than_500");
+echo("\n" . "is all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
 echo("\n\n// JavaScript-like Array.every() in PHP Array of Associative-Arrays");
@@ -139,44 +139,44 @@ $products = [
         "price" => 499
     ]
 ];
-echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v1\"");
 
 $is_all_product_price_less_than_500 = bool_to_string(array_every_v1(fn($product) => @$product['price'] < 500, $products) === false);
-echo("\nis all product price < 500: $is_all_product_price_less_than_500");
+echo("\n" . "is all product price < 500: $is_all_product_price_less_than_500");
 // is all product price < 500: true
 
 $is_all_product_price_more_than_500 = bool_to_string(array_every_v1(fn($product) => @$product['price'] > 500, $products) === false);
-echo("\nis all product price > 500: $is_all_product_price_more_than_500");
+echo("\n" . "is all product price > 500: $is_all_product_price_more_than_500");
 // is all product price > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v2\"");
 
 $is_all_product_price_less_than_500 = bool_to_string(array_every_v2(fn($product) => @$product['price'] < 500, $products) === false);
-echo("\nis all product price < 500: $is_all_product_price_less_than_500");
+echo("\n" . "is all product price < 500: $is_all_product_price_less_than_500");
 // is all product price < 500: true
 
 $is_all_product_price_more_than_500 = bool_to_string(array_every_v2(fn($product) => @$product['price'] > 500, $products) === false);
-echo("\nis all product price > 500: $is_all_product_price_more_than_500");
+echo("\n" . "is all product price > 500: $is_all_product_price_more_than_500");
 // is all product price > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v3\"");
 
 $is_all_product_price_less_than_500 = bool_to_string(array_every_v3(fn($product) => @$product['price'] < 500, $products) === false);
-echo("\nis all product price < 500: $is_all_product_price_less_than_500");
+echo("\n" . "is all product price < 500: $is_all_product_price_less_than_500");
 // is all product price < 500: true
 
 $is_all_product_price_more_than_500 = bool_to_string(array_every_v3(fn($product) => @$product['price'] > 500, $products) === false);
-echo("\nis all product price > 500: $is_all_product_price_more_than_500");
+echo("\n" . "is all product price > 500: $is_all_product_price_more_than_500");
 // is all product price > 500: false
 
 echo("\n// using JavaScript-like Array.every() function \"array_every_v4\"");
 
 $is_all_product_price_less_than_500 = bool_to_string(array_every_v4(fn($product) => @$product['price'] < 500, $products) === false);
-echo("\nis all product price < 500: $is_all_product_price_less_than_500");
+echo("\n" . "is all product price < 500: $is_all_product_price_less_than_500");
 // is all product price < 500: true
 
 $is_all_product_price_more_than_500 = bool_to_string(array_every_v4(fn($product) => @$product['price'] > 500, $products) === false);
-echo("\nis all product price > 500: $is_all_product_price_more_than_500");
+echo("\n" . "is all product price > 500: $is_all_product_price_more_than_500");
 // is all product price > 500: false

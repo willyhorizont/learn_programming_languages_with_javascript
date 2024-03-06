@@ -22,9 +22,9 @@ func prettyJsonStringify(anything any) string {
 
 func main() {
 	friend := object{
-		"name":    "Alisa",
+		"name": "Alisa",
 		"country": "Finland",
-		"age":     25,
+		"age": 25,
 	}
 	fmt.Println("friend:", prettyJsonStringify(friend))
 

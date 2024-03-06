@@ -1,6 +1,4 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc 1.Conditionals.kt -include-runtime -d 1.Conditionals.jar && kotlin 1.Conditionals.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     /*
@@ -24,7 +22,7 @@ fun main() {
     var hasDrivingLicense: Any
     var canDrive: Any
 
-    println("\n// basic conditional control flow\n")
+    println("\n" + "// basic conditional control flow\n")
 
     myAge = 10
     println("myAge: ${myAge}")
@@ -36,7 +34,7 @@ fun main() {
         println("you are under age")
     }
 
-    println("\nequal to (==)\n")
+    println("\n" + "equal to (==)\n")
 
     myAnswer = 100
     println("myAnswer: ${myAnswer}")
@@ -48,7 +46,7 @@ fun main() {
         println("Your answer is wrong")
     }
 
-    println("\nnot equal to (!=)\n")
+    println("\n" + "not equal to (!=)\n")
 
     myAnswer = 25
     println("myAnswer: ${myAnswer}")
@@ -60,35 +58,35 @@ fun main() {
         println("Your answer is correct")
     }
 
-    println("\ngreater than (>)\n")
+    println("\n" + "greater than (>)\n")
 
     myAge = 70
     println("myAge: ${myAge}")
     println("(myAge > 50):")
     if (myAge > 50) println("You are old")
 
-    println("\nless than (<)\n")
+    println("\n" + "less than (<)\n")
 
     myAge = 16
     println("myAge: ${myAge}")
     println("(myAge < 20):")
     if (myAge < 20) println("You are young")
 
-    println("\ngreater than or equal to (>=)\n")
+    println("\n" + "greater than or equal to (>=)\n")
     
     myAge = 73
     println("myAge: ${myAge}")
     println("(myAge >= 65):")
     if (myAge >= 65) println("You are allowed to retire")
 
-    println("\nless than or equal to (<=)\n")
+    println("\n" + "less than or equal to (<=)\n")
 
     myAge = 14
     println("myAge: ${myAge}")
     println("(myAge <= 16):")
     if (myAge <= 16) println("You are not allowed to drive")
 
-    println("\nLogical AND (&&)\n")
+    println("\n" + "Logical AND (&&)\n")
 
     myAge = 17
     println("myAge: ${myAge}")
@@ -104,7 +102,7 @@ fun main() {
     println("((myAge >= 17) && (hasDrivingLicense == true)):")
     println(if ((myAge >= 17) && (hasDrivingLicense == true)) "You are allowed to drive" else "You are not allowed to drive")
 
-    println("\nLogical OR (||)\n")
+    println("\n" + "Logical OR (||)\n")
 
     myAge = 2
     println("myAge: ${myAge}")
@@ -116,7 +114,7 @@ fun main() {
     println("((myAge <= 3) || (myAge >= 65)):")
     if ((myAge <= 3) || (myAge >= 65)) println("You should stay home")
 
-    println("\nLogical NOT (!)\n")
+    println("\n" + "Logical NOT (!)\n")
 
     canDrive = false
     println("canDrive: ${canDrive}")

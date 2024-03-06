@@ -104,66 +104,66 @@ function array_find_v6($callback_function, $an_array) {
 echo("\n\n// JavaScript-like Array.find() in PHP Array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-echo("\nnumbers: " . pretty_array_of_primitives($numbers));
+echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v1\"");
 
 $even_number_found = array_find_v1(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v1(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v2\"");
 
 $even_number_found = array_find_v2(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v2(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v3\"");
 
 $even_number_found = array_find_v3(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v3(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v4\"");
 
 $even_number_found = array_find_v4(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v4(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v5\"");
 
 $even_number_found = array_find_v5(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v5(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v6\"");
 
 $even_number_found = array_find_v6(fn($number) => (($number % 2) === 0), $numbers);
-echo("\neven number found: $even_number_found");
+echo("\n" . "even number found: $even_number_found");
 // even number found: 12
 
 $odd_number_found = array_find_v6(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\nodd number found: $odd_number_found");
+echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
 echo("\n\n// JavaScript-like Array.find() in PHP Array of Associative-Arrays");
@@ -186,15 +186,15 @@ $products = [
         "price" => 499
     ]
 ];
-echo("\nproducts: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
 
 $product_to_find = "bubble_gum";
-echo("\nproduct to find: " . $product_to_find);
+echo("\n" . "product to find: " . $product_to_find);
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v1\"");
 
 $product_found = array_find_v1(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233
@@ -203,7 +203,7 @@ echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 echo("\n// using JavaScript-like Array.find() function \"array_find_v2\"");
 
 $product_found = array_find_v2(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233
@@ -212,7 +212,7 @@ echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 echo("\n// using JavaScript-like Array.find() function \"array_find_v3\"");
 
 $product_found = array_find_v3(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233
@@ -221,7 +221,7 @@ echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 echo("\n// using JavaScript-like Array.find() function \"array_find_v4\"");
 
 $product_found = array_find_v4(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233
@@ -230,7 +230,7 @@ echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 echo("\n// using JavaScript-like Array.find() function \"array_find_v5\"");
 
 $product_found = array_find_v5(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233
@@ -239,7 +239,7 @@ echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 echo("\n// using JavaScript-like Array.find() function \"array_find_v6\"");
 
 $product_found = array_find_v6(fn($product) => (@$product['code'] === $product_to_find), $products);
-echo("\nproduct found: " . json_encode($product_found, JSON_PRETTY_PRINT));
+echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
 //     "price": 233

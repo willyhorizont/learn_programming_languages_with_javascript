@@ -1,1 +1,44 @@
 R --version
+
+global assignment operator (<<-) ```r
+newIncrementer <- function() {
+    something <- 0
+    incr <- function() {
+        something <<- something + 1
+        return(something)
+    }
+    return(incr)
+}
+increment <- newIncrementer()
+cat(paste(sep = "", "increment(): ", increment(), "\n"))
+cat(paste(sep = "", "increment(): ", increment(), "\n"))
+cat(paste(sep = "", "increment(): ", increment(), "\n"))
+``` is like ```python
+def new_incrementer():
+    something = 0
+    def incr():
+        nonlocal something
+        something += 1
+        return something
+    return incr
+increment = new_incrementer()
+print(f"increment(): {increment()}")
+print(f"increment(): {increment()}")
+print(f"increment(): {increment()}")
+``` in Python or ```php
+function new_incrementer() {
+    $something = 0;
+    $incr = function() use (&$something, &$incr) {
+        $something += 1;
+        return $something;
+    };
+    return $incr;
+}
+$increment = new_incrementer();
+echo("\n" . "increment(): " . $increment());
+echo("\n" . "increment(): " . $increment());
+echo("\n" . "increment(): " . $increment());
+``` in PHP
+
+Single brackets [ ] are used for extracting subsets of a list or dataframe and return a sublist or subdataframe. They can also be used for indexing vectors.
+Double brackets [[ ]] are used for extracting a single element from a list and return that element. They are specifically for lists, not for dataframes or vectors.

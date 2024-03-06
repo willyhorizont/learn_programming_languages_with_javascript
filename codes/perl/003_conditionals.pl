@@ -18,7 +18,7 @@ use warnings;
 
 sub bool_to_string {
     my ($anything) = @_;
-    return $anything ? "true" : "false";
+    return ($anything ? "true" : "false");
 }
 
 my $correct_answer;

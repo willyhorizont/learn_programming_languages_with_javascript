@@ -5,7 +5,9 @@ use Scalar::Util qw(looks_like_number);
 sub pretty_json_stringify {
     my ($anything) = @_;
     use JSON;
-    return JSON->new->allow_nonref->pretty->encode($anything);
+    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
+    $pretty_json_string =~ s/   /    /g;
+    return $pretty_json_string;
 }
 
 sub pretty_array_of_primitives {
@@ -61,7 +63,7 @@ sub array_reduce {
 print("\n# JavaScript-like Array.reduce() in Perl Array\n");
 
 my @numbers = (36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: " . pretty_array_of_primitives(@numbers) . "\n");
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
@@ -89,7 +91,7 @@ my @products = (
         "price" => 499
     }
 );
-print("products: ", pretty_json_stringify(\@products));
+print("products: " . pretty_json_stringify(\@products));
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
@@ -106,7 +108,7 @@ my %products_grouped;
     my %current_result_new = spread_syntax_object_v1(%{$current_result}, ("cheap" => \@current_result_new_cheap_value));
     return \%current_result_new;
 }, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: ", pretty_json_stringify(\%products_grouped));
+print("grouped products: " . pretty_json_stringify(\%products_grouped));
 # grouped products: {
 #     "expensive": [
 #         {
@@ -131,7 +133,7 @@ print("grouped products: ", pretty_json_stringify(\%products_grouped));
 # }
 
 %products_grouped = array_reduce(sub { my ($current_result, $current_product) = @_; return (($current_product->{"price"} > 100) ? {spread_syntax_object_v1(%{$current_result}, ("expensive" => [spread_syntax_array(@{$current_result->{"expensive"}}, $current_product)]))} : {spread_syntax_object_v1(%{$current_result}, ("cheap" => [spread_syntax_array(@{$current_result->{"cheap"}}, $current_product)]))}); }, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: ", pretty_json_stringify(\%products_grouped));
+print("grouped products: " . pretty_json_stringify(\%products_grouped));
 # grouped products: {
 #     "expensive": [
 #         {

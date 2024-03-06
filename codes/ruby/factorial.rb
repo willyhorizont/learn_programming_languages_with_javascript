@@ -68,26 +68,26 @@ def factorial_v6(number)
     return result
 end
 
-print("\n# using factorial function \"factorial_v1\"")
-print("\nFactorial(5): ", factorial_v1(5))
+print("\n", "# using factorial function \"factorial_v1\"")
+print("\n", "Factorial(5): ", factorial_v1(5))
 # Factorial(5): 120
 
-print("\n# using factorial function \"factorial_v2\"")
-print("\nFactorial(5): ", factorial_v2(5))
+print("\n", "# using factorial function \"factorial_v2\"")
+print("\n", "Factorial(5): ", factorial_v2(5))
 # Factorial(5): 120
 
-print("\n# using factorial function \"factorial_v3\"")
-print("\nFactorial(5): ", factorial_v3(5))
+print("\n", "# using factorial function \"factorial_v3\"")
+print("\n", "Factorial(5): ", factorial_v3(5))
 # Factorial(5): 120
 
-print("\n# using factorial function \"factorial_v4\"")
-print("\nFactorial(5): ", factorial_v4(5))
+print("\n", "# using factorial function \"factorial_v4\"")
+print("\n", "Factorial(5): ", factorial_v4(5))
 # Factorial(5): 120
 
-print("\n# using factorial function \"factorial_v5\"")
-print("\nFactorial(5): ", factorial_v5(5))
+print("\n", "# using factorial function \"factorial_v5\"")
+print("\n", "Factorial(5): ", factorial_v5(5))
 # Factorial(5): 120
 
-print("\n# using factorial function \"factorial_v6\"")
-print("\nFactorial(5): ", factorial_v6(5))
+print("\n", "# using factorial function \"factorial_v6\"")
+print("\n", "Factorial(5): ", factorial_v6(5))
 # Factorial(5): 120

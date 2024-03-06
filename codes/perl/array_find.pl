@@ -8,7 +8,9 @@ use Scalar::Util qw(looks_like_number);
 sub pretty_json_stringify {
     my ($anything) = @_;
     use JSON;
-    return JSON->new->allow_nonref->pretty->encode($anything);
+    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
+    $pretty_json_string =~ s/   /    /g;
+    return $pretty_json_string;
 }
 
 sub pretty_array_of_primitives {
@@ -165,7 +167,7 @@ sub array_find_v10 {
 print("\n# JavaScript-like Array.find() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: " . pretty_array_of_primitives(@numbers) . "\n");
 
 my $even_number_found;
 my $odd_number_found;
@@ -173,101 +175,101 @@ my $odd_number_found;
 print("# using JavaScript-like Array.find() function \"array_find_v1\"\n");
 
 $even_number_found = array_find_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v1(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v2\"\n");
 
 $even_number_found = array_find_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v2(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v3\"\n");
 
 $even_number_found = array_find_v3(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v3(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v4\"\n");
 
 $even_number_found = array_find_v4(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v4(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v5\"\n");
 
 $even_number_found = array_find_v5(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v5(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v6\"\n");
 
 $even_number_found = array_find_v6(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v6(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v7\"\n");
 
 $even_number_found = array_find_v7(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v7(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v8\"\n");
 
 $even_number_found = array_find_v8(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v8(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v9\"\n");
 
 $even_number_found = array_find_v9(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v9(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("# using JavaScript-like Array.find() function \"array_find_v10\"\n");
 
 $even_number_found = array_find_v10(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even number found: ", $even_number_found, "\n");
+print("even number found: " . $even_number_found . "\n");
 # even number found: 12
 
 $odd_number_found = array_find_v10(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd number found: ", $odd_number_found, "\n");
+print("odd number found: " . $odd_number_found . "\n");
 # odd number found: 27
 
 print("\n# JavaScript-like Array.find() in Perl Array of Hashes\n");
@@ -291,7 +293,7 @@ my @products = (
     }
 );
 
-print("products: ", pretty_json_stringify(\@products));
+print("products: " . pretty_json_stringify(\@products));
 
 my $product_to_find = "bubble_gum";
 print("product to find: $product_to_find\n");
@@ -301,7 +303,7 @@ my $product_found;
 print("# using JavaScript-like Array.find() function \"array_find_v1\"\n");
 
 $product_found = array_find_v1(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -310,7 +312,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v2\"\n");
 
 $product_found = array_find_v2(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -319,7 +321,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v3\"\n");
 
 $product_found = array_find_v3(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -328,7 +330,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v4\"\n");
 
 $product_found = array_find_v4(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -337,7 +339,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v5\"\n");
 
 $product_found = array_find_v5(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -346,7 +348,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v6\"\n");
 
 $product_found = array_find_v6(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -355,7 +357,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v7\"\n");
 
 $product_found = array_find_v7(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -364,7 +366,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v8\"\n");
 
 $product_found = array_find_v8(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -373,7 +375,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v9\"\n");
 
 $product_found = array_find_v9(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -382,7 +384,7 @@ print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$pro
 print("# using JavaScript-like Array.find() function \"array_find_v10\"\n");
 
 $product_found = array_find_v10(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n");
+print("product found: " . (defined($product_found) ? pretty_json_stringify(\%{$product_found}) : "undefined\n"));
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233

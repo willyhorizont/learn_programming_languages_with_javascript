@@ -107,13 +107,13 @@ func main() {
 
 	countryCapitalsInAsia := object{
 		"Thailand": "Bangkok",
-		"China":    "Beijing",
-		"Japan":    "Tokyo",
+		"China": "Beijing",
+		"Japan": "Tokyo",
 	}
 	fmt.Println("countryCapitalsInAsia:", prettyJsonStringify(countryCapitalsInAsia))
 
 	countryCapitalsInEurope := object{
-		"France":  "Paris",
+		"France": "Paris",
 		"England": "London",
 	}
 	fmt.Println("countryCapitalsInEurope:", prettyJsonStringify(countryCapitalsInEurope))

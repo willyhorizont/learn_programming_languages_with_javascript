@@ -11,9 +11,9 @@ class yyy_requirements {
         /*
         1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type
         ```javascript
-        let something = 123;
+        let something = "foo";
         console.log("something:", something);
-        something = "foo";
+        something = 123;
         console.log("something:", something);
         something = true;
         console.log("something:", something);
@@ -25,9 +25,9 @@ class yyy_requirements {
         console.log("something:", something);
         ```
         */
-        Object something = 123;
+        Object something = "foo";
         System.out.println("something: " + something);
-        something = "foo";
+        something = 123;
         System.out.println("something: " + something);
         something = true;
         System.out.println("something: " + something);
@@ -53,7 +53,7 @@ class yyy_requirements {
             "my_object": {
                 "foo": "bar"
             },
-            "my_array": [1, 2, 3],
+            "my_array": [1, 2, 3]
         };
         console.log("myObject: ", myObject);
         ```
@@ -117,12 +117,12 @@ class yyy_requirements {
             };
         }
         const multiplyBy2 = multiply(2);
-        const multiplyBy2Result = multiplyBy2(10); // 20
+        const multiplyBy2Result = multiplyBy2(10);
         console.log("multiplyBy2Result: ", multiplyBy2Result);
         ```
         */
         IntUnaryOperator multiplyBy2 = multiply(2);
-        int multiplyBy2Result = multiplyBy2.applyAsInt(10); // 20
+        int multiplyBy2Result = multiplyBy2.applyAsInt(10);
         System.out.println("multiplyBy2Result: " + multiplyBy2Result);
 
         /*
@@ -131,7 +131,7 @@ class yyy_requirements {
         const getRectangleArea = function (rectangleWidth, rectangleLength) {
             return rectangleWidth * rectangleLength;
         };
-        console.log("getRectangleArea(7, 5): ", getRectangleArea(7, 5));;
+        console.log("getRectangleArea(7, 5): ", getRectangleArea(7, 5));
         ```
         */
         LambdaArgs2<Integer, Integer, Integer> getRectangleArea = (rectangleWidth, rectangleLength) -> {
@@ -149,7 +149,7 @@ class yyy_requirements {
             "foo",
             123,
             true,
-            null
+            null,
             [1, 2, 3],
             { "foo": "bar" },
         ];
@@ -166,8 +166,8 @@ class yyy_requirements {
             "my_object": {
                 "foo": "bar"
             },
-            "my_array": [1, 2, 3],
-        }
+            "my_array": [1, 2, 3]
+        };
         console.log("myObject2.my_function(7, 5): ", myObject2.my_function(7, 5));
         ```
         */

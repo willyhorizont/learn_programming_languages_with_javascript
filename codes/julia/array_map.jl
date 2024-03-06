@@ -60,7 +60,7 @@ println("numbers: ", pretty_array_of_primitives(numbers))
 println("# using JavaScript-like Array.map() function \"array_map_v1\"")
 
 numbers_labeled = array_map_v1((number, _, _) -> Dict(string(number) => (((number % 2) === 0) ? "even" : "odd")), numbers)
-println("labeled numbers: ", JSON.json(numbers_labeled, 4))
+println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -97,7 +97,7 @@ println("labeled numbers: ", JSON.json(numbers_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v2\"")
 
 numbers_labeled = array_map_v2((number, _, _) -> Dict(string(number) => (((number % 2) === 0) ? "even" : "odd")), numbers)
-println("labeled numbers: ", JSON.json(numbers_labeled, 4))
+println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -134,7 +134,7 @@ println("labeled numbers: ", JSON.json(numbers_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v3\"")
 
 numbers_labeled = array_map_v3((number, _, _) -> Dict(string(number) => (((number % 2) === 0) ? "even" : "odd")), numbers)
-println("labeled numbers: ", JSON.json(numbers_labeled, 4))
+println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -171,7 +171,7 @@ println("labeled numbers: ", JSON.json(numbers_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v4\"")
 
 numbers_labeled = array_map_v4((number, _, _) -> Dict(string(number) => (((number % 2) === 0) ? "even" : "odd")), numbers)
-println("labeled numbers: ", JSON.json(numbers_labeled, 4))
+println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -208,7 +208,7 @@ println("labeled numbers: ", JSON.json(numbers_labeled, 4))
 println("# using Julia Array.map() built-in function \"map\"")
 
 numbers_labeled = map((number) -> Dict(string(number) => (((number % 2) === 0) ? "even" : "odd")), numbers)
-println("labeled numbers: ", JSON.json(numbers_labeled, 4))
+println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -262,12 +262,12 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", JSON.json(products, 4))
+println("products: ", chomp(JSON.json(products, 4)))
 
 println("# using JavaScript-like Array.map() function \"array_map_v1\"")
 
 products_labeled = array_map_v1((product, _, _) -> Dict(product..., "label" => ((product["price"] > 100) ? "expensive" : "cheap")), products)
-println("labeled products: ", JSON.json(products_labeled, 4))
+println("labeled products: ", chomp(JSON.json(products_labeled, 4)))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -294,7 +294,7 @@ println("labeled products: ", JSON.json(products_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v2\"")
 
 products_labeled = array_map_v2((product, _, _) -> Dict(product..., "label" => ((product["price"] > 100) ? "expensive" : "cheap")), products)
-println("labeled products: ", JSON.json(products_labeled, 4))
+println("labeled products: ", chomp(JSON.json(products_labeled, 4)))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -321,7 +321,7 @@ println("labeled products: ", JSON.json(products_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v3\"")
 
 products_labeled = array_map_v3((product, _, _) -> Dict(product..., "label" => ((product["price"] > 100) ? "expensive" : "cheap")), products)
-println("labeled products: ", JSON.json(products_labeled, 4))
+println("labeled products: ", chomp(JSON.json(products_labeled, 4)))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -348,7 +348,7 @@ println("labeled products: ", JSON.json(products_labeled, 4))
 println("# using JavaScript-like Array.map() function \"array_map_v4\"")
 
 products_labeled = array_map_v4((product, _, _) -> Dict(product..., "label" => ((product["price"] > 100) ? "expensive" : "cheap")), products)
-println("labeled products: ", JSON.json(products_labeled, 4))
+println("labeled products: ", chomp(JSON.json(products_labeled, 4)))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -375,7 +375,7 @@ println("labeled products: ", JSON.json(products_labeled, 4))
 println("# using Julia Array.map() built-in function \"map\"")
 
 products_labeled = map((product) -> Dict(product..., "label" => ((product["price"] > 100) ? "expensive" : "cheap")), products)
-println("labeled products: ", JSON.json(products_labeled, 4))
+println("labeled products: ", chomp(JSON.json(products_labeled, 4)))
 # labeled products: [
 #     {
 #         "code": "pasta",

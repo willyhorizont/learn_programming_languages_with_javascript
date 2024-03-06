@@ -145,7 +145,7 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", JSON.json(products, 4))
+println("products: ", chomp(JSON.json(products, 4)))
 
 println("# using JavaScript-like Array.every() function \"array_every_v1\"")
 

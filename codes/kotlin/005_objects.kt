@@ -1,14 +1,10 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc 1.Objects.kt -include-runtime -d 1.Objects.jar && kotlin 1.Objects.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
         fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
-            if (anythingInner == null) return "undefined"
-            if (anythingInner == "null") return "null"
-            if (anythingInner == "undefined") return "undefined"
+            if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
@@ -47,7 +43,7 @@ fun main() {
                 result += "\n${indentInner.repeat(indentLevel)}}"
                 return result
             }
-            return "undefined"
+            return "null"
         }
         return prettyJsonStringifyInner(anything, indent)
     }

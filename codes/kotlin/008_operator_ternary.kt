@@ -1,6 +1,4 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc operator_ternary.kt -include-runtime -d operator_ternary.jar && kotlin operator_ternary.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     println("\n// Ternary Operator in Kotlin")

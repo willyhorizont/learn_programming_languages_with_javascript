@@ -1,36 +1,34 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc 1.Functions.kt -include-runtime -d 1.Functions.jar && kotlin 1.Functions.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     // ? function statement or function declaration
 
     fun getRectangleAreaV1(rectangleWidth: Int, rectangleLength: Int): Int {
-        return rectangleWidth * rectangleLength
+        return (rectangleWidth * rectangleLength)
     }
     // call the function example: getRectangleAreaV1(7, 5)
 
     // ? function expression
 
     val getRectangleAreaV2 = fun(rectangleWidth: Int, rectangleLength: Int): Int {
-        return rectangleWidth * rectangleLength
+        return (rectangleWidth * rectangleLength)
     }
     // call the function example: getRectangleAreaV2(7, 5)
 
     // ? anonymous function
 
     // fun(rectangleWidth: Int, rectangleLength: Int): Int {
-    //     return rectangleWidth * rectangleLength
+    //     return (rectangleWidth * rectangleLength)
     // }
 
     // ? function expression with lambda function
 
-    val getRectangleAreaV3: (Int, Int) -> Int = { rectangleWidth, rectangleLength -> rectangleWidth * rectangleLength }
+    val getRectangleAreaV3 = ({ rectangleWidth: Int, rectangleLength: Int -> (rectangleWidth * rectangleLength) } as (Int, Int) -> Int)
     // call the function example: getRectangleAreaV3(7, 5)
 
     // ? anonymous lambda function
 
-    // { rectangleWidth: Int, rectangleLength: Int -> rectangleWidth * rectangleLength }
+    // ({ rectangleWidth: Int, rectangleLength: Int -> (rectangleWidth * rectangleLength) } as (Int, Int) -> Int)
 
     // Passing functions as arguments to other functions
 
@@ -54,18 +52,18 @@ fun main() {
     // Assigning functions to variables or storing them in data structures
 
     val getRectangleAreaV2Copy = fun(rectangleWidth: Int, rectangleLength: Int): Int {
-        return rectangleWidth * rectangleLength
+        return (rectangleWidth * rectangleLength)
     }
 
-    val getRectangleAreaV3Copy: (Int, Int) -> Int = { rectangleWidth, rectangleLength -> rectangleWidth * rectangleLength }
+    val getRectangleAreaV3Copy = ({ rectangleWidth: Int, rectangleLength: Int -> (rectangleWidth * rectangleLength) } as (Int, Int) -> Int)
 
     val myArrayOfGetRectangleAreaFunctions = mutableListOf<Any?>(
         ::getRectangleAreaV1,
         getRectangleAreaV2,
         fun(rectangleWidth: Int, rectangleLength: Int): Int {
-            return rectangleWidth * rectangleLength
+            return (rectangleWidth * rectangleLength)
         },
-        { rectangleWidth: Int, rectangleLength: Int -> rectangleWidth * rectangleLength }
+        ({ rectangleWidth: Int, rectangleLength: Int -> (rectangleWidth * rectangleLength) } as (Int, Int) -> Int)
     )
     val getRectangleAreaFunctionResult1 = (myArrayOfGetRectangleAreaFunctions[0] as (Int, Int) -> Int)(7, 5)
     val getRectangleAreaFunctionResult2 = (myArrayOfGetRectangleAreaFunctions[1] as (Int, Int) -> Int)(7, 5)
@@ -77,16 +75,16 @@ fun main() {
     }
 
     val modulus = fun(a: Int, b: Int): Int {
-        return a % b
+        return (a % b)
     }
 
     val simpleCalculator = mutableMapOf<String, Any?>(
         "exponentiation" to ::exponentiation,
         "modulus" to modulus,
         "multiplication" to fun(a: Int, b: Int): Int {
-            return a * b
+            return (a * b)
         },
-        "division" to { a: Int, b: Int -> a.toDouble() / b }
+        "division" to { a: Int, b: Int -> (a.toDouble() / b) }
     )
     val simpleCalculatorResult1 = (simpleCalculator["exponentiation"] as (Double, Double) -> Double)(2.0, 4.0)
     val simpleCalculatorResult2 = (simpleCalculator["modulus"] as (Int, Int) -> Int)(5, 3)
@@ -97,7 +95,7 @@ fun main() {
 
     fun multiplyV1(a: Int): (Int) -> Int {
         fun multiplyBy(b: Int): Int {
-            return a * b
+            return (a * b)
         }
         return ::multiplyBy
     }
@@ -106,7 +104,7 @@ fun main() {
 
     fun multiplyV2(a: Int): (Int) -> Int {
         val multiplyBy = fun(b: Int): Int {
-            return a * b
+            return (a * b)
         }
         return multiplyBy
     }
@@ -115,21 +113,21 @@ fun main() {
 
     fun multiplyV3(a: Int): (Int) -> Int {
         return fun(b: Int): Int {
-            return a * b
+            return (a * b)
         }
     }
     val multiplyBy4 = multiplyV3(4)
     val multiplyBy4Result = multiplyBy4(10) // 40
     
     fun multiplyV4(a: Int): (Int) -> Int {
-        return { b: Int -> a * b }
+        return { b: Int -> (a * b) }
     }
     val multiplyBy5 = multiplyV4(5)
     val multiplyBy5Result = multiplyBy5(10) // 50
 
     val multiplyV5 = fun(a: Int): (Int) -> Int {
         fun multiplyBy(b: Int): Int {
-            return a * b
+            return (a * b)
         }
         return ::multiplyBy
     }
@@ -138,7 +136,7 @@ fun main() {
 
     val multiplyV6 = fun(a: Int): (Int) -> Int {
         val multiplyBy = fun(b: Int): Int {
-            return a * b
+            return (a * b)
         }
         return multiplyBy
     }
@@ -147,19 +145,19 @@ fun main() {
 
     val multiplyV7 = fun(a: Int): (Int) -> Int {
         return fun(b: Int): Int {
-            return a * b
+            return (a * b)
         }
     }
     val multiplyBy8 = multiplyV7(8)
     val multiplyBy8Result = multiplyBy8(10) // 80
     
     val multiplyV8 = fun(a: Int): (Int) -> Int {
-        return { b: Int -> a * b }
+        return { b: Int -> (a * b) }
     }
     val multiplyBy9 = multiplyV8(9)
     val multiplyBy9Result = multiplyBy9(10) // 90
 
-    val multiplyV9 = { a: Int -> { b: Int -> a * b } }
+    val multiplyV9 = { a: Int -> { b: Int -> (a * b) } }
     val multiplyBy10 = multiplyV9(10)
     val multiplyBy10Result = multiplyBy10(10) // 100
 }

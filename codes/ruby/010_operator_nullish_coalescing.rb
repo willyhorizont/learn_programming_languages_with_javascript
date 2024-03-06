@@ -1,6 +1,6 @@
 require "json"
 
-print("\n# JavaScript-like Nullish Coalescing Operator (??) in Ruby")
+print("\n", "# JavaScript-like Nullish Coalescing Operator (??) in Ruby")
 
 # There's no JavaScript-like Nullish Coalescing Operator (??) in Ruby.
 # But, we can create our own function to mimic it in Ruby.
@@ -14,9 +14,9 @@ JSON_OBJECT = {
     },
     "fruits" => ["apple", "mango", "banana"]
 }
-print("\nJSON_OBJECT: ", JSON.pretty_generate(JSON_OBJECT, { "indent": " " * 4 }))
+print("\n", "JSON_OBJECT: ", JSON.pretty_generate(JSON_OBJECT, { "indent": " " * 4 }))
 
-print("\n# using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
+print("\n", "# using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
 
 print("\n(JSON_OBJECT?.foo?.bar ?? \"not found\"): ", JSON.pretty_generate(nullish_coalescing.(JSON_OBJECT.dig("foo", "bar"), "not found"), { "indent": " " * 4 }))
 # (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"

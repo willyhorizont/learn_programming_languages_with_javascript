@@ -1,4 +1,15 @@
 =============================changelog==========================================
+14:13 | 02:13 PM | Wed | Mar | 06/03/2024
+0.0.43
+add chomp to JSON.json in *.jl
+fix pretty_json_stringify in *.pl & *.r
+fix prettyJsonStringify in *.kt & *.swift
+update new line string interpolation
+finish yyy_required_features.[js, py, php, go, pl, jl, lua, rb, r, kt, swift, dart, vb, cs]
+TODO:
+finish vb, c#
+try gdscript
+=============================changelog==========================================
 20:42 | 08:42 PM | Sun | Mar | 03/03/2024
 0.0.42
 rename files

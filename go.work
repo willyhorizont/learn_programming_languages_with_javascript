@@ -23,6 +23,7 @@ use (
     ./codes/go/factorial
     ./codes/go/fizzbuzz
     ./codes/go/xxx_chaos
+    ./codes/go/yyy_required_features
     ./codes/go/www_001_abbreviate_name
     ./codes/go/www_002_count_vowels
 )

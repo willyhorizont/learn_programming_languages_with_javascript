@@ -13,7 +13,7 @@ JSON_OBJECT = Dict(
     ),
     "fruits" => ["apple", "mango", "banana"]
 )
-println("JSON_OBJECT: ", JSON.json(JSON_OBJECT, 4))
+println("JSON_OBJECT: ", chomp(JSON.json(JSON_OBJECT, 4)))
 
 println("JSON_OBJECT?.foo?.bar: ", try JSON_OBJECT["foo"]["bar"] catch(err) nothing end)
 # JSON_OBJECT?.foo?.bar: baz

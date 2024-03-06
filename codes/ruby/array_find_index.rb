@@ -138,99 +138,99 @@ array_find_index_v12 = ->(callback_function, an_array) do
     return -1
 end
 
-print("\n# JavaScript-like Array.findIndex() in Ruby Array")
+print("\n", "# JavaScript-like Array.findIndex() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\nnumbers: ", numbers)
+print("\n", "numbers: ", numbers)
 
 number_to_find = 27
-print("\nnumber to find: ", number_to_find)
+print("\n", "number to find: ", number_to_find)
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
 number_found_index = array_find_index_v1.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
 number_found_index = array_find_index_v2.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
 number_found_index = array_find_index_v3.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 number_found_index = array_find_index_v4.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
 number_found_index = array_find_index_v5.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
 number_found_index = array_find_index_v6.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"")
 
 number_found_index = array_find_index_v7.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"")
 
 number_found_index = array_find_index_v8.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"")
 
 number_found_index = array_find_index_v9.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"")
 
 number_found_index = array_find_index_v10.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v11\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v11\"")
 
 number_found_index = array_find_index_v11.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v12\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v12\"")
 
 number_found_index = array_find_index_v12.(->(number, _, _) { (number === number_to_find) }, numbers)
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
+print("\n", "# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
 
 number_found_index = numbers.find_index { |number| (number === number_to_find) }
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in method \"Array.index\"")
+print("\n", "# using Ruby Array.findIndex() built-in method \"Array.index\"")
 
 number_found_index = numbers.index { |number| (number === number_to_find) }
-print("\nnumber found index: ", number_found_index)
+print("\n", "number found index: ", number_found_index)
 # number found index: 2
 
-print("\n# JavaScript-like Array.findIndex() in Ruby Array of Hashes")
+print("\n", "# JavaScript-like Array.findIndex() in Ruby Array of Hashes")
 
 products = [
     {
@@ -250,91 +250,91 @@ products = [
         "price" => 499
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
+print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
 product_to_find = "pasta"
-print("\nproduct to find: ", product_to_find)
+print("\n", "product to find: ", product_to_find)
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
 product_found_index = array_find_index_v1.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
 product_found_index = array_find_index_v2.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
 product_found_index = array_find_index_v3.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 product_found_index = array_find_index_v4.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
 
 product_found_index = array_find_index_v5.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
 
 product_found_index = array_find_index_v6.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"")
 
 product_found_index = array_find_index_v7.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"")
 
 product_found_index = array_find_index_v8.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"")
 
 product_found_index = array_find_index_v9.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"")
 
 product_found_index = array_find_index_v10.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v11\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v11\"")
 
 product_found_index = array_find_index_v11.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using JavaScript-like Array.findIndex() function \"array_find_index_v12\"")
+print("\n", "# using JavaScript-like Array.findIndex() function \"array_find_index_v12\"")
 
 product_found_index = array_find_index_v12.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 # product found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
+print("\n", "# using Ruby Array.findIndex() built-in method \"Array.find_index\"")
 
 product_found_index = products.find_index { |product| (product["code"] == product_to_find) }
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 ## product found index: 2
 
-print("\n# using Ruby Array.findIndex() built-in method \"Array.index\"")
+print("\n", "# using Ruby Array.findIndex() built-in method \"Array.index\"")
 
 product_found_index = products.index { |product| (product["code"] == product_to_find) }
-print("\nproduct found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
+print("\n", "product found index: ", JSON.pretty_generate(product_found_index, { "indent": " " * 4 }))
 ## product found index: 2

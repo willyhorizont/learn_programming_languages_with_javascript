@@ -38,13 +38,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
     var indentLevel = 0
     func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
         guard let anythingInner = anythingInner else {
-            return "undefined"
-        }
-        if (anythingInner as? String == "null") {
             return "null"
-        }
-        if (anythingInner as? String == "undefined") {
-            return "undefined"
         }
         if let anythingInner = anythingInner as? String {
             return "\"\(anythingInner)\""
@@ -89,7 +83,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             result += "\n\(String(repeating: indentInner, count: indentLevel))}"
             return result
         }
-        return "undefined"
+        return "null"
     }
     return prettyJsonStringifyInner(anything, indent)
 }

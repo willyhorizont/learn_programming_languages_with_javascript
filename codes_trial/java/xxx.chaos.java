@@ -20,13 +20,13 @@ class Program {
     public static void main(String[] args) {
         Object something = 123;
         System.out.println("something: " + something);
-        something = "foo";
+        something = 123;
         System.out.println("something: " + something);
         something = true;
         System.out.println("something: " + something);
         something = null;
         System.out.println("something: " + something);
-        something = new Object[]{1, 2, 3};;
+        something = new Object[]{1, 2, 3};
         System.out.println("something: " + something);
         something = new HashMap<String, Object>() {
             {

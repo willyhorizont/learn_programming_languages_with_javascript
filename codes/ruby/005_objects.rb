@@ -5,7 +5,7 @@ friend = {
     "country" => "Finland",
     "age" => 25
 }
-print("\nfriend: ", JSON.pretty_generate(friend, { "indent": " " * 4 }), "\n")
+print("\n", "friend: ", JSON.pretty_generate(friend, { "indent": " " * 4 }), "\n")
 
 print("friend, get country: #{friend["country"]}\n")
 # friend, get country: Finland

@@ -7,7 +7,7 @@ interface LambdaArgs2<Args1, Args2, Result> {
 
 public class deletesoon {
     public static void main(String[] args) {
-        Object[] myArray2 = new Object[]{(LambdaArgs2<Integer, Integer, Integer>) (a, b) -> a * b};
+        Object[] myArray2 = new Object[]{(LambdaArgs2<Integer, Integer, Integer>) (a, b) -> (a * b)};
 
         // Retrieve the first element of myArray2 and execute as a function
         // LambdaArgs2<Integer, Integer, Integer> arrayFunction = (LambdaArgs2<Integer, Integer, Integer>) myArray2[0];
@@ -16,7 +16,7 @@ public class deletesoon {
 
         // Create a HashMap to store the lambda expression
         HashMap<String, Object> myObject2 = new HashMap<>();
-        myObject2.put("my_function", (LambdaArgs2<Integer, Integer, Integer>) (a, b) -> a * b);
+        myObject2.put("my_function", (LambdaArgs2<Integer, Integer, Integer>) (a, b) -> (a * b));
 
         // Retrieve the lambda expression from myObject2 using its key and execute as a function
         LambdaArgs2<Integer, Integer, Integer> function = (LambdaArgs2<Integer, Integer, Integer>) myObject2.get("my_function");

@@ -25,9 +25,9 @@ class yyy_requirements {
         /*
         1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type
         ```javascript
-        let something = 123;
+        let something = "foo";
         console.log("something:", something);
-        something = "foo";
+        something = 123;
         console.log("something:", something);
         something = true;
         console.log("something:", something);
@@ -41,7 +41,7 @@ class yyy_requirements {
         */
         Object something = 123;
         System.out.println("something: " + something);
-        something = "foo";
+        something = 123;
         System.out.println("something: " + something);
         something = true;
         System.out.println("something: " + something);
@@ -65,7 +65,7 @@ class yyy_requirements {
             "my_object": {
                 "foo": "bar"
             },
-            "my_array": [1, 2, 3],
+            "my_array": [1, 2, 3]
         };
         console.log("myObject: ", myObject);
         ```
@@ -143,7 +143,7 @@ class yyy_requirements {
         const getRectangleArea = function (rectangleWidth, rectangleLength) {
             return rectangleWidth * rectangleLength;
         };
-        console.log("getRectangleArea(3, 4): ", getRectangleArea(3, 4));;
+        console.log("getRectangleArea(3, 4): ", getRectangleArea(3, 4));
         ```
         */
         BiFunction<Integer, Integer, Integer> getRectangleArea = (rectangleWidth, rectangleLength) -> {

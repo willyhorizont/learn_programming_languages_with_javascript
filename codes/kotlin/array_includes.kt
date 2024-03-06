@@ -1,6 +1,4 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc Array.includes.kt -include-runtime -d Array.includes.jar && kotlin Array.includes.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     fun prettyArrayOfPrimitives(anArrayOfPrimitives: MutableList<Any?>): String {

@@ -7,7 +7,7 @@ friend = Dict(
     "country" => "Finland",
     "age" => 25
 )
-println("friend: ", JSON.json(friend, 4))
+println("friend: ", chomp(JSON.json(friend, 4)))
 
 println("friend, get country: ", friend["country"])
 # friend, get country: Finland

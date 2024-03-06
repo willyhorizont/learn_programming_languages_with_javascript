@@ -6,7 +6,7 @@ void main() {
     dynamic something = 123;
     print(something); // Output: 123
 
-    something = "foo";
+    something = 123;
     print(something); // Output: foo
 
     something = true;

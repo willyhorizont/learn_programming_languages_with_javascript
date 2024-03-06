@@ -1,6 +1,4 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc fizzbuzz.kt -include-runtime -d fizzbuzz.jar && kotlin fizzbuzz.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     println("\n// FizzBuzz(n) in Kotlin")

@@ -1,6 +1,4 @@
-@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST")
-// to compile and run the code:
-// kotlinc operator_nullish_coalescing.kt -include-runtime -d operator_nullish_coalescing.jar && kotlin operator_nullish_coalescing.jar
+@Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
     println("\n// JavaScript-like Nullish Coalescing Operator (??) in Kotlin")
@@ -8,9 +6,7 @@ fun main() {
     fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
         var indentLevel = 0
         fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
-            if (anythingInner == null) return "undefined"
-            if (anythingInner == "null") return "null"
-            if (anythingInner == "undefined") return "undefined"
+            if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
@@ -49,7 +45,7 @@ fun main() {
                 result += "\n${indentInner.repeat(indentLevel)}}"
                 return result
             }
-            return "undefined"
+            return "null"
         }
         return prettyJsonStringifyInner(anything, indent)
     }

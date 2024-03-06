@@ -9,12 +9,12 @@ $ is for primitive data types
 
 sub say_hi {
     my ($do_something2) = @_;
-    print("hi", "\n");
+    print("hi" . "\n");
     $do_something2 -> ();
 };
 
 sub say_how_are_you {
-    print("how are you?", "\n");
+    print("how are you?" . "\n");
 };
 
 say_hi(\&say_how_are_you);

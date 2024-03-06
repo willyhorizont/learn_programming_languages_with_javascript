@@ -1,4 +1,4 @@
-print("\n# FizzBuzz(n) in Ruby")
+print("\n", "# FizzBuzz(n) in Ruby")
 
 def fizzbuzz_v1(stop_number)
     return "argument should be a number" if (stop_number.is_a?(Numeric) == false)
@@ -197,38 +197,38 @@ end
 
 fizzbuzz_v9 = ->(stop_number) { ((stop_number.is_a?(Numeric) == false) ? "argument should be a number" : ((stop_number < 1) ? "argument should be greater than 0" : (1.step(stop_number, 1)).reduce("") { |current_result, number| ((current_result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{current_result}, FizzBuzz" : (((number % 3) === 0) ? "#{current_result}, Fizz" : (((number % 5) === 0) ? "#{current_result}, Buzz" : "#{current_result}, #{number}")))) })) }
 
-print("\n# using fizzbuzz function \"fizzbuzz_v1\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v1(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v1\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v1(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v2\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v2(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v2\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v2(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v3\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v3(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v3\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v3(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v4\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v4(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v4\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v4(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v5\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v5(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v5\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v5(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v6\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v6(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v6\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v6(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v7\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v7(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v7\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v7(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v8\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v8(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v8\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v8(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("\n# using fizzbuzz function \"fizzbuzz_v9\"")
-print("\nFizzBuzz(36): ", fizzbuzz_v9.(36))
+print("\n", "# using fizzbuzz function \"fizzbuzz_v9\"")
+print("\n", "FizzBuzz(36): ", fizzbuzz_v9.(36))
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

@@ -19,15 +19,15 @@ array_map_v2 = ->(callback_function, an_array) do
     return new_array
 end
 
-print("\n# JavaScript-like Array.map() in Ruby Array")
+print("\n", "# JavaScript-like Array.map() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\nnumbers: ", numbers)
+print("\n", "numbers: ", numbers)
 
-print("\n# using JavaScript-like Array.map() function \"array_map_v1\"")
+print("\n", "# using JavaScript-like Array.map() function \"array_map_v1\"")
 
 numbers_labeled = array_map_v1.(->(number, _, _) { { number => (((number % 2) == 0) ? "even" : "odd")} }, numbers)
-print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
+print("\n", "labeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -61,10 +61,10 @@ print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": "
 #     }
 # ]
 
-print("\n# using JavaScript-like Array.map() function \"array_map_v2\"")
+print("\n", "# using JavaScript-like Array.map() function \"array_map_v2\"")
 
 numbers_labeled = array_map_v2.(->(number, _, _) { { number => (((number % 2) == 0) ? "even" : "odd")} }, numbers)
-print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
+print("\n", "labeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -98,10 +98,10 @@ print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": "
 #     }
 # ]
 
-print("\n# using Ruby Array.map() built-in method \"Array.map\"")
+print("\n", "# using Ruby Array.map() built-in method \"Array.map\"")
 
 numbers_labeled = numbers.map { |number| { number => (((number % 2) == 0) ? "even" : "odd")} }
-print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
+print("\n", "labeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": " " * 4 }))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -135,7 +135,7 @@ print("\nlabeled numbers: ", JSON.pretty_generate(numbers_labeled, { "indent": "
 #     }
 # ]
 
-print("\n# JavaScript-like Array.map() in Ruby Array of Hashes")
+print("\n", "# JavaScript-like Array.map() in Ruby Array of Hashes")
 
 products = [
     {
@@ -155,12 +155,12 @@ products = [
         "price" => 499
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
+print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
-print("\n# using JavaScript-like Array.map() function \"array_map_v1\"")
+print("\n", "# using JavaScript-like Array.map() function \"array_map_v1\"")
 
 products_labeled = array_map_v1.(->(product, _, _) { {**product, "label" => ((product["price"] > 100) ? "expensive" : "cheap")} }, products)
-print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
+print("\n", "labeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -184,10 +184,10 @@ print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent":
 #     }
 # ]
 
-print("\n# using JavaScript-like Array.map() function \"array_map_v2\"")
+print("\n", "# using JavaScript-like Array.map() function \"array_map_v2\"")
 
 products_labeled = array_map_v2.(->(product, _, _) { {**product, "label" => ((product["price"] > 100) ? "expensive" : "cheap")} }, products)
-print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
+print("\n", "labeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -211,10 +211,10 @@ print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent":
 #     }
 # ]
 
-print("\n# using Ruby Array.map() built-in method \"Array.map\"")
+print("\n", "# using Ruby Array.map() built-in method \"Array.map\"")
 
 products_labeled = products.map { |product| {**product, "label" => ((product["price"] > 100) ? "expensive" : "cheap")} }
-print("\nlabeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
+print("\n", "labeled products: ", JSON.pretty_generate(products_labeled, { "indent": " " * 4 }))
 # labeled products: [
 #     {
 #         "code": "pasta",

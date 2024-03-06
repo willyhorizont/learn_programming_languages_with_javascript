@@ -1,6 +1,11 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) (if (is.null(anything) == TRUE) "NULL" else if (is.character(anything) == TRUE) paste(sep = "", "\"", anything, "\"") else prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4))
+prettyJsonStringify <- function(anything) {
+    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
+    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
+    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+}
 
 prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
     result <- "["
@@ -14,7 +19,7 @@ prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
             result <- paste(sep = "", result, arrayItem)
         }
         if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "NULL")
+            result <- paste(sep = "", result, "null")
         }
         if (arrayItemIndex != length(anArrayOfPrimitives)) {
             result <- paste(sep = "", result, ", ")

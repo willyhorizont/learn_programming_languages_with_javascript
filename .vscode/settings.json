@@ -8,5 +8,8 @@
         "editor.insertSpaces": true, // Use spaces and not tabs for indentantion
         "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
         "editor.formatOnType": true // Enable formatting while typing
-    }
+    },
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ]
 }

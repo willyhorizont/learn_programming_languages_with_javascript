@@ -8,7 +8,7 @@ use Scalar::Util qw(looks_like_number);
 
 sub bool_to_string {
     my ($anything) = @_;
-    return $anything ? "true" : "false";
+    return ($anything ? "true" : "false");
 }
 
 sub pretty_array_of_primitives {
@@ -33,7 +33,7 @@ sub array_includes_v1 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
         if ($is_condition_match) {
             $element_found = 1;
             last;
@@ -48,7 +48,7 @@ sub array_includes_v2 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
+        if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element) {
             $element_found = 1;
             last;
         }
@@ -62,7 +62,7 @@ sub array_includes_v3 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
         if ($is_condition_match) {
             $element_found = 1;
             return $element_found;
@@ -77,7 +77,7 @@ sub array_includes_v4 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
+        if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element) {
             $element_found = 1;
             return $element_found;
         }
@@ -90,7 +90,7 @@ sub array_includes_v5 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
         if ($is_condition_match) {
             return 1;
         }
@@ -103,7 +103,7 @@ sub array_includes_v6 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element) {
+        if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element) {
             return 1;
         }
     }
@@ -116,7 +116,7 @@ sub array_includes_v7 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
         return 1 if ($is_condition_match);
     }
     return $element_found;
@@ -128,7 +128,7 @@ sub array_includes_v8 {
     my @an_array = @{$an_array_ref};
     my $element_found = 0;
     for my $array_item (@an_array) {
-        return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
+        return 1 if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
     }
     return $element_found;
 }
@@ -138,7 +138,7 @@ sub array_includes_v9 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        my $is_condition_match = looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element;
+        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
         return 1 if ($is_condition_match);
     }
     return 0;
@@ -149,7 +149,7 @@ sub array_includes_v10 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        return 1 if (looks_like_number($array_item) ? $array_item == $search_element : $array_item eq $search_element);
+        return 1 if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
     }
     return 0;
 }
@@ -157,7 +157,7 @@ sub array_includes_v10 {
 print("\n# JavaScript-like Array.includes() in Perl\n");
 
 my @my_friends = ("Alisa", "Trivia");
-print("my friends: ", pretty_array_of_primitives(@my_friends), "\n");
+print("my friends: " . pretty_array_of_primitives(@my_friends) . "\n");
 
 my $name;
 my $is_my_friend;

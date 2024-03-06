@@ -44,13 +44,13 @@ sub factorial_v3 {
 }
 
 print("# using factorial function \"factorial_v1\"\n");
-print("Factorial(5): ", factorial_v1(5), "\n");
+print("Factorial(5): " . factorial_v1(5) . "\n");
 # Factorial(5): 120
 
 print("# using factorial function \"factorial_v2\"\n");
-print("Factorial(5): ", factorial_v2(5), "\n");
+print("Factorial(5): " . factorial_v2(5) . "\n");
 # Factorial(5): 120
 
 print("# using factorial function \"factorial_v3\"\n");
-print("Factorial(5): ", factorial_v3(5), "\n");
+print("Factorial(5): " . factorial_v3(5) . "\n");
 # Factorial(5): 120

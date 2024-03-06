@@ -1,0 +1,4 @@
+godot 4
+cd $dir && godot --script --headless $fileName
+godot 3
+cd $dir && godot --script --no-window $fileName

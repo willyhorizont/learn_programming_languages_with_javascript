@@ -159,10 +159,10 @@ Module Program
         greet("Alice") ' Output: Hello, Alice
 
         Dim GetRectangleArea1 = Function(RectangleWidth As Integer, RectangleLength As Integer) As Integer
-            Return RectangleWidth * RectangleLength
+            Return (RectangleWidth * RectangleLength)
         End Function
         Dim GetRectangleArea2 As Func(Of Integer, Integer, Integer) = Function(RectangleWidth, RectangleLength)
-            Return RectangleWidth * RectangleLength
+            Return (RectangleWidth * RectangleLength)
         End Function
     End Sub
     Function AddNumbers(ByVal num1 As Integer, ByVal num2 As Integer) As Integer

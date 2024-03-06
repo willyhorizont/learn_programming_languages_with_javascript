@@ -61,7 +61,7 @@ products = [
         "name" => "potato chips"
     )
 ]
-println("products: ", JSON.json(products, 4))
+println("products: ", chomp(JSON.json(products, 4)))
 
 for (array_item_index, array_item) in enumerate(products)
     for (entry_index, (object_key, object_value)) in enumerate(pairs(array_item))

@@ -3,7 +3,7 @@ require "json"
 # Array in Ruby
 
 fruits = ["apple", "mango", "orange"]
-print("\nfruits: ", fruits)
+print("\n", "fruits: ", fruits)
 
 print("fruits, length: #{fruits.size}\n")
 # fruits, length: 3
@@ -49,7 +49,7 @@ products = [
         "name" => "potato chips"
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }), "\n")
+print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }), "\n")
 
 products.each_with_index { |array_item, array_item_index| array_item.each_with_index { |(object_key, object_value), entry_index| print("products, foreach loop, array item index: #{array_item_index}, iteration/entry index: #{entry_index}, key: #{object_key}, value: #{object_value}\n") } }
 # products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1

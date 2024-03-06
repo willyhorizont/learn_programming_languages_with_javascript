@@ -104,9 +104,9 @@ fn main() {
 
     // ? < Returning functions as values from other functions
 
-    let multiply_by_2 = multiply_v1(2);
-    let multiply_by_2_result = multiply_by_2(10); // 20
-    println!("{:?}", multiply_by_2_result);
+    let multiply_by2 = multiply_v1(2);
+    let multiply_by2_result = multiply_by2(10); // 20
+    println!("{:?}", multiply_by2_result);
 
     // ? Returning functions as values from other functions />
 }

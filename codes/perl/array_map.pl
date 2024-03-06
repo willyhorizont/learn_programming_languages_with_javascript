@@ -5,7 +5,9 @@ use Scalar::Util qw(looks_like_number);
 sub pretty_json_stringify {
     my ($anything) = @_;
     use JSON;
-    return JSON->new->allow_nonref->pretty->encode($anything);
+    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
+    $pretty_json_string =~ s/   /    /g;
+    return $pretty_json_string;
 }
 
 sub pretty_array_of_primitives {
@@ -51,14 +53,14 @@ sub array_map {
 print("\n# JavaScript-like Array.map() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: " . pretty_array_of_primitives(@numbers) . "\n");
 
 my @numbers_labeled;
 
 print("# using JavaScript-like Array.map() function \"array_map\"\n");
 
 @numbers_labeled = array_map(sub { my ($number) = @_; return { "$number" => ((($number % 2) == 0) ? "even" : "odd") } }, \@numbers);
-print("labeled numbers ", pretty_json_stringify(\@numbers_labeled));
+print("labeled numbers " . pretty_json_stringify(\@numbers_labeled));
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -95,7 +97,7 @@ print("labeled numbers ", pretty_json_stringify(\@numbers_labeled));
 print("# using Perl Array.map() built-in function \"map\"\n");
 
 @numbers_labeled = map { my $number = $_; { "$number" => ((($number % 2) == 0) ? "even" : "odd") } } @numbers;
-print("labeled numbers ", pretty_json_stringify(\@numbers_labeled));
+print("labeled numbers " . pretty_json_stringify(\@numbers_labeled));
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -150,7 +152,7 @@ my @products = (
     }
 );
 
-print("products: ", pretty_json_stringify(\@products));
+print("products: " . pretty_json_stringify(\@products));
 
 my @products_labeled;
 
@@ -161,7 +163,7 @@ print("# using JavaScript-like Array.map() function \"array_map\"\n");
     my %new_product = spread_syntax_object_v1(%{$product}, ("label" => (($product->{"price"} > 100) ? "expensive" : "cheap")));
     return \%new_product;
 }, \@products);
-print("labeled products: ", pretty_json_stringify(\@products_labeled));
+print("labeled products: " . pretty_json_stringify(\@products_labeled));
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -188,7 +190,7 @@ print("labeled products: ", pretty_json_stringify(\@products_labeled));
 print("# using Perl Array.map() built-in function \"map\"\n");
 
 @products_labeled = map { my $product = $_; +{ spread_syntax_object_v1(%{$product}, ("label" => (($product->{"price"} > 100) ? "expensive" : "cheap"))) } } @products;
-print("labeled products ", pretty_json_stringify(\@products_labeled));
+print("labeled products " . pretty_json_stringify(\@products_labeled));
 # labeled products: [
 #     {
 #         "code": "pasta",

@@ -5,13 +5,15 @@ use Scalar::Util qw(looks_like_number);
 
 sub bool_to_string {
     my ($anything) = @_;
-    return $anything ? "true" : "false";
+    return ($anything ? "true" : "false");
 }
 
 sub pretty_json_stringify {
     my ($anything) = @_;
     use JSON;
-    return JSON->new->allow_nonref->pretty->encode($anything);
+    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
+    $pretty_json_string =~ s/   /    /g;
+    return $pretty_json_string;
 }
 
 sub pretty_array_of_primitives {
@@ -139,7 +141,7 @@ sub array_some_v8 {
 print("\n# JavaScript-like Array.some() in Perl Array\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: " . pretty_array_of_primitives(@numbers) . "\n");
 
 my $is_any_number_less_than_500;
 my $is_any_number_more_than_500;
@@ -255,7 +257,7 @@ my @products = (
     }
 );
 
-print("products: ", pretty_json_stringify(\@products));
+print("products: " . pretty_json_stringify(\@products));
 
 my $is_any_product_price_less_than_500;
 my $is_any_product_price_more_than_500;

@@ -55,12 +55,12 @@ Module Program
         End Function
         Return PrettyJsonStringifyInner(Anything, Indent)
     End Function
-    Sub Main(args As String())
+    Sub Main(Args As String())
         ' 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
         ' ```javascript
-        ' let something = 123;
+        ' let something = "foo";
         ' console.log("something:", something);
-        ' something = "foo";
+        ' something = 123;
         ' console.log("something:", something);
         ' something = true;
         ' console.log("something:", something);
@@ -71,13 +71,12 @@ Module Program
         ' something = { "foo": "bar" };
         ' console.log("something:", something);
         ' ```
-        ' 
         ' ```go
         ' type Any interface{}
         ' ```
-        Dim Something As Object = 123
+        Dim Something As Object = "foo"
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
-        Something = "foo"
+        Something = 123
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
         Something = True
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
@@ -88,7 +87,7 @@ Module Program
         Something = New Dictionary(Of String, Object) From {{"foo", "bar"}}
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
 
-        ' 2. it's possible to access and modify variables defined outside of the current scope within nested functions
+        ' 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
         ' ```javascript
         ' function getModifiedIndentLevel() {
         '     let indentLevel = 0;
@@ -100,6 +99,22 @@ Module Program
         '     return changeIndentLevel();
         ' }
         ' console.log("getModifiedIndentLevel():", getModifiedIndentLevel());
+        ' function createNewGame(initialCredit) {
+        '     let currentCredit = initialCredit;
+        '     console.log("initial credit:", initialCredit);
+        '     return function () {
+        '         currentCredit -= 1;
+        '         if (currentCredit === 0) {
+        '             console.log("not enough credits");
+        '             return;
+        '         }
+        '         console.log(`playing game, ${currentCredit} credit(s) remaining`);
+        '     };
+        ' }
+        ' const playGame = createNewGame(3);
+        ' playGame();
+        ' playGame();
+        ' playGame();
         ' ```
         Dim GetModifiedIndentLevel As Func(Of Integer) = Function()
             Dim IndentLevel As Integer = 0
@@ -113,6 +128,22 @@ Module Program
             Return ChangeIndentLevel()
         End Function
         Console.WriteLine("GetModifiedIndentLevel: " & GetModifiedIndentLevel())
+        Dim CreateNewGame As Func(Of Integer, Action) = Function(InitialCredit As Integer)
+            Dim CurrentCredit = InitialCredit
+            Console.WriteLine("initial credit: " & InitialCredit)
+            Return Sub()
+                CurrentCredit -= 1
+                If (CurrentCredit = 0) Then
+                    Console.WriteLine("not enough credits")
+                    Return
+                End If
+                Console.WriteLine($"playing game, {CurrentCredit} credit(s) remaining")
+            End Sub
+        End Function
+        Dim PlayGame = CreateNewGame(3)
+        PlayGame()
+        PlayGame()
+        PlayGame()
 
         ' 3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
         ' ```javascript
@@ -124,7 +155,7 @@ Module Program
         '     "my_object": {
         '         "foo": "bar"
         '     },
-        '     "my_array": [1, 2, 3],
+        '     "my_array": [1, 2, 3]
         ' }
         ' ```
         Dim MyObject As Object = New Dictionary(Of String, Object) From {
@@ -174,16 +205,16 @@ Module Program
         ' ```javascript
         ' function multiply(a) {
         '     return function (b) {
-        '         return a * b;
+        '         return (a * b);
         '     };
         ' }
         ' const multiplyBy2 = multiply(2);
-        ' const multiplyBy2Result = multiplyBy2(10); // 20
+        ' const multiplyBy2Result = multiplyBy2(10);
         ' console.log("multiplyBy2Result:", multiplyBy2Result);
         ' ```
         Dim Multiply As Func(Of Integer, Func(Of Integer, Integer)) = Function(ByVal a)
             Return Function(ByVal b)
-                Return a * b
+                Return (a * b)
             End Function
         End Function
         Dim MultiplyBy2 = Multiply(2)
@@ -192,26 +223,38 @@ Module Program
 
         ' 7. support assigning functions to variables
         ' ```javascript
-        ' const getRectangleArea = function (rectangleWidth, rectangleLength) {
-        '     return rectangleWidth * rectangleLength;
+        ' const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
+        '     return (rectangleWidth * rectangleLength);
         ' };
-        ' console.log("getRectangleArea(7, 5):", getRectangleArea(7, 5));;
+        ' console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
+        ' const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
+        '     return (rectangleWidth * rectangleLength);
+        ' };
+        ' console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
+        ' const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
+        '     return (rectangleWidth * rectangleLength);
+        ' };
+        ' console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
+        ' const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
+        ' console.log("getRectangleAreaV4(7, 5):", getRectangleAreaV4(7, 5));
         ' ```
-        Dim GetRectangleArea = Function(ByVal RectangleWidth As Integer, ByVal RectangleLength As Integer) As Integer
-            Return RectangleWidth * RectangleLength
+        Dim GetRectangleAreaV1 = Function(ByVal RectangleWidth As Integer, ByVal RectangleLength As Integer) As Integer
+            Return (RectangleWidth * RectangleLength)
         End Function
-        Console.WriteLine("GetRectangleArea(7, 5): " & GetRectangleArea(7, 5))
+        Console.WriteLine("GetRectangleAreaV1(7, 5): " & GetRectangleAreaV1(7, 5))
+        Dim GetRectangleAreaV2 = Function(ByVal RectangleWidth As Integer, ByVal RectangleLength As Integer) (RectangleWidth * RectangleLength)
+        Console.WriteLine("GetRectangleAreaV2(7, 5): " & GetRectangleAreaV2(7, 5))
 
         ' 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
         ' ```javascript
         ' const myArray2 = [
-        '     function (rectangleWidth, rectangleLength) {
-        '         return rectangleWidth * rectangleLength;
+        '     function (a, b) {
+        '         return (a * b);
         '     },
         '     "foo",
         '     123,
         '     true,
-        '     null
+        '     null,
         '     [1, 2, 3],
         '     { "foo": "bar" },
         ' ];
@@ -219,7 +262,7 @@ Module Program
 
         ' const myObject2 = {
         '     "my_function": function (a, b) {
-        '         return a * b;
+        '         return (a * b);
         '     },
         '     "my_string": "foo",
         '     "my_number": 123,
@@ -228,13 +271,12 @@ Module Program
         '     "my_object": {
         '         "foo": "bar"
         '     },
-        '     "my_array": [1, 2, 3],
-        ' }
-        ' console.log("myObject2.my_function(7, 5):", myObject2.my_function(7, 5));
+        '     "my_array": [1, 2, 3]
+        ' };
+        ' console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
         ' ```
-        ' Dim MyArray2 = New Object() {"foo", 123, true, Nothing, New Object() {1, 2, 3}, New Dictionary(Of String, Object) From {{"foo", "bar"}}}
         Dim MyArray2 = New Object() {
-            DirectCast(Function(ByVal a As Integer, ByVal b As Integer) a * b, Func(Of Integer, Integer, Integer)),
+            DirectCast(Function(ByVal a As Integer, ByVal b As Integer) (a * b), Func(Of Integer, Integer, Integer)),
             "foo",
             123,
             True,
@@ -243,8 +285,9 @@ Module Program
             New Dictionary(Of String, Object) From {{"foo", "bar"}}
         }
         Console.WriteLine("myArray2[0](7, 5): " & DirectCast(MyArray2(0), Func(Of Integer, Integer, Integer))(7, 5))
+
         Dim MyObject2 As Object = New Dictionary(Of String, Object) From {
-            {"my_function", DirectCast(Function(ByVal a As Integer, ByVal b As Integer) a * b, Func(Of Integer, Integer, Integer))},
+            {"my_function", DirectCast(Function(ByVal a As Integer, ByVal b As Integer) (a * b), Func(Of Integer, Integer, Integer))},
             {"my_string", "foo"},
             {"my_number", 123},
             {"my_bool", true},
@@ -255,6 +298,6 @@ Module Program
             },
             {"my_array", New Object() {1, 2, 3}}
         }
-        Console.WriteLine("myObject2.my_function(7, 5): " & DirectCast(MyObject2("my_function"), Func(Of Integer, Integer, Integer))(7, 5))
+        Console.WriteLine("myObject2[""my_function""](7, 5): " & DirectCast(MyObject2("my_function"), Func(Of Integer, Integer, Integer))(7, 5))
     End Sub
 End Module

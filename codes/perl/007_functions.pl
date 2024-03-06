@@ -18,10 +18,10 @@ my $get_rectangle_area_v3 = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return $rectangle_width * $rectangle_length;
 };
-# call the function example: $get_rectangle_area_v3(7, 5)
+# call the function example: $get_rectangle_area_v3->(7, 5)
 
 my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_; return $rectangle_width * $rectangle_length; };
-# call the function example: $get_rectangle_area_v4(7, 5)
+# call the function example: $get_rectangle_area_v4->(7, 5)
 
 # ? anonymous function
 
@@ -36,21 +36,21 @@ my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_;
 
 sub say_hello {
     my ($callback_function) = @_;
-    print("hello", "\n");
+    print("hello" . "\n");
     $callback_function -> ();
 }
 
 sub say_how_are_you {
-    print("how are you?", "\n");
+    print("how are you?" . "\n");
 }
 
 say_hello(\&say_how_are_you);
 
 say_hello(sub {
-    print("how are you?", "\n");
+    print("how are you?" . "\n");
 });
 
-say_hello(sub { print("how are you?", "\n") });
+say_hello(sub { print("how are you?" . "\n") });
 
 # ? Assigning functions to variables or storing them in data structures
 

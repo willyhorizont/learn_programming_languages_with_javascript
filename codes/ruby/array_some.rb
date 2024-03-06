@@ -74,102 +74,102 @@ array_some_v8 = ->(canyback_function, an_array) do
     return false
 end
 
-print("\n# JavaScript-like Array.some() in Ruby Array")
+print("\n", "# JavaScript-like Array.some() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\nnumbers: ", numbers)
+print("\n", "numbers: ", numbers)
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v1\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v1\"")
 
 is_any_number_less_than_500 = array_some_v1.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v1.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v2\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v2\"")
 
 is_any_number_less_than_500 = array_some_v2.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v2.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v3\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v3\"")
 
 is_any_number_less_than_500 = array_some_v3.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v3.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v4\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v4\"")
 
 is_any_number_less_than_500 = array_some_v4.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v4.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v5\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v5\"")
 
 is_any_number_less_than_500 = array_some_v5.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v5.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v6\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v6\"")
 
 is_any_number_less_than_500 = array_some_v6.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v6.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v7\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v7\"")
 
 is_any_number_less_than_500 = array_some_v7.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v7.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v8\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v8\"")
 
 is_any_number_less_than_500 = array_some_v8.(->(number, _, _) { (number < 500) }, numbers)
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = array_some_v8.(->(number, _, _) { (number > 500) }, numbers)
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# using Ruby Array.some() built-in method \"Array.any?\"")
+print("\n", "# using Ruby Array.some() built-in method \"Array.any?\"")
 
 is_any_number_less_than_500 = numbers.any? { |number| (number < 500) }
-print("\nis any number < 500: ", is_any_number_less_than_500)
+print("\n", "is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
 is_any_number_more_than_500 = numbers.any? { |number| (number > 500) }
-print("\nis any number > 500: ", is_any_number_more_than_500)
+print("\n", "is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-print("\n# JavaScript-like Array.some() in Ruby Array of Hashes")
+print("\n", "# JavaScript-like Array.some() in Ruby Array of Hashes")
 
 products = [
     {
@@ -189,94 +189,94 @@ products = [
         "price" => 499
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
+print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v1\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v1\"")
 
 is_any_product_price_less_than_500 = array_some_v1.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v1.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v2\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v2\"")
 
 is_any_product_price_less_than_500 = array_some_v2.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v2.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v3\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v3\"")
 
 is_any_product_price_less_than_500 = array_some_v3.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v3.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v4\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v4\"")
 
 is_any_product_price_less_than_500 = array_some_v4.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v4.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v5\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v5\"")
 
 is_any_product_price_less_than_500 = array_some_v5.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v5.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v6\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v6\"")
 
 is_any_product_price_less_than_500 = array_some_v6.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v6.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v7\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v7\"")
 
 is_any_product_price_less_than_500 = array_some_v7.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v7.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using JavaScript-like Array.some() function \"array_some_v8\"")
+print("\n", "# using JavaScript-like Array.some() function \"array_some_v8\"")
 
 is_any_product_price_less_than_500 = array_some_v8.(->(product, _, _) { (product["price"] < 500) }, products)
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = array_some_v8.(->(product, _, _) { (product["price"] > 500) }, products)
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false
 
-print("\n# using Ruby Array.some() built-in method \"Array.any?\"")
+print("\n", "# using Ruby Array.some() built-in method \"Array.any?\"")
 
 is_any_product_price_less_than_500 = products.any? { |product| (product["price"] < 500) }
-print("\nis any product price < 500: ", is_any_product_price_less_than_500)
+print("\n", "is any product price < 500: ", is_any_product_price_less_than_500)
 # is any product price < 500: true
 
 is_any_product_price_more_than_500 = products.any? { |product| (product["price"] > 500) }
-print("\nis any product price > 500: ", is_any_product_price_more_than_500)
+print("\n", "is any product price > 500: ", is_any_product_price_more_than_500)
 # is any product price > 500: false

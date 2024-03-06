@@ -164,7 +164,7 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", JSON.json(products, 4))
+println("products: ", chomp(JSON.json(products, 4)))
 
 product_to_find = "pasta"
 println("product to find: ", product_to_find)

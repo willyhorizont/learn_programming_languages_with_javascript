@@ -38,13 +38,13 @@ function factorial_v3($number) {
 };
 
 echo("\n// using factorial function \"factorial_v1\"");
-echo("\nFactorial(5): " . factorial_v1(5));
+echo("\n" . "Factorial(5): " . factorial_v1(5));
 // Factorial(5): 120
 
 echo("\n// using factorial function \"factorial_v2\"");
-echo("\nFactorial(5): " . factorial_v2(5));
+echo("\n" . "Factorial(5): " . factorial_v2(5));
 // Factorial(5): 120
 
 echo("\n// using factorial function \"factorial_v3\"");
-echo("\nFactorial(5): " . factorial_v3(5));
+echo("\n" . "Factorial(5): " . factorial_v3(5));
 // Factorial(5): 120

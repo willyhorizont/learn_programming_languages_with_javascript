@@ -185,19 +185,19 @@ func main() {
 
 	products := array{
 		object{
-			"code":  "pasta",
+			"code": "pasta",
 			"price": 321,
 		},
 		object{
-			"code":  "bubble_gum",
+			"code": "bubble_gum",
 			"price": 233,
 		},
 		object{
-			"code":  "potato_chips",
+			"code": "potato_chips",
 			"price": 5,
 		},
 		object{
-			"code":  "towel",
+			"code": "towel",
 			"price": 499,
 		},
 	}

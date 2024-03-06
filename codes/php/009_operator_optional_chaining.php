@@ -11,18 +11,18 @@ $JSON_OBJECT = [
     ],
     "fruits" => ["apple", "mango", "banana"]
 ];
-echo("\nJSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
+echo("\n" . "JSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
 
 echo("\n// using PHP Error Control Operator (@).");
 
-echo("\nJSON_OBJECT?.foo?.bar: " . json_encode(@$JSON_OBJECT["foo"]["bar"]));
+echo("\n" . "JSON_OBJECT?.foo?.bar: " . json_encode(@$JSON_OBJECT["foo"]["bar"]));
 // JSON_OBJECT?.foo?.bar: "baz"
 
-echo("\nJSON_OBJECT?.foo?.baz: " . json_encode(@$JSON_OBJECT["foo"]["baz"]));
+echo("\n" . "JSON_OBJECT?.foo?.baz: " . json_encode(@$JSON_OBJECT["foo"]["baz"]));
 // JSON_OBJECT?.foo?.bar: null
 
-echo("\nJSON_OBJECT?.fruits?.[2]: " . json_encode(@$JSON_OBJECT["fruits"][2]));
+echo("\n" . "JSON_OBJECT?.fruits?.[2]: " . json_encode(@$JSON_OBJECT["fruits"][2]));
 // JSON_OBJECT?.fruits?.[2]: "banana"
 
-echo("\nJSON_OBJECT?.fruits?.[5]: " . json_encode(@$JSON_OBJECT["fruits"][5]));
+echo("\n" . "JSON_OBJECT?.fruits?.[5]: " . json_encode(@$JSON_OBJECT["fruits"][5]));
 // JSON_OBJECT?.fruits?.[5]: null

@@ -8,7 +8,7 @@ $JSON_OBJECT = [
     ],
     "fruits" => ["apple", "mango", "banana"]
 ];
-echo("\nJSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
+echo("\n" . "JSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
 
 echo("\n(JSON_OBJECT?.foo?.bar ?? \"not found\"): " . json_encode(@$JSON_OBJECT["foo"]["bar"] ?? "not found"));
 // (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"

@@ -4,19 +4,19 @@ getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
     return(rectangleWidth * rectangleLength)
 }
 
-getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
+getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
 
 # ? anonymous function
-function(rectangleWidth, rectangleLength) {
-    return(rectangleWidth * rectangleLength)
-}
-function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
+# function(rectangleWidth, rectangleLength) {
+#     return(rectangleWidth * rectangleLength)
+# }
+# function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
 
 # ? Passing functions as arguments to other functions
 
-sayHello <- function(doSomething) {
+sayHello <- function(callbackFunction) {
     cat("hello\n")
-    doSomething()
+    callbackFunction()
 }
 
 sayHowAreYou <- function() {
@@ -37,14 +37,14 @@ getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
     return(rectangleWidth * rectangleLength)
 }
 
-getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
+getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
 
 myArrayOfGetRectangleAreaFunctions <- list(
     getRectangleAreaV1,
     function(rectangleWidth, rectangleLength) {
         return(rectangleWidth * rectangleLength)
     },
-    function(rectangleWidth, rectangleLength) rectangleWidth * rectangleLength
+    function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
 )
 
 # In R, when we store functions in a list, we should use double square brackets [[ ]] to access and call them.
@@ -61,7 +61,7 @@ simpleCalculator <- list(
     multiplication = function(a, b) {
         return(a * b)
     },
-    division = function(a, b) a / b
+    division = function(a, b) (a / b)
 )
 
 simpleCalculatorResult1 <- simpleCalculator$exponentiation(2, 4)
@@ -80,18 +80,26 @@ multiplyBy2 <- multiplyV1(2)
 multiplyBy2Result <- multiplyBy2(10) # 20
 
 multiplyV2 <- function(a) {
-    multiplyBy <- function(b) a * b
+    multiplyBy <- function(b) (a * b)
     return(multiplyBy)
 }
 multiplyBy3 <- multiplyV2(3)
 multiplyBy3Result <- multiplyBy3(10) # 30
 
 multiplyV3 <- function(a) {
-    return(function(b) a * b)
+    return(function(b) (a * b))
 }
 multiplyBy4 <- multiplyV3(4)
 multiplyBy4Result <- multiplyBy4(10) # 40
 
-multiplyV4 <- function(a) function(b) a * b
+multiplyV4 <- function(a) {
+    return(function(b) {
+        return(a * b)
+    })
+}
 multiplyBy5 <- multiplyV4(5)
 multiplyBy5Result <- multiplyBy5(10) # 50
+
+multiplyV5 <- function(a) function(b) (a * b)
+multiplyBy6 <- multiplyV5(6)
+multiplyBy6Result <- multiplyBy6(10) # 60

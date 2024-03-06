@@ -16,7 +16,7 @@ JSON_OBJECT = Dict(
     ),
     "fruits" => ["apple", "mango", "banana"]
 )
-println("JSON_OBJECT: ", JSON.json(JSON_OBJECT, 4))
+println("JSON_OBJECT: ", chomp(JSON.json(JSON_OBJECT, 4)))
 
 println("# using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
 

@@ -82,11 +82,11 @@ func main() {
 
 	products := array{
 		object{
-			"id":   "P1",
+			"id": "P1",
 			"name": "bubble gum",
 		},
 		object{
-			"id":   "P2",
+			"id": "P2",
 			"name": "potato chips",
 		},
 	}

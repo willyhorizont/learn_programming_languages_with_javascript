@@ -2,7 +2,12 @@ library(jsonlite)
 
 cat("\n# JavaScript-like Nullish Coalescing Operator (??) in R\n")
 
-prettyJsonStringify <- function(anything) (if (is.null(anything) == TRUE) "NULL" else if (is.character(anything) == TRUE) paste(sep = "", "\"", anything, "\"") else prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4))
+prettyJsonStringify <- function(anything) {
+    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
+    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
+    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+}
 
 # There's no JavaScript-like Nullish Coalescing Operator (??) in R.
 # But, we can create our own function to mimic it in R.

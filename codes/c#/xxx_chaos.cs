@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 class Program {
     static void Main(string[] args) {
+        dynamic InitialCredit = 0;
+        Console.WriteLine($"Initial credit: {InitialCredit}");
         Console.WriteLine("GetRectangleArea(3, 4): " + GetRectangleArea(3));
 
         Func<dynamic, bool> IsNumericV2 = (dynamic anything) => double.TryParse(anything?.ToString(), out double _);
@@ -18,10 +20,10 @@ class Program {
         Console.WriteLine(SayHello("Alice")); // Outputs: "Hello, Alice!"
     }
     static int GetRectangleArea(int RectangleWidth, int RectangleLength) {
-        return RectangleWidth * RectangleLength;
+        return (RectangleWidth * RectangleLength);
     }
     static int GetRectangleArea(int RectangleWidth) {
-        return RectangleWidth * 3;
+        return (RectangleWidth * 3);
     }
 
     static string SayHello(string name = "World") {

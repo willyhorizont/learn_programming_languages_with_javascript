@@ -38,62 +38,62 @@ array_filter_v4 = ->(callback_function, an_array) do
     return data_filtered
 end
 
-print("\n# JavaScript-like Array.filter() in Ruby Array")
+print("\n", "# JavaScript-like Array.filter() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\nnumbers: ", numbers)
+print("\n", "numbers: ", numbers)
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v1\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v1\"")
 
 numbers_even = array_filter_v1.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\neven numbers only: ", numbers_even)
+print("\n", "even numbers only: ", numbers_even)
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v1.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\nodd numbers only: ", numbers_odd)
+print("\n", "odd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v2\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v2\"")
 
 numbers_even = array_filter_v2.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\neven numbers only: ", numbers_even)
+print("\n", "even numbers only: ", numbers_even)
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v2.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\nodd numbers only: ", numbers_odd)
+print("\n", "odd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v3\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v3\"")
 
 numbers_even = array_filter_v3.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\neven numbers only: ", numbers_even)
+print("\n", "even numbers only: ", numbers_even)
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v3.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\nodd numbers only: ", numbers_odd)
+print("\n", "odd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v4\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v4\"")
 
 numbers_even = array_filter_v4.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\neven numbers only: ", numbers_even)
+print("\n", "even numbers only: ", numbers_even)
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v4.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\nodd numbers only: ", numbers_odd)
+print("\n", "odd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# using Ruby Array.filter() built-in method \"Array.select\"")
+print("\n", "# using Ruby Array.filter() built-in method \"Array.select\"")
 
 numbers_even = numbers.select { |number| ((number % 2) == 0) }
-print("\neven numbers only: ", numbers_even)
+print("\n", "even numbers only: ", numbers_even)
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = numbers.select { |number| ((number % 2) != 0) }
-print("\nodd numbers only: ", numbers_odd)
+print("\n", "odd numbers only: ", numbers_odd)
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n# JavaScript-like Array.filter() in Ruby Array of Hashes")
+print("\n", "# JavaScript-like Array.filter() in Ruby Array of Hashes")
 
 products = [
     {
@@ -113,12 +113,12 @@ products = [
         "price" => 499
     }
 ]
-print("\nproducts: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
+print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v1\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v1\"")
 
 products_below_100 = array_filter_v1.(->(product, _, _) { (product["price"] <= 100) }, products)
-print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
+print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -127,7 +127,7 @@ print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below
 # ]
 
 products_above_100 = array_filter_v1.(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
 # products with price >= 100 only: [
 #     {
 #         "code": "pasta",
@@ -143,10 +143,10 @@ print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above
 #     }
 # ]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v2\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v2\"")
 
 products_below_100 = array_filter_v2.(->(product, _, _) { (product["price"] <= 100) }, products)
-print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
+print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -155,7 +155,7 @@ print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below
 # ]
 
 products_above_100 = array_filter_v2.(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
 # products with price >= 100 only: [
 #     {
 #         "code": "pasta",
@@ -171,10 +171,10 @@ print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above
 #     }
 # ]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v3\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v3\"")
 
 products_below_100 = array_filter_v3.(->(product, _, _) { (product["price"] <= 100) }, products)
-print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
+print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -183,7 +183,7 @@ print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below
 # ]
 
 products_above_100 = array_filter_v3.(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
 # products with price >= 100 only: [
 #     {
 #         "code": "pasta",
@@ -199,10 +199,10 @@ print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above
 #     }
 # ]
 
-print("\n# using JavaScript-like Array.filter() function \"array_filter_v4\"")
+print("\n", "# using JavaScript-like Array.filter() function \"array_filter_v4\"")
 
 products_below_100 = array_filter_v4.(->(product, _, _) { (product["price"] <= 100) }, products)
-print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
+print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -211,7 +211,7 @@ print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below
 # ]
 
 products_above_100 = array_filter_v4.(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
 # products with price >= 100 only: [
 #     {
 #         "code": "pasta",
@@ -227,10 +227,10 @@ print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above
 #     }
 # ]
 
-print("\n# using Ruby Array.filter() built-in method \"Array.select\"")
+print("\n", "# using Ruby Array.filter() built-in method \"Array.select\"")
 
 products_below_100 = products.select { |product| (product["price"] <= 100) }
-print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
+print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_below_100, { "indent": " " * 4 }))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -239,7 +239,7 @@ print("\nproducts with price <= 100 only: ", JSON.pretty_generate(products_below
 # ]
 
 products_above_100 = products.select { |product| (product["price"]  >= 100) }
-print("\nproducts with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
 # products with price >= 100 only: [
 #     {
 #         "code": "pasta",
