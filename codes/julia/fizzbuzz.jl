@@ -1,13 +1,10 @@
-using Printf
-using Statistics
-
 println("\n# FizzBuzz(n) in Julia")
 
 function fizzbuzz_v1(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
-    while true
+    while (true)
         if (result === "")
             result = string(number)
             number += 1
@@ -50,7 +47,7 @@ function fizzbuzz_v1(stop_number::Int)
 end
 
 function fizzbuzz_v2(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
     while (number <= stop_number)
@@ -81,10 +78,10 @@ function fizzbuzz_v2(stop_number::Int)
 end
 
 function fizzbuzz_v3(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
-    while true
+    while (true)
         if (result === "")
             result = string(number)
         elseif (((number % 3) === 0) && ((number % 5) === 0))
@@ -105,7 +102,7 @@ function fizzbuzz_v3(stop_number::Int)
 end
 
 function fizzbuzz_v4(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
     while (number <= stop_number)
@@ -126,10 +123,10 @@ function fizzbuzz_v4(stop_number::Int)
 end
 
 function fizzbuzz_v5(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
-    while true
+    while (true)
         result = ((result === "")
             ? string(number)
             : ((((number % 3) === 0) && ((number % 5) === 0))
@@ -152,7 +149,7 @@ function fizzbuzz_v5(stop_number::Int)
 end
 
 function fizzbuzz_v6(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
     while (number <= stop_number)
@@ -175,10 +172,10 @@ function fizzbuzz_v6(stop_number::Int)
 end
 
 function fizzbuzz_v7(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
-    while true
+    while (true)
         result = ((result === "") ? string(number) : ((((number % 3) === 0) && ((number % 5) === 0)) ? string(result, ", FizzBuzz") : (((number % 3) === 0) ? string(result, ", Fizz") : (((number % 5) === 0) ? string(result, ", Buzz") : string(result, ", ", number)))))
         number += 1
         if (number > stop_number)
@@ -189,7 +186,7 @@ function fizzbuzz_v7(stop_number::Int)
 end
 
 function fizzbuzz_v8(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
     number = 1
     while (number <= stop_number)
@@ -200,9 +197,9 @@ function fizzbuzz_v8(stop_number::Int)
 end
 
 function fizzbuzz_v9(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in 1:stop_number
+    for number in (1:1:stop_number)
         if (result === "")
             result = string(number)
             continue
@@ -225,9 +222,9 @@ function fizzbuzz_v9(stop_number::Int)
 end
 
 function fizzbuzz_v10(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in 1:stop_number
+    for number in (1:1:stop_number)
         if (result === "")
             result = string(number)
         elseif (((number % 3) === 0) && ((number % 5) === 0))
@@ -244,9 +241,9 @@ function fizzbuzz_v10(stop_number::Int)
 end
 
 function fizzbuzz_v11(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in 1:stop_number
+    for number in (1:1:stop_number)
         result = ((result === "")
             ? string(number)
             : ((((number % 3) === 0) && ((number % 5) === 0))
@@ -265,15 +262,18 @@ function fizzbuzz_v11(stop_number::Int)
 end
 
 function fizzbuzz_v12(stop_number::Int)
-    if (stop_number < 1) return "argument should be greater than 0" end
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in 1:stop_number
+    for number in (1:1:stop_number)
         result = ((result === "") ? string(number) : ((((number % 3) === 0) && ((number % 5) === 0)) ? string(result, ", FizzBuzz") : (((number % 3) === 0) ? string(result, ", Fizz") : (((number % 5) === 0) ? string(result, ", Buzz") : string(result, ", ", number)))))
     end
     return result
 end
 
-fizzbuzz_v13 = (stop_number::Int) -> ((stop_number < 1) ? "argument should be greater than 0" : join([((((number % 3) === 0) && ((number % 5) === 0)) ? "FizzBuzz" : (((number % 3) === 0) ? "Fizz" : (((number % 5) === 0) ? "Buzz" : number))) for number in 1:stop_number], ", "))
+function fizzbuzz_v13(stop_number::Int)
+    if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
+    return join([((((number % 3) === 0) && ((number % 5) === 0)) ? "FizzBuzz" : (((number % 3) === 0) ? "Fizz" : (((number % 5) === 0) ? "Buzz" : number))) for number in (1:1:stop_number)], ", ")
+end
 
 println("# using fizzbuzz function \"fizzbuzz_v1\"")
 println("FizzBuzz(36): ", fizzbuzz_v1(36))

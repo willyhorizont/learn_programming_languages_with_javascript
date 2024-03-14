@@ -44,9 +44,9 @@ cat(paste(sep = "", "myAnswer: ", myAnswer, "\n"))
 cat(paste(sep = "", "CORRECT_ANSWER: ", CORRECT_ANSWER, "\n"))
 cat("(myAnswer != CORRECT_ANSWER):\n")
 if (myAnswer != CORRECT_ANSWER) {
-    cat("Your answer is wrong\n")
-} else {
     cat("Your answer is correct\n")
+} else {
+    cat("Your answer is wrong\n")
 }
 
 cat("\n# greater than (>)\n")

@@ -147,7 +147,7 @@ print("my_array: ", JSON.pretty_generate(my_array, { "indent": " " * 4 }), "\n")
 =end
 def say_hello(callback_function)
     print("hello\n")
-    callback_function.()
+    callback_function.call()
 end
 def say_how_are_you()
     print("how are you?\n")

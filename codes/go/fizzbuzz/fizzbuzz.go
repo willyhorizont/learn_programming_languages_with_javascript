@@ -1,16 +1,17 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
-func fizzbuzzV1(stopNumber int) string {
+func fizzbuzzV1(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	number := 1
-	for true {
+	for (true) {
 		if (result == "") {
 			result = fmt.Sprint(number)
 			number += 1
@@ -49,12 +50,12 @@ func fizzbuzzV1(stopNumber int) string {
 			break
 		}
 	}
-	return result
+	return result, nil
 }
 
-func fizzbuzzV2(stopNumber int) string {
+func fizzbuzzV2(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	number := 1
@@ -82,16 +83,16 @@ func fizzbuzzV2(stopNumber int) string {
 		result = (result + ", " + fmt.Sprint(number))
 		number += 1
 	}
-	return result
+	return result, nil
 }
 
-func fizzbuzzV3(stopNumber int) string {
+func fizzbuzzV3(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	number := 1
-	for true {
+	for (true) {
 		if (result == "") {
 			result = fmt.Sprint(number)
 		} else if (((number % 3) == 0) && ((number % 5) == 0)) {
@@ -108,12 +109,12 @@ func fizzbuzzV3(stopNumber int) string {
 			break
 		}
 	}
-	return result
+	return result, nil
 }
 
-func fizzbuzzV4(stopNumber int) string {
+func fizzbuzzV4(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	number := 1
@@ -131,12 +132,12 @@ func fizzbuzzV4(stopNumber int) string {
 		}
 		number += 1
 	}
-	return result
+	return result, nil
 }
 
-func fizzbuzzV5(stopNumber int) string {
+func fizzbuzzV5(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
@@ -158,12 +159,12 @@ func fizzbuzzV5(stopNumber int) string {
 		}
 		result = (result + ", " + fmt.Sprint(number))
 	}
-	return result
+	return result, nil
 }
 
-func fizzbuzzV6(stopNumber int) string {
+func fizzbuzzV6(stopNumber int) (string, error) {
 	if (stopNumber < 1) {
-		return "argument should be greater than 0"
+		return "", errors.New("Argument should be > 0")
 	}
 	result := ""
 	for number := 1; number <= stopNumber; number += 1 {
@@ -179,33 +180,54 @@ func fizzbuzzV6(stopNumber int) string {
 			result = (result + ", " + fmt.Sprint(number))
 		}
 	}
-	return result
+	return result, nil
 }
 
 func main() {
 	fmt.Println("\n// FizzBuzz(n) in Go")
 
+	var fizzbuzzResult any
+	var fizzbuzzError any
+
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV1\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV1(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV1(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV2\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV2(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV2(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV3\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV3(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV3(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV4\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV4(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV4(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV5\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV5(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV5(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 
 	fmt.Println("// using fizzbuzz function \"fizzbuzzV6\"")
-	fmt.Println("FizzBuzz(36):", fizzbuzzV6(36))
-	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	fizzbuzzResult, fizzbuzzError = fizzbuzzV6(36)
+	if (fizzbuzzError == nil) {
+		fmt.Println("FizzBuzz(36):", fizzbuzzResult)
+		// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+	}
 }

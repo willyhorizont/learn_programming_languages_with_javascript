@@ -46,7 +46,7 @@ function array_filter_v1(callback_function, an_array)
     local data_filtered = {}
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
+        if (is_condition_match == true) then
             table.insert(data_filtered, array_item)
         end
     end
@@ -57,7 +57,7 @@ function array_filter_v2(callback_function, an_array)
     -- JavaScript-like Array.filter() function
     local data_filtered = {}
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             table.insert(data_filtered, array_item)
         end
     end

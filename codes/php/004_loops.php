@@ -1,6 +1,7 @@
 <?php
 
 // while loop
+
 $i = 1;
 while (true) {
     if ($i === 2) {
@@ -24,7 +25,20 @@ while ($i <= 5) {
 }
 
 // for loop
+
 for ($i = 1; $i <= 5; $i += 1) {
     if ($i === 2) continue;
     echo("\n" . "for loop, i is " . $i);
+}
+
+// foreach loop
+
+foreach (range(1, 5, 1) as $i) { // (start, stop, step)
+    if ($i === 2) continue;
+    echo("\n" . "foreach loop ascending, i is " . $i);
+}
+
+foreach (range(5, 1, -1) as $i) { // (start, stop, step)
+    if ($i === 2) continue;
+    echo("\n" . "foreach loop descending, i is " . $i);
 }

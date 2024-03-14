@@ -87,7 +87,7 @@ end
 s_print("get_modified_indent_level(): ", get_modified_indent_level())
 function create_new_game(initial_credit)
     local current_credit = initial_credit
-    s_print("initial_credit: ", initial_credit)
+    s_print("initial credit: ", initial_credit)
     return function ()
         current_credit = current_credit - 1
         if (current_credit == 0) then

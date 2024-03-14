@@ -46,7 +46,7 @@ function array_every_v1(callback_function, an_array)
     local is_condition_match = true
     for array_item_index, array_item in ipairs(an_array) do
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == false then
+        if (is_condition_match == false) then
             break
         end
     end
@@ -58,7 +58,7 @@ function array_every_v2(callback_function, an_array)
     local is_condition_match = true
     for array_item_index, array_item in ipairs(an_array) do
         is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == false then
+        if (is_condition_match == false) then
             return is_condition_match
         end
     end
@@ -69,7 +69,7 @@ function array_every_v3(callback_function, an_array)
     -- JavaScript-like Array.every() function
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == false then
+        if (is_condition_match == false) then
             return false
         end
     end
@@ -79,7 +79,7 @@ end
 function array_every_v4(callback_function, an_array)
     -- JavaScript-like Array.every() function
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == false then
+        if (callback_function(array_item, array_item_index, an_array) == false) then
             return false
         end
     end
@@ -93,41 +93,41 @@ s_print("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.every() function \"array_every_v1\"")
 
-is_all_number_less_than_500 = array_every_v1(function (number) return number < 500 end, numbers)
+is_all_number_less_than_500 = array_every_v1(function (number) return (number < 500) end, numbers)
 s_print("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
-is_all_number_more_than_500 = array_every_v1(function (number) return number > 500 end, numbers)
+is_all_number_more_than_500 = array_every_v1(function (number) return (number > 500) end, numbers)
 s_print("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v2\"")
 
-is_all_number_less_than_500 = array_every_v2(function (number) return number < 500 end, numbers)
+is_all_number_less_than_500 = array_every_v2(function (number) return (number < 500) end, numbers)
 s_print("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
-is_all_number_more_than_500 = array_every_v2(function (number) return number > 500 end, numbers)
+is_all_number_more_than_500 = array_every_v2(function (number) return (number > 500) end, numbers)
 s_print("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v3\"")
 
-is_all_number_less_than_500 = array_every_v3(function (number) return number < 500 end, numbers)
+is_all_number_less_than_500 = array_every_v3(function (number) return (number < 500) end, numbers)
 s_print("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
-is_all_number_more_than_500 = array_every_v3(function (number) return number > 500 end, numbers)
+is_all_number_more_than_500 = array_every_v3(function (number) return (number > 500) end, numbers)
 s_print("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v4\"")
 
-is_all_number_less_than_500 = array_every_v4(function (number) return number < 500 end, numbers)
+is_all_number_less_than_500 = array_every_v4(function (number) return (number < 500) end, numbers)
 s_print("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
-is_all_number_more_than_500 = array_every_v4(function (number) return number > 500 end, numbers)
+is_all_number_more_than_500 = array_every_v4(function (number) return (number > 500) end, numbers)
 s_print("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
@@ -155,40 +155,40 @@ s_print("products: ", pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.every() function \"array_every_v1\"")
 
-is_all_product_price_less_than_500 = array_every_v1(function (product) return product.price < 500 end, products)
+is_all_product_price_less_than_500 = array_every_v1(function (product) return (product.price < 500) end, products)
 s_print("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
-is_all_product_price_more_than_500 = array_every_v1(function (product) return product.price > 500 end, products)
+is_all_product_price_more_than_500 = array_every_v1(function (product) return (product.price > 500) end, products)
 s_print("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v2\"")
 
-is_all_product_price_less_than_500 = array_every_v2(function (product) return product.price < 500 end, products)
+is_all_product_price_less_than_500 = array_every_v2(function (product) return (product.price < 500) end, products)
 s_print("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
-is_all_product_price_more_than_500 = array_every_v2(function (product) return product.price > 500 end, products)
+is_all_product_price_more_than_500 = array_every_v2(function (product) return (product.price > 500) end, products)
 s_print("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v3\"")
 
-is_all_product_price_less_than_500 = array_every_v3(function (product) return product.price < 500 end, products)
+is_all_product_price_less_than_500 = array_every_v3(function (product) return (product.price < 500) end, products)
 s_print("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
-is_all_product_price_more_than_500 = array_every_v3(function (product) return product.price > 500 end, products)
+is_all_product_price_more_than_500 = array_every_v3(function (product) return (product.price > 500) end, products)
 s_print("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v4\"")
 
-is_all_product_price_less_than_500 = array_every_v4(function (product) return product.price < 500 end, products)
+is_all_product_price_less_than_500 = array_every_v4(function (product) return (product.price < 500) end, products)
 s_print("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
-is_all_product_price_more_than_500 = array_every_v4(function (product) return product.price > 500 end, products)
+is_all_product_price_more_than_500 = array_every_v4(function (product) return (product.price > 500) end, products)
 s_print("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false

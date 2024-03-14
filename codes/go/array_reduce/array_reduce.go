@@ -36,7 +36,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
 				result += fmt.Sprint(arrayItem)
 			case reflect.Bool:
-				if arrayItem.(bool) {
+				if (arrayItem.(bool) == true) {
 					result += "true"
 				} else {
 					result += "false"
@@ -167,7 +167,7 @@ func main() {
 		}
 		return currentResult
 	}, numbers, 0.0)
-	fmt.Println("total numbers:", prettyJsonStringify(numbersTotal))
+	fmt.Println("total number:", prettyJsonStringify(numbersTotal))
 	// total number: 41.2
 
 	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")

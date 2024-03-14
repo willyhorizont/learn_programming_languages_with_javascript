@@ -41,9 +41,9 @@ print("my_answer: ", my_answer, "\n")
 print("correct_answer: ", correct_answer, "\n")
 print("(my_answer == correct_answer): \n")
 if (my_answer == correct_answer)
-  print("Your answer is correct\n")
+    print("Your answer is correct\n")
 else
-  print("Your answer is wrong\n")
+    print("Your answer is wrong\n")
 end
 
 print("\n", "# not equal to (!=)\n")
@@ -54,9 +54,9 @@ print("my_answer: ", my_answer, "\n")
 print("correct_answer: ", correct_answer, "\n")
 print("(my_answer != correct_answer): \n")
 if (my_answer != correct_answer)
-    print("Your answer is wrong\n")
-else
     print("Your answer is correct\n")
+else
+    print("Your answer is wrong\n")
 end
 
 print("\n", "# greater than (>)\n")

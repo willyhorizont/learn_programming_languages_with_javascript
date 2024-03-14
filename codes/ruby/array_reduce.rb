@@ -4,7 +4,7 @@ array_reduce = ->(callback_function, an_array, initial_value) do
     # JavaScript-like Array.reduce() function
     result = initial_value
     an_array.each_with_index do |array_item, array_item_index|
-        result = callback_function.(result, array_item, array_item_index, an_array)
+        result = callback_function.call(result, array_item, array_item_index, an_array)
     end
     return result
 end
@@ -16,7 +16,7 @@ print("\n", "numbers: ", numbers)
 
 print("\n", "# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
-numbers_total = array_reduce.(->(current_result, current_number, _, _) { (current_result + current_number) }, numbers, 0)
+numbers_total = array_reduce.call(->(current_result, current_number, _, _) { (current_result + current_number) }, numbers, 0)
 print("\n", "total number: ", numbers_total)
 # total number: 41.2
 
@@ -50,7 +50,7 @@ print("\n", "products: ", JSON.pretty_generate(products, { "indent": " " * 4 }))
 
 print("\n", "# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
-products_grouped = array_reduce.(->(current_result, current_product, _, _) { ((current_product["price"] > 100) ? {**current_result, "expensive" => [*current_result["expensive"], current_product]} : {**current_result, "cheap" => [*current_result["cheap"], current_product]}) }, products, {"expensive" => [], "cheap" => []})
+products_grouped = array_reduce.call(->(current_result, current_product, _, _) { ((current_product["price"] > 100) ? {**current_result, "expensive" => [*current_result["expensive"], current_product]} : {**current_result, "cheap" => [*current_result["cheap"], current_product]}) }, products, {"expensive" => [], "cheap" => []})
 print("\n", "grouped products: ", JSON.pretty_generate(products_grouped, { "indent": " " * 4 }))
 # grouped products: {
 #     "expensive": [

@@ -21,7 +21,7 @@ fun main() {
             currentResult
         }
     }, numbers, 0.0)
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
 
     numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
@@ -30,11 +30,11 @@ fun main() {
             else -> currentResult
         }
     }, numbers, 0.0)
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
     
     numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }, numbers, 0.0)
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
@@ -44,7 +44,7 @@ fun main() {
             currentResult
         }
     }
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
@@ -53,11 +53,11 @@ fun main() {
             else -> currentResult // Return currentResult unchanged if types are incompatible
         }
     }
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }
-    println("total numbers: ${numbersTotal}")
+    println("total number: ${numbersTotal}")
     // total number: 41.2
 
     println(null)

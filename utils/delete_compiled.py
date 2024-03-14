@@ -1,13 +1,18 @@
 import os
-import csv
 
 PATH_CURRENT_FILE = os.path.dirname(os.path.abspath(__file__))
 
 PATH_CODES_KOTLIN = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'kotlin')
+# PATH_CODES_SWIFT = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'swift')
+PATH_CODES_VB = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'vb')
+PATH_CODES_CS = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'c#')
 PATH_CODES_TRIAL = os.path.join(PATH_CURRENT_FILE, '..', 'codes_trial')
 
 PATH_CODES = [
     PATH_CODES_KOTLIN,
+    # PATH_CODES_SWIFT,
+    PATH_CODES_VB,
+    PATH_CODES_CS,
     PATH_CODES_TRIAL
 ]
 

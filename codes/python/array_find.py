@@ -27,25 +27,6 @@ def array_find_v2(callback_function, an_array):
 
 def array_find_v3(callback_function, an_array):
     '''JavaScript-like Array.find() function'''
-    data_found = None
-    for array_item_index, array_item in enumerate(an_array):
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if (is_condition_match == True):
-            return array_item
-    return data_found
-
-
-def array_find_v4(callback_function, an_array):
-    '''JavaScript-like Array.find() function'''
-    data_found = None
-    for array_item_index, array_item in enumerate(an_array):
-        if (callback_function(array_item, array_item_index, an_array) == True):
-            return array_item
-    return data_found
-
-
-def array_find_v5(callback_function, an_array):
-    '''JavaScript-like Array.find() function'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
@@ -53,7 +34,7 @@ def array_find_v5(callback_function, an_array):
     return None
 
 
-def array_find_v6(callback_function, an_array):
+def array_find_v4(callback_function, an_array):
     '''JavaScript-like Array.find() function'''
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
@@ -103,26 +84,6 @@ print(f'even number found: {even_number_found}')
 # even number found: 12
 
 odd_number_found = array_find_v4(lambda number, *_: ((number % 2) != 0), numbers)
-print(f'odd number found: {odd_number_found}')
-# odd number found: 27
-
-print('# using JavaScript-like Array.find() function "array_find_v5"')
-
-even_number_found = array_find_v5(lambda number, *_: ((number % 2) == 0), numbers)
-print(f'even number found: {even_number_found}')
-# even number found: 12
-
-odd_number_found = array_find_v5(lambda number, *_: ((number % 2) != 0), numbers)
-print(f'odd number found: {odd_number_found}')
-# odd number found: 27
-
-print('# using JavaScript-like Array.find() function "array_find_v6"')
-
-even_number_found = array_find_v6(lambda number, *_: ((number % 2) == 0), numbers)
-print(f'even number found: {even_number_found}')
-# even number found: 12
-
-odd_number_found = array_find_v6(lambda number, *_: ((number % 2) != 0), numbers)
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
@@ -181,24 +142,6 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 print('# using JavaScript-like Array.find() function "array_find_v4"')
 
 product_found = array_find_v4(lambda product, *_: product['code'] == product_to_find, products)
-print(f'product found: {json.dumps(product_found, indent=4)}')
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print('# using JavaScript-like Array.find() function "array_find_v5"')
-
-product_found = array_find_v5(lambda product, *_: product['code'] == product_to_find, products)
-print(f'product found: {json.dumps(product_found, indent=4)}')
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print('# using JavaScript-like Array.find() function "array_find_v6"')
-
-product_found = array_find_v6(lambda product, *_: product['code'] == product_to_find, products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",

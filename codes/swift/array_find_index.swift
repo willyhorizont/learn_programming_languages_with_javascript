@@ -54,8 +54,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -71,8 +70,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -118,29 +116,6 @@ func arrayFindIndexV2(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArra
 
 func arrayFindIndexV3(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
-    let dataFoundIndex = -1
-    for (arrayItemIndex, arrayItem) in anArray.enumerated() {
-        let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == true) {
-            return arrayItemIndex
-        }
-    }
-    return dataFoundIndex
-}
-
-func arrayFindIndexV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
-    // JavaScript-like Array.findIndex() function
-    let dataFoundIndex = -1
-    for (arrayItemIndex, arrayItem) in anArray.enumerated() {
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-            return arrayItemIndex
-        }
-    }
-    return dataFoundIndex
-}
-
-func arrayFindIndexV5(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
-    // JavaScript-like Array.findIndex() function
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == true) {
@@ -150,7 +125,7 @@ func arrayFindIndexV5(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArra
     return -1
 }
 
-func arrayFindIndexV6(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
+func arrayFindIndexV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Int {
     // JavaScript-like Array.findIndex() function
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
@@ -206,28 +181,6 @@ print("number found index: \(numberFoundIndex)")
 print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
 
 numberFoundIndex = arrayFindIndexV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return result == numberToFind
-}, numbers)
-print("number found index: \(numberFoundIndex)")
-// number found index: 2
-
-print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"")
-
-numberFoundIndex = arrayFindIndexV5({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return result == numberToFind
-}, numbers)
-print("number found index: \(numberFoundIndex)")
-// number found index: 2
-
-print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"")
-
-numberFoundIndex = arrayFindIndexV6({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
@@ -310,28 +263,6 @@ print("product found index: \(productFoundIndex)")
 print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
 
 productFoundIndex = arrayFindIndexV4({ (product: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = product as? MyObject, let result = result["code"] as? String else {
-        return false
-    }
-    return result == productToFind
-}, products)
-print("product found index: \(productFoundIndex)")
-// product found index: 0
-
-print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"")
-
-productFoundIndex = arrayFindIndexV5({ (product: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = product as? MyObject, let result = result["code"] as? String else {
-        return false
-    }
-    return result == productToFind
-}, products)
-print("product found index: \(productFoundIndex)")
-// product found index: 0
-
-print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"")
-
-productFoundIndex = arrayFindIndexV6({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }

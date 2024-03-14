@@ -51,8 +51,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -68,8 +67,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -147,7 +145,7 @@ isAllNumberLessThan500 = arrayEveryV1({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is all number < 500: \(isAllNumberLessThan500)")
 // is all number < 500: true
@@ -156,7 +154,7 @@ isAllNumberMoreThan500 = arrayEveryV1({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
@@ -167,7 +165,7 @@ isAllNumberLessThan500 = arrayEveryV2({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is all number < 500: \(isAllNumberLessThan500)")
 // is all number < 500: true
@@ -176,7 +174,7 @@ isAllNumberMoreThan500 = arrayEveryV2({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
@@ -187,7 +185,7 @@ isAllNumberLessThan500 = arrayEveryV3({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is all number < 500: \(isAllNumberLessThan500)")
 // is all number < 500: true
@@ -196,7 +194,7 @@ isAllNumberMoreThan500 = arrayEveryV3({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
@@ -207,7 +205,7 @@ isAllNumberLessThan500 = arrayEveryV4({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is all number < 500: \(isAllNumberLessThan500)")
 // is all number < 500: true
@@ -216,7 +214,7 @@ isAllNumberMoreThan500 = arrayEveryV4({ (number: Any?, _: Int, _: MyArray) -> Bo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
@@ -227,7 +225,7 @@ isAllNumberLessThan500 = numbers.allSatisfy { (number: Any?) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }
 print("is all number < 500: \(isAllNumberLessThan500)")
 // is all number < 500: true
@@ -236,7 +234,7 @@ isAllNumberMoreThan500 = numbers.allSatisfy { (number: Any?) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
@@ -272,7 +270,7 @@ isAllProductPriceLessThan500 = arrayEveryV1({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is all product price < 500: \(isAllProductPriceLessThan500)")
 // is all product price < 500: true
@@ -281,7 +279,7 @@ isAllProductPriceMoreThan500 = arrayEveryV1({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is all product price > 500: \(isAllProductPriceMoreThan500)")
 // is all product price > 500: false
@@ -292,7 +290,7 @@ isAllProductPriceLessThan500 = arrayEveryV2({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is all product price < 500: \(isAllProductPriceLessThan500)")
 // is all product price < 500: true
@@ -301,7 +299,7 @@ isAllProductPriceMoreThan500 = arrayEveryV2({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is all product price > 500: \(isAllProductPriceMoreThan500)")
 // is all product price > 500: false
@@ -312,7 +310,7 @@ isAllProductPriceLessThan500 = arrayEveryV3({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is all product price < 500: \(isAllProductPriceLessThan500)")
 // is all product price < 500: true
@@ -321,7 +319,7 @@ isAllProductPriceMoreThan500 = arrayEveryV3({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is all product price > 500: \(isAllProductPriceMoreThan500)")
 // is all product price > 500: false
@@ -332,7 +330,7 @@ isAllProductPriceLessThan500 = arrayEveryV4({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is all product price < 500: \(isAllProductPriceLessThan500)")
 // is all product price < 500: true
@@ -341,7 +339,7 @@ isAllProductPriceMoreThan500 = arrayEveryV4({ (product: Any?, _: Int, _: MyArray
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is all product price > 500: \(isAllProductPriceMoreThan500)")
 // is all product price > 500: false
@@ -352,7 +350,7 @@ isAllProductPriceLessThan500 = products.allSatisfy { (product: Any?) -> Bool in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }
 print("is all product price < 500: \(isAllProductPriceLessThan500)")
 // is all product price < 500: true
@@ -361,7 +359,7 @@ isAllProductPriceMoreThan500 = products.allSatisfy { (product: Any?) -> Bool in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }
 print("is all product price > 500: \(isAllProductPriceMoreThan500)")
 // is all product price > 500: false

@@ -5,15 +5,9 @@ fun main() {
         var result = "["
         for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
             if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
-            if (arrayItem is String) {
-                result += "\"${arrayItem}\""
-            }
-            if ((arrayItem is Number) || (arrayItem is Boolean) || arrayItem == null) {
-                result += "${arrayItem}"
-            }
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) {
-                result += ", "
-            }
+            if (arrayItem is String) result += "\"${arrayItem}\""
+            if ((arrayItem is Number) || (arrayItem is Boolean) || (arrayItem == null)) result += "${arrayItem}"
+            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) result += ", "
         }
         result += "]"
         return result
@@ -32,84 +26,72 @@ fun main() {
     val myFriends = mutableListOf<Any?>("Alisa", "Trivia")
     println("myFriends: ${prettyArrayOfPrimitives(myFriends)}")
 
-    var name: String
+    var aName: String
     var isMyFriend: Boolean
 
     println("// using JavaScript-like Array.includes() function \"arrayIncludesV1\"")
 
-    name = "Alisa"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV1(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Alisa"
+    isMyFriend = arrayIncludesV1(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Alisa": true
 
-    name = "Trivia"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV1(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Trivia"
+    isMyFriend = arrayIncludesV1(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Trivia": true
 
-    name = "Tony"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV1(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Tony"
+    isMyFriend = arrayIncludesV1(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Tony": false
 
-    name = "Ezekiel"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV1(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Ezekiel"
+    isMyFriend = arrayIncludesV1(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Ezekiel": false
 
     println("// using JavaScript-like Array.includes() function \"arrayIncludesV2\"")
 
-    name = "Alisa"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV2(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Alisa"
+    isMyFriend = arrayIncludesV2(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Alisa": true
 
-    name = "Trivia"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV2(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Trivia"
+    isMyFriend = arrayIncludesV2(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Trivia": true
 
-    name = "Tony"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV2(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Tony"
+    isMyFriend = arrayIncludesV2(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Tony": false
 
-    name = "Ezekiel"
-    println("name: \"${name}\"")
-    isMyFriend = arrayIncludesV2(name, myFriends)
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Ezekiel"
+    isMyFriend = arrayIncludesV2(aName, myFriends)
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Ezekiel": false
 
     println("// using Kotlin \"in\" operator")
 
-    name = "Alisa"
-    println("name: \"${name}\"")
-    isMyFriend = name in myFriends
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Alisa"
+    isMyFriend = aName in myFriends
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Alisa": true
 
-    name = "Trivia"
-    println("name: \"${name}\"")
-    isMyFriend = name in myFriends
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Trivia"
+    isMyFriend = aName in myFriends
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Trivia": true
 
-    name = "Tony"
-    println("name: \"${name}\"")
-    isMyFriend = name in myFriends
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Tony"
+    isMyFriend = aName in myFriends
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Tony": false
 
-    name = "Ezekiel"
-    println("name: \"${name}\"")
-    isMyFriend = name in myFriends
-    println("is my friends includes \"${name}\": ${isMyFriend}")
+    aName = "Ezekiel"
+    isMyFriend = aName in myFriends
+    println("is my friends includes \"${aName}\": ${isMyFriend}")
     // is my friends includes "Ezekiel": false
 }

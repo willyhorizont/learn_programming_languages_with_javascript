@@ -62,14 +62,14 @@ echo("\n" . "\$combination1: " . json_encode($combination1, JSON_PRETTY_PRINT));
 //     "Tomato"
 // ]
 
-$combination2 = [...$fruits, ...["Cucumber", "Onions"]];
+$combination2 = [...$fruits, ...["Cucumber", "Onion"]];
 echo("\n" . "\$combination2: " . json_encode($combination2, JSON_PRETTY_PRINT));
 // combination2: [
 //     "Mango",
 //     "Melon",
 //     "Banana",
 //     "Cucumber",
-//     "Onions"
+//     "Onion"
 // ]
 
 echo("\n\n// { ...object1, ...object2 }:\n");
@@ -108,7 +108,7 @@ echo("\n" . "\$combination5: " . json_encode($combination5, JSON_PRETTY_PRINT));
 //     ]
 // ]
 
-$combination6 = [...$fruits, ["Cucumber", "Onions"]];
+$combination6 = [...$fruits, ["Cucumber", "Onion"]];
 echo("\n" . "\$combination6: " . json_encode($combination6, JSON_PRETTY_PRINT));
 // combination6: [
 //     "Mango",
@@ -116,7 +116,7 @@ echo("\n" . "\$combination6: " . json_encode($combination6, JSON_PRETTY_PRINT));
 //     "Banana",
 //     [
 //         "Cucumber",
-//         "Onions"
+//         "Onion"
 //     ]
 // ]
 
@@ -187,7 +187,7 @@ echo("\n" . "\$combination11: " . json_encode($combination11, JSON_PRETTY_PRINT)
 //     ]
 // }
 
-$combination12 = [...$country_capitals_in_asia, "vegetables" => ["Cucumber", "Onions"]];
+$combination12 = [...$country_capitals_in_asia, "vegetables" => ["Cucumber", "Onion"]];
 echo("\n" . "\$combination12: " . json_encode($combination12, JSON_PRETTY_PRINT));
 // combination12: {
 //     "Thailand": "Bangkok",
@@ -195,7 +195,7 @@ echo("\n" . "\$combination12: " . json_encode($combination12, JSON_PRETTY_PRINT)
 //     "Japan": "Tokyo",
 //     "vegetables": [
 //         "Cucumber",
-//         "Onions"
+//         "Onion"
 //     ]
 // }
 
@@ -211,14 +211,14 @@ echo("\n" . "\$combination13: " . json_encode($combination13, JSON_PRETTY_PRINT)
 //    "1" : "Tomato"
 // }
 
-$combination14 = [...$country_capitals_in_asia, ...["Cucumber", "Onions"]];
+$combination14 = [...$country_capitals_in_asia, ...["Cucumber", "Onion"]];
 echo("\n" . "\$combination14: " . json_encode($combination14, JSON_PRETTY_PRINT));
 // combination14: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
 //    "Japan" : "Tokyo",
 //    "0" : "Cucumber",
-//    "1" : "Onions"
+//    "1" : "Onion"
 // }
 
 // echo("\n\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n");

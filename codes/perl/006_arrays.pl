@@ -7,6 +7,7 @@ sub pretty_json_stringify {
     use JSON;
     my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
     $pretty_json_string =~ s/   /    /g;
+    $pretty_json_string =~ s/\n$//g;
     return $pretty_json_string;
 }
 
@@ -107,7 +108,7 @@ my @products1 = (
         "name" => "potato chips"
     }
 );
-print("products1: " . pretty_json_stringify(\@products1));
+print("products1: " . pretty_json_stringify(\@products1) . "\n");
 
 for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$array_item_index];
@@ -127,7 +128,7 @@ for my $array_item_index (0..(scalar(@products1) - 1)) {
 for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$array_item_index];
     my $entry_index = 0;
-    foreach my $object_key (keys %{$array_item}) {
+    foreach my $object_key (keys(%{$array_item})) {
         my $object_value = %{$array_item}{$object_key};
         print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
         $entry_index += 1;
@@ -141,7 +142,7 @@ for my $array_item_index (0..(scalar(@products1) - 1)) {
 for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$array_item_index];
     my $entry_index = 0;
-    while (my ($object_key, $object_value) = each %{$array_item}) {
+    while (my ($object_key, $object_value) = each(%{$array_item})) {
         print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
         $entry_index += 1;
     }
@@ -162,7 +163,7 @@ my $products2 = [
         "name" => "potato chips"
     }
 ];
-print("products2: " . pretty_json_stringify($products2));
+print("products2: " . pretty_json_stringify($products2) . "\n");
 
 for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
@@ -182,7 +183,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
 for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
     my $entry_index = 0;
-    foreach my $object_key (keys %{$array_item}) {
+    foreach my $object_key (keys(%{$array_item})) {
         my $object_value = %{$array_item}{$object_key};
         print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
         $entry_index += 1;
@@ -196,7 +197,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
 for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
     my $entry_index = 0;
-    foreach my $object_key (keys %{$array_item}) {
+    foreach my $object_key (keys(%{$array_item})) {
         my $object_value = $array_item->{$object_key};
         print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
         $entry_index += 1;
@@ -210,7 +211,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
 for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
     my $entry_index = 0;
-    while (my ($object_key, $object_value) = each %{$array_item}) {
+    while (my ($object_key, $object_value) = each(%{$array_item})) {
         print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
         $entry_index += 1;
     }

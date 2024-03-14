@@ -1,10 +1,7 @@
-using Printf
-using Statistics
-
 # while loop
 
 i = 1
-while true
+while (true)
     global i
     if (i === 2)
         i += 1
@@ -33,14 +30,14 @@ end
 
 # for loop
 
-for i in 1:1:5 # start:step:stop
+for i in (1:1:5) # (start:step:stop)
     if (i === 2)
         continue
     end
     println("for loop ascending, i is ", i)
 end
 
-for i in 5:-1:1 # start:step:stop
+for i in (5:-1:1) # (start:step:stop)
     if (i === 2)
         continue
     end

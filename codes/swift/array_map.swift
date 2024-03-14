@@ -51,8 +51,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -68,8 +67,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -91,7 +89,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
 func spreadSyntaxObject(_ parameters: Any?...) -> MyObject {
     var newObject = MyObject()
     for (_, parameter) in parameters.enumerated() {
-        if parameter is MyObject {
+        if (parameter is MyObject) {
             guard let parameter = parameter as? MyObject else {
                 continue
             }
@@ -100,7 +98,7 @@ func spreadSyntaxObject(_ parameters: Any?...) -> MyObject {
             }
             continue
         }
-        if parameter is MyArray {
+        if (parameter is MyArray) {
             guard let parameter = parameter as? MyArray else {
                 continue
             }

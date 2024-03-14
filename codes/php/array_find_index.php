@@ -59,29 +59,6 @@ function array_find_index_v2($callback_function, $an_array) {
 
 function array_find_index_v3($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
-    $data_found_index = -1;
-    foreach ($an_array as $array_item_index => $array_item) {
-        $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
-        if ($is_condition_match === true) {
-            return $array_item_index;
-        }
-    }
-    return $data_found_index;
-};
-
-function array_find_index_v4($callback_function, $an_array) {
-    // JavaScript-like Array.findIndex() function
-    $data_found_index = -1;
-    foreach ($an_array as $array_item_index => $array_item) {
-        if ($callback_function($array_item, $array_item_index, $an_array) === true) {
-            return $array_item_index;
-        }
-    }
-    return $data_found_index;
-};
-
-function array_find_index_v5($callback_function, $an_array) {
-    // JavaScript-like Array.findIndex() function
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
         if ($is_condition_match === true) {
@@ -91,7 +68,7 @@ function array_find_index_v5($callback_function, $an_array) {
     return -1;
 };
 
-function array_find_index_v6($callback_function, $an_array) {
+function array_find_index_v4($callback_function, $an_array) {
     // JavaScript-like Array.findIndex() function
     foreach ($an_array as $array_item_index => $array_item) {
         if ($callback_function($array_item, $array_item_index, $an_array) === true) {
@@ -130,18 +107,6 @@ echo("\n" . "number found index: $number_found_index");
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
 $number_found_index = array_find_index_v4(fn($number) => $number === $number_to_find, $numbers);
-echo("\n" . "number found index: $number_found_index");
-// number found index: 2
-
-echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v5\"");
-
-$number_found_index = array_find_index_v5(fn($number) => $number === $number_to_find, $numbers);
-echo("\n" . "number found index: $number_found_index");
-// number found index: 2
-
-echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v6\"");
-
-$number_found_index = array_find_index_v6(fn($number) => $number === $number_to_find, $numbers);
 echo("\n" . "number found index: $number_found_index");
 // number found index: 2
 
@@ -191,17 +156,5 @@ echo("\n" . "product found index: $product_found_index");
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
 $product_found_index = array_find_index_v4(fn($product) => @$product['code'] === $product_to_find, $products);
-echo("\n" . "product found index: $product_found_index");
-// product found index: 0
-
-echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v5\"");
-
-$product_found_index = array_find_index_v5(fn($product) => @$product['code'] === $product_to_find, $products);
-echo("\n" . "product found index: $product_found_index");
-// product found index: 0
-
-echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v6\"");
-
-$product_found_index = array_find_index_v6(fn($product) => @$product['code'] === $product_to_find, $products);
 echo("\n" . "product found index: $product_found_index");
 // product found index: 0

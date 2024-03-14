@@ -51,7 +51,7 @@ print(f'products: {json.dumps(products, indent=4)}')
 
 print('# using JavaScript-like Array.map() function "array_reduce"')
 
-products_grouped = array_reduce(lambda current_result, current_product, *_: {**current_result, 'expensive': [*current_result['expensive'], current_product]} if current_product['price'] > 100 else {**current_result, 'cheap': [*current_result['cheap'], current_product]}, products, {"expensive": [], "cheap": []})
+products_grouped = array_reduce(lambda current_result, current_product, *_: {**current_result, 'expensive': [*current_result['expensive'], current_product]} if (current_product['price'] > 100) else {**current_result, 'cheap': [*current_result['cheap'], current_product]}, products, {"expensive": [], "cheap": []})
 print('grouped products:', json.dumps(products_grouped, indent=4))
 # grouped products: {
 #     "expensive": [
@@ -78,7 +78,7 @@ print('grouped products:', json.dumps(products_grouped, indent=4))
 
 print('# using Python Array.map() built-in function "functools.reduce"')
 
-products_grouped = reduce(lambda current_result, current_product: {**current_result, 'expensive': [*current_result['expensive'], current_product]} if current_product['price'] > 100 else {**current_result, 'cheap': [*current_result['cheap'], current_product]}, products, {"expensive": [], "cheap": []})
+products_grouped = reduce(lambda current_result, current_product: {**current_result, 'expensive': [*current_result['expensive'], current_product]} if (current_product['price'] > 100) else {**current_result, 'cheap': [*current_result['cheap'], current_product]}, products, {"expensive": [], "cheap": []})
 print('grouped products:', json.dumps(products_grouped, indent=4))
 # grouped products: {
 #     "expensive": [

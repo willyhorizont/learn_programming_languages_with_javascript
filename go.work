@@ -20,6 +20,7 @@ use (
     ./codes/go/array_map
     ./codes/go/array_reduce
     ./codes/go/array_some
+    ./codes/go/custom_error_and_error_handling
     ./codes/go/factorial
     ./codes/go/fizzbuzz
     ./codes/go/xxx_chaos

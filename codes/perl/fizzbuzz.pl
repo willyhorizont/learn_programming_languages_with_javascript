@@ -6,8 +6,8 @@ print("\n# FizzBuzz(n) in Perl\n");
 
 sub fizzbuzz_v1 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
@@ -44,8 +44,8 @@ sub fizzbuzz_v1 {
 
 sub fizzbuzz_v2 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
@@ -77,8 +77,8 @@ sub fizzbuzz_v2 {
 
 sub fizzbuzz_v3 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
@@ -101,8 +101,8 @@ sub fizzbuzz_v3 {
 
 sub fizzbuzz_v4 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
@@ -124,8 +124,8 @@ sub fizzbuzz_v4 {
 
 sub fizzbuzz_v5 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
@@ -150,8 +150,8 @@ sub fizzbuzz_v5 {
 
 sub fizzbuzz_v6 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
@@ -175,8 +175,8 @@ sub fizzbuzz_v6 {
 
 sub fizzbuzz_v7 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while (1) {
@@ -189,8 +189,8 @@ sub fizzbuzz_v7 {
 
 sub fizzbuzz_v8 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     my $number = 1;
     while ($number <= $stop_number) {
@@ -202,8 +202,8 @@ sub fizzbuzz_v8 {
 
 sub fizzbuzz_v9 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number += 1) {
         if ($result eq "") {
@@ -229,8 +229,8 @@ sub fizzbuzz_v9 {
 
 sub fizzbuzz_v10 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
         if ($result eq "") {
@@ -256,8 +256,8 @@ sub fizzbuzz_v10 {
 
 sub fizzbuzz_v11 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
         if ($result eq "") {
@@ -277,8 +277,8 @@ sub fizzbuzz_v11 {
 
 sub fizzbuzz_v12 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
         if ($result eq "") {
@@ -298,8 +298,8 @@ sub fizzbuzz_v12 {
 
 sub fizzbuzz_v13 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
         $result = (($result eq "")
@@ -321,8 +321,8 @@ sub fizzbuzz_v13 {
 
 sub fizzbuzz_v14 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
         $result = (($result eq "")
@@ -344,8 +344,8 @@ sub fizzbuzz_v14 {
 
 sub fizzbuzz_v15 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for (my $number = 1; $number <= $stop_number; $number +=1) {
         $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
@@ -355,8 +355,8 @@ sub fizzbuzz_v15 {
 
 sub fizzbuzz_v16 {
     my ($stop_number) = @_;
-    return "argument should be a number" if !(looks_like_number($stop_number));
-    return "argument should be greater than 0" if ($stop_number < 1);
+    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
     for my $number (1..$stop_number) {
         $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));

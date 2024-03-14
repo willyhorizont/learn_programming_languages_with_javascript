@@ -1,0 +1,2 @@
+newline in c# is not `\n` but `Environment.NewLine`
+regex to find camelCase: \b[a-z]+(?:[A-Z][a-z]*)*\b

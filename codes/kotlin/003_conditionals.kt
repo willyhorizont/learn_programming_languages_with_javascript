@@ -53,9 +53,9 @@ fun main() {
     println("CORRECT_ANSWER: ${CORRECT_ANSWER}")
     println("(myAnswer != CORRECT_ANSWER):")
     if (myAnswer != CORRECT_ANSWER) {
-        println("Your answer is wrong")
-    } else {
         println("Your answer is correct")
+    } else {
+        println("Your answer is wrong")
     }
 
     println("\n" + "greater than (>)\n")

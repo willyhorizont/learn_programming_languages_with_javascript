@@ -35,7 +35,7 @@ def list_files():
     PATH_CODES_KOTLIN = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'kotlin')
     PATH_CODES_SWIFT = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'swift')
     PATH_CODES_DART = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'dart')
-    # PATH_CODES_VB = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'vb')
+    PATH_CODES_VB = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'vb')
     # PATH_CODES_CS = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'c#')
     # PATH_CODES_GDSCRIPT = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'gdscript')
     # PATH_CODES_RAKU = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'raku')
@@ -52,7 +52,7 @@ def list_files():
     FILE_CODES_KOTLIN = get_file_list(PATH_CODES_KOTLIN, files_to_be_excluded)
     FILE_CODES_SWIFT = get_file_list(PATH_CODES_SWIFT, files_to_be_excluded)
     FILE_CODES_DART = get_file_list(PATH_CODES_DART, files_to_be_excluded)
-    # FILE_CODES_VB = get_file_list(PATH_CODES_VB, files_to_be_excluded)
+    FILE_CODES_VB = get_file_list(PATH_CODES_VB, files_to_be_excluded)
     # FILE_CODES_CS = get_file_list(PATH_CODES_CS, files_to_be_excluded)
     # FILE_CODES_GDSCRIPT = get_file_list(PATH_CODES_GDSCRIPT, files_to_be_excluded)
     # FILE_CODES_RAKU = get_file_list(PATH_CODES_RAKU, files_to_be_excluded)
@@ -69,7 +69,7 @@ def list_files():
     FILE_CODES_KOTLIN = ["KOTLIN", *FILE_CODES_KOTLIN]
     FILE_CODES_SWIFT = ["SWIFT", *FILE_CODES_SWIFT]
     FILE_CODES_DART = ["DART", *FILE_CODES_DART]
-    # FILE_CODES_VB = ["VB", *FILE_CODES_VB]
+    FILE_CODES_VB = ["VB", *FILE_CODES_VB]
     # FILE_CODES_CS = ["C#", *FILE_CODES_CS]
     # FILE_CODES_GDSCRIPT = ["GDSCRIPT", *FILE_CODES_GDSCRIPT]
     # FILE_CODES_RAKU = ["RAKU", *FILE_CODES_RAKU]
@@ -87,7 +87,7 @@ def list_files():
         FILE_CODES_KOTLIN,
         FILE_CODES_SWIFT,
         FILE_CODES_DART,
-        # FILE_CODES_VB,
+        FILE_CODES_VB,
         # FILE_CODES_CS,
         # FILE_CODES_GDSCRIPT,
         # FILE_CODES_RAKU

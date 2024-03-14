@@ -61,27 +61,6 @@ arrayFindV2 <- function(callbackFunction, anArray) {
 
 arrayFindV3 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.find() function
-    dataFound <- NULL
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == TRUE) return(arrayItem)
-    }
-    return(dataFound)
-}
-
-arrayFindV4 <- function(callbackFunction, anArray) {
-    # JavaScript-like Array.find() function
-    dataFound <- NULL
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == TRUE) return(arrayItem)
-    }
-    return(dataFound)
-}
-
-arrayFindV5 <- function(callbackFunction, anArray) {
-    # JavaScript-like Array.find() function
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
@@ -90,7 +69,7 @@ arrayFindV5 <- function(callbackFunction, anArray) {
     return(NULL)
 }
 
-arrayFindV6 <- function(callbackFunction, anArray) {
+arrayFindV4 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.find() function
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]

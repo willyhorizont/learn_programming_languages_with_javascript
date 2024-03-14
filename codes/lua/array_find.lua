@@ -46,7 +46,7 @@ function array_find_v1(callback_function, an_array)
     local data_found = nil
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
+        if (is_condition_match == true) then
             data_found = array_item
             break
         end
@@ -58,7 +58,7 @@ function array_find_v2(callback_function, an_array)
     -- JavaScript-like Array.find() function
     local data_found = nil
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             data_found = array_item
             break
         end
@@ -68,42 +68,19 @@ end
 
 function array_find_v3(callback_function, an_array)
     -- JavaScript-like Array.find() function
-    local data_found = nil
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
-            return array_item
-        end
-    end
-    return data_found
-end
-
-function array_find_v4(callback_function, an_array)
-    -- JavaScript-like Array.find() function
-    local data_found = nil
-    for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
-            return array_item
-        end
-    end
-    return data_found
-end
-
-function array_find_v5(callback_function, an_array)
-    -- JavaScript-like Array.find() function
-    for array_item_index, array_item in ipairs(an_array) do
-        local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
+        if (is_condition_match == true) then
             return array_item
         end
     end
     return nil
 end
 
-function array_find_v6(callback_function, an_array)
+function array_find_v4(callback_function, an_array)
     -- JavaScript-like Array.find() function
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             return array_item
         end
     end
@@ -152,26 +129,6 @@ s_print("even number found: ", even_number_found)
 -- even number found: 12
 
 odd_numbers_found = array_find_v4(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
--- odd number found: 27
-
-print("-- using JavaScript-like Array.find() function \"array_find_v5\"")
-
-even_number_found = array_find_v5(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
--- even number found: 12
-
-odd_numbers_found = array_find_v5(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
--- odd number found: 27
-
-print("-- using JavaScript-like Array.find() function \"array_find_v6\"")
-
-even_number_found = array_find_v6(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
--- even number found: 12
-
-odd_numbers_found = array_find_v6(function (number) return ((number % 2) ~= 0) end, numbers)
 s_print("odd number found: ", odd_numbers_found)
 -- odd number found: 27
 
@@ -230,24 +187,6 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(product_found
 print("-- using JavaScript-like Array.find() function \"array_find_v4\"")
 
 product_found = array_find_v4(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
--- product found: {
---     "code": "bubble_gum",
---     "price": 233
--- }
-
-print("-- using JavaScript-like Array.find() function \"array_find_v5\"")
-
-product_found = array_find_v5(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
--- product found: {
---     "code": "bubble_gum",
---     "price": 233
--- }
-
-print("-- using JavaScript-like Array.find() function \"array_find_v6\"")
-
-product_found = array_find_v6(function (product) return (product.code == product_to_find) end, products)
 s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",

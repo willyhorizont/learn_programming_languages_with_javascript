@@ -39,55 +39,30 @@ end
 
 function array_includes_v1(search_element, an_array)
     -- JavaScript-like Array.includes() function
-    local element_found = false
+    local is_element_found = false
     for _, array_item in ipairs(an_array) do
         local is_condition_match = (array_item == search_element)
         if (is_condition_match == true) then
-            element_found = true
+            is_element_found = true
             break
         end
     end
-    return element_found
+    return is_element_found
 end
 
 function array_includes_v2(search_element, an_array)
     -- JavaScript-like Array.includes() function
-    local element_found = false
+    local is_element_found = false
     for _, array_item in ipairs(an_array) do
         if (array_item == search_element) then
-            element_found = true
+            is_element_found = true
             break
         end
     end
-    return element_found
+    return is_element_found
 end
 
 function array_includes_v3(search_element, an_array)
-    -- JavaScript-like Array.includes() function
-    local element_found = false
-    for _, array_item in ipairs(an_array) do
-        local is_condition_match = (array_item == search_element)
-        if (is_condition_match == true) then
-            element_found = true
-            return element_found
-        end
-    end
-    return element_found
-end
-
-function array_includes_v4(search_element, an_array)
-    -- JavaScript-like Array.includes() function
-    local element_found = false
-    for _, array_item in ipairs(an_array) do
-        if (array_item == search_element) then
-            element_found = true
-            return element_found
-        end
-    end
-    return element_found
-end
-
-function array_includes_v5(search_element, an_array)
     -- JavaScript-like Array.includes() function
     for _, array_item in ipairs(an_array) do
         local is_condition_match = (array_item == search_element)
@@ -98,7 +73,7 @@ function array_includes_v5(search_element, an_array)
     return false
 end
 
-function array_includes_v6(search_element, an_array)
+function array_includes_v4(search_element, an_array)
     -- JavaScript-like Array.includes() function
     for _, array_item in ipairs(an_array) do
         if (array_item == search_element) then
@@ -115,156 +90,88 @@ s_print("my friends: ", pretty_array_of_primitives(my_friends))
 
 print("-- using JavaScript-like Array.includes() function \"array_includes_v1\"")
 
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v1(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Alisa"
+is_my_friend = array_includes_v1(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Alisa": true
 
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v1(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Trivia"
+is_my_friend = array_includes_v1(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Trivia": true
 
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v1(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Tony"
+is_my_friend = array_includes_v1(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Tony": false
 
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v1(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Ezekiel"
+is_my_friend = array_includes_v1(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Ezekiel": false
 
 print("-- using JavaScript-like Array.includes() function \"array_includes_v2\"")
 
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v2(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Alisa"
+is_my_friend = array_includes_v2(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Alisa": true
 
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v2(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Trivia"
+is_my_friend = array_includes_v2(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Trivia": true
 
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v2(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Tony"
+is_my_friend = array_includes_v2(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Tony": false
 
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v2(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Ezekiel"
+is_my_friend = array_includes_v2(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Ezekiel": false
 
 print("-- using JavaScript-like Array.includes() function \"array_includes_v3\"")
 
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v3(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Alisa"
+is_my_friend = array_includes_v3(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Alisa": true
 
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v3(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Trivia"
+is_my_friend = array_includes_v3(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Trivia": true
 
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v3(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Tony"
+is_my_friend = array_includes_v3(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Tony": false
 
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v3(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Ezekiel"
+is_my_friend = array_includes_v3(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Ezekiel": false
 
 print("-- using JavaScript-like Array.includes() function \"array_includes_v4\"")
 
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v4(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Alisa"
+is_my_friend = array_includes_v4(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Alisa": true
 
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v4(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Trivia"
+is_my_friend = array_includes_v4(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Trivia": true
 
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v4(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Tony"
+is_my_friend = array_includes_v4(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Tony": false
 
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v4(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Ezekiel": false
-
-print("-- using JavaScript-like Array.includes() function \"array_includes_v5\"")
-
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v5(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Alisa": true
-
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v5(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Trivia": true
-
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v5(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Tony": false
-
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v5(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Ezekiel": false
-
-print("-- using JavaScript-like Array.includes() function \"array_includes_v6\"")
-
-name = "Alisa"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v6(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Alisa": true
-
-name = "Trivia"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v6(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Trivia": true
-
-name = "Tony"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v6(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
--- is my friends includes "Tony": false
-
-name = "Ezekiel"
-s_print("name: ", "\"", name, "\"")
-is_my_friend = array_includes_v6(name, my_friends)
-s_print("is my friends includes ", "\"", name, "\"", ": ", is_my_friend)
+a_name = "Ezekiel"
+is_my_friend = array_includes_v4(a_name, my_friends)
+s_print("is my friends includes ", "\"", a_name, "\"", ": ", is_my_friend)
 -- is my friends includes "Ezekiel": false

@@ -1,6 +1,3 @@
-using Printf
-using Statistics
-
 function pretty_array_of_primitives(an_array_of_primitives)
     result = "["
     for (array_item_index, array_item) in enumerate(an_array_of_primitives)
@@ -39,78 +36,66 @@ println("my friends: ", pretty_array_of_primitives(my_friends))
 
 println("# using JavaScript-like Array.includes() function \"array_includes_v1\"")
 
-name = "Alisa"
-println("name: \"$name\"")
-is_my_friend = array_includes_v1(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Alisa"
+is_my_friend = array_includes_v1(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Alisa": true
 
-name = "Trivia"
-println("name: \"$name\"")
-is_my_friend = array_includes_v1(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Trivia"
+is_my_friend = array_includes_v1(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Trivia": true
 
-name = "Tony"
-println("name: \"$name\"")
-is_my_friend = array_includes_v1(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Tony"
+is_my_friend = array_includes_v1(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Tony": true
 
-name = "Ezekiel"
-println("name: \"$name\"")
-is_my_friend = array_includes_v1(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Ezekiel"
+is_my_friend = array_includes_v1(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Ezekiel": true
 
 println("# using JavaScript-like Array.includes() function \"array_includes_v2\"")
 
-name = "Alisa"
-println("name: \"$name\"")
-is_my_friend = array_includes_v2(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Alisa"
+is_my_friend = array_includes_v2(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Alisa": true
 
-name = "Trivia"
-println("name: \"$name\"")
-is_my_friend = array_includes_v2(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Trivia"
+is_my_friend = array_includes_v2(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Trivia": true
 
-name = "Tony"
-println("name: \"$name\"")
-is_my_friend = array_includes_v2(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Tony"
+is_my_friend = array_includes_v2(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Tony": true
 
-name = "Ezekiel"
-println("name: \"$name\"")
-is_my_friend = array_includes_v2(name, my_friends)
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Ezekiel"
+is_my_friend = array_includes_v2(a_name, my_friends)
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Ezekiel": true
 
 println("# using Julia \"in\" operator")
 
-name = "Alisa"
-println("name: \"$name\"")
-is_my_friend = name in my_friends
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Alisa"
+is_my_friend = a_name in my_friends
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Alisa": true
 
-name = "Trivia"
-println("name: \"$name\"")
-is_my_friend = name in my_friends
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Trivia"
+is_my_friend = a_name in my_friends
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Trivia": true
 
-name = "Tony"
-println("name: \"$name\"")
-is_my_friend = name in my_friends
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Tony"
+is_my_friend = a_name in my_friends
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Tony": true
 
-name = "Ezekiel"
-println("name: \"$name\"")
-is_my_friend = name in my_friends
-println("is my friends includes \"$name\": $is_my_friend")
+a_name = "Ezekiel"
+is_my_friend = a_name in my_friends
+println("is my friends includes \"$a_name\": $is_my_friend")
 # is my friends includes "Ezekiel": true

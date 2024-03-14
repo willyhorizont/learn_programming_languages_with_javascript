@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 country_capitals_in_asia = Dict(

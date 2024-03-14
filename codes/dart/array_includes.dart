@@ -11,32 +11,28 @@ void main() {
 	final myFriends = <dynamic>["Alisa", "Trivia"];
 	print("myFriends: ${prettyArrayOfPrimitives(myFriends)}");
 
-	dynamic name;
+	dynamic aName;
 	dynamic isMyFriend;
 
 	print("// using Dart Array.includes() built-in method \"Array.contains()\"");
 
-	name = "Alisa";
-    print("name: \"${name}\"");
-    isMyFriend = myFriends.contains(name);
-    print("is my friends includes \"${name}\": ${isMyFriend}");
+	aName = "Alisa";
+    isMyFriend = myFriends.contains(aName);
+    print("is my friends includes \"${aName}\": ${isMyFriend}");
     // is my friends includes "Alisa": true
 
-    name = "Trivia";
-    print("name: \"${name}\"");
-    isMyFriend = myFriends.contains(name);
-    print("is my friends includes \"${name}\": ${isMyFriend}");
+    aName = "Trivia";
+    isMyFriend = myFriends.contains(aName);
+    print("is my friends includes \"${aName}\": ${isMyFriend}");
     // is my friends includes "Trivia": true
 
-    name = "Tony";
-    print("name: \"${name}\"");
-    isMyFriend = myFriends.contains(name);
-    print("is my friends includes \"${name}\": ${isMyFriend}");
+    aName = "Tony";
+    isMyFriend = myFriends.contains(aName);
+    print("is my friends includes \"${aName}\": ${isMyFriend}");
     // is my friends includes "Tony": false
 
-    name = "Ezekiel";
-    print("name: \"${name}\"");
-    isMyFriend = myFriends.contains(name);
-    print("is my friends includes \"${name}\": ${isMyFriend}");
+    aName = "Ezekiel";
+    isMyFriend = myFriends.contains(aName);
+    print("is my friends includes \"${aName}\": ${isMyFriend}");
     // is my friends includes "Ezekiel": false
 }

@@ -54,9 +54,9 @@ console.log(`myAnswer: ${myAnswer}`);
 console.log(`CORRECT_ANSWER: ${CORRECT_ANSWER}`);
 console.log("(myAnswer != CORRECT_ANSWER):");
 if (myAnswer != CORRECT_ANSWER) {
-    console.log("Your answer is wrong");
-} else {
     console.log("Your answer is correct");
+} else {
+    console.log("Your answer is wrong");
 }
 
 console.log("\n// strict equal to (===)\n");

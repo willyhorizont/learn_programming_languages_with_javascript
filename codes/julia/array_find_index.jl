@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 function pretty_array_of_primitives(an_array_of_primitives)
@@ -52,29 +50,6 @@ end
 
 function array_find_index_v3(callback_function, an_array)
     # JavaScript-like Array.findIndex() function
-    data_found_index = -1
-    for (array_item_index, array_item) in enumerate(an_array)
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if (is_condition_match === true)
-            return array_item_index
-        end
-    end
-    return data_found_index
-end
-
-function array_find_index_v4(callback_function, an_array)
-    # JavaScript-like Array.findIndex() function
-    data_found_index = -1
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true)
-            return array_item_index
-        end
-    end
-    return data_found_index
-end
-
-function array_find_index_v5(callback_function, an_array)
-    # JavaScript-like Array.findIndex() function
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match === true)
@@ -84,7 +59,7 @@ function array_find_index_v5(callback_function, an_array)
     return -1
 end
 
-function array_find_index_v6(callback_function, an_array)
+function array_find_index_v4(callback_function, an_array)
     # JavaScript-like Array.findIndex() function
     for (array_item_index, array_item) in enumerate(an_array)
         if (callback_function(array_item, array_item_index, an_array) === true)
@@ -123,18 +98,6 @@ println("number found index: ", number_found_index)
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 number_found_index = array_find_index_v4((number, _, _) -> (number === number_to_find), numbers)
-println("number found index: ", number_found_index)
-# number found index: 3
-
-println("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
-
-number_found_index = array_find_index_v5((number, _, _) -> (number === number_to_find), numbers)
-println("number found index: ", number_found_index)
-# number found index: 3
-
-println("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
-
-number_found_index = array_find_index_v6((number, _, _) -> (number === number_to_find), numbers)
 println("number found index: ", number_found_index)
 # number found index: 3
 
@@ -190,18 +153,6 @@ println("product found index: ", product_found_index)
 println("# using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 product_found_index = array_find_index_v4((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found index: ", product_found_index)
-# product found index: 1
-
-println("# using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
-
-product_found_index = array_find_index_v5((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found index: ", product_found_index)
-# product found index: 1
-
-println("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
-
-product_found_index = array_find_index_v6((product, _, _) -> (product["code"] === product_to_find), products)
 println("product found index: ", product_found_index)
 # product found index: 1
 

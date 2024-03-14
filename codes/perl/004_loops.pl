@@ -29,5 +29,25 @@ while ($i2 <= 5) {
 
 for (my $i3 = 1; $i3 <= 5; $i3 += 1) {
     next if ($i3 == 2);
-    print("for loop, \$i3 is $i3\n");
+    print("for loop v1, \$i3 is $i3\n");
+}
+
+for my $i4 (1..5) {
+    next if ($i4 == 2);
+    print("for loop v2 ascending, \$i4 is $i4\n");
+}
+
+for my $i5 (reverse(1..5)) {
+    next if ($i5 == 2);
+    print("for loop v2 ascending, \$i5 is $i5\n");
+}
+
+foreach my $i6 (1..5) {
+    next if ($i6 == 2);
+    print("for loop v3 ascending, \$i6 is $i6\n");
+}
+
+foreach my $i7 (reverse(1..5)) {
+    next if ($i7 == 2);
+    print("for loop v3 ascending, \$i7 is $i7\n");
 }

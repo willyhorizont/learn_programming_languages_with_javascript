@@ -3,6 +3,7 @@ sub pretty_json_stringify {
     use JSON;
     my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
     $pretty_json_string =~ s/   /    /g;
+    $pretty_json_string =~ s/\n$//g;
     return $pretty_json_string;
 }
 
@@ -27,17 +28,17 @@ sub pretty_json_stringify {
     ```
 =cut
 my $something = "foo";
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 $something = 123;
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 $something = 1;
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 $something = undef;
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 $something = [1, 2, 3];
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 $something = { "foo" => "bar" };
-print("something: " . pretty_json_stringify($something));
+print("something: " . pretty_json_stringify($something) . "\n");
 
 =begin
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -126,7 +127,7 @@ my $my_object = {
     },
     "my_array" => [1, 2, 3]
 };
-print("my_object: " . pretty_json_stringify($my_object));
+print("my_object: " . pretty_json_stringify($my_object) . "\n");
 
 =begin
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -136,7 +137,7 @@ print("my_object: " . pretty_json_stringify($my_object));
     ```
 =cut
 my $my_array = ["foo", 123, 1, undef, [1, 2, 3], { "foo" => "bar" }];
-print("my_array: " . pretty_json_stringify($my_array));
+print("my_array: " . pretty_json_stringify($my_array) . "\n");
 
 =begin
     5. support passing functions as arguments to other functions
@@ -155,9 +156,9 @@ print("my_array: " . pretty_json_stringify($my_array));
     ```
 =cut
 sub say_hello {
-    my ($callback_function) = @_;
+    my ($callback_function_ref) = @_;
     print("hello" . "\n");
-    $callback_function -> ();
+    $callback_function_ref -> (); # or &$callback_function_ref();
 }
 sub say_how_are_you {
     print("how are you?" . "\n");

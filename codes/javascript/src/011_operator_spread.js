@@ -31,14 +31,14 @@ console.log(`combination1: ${JSON.stringify(combination1, null, ' '.repeat(4))}`
 //     "Tomato"
 // ]
 
-const combination2 = [...fruits, ...["Cucumber", "Onions"]];
+const combination2 = [...fruits, ...["Cucumber", "Onion"]];
 console.log(`combination2: ${JSON.stringify(combination2, null, ' '.repeat(4))}`);
 // combination2: [
 //     "Mango",
 //     "Melon",
 //     "Banana",
 //     "Cucumber",
-//     "Onions"
+//     "Onion"
 // ]
 
 console.log("\n// { ...object1, ...object2 }:\n");
@@ -77,7 +77,7 @@ console.log(`combination5: ${JSON.stringify(combination5, null, ' '.repeat(4))}`
 //     ]
 // ]
 
-const combination6 = [...fruits, ["Cucumber", "Onions"]];
+const combination6 = [...fruits, ["Cucumber", "Onion"]];
 console.log(`combination6: ${JSON.stringify(combination6, null, ' '.repeat(4))}`);
 // combination6: [
 //     "Mango",
@@ -85,7 +85,7 @@ console.log(`combination6: ${JSON.stringify(combination6, null, ' '.repeat(4))}`
 //     "Banana",
 //     [
 //         "Cucumber",
-//         "Onions"
+//         "Onion"
 //     ]
 // ]
 
@@ -156,7 +156,7 @@ console.log(`combination11: ${JSON.stringify(combination11, null, ' '.repeat(4))
 //     ]
 // }
 
-const combination12 = { ...countryCapitalsInAsia, "vegetables": ["Cucumber", "Onions"] };
+const combination12 = { ...countryCapitalsInAsia, "vegetables": ["Cucumber", "Onion"] };
 console.log(`combination12: ${JSON.stringify(combination12, null, ' '.repeat(4))}`);
 // combination12: {
 //     "Thailand": "Bangkok",
@@ -164,7 +164,7 @@ console.log(`combination12: ${JSON.stringify(combination12, null, ' '.repeat(4))
 //     "Japan": "Tokyo",
 //     "vegetables": [
 //         "Cucumber",
-//         "Onions"
+//         "Onion"
 //     ]
 // }
 
@@ -180,14 +180,14 @@ console.log(`combination13: ${JSON.stringify(combination13, null, ' '.repeat(4))
 //    "1" : "Tomato"
 // }
 
-const combination14 = { ...countryCapitalsInAsia, ...["Cucumber", "Onions"] };
+const combination14 = { ...countryCapitalsInAsia, ...["Cucumber", "Onion"] };
 console.log(`combination14: ${JSON.stringify(combination14, null, ' '.repeat(4))}`);
 // combination14: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
 //    "Japan" : "Tokyo",
 //    "0" : "Cucumber",
-//    "1" : "Onions"
+//    "1" : "Onion"
 // }
 
 // console.log("\n// [...array1, ...object1]: // this combination throw an error\n");

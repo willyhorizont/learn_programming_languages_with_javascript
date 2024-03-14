@@ -61,27 +61,6 @@ arrayFindIndexV2 <- function(callbackFunction, anArray) {
 
 arrayFindIndexV3 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
-    dataFoundIndex <- -1
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == TRUE) return(arrayItemIndex)
-    }
-    return(dataFoundIndex)
-}
-
-arrayFindIndexV4 <- function(callbackFunction, anArray) {
-    # JavaScript-like Array.findIndex() function
-    dataFoundIndex <- -1
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == TRUE) return(arrayItemIndex)
-    }
-    return(dataFoundIndex)
-}
-
-arrayFindIndexV5 <- function(callbackFunction, anArray) {
-    # JavaScript-like Array.findIndex() function
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
@@ -90,7 +69,7 @@ arrayFindIndexV5 <- function(callbackFunction, anArray) {
     return(-1)
 }
 
-arrayFindIndexV6 <- function(callbackFunction, anArray) {
+arrayFindIndexV4 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.findIndex() function
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
@@ -128,18 +107,6 @@ cat(paste(sep = "", "number found index: ", numberFoundIndex, "\n"))
 cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"\n")
 
 numberFoundIndex <- arrayFindIndexV4(function(number, ...) (number == numberToFind), numbers)
-cat(paste(sep = "", "number found index: ", numberFoundIndex, "\n"))
-# number found index: 3
-
-cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"\n")
-
-numberFoundIndex <- arrayFindIndexV5(function(number, ...) (number == numberToFind), numbers)
-cat(paste(sep = "", "number found index: ", numberFoundIndex, "\n"))
-# number found index: 3
-
-cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"\n")
-
-numberFoundIndex <- arrayFindIndexV6(function(number, ...) (number == numberToFind), numbers)
 cat(paste(sep = "", "number found index: ", numberFoundIndex, "\n"))
 # number found index: 3
 
@@ -189,17 +156,5 @@ cat(paste(sep = "", "product found index: ", prettyJsonStringify(productFoundInd
 cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"\n")
 
 productFoundIndex <- arrayFindIndexV4(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found index: ", prettyJsonStringify(productFoundIndex), "\n"))
-# product found index: 1
-
-cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"\n")
-
-productFoundIndex <- arrayFindIndexV5(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found index: ", prettyJsonStringify(productFoundIndex), "\n"))
-# product found index: 1
-
-cat("# using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"\n")
-
-productFoundIndex <- arrayFindIndexV6(function(product, ...) (product$code == productToFind), products)
 cat(paste(sep = "", "product found index: ", prettyJsonStringify(productFoundIndex), "\n"))
 # product found index: 1

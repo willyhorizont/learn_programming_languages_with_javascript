@@ -37,7 +37,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
 				result += fmt.Sprint(arrayItem)
 			case reflect.Bool:
-				if arrayItem.(bool) {
+				if (arrayItem.(bool) == true) {
 					result += "true"
 				} else {
 					result += "false"
@@ -130,14 +130,14 @@ func main() {
 	//     "Tomato"
 	// ]
 
-	combination2 := spreadSyntaxArray(fruits, array{"Cucumber", "Onions"})
+	combination2 := spreadSyntaxArray(fruits, array{"Cucumber", "Onion"})
 	fmt.Println("combination2:", prettyJsonStringify(combination2))
 	// combination2: [
 	//     "Mango",
 	//     "Melon",
 	//     "Banana",
 	//     "Cucumber",
-	//     "Onions"
+	//     "Onion"
 	// ]
 
 	fmt.Println("// { ...object1, ...object2 }:")
@@ -176,7 +176,7 @@ func main() {
 	//     ]
 	// ]
 
-	combination6 := spreadSyntaxArray(fruits, object{"vegetables": array{"Cucumber", "Onions"}})
+	combination6 := spreadSyntaxArray(fruits, object{"vegetables": array{"Cucumber", "Onion"}})
 	fmt.Println("combination6:", prettyJsonStringify(combination6))
 	// combination6: [
 	//     "Mango",
@@ -184,7 +184,7 @@ func main() {
 	//     "Banana",
 	//     [
 	//         "Cucumber",
-	//         "Onions"
+	//         "Onion"
 	//     ]
 	// ]
 
@@ -255,7 +255,7 @@ func main() {
 	//     ]
 	// }
 
-	combination12 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Onions"}})
+	combination12 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Onion"}})
 	fmt.Println("combination12:", prettyJsonStringify(combination12))
 	// combination12: {
 	//     "Thailand": "Bangkok",
@@ -263,7 +263,7 @@ func main() {
 	//     "Japan": "Tokyo",
 	//     "vegetables": [
 	//         "Cucumber",
-	//         "Onions"
+	//         "Onion"
 	//     ]
 	// }
 
@@ -279,14 +279,14 @@ func main() {
 	//    "1" : "Tomato"
 	// }
 
-	combination14 := spreadSyntaxObject(countryCapitalsInAsia, array{"Cucumber", "Onions"})
+	combination14 := spreadSyntaxObject(countryCapitalsInAsia, array{"Cucumber", "Onion"})
 	fmt.Println("combination14:", prettyJsonStringify(combination14))
 	// combination14: {
 	//    "Thailand" : "Bangkok",
 	//    "China" : "Beijing",
 	//    "Japan" : "Tokyo",
 	//    "0" : "Cucumber",
-	//    "1" : "Onions"
+	//    "1" : "Onion"
 	// }
 
 	// fmt.Println("// [...array1, ...object1]: // this combination throw an error in JavaScript")

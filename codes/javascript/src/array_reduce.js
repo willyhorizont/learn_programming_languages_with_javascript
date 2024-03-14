@@ -5,7 +5,7 @@ console.log(`numbers: ${JSON.stringify(numbers).split(',').join(', ')}`);
 
 const numbersTotal = numbers.reduce((currentResult, currentNumber) => (currentResult + currentNumber), 0);
 console.log('total number:', numbersTotal);
-// total numbers: 41.2
+// total number: 41.2
 
 console.log('\n// Array.reduce() in JavaScript Array of Objects');
 

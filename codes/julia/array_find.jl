@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 # There's no JavaScript-like Array.find() in Julia.
@@ -55,50 +53,27 @@ end
 
 function array_find_v3(callback_function, an_array)
     # JavaScript-like Array.find() function
-    data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match === true)
             return array_item
         end
     end
-    return data_found
+    return nothing
 end
 
 function array_find_v4(callback_function, an_array)
     # JavaScript-like Array.find() function
-    data_found = nothing
     for (array_item_index, array_item) in enumerate(an_array)
         if (callback_function(array_item, array_item_index, an_array) === true)
             return array_item
         end
     end
-    return data_found
+    return nothing
 end
 
 function array_find_v5(callback_function, an_array)
-    # JavaScript-like Array.find() function
-    for (array_item_index, array_item) in enumerate(an_array)
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if (is_condition_match === true)
-            return array_item
-        end
-    end
-    return nothing
-end
-
-function array_find_v6(callback_function, an_array)
-    # JavaScript-like Array.find() function
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true)
-            return array_item
-        end
-    end
-    return nothing
-end
-
-function array_find_v7(callback_function, an_array)
-    # JavaScript-like Array.find() function
+    # Array.find() function using Julia Array.findIndex() built-in function "findfirst"
     data_found_index = findfirst(callback_function, an_array)
     return ((data_found_index === nothing) ? nothing : an_array[data_found_index])
 end
@@ -150,31 +125,11 @@ println("odd number found: ", odd_numbers_found)
 
 println("# using JavaScript-like Array.find() function \"array_find_v5\"")
 
-even_number_found = array_find_v5((number, _, _) -> ((number % 2) === 0), numbers)
+even_number_found = array_find_v5((number) -> ((number % 2) === 0), numbers)
 println("even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v5((number, _, _) -> ((number % 2) !== 0), numbers)
-println("odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-println("# using JavaScript-like Array.find() function \"array_find_v6\"")
-
-even_number_found = array_find_v6((number, _, _) -> ((number % 2) === 0), numbers)
-println("even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v6((number, _, _) -> ((number % 2) !== 0), numbers)
-println("odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-println("# using JavaScript-like Array.find() function \"array_find_v7\"")
-
-even_number_found = array_find_v7((number) -> ((number % 2) === 0), numbers)
-println("even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v7((number) -> ((number % 2) !== 0), numbers)
+odd_numbers_found = array_find_v5((number) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -241,25 +196,7 @@ println("product found: ", chomp(JSON.json(product_found, 4)))
 
 println("# using JavaScript-like Array.find() function \"array_find_v5\"")
 
-product_found = array_find_v5((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-println("# using JavaScript-like Array.find() function \"array_find_v6\"")
-
-product_found = array_find_v6((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-println("# using JavaScript-like Array.find() function \"array_find_v7\"")
-
-product_found = array_find_v7((product) -> (product["code"] === product_to_find), products)
+product_found = array_find_v5((product) -> (product["code"] === product_to_find), products)
 println("product found: ", chomp(JSON.json(product_found, 4)))
 # product found: {
 #     "code": "bubble_gum",

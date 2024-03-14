@@ -1,6 +1,3 @@
-using Printf
-using Statistics
-
 println("\n# Ternary Operator in Julia")
 
 CORRECT_ANSWER = "foo"

@@ -74,9 +74,9 @@ println("my_answer: ", my_answer)
 println("correct_answer: ", correct_answer)
 println("(my_answer !== correct_answer): ")
 if (my_answer !== correct_answer)
-    println("Your answer is wrong")
-else
     println("Your answer is correct")
+else
+    println("Your answer is wrong")
 end
 
 println("\n# greater than (>)\n")

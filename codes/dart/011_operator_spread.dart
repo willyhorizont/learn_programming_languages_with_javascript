@@ -52,14 +52,14 @@ void main() {
 	//     "Tomato"
 	// ]
 
-	final combination2 = <dynamic>[...fruits, ...<dynamic>["Cucumber", "Onions"]];
+	final combination2 = <dynamic>[...fruits, ...<dynamic>["Cucumber", "Onion"]];
 	print("combination2: ${prettyJsonStringify(combination2)}");
 	// combination2: [
 	//     "Mango",
 	//     "Melon",
 	//     "Banana",
 	//     "Cucumber",
-	//     "Onions"
+	//     "Onion"
 	// ]
 
 	print("\n// { ...object1, ...object2 }:\n");
@@ -98,7 +98,7 @@ void main() {
 	//     ]
 	// ]
 
-	final combination6 = <dynamic>[...fruits, <dynamic>["Cucumber", "Onions"]];
+	final combination6 = <dynamic>[...fruits, <dynamic>["Cucumber", "Onion"]];
 	print("combination6: ${prettyJsonStringify(combination6)}");
 	// combination6: [
 	//     "Mango",
@@ -106,7 +106,7 @@ void main() {
 	//     "Banana",
 	//     [
 	//         "Cucumber",
-	//         "Onions"
+	//         "Onion"
 	//     ]
 	// ]
 
@@ -177,7 +177,7 @@ void main() {
 	//     ]
 	// }
 
-	final combination12 = <String, dynamic>{ ...countryCapitalsInAsia, "vegetables": <dynamic>["Cucumber", "Onions"] };
+	final combination12 = <String, dynamic>{ ...countryCapitalsInAsia, "vegetables": <dynamic>["Cucumber", "Onion"] };
 	print("combination12: ${prettyJsonStringify(combination12)}");
 	// combination12: {
 	//     "Thailand": "Bangkok",
@@ -185,7 +185,7 @@ void main() {
 	//     "Japan": "Tokyo",
 	//     "vegetables": [
 	//         "Cucumber",
-	//         "Onions"
+	//         "Onion"
 	//     ]
 	// }
 
@@ -201,14 +201,14 @@ void main() {
 	//    "1" : "Tomato"
 	// }
 
-	final combination14 = <String, dynamic>{ ...countryCapitalsInAsia, ...arrayToObject(<dynamic>["Cucumber", "Onions"]) };
+	final combination14 = <String, dynamic>{ ...countryCapitalsInAsia, ...arrayToObject(<dynamic>["Cucumber", "Onion"]) };
 	print("combination14: ${prettyJsonStringify(combination14)}");
 	// combination14: {
 	//    "Thailand" : "Bangkok",
 	//    "China" : "Beijing",
 	//    "Japan" : "Tokyo",
 	//    "0" : "Cucumber",
-	//    "1" : "Onions"
+	//    "1" : "Onion"
 	// }
 
 	// print("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n");

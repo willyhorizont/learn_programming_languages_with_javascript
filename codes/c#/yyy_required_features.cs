@@ -11,13 +11,7 @@ class Program {
         Func<dynamic, string, string> PrettyJsonStringifyInner = null;
         PrettyJsonStringifyInner = (dynamic AnythingInner, string IndentInner) => {
             if (AnythingInner == null) {
-                return "undefined";
-            }
-            if (AnythingInner is string && (string)AnythingInner == "null") {
                 return "null";
-            }
-            if (AnythingInner is string && (string)AnythingInner == "undefined") {
-                return "undefined";
             }
             if (AnythingInner is string) {
                 return "\"" + (string)AnythingInner + "\"";
@@ -44,9 +38,9 @@ class Program {
                 IndentLevel += 1;
                 string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                 int IterationIndex = 0;
-                foreach (KeyValuePair<string, dynamic> objectEntry in (Dictionary<string, dynamic>)AnythingInner) {
-                    string ObjectKey = objectEntry.Key;
-                    dynamic ObjectValue = objectEntry.Value;
+                foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
+                    string ObjectKey = ObjectEntry.Key;
+                    dynamic ObjectValue = ObjectEntry.Value;
                     Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
                     if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                         Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
@@ -57,11 +51,11 @@ class Program {
                 Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
                 return Result;
             }
-            return "undefined";
+            return "null";
         };
         return PrettyJsonStringifyInner(Anything, Indent);
     }
-    static void Main(string[] args) {
+    static void Main(string[] Args) {
         /*
             1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
             ```javascript
@@ -234,9 +228,9 @@ class Program {
             console.log("multiplyBy2Result:", multiplyBy2Result);
             ```
         */
-        Func<int, Func<int, int>> Multiply = (a) => {
-            return (b) => {
-                return (a * b);
+        Func<int, Func<int, int>> Multiply = (A) => {
+            return (B) => {
+                return (A * B);
             };
         };
         Func<int, int> MultiplyBy2 = Multiply(2);
@@ -304,8 +298,8 @@ class Program {
             ```
         */
         dynamic MyArray2 = new dynamic[] {
-            (Func<int, int, int>)((a, b) => {
-                return (a * b);
+            (Func<int, int, int>)((A, B) => {
+                return (A * B);
             }),
             "foo",
             123,
@@ -317,8 +311,8 @@ class Program {
         Console.WriteLine("myArray2[0](7, 5): " + MyArray2[0](7, 5));
 
         dynamic MyObject2 = new Dictionary<string, dynamic>() {
-            {"my_function", (Func<int, int, int>)((a, b) => {
-                return (a * b);
+            {"my_function", (Func<int, int, int>)((A, B) => {
+                return (A * B);
             })},
             {"my_string", "foo"},
             {"my_number", 123},

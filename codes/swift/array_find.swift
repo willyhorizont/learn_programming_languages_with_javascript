@@ -54,8 +54,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -71,8 +70,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -118,29 +116,6 @@ func arrayFindV2(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
 
 func arrayFindV3(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
     // JavaScript-like Array.find() function
-    let dataFound: Any? = nil
-    for (arrayItemIndex, arrayItem) in anArray.enumerated() {
-        let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == true) {
-            return arrayItem
-        }
-    }
-    return dataFound
-}
-
-func arrayFindV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
-    // JavaScript-like Array.find() function
-    let dataFound: Any? = nil
-    for (arrayItemIndex, arrayItem) in anArray.enumerated() {
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-            return arrayItem
-        }
-    }
-    return dataFound
-}
-
-func arrayFindV5(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
-    // JavaScript-like Array.find() function
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         let isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
         if (isConditionMatch == true) {
@@ -150,7 +125,7 @@ func arrayFindV5(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
     return nil
 }
 
-func arrayFindV6(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
+func arrayFindV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
     // JavaScript-like Array.find() function
     for (arrayItemIndex, arrayItem) in anArray.enumerated() {
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
@@ -248,46 +223,6 @@ oddNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
 print("odd number found: \(oddNumberFound ?? "undefined")")
 // odd number found: 27
 
-print("// using JavaScript-like Array.find() function \"arrayFindV5\"")
-
-evenNumberFound = arrayFindV5({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return (result % 2) == 0
-}, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
-// even number found: 12
-
-oddNumberFound = arrayFindV5({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return (result % 2) != 0
-}, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
-// odd number found: 27
-
-print("// using JavaScript-like Array.find() function \"arrayFindV6\"")
-
-evenNumberFound = arrayFindV6({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return (result % 2) == 0
-}, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
-// even number found: 12
-
-oddNumberFound = arrayFindV6({ (number: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = number as? Int else {
-        return false
-    }
-    return (result % 2) != 0
-}, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
-// odd number found: 27
-
 print("\n// JavaScript-like Array.find() in Swift [[String, Any?]] (Array of Dictionaries)")
 
 let products: MyArray = [
@@ -360,34 +295,6 @@ print("product found: \(prettyJsonStringify(productFound))")
 print("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
 productFound = arrayFindV4({ (product: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = product as? MyObject, let result = result["code"] as? String else {
-        return false
-    }
-    return result == productToFind
-}, products)
-print("product found: \(prettyJsonStringify(productFound))")
-// product found: {
-//     "code":"bubble_gum",
-//     "price": 233
-// }
-
-print("// using JavaScript-like Array.find() function \"arrayFindV5\"")
-
-productFound = arrayFindV5({ (product: Any?, _: Int, _: MyArray) -> Bool in
-    guard let result = product as? MyObject, let result = result["code"] as? String else {
-        return false
-    }
-    return result == productToFind
-}, products)
-print("product found: \(prettyJsonStringify(productFound))")
-// product found: {
-//     "code":"bubble_gum",
-//     "price": 233
-// }
-
-print("// using JavaScript-like Array.find() function \"arrayFindV6\"")
-
-productFound = arrayFindV6({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }

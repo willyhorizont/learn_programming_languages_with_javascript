@@ -42,29 +42,6 @@ void main() {
 
 	dynamic arrayFindIndexV3(dynamic callbackFunction, dynamic anArray) {
 		// JavaScript-like Array.findIndex() function
-		dynamic dataFoundIndex = -1;
-		for (final entryItem in anArray.asMap().entries) {
-			final arrayItemIndex = entryItem.key;
-			final arrayItem = entryItem.value;
-			dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
-            if (isConditionMatch == true) return arrayItemIndex;
-		}
-		return dataFoundIndex;
-	}
-
-	dynamic arrayFindIndexV4(dynamic callbackFunction, dynamic anArray) {
-		// JavaScript-like Array.findIndex() function
-		dynamic dataFoundIndex = -1;
-		for (final entryItem in anArray.asMap().entries) {
-			final arrayItemIndex = entryItem.key;
-			final arrayItem = entryItem.value;
-            if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItemIndex;
-		}
-		return dataFoundIndex;
-	}
-
-	dynamic arrayFindIndexV5(dynamic callbackFunction, dynamic anArray) {
-		// JavaScript-like Array.findIndex() function
 		for (final entryItem in anArray.asMap().entries) {
 			final arrayItemIndex = entryItem.key;
 			final arrayItem = entryItem.value;
@@ -74,7 +51,7 @@ void main() {
 		return -1;
 	}
 
-	dynamic arrayFindIndexV6(dynamic callbackFunction, dynamic anArray) {
+	dynamic arrayFindIndexV4(dynamic callbackFunction, dynamic anArray) {
 		// JavaScript-like Array.findIndex() function
 		for (final entryItem in anArray.asMap().entries) {
 			final arrayItemIndex = entryItem.key;
@@ -115,18 +92,6 @@ void main() {
 	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"");
 
 	numberFoundIndex = arrayFindIndexV4((dynamic number, dynamic _, dynamic __) => (number == numberToFind), numbers);
-    print("number found index: ${numberFoundIndex}");
-    // number found index: 2
-
-	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"");
-
-	numberFoundIndex = arrayFindIndexV5((dynamic number, dynamic _, dynamic __) => (number == numberToFind), numbers);
-    print("number found index: ${numberFoundIndex}");
-    // number found index: 2
-
-	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"");
-
-	numberFoundIndex = arrayFindIndexV6((dynamic number, dynamic _, dynamic __) => (number == numberToFind), numbers);
     print("number found index: ${numberFoundIndex}");
     // number found index: 2
 
@@ -184,18 +149,6 @@ void main() {
 	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"");
 
 	productFoundIndex = arrayFindIndexV4((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
-    print("product found index: ${productFoundIndex}");
-	// product found index: 0
-
-	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV5\"");
-
-	productFoundIndex = arrayFindIndexV5((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
-    print("product found index: ${productFoundIndex}");
-	// product found index: 0
-
-	print("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV6\"");
-
-	productFoundIndex = arrayFindIndexV6((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
     print("product found index: ${productFoundIndex}");
 	// product found index: 0
 

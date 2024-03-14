@@ -39,14 +39,14 @@ print(f'combination1: {json.dumps(combination1, indent=4)}')
 #     "Tomato"
 # ]
 
-combination2 = [*fruits, *["Cucumber", "Onions"]]
+combination2 = [*fruits, *["Cucumber", "Onion"]]
 print(f'combination2: {json.dumps(combination2, indent=4)}')
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onions"
+#     "Onion"
 # ]
 
 print("\n# { ...object1, ...object2 }:\n")
@@ -85,7 +85,7 @@ print(f'combination5: {json.dumps(combination5, indent=4)}')
 #     ]
 # ]
 
-combination6 = [*fruits, ["Cucumber", "Onions"]]
+combination6 = [*fruits, ["Cucumber", "Onion"]]
 print(f'combination6: {json.dumps(combination6, indent=4)}')
 # combination6: [
 #     "Mango",
@@ -93,7 +93,7 @@ print(f'combination6: {json.dumps(combination6, indent=4)}')
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onions"
+#         "Onion"
 #     ]
 # ]
 
@@ -164,7 +164,7 @@ print(f'combination11: {json.dumps(combination11, indent=4)}')
 #     ]
 # }
 
-combination12 = {**country_capitals_in_asia, "vegetables": ["Cucumber", "Onions"]}
+combination12 = {**country_capitals_in_asia, "vegetables": ["Cucumber", "Onion"]}
 print(f'combination12: {json.dumps(combination12, indent=4)}')
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -172,7 +172,7 @@ print(f'combination12: {json.dumps(combination12, indent=4)}')
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onions"
+#         "Onion"
 #     ]
 # }
 
@@ -188,14 +188,14 @@ print(f'combination13: {json.dumps(combination13, indent=4)}')
 #    "2" : "Tomato"
 # }
 
-combination14 = {**country_capitals_in_asia, **array_to_object(["Cucumber", "Onions"])}
+combination14 = {**country_capitals_in_asia, **array_to_object(["Cucumber", "Onion"])}
 print(f'combination14: {json.dumps(combination14, indent=4)}')
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "1" : "Cucumber",
-#    "2" : "Onions"
+#    "2" : "Onion"
 # }
 
 # print("\n# [...array1, ...object1]: # this combination throw an error in JavaScript\n")

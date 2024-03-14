@@ -42,29 +42,6 @@ void main() {
 
 	dynamic arrayFindV3(dynamic callbackFunction, dynamic anArray) {
 		// JavaScript-like Array.find() function
-		dynamic dataFound = null;
-		for (final entryItem in anArray.asMap().entries) {
-			final arrayItemIndex = entryItem.key;
-			final arrayItem = entryItem.value;
-			dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
-            if (isConditionMatch == true) return arrayItem;
-		}
-		return dataFound;
-	}
-
-	dynamic arrayFindV4(dynamic callbackFunction, dynamic anArray) {
-		// JavaScript-like Array.find() function
-		dynamic dataFound = null;
-		for (final entryItem in anArray.asMap().entries) {
-			final arrayItemIndex = entryItem.key;
-			final arrayItem = entryItem.value;
-            if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItem;
-		}
-		return dataFound;
-	}
-
-	dynamic arrayFindV5(dynamic callbackFunction, dynamic anArray) {
-		// JavaScript-like Array.find() function
 		for (final entryItem in anArray.asMap().entries) {
 			final arrayItemIndex = entryItem.key;
 			final arrayItem = entryItem.value;
@@ -74,7 +51,7 @@ void main() {
 		return null;
 	}
 
-	dynamic arrayFindV6(dynamic callbackFunction, dynamic anArray) {
+	dynamic arrayFindV4(dynamic callbackFunction, dynamic anArray) {
 		// JavaScript-like Array.find() function
 		for (final entryItem in anArray.asMap().entries) {
 			final arrayItemIndex = entryItem.key;
@@ -129,26 +106,6 @@ void main() {
     // even number found: 12
 
 	oddNumberFound = arrayFindV4((dynamic number, dynamic _, dynamic __) => ((number % 2) != 0), numbers);
-    print("odd number found: ${oddNumberFound}");
-    // odd number found: 27
-
-	print("// using JavaScript-like Array.find() function \"arrayFindV5\"");
-
-	evenNumberFound = arrayFindV5((dynamic number, dynamic _, dynamic __) => ((number % 2) == 0), numbers);
-    print("even number found: ${evenNumberFound}");
-    // even number found: 12
-
-	oddNumberFound = arrayFindV5((dynamic number, dynamic _, dynamic __) => ((number % 2) != 0), numbers);
-    print("odd number found: ${oddNumberFound}");
-    // odd number found: 27
-
-	print("// using JavaScript-like Array.find() function \"arrayFindV6\"");
-
-	evenNumberFound = arrayFindV6((dynamic number, dynamic _, dynamic __) => ((number % 2) == 0), numbers);
-    print("even number found: ${evenNumberFound}");
-    // even number found: 12
-
-	oddNumberFound = arrayFindV6((dynamic number, dynamic _, dynamic __) => ((number % 2) != 0), numbers);
     print("odd number found: ${oddNumberFound}");
     // odd number found: 27
 
@@ -219,24 +176,6 @@ void main() {
 	print("// using JavaScript-like Array.find() function \"arrayFindV4\"");
 
 	productFound = arrayFindV4((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
-    print("product found index: ${prettyJsonStringify(productFound)}");
-	// product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
-
-	print("// using JavaScript-like Array.find() function \"arrayFindV5\"");
-
-	productFound = arrayFindV5((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
-    print("product found index: ${prettyJsonStringify(productFound)}");
-	// product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
-
-	print("// using JavaScript-like Array.find() function \"arrayFindV6\"");
-
-	productFound = arrayFindV6((dynamic product, dynamic _, dynamic __) => (product["code"] == productToFind), products);
     print("product found index: ${prettyJsonStringify(productFound)}");
 	// product found: {
 	//     "code":"bubble_gum",

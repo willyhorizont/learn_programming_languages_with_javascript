@@ -1,8 +1,8 @@
 void main() {
     print("\n// FizzBuzz(n) in Dart");
 
-	dynamic fizzbuzzV1(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV1(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (true) {
@@ -37,8 +37,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV2(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV2(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (number <= stopNumber) {
@@ -68,8 +68,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV3(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV3(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (true) {
@@ -90,8 +90,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV4(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV4(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (number <= stopNumber) {
@@ -111,8 +111,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV5(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV5(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (true) {
@@ -135,8 +135,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV6(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV6(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (number <= stopNumber) {
@@ -158,8 +158,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV7(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV7(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (true) {
@@ -170,8 +170,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV8(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV8(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         dynamic number = 1;
         while (number <= stopNumber) {
@@ -181,8 +181,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV9(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV9(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         for (dynamic number = 1; number <= stopNumber; number += 1) {
             if (result == "") {
@@ -206,8 +206,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV10(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV10(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         for (dynamic number = 1; number <= stopNumber; number += 1) {
             if (result == "") {
@@ -225,8 +225,8 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV11(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV11(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         for (dynamic number = 1; number <= stopNumber; number += 1) {
             result = ((result == "")
@@ -246,13 +246,23 @@ void main() {
         return result;
 	}
 
-	dynamic fizzbuzzV12(num stopNumber) {
-		if (stopNumber < 1) return "argument should be greater than 0";
+	dynamic fizzbuzzV12(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
         dynamic result = "";
         for (dynamic number = 1; number <= stopNumber; number += 1) {
             result = ((result == "") ? "${number}" : ((((number % 3) == 0) && ((number % 5) == 0)) ? "${result}, FizzBuzz" : (((number % 3) == 0) ? "${result}, Fizz" : (((number % 5) == 0) ? "${result}, Buzz" : "${result}, ${number}"))));
         }
         return result;
+	}
+
+	dynamic fizzbuzzV13(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
+        return Iterable.generate(stopNumber, (i) => i + 1).fold("", (dynamic currentResult, dynamic number) => ((currentResult == "") ? "${number}" : ((((number % 3) == 0) && ((number % 5) == 0)) ? "${currentResult}, FizzBuzz" : (((number % 3) == 0) ? "${currentResult}, Fizz" : (((number % 5) == 0) ? "${currentResult}, Buzz" : "${currentResult}, ${number}")))));
+	}
+
+	dynamic fizzbuzzV14(int stopNumber) {
+		if (stopNumber < 1) throw Exception("Argument should be > 0");
+        return List.generate(stopNumber, (i) => i + 1).fold("", (dynamic currentResult, dynamic number) => ((currentResult == "") ? "${number}" : ((((number % 3) == 0) && ((number % 5) == 0)) ? "${currentResult}, FizzBuzz" : (((number % 3) == 0) ? "${currentResult}, Fizz" : (((number % 5) == 0) ? "${currentResult}, Buzz" : "${currentResult}, ${number}")))));
 	}
 
 	print('// using fizzbuzz function "fizzbuzzV1"');
@@ -301,5 +311,13 @@ void main() {
 
 	print('// using fizzbuzz function "fizzbuzzV12"');
 	print('FizzBuzz(36): ${fizzbuzzV12(36)}');
+	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+
+	print('// using fizzbuzz function "fizzbuzzV13"');
+	print('FizzBuzz(36): ${fizzbuzzV13(36)}');
+	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
+
+	print('// using fizzbuzz function "fizzbuzzV14"');
+	print('FizzBuzz(36): ${fizzbuzzV14(36)}');
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 }

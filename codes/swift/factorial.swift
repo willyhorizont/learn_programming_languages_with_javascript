@@ -1,7 +1,14 @@
 print("\n// Factorial(n) in Swift")
 
-func factorialV1(_ number: Int) -> Int {
-    if ((number > 1) == false) {
+enum GenericException: Error {
+    case genericError(String)
+}
+
+func factorialV1(_ number: Int) throws -> Int {
+    if (number < 0) {
+        throw GenericException.genericError("Error: Argument should be >= 0")
+    }
+    if (number == 0) {
         return 1
     }
     var result = 1
@@ -16,8 +23,11 @@ func factorialV1(_ number: Int) -> Int {
     return result
 }
 
-func factorialV2(_ number: Int) -> Int {
-    if ((number > 1) == false) {
+func factorialV2(_ number: Int) throws -> Int {
+    if (number < 0) {
+        throw GenericException.genericError("Error: Argument should be >= 0")
+    }
+    if (number == 0) {
         return 1
     }
     var result = 1
@@ -29,8 +39,11 @@ func factorialV2(_ number: Int) -> Int {
     return result
 }
 
-func factorialV3(_ number: Int) -> Int {
-    if ((number > 1) == false) {
+func factorialV3(_ number: Int) throws -> Int {
+    if (number < 0) {
+        throw GenericException.genericError("Error: Argument should be >= 0")
+    }
+    if (number == 0) {
         return 1
     }
     var result = 1
@@ -40,14 +53,97 @@ func factorialV3(_ number: Int) -> Int {
     return result
 }
 
+func factorialV4(_ number: Int) throws -> Int {
+    if (number < 0) {
+        throw GenericException.genericError("Error: Argument should be >= 0")
+    }
+    if (number == 0) {
+        return 1
+    }
+    do {
+        let factorialResult = try factorialV4(number - 1)
+        return (number * factorialResult)
+    } catch GenericException.genericError(let errorMessage) {
+        throw GenericException.genericError(errorMessage)
+    }
+}
+
+if let factorialResult = try? factorialV1(5) {
+    print("// using factorial function \"factorialV1\"")
+    print("Factorial(5): \(factorialResult)")
+    // Factorial(5): 120
+}
+
+if let factorialResult = try? factorialV2(5) {
+    print("// using factorial function \"factorialV2\"")
+    print("Factorial(5): \(factorialResult)")
+    // Factorial(5): 120
+}
+
+if let factorialResult = try? factorialV3(5) {
+    print("// using factorial function \"factorialV3\"")
+    print("Factorial(5): \(factorialResult)")
+    // Factorial(5): 120
+}
+
+if let factorialResult = try? factorialV4(5) {
+    print("// using factorial function \"factorialV4\"")
+    print("Factorial(5): \(factorialResult)")
+    // Factorial(5): 120
+}
+
 print("// using factorial function \"factorialV1\"")
-print("Factorial(5): \(factorialV1(5))")
+print({ () -> String in
+    guard let factorialResult = try? factorialV1(5) else {
+        return ""
+    }
+    return "Factorial(5): \(factorialResult)"
+}())
 // Factorial(5): 120
 
 print("// using factorial function \"factorialV2\"")
-print("Factorial(5): \(factorialV2(5))")
+print({ () -> String in
+    guard let factorialResult = try? factorialV2(5) else {
+        return ""
+    }
+    return "Factorial(5): \(factorialResult)"
+}())
 // Factorial(5): 120
 
 print("// using factorial function \"factorialV3\"")
-print("Factorial(5): \(factorialV3(5))")
+print({ () -> String in
+    guard let factorialResult = try? factorialV3(5) else {
+        return ""
+    }
+    return "Factorial(5): \(factorialResult)"
+}())
 // Factorial(5): 120
+
+print("// using factorial function \"factorialV4\"")
+print({ () -> String in
+    guard let factorialResult = try? factorialV4(5) else {
+        return ""
+    }
+    return "Factorial(5): \(factorialResult)"
+}())
+// Factorial(5): 120
+
+do {
+    print("// using factorial function \"factorialV1\"")
+    try print("Factorial(5): \(factorialV1(5))")
+    // Factorial(5): 120
+
+    print("// using factorial function \"factorialV2\"")
+    try print("Factorial(5): \(factorialV2(5))")
+    // Factorial(5): 120
+
+    print("// using factorial function \"factorialV3\"")
+    try print("Factorial(5): \(factorialV3(5))")
+    // Factorial(5): 120
+
+    print("// using factorial function \"factorialV4\"")
+    try print("Factorial(5): \(factorialV4(5))")
+    // Factorial(5): 120
+} catch GenericException.genericError(let errorMessage) {
+    print(errorMessage)
+}

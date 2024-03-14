@@ -1,28 +1,35 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
-func factorialV1(number int) int {
-	if ((number > 1) == false) {
-		return 1
+func factorialV1(number int) (int, error) {
+	if (number < 0) {
+		return 0, errors.New("Argument should be >= 0")
+	}
+	if (number == 0) {
+		return 1, nil
 	}
 	result := 1
 	i := number
-	for true {
+	for (true) {
 		result *= i
 		i -= 1
 		if (i <= 0) {
 			break
 		}
 	}
-	return result
+	return result, nil
 }
 
-func factorialV2(number int) int {
-	if ((number > 1) == false) {
-		return 1
+func factorialV2(number int) (int, error) {
+	if (number < 0) {
+		return 0, errors.New("Argument should be >= 0")
+	}
+	if (number == 0) {
+		return 1, nil
 	}
 	result := 1
 	i := number
@@ -30,32 +37,68 @@ func factorialV2(number int) int {
 		result *= i
 		i -= 1
 	}
-	return result
+	return result, nil
 }
 
-func factorialV3(number int) int {
-	if ((number > 1) == false) {
-		return 1
+func factorialV3(number int) (int, error) {
+	if (number < 0) {
+		return 0, errors.New("Argument should be >= 0")
+	}
+	if (number == 0) {
+		return 1, nil
 	}
 	result := 1
 	for i := number; i >= 1; i -= 1 {
 		result *= i
 	}
-	return result
+	return result, nil
+}
+
+func factorialV4(number int) (int, error) {
+	if (number < 0) {
+		return 0, errors.New("Argument should be >= 0")
+	}
+	if (number == 0) {
+		return 1, nil
+	}
+	factorialResult, factorialError := factorialV4(number - 1)
+	if (factorialError != nil) {
+		return 0, factorialError
+	}
+	return (number * factorialResult), nil
 }
 
 func main() {
 	fmt.Println("\n// Factorial(n) in Go")
 
+	var factorialResult any
+	var factorialError any
+
 	fmt.Println("// using factorial function \"factorialV1\"")
-	fmt.Println("Factorial(5):", factorialV1(5))
-	// Factorial(5): 120
+	factorialResult, factorialError = factorialV1(5)
+	if (factorialError == nil) {
+		fmt.Println("Factorial(5):", factorialResult)
+		// Factorial(5): 120
+	}
 
 	fmt.Println("// using factorial function \"factorialV2\"")
-	fmt.Println("Factorial(5):", factorialV2(5))
-	// Factorial(5): 120
+	factorialResult, factorialError = factorialV2(5)
+	if (factorialError == nil) {
+		fmt.Println("Factorial(5):", factorialResult)
+		// Factorial(5): 120
+	}
 
 	fmt.Println("// using factorial function \"factorialV3\"")
-	fmt.Println("Factorial(5):", factorialV3(5))
-	// Factorial(5): 120
+	factorialResult, factorialError = factorialV3(5)
+	if (factorialError == nil) {
+		fmt.Println("Factorial(5):", factorialResult)
+		// Factorial(5): 120
+	}
+
+	fmt.Println("// using factorial function \"factorialV4\"")
+	factorialResult, factorialError = factorialV4(5)
+	if (factorialError == nil) {
+		fmt.Println("Factorial(5):", factorialResult)
+		// Factorial(5): 120
+	}
 }

@@ -69,3 +69,18 @@ sub spread_syntax_object {
     }
     return \%new_object;
 }
+
+ref:
+"ARRAY"
+"HASH"
+"CODE"
+"FORMAT"
+"IO"
+"SCALAR"
+"VSTRING"
+"REF"
+"GLOB"
+"LVALUE"
+"REGEXP"
+
+cpanm Try::Tiny

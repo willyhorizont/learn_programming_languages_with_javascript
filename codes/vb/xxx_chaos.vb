@@ -5,22 +5,16 @@ Module Program
         Dim PrettyJsonStringifyV1 As Func(Of Object, String, String) = Function(ByVal Anything, ByVal Indent)
             Dim IndentLevel As Integer = 0
             Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner, ByVal IndentInner)
-                If IsNothing(AnythingInner) Then
-                    Return "undefined"
-                End If
-                If TypeOf AnythingInner Is String AndAlso AnythingInner = "null" Then
+                If (IsNothing(AnythingInner) == true) Then
                     Return "null"
                 End If
-                If TypeOf AnythingInner Is String AndAlso AnythingInner = "undefined" Then
-                    Return "undefined"
-                End If
-                If TypeOf AnythingInner Is String Then
+                If (TypeOf AnythingInner Is String) Then
                     Return """" & AnythingInner & """"
                 End If
-                If IsNumeric(AnythingInner) OrElse TypeOf AnythingInner Is Boolean Then
+                If (IsNumeric(AnythingInner) OrElse (TypeOf AnythingInner Is Boolean)) Then
                     Return CStr(AnythingInner)
                 End If
-                If TypeOf AnythingInner Is Object() Then
+                If (TypeOf AnythingInner Is Object()) Then
                     IndentLevel += 1
                     Dim Result As String = "[" & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     Dim ArrayItemIndex As Integer = 0
@@ -35,7 +29,7 @@ Module Program
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
                     Return Result
                 End If
-                If TypeOf AnythingInner Is Dictionary(Of String, Object) Then
+                If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                     IndentLevel += 1
                     Dim Result As String = "{" & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     Dim IterationIndex As Integer = 0
@@ -43,7 +37,7 @@ Module Program
                         Dim ObjectKey = objectEntry.Key
                         Dim ObjectValue = objectEntry.Value
                         Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                        If ((IterationIndex + 1) <> AnythingInner.Count) Then
+                        If ((IterationIndex + 1) <> AnythingInner.Length) Then
                             Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                         End If
                         IterationIndex += 1
@@ -52,7 +46,7 @@ Module Program
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
                     Return Result
                 End If
-                Return "undefined"
+                Return "null"
             End Function
             Return PrettyJsonStringifyInner(Anything, Indent)
         End Function
@@ -60,22 +54,16 @@ Module Program
             Dim Indent As String = "    "
             Dim IndentLevel As Integer = 0
             Dim PrettyJsonStringifyInner As Func(Of Object, String) = Function(ByVal AnythingInner)
-                If IsNothing(AnythingInner) Then
-                    Return "undefined"
-                End If
-                If TypeOf AnythingInner Is String AndAlso AnythingInner = "null" Then
+                If (IsNothing(AnythingInner) == true) Then
                     Return "null"
                 End If
-                If TypeOf AnythingInner Is String AndAlso AnythingInner = "undefined" Then
-                    Return "undefined"
-                End If
-                If TypeOf AnythingInner Is String Then
+                If (TypeOf AnythingInner Is String) Then
                     Return """" & AnythingInner & """"
                 End If
-                If IsNumeric(AnythingInner) OrElse TypeOf AnythingInner Is Boolean Then
+                If (IsNumeric(AnythingInner) OrElse (TypeOf AnythingInner Is Boolean)) Then
                     Return CStr(AnythingInner)
                 End If
-                If TypeOf AnythingInner Is Object() Then
+                If (TypeOf AnythingInner Is Object()) Then
                     IndentLevel += 1
                     Dim Result As String = "[" & vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel))
                     Dim ArrayItemIndex As Integer = 0
@@ -90,7 +78,7 @@ Module Program
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel)) & "]"
                     Return Result
                 End If
-                If TypeOf AnythingInner Is Dictionary(Of String, Object) Then
+                If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                     IndentLevel += 1
                     Dim Result As String = "{" & vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel))
                     Dim IterationIndex As Integer = 0
@@ -98,7 +86,7 @@ Module Program
                         Dim ObjectKey = objectEntry.Key
                         Dim ObjectValue = objectEntry.Value
                         Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue)
-                        If ((IterationIndex + 1) <> AnythingInner.Count) Then
+                        If ((IterationIndex + 1) <> AnythingInner.Length) Then
                             Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel))
                         End If
                         IterationIndex += 1
@@ -107,12 +95,16 @@ Module Program
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel)) & "}"
                     Return Result
                 End If
-                Return "undefined"
+                Return "null"
             End Function
             Return PrettyJsonStringifyInner(Anything)
         End Function
         Console.WriteLine("""")
         Console.WriteLine("Hello, World!")
+
+        Dim MyNumber As List(Of Object) = New List(Of Object) From {1, 2, 3, 4}
+        Dim MyNumberSum As String = MyNumber.Aggregate(0, Function(acc, x) (acc + x))
+        Console.WriteLine("MyNumberSum: " & MyNumberSum)
 
         Dim Something As Object = 123
         Console.WriteLine($"Something: {PrettyJsonStringify(Something)}")
@@ -123,21 +115,21 @@ Module Program
             {"my_bool", true},
             {"my_null", Nothing},
             {"my_object", New Dictionary(Of String, Object) From {{"foo", "bar"}}},
-            {"my_array", New Object() {1, 2, 3}}
+            {"my_array", New List(Of Object) From {1, 2, 3}}
         }
 
         For Each objectEntry As KeyValuePair(Of String, Object) In MyObject
             Dim objectKey = objectEntry.Key
             Dim objectValue = objectEntry.Value
             Console.WriteLine("isNothing(objectValue): " & isNothing(objectValue))
-            If isNothing(objectValue) = True Then
+            If (isNothing(objectValue) = True) Then
                 Console.WriteLine("Key: " & objectKey & ", Value: " & "null")
             Else
                 Console.WriteLine("Key: " & objectKey & ", Value: " & objectValue.ToString())
             End If
         Next
 
-        Dim MyArray2 = New Object() {"foo", 17, true}
+        Dim MyArray2 = New List(Of Object) From {"foo", 17, true}
         Console.WriteLine("MyArray2(2): " & MyArray2(0))
 
         For Each arrayItem As Object In MyArray2
@@ -172,55 +164,42 @@ Module Program
     End Function
     Function PrettyJsonStringifyV3(ByVal Anything As Object, Optional ByVal Indent As String = "    ") As String
         Dim IndentLevel As Integer = 0
-        Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner, ByVal IndentInner)
-            If IsNothing(AnythingInner) Then
-                Return "undefined"
-            End If
-            If TypeOf AnythingInner Is String AndAlso AnythingInner = "null" Then
-                Return "null"
-            End If
-            If TypeOf AnythingInner Is String AndAlso AnythingInner = "undefined" Then
-                Return "undefined"
-            End If
-            If TypeOf AnythingInner Is String Then
-                Return """" & AnythingInner & """"
-            End If
-            If IsNumeric(AnythingInner) OrElse TypeOf AnythingInner Is Boolean Then
-                Return CStr(AnythingInner)
-            End If
-            If TypeOf AnythingInner Is Object() Then
+        Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
+            If (AnythingInner Is Nothing) Then Return "null"
+            If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
+            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
+            If (TypeOf AnythingInner Is List(Of Object)) Then
+                If (AnythingInner.Count = 0) Then Return "[]"
                 IndentLevel += 1
-                Dim Result As String = "[" & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                 Dim ArrayItemIndex As Integer = 0
                 For Each ArrayItem As Object In AnythingInner
                     Result &= PrettyJsonStringifyInner(ArrayItem, IndentInner)
-                    If ((ArrayItemIndex + 1) <> AnythingInner.Length) Then
-                        Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    End If
+                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     ArrayItemIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
+                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
                 Return Result
             End If
-            If TypeOf AnythingInner Is Dictionary(Of String, Object) Then
+            If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
+                If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
-                Dim Result As String = "{" & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                 Dim IterationIndex As Integer = 0
-                For Each objectEntry As KeyValuePair(Of String, Object) In AnythingInner
-                    Dim ObjectKey = objectEntry.Key
-                    Dim ObjectValue = objectEntry.Value
+                For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
+                    Dim ObjectKey = ObjectEntry.Key
+                    Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then
-                        Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    End If
+                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     IterationIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
+                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
                 Return Result
             End If
-            Return "undefined"
+            Return "null"
         End Function
         Return PrettyJsonStringifyInner(Anything, Indent)
     End Function

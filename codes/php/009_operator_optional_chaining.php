@@ -3,7 +3,7 @@
 echo("\n\n// JavaScript-like Optional Chaining Operator (?.) in PHP");
 
 // There's no JavaScript-like Optional Chaining Operator (?.) in Lua.
-// But, we can use PHP Error Control Operator (@) to mimic that in PHP.
+// But, we can use PHP Error Control Operator (@) to mimic it in PHP.
 
 $JSON_OBJECT = [
     "foo" => [

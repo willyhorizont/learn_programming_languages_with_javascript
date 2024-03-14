@@ -1,6 +1,3 @@
-using Printf
-using Statistics
-
 # ? function statement or function declaration
 
 function get_rectangle_area_v1(rectangle_width, rectangle_length)

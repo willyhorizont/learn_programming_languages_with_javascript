@@ -55,9 +55,9 @@ s_print("my_answer: ", my_answer)
 s_print("correct_answer: ", correct_answer)
 print("(my_answer ~= correct_answer): ")
 if (my_answer ~= correct_answer) then
-    print("Your answer is wrong")
-else
     print("Your answer is correct")
+else
+    print("Your answer is wrong")
 end
 
 print("\n-- greater than (>)\n")

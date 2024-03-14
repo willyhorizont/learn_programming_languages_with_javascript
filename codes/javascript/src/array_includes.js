@@ -3,29 +3,25 @@ console.log('\n// Array.includes() in JavaScript');
 const myFriends = ['Alisa', 'Trivia'];
 console.log(`my friends: ${JSON.stringify(myFriends).split(',').join(', ')}`);
 
-let name;
+let aName;
 let isMyFriend;
 
-name = 'Alisa';
-console.log(`name: "${name}"`);
-isMyFriend = myFriends.includes(name);
-console.log(`is my friends includes "${name}": ${isMyFriend}`);
+aName = 'Alisa';
+isMyFriend = myFriends.includes(aName);
+console.log(`is my friends includes "${aName}": ${isMyFriend}`);
 // is my friends includes "Alisa": true
 
-name = 'Trivia';
-console.log(`name: "${name}"`);
-isMyFriend = myFriends.includes(name);
-console.log(`is my friends includes "${name}": ${isMyFriend}`);
+aName = 'Trivia';
+isMyFriend = myFriends.includes(aName);
+console.log(`is my friends includes "${aName}": ${isMyFriend}`);
 // is my friends includes "Trivia": true
 
-name = 'Tony';
-console.log(`name: "${name}"`);
-isMyFriend = myFriends.includes(name);
-console.log(`is my friends includes "${name}": ${isMyFriend}`);
+aName = 'Tony';
+isMyFriend = myFriends.includes(aName);
+console.log(`is my friends includes "${aName}": ${isMyFriend}`);
 // is my friends includes "Tony": false
 
-name = 'Ezekiel';
-console.log(`name: "${name}"`);
-isMyFriend = myFriends.includes(name);
-console.log(`is my friends includes "${name}": ${isMyFriend}`);
+aName = 'Ezekiel';
+isMyFriend = myFriends.includes(aName);
+console.log(`is my friends includes "${aName}": ${isMyFriend}`);
 // is my friends includes "Ezekiel": false

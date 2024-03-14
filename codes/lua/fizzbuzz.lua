@@ -7,71 +7,53 @@ function s_print(...)
     print(result)
 end
 
-print('\n-- Factorial(n) in Lua')
+print('\n-- FizzBuzz(n) in Lua')
 
 function fizzbuzz_v1(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
-    while true do
-        if result == "" then
+    while (true) do
+        if (result == "") then
             result = tostring(number)
             number = number + 1
-            if number > stop_number then
-                break
-            end
+            if (number > stop_number) then break end
             goto next
         end
         if (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
             number = number + 1
-            if number > stop_number then
-                break
-            end
+            if (number > stop_number) then break end
             goto next
         end
         if ((number % 3) == 0) then
             result = result .. ", Fizz"
             number = number + 1
-            if number > stop_number then
-                break
-            end
+            if (number > stop_number) then break end
             goto next
         end
         if ((number % 5) == 0) then
             result = result .. ", Buzz"
             number = number + 1
-            if number > stop_number then
-                break
-            end
+            if (number > stop_number) then break end
             goto next
         end
         result = result .. ", " .. number
         number = number + 1
-        if number > stop_number then
-            break
-        end
+        if (number > stop_number) then break end
         ::next::
     end
     return result
 end
 
 function fizzbuzz_v2(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
     while (number <= stop_number) do
-        if result == "" then
+        if (result == "") then
             result = tostring(number)
             number = number + 1
             goto next
@@ -99,16 +81,12 @@ function fizzbuzz_v2(stop_number)
 end
 
 function fizzbuzz_v3(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
-    while true do
-        if result == "" then
+    while (true) do
+        if (result == "") then
             result = tostring(number)
         elseif (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
@@ -120,24 +98,18 @@ function fizzbuzz_v3(stop_number)
             result = result .. ", " .. number
         end
         number = number + 1
-        if number > stop_number then
-            break
-        end
+        if (number > stop_number) then break end
     end
     return result
 end
 
 function fizzbuzz_v4(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
     while (number <= stop_number) do
-        if result == "" then
+        if (result == "") then
             result = tostring(number)
         elseif (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
@@ -154,16 +126,12 @@ function fizzbuzz_v4(stop_number)
 end
 
 function fizzbuzz_v5(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
-    while true do
-        result = (((result == "")
+    while (true) do
+        result = ((((result == ""))
             and tostring(number))
             or (((((number % 3) == 0) and ((number % 5) == 0))
                 and result .. ", FizzBuzz")
@@ -177,24 +145,18 @@ function fizzbuzz_v5(stop_number)
             )
         )
         number = number + 1
-        if number > stop_number then
-            break
-        end
+        if (number > stop_number) then break end
     end
     return result
 end
 
 function fizzbuzz_v6(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
     while (number <= stop_number) do
-        result = (((result == "")
+        result = ((((result == ""))
             and tostring(number))
             or (((((number % 3) == 0) and ((number % 5) == 0))
                 and result .. ", FizzBuzz")
@@ -213,50 +175,36 @@ function fizzbuzz_v6(stop_number)
 end
 
 function fizzbuzz_v7(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
-    while true do
-        result = (((result == "") and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
+    while (true) do
+        result = ((((result == "")) and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
         number = number + 1
-        if number > stop_number then
-            break
-        end
+        if (number > stop_number) then break end
     end
     return result
 end
 
 function fizzbuzz_v8(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
     local number = 1
     while (number <= stop_number) do
-        result = (((result == "") and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
+        result = ((((result == "")) and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
         number = number + 1
     end
     return result
 end
 
 function fizzbuzz_v9(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
-    for number = 1, stop_number do
-        if result == "" then
+    for number = 1, stop_number, 1 do
+        if (result == "") then
             result = tostring(number)
             goto next
         end
@@ -279,15 +227,11 @@ function fizzbuzz_v9(stop_number)
 end
 
 function fizzbuzz_v10(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
-    for number = 1, stop_number do
-        if result == "" then
+    for number = 1, stop_number, 1 do
+        if (result == "") then
             result = tostring(number)
         elseif (((number % 3) == 0) and ((number % 5) == 0)) then
             result = result .. ", FizzBuzz"
@@ -303,15 +247,11 @@ function fizzbuzz_v10(stop_number)
 end
 
 function fizzbuzz_v11(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
-    for number = 1, stop_number do
-        result = (((result == "")
+    for number = 1, stop_number, 1 do
+        result = ((((result == ""))
             and tostring(number))
             or (((((number % 3) == 0) and ((number % 5) == 0))
                 and result .. ", FizzBuzz")
@@ -329,15 +269,11 @@ function fizzbuzz_v11(stop_number)
 end
 
 function fizzbuzz_v12(stop_number)
-    if type(stop_number) ~= "number" then
-        return "argument should be a number"
-    end
-    if (stop_number < 1) then
-        return "argument should be greater than 0"
-    end
+    if (type(stop_number) ~= "number") then error("Argument should be a number") end
+    if (stop_number < 1) then error("Argument should be > 0") end
     local result = ""
-    for number = 1, stop_number do
-        result = (((result == "") and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
+    for number = 1, stop_number, 1 do
+        result = ((((result == "")) and tostring(number)) or (((((number % 3) == 0) and ((number % 5) == 0)) and result .. ", FizzBuzz") or ((((number % 3) == 0) and result .. ", Fizz") or ((((number % 5) == 0) and result .. ", Buzz") or result .. ", " .. number))))
     end
     return result
 end

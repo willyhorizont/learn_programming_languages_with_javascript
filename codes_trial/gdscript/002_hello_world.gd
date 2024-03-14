@@ -1,5 +1,11 @@
 extends SceneTree
 
-func _init():
+
+func main():
     print("Hello, World!")
+
+
+func _init():
+    main()
     quit()
+

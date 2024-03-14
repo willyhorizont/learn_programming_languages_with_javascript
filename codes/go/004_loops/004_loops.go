@@ -11,7 +11,7 @@ func main() {
 	// while loop
 
 	i1 := 1
-	for true {
+	for (true) {
 		if (i1 == 2) {
 			i1 += 1
 			if (i1 > 5) {

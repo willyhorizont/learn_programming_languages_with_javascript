@@ -26,5 +26,27 @@ while (i2 <= 5) {
 
 for (let i3 = 1; i3 <= 5; i3 += 1) {
     if (i3 === 2) continue;
-    console.log(`for loop, i3 is ${i3}`);
+    console.log(`for loop v1, i3 is ${i3}`);
 }
+
+// foreach loop
+
+Array.from(Array(5 + 1).keys()).slice(1).forEach((i4) => {
+    if (i4 === 2) return;
+    console.log(`foreach loop v1 ascending, i4 is ${i4}`);
+});
+
+Array.from(Array(5 + 1).keys()).slice(1).reverse().forEach((i5) => {
+    if (i5 === 2) return;
+    console.log(`foreach loop v1 descending, i5 is ${i5}`);
+});
+
+[...Array(5 + 1).keys()].slice(1).forEach((i6) => {
+    if (i6 === 2) return;
+    console.log(`foreach loop v2 ascending, i6 is ${i6}`);
+});
+
+[...Array(5 + 1).keys()].slice(1).reverse().forEach((i7) => {
+    if (i7 === 2) return;
+    console.log(`foreach loop v2 descending, i7 is ${i7}`);
+});

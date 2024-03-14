@@ -34,7 +34,7 @@ func prettyArrayOfPrimitives(anArray array) string {
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
 				result += fmt.Sprint(arrayItem)
 			case reflect.Bool:
-				if arrayItem.(bool) {
+				if (arrayItem.(bool) == true) {
 					result += "true"
 				} else {
 					result += "false"
@@ -80,29 +80,6 @@ func arrayFindV2(callbackFunction func(any, int, array) bool, anArray array) any
 
 func arrayFindV3(callbackFunction func(any, int, array) bool, anArray array) any {
 	// JavaScript-like Array.find() function
-	var dataFound any
-	for arrayItemIndex, arrayItem := range anArray {
-		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-		if (isConditionMatch == true) {
-			return arrayItem
-		}
-	}
-	return dataFound
-}
-
-func arrayFindV4(callbackFunction func(any, int, array) bool, anArray array) any {
-	// JavaScript-like Array.find() function
-	var dataFound any
-	for arrayItemIndex, arrayItem := range anArray {
-		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-			return arrayItem
-		}
-	}
-	return dataFound
-}
-
-func arrayFindV5(callbackFunction func(any, int, array) bool, anArray array) any {
-	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
 		isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
 		if (isConditionMatch == true) {
@@ -112,7 +89,7 @@ func arrayFindV5(callbackFunction func(any, int, array) bool, anArray array) any
 	return nil
 }
 
-func arrayFindV6(callbackFunction func(any, int, array) bool, anArray array) any {
+func arrayFindV4(callbackFunction func(any, int, array) bool, anArray array) any {
 	// JavaScript-like Array.find() function
 	for arrayItemIndex, arrayItem := range anArray {
 		if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
@@ -187,34 +164,6 @@ func main() {
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
 
-	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
-
-	evenNumberFound = arrayFindV5(func(number any, _ int, _ array) bool {
-		return ((number.(int) % 2) == 0)
-	}, numbers)
-	fmt.Println("even number found:", evenNumberFound)
-	// even number found: 12
-
-	oddNumberFound = arrayFindV5(func(number any, _ int, _ array) bool {
-		return ((number.(int) % 2) != 0)
-	}, numbers)
-	fmt.Println("odd number found:", oddNumberFound)
-	// odd number found: 27
-
-	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
-
-	evenNumberFound = arrayFindV6(func(number any, _ int, _ array) bool {
-		return ((number.(int) % 2) == 0)
-	}, numbers)
-	fmt.Println("even number found:", evenNumberFound)
-	// even number found: 12
-
-	oddNumberFound = arrayFindV6(func(number any, _ int, _ array) bool {
-		return ((number.(int) % 2) != 0)
-	}, numbers)
-	fmt.Println("odd number found:", oddNumberFound)
-	// odd number found: 27
-
 	fmt.Println("\n// JavaScript-like Array.find() in Slice of Maps")
 
 	products := array{
@@ -278,28 +227,6 @@ func main() {
 	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
 	productFound = arrayFindV4(func(product any, _ int, _ array) bool {
-		return (product.(object)["code"] == productToFind)
-	}, products)
-	fmt.Println("product found:", prettyJsonStringify(productFound))
-	// product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
-
-	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV5\"")
-
-	productFound = arrayFindV5(func(product any, _ int, _ array) bool {
-		return (product.(object)["code"] == productToFind)
-	}, products)
-	fmt.Println("product found:", prettyJsonStringify(productFound))
-	// product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
-
-	fmt.Println("// using JavaScript-like Array.find() function \"arrayFindV6\"")
-
-	productFound = arrayFindV6(func(product any, _ int, _ array) bool {
 		return (product.(object)["code"] == productToFind)
 	}, products)
 	fmt.Println("product found:", prettyJsonStringify(productFound))

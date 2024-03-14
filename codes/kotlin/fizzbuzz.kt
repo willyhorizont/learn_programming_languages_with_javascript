@@ -4,7 +4,7 @@ fun main() {
     println("\n// FizzBuzz(n) in Kotlin")
 
     fun fizzbuzzV1(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (true) {
@@ -40,7 +40,7 @@ fun main() {
     }
 
     fun fizzbuzzV2(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (number <= stopNumber) {
@@ -71,7 +71,7 @@ fun main() {
     }
 
     fun fizzbuzzV3(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (true) {
@@ -93,7 +93,7 @@ fun main() {
     }
 
     fun fizzbuzzV4(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (number <= stopNumber) {
@@ -114,7 +114,7 @@ fun main() {
     }
 
     fun fizzbuzzV5(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (true) {
@@ -126,7 +126,7 @@ fun main() {
     }
 
     fun fizzbuzzV6(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
         var number = 1
         while (number <= stopNumber) {
@@ -137,9 +137,9 @@ fun main() {
     }
 
     fun fizzbuzzV7(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in 1..stopNumber step 1) {
+        for (number in (1..stopNumber) step 1) {
             if (result == "") {
                 result = "${number}"
                 continue
@@ -162,9 +162,9 @@ fun main() {
     }
 
     fun fizzbuzzV8(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in 1..stopNumber step 1) {
+        for (number in (1..stopNumber) step 1) {
             if (result == "") {
                 result = "${number}"
             } else if (((number % 3) == 0) && ((number % 5) == 0)) {
@@ -181,15 +181,18 @@ fun main() {
     }
 
     fun fizzbuzzV9(stopNumber: Int): String {
-        if (stopNumber < 1) return "argument should be greater than 0"
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in 1..stopNumber step 1) {
+        for (number in (1..stopNumber) step 1) {
             result = if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}"
         }
         return result
     }
 
-    val fizzbuzzV10 = { stopNumber: Int -> (1..stopNumber step 1).fold("") { currentResult: String, number: Int ->  if (currentResult == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${currentResult}, FizzBuzz" else if ((number % 3) == 0) "${currentResult}, Fizz" else if ((number % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${number}" } }
+    fun fizzbuzzV10(stopNumber: Int): String {
+        if (stopNumber < 1) throw Exception("Argument should be > 0")
+        return ((1..stopNumber) step 1).fold("") { currentResult: String, number: Int ->  if (currentResult == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${currentResult}, FizzBuzz" else if ((number % 3) == 0) "${currentResult}, Fizz" else if ((number % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${number}" }
+    }
 
     println("// using fizzbuzz function \"fizzbuzzV1\"")
     println("FizzBuzz(36): ${fizzbuzzV1(36)}")

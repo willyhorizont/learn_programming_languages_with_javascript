@@ -32,14 +32,14 @@ void main() {
 	print("// using JavaScript-like Array.reduce() function \"arrayReduce\"");
 
 	numbersTotal = arrayReduce((dynamic currentResult, dynamic currentNumber, dynamic _, dynamic __) => (currentResult + currentNumber), numbers, 0);
-    print("total numbers: ${prettyJsonStringify(numbersTotal)}");
-	// total currentNumber: 41.2
+    print("total number: ${prettyJsonStringify(numbersTotal)}");
+	// total number: 41.2
 
 	print("// using Dart Array.reduce() built-in method \"Array.fold()\"");
 
-	numbersTotal = numbers.fold(0, (dynamic currentResult, dynamic currentNumber) => currentResult + currentNumber);
-    print("total numbers: ${prettyJsonStringify(numbersTotal)}");
-	// total currentNumber: 41.2
+	numbersTotal = numbers.fold(0, (dynamic currentResult, dynamic currentNumber) => (currentResult + currentNumber));
+    print("total number: ${prettyJsonStringify(numbersTotal)}");
+	// total number: 41.2
 
 	print("\n// JavaScript-like Array.reduce() in Dart List<Map<String, dynamic>> (List of Maps)");
 

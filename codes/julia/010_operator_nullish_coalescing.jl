@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 println("\n# JavaScript-like Nullish Coalescing Operator (??) in Julia")

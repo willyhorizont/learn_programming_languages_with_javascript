@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 function pretty_array_of_primitives(an_array_of_primitives)

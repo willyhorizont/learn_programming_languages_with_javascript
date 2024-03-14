@@ -8,36 +8,26 @@ fun main() {
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
-                if (anythingInner.size == 0) {
-                    val result = "[]"
-                    return result
-                }
+                if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
                 var result = "[\n${indentInner.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
                     result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}]"
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
-                if (anythingInner.entries.size == 0) {
-                    val result = "{}"
-                    return result
-                }
+                if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
                 anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -125,7 +115,7 @@ fun main() {
     println("getModifiedIndentLevel(): ${getModifiedIndentLevel()}")
     fun createNewGame(initialCredit: Int): () -> Unit {
         var currentCredit: Int = initialCredit
-        println("currentCredit: ${currentCredit}")
+        println("initial credit: ${initialCredit}")
         return fun(): Unit {
             currentCredit -= 1
             if (currentCredit == 0) {

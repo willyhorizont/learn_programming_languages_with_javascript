@@ -46,7 +46,7 @@ function array_find_index_v1(callback_function, an_array)
     local data_found_index = -1
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
+        if (is_condition_match == true) then
             data_found_index = array_item_index
             break
         end
@@ -58,7 +58,7 @@ function array_find_index_v2(callback_function, an_array)
     -- JavaScript-like Array.findIndex() function
     local data_found_index = -1
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             data_found_index = array_item_index
             break
         end
@@ -68,42 +68,19 @@ end
 
 function array_find_index_v3(callback_function, an_array)
     -- JavaScript-like Array.findIndex() function
-    local data_found_index = -1
     for array_item_index, array_item in ipairs(an_array) do
         local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
-            return array_item_index
-        end
-    end
-    return data_found_index
-end
-
-function array_find_index_v4(callback_function, an_array)
-    -- JavaScript-like Array.findIndex() function
-    local data_found_index = -1
-    for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
-            return array_item_index
-        end
-    end
-    return data_found_index
-end
-
-function array_find_index_v5(callback_function, an_array)
-    -- JavaScript-like Array.findIndex() function
-    for array_item_index, array_item in ipairs(an_array) do
-        local is_condition_match = callback_function(array_item, array_item_index, an_array)
-        if is_condition_match == true then
+        if (is_condition_match == true) then
             return array_item_index
         end
     end
     return -1
 end
 
-function array_find_index_v6(callback_function, an_array)
+function array_find_index_v4(callback_function, an_array)
     -- JavaScript-like Array.findIndex() function
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             return array_item_index
         end
     end
@@ -139,18 +116,6 @@ s_print("number found index: ", number_found_index)
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 number_found_index = array_find_index_v4(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
--- number found index: 3
-
-print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
-
-number_found_index = array_find_index_v5(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
--- number found index: 3
-
-print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
-
-number_found_index = array_find_index_v6(function (number) return (number == number_to_find) end, numbers)
 s_print("number found index: ", number_found_index)
 -- number found index: 3
 
@@ -200,17 +165,5 @@ s_print("product found index: ", product_found_index)
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 product_found_index = array_find_index_v4(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
--- product found index: 1
-
-print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v5\"")
-
-product_found_index = array_find_index_v5(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
--- product found index: 1
-
-print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v6\"")
-
-product_found_index = array_find_index_v6(function (product) return (product.code == product_to_find) end, products)
 s_print("product found index: ", product_found_index)
 -- product found index: 1

@@ -5,6 +5,9 @@ typealias MyArray = [Any?]
 
 print("\n// JavaScript-like Nullish Coalescing Operator (??) in Swift")
 
+// There's no JavaScript-like Nullish Coalescing Operator (??) in Swift.
+// But, we can use Swift "optional binding" syntax to mimic it in Swift.
+
 func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
     var indentLevel = 0
     func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
@@ -22,8 +25,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -39,8 +41,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -69,7 +70,7 @@ print("JSON_OBJECT: \(prettyJsonStringify(JSON_OBJECT))")
 
 if let result = JSON_OBJECT["foo"] as? MyObject {
     if let result = result["bar"] {
-        print("JSON_OBJECT?.foo?.bar ?? \"not found\":", result ?? "not found")
+        print("JSON_OBJECT?.foo?.bar ?? \"not found\":", (result ?? "not found"))
     } else {
         print("JSON_OBJECT?.foo?.bar ?? \"not found\": not found")
     }
@@ -80,7 +81,7 @@ if let result = JSON_OBJECT["foo"] as? MyObject {
 
 if let result = JSON_OBJECT["foo"] as? MyObject {
     if let result = result["baz"] {
-        print("JSON_OBJECT?.foo?.baz ?? \"not found\":", result ?? "not found")
+        print("JSON_OBJECT?.foo?.baz ?? \"not found\":", (result ?? "not found"))
     } else {
         print("JSON_OBJECT?.foo?.baz ?? \"not found\": not found")
     }
@@ -107,7 +108,7 @@ print("JSON_OBJECT?.foo?.baz ?? \"not found\":", { () -> Any? in
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
     let result = result.indices.contains(2) ? result[2] : nil
-    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", result ?? "not found")
+    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", (result ?? "not found"))
 } else {
     print("JSON_OBJECT?.fruits?.[2] ?? \"not found\": not found")
 }
@@ -115,7 +116,7 @@ if let result = JSON_OBJECT["fruits"] as? MyArray {
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
     let result = result.indices.contains(5) ? result[5] : nil
-    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", result ?? "not found")
+    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", (result ?? "not found"))
 } else {
     print("JSON_OBJECT?.fruits?.[5] ?? \"not found\": not found")
 }
@@ -125,7 +126,7 @@ print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return result.indices.contains(2) ? result[2] : nil
+    return (result.indices.contains(2) ? result[2] : nil)
 }() ?? "not found")
 // JSON_OBJECT?.fruits?.[2] ?? "not found": banana
 
@@ -133,6 +134,6 @@ print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", { () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return result.indices.contains(5) ? result[5] : nil
+    return (result.indices.contains(5) ? result[5] : nil)
 }() ?? "not found")
 // JSON_OBJECT?.fruits?.[5] ?? "not found": not found

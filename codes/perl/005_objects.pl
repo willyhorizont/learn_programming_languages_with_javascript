@@ -7,6 +7,7 @@ sub pretty_json_stringify {
     use JSON;
     my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
     $pretty_json_string =~ s/   /    /g;
+    $pretty_json_string =~ s/\n$//g;
     return $pretty_json_string;
 }
 
@@ -16,7 +17,7 @@ my %friend1 = (
     "country" => "Finland",
     "age" => 25
 );
-print("friend1: " . pretty_json_stringify(\%friend1));
+print("friend1: " . pretty_json_stringify(\%friend1) . "\n");
 
 print("friend1, get country: " . $friend1{"country"} . "\n");
 # friend1, get country: Finland
@@ -33,7 +34,7 @@ for (my $friend1_entry_index = 0; $friend1_entry_index < scalar(@friend1_entries
 # friend1, for loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys %friend1) {
+foreach my $object_key (keys(%friend1)) {
     my $object_value = $friend1{$object_key};
     print("friend1, foreach loop, key: $object_key, value: $object_value\n");
 }
@@ -42,7 +43,7 @@ foreach my $object_key (keys %friend1) {
 # friend1, foreach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each %friend1) {
+while (my ($object_key, $object_value) = each(%friend1)) {
     print("friend1, while loop, key: $object_key, value: $object_value\n");
 }
 # friend1, foreach loop, key: name, value: Alisa
@@ -63,7 +64,7 @@ for (my $friend1_entry_index = 0; $friend1_entry_index < scalar(@friend1_entries
 
 # iterate over and get each key-value pair and iteration/entry index
 my $iteration_index1 = 0;
-foreach my $object_key (keys %friend1) {
+foreach my $object_key (keys(%friend1)) {
     my $object_value = $friend1{$object_key};
     print("friend1, foreach loop, iteration/entry index: $iteration_index1, key: $object_key, value: $object_value\n");
     $iteration_index1 += 1;
@@ -74,7 +75,7 @@ foreach my $object_key (keys %friend1) {
 
 # iterate over and get each key-value pair and iteration/entry index
 my $iteration_index2 = 0;
-while (my ($object_key, $object_value) = each %friend1) {
+while (my ($object_key, $object_value) = each(%friend1)) {
     print("friend1, while loop, iteration/entry index: $iteration_index2, key: $object_key, value: $object_value\n");
     $iteration_index2 += 1;
 }
@@ -88,7 +89,7 @@ my $friend2 = {
     "country" => "Finland",
     "age" => 25
 };
-print("friend2: " . pretty_json_stringify($friend2));
+print("friend2: " . pretty_json_stringify($friend2) . "\n");
 
 print("friend2, get country: " . $$friend2{"country"} . "\n");
 # friend2, get country: Finland
@@ -111,7 +112,7 @@ for (my $friend2_entry_index = 0; $friend2_entry_index < scalar(@friend2_entries
 # friend2, for loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys %{$friend2}) {
+foreach my $object_key (keys(%{$friend2})) {
     my $object_value = %$friend2{$object_key};
     print("friend2, foreach loop, key: $object_key, value: $object_value\n");
 }
@@ -120,7 +121,7 @@ foreach my $object_key (keys %{$friend2}) {
 # friend2, foreach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys %{$friend2}) {
+foreach my $object_key (keys(%{$friend2})) {
     my $object_value = %{$friend2}{$object_key};
     print("friend2, foreach loop, key: $object_key, value: $object_value\n");
 }
@@ -129,7 +130,7 @@ foreach my $object_key (keys %{$friend2}) {
 # friend2, foreach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys %{$friend2}) {
+foreach my $object_key (keys(%{$friend2})) {
     my $object_value = $friend2->{$object_key};
     print("friend2, foreach loop, key: $object_key, value: $object_value\n");
 }
@@ -138,7 +139,7 @@ foreach my $object_key (keys %{$friend2}) {
 # friend2, foreach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each %{$friend2}) {
+while (my ($object_key, $object_value) = each(%{$friend2})) {
     print("friend2, while loop, key: $object_key, value: $object_value\n");
 }
 # friend2, foreach loop, key: name, value: Alisa
@@ -159,7 +160,7 @@ for (my $friend2_entry_index = 0; $friend2_entry_index < scalar(@friend2_entries
 
 # iterate over and get each key-value pair and iteration/entry index
 my $iteration_index3 = 0;
-foreach my $object_key (keys %{$friend2}) {
+foreach my $object_key (keys(%{$friend2})) {
     my $object_value = %{$friend2}{$object_key};
     print("friend2, foreach loop, iteration/entry index: $iteration_index3, key: $object_key, value: $object_value\n");
     $iteration_index3 += 1;
@@ -170,7 +171,7 @@ foreach my $object_key (keys %{$friend2}) {
 
 # iterate over and get each key-value pair and iteration/entry index
 my $iteration_index4 = 0;
-foreach my $object_key (keys %{$friend2}) {
+foreach my $object_key (keys(%{$friend2})) {
     my $object_value = $friend2->{$object_key};
     print("friend2, foreach loop, iteration/entry index: $iteration_index4, key: $object_key, value: $object_value\n");
     $iteration_index4 += 1;
@@ -181,7 +182,7 @@ foreach my $object_key (keys %{$friend2}) {
 
 # iterate over and get each key-value pair and iteration/entry index
 my $iteration_index5 = 0;
-while (my ($object_key, $object_value) = each %{$friend2}) {
+while (my ($object_key, $object_value) = each(%{$friend2})) {
     print("friend2, while loop, iteration/entry index: $iteration_index5, key: $object_key, value: $object_value\n");
     $iteration_index5 += 1;
 }

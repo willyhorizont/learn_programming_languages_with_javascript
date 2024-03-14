@@ -5,15 +5,9 @@ fun main() {
         var result = "["
         for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
             if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
-            if (arrayItem is String) {
-                result += "\"${arrayItem}\""
-            }
-            if ((arrayItem is Number) || (arrayItem is Boolean) || arrayItem == null) {
-                result += "${arrayItem}"
-            }
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) {
-                result += ", "
-            }
+            if (arrayItem is String) result += "\"${arrayItem}\""
+            if ((arrayItem is Number) || (arrayItem is Boolean) || (arrayItem == null)) result += "${arrayItem}"
+            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) result += ", "
         }
         result += "]"
         return result
@@ -26,36 +20,26 @@ fun main() {
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
-                if (anythingInner.size == 0) {
-                    val result = "[]"
-                    return result
-                }
+                if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
                 var result = "[\n${indentInner.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
                     result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}]"
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
-                if (anythingInner.entries.size == 0) {
-                    val result = "{}"
-                    return result
-                }
+                if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
                 anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -66,29 +50,16 @@ fun main() {
         return prettyJsonStringifyInner(anything, indent)
     }
 
-    fun getType(anything: Any? = null): String {
-        if (anything == null) return "undefined"
-        if (anything == "null") return "null"
-        if (anything == "undefined") return "undefined"
-        if (anything is String) return "String"
-        if (anything is Number) return "Number"
-        if (anything is Boolean) return "Boolean"
-        if (anything is MutableList<*>) return "Array"
-        if (anything is MutableMap<*, *>) return "Object"
-        return "undefined"
-    }
-
     fun spreadSyntaxObject(vararg parameters: Any?): MutableMap<String, Any?> {
         val newObject = mutableMapOf<String, Any?>()
         for ((parameterIndex, parameter) in parameters.withIndex()) {
-            val parameterType = getType(parameter)
-            if (parameterType == "Object") {
+            if (parameter is MutableMap<*, *>) {
                 for ((objectKey, objectValue) in parameter as MutableMap<String, Any?>) {
                     newObject[objectKey.toString()] = objectValue
                 }
                 continue
             }
-            if (parameterType == "Array") {
+            if (parameter is MutableList<*>) {
                 for ((arrayItemIndex, arrayItem) in (parameter as MutableList<Any?>).withIndex()) {
                     newObject[arrayItemIndex.toString()] = arrayItem
                 }

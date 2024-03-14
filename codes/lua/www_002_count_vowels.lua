@@ -13,7 +13,7 @@ function split_string(a_string, separator)
     if (separator == nil) then
         return {a_string}
     end
-    if separator == "" then
+    if (separator == "") then
        local characters = {}
        for string_index = 1, #a_string do
            table.insert(characters, string.sub(a_string, string_index, string_index))
@@ -40,7 +40,7 @@ function array_filter(callback_function, an_array)
     -- JavaScript-like Array.filter() function
     local data_filtered = {}
     for array_item_index, array_item in ipairs(an_array) do
-        if callback_function(array_item, array_item_index, an_array) == true then
+        if (callback_function(array_item, array_item_index, an_array) == true) then
             table.insert(data_filtered, array_item)
         end
     end
@@ -58,7 +58,7 @@ function array_includes(search_element, an_array)
 end
 
 function ternary_operator(true_condition, value_if_condition_is_true, value_if_condition_is_false)
-    if true_condition then
+    if (true_condition == true) then
         return value_if_condition_is_true
     end
     return value_if_condition_is_false

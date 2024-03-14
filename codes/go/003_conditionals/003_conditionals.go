@@ -57,9 +57,9 @@ func main() {
 	fmt.Println("CORRECT_ANSWER:", CORRECT_ANSWER)
 	fmt.Println("(myAnswer != CORRECT_ANSWER):")
 	if (myAnswer != CORRECT_ANSWER) {
-		fmt.Println("Your answer is wrong")
-	} else {
 		fmt.Println("Your answer is correct")
+	} else {
+		fmt.Println("Your answer is wrong")
 	}
 
 	fmt.Println("\n// greater than (>)\n")

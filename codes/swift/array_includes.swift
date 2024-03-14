@@ -42,51 +42,47 @@ print("\n// JavaScript-like Array.includes() in Swift")
 let myFriends: MyArray = ["Alisa", "Trivia"]
 print("myFriends: \(prettyArrayOfPrimitives(myFriends))")
 
-var name: String
+var aName: String
 var isMyFriend: Bool
 
 print("// using Swift Array.includes() built-in method \"Array.contains\"")
 
-name = "Alisa"
-print("name: \"\(name)\"")
+aName = "Alisa"
 isMyFriend = myFriends.contains { (myFriend: Any?) -> Bool in
     if let result = myFriend as? String {
-        return result == name
+        return result == aName
     }
     return false
 }
-print("is my friends includes \"\(name)\": \(isMyFriend)")
+print("is my friends includes \"\(aName)\": \(isMyFriend)")
 // is my friends includes "Alisa": true
 
-name = "Trivia"
-print("name: \"\(name)\"")
+aName = "Trivia"
 isMyFriend = myFriends.contains { (myFriend: Any?) -> Bool in
     if let result = myFriend as? String {
-        return result == name
+        return result == aName
     }
     return false
 }
-print("is my friends includes \"\(name)\": \(isMyFriend)")
+print("is my friends includes \"\(aName)\": \(isMyFriend)")
 // is my friends includes "Trivia": true
 
-name = "Tony"
-print("name: \"\(name)\"")
+aName = "Tony"
 isMyFriend = myFriends.contains { (myFriend: Any?) -> Bool in
     if let result = myFriend as? String {
-        return result == name
+        return result == aName
     }
     return false
 }
-print("is my friends includes \"\(name)\": \(isMyFriend)")
+print("is my friends includes \"\(aName)\": \(isMyFriend)")
 // is my friends includes "Tony": false
 
-name = "Ezekiel"
-print("name: \"\(name)\"")
+aName = "Ezekiel"
 isMyFriend = myFriends.contains { (myFriend: Any?) -> Bool in
     if let result = myFriend as? String {
-        return result == name
+        return result == aName
     }
     return false
 }
-print("is my friends includes \"\(name)\": \(isMyFriend)")
+print("is my friends includes \"\(aName)\": \(isMyFriend)")
 // is my friends includes "Ezekiel": false

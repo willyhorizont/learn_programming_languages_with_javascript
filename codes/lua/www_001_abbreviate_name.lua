@@ -15,7 +15,7 @@ function split_string(a_string, separator)
     if (separator == nil) then
         return {a_string}
     end
-    if separator == "" then
+    if (separator == "") then
        local characters = {}
        for string_index = 1, #a_string do
            table.insert(characters, string.sub(a_string, string_index, string_index))

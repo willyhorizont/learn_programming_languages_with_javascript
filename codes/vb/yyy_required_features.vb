@@ -4,54 +4,41 @@ Module Program
     Function PrettyJsonStringify(ByVal Anything As Object, Optional ByVal Indent As String = "    ") As String
         Dim IndentLevel As Integer = 0
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
-            If IsNothing(AnythingInner) Then
-                Return "undefined"
-            End If
-            If TypeOf AnythingInner Is String AndAlso AnythingInner = "null" Then
-                Return "null"
-            End If
-            If TypeOf AnythingInner Is String AndAlso AnythingInner = "undefined" Then
-                Return "undefined"
-            End If
-            If TypeOf AnythingInner Is String Then
-                Return """" & AnythingInner & """"
-            End If
-            If IsNumeric(AnythingInner) OrElse TypeOf AnythingInner Is Boolean Then
-                Return CStr(AnythingInner)
-            End If
-            If TypeOf AnythingInner Is Object() Then
+            If (AnythingInner Is Nothing) Then Return "null"
+            If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
+            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
+            If (TypeOf AnythingInner Is List(Of Object)) Then
+                If (AnythingInner.Count = 0) Then Return "[]"
                 IndentLevel += 1
                 Dim Result As String = "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                 Dim ArrayItemIndex As Integer = 0
                 For Each ArrayItem As Object In AnythingInner
                     Result &= PrettyJsonStringifyInner(ArrayItem, IndentInner)
-                    If ((ArrayItemIndex + 1) <> AnythingInner.Length) Then
-                        Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    End If
+                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     ArrayItemIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
                 Return Result
             End If
-            If TypeOf AnythingInner Is Dictionary(Of String, Object) Then
+            If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
+                If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                 Dim IterationIndex As Integer = 0
-                For Each objectEntry As KeyValuePair(Of String, Object) In AnythingInner
-                    Dim ObjectKey = objectEntry.Key
-                    Dim ObjectValue = objectEntry.Value
+                For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
+                    Dim ObjectKey = ObjectEntry.Key
+                    Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then
-                        Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    End If
+                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                     IterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
                 Return Result
             End If
-            Return "undefined"
+            Return "null"
         End Function
         Return PrettyJsonStringifyInner(Anything, Indent)
     End Function
@@ -82,7 +69,7 @@ Module Program
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
         Something = Nothing
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
-        Something = New Object() {1, 2, 3}
+        Something = New List(Of Object) From {1, 2, 3}
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
         Something = New Dictionary(Of String, Object) From {{"foo", "bar"}}
         Console.WriteLine("Something: " & PrettyJsonStringify(Something))
@@ -167,7 +154,7 @@ Module Program
                     {"foo", "bar"}
                 }
             },
-            {"my_array", New Object() {1, 2, 3}}
+            {"my_array", New List(Of Object) From {1, 2, 3}}
         }
         Console.WriteLine("MyObject: " & PrettyJsonStringify(MyObject))
 
@@ -176,7 +163,7 @@ Module Program
         ' const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
         ' console.log("myArray:", myArray);
         ' ```
-        Dim MyArray As Object = New Object() {"foo", 123, true, Nothing, New Object() {1, 2, 3}, New Dictionary(Of String, Object) From {{"foo", "bar"}}}
+        Dim MyArray As List(Of Object) = New List(Of Object) From {"foo", 123, true, Nothing, New List(Of Object) From {1, 2, 3}, New Dictionary(Of String, Object) From {{"foo", "bar"}}}
         Console.WriteLine("MyArray: " & PrettyJsonStringify(MyArray))
 
         ' 5. support passing functions as arguments to other functions
@@ -212,9 +199,9 @@ Module Program
         ' const multiplyBy2Result = multiplyBy2(10);
         ' console.log("multiplyBy2Result:", multiplyBy2Result);
         ' ```
-        Dim Multiply As Func(Of Integer, Func(Of Integer, Integer)) = Function(ByVal a)
-            Return Function(ByVal b)
-                Return (a * b)
+        Dim Multiply As Func(Of Integer, Func(Of Integer, Integer)) = Function(ByVal A)
+            Return Function(ByVal B)
+                Return (A * B)
             End Function
         End Function
         Dim MultiplyBy2 = Multiply(2)
@@ -275,19 +262,19 @@ Module Program
         ' };
         ' console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
         ' ```
-        Dim MyArray2 = New Object() {
-            DirectCast(Function(ByVal a As Integer, ByVal b As Integer) (a * b), Func(Of Integer, Integer, Integer)),
+        Dim MyArray2 As List(Of Object) = New List(Of Object) From {
+            DirectCast(Function(ByVal A As Integer, ByVal B As Integer) (A * B), Func(Of Integer, Integer, Integer)),
             "foo",
             123,
             True,
             Nothing,
-            New Object() {1, 2, 3},
+            New List(Of Object) From {1, 2, 3},
             New Dictionary(Of String, Object) From {{"foo", "bar"}}
         }
         Console.WriteLine("myArray2[0](7, 5): " & DirectCast(MyArray2(0), Func(Of Integer, Integer, Integer))(7, 5))
 
         Dim MyObject2 As Object = New Dictionary(Of String, Object) From {
-            {"my_function", DirectCast(Function(ByVal a As Integer, ByVal b As Integer) (a * b), Func(Of Integer, Integer, Integer))},
+            {"my_function", DirectCast(Function(ByVal A As Integer, ByVal B As Integer) (A * B), Func(Of Integer, Integer, Integer))},
             {"my_string", "foo"},
             {"my_number", 123},
             {"my_bool", true},
@@ -296,7 +283,7 @@ Module Program
                     {"foo", "bar"}
                 }
             },
-            {"my_array", New Object() {1, 2, 3}}
+            {"my_array", New List(Of Object) From {1, 2, 3}}
         }
         Console.WriteLine("myObject2[""my_function""](7, 5): " & DirectCast(MyObject2("my_function"), Func(Of Integer, Integer, Integer))(7, 5))
     End Sub

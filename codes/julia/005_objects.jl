@@ -1,5 +1,3 @@
-using Printf
-using Statistics
 using JSON
 
 friend = Dict(

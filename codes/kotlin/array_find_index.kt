@@ -5,15 +5,9 @@ fun main() {
         var result = "["
         for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
             if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
-            if (arrayItem is String) {
-                result += "\"${arrayItem}\""
-            }
-            if ((arrayItem is Number) || (arrayItem is Boolean) || arrayItem == null) {
-                result += "${arrayItem}"
-            }
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) {
-                result += ", "
-            }
+            if (arrayItem is String) result += "\"${arrayItem}\""
+            if ((arrayItem is Number) || (arrayItem is Boolean) || (arrayItem == null)) result += "${arrayItem}"
+            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) result += ", "
         }
         result += "]"
         return result
@@ -26,36 +20,26 @@ fun main() {
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
-                if (anythingInner.size == 0) {
-                    val result = "[]"
-                    return result
-                }
+                if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
                 var result = "[\n${indentInner.repeat(indentLevel)}"
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
                     result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}]"
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
-                if (anythingInner.entries.size == 0) {
-                    val result = "{}"
-                    return result
-                }
+                if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
                 anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
                     val objectKey = entryItem.key
                     val objectValue = entryItem.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) {
-                        result += ",\n${indentInner.repeat(indentLevel)}"
-                    }
+                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -93,25 +77,6 @@ fun main() {
 
     fun arrayFindIndexV3(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
-        var dataFoundIndex = -1
-        for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
-            val isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
-            if (isConditionMatch == true) return arrayItemIndex
-        }
-        return dataFoundIndex
-    }
-
-    fun arrayFindIndexV4(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
-        // JavaScript-like Array.findIndex() function
-        var dataFoundIndex = -1
-        for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
-            if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItemIndex
-        }
-        return dataFoundIndex
-    }
-
-    fun arrayFindIndexV5(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
-        // JavaScript-like Array.findIndex() function
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             val isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
             if (isConditionMatch == true) return arrayItemIndex
@@ -119,7 +84,7 @@ fun main() {
         return -1
     }
 
-    fun arrayFindIndexV6(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
+    fun arrayFindIndexV4(callbackFunction: (Any?, Int, MutableList<Any?>) -> Boolean, anArray: MutableList<Any?>): Number {
         // JavaScript-like Array.findIndex() function
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItemIndex
@@ -190,7 +155,7 @@ fun main() {
     println("products: ${prettyJsonStringify(products)}")
     
     val productToFind = "pasta"
-    println("product to find: ${productToFind}")
+    println("product to find: ${prettyJsonStringify(productToFind)}")
 
     var productFoundIndex: Any?
 

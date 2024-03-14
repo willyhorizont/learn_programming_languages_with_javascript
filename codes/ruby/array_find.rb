@@ -4,8 +4,8 @@ array_find_v1 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
     data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        if is_condition_match == true
+        is_condition_match = callback_function.call(array_item, array_item_index, an_array)
+        if (is_condition_match == true)
             data_found = array_item
             break
         end
@@ -17,8 +17,8 @@ array_find_v2 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
     data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        unless is_condition_match == false
+        is_condition_match = callback_function.call(array_item, array_item_index, an_array)
+        unless (is_condition_match == false)
             data_found = array_item
             break
         end
@@ -30,7 +30,7 @@ array_find_v3 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
     data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        if callback_function.(array_item, array_item_index, an_array) == true
+        if (callback_function.call(array_item, array_item_index, an_array) == true)
             data_found = array_item
             break
         end
@@ -42,7 +42,7 @@ array_find_v4 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
     data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        unless callback_function.(array_item, array_item_index, an_array) == false
+        unless (callback_function.call(array_item, array_item_index, an_array) == false)
             data_found = array_item
             break
         end
@@ -52,72 +52,34 @@ end
 
 array_find_v5 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
-    data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        return array_item if is_condition_match == true
+        is_condition_match = callback_function.call(array_item, array_item_index, an_array)
+        return array_item if (is_condition_match == true)
     end
-    return data_found
+    return nil
 end
 
 array_find_v6 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
-    data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        return array_item unless is_condition_match == false
+        is_condition_match = callback_function.call(array_item, array_item_index, an_array)
+        return array_item unless (is_condition_match == false)
     end
-    return data_found
+    return nil
 end
 
 array_find_v7 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
-    data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        return array_item if callback_function.(array_item, array_item_index, an_array) == true
+        return array_item if (callback_function.call(array_item, array_item_index, an_array) == true)
     end
-    return data_found
+    return nil
 end
 
 array_find_v8 = ->(callback_function, an_array) do
     # JavaScript-like Array.find() function
-    data_found = nil
     an_array.each_with_index do |array_item, array_item_index|
-        return array_item unless callback_function.(array_item, array_item_index, an_array) == false
-    end
-    return data_found
-end
-
-array_find_v9 = ->(callback_function, an_array) do
-    # JavaScript-like Array.find() function
-    an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        return array_item if is_condition_match == true
-    end
-    return nil
-end
-
-array_find_v10 = ->(callback_function, an_array) do
-    # JavaScript-like Array.find() function
-    an_array.each_with_index do |array_item, array_item_index|
-        is_condition_match = callback_function.(array_item, array_item_index, an_array)
-        return array_item unless is_condition_match == false
-    end
-    return nil
-end
-
-array_find_v11 = ->(callback_function, an_array) do
-    # JavaScript-like Array.find() function
-    an_array.each_with_index do |array_item, array_item_index|
-        return array_item if callback_function.(array_item, array_item_index, an_array) == true
-    end
-    return nil
-end
-
-array_find_v12 = ->(callback_function, an_array) do
-    # JavaScript-like Array.find() function
-    an_array.each_with_index do |array_item, array_item_index|
-        return array_item unless callback_function.(array_item, array_item_index, an_array) == false
+        return array_item unless (callback_function.call(array_item, array_item_index, an_array) == false)
     end
     return nil
 end
@@ -129,121 +91,81 @@ print("\n", "numbers: ", numbers)
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v1\"")
 
-even_number_found = array_find_v1.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v1.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v1.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v1.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v2\"")
 
-even_number_found = array_find_v2.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v2.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v2.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v2.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v3\"")
 
-even_number_found = array_find_v3.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v3.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v3.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v3.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v4\"")
 
-even_number_found = array_find_v4.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v4.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v4.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v4.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v5\"")
 
-even_number_found = array_find_v5.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v5.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v5.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v5.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v6\"")
 
-even_number_found = array_find_v6.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v6.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v6.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v6.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v7\"")
 
-even_number_found = array_find_v7.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v7.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v7.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v7.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v8\"")
 
-even_number_found = array_find_v8.(->(number, _, _) { ((number % 2) == 0) }, numbers)
+even_number_found = array_find_v8.call(->(number, _, _) { ((number % 2) == 0) }, numbers)
 print("\n", "even number found: ", even_number_found)
 # even number found: 12
 
-odd_numbers_found = array_find_v8.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\n", "odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v9\"")
-
-even_number_found = array_find_v9.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\n", "even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v9.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\n", "odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v10\"")
-
-even_number_found = array_find_v10.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\n", "even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v10.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\n", "odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v11\"")
-
-even_number_found = array_find_v11.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\n", "even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v11.(->(number, _, _) { ((number % 2) != 0) }, numbers)
-print("\n", "odd number found: ", odd_numbers_found)
-# odd number found: 27
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v12\"")
-
-even_number_found = array_find_v12.(->(number, _, _) { ((number % 2) == 0) }, numbers)
-print("\n", "even number found: ", even_number_found)
-# even number found: 12
-
-odd_numbers_found = array_find_v12.(->(number, _, _) { ((number % 2) != 0) }, numbers)
+odd_numbers_found = array_find_v8.call(->(number, _, _) { ((number % 2) != 0) }, numbers)
 print("\n", "odd number found: ", odd_numbers_found)
 # odd number found: 27
 
@@ -284,7 +206,7 @@ print("\n", "product to find: #{product_to_find}")
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v1\"")
 
-product_found = array_find_v1.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v1.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -293,7 +215,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v2\"")
 
-product_found = array_find_v2.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v2.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -302,7 +224,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v3\"")
 
-product_found = array_find_v3.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v3.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -311,7 +233,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v4\"")
 
-product_found = array_find_v4.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v4.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -320,7 +242,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v5\"")
 
-product_found = array_find_v5.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v5.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -329,7 +251,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v6\"")
 
-product_found = array_find_v6.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v6.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -338,7 +260,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v7\"")
 
-product_found = array_find_v7.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v7.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",
@@ -347,43 +269,7 @@ print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": "
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v8\"")
 
-product_found = array_find_v8.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v9\"")
-
-product_found = array_find_v9.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v10\"")
-
-product_found = array_find_v10.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v11\"")
-
-product_found = array_find_v11.(->(product, _, _) { (product["code"] == product_to_find) }, products)
-print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
-# product found: {
-#     "code": "bubble_gum",
-#     "price": 233
-# }
-
-print("\n", "# using JavaScript-like Array.find() function \"array_find_v12\"")
-
-product_found = array_find_v12.(->(product, _, _) { (product["code"] == product_to_find) }, products)
+product_found = array_find_v8.call(->(product, _, _) { (product["code"] == product_to_find) }, products)
 print("\n", "product found: ", JSON.pretty_generate(product_found, { "indent": " " * 4 }))
 # product found: {
 #     "code": "bubble_gum",

@@ -10,6 +10,7 @@ sub pretty_json_stringify {
     use JSON;
     my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
     $pretty_json_string =~ s/   /    /g;
+    $pretty_json_string =~ s/\n$//g;
     return $pretty_json_string;
 }
 
@@ -31,12 +32,12 @@ sub pretty_array_of_primitives {
 
 sub array_find_index_v1 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
+        my $is_condition_match = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
         if ($is_condition_match) {
             $data_found_index = $array_item_index;
             last;
@@ -47,12 +48,12 @@ sub array_find_index_v1 {
 
 sub array_find_index_v2 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        if ($callback_function->($array_item, $array_item_index, \@an_array)) {
+        if ($callback_function_ref->($array_item, $array_item_index, $an_array_ref)) {
             $data_found_index = $array_item_index;
             last;
         }
@@ -62,104 +63,50 @@ sub array_find_index_v2 {
 
 sub array_find_index_v3 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
+        my $is_condition_match = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
         if ($is_condition_match) {
             return $array_item_index;
         }
     }
-    return $data_found_index;
+    return -1;
 }
 
 sub array_find_index_v4 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
+        my $is_condition_match = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
         return $array_item_index if ($is_condition_match);
     }
-    return $data_found_index;
+    return -1;
 }
 
 sub array_find_index_v5 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
-    my $data_found_index = -1;
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        if ($callback_function->($array_item, $array_item_index, \@an_array)) {
+        if ($callback_function_ref->($array_item, $array_item_index, $an_array_ref)) {
             return $array_item_index;
         }
     }
-    return $data_found_index;
+    return -1;
 }
 
 sub array_find_index_v6 {
     # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
-    my @an_array = @{$an_array_ref};
-    my $data_found_index = -1;
-    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
-        my $array_item = $an_array[$array_item_index];
-        return $array_item_index if ($callback_function->($array_item, $array_item_index, \@an_array));
-    }
-    return $data_found_index;
-}
-
-sub array_find_index_v7 {
-    # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
+    my ($callback_function_ref, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
-        if ($is_condition_match) {
-            return $array_item_index;
-        }
-    }
-    return -1;
-}
-
-sub array_find_index_v8 {
-    # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
-    my @an_array = @{$an_array_ref};
-    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
-        my $array_item = $an_array[$array_item_index];
-        my $is_condition_match = $callback_function->($array_item, $array_item_index, \@an_array);
-        return $array_item_index if ($is_condition_match);
-    }
-    return -1;
-}
-
-sub array_find_index_v9 {
-    # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
-    my @an_array = @{$an_array_ref};
-    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
-        my $array_item = $an_array[$array_item_index];
-        if ($callback_function->($array_item, $array_item_index, \@an_array)) {
-            return $array_item_index;
-        }
-    }
-    return -1;
-}
-
-sub array_find_index_v10 {
-    # JavaScript-like Array.findIndex() function
-    my ($callback_function, $an_array_ref) = @_;
-    my @an_array = @{$an_array_ref};
-    for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
-        my $array_item = $an_array[$array_item_index];
-        return $array_item_index if ($callback_function->($array_item, $array_item_index, \@an_array));
+        return $array_item_index if ($callback_function_ref->($array_item, $array_item_index, $an_array_ref));
     }
     return -1;
 }
@@ -210,30 +157,6 @@ $number_found_index = array_find_index_v6(sub { my ($number) = @_; return ($numb
 print("number found index: " . $number_found_index . "\n");
 # number found index: 2
 
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"\n");
-
-$number_found_index = array_find_index_v7(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
-print("number found index: " . $number_found_index . "\n");
-# number found index: 2
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"\n");
-
-$number_found_index = array_find_index_v8(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
-print("number found index: " . $number_found_index . "\n");
-# number found index: 2
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"\n");
-
-$number_found_index = array_find_index_v9(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
-print("number found index: " . $number_found_index . "\n");
-# number found index: 2
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"\n");
-
-$number_found_index = array_find_index_v10(sub { my ($number) = @_; return ($number == $number_to_find); }, \@numbers);
-print("number found index: " . $number_found_index . "\n");
-# number found index: 2
-
 print("\n# JavaScript-like Array.findIndex() in Perl Array of Hashes\n");
 
 my @products = (
@@ -255,7 +178,7 @@ my @products = (
     }
 );
 
-print("products: " . pretty_json_stringify(\@products));
+print("products: " . pretty_json_stringify(\@products) . "\n");
 
 my $product_to_find = "pasta";
 print("product to find: " . $product_to_find . "\n");
@@ -295,29 +218,5 @@ print("product found index: " . $product_found_index . "\n");
 print("# using JavaScript-like Array.findIndex() function \"array_find_index_v6\"\n");
 
 $product_found_index = array_find_index_v6(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found index: " . $product_found_index . "\n");
-# product found index: 0
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v7\"\n");
-
-$product_found_index = array_find_index_v7(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found index: " . $product_found_index . "\n");
-# product found index: 0
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v8\"\n");
-
-$product_found_index = array_find_index_v8(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found index: " . $product_found_index . "\n");
-# product found index: 0
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v9\"\n");
-
-$product_found_index = array_find_index_v9(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found index: " . $product_found_index . "\n");
-# product found index: 0
-
-print("# using JavaScript-like Array.findIndex() function \"array_find_index_v10\"\n");
-
-$product_found_index = array_find_index_v10(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
 print("product found index: " . $product_found_index . "\n");
 # product found index: 0

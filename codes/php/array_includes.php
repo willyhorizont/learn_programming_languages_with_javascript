@@ -3,7 +3,7 @@
 echo("\n\n// JavaScript-like Array.includes() in PHP");
 
 function bool_to_string($anything) {
-    if (is_bool($anything) === false) return "not bool";
+    if (is_bool($anything) === false) throw new Exception("Expecting Boolean as argument");
     return (($anything === true) ? "true" : "false");
 }
 
@@ -39,26 +39,22 @@ function pretty_array_of_primitives($an_array_of_primitives) {
 $my_friends = ['Alisa', 'Trivia'];
 echo("\n" . "my friends: " . pretty_array_of_primitives($my_friends));
 
-$name = 'Alisa';
-echo("\n" . "name: \"$name\"");
-$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\n" . "is my friends includes \"$name\": $is_my_friend");
+$a_name = 'Alisa';
+$is_my_friend = bool_to_string(in_array($a_name, $my_friends) === false);
+echo("\n" . "is my friends includes \"$a_name\": $is_my_friend");
 // is my friends includes "Alisa": true
 
-$name = 'Trivia';
-echo("\n" . "name: \"$name\"");
-$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\n" . "is my friends includes \"$name\": $is_my_friend");
+$a_name = 'Trivia';
+$is_my_friend = bool_to_string(in_array($a_name, $my_friends) === false);
+echo("\n" . "is my friends includes \"$a_name\": $is_my_friend");
 // is my friends includes "Trivia": true
 
-$name = 'Tony';
-echo("\n" . "name: \"$name\"");
-$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\n" . "is my friends includes \"$name\": $is_my_friend");
+$a_name = 'Tony';
+$is_my_friend = bool_to_string(in_array($a_name, $my_friends) === false);
+echo("\n" . "is my friends includes \"$a_name\": $is_my_friend");
 // is my friends includes "Tony": false
 
-$name = 'Ezekiel';
-echo("\n" . "name: \"$name\"");
-$is_my_friend = bool_to_string(in_array($name, $my_friends) === false);
-echo("\n" . "is my friends includes \"$name\": $is_my_friend");
+$a_name = 'Ezekiel';
+$is_my_friend = bool_to_string(in_array($a_name, $my_friends) === false);
+echo("\n" . "is my friends includes \"$a_name\": $is_my_friend");
 // is my friends includes "Ezekiel": false

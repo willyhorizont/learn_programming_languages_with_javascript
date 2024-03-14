@@ -32,7 +32,7 @@ has_permission?
 The & is to convert a block into a proc
 def say_hi(&do_something)
     puts("hi")
-    do_something.()
+    do_something.call()
 end
 say_hi() { puts("how are you?") }
 say_hi() do

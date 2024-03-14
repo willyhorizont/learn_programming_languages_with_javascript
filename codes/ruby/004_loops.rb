@@ -1,7 +1,7 @@
 # while loop
 
 i = 1
-while true
+while (true)
     if (i == 2)
         i += 1
         break if (i > 5)
@@ -24,14 +24,82 @@ end
 
 # for loop
 
-# start.f(stop,step)
-(1.step(5, 1)).each do |i| # we can also replace `(1.step(5, 1))` with `(1..5)`, but beware that ruby can't do `(5..1)`, use (5.step(1, -1)) instead
+# (start..step)
+for i in (1..5) do
     next if (i == 2)
-    print("for loop ascending, i is #{i}\n")
+    print("for loop v1 ascending, i is #{i}\n")
 end
 
-# start.f(stop,step)
+# (start..step)
+for i in (1..5).to_a.reverse do
+    next if (i == 2)
+    print("for loop v1 descending, i is #{i}\n")
+end
+
+# (start.f(stop))
+for i in (1.upto(5)) do
+    next if (i == 2)
+    print("for loop v2 ascending, i is #{i}\n")
+end
+
+# (start.f(stop))
+for i in (5.downto(1)) do
+    next if (i == 2)
+    print("for loop v2 descending, i is #{i}\n")
+end
+
+# start.f(stop, step)
+for i in (1.step(5, 1)) do
+    next if (i == 2)
+    print("for loop v3 ascending, i is #{i}\n")
+end
+
+# start.f(stop, step)
+for i in (5.step(1, -1)) do
+    next if (i == 2)
+    print("for loop v3 descending, i is #{i}\n")
+end
+
+# foreach loop
+
+# (start..stop)
+(1..5).each do |i|
+    next if (i == 2)
+    print("foreach loop v1 ascending, i is #{i}\n")
+end
+
+# (start..stop)
+(1..5).to_a.reverse.each do |i|
+    next if (i == 2)
+    print("foreach loop v1 descending v1, i is #{i}\n")
+end
+
+# (start..stop)
+(1..5).reverse_each do |i|
+    next if (i == 2)
+    print("foreach loop v1 descending v2, i is #{i}\n")
+end
+
+# (start.f(stop))
+(1.upto(5)).each do |i|
+    next if (i == 2)
+    print("foreach loop v2 ascending, i is #{i}\n")
+end
+
+# (start.f(stop))
+(5.downto(1)).each do |i|
+    next if (i == 2)
+    print("foreach loop v2 descending, i is #{i}\n")
+end
+
+# start.f(stop, step)
+(1.step(5, 1)).each do |i|
+    next if (i == 2)
+    print("foreach loop v3 ascending, i is #{i}\n")
+end
+
+# start.f(stop, step)
 (5.step(1, -1)).each do |i|
     next if (i == 2)
-    print("for loop descending, i is #{i}\n")
+    print("foreach loop v3 descending, i is #{i}\n")
 end

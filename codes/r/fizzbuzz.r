@@ -1,8 +1,8 @@
 cat("\n# FizzBuzz(n) in R\n")
 
 fizbuzzV1 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (TRUE) {
@@ -38,8 +38,8 @@ fizbuzzV1 <- function(stopNumber) {
 }
 
 fizbuzzV2 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (number <= stopNumber) {
@@ -70,8 +70,8 @@ fizbuzzV2 <- function(stopNumber) {
 }
 
 fizbuzzV3 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (TRUE) {
@@ -93,8 +93,8 @@ fizbuzzV3 <- function(stopNumber) {
 }
 
 fizbuzzV4 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (number <= stopNumber) {
@@ -115,8 +115,8 @@ fizbuzzV4 <- function(stopNumber) {
 }
 
 fizbuzzV5 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (TRUE) {
@@ -128,8 +128,8 @@ fizbuzzV5 <- function(stopNumber) {
 }
 
 fizbuzzV6 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     number <- 1
     while (number <= stopNumber) {
@@ -140,8 +140,8 @@ fizbuzzV6 <- function(stopNumber) {
 }
 
 fizbuzzV7 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     for (number in 1:stopNumber) {
         if (result == "") {
@@ -166,8 +166,8 @@ fizbuzzV7 <- function(stopNumber) {
 }
 
 fizbuzzV8 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     for (number in 1:stopNumber) {
         if (result == "") {
@@ -186,8 +186,8 @@ fizbuzzV8 <- function(stopNumber) {
 }
 
 fizbuzzV9 <- function(stopNumber) {
-    if (is.numeric(stopNumber) == FALSE) return("argument should be a stopNumber")
-    if (stopNumber < 1) return("argument should be greater than 0")
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
     result <- ""
     for (number in 1:stopNumber) {
         result <- (if (result == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", result, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", result, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", result, ", Buzz") else paste(sep = "", result, ", ", number))
@@ -195,7 +195,11 @@ fizbuzzV9 <- function(stopNumber) {
     return(result)
 }
 
-fizbuzzV10 <- function(stopNumber) (if (is.numeric(stopNumber) == FALSE) "argument should be a stopNumber" else if (stopNumber < 1) "argument should be greater than 0" else Reduce(function(currentResult, number) (if (currentResult == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", currentResult, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", currentResult, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", currentResult, ", Buzz") else paste(sep = "", currentResult, ", ", number)), 1:stopNumber, ""))
+fizbuzzV10 <- function(stopNumber) {
+    if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
+    if (stopNumber < 1) stop("Argument should be > 0")
+    return(Reduce(function(currentResult, number) (if (currentResult == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", currentResult, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", currentResult, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", currentResult, ", Buzz") else paste(sep = "", currentResult, ", ", number)), 1:stopNumber, ""))
+}
 
 cat("# using fizzbuzz function \"fizbuzzV1\"\n")
 cat(paste(sep = "", "FizzBuzz(36): ", fizbuzzV1(36), "\n"))

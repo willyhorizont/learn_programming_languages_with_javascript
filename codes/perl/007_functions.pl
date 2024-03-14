@@ -35,9 +35,9 @@ my $get_rectangle_area_v4 = sub { my ($rectangle_width, $rectangle_length) = @_;
 # ? Passing functions as arguments to other functions
 
 sub say_hello {
-    my ($callback_function) = @_;
+    my ($callback_function_ref) = @_;
     print("hello" . "\n");
-    $callback_function -> ();
+    $callback_function_ref -> (); # or &$callback_function_ref();
 }
 
 sub say_how_are_you {

@@ -5,6 +5,9 @@ typealias MyArray = [Any?]
 
 print("\n// JavaScript-like Optional Chaining Operator (?.) in Swift")
 
+// There's no JavaScript-like Optional Chaining Operator (?.) in Swift.
+// But, we can use Swift "optional binding" syntax to mimic it in Swift.
+
 func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
     var indentLevel = 0
     func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
@@ -22,8 +25,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyArray {
             if (anythingInner.count == 0) {
-                let result = "[]"
-                return result
+                return "[]"
             }
             indentLevel += 1
             var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
@@ -39,8 +41,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
         }
         if let anythingInner = anythingInner as? MyObject {
             if (anythingInner.count == 0) {
-                let result = "{}"
-                return result
+                return "{}"
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
@@ -114,7 +115,7 @@ print("JSON_OBJECT?.foo?.baz:", prettyJsonStringify({ () -> Any? in
 // JSON_OBJECT?.foo?.baz: undefined
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
-    if let result = result.indices.contains(2) ? result[2] : nil {
+    if let result = (result.indices.contains(2) ? result[2] : nil) {
         print("JSON_OBJECT?.fruits?.[2]:", result)
     } else {
         print("JSON_OBJECT?.fruits?.[2]: undefined")
@@ -125,7 +126,7 @@ if let result = JSON_OBJECT["fruits"] as? MyArray {
 // JSON_OBJECT?.fruits?.[2]: banana
 
 if let result = JSON_OBJECT["fruits"] as? MyArray {
-    if let result = result.indices.contains(5) ? result[5] : nil {
+    if let result = (result.indices.contains(5) ? result[5] : nil) {
         print("JSON_OBJECT?.fruits?.[5]:", result)
     } else {
         print("JSON_OBJECT?.fruits?.[5]: undefined")
@@ -139,7 +140,7 @@ print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return result.indices.contains(2) ? result[2] : nil
+    return (result.indices.contains(2) ? result[2] : nil)
 }()))
 // JSON_OBJECT?.fruits?.[2]: "banana"
 
@@ -147,6 +148,6 @@ print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return result.indices.contains(5) ? result[5] : nil
+    return (result.indices.contains(5) ? result[5] : nil)
 }()))
 // JSON_OBJECT?.fruits?.[5]: undefined

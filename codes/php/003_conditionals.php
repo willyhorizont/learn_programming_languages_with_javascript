@@ -18,7 +18,7 @@
 */
 
 function bool_to_string($anything) {
-    if (is_bool($anything) === false) return "not bool";
+    if (is_bool($anything) === false) throw new Exception("Expecting Boolean as argument");
     return (($anything === true) ? "true" : "false");
 }
 
@@ -55,9 +55,9 @@ echo("\n" . "\$my_answer: " . $my_answer);
 echo("\n" . "\$CORRECT_ANSWER: " . $CORRECT_ANSWER);
 echo("\n(\$my_answer != \$CORRECT_ANSWER): ");
 if ($my_answer != $CORRECT_ANSWER) {
-    echo("\n" . "Your answer is wrong");
-} else {
     echo("\n" . "Your answer is correct");
+} else {
+    echo("\n" . "Your answer is wrong");
 }
 
 echo("\n\n// identical to (===)\n");

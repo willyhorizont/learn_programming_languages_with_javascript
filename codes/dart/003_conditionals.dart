@@ -52,9 +52,9 @@ void main() {
     print("CORRECT_ANSWER: ${CORRECT_ANSWER}");
     print("(myAnswer != CORRECT_ANSWER):");
     if (myAnswer != CORRECT_ANSWER) {
-        print("Your answer is wrong");
-    } else {
         print("Your answer is correct");
+    } else {
+        print("Your answer is wrong");
     }
 
     print("\n// greater than (>)\n");

@@ -10,7 +10,7 @@ end
 -- while loop
 
 i1 = 1
-while true do
+while (true) do
     if (i1 == 2) then
         i1 = i1 + 1
         if (i1 > 5) then

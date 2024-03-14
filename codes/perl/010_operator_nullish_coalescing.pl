@@ -8,6 +8,7 @@ sub pretty_json_stringify {
     use JSON;
     my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
     $pretty_json_string =~ s/   /    /g;
+    $pretty_json_string =~ s/\n$//g;
     return $pretty_json_string;
 }
 
@@ -27,14 +28,14 @@ my %JSON_OBJECT = (
     },
     "fruits" => ["apple", "mango", "banana"]
 );
-print("JSON_OBJECT: " . pretty_json_stringify(\%JSON_OBJECT));
+print("JSON_OBJECT: " . pretty_json_stringify(\%JSON_OBJECT) . "\n");
 
-print("(JSON_OBJECT?.foo?.bar ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"bar"}, "not found")));
+print("(JSON_OBJECT?.foo?.bar ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"bar"}, "not found")) . "\n");
 # (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"
-print("(JSON_OBJECT?.foo?.baz ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"baz"}, "not found")));
+print("(JSON_OBJECT?.foo?.baz ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"baz"}, "not found")) . "\n");
 # (JSON_OBJECT?.foo?.baz ?? "not found"): "not found"
 
-print("(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[2], "not found")));
+print("(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[2], "not found")) . "\n");
 # (JSON_OBJECT?.fruits?.[2] ?? "not found"): "banana"
-print("(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[5], "not found")));
+print("(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[5], "not found")) . "\n");
 # (JSON_OBJECT?.fruits?.[5] ?? "not found"): "not found"

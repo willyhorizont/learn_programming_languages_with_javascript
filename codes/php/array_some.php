@@ -4,7 +4,7 @@
 // But, we can create our own function to mimic it in PHP.
 
 function bool_to_string($anything) {
-    if (is_bool($anything) === false) return "not bool";
+    if (is_bool($anything) === false) throw new Exception("Expecting Boolean as argument");
     return (($anything === true) ? "true" : "false");
 }
 

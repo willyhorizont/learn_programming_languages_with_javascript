@@ -1,4 +1,13 @@
 =============================changelog==========================================
+07:41 | 07:41 AM | Thu | Mar | 14/03/2024
+0.0.44
+dump gdscript because it doesn't support closure
+finish vb
+update so many things
+TODO:
+finish c#
+try scala, groovy, f#, crystal, matlab, octave, java
+=============================changelog==========================================
 14:13 | 02:13 PM | Wed | Mar | 06/03/2024
 0.0.43
 add chomp to JSON.json in *.jl

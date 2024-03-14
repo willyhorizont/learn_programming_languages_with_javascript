@@ -16,78 +16,66 @@ print(f'my friends: {json.dumps(my_friends)}')
 
 print('# using JavaScript-like Array.includes() function "array_includes_v1"')
 
-name = 'Alisa'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v1(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Alisa'
+is_my_friend = array_includes_v1(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Alisa": True
 
-name = 'Trivia'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v1(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Trivia'
+is_my_friend = array_includes_v1(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Trivia": True
 
-name = 'Tony'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v1(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Tony'
+is_my_friend = array_includes_v1(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Tony": False
 
-name = 'Ezekiel'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v1(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Ezekiel'
+is_my_friend = array_includes_v1(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Ezekiel": False
 
 print('# using JavaScript-like Array.includes() function "array_includes_v2"')
 
-name = 'Alisa'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v2(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Alisa'
+is_my_friend = array_includes_v2(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Alisa": True
 
-name = 'Trivia'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v2(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Trivia'
+is_my_friend = array_includes_v2(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Trivia": True
 
-name = 'Tony'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v2(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Tony'
+is_my_friend = array_includes_v2(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Tony": False
 
-name = 'Ezekiel'
-print(f'name: "{name}"')
-is_my_friend = array_includes_v2(name, my_friends)
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Ezekiel'
+is_my_friend = array_includes_v2(a_name, my_friends)
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Ezekiel": False
 
 print('# using the "pythonic" way of Array.includes()')
 
-name = 'Alisa'
-print(f'name: "{name}"')
-is_my_friend = name in my_friends
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Alisa'
+is_my_friend = a_name in my_friends
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Alisa": True
 
-name = 'Trivia'
-print(f'name: "{name}"')
-is_my_friend = name in my_friends
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Trivia'
+is_my_friend = a_name in my_friends
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Trivia": True
 
-name = 'Tony'
-print(f'name: "{name}"')
-is_my_friend = name in my_friends
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Tony'
+is_my_friend = a_name in my_friends
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Tony": False
 
-name = 'Ezekiel'
-print(f'name: "{name}"')
-is_my_friend = name in my_friends
-print(f'is my friends includes "{name}": {is_my_friend}')
+a_name = 'Ezekiel'
+is_my_friend = a_name in my_friends
+print(f'is my friends includes "{a_name}": {is_my_friend}')
 # is my friends includes "Ezekiel": False

@@ -43,7 +43,7 @@ end
 
 function get_type(anything)
     if (type(anything) ~= "table") then
-       return type(anything) 
+       return type(anything)
     end
     if (next(anything) == nil) then
         return "empty_table"

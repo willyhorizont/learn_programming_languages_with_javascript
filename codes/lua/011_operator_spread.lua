@@ -43,7 +43,7 @@ end
 
 function get_type(anything)
     if (type(anything) ~= "table") then
-       return type(anything) 
+       return type(anything)
     end
     if (next(anything) == nil) then
         return "empty_table"
@@ -146,14 +146,14 @@ s_print("combination1: ", pretty_json_stringify(combination1))
 --     "Tomato"
 -- ]
 
-combination2 = spread_syntax_array(fruits, {"Cucumber", "Onions"})
+combination2 = spread_syntax_array(fruits, {"Cucumber", "Onion"})
 s_print("combination2: ", pretty_json_stringify(combination2))
 -- combination2: [
 --     "Mango",
 --     "Melon",
 --     "Banana",
 --     "Cucumber",
---     "Onions"
+--     "Onion"
 -- ]
 
 print("\n-- { ...object1, ...object2 }:\n")
@@ -192,7 +192,7 @@ s_print("combination5: ", pretty_json_stringify(combination5))
 --     ]
 -- ]
 
-combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Onions"} })
+combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Onion"} })
 s_print("combination6: ", pretty_json_stringify(combination6))
 -- combination6: [
 --     "Mango",
@@ -200,7 +200,7 @@ s_print("combination6: ", pretty_json_stringify(combination6))
 --     "Banana",
 --     [
 --         "Cucumber",
---         "Onions"
+--         "Onion"
 --     ]
 -- ]
 
@@ -271,7 +271,7 @@ s_print("combination11: ", pretty_json_stringify(combination11))
 --     ]
 -- }
 
-combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Onions"} })
+combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Onion"} })
 s_print("combination12: ", pretty_json_stringify(combination12))
 -- combination12: {
 --     "Thailand": "Bangkok",
@@ -279,7 +279,7 @@ s_print("combination12: ", pretty_json_stringify(combination12))
 --     "Japan": "Tokyo",
 --     "vegetables": [
 --         "Cucumber",
---         "Onions"
+--         "Onion"
 --     ]
 -- }
 
@@ -295,14 +295,14 @@ s_print("combination13: ", pretty_json_stringify(combination13))
 --     "2" : "Tomato"
 --  }
 
-combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Onions"})
+combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Onion"})
 s_print("combination14: ", pretty_json_stringify(combination14))
 -- combination14: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
 --     "Japan" : "Tokyo",
 --     "1" : "Cucumber",
---     "2" : "Onions"
+--     "2" : "Onion"
 --  }
 
 -- print("\n-- [...array1, ...object1]: -- this combination throw an error in JavaScript\n")

@@ -10,7 +10,7 @@ function s_print(...)
 end
 
 function ternary_operator_v1(true_condition, value_if_condition_is_true, value_if_condition_is_false)
-    if true_condition then
+    if (true_condition == true) then
         return value_if_condition_is_true
     end
     return value_if_condition_is_false
