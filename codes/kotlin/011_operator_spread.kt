@@ -73,10 +73,8 @@ fun main() {
         val newArray = mutableListOf<Any?>()
         for ((parameterIndex, parameter) in parameters.withIndex()) {
             if (parameter is MutableMap<*, *>) {
-                val currentObject = parameter as MutableMap<String, Any?>
-                val objectKeysLength = currentObject.size
-                if (objectKeysLength == 1) {
-                    for ((objectKey, objectValue) in currentObject) {
+                if ((parameter as MutableMap<String, Any?>).size == 1) {
+                    for ((objectKey, objectValue) in (parameter as MutableMap<String, Any?>)) {
                         newArray.add(objectValue)
                     }
                     continue
@@ -95,6 +93,9 @@ fun main() {
     }
 
     println("\n// JavaScript-like Spread Syntax (...) in Kotlin")
+
+    // There's no JavaScript-like Spread Syntax (...) in Kotlin.
+    // But, we can create our own function to mimic it in Kotlin.
 
     val fruits = mutableListOf<Any?>("Mango", "Melon", "Banana")
     println("fruits: ${prettyArrayOfPrimitives(fruits)}")
@@ -127,14 +128,14 @@ fun main() {
     //     "Tomato"
     // ]
 
-    val combination2 = spreadSyntaxArray(fruits, mutableListOf<Any?>("Cucumber", "Onion"))
+    val combination2 = spreadSyntaxArray(fruits, mutableListOf<Any?>("Cucumber", "Cabbage"))
     println("combination2: ${prettyJsonStringify(combination2)}")
     // combination2: [
     //     "Mango",
     //     "Melon",
     //     "Banana",
     //     "Cucumber",
-    //     "Onion"
+    //     "Cabbage"
     // ]
 
     println("\n// { ...object1, ...object2 }:\n")
@@ -173,7 +174,7 @@ fun main() {
     //     ]
     // ]
 
-    val combination6 = spreadSyntaxArray(fruits, mutableMapOf<String, Any?>("vegetables" to mutableListOf<Any?>("Cucumber", "Onion")))
+    val combination6 = spreadSyntaxArray(fruits, mutableMapOf<String, Any?>("vegetables" to mutableListOf<Any?>("Cucumber", "Cabbage")))
     println("combination6: ${prettyJsonStringify(combination6)}")
     // combination6: [
     //     "Mango",
@@ -181,7 +182,7 @@ fun main() {
     //     "Banana",
     //     [
     //         "Cucumber",
-    //         "Onion"
+    //         "Cabbage"
     //     ]
     // ]
 
@@ -252,7 +253,7 @@ fun main() {
     //     ]
     // }
 
-    val combination12 = spreadSyntaxObject(countryCapitalsInAsia, mutableMapOf<String, Any?>("vegetables" to mutableListOf<Any?>("Cucumber", "Onion")))
+    val combination12 = spreadSyntaxObject(countryCapitalsInAsia, mutableMapOf<String, Any?>("vegetables" to mutableListOf<Any?>("Cucumber", "Cabbage")))
     println("combination12: ${prettyJsonStringify(combination12)}")
     // combination12: {
     //     "Thailand": "Bangkok",
@@ -260,7 +261,7 @@ fun main() {
     //     "Japan": "Tokyo",
     //     "vegetables": [
     //         "Cucumber",
-    //         "Onion"
+    //         "Cabbage"
     //     ]
     // }
 
@@ -276,14 +277,14 @@ fun main() {
     //     "1": "Tomato"
     // }
 
-    val combination14 = spreadSyntaxObject(countryCapitalsInAsia, mutableListOf<Any?>("Cucumber", "Onion"))
+    val combination14 = spreadSyntaxObject(countryCapitalsInAsia, mutableListOf<Any?>("Cucumber", "Cabbage"))
     println("combination14: ${prettyJsonStringify(combination14)}")
     // combination14: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
     //     "Japan": "Tokyo",
     //     "0": "Cucumber",
-    //     "1": "Onion"
+    //     "1": "Cabbage"
     // }
 
     // println("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n")

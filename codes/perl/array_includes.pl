@@ -33,7 +33,7 @@ sub array_includes_v1 {
     my @an_array = @{$an_array_ref};
     my $is_element_found = 0;
     for my $array_item (@an_array) {
-        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
+        my $is_condition_match = ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element);
         if ($is_condition_match) {
             $is_element_found = 1;
             last;
@@ -48,7 +48,7 @@ sub array_includes_v2 {
     my @an_array = @{$an_array_ref};
     my $is_element_found = 0;
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element) {
+        if ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element) {
             $is_element_found = 1;
             last;
         }
@@ -61,7 +61,7 @@ sub array_includes_v3 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
+        my $is_condition_match = ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element);
         if ($is_condition_match) {
             return 1;
         }
@@ -74,7 +74,7 @@ sub array_includes_v4 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element) {
+        if ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element) {
             return 1;
         }
     }
@@ -86,7 +86,7 @@ sub array_includes_v5 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        my $is_condition_match = (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
+        my $is_condition_match = ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element);
         return 1 if ($is_condition_match);
     }
     return 0;
@@ -97,7 +97,7 @@ sub array_includes_v6 {
     my ($search_element, $an_array_ref) = @_;
     my @an_array = @{$an_array_ref};
     for my $array_item (@an_array) {
-        return 1 if (looks_like_number($array_item) ? ($array_item == $search_element) : $array_item eq $search_element);
+        return 1 if ((looks_like_number($array_item) && looks_like_number($search_element)) ? ($array_item == $search_element) : $array_item eq $search_element);
     }
     return 0;
 }

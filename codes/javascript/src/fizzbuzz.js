@@ -8,31 +8,31 @@ const fizzbuzzV1 = (stopNumber) => {
     while (true) {
         if (result === "") {
             result = `${number}`;
+            if (number >= stopNumber) break;
             number += 1;
-            if (number > stopNumber) break;
             continue;
         }
         if (((number % 3) === 0) && ((number % 5) === 0)) {
             result = `${result}, FizzBuzz`;
+            if (number >= stopNumber) break;
             number += 1;
-            if (number > stopNumber) break;
             continue;
         }
         if ((number % 3) === 0) {
             result = `${result}, Fizz`;
+            if (number >= stopNumber) break;
             number += 1;
-            if (number > stopNumber) break;
             continue;
         }
         if ((number % 5) === 0) {
             result = `${result}, Buzz`;
+            if (number >= stopNumber) break;
             number += 1;
-            if (number > stopNumber) break;
             continue;
         }
         result = `${result}, ${number}`;
+        if (number >= stopNumber) break;
         number += 1;
-        if (number > stopNumber) break;
     }
     return result;
 };
@@ -86,8 +86,8 @@ const fizzbuzzV3 = (stopNumber) => {
         } else {
             result = `${result}, ${number}`;
         }
+        if (number >= stopNumber) break;
         number += 1;
-        if (number > stopNumber) break;
     }
     return result;
 };
@@ -133,8 +133,8 @@ const fizzbuzzV5 = (stopNumber) => {
                 )
             )
         );
+        if (number >= stopNumber) break;
         number += 1;
-        if (number > stopNumber) break;
     }
     return result;
 };
@@ -170,8 +170,8 @@ const fizzbuzzV7 = (stopNumber) => {
     let number = 1;
     while (true) {
         result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
+        if (number >= stopNumber) break;
         number += 1;
-        if (number > stopNumber) break;
     }
     return result;
 };

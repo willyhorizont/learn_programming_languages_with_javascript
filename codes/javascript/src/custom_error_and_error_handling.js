@@ -2,7 +2,7 @@ console.log('\n// Custom Error and Error Handling in JavaScript');
 
 const giveMeRespect = (parameter) => {
     // Custom Error
-    if (parameter !== "respect") throw new Error('You should give me "respect"!');
+    if (parameter !== "respect") throw new Error('Error: You should give me "respect"!');
     return 'Thank you for giving me "respect"!';
 };
 
@@ -13,7 +13,7 @@ try {
     response = giveMeRespect("boo!");
     console.log(response);
 } catch (anError) {
-    console.log(anError);
+    console.log(anError.message);
 }
 console.log("I'm sorry!");
 

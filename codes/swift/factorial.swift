@@ -15,10 +15,10 @@ func factorialV1(_ number: Int) throws -> Int {
     var i = number
     while (true) {
         result *= i
-        i -= 1
-        if (i <= 0) {
+        if (i <= 1) {
             break
         }
+        i -= 1
     }
     return result
 }
@@ -67,66 +67,6 @@ func factorialV4(_ number: Int) throws -> Int {
         throw GenericException.genericError(errorMessage)
     }
 }
-
-if let factorialResult = try? factorialV1(5) {
-    print("// using factorial function \"factorialV1\"")
-    print("Factorial(5): \(factorialResult)")
-    // Factorial(5): 120
-}
-
-if let factorialResult = try? factorialV2(5) {
-    print("// using factorial function \"factorialV2\"")
-    print("Factorial(5): \(factorialResult)")
-    // Factorial(5): 120
-}
-
-if let factorialResult = try? factorialV3(5) {
-    print("// using factorial function \"factorialV3\"")
-    print("Factorial(5): \(factorialResult)")
-    // Factorial(5): 120
-}
-
-if let factorialResult = try? factorialV4(5) {
-    print("// using factorial function \"factorialV4\"")
-    print("Factorial(5): \(factorialResult)")
-    // Factorial(5): 120
-}
-
-print("// using factorial function \"factorialV1\"")
-print({ () -> String in
-    guard let factorialResult = try? factorialV1(5) else {
-        return ""
-    }
-    return "Factorial(5): \(factorialResult)"
-}())
-// Factorial(5): 120
-
-print("// using factorial function \"factorialV2\"")
-print({ () -> String in
-    guard let factorialResult = try? factorialV2(5) else {
-        return ""
-    }
-    return "Factorial(5): \(factorialResult)"
-}())
-// Factorial(5): 120
-
-print("// using factorial function \"factorialV3\"")
-print({ () -> String in
-    guard let factorialResult = try? factorialV3(5) else {
-        return ""
-    }
-    return "Factorial(5): \(factorialResult)"
-}())
-// Factorial(5): 120
-
-print("// using factorial function \"factorialV4\"")
-print({ () -> String in
-    guard let factorialResult = try? factorialV4(5) else {
-        return ""
-    }
-    return "Factorial(5): \(factorialResult)"
-}())
-// Factorial(5): 120
 
 do {
     print("// using factorial function \"factorialV1\"")

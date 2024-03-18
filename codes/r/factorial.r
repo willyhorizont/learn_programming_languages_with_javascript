@@ -8,8 +8,8 @@ factorialV1 <- function(number) {
     i <- number
     while (TRUE) {
         result <- result * i
-        i <- i - 1
-        if (i <= 0) break
+        if (i <= 1) break
+        i <- (i - 1)
     }
     return(result)
 }
@@ -22,7 +22,7 @@ factorialV2 <- function(number) {
     i <- number
     while (i >= 1) {
         result <- result * i
-        i <- i - 1
+        i <- (i - 1)
     }
     return(result)
 }
@@ -32,7 +32,7 @@ factorialV3 <- function(number) {
     if (number < 0) stop("Argument should be >= 0")
     if (number == 0) return(1)
     result <- 1
-    for (i in seq(number, 1, by = -1)) {
+    for (i in seq(number, 1, by = -1)) { # (start, stop, by = step)
         result <- result * i
     }
     return(result)

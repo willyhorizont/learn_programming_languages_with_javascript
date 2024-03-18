@@ -7,41 +7,31 @@ function fizzbuzz_v1(stop_number::Int)
     while (true)
         if (result === "")
             result = string(number)
+            if (number >= stop_number) break end
             number += 1
-            if (number > stop_number)
-                break
-            end
             continue
         end
         if (((number % 3) === 0) && ((number % 5) === 0))
             result = string(result, ", FizzBuzz")
+            if (number >= stop_number) break end
             number += 1
-            if (number > stop_number)
-                break
-            end
             continue
         end
         if ((number % 3) === 0)
             result = string(result, ", Fizz")
+            if (number >= stop_number) break end
             number += 1
-            if (number > stop_number)
-                break
-            end
             continue
         end
         if ((number % 5) === 0)
             result = string(result, ", Buzz")
+            if (number >= stop_number) break end
             number += 1
-            if (number > stop_number)
-                break
-            end
             continue
         end
         result = string(result, ", ", number)
+        if (number >= stop_number) break end
         number += 1
-        if (number > stop_number)
-            break
-        end
     end
     return result
 end
@@ -93,10 +83,8 @@ function fizzbuzz_v3(stop_number::Int)
         else
             result = string(result, ", ", number)
         end
+        if (number >= stop_number) break end
         number += 1
-        if (number > stop_number)
-            break
-        end
     end
     return result
 end
@@ -140,10 +128,8 @@ function fizzbuzz_v5(stop_number::Int)
                 )   
             )
         )
+        if (number >= stop_number) break end
         number += 1
-        if (number > stop_number)
-            break
-        end
     end
     return result
 end
@@ -177,10 +163,8 @@ function fizzbuzz_v7(stop_number::Int)
     number = 1
     while (true)
         result = ((result === "") ? string(number) : ((((number % 3) === 0) && ((number % 5) === 0)) ? string(result, ", FizzBuzz") : (((number % 3) === 0) ? string(result, ", Fizz") : (((number % 5) === 0) ? string(result, ", Buzz") : string(result, ", ", number)))))
+        if (number >= stop_number) break end
         number += 1
-        if (number > stop_number)
-            break
-        end
     end
     return result
 end
@@ -199,7 +183,7 @@ end
 function fizzbuzz_v9(stop_number::Int)
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in (1:1:stop_number)
+    for number in (1:1:stop_number) # (start:step:stop)
         if (result === "")
             result = string(number)
             continue
@@ -224,7 +208,7 @@ end
 function fizzbuzz_v10(stop_number::Int)
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in (1:1:stop_number)
+    for number in (1:1:stop_number) # (start:step:stop)
         if (result === "")
             result = string(number)
         elseif (((number % 3) === 0) && ((number % 5) === 0))
@@ -243,7 +227,7 @@ end
 function fizzbuzz_v11(stop_number::Int)
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in (1:1:stop_number)
+    for number in (1:1:stop_number) # (start:step:stop)
         result = ((result === "")
             ? string(number)
             : ((((number % 3) === 0) && ((number % 5) === 0))
@@ -264,7 +248,7 @@ end
 function fizzbuzz_v12(stop_number::Int)
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     result = ""
-    for number in (1:1:stop_number)
+    for number in (1:1:stop_number) # (start:step:stop)
         result = ((result === "") ? string(number) : ((((number % 3) === 0) && ((number % 5) === 0)) ? string(result, ", FizzBuzz") : (((number % 3) === 0) ? string(result, ", Fizz") : (((number % 5) === 0) ? string(result, ", Buzz") : string(result, ", ", number)))))
     end
     return result

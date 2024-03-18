@@ -186,16 +186,12 @@ echo("\n" . "multiply_by2_result: " . $multiply_by2_result);
         return (rectangleWidth * rectangleLength);
     };
     console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
-    const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
+    const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
         return (rectangleWidth * rectangleLength);
     };
     console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
-    const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
-        return (rectangleWidth * rectangleLength);
-    };
+    const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
     console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
-    const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-    console.log("getRectangleAreaV4(7, 5):", getRectangleAreaV4(7, 5));
     ```
 */
 $get_rectangle_area_v1 = function ($rectangle_width, $rectangle_length) {
@@ -248,7 +244,7 @@ $my_array2 = [
     [1, 2, 3],
     ["foo" => "bar"]
 ];
-echo("\n" . "my_array2[0](7, 5): " . $my_array2[0](7, 5));
+echo("\n" . "myArray2[0](7, 5): " . $my_array2[0](7, 5));
 
 $my_object2 = [
     "my_function" => function ($a, $b) {
@@ -263,4 +259,4 @@ $my_object2 = [
     ],
     "my_array" => [1, 2, 3]
 ];
-echo("\n" . "my_object2[\"my_function\"](7, 5): " . $my_object2["my_function"](7, 5));
+echo("\n" . "myObject2[\"my_function\"](7, 5): " . $my_object2["my_function"](7, 5));

@@ -8,8 +8,8 @@ def factorial_v1(number)
     i = number
     while (true)
         result *= i
+        break if (i <= 1)
         i -= 1
-        break if (i <= 0)
     end
     return result
 end
@@ -32,7 +32,7 @@ def factorial_v3(number)
     raise StandardError.new("Argument should be >= 0") if (number < 0)
     return 1 if (number == 0)
     result = 1
-    (number.step(1, -1)).each do |i|
+    (number.step(1, -1)).each do |i| # start.f(stop, step)
         result *= i
     end
     return result

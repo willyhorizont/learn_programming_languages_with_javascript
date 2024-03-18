@@ -8,31 +8,31 @@ fizbuzzV1 <- function(stopNumber) {
     while (TRUE) {
         if (result == "") {
             result <- paste(sep = "", number)
-            number <- number + 1
-            if (number > stopNumber) break
+            if (number >= stopNumber) break
+            number <- (number + 1)
             next
         }
         if (((number %% 3) == 0) && ((number %% 5) == 0)) {
             result <- paste(sep = "", result, ", FizzBuzz")
-            number <- number + 1
-            if (number > stopNumber) break
+            if (number >= stopNumber) break
+            number <- (number + 1)
             next
         }
         if ((number %% 3) == 0) {
             result <- paste(sep = "", result, ", Fizz")
-            number <- number + 1
-            if (number > stopNumber) break
+            if (number >= stopNumber) break
+            number <- (number + 1)
             next
         }
         if ((number %% 5) == 0) {
             result <- paste(sep = "", result, ", Buzz")
-            number <- number + 1
-            if (number > stopNumber) break
+            if (number >= stopNumber) break
+            number <- (number + 1)
             next
         }
         result <- paste(sep = "", result, ", ", number)
-        number <- number + 1
-        if (number > stopNumber) break
+        if (number >= stopNumber) break
+        number <- (number + 1)
     }
     return(result)
 }
@@ -45,26 +45,26 @@ fizbuzzV2 <- function(stopNumber) {
     while (number <= stopNumber) {
         if (result == "") {
             result <- paste(sep = "", number)
-            number <- number + 1
+            number <- (number + 1)
             next
         }
         if (((number %% 3) == 0) && ((number %% 5) == 0)) {
             result <- paste(sep = "", result, ", FizzBuzz")
-            number <- number + 1
+            number <- (number + 1)
             next
         }
         if ((number %% 3) == 0) {
             result <- paste(sep = "", result, ", Fizz")
-            number <- number + 1
+            number <- (number + 1)
             next
         }
         if ((number %% 5) == 0) {
             result <- paste(sep = "", result, ", Buzz")
-            number <- number + 1
+            number <- (number + 1)
             next
         }
         result <- paste(sep = "", result, ", ", number)
-        number <- number + 1
+        number <- (number + 1)
     }
     return(result)
 }
@@ -86,8 +86,8 @@ fizbuzzV3 <- function(stopNumber) {
         } else {
             result <- paste(sep = "", result, ", ", number)
         }
-        number <- number + 1
-        if (number > stopNumber) break
+        if (number >= stopNumber) break
+        number <- (number + 1)
     }
     return(result)
 }
@@ -109,7 +109,7 @@ fizbuzzV4 <- function(stopNumber) {
         } else {
             result <- paste(sep = "", result, ", ", number)
         }
-        number <- number + 1
+        number <- (number + 1)
     }
     return(result)
 }
@@ -121,8 +121,8 @@ fizbuzzV5 <- function(stopNumber) {
     number <- 1
     while (TRUE) {
         result <- (if (result == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", result, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", result, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", result, ", Buzz") else paste(sep = "", result, ", ", number))
-        number <- number + 1
-        if (number > stopNumber) break
+        if (number >= stopNumber) break
+        number <- (number + 1)
     }
     return(result)
 }
@@ -134,7 +134,7 @@ fizbuzzV6 <- function(stopNumber) {
     number <- 1
     while (number <= stopNumber) {
         result <- (if (result == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", result, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", result, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", result, ", Buzz") else paste(sep = "", result, ", ", number))
-        number <- number + 1
+        number <- (number + 1)
     }
     return(result)
 }

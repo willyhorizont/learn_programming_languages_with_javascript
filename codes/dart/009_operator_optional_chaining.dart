@@ -20,13 +20,13 @@ void main() {
 			if ((currentResult == null) && (anything is Map<String, dynamic>) && (currentItem is String)) {
 				return anything[currentItem.toString()];
 			}
-			if ((currentResult == null) && (anything is List<dynamic>) && (currentItem is num)) {
+			if ((currentResult == null) && (anything is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (anything.length > currentItem.toInt())) {
 				return anything[currentItem.toInt()];
 			}
 			if ((currentResult is Map<String, dynamic>) && (currentItem is String)) {
 				return currentResult[currentItem.toString()];
 			}
-			if ((currentResult is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (currentItem.toInt() < currentResult.length)) {
+			if ((currentResult is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (currentResult.length > currentItem.toInt())) {
 				return currentResult[currentItem.toInt()];
 			}
 			return null;
@@ -34,7 +34,7 @@ void main() {
 	}
 
 	// JavaScript-like Optional Chaining Operator (?.) function
-	final optionalChainingV2 = (dynamic anything, List<dynamic> objectPropertiesArray) => ((((anything is! Map<String, dynamic>) && (anything is! List<dynamic>)) || (objectPropertiesArray.length == 0)) ? anything : objectPropertiesArray.fold(null, (dynamic currentResult, dynamic currentItem) => (((currentResult == null) && (anything is Map<String, dynamic>) && (currentItem is String)) ? anything[currentItem.toString()] : (((currentResult == null) && (anything is List<dynamic>) && (currentItem is num)) ? anything[currentItem.toInt()] : (((currentResult is Map<String, dynamic>) && (currentItem is String)) ? currentResult[currentItem.toString()] : (((currentResult is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (currentItem.toInt() < currentResult.length)) ? currentResult[currentItem.toInt()] : null))))));
+	final optionalChainingV2 = (dynamic anything, List<dynamic> objectPropertiesArray) => ((((anything is! Map<String, dynamic>) && (anything is! List<dynamic>)) || (objectPropertiesArray.length == 0)) ? anything : objectPropertiesArray.fold(null, (dynamic currentResult, dynamic currentItem) => (((currentResult == null) && (anything is Map<String, dynamic>) && (currentItem is String)) ? anything[currentItem.toString()] : (((currentResult == null) && (anything is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (anything.length > currentItem.toInt())) ? anything[currentItem.toInt()] : (((currentResult is Map<String, dynamic>) && (currentItem is String)) ? currentResult[currentItem.toString()] : (((currentResult is List<dynamic>) && (currentItem is num) && (currentItem.toInt() >= 0) && (currentItem.toInt() < currentResult.length)) ? currentResult[currentItem.toInt()] : null))))));
 
 	final JSON_OBJECT = <String, dynamic>{
 		"foo":  <String, dynamic>{

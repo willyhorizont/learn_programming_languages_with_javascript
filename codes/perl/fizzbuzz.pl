@@ -13,31 +13,31 @@ sub fizzbuzz_v1 {
     while (1) {
         if ($result eq "") {
             $result = "$number";
+            last if ($number >= $stop_number);
             $number += 1;
-            last if $number > $stop_number;
             next;
         }
         if ((($number % 3) == 0) && (($number % 5) == 0)) {
             $result = "$result, FizzBuzz";
+            last if ($number >= $stop_number);
             $number += 1;
-            last if $number > $stop_number;
             next;
         }
         if (($number % 3) == 0) {
             $result = "$result, Fizz";
+            last if ($number >= $stop_number);
             $number += 1;
-            last if $number > $stop_number;
             next;
         }
         if (($number % 5) == 0) {
             $result = "$result, Buzz";
+            last if ($number >= $stop_number);
             $number += 1;
-            last if $number > $stop_number;
             next;
         }
         $result = "$result, $number";
+        last if ($number >= $stop_number);
         $number += 1;
-        last if $number > $stop_number;
     }
     return $result;
 }
@@ -93,8 +93,8 @@ sub fizzbuzz_v3 {
         } else {
             $result = "$result, $number";
         }
+        last if ($number >= $stop_number);
         $number += 1;
-        last if $number > $stop_number;
     }
     return $result;
 }
@@ -142,8 +142,8 @@ sub fizzbuzz_v5 {
                 )
             )
         );
+        last if ($number >= $stop_number);
         $number += 1;
-        last if $number > $stop_number;
     }
     return $result;
 }
@@ -181,8 +181,8 @@ sub fizzbuzz_v7 {
     my $number = 1;
     while (1) {
         $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
+        last if ($number >= $stop_number);
         $number += 1;
-        last if $number > $stop_number;
     }
     return $result;
 }

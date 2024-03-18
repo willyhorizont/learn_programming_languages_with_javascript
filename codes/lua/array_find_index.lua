@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -90,33 +90,33 @@ end
 print('\n-- JavaScript-like Array.findIndex() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 number_to_find = 27
-s_print("number to find: ", number_to_find)
+sprint("number to find: ", number_to_find)
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
 number_found_index = array_find_index_v1(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
+sprint("number found index: ", number_found_index)
 -- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
 number_found_index = array_find_index_v2(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
+sprint("number found index: ", number_found_index)
 -- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
 number_found_index = array_find_index_v3(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
+sprint("number found index: ", number_found_index)
 -- number found index: 3
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 number_found_index = array_find_index_v4(function (number) return (number == number_to_find) end, numbers)
-s_print("number found index: ", number_found_index)
+sprint("number found index: ", number_found_index)
 -- number found index: 3
 
 print('\n-- JavaScript-like Array.findIndex() in JavaScript-like-Array-of-Objects Lua table')
@@ -139,31 +139,31 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 product_to_find = "pasta"
-s_print("product to find: ", product_to_find)
+sprint("product to find: ", product_to_find)
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v1\"")
 
 product_found_index = array_find_index_v1(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
+sprint("product found index: ", product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v2\"")
 
 product_found_index = array_find_index_v2(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
+sprint("product found index: ", product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v3\"")
 
 product_found_index = array_find_index_v3(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
+sprint("product found index: ", product_found_index)
 -- product found index: 1
 
 print("-- using JavaScript-like Array.findIndex() function \"array_find_index_v4\"")
 
 product_found_index = array_find_index_v4(function (product) return (product.code == product_to_find) end, products)
-s_print("product found index: ", product_found_index)
+sprint("product found index: ", product_found_index)
 -- product found index: 1

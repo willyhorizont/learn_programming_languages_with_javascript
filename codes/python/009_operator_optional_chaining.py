@@ -23,11 +23,11 @@ def optional_chaining_v1(anything, *object_properties_array):
     def array_reduce_callback(current_result, current_item, *_):
         if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)):
             return anything.get(str(current_item))
-        if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True)):
+        if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(anything) > int(current_item))):
             return anything[int(current_item)]
         if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)):
             return current_result.get(str(current_item))
-        if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (int(current_item) < len(current_result))):
+        if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(current_result) > int(current_item))):
             return current_result[int(current_item)]
         return None
     return array_reduce(array_reduce_callback, object_properties_array, None)
@@ -40,21 +40,21 @@ def optional_chaining_v2(anything, *object_properties_array):
     def array_reduce_callback(current_result, current_item):
         if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)):
             return anything.get(str(current_item))
-        if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True)):
+        if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(anything) > int(current_item))):
             return anything[int(current_item)]
         if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)):
             return current_result.get(str(current_item))
-        if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (int(current_item) < len(current_result))):
+        if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(current_result) > int(current_item))):
             return current_result[int(current_item)]
         return None
     return reduce(array_reduce_callback, object_properties_array, None)
 
 
 '''JavaScript-like Optional Chaining Operator (?.) function'''
-optional_chaining_v3 = lambda anything, *object_properties_array: anything if (((isinstance(anything, dict) == False) and (isinstance(anything, list) == False)) or (len(object_properties_array) == 0)) else array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)) else anything[int(current_item)] if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True)) else current_result.get(str(current_item)) if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)) else current_result[int(current_item)] if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (int(current_item) < len(current_result))) else None, object_properties_array, None)
+optional_chaining_v3 = lambda anything, *object_properties_array: anything if (((isinstance(anything, dict) == False) and (isinstance(anything, list) == False)) or (len(object_properties_array) == 0)) else array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)) else anything[int(current_item)] if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)) else current_result[int(current_item)] if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, object_properties_array, None)
 
 '''JavaScript-like Optional Chaining Operator (?.) function'''
-optional_chaining_v4 = lambda anything, *object_properties_array: anything if (((isinstance(anything, dict) == False) and (isinstance(anything, list) == False)) or (len(object_properties_array) == 0)) else reduce(lambda current_result, current_item: anything.get(str(current_item)) if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)) else anything[int(current_item)] if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True)) else current_result.get(str(current_item)) if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)) else current_result[int(current_item)] if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (int(current_item) < len(current_result))) else None, object_properties_array, None)
+optional_chaining_v4 = lambda anything, *object_properties_array: anything if (((isinstance(anything, dict) == False) and (isinstance(anything, list) == False)) or (len(object_properties_array) == 0)) else reduce(lambda current_result, current_item: anything.get(str(current_item)) if ((current_result is None) and (isinstance(anything, dict) == True) and (isinstance(current_item, str) == True)) else anything[int(current_item)] if ((current_result is None) and (isinstance(anything, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((isinstance(current_result, dict) == True) and (isinstance(current_item, str) == True)) else current_result[int(current_item)] if ((isinstance(current_result, list) == True) and (isinstance(current_item, Number) == True) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, object_properties_array, None)
 
 
 JSON_OBJECT = {

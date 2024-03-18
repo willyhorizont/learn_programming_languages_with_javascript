@@ -150,14 +150,14 @@ Module Program
         '     "Tomato"
         ' ]
 
-        Dim Combination2 = SpreadSyntaxArray(Fruits, New List(Of Object) From {"Cucumber", "Onion"})
+        Dim Combination2 = SpreadSyntaxArray(Fruits, New List(Of Object) From {"Cucumber", "Cabbage"})
         Console.WriteLine("Combination2: " & PrettyJsonStringify(Combination2))
         ' Combination2: [
         '     "Mango",
         '     "Melon",
         '     "Banana",
         '     "Cucumber",
-        '     "Onion"
+        '     "Cabbage"
         ' ]
 
         Console.WriteLine($"{Environment.NewLine}' {{ ...object1, ...object2 }}:{Environment.NewLine}")
@@ -196,7 +196,7 @@ Module Program
         '     ]
         ' ]
 
-        Dim Combination6 = SpreadSyntaxArray(Fruits, New Dictionary(Of String, Object) From {{"Vegetables", New List(Of Object) From {"Cucumber", "Onion"}}})
+        Dim Combination6 = SpreadSyntaxArray(Fruits, New Dictionary(Of String, Object) From {{"Vegetables", New List(Of Object) From {"Cucumber", "Cabbage"}}})
         Console.WriteLine("Combination6: " & PrettyJsonStringify(Combination6))
         ' Combination6: [
         '     "Mango",
@@ -204,7 +204,7 @@ Module Program
         '     "Banana",
         '     [
         '         "Cucumber",
-        '         "Onion"
+        '         "Cabbage"
         '     ]
         ' ]
 
@@ -275,7 +275,7 @@ Module Program
         '     ]
         ' }
 
-        Dim Combination12 = SpreadSyntaxObject(CountryCapitalsInAsia, New Dictionary(Of String, Object) From {{"Vegetables", New List(Of Object) From {"Cucumber", "Onion"}}})
+        Dim Combination12 = SpreadSyntaxObject(CountryCapitalsInAsia, New Dictionary(Of String, Object) From {{"Vegetables", New List(Of Object) From {"Cucumber", "Cabbage"}}})
         Console.WriteLine("Combination12: " & PrettyJsonStringify(Combination12))
         ' Combination12: {
         '     "Thailand": "Bangkok",
@@ -283,7 +283,7 @@ Module Program
         '     "Japan": "Tokyo",
         '     "Vegetables": [
         '         "Cucumber",
-        '         "Onion"
+        '         "Cabbage"
         '     ]
         ' }
 
@@ -299,14 +299,14 @@ Module Program
         '     "1": "Tomato"
         ' }
 
-        Dim Combination14 = SpreadSyntaxObject(CountryCapitalsInAsia, New List(Of Object) From {"Cucumber", "Onion"})
+        Dim Combination14 = SpreadSyntaxObject(CountryCapitalsInAsia, New List(Of Object) From {"Cucumber", "Cabbage"})
         Console.WriteLine("Combination14: " & PrettyJsonStringify(Combination14))
         ' Combination14: {
         '     "Thailand": "Bangkok",
         '     "China": "Beijing",
         '     "Japan": "Tokyo",
         '     "0": "Cucumber",
-        '     "1": "Onion"
+        '     "1": "Cabbage"
         ' }
 
         ' Console.WriteLine($"{Environment.NewLine}' [...array1, ...object1] ` this combination throw an error in JavaScript:{Environment.NewLine}")

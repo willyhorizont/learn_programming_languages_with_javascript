@@ -7,7 +7,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -215,25 +215,25 @@ print("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 numbersTotal = arrayReduce({ (currentResult: Any?, currentNumber: Any?, _: Int, _: MyArray) -> Any? in
     if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
-        return currentResultDouble + currentNumberDouble
+        return (currentResultDouble + currentNumberDouble)
     }
     return currentResult
 }, numbers, 0.0)
-print("total number: \(numbersTotal ?? "undefined")")
+print("total number: \(numbersTotal ?? "nil")")
 // total number: 41.2
 
 print("// using Swift Array.reduce() built-in method \"Array.reduce\"")
 
 numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
     if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
-        return currentResultDouble + currentNumberDouble
+        return (currentResultDouble + currentNumberDouble)
     }
     return currentResult
 }
-print("total number: \(numbersTotal ?? "undefined")")
+print("total number: \(numbersTotal ?? "nil")")
 // total number: 41.2
 
-print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.reduce() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -263,7 +263,7 @@ productsGrouped = arrayReduce({ (currentResult: Any?, currentProduct: Any?, _: I
     guard let currentResult = currentResult as? MyObject, let arrayExpensive = currentResult["expensive"], let arrayCheap = currentResult["cheap"], let currentProduct = currentProduct as? MyObject, let currentProductPrice = currentProduct["price"] as? Int else {
         return nil
     }
-    return currentProductPrice > 100 ? spreadSyntaxObject(currentResult, ["expensive": spreadSyntaxArray(arrayExpensive, ["currentProduct": currentProduct] as MyObject)]) : spreadSyntaxObject(currentResult, ["cheap": spreadSyntaxArray(arrayCheap, ["currentProduct": currentProduct] as MyObject)])
+    return ((currentProductPrice > 100) ? spreadSyntaxObject(currentResult, ["expensive": spreadSyntaxArray(arrayExpensive, ["currentProduct": currentProduct] as MyObject)]) : spreadSyntaxObject(currentResult, ["cheap": spreadSyntaxArray(arrayCheap, ["currentProduct": currentProduct] as MyObject)]))
 }, products, ["expensive": MyArray(), "cheap": MyArray()] as MyObject)
 print("grouped products: \(prettyJsonStringify(productsGrouped))")
 // grouped products: {
@@ -295,7 +295,7 @@ productsGrouped = products.reduce(["expensive": MyArray(), "cheap": MyArray()] a
     guard let currentResult = currentResult as? MyObject, let arrayExpensive = currentResult["expensive"], let arrayCheap = currentResult["cheap"], let currentProduct = currentProduct as? MyObject, let currentProductPrice = currentProduct["price"] as? Int else {
         return nil
     }
-    return currentProductPrice > 100 ? spreadSyntaxObject(currentResult, ["expensive": spreadSyntaxArray(arrayExpensive, ["currentProduct": currentProduct] as MyObject)]) : spreadSyntaxObject(currentResult, ["cheap": spreadSyntaxArray(arrayCheap, ["currentProduct": currentProduct] as MyObject)])
+    return ((currentProductPrice > 100) ? spreadSyntaxObject(currentResult, ["expensive": spreadSyntaxArray(arrayExpensive, ["currentProduct": currentProduct] as MyObject)]) : spreadSyntaxObject(currentResult, ["cheap": spreadSyntaxArray(arrayCheap, ["currentProduct": currentProduct] as MyObject)]))
 }
 print("grouped products: \(prettyJsonStringify(productsGrouped))")
 // grouped products: {

@@ -57,3 +57,19 @@ to compile and run Swift code:
 to run Dart code:
 1. cd codes/dart
 2. dart run filename.dart
+
+to compile and run Visual Basic (.NET) code:
+1. cd codes/visual_basic_dotnet
+2. vbc filename.vb && ./filename.exe
+
+to compile and run C# code:
+1. cd codes/c#
+2. csc filename.cs && ./filename.exe
+
+to run Matlab code:
+1. cd codes/matlab
+2. matlab -batch run('filename.m');
+
+to run Octave code:
+1. cd codes/gnu_octave
+2. octave-cli filename.m

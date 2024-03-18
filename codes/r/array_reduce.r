@@ -116,7 +116,7 @@ numbersTotal <- Reduce(function(currentResult, currentNumber) (currentResult + c
 cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
 # total number: 41.2
 
-cat("\n# JavaScript-like Array.map() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.reduce() in JavaScript-like-Array-of-Objects R list\n")
 
 products <- list(
     list(

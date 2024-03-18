@@ -3,13 +3,13 @@
 i <- 1
 while (TRUE) {
     if (i == 2) {
+        if (i >= 5) break
         i <- i + 1
-        if (i > 5) break
         next
     }
     cat(paste(sep = "", "while loop v1, i is ", i, "\n"))
+    if (i >= 5) break
     i <- i + 1
-    if (i > 5) break
 }
 
 i <- 1

@@ -8,31 +8,31 @@ Module Program
         While (true)
             If (Result = "") Then
                 Result = $"{Number}"
+                If (Number >= StopNumber) Then Exit While
                 Number += 1
-                If (Number > StopNumber) Then Exit While
                 Continue While
             End If
             If (((Number Mod 3) = 0) AndAlso ((Number Mod 5) = 0)) Then
                 Result = $"{Result}, FizzBuzz"
+                If (Number >= StopNumber) Then Exit While
                 Number += 1
-                If (Number > StopNumber) Then Exit While
                 Continue While
             End If
             If ((Number Mod 3) = 0) Then
                 Result = $"{Result}, Fizz"
+                If (Number >= StopNumber) Then Exit While
                 Number += 1
-                If (Number > StopNumber) Then Exit While
                 Continue While
             End If
             If ((Number Mod 5) = 0) Then
                 Result = $"{Result}, Buzz"
+                If (Number >= StopNumber) Then Exit While
                 Number += 1
-                If (Number > StopNumber) Then Exit While
                 Continue While
             End If
             Result = $"{Result}, {Number}"
+            If (Number >= StopNumber) Then Exit While
             Number += 1
-            If (Number > StopNumber) Then Exit While
         End While
         Return Result
     End Function
@@ -84,8 +84,8 @@ Module Program
             Else
                 Result = $"{Result}, {Number}"
             End If
+            If (Number >= StopNumber) Then Exit While
             Number += 1
-            If (Number > StopNumber) Then Exit While
         End While
         Return Result
     End Function
@@ -117,8 +117,8 @@ Module Program
         Dim Number As Integer = 1
         While (true)
             Result = If((Result = ""), $"{Number}", If((((Number Mod 3) = 0) AndAlso ((Number Mod 5) = 0)), $"{Result}, FizzBuzz", If(((Number Mod 3) = 0), $"{Result}, Fizz", If(((Number Mod 5) = 0), $"{Result}, Buzz", $"{Result}, {Number}"))))
+            If (Number >= StopNumber) Then Exit While
             Number += 1
-            If (Number > StopNumber) Then Exit While
         End While
         Return Result
     End Function

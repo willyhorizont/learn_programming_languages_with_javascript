@@ -111,14 +111,14 @@ print("combination1: " . pretty_json_stringify(\@combination1) . "\n");
 #     "Tomato"
 # ]
 
-my @combination2 = spread_syntax_array(\@fruits, ["Cucumber", "Onion"]);
+my @combination2 = spread_syntax_array(\@fruits, ["Cucumber", "Cabbage"]);
 print("combination2: " . pretty_json_stringify(\@combination2) . "\n");
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onion"
+#     "Cabbage"
 # ]
 
 print("\n// { ...object1, ...object2 }:\n\n");
@@ -157,7 +157,7 @@ print("combination5: " . pretty_json_stringify(\@combination5) . "\n");
 #     ]
 # ]
 
-my @combination6 = spread_syntax_array(\@fruits, { "vegetables" => ["Cucumber", "Onion"] });
+my @combination6 = spread_syntax_array(\@fruits, { "vegetables" => ["Cucumber", "Cabbage"] });
 print("combination6: " . pretty_json_stringify(\@combination6) . "\n");
 # combination6: [
 #     "Mango",
@@ -165,7 +165,7 @@ print("combination6: " . pretty_json_stringify(\@combination6) . "\n");
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # ]
 
@@ -236,7 +236,7 @@ print("combination11: " . pretty_json_stringify(\%combination11) . "\n");
 #     ]
 # }
 
-my %combination12 = spread_syntax_object(\%country_capitals_in_asia, { "vegetables" => ["Cucumber", "Onion"] });
+my %combination12 = spread_syntax_object(\%country_capitals_in_asia, { "vegetables" => ["Cucumber", "Cabbage"] });
 print("combination12: " . pretty_json_stringify(\%combination12) . "\n");
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -244,7 +244,7 @@ print("combination12: " . pretty_json_stringify(\%combination12) . "\n");
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # }
 
@@ -260,14 +260,14 @@ print("combination13: " . pretty_json_stringify(\%combination13) . "\n");
 #    "1" : "Tomato"
 # }
 
-my %combination14 = spread_syntax_object(\%country_capitals_in_asia, ["Cucumber", "Onion"]);
+my %combination14 = spread_syntax_object(\%country_capitals_in_asia, ["Cucumber", "Cabbage"]);
 print("combination14: " . pretty_json_stringify(\%combination14) . "\n");
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "0" : "Cucumber",
-#    "1" : "Onion"
+#    "1" : "Cabbage"
 # }
 
 # print("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n\n");

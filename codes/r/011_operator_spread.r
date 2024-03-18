@@ -125,14 +125,14 @@ cat(paste(sep = "", "combination1: ", prettyJsonStringify(combination1), "\n"))
 #     "Tomato"
 # ]
 
-combination2 <- spreadSyntaxArray(fruits, list("Cucumber", "Onion"))
+combination2 <- spreadSyntaxArray(fruits, list("Cucumber", "Cabbage"))
 cat(paste(sep = "", "combination2: ", prettyJsonStringify(combination2), "\n"))
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onion"
+#     "Cabbage"
 # ]
 
 cat("\n# { ...object1, ...object2 }:\n")
@@ -171,7 +171,7 @@ cat(paste(sep = "", "combination5: ", prettyJsonStringify(combination5), "\n"))
 #     ]
 # ]
 
-combination6 <- spreadSyntaxArray(fruits, list(vegetables = list("Cucumber", "Onion")))
+combination6 <- spreadSyntaxArray(fruits, list(vegetables = list("Cucumber", "Cabbage")))
 cat(paste(sep = "", "combination6: ", prettyJsonStringify(combination6), "\n"))
 # combination6: [
 #     "Mango",
@@ -179,7 +179,7 @@ cat(paste(sep = "", "combination6: ", prettyJsonStringify(combination6), "\n"))
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # ]
 
@@ -250,7 +250,7 @@ cat(paste(sep = "", "combination11: ", prettyJsonStringify(combination11), "\n")
 #     ]
 # }
 
-combination12 <- spreadSyntaxObject(countryCapitalsInAsia, list(vegetables = list("Cucumber", "Onion")))
+combination12 <- spreadSyntaxObject(countryCapitalsInAsia, list(vegetables = list("Cucumber", "Cabbage")))
 cat(paste(sep = "", "combination12: ", prettyJsonStringify(combination12), "\n"))
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -258,7 +258,7 @@ cat(paste(sep = "", "combination12: ", prettyJsonStringify(combination12), "\n")
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # }
 
@@ -274,14 +274,14 @@ cat(paste(sep = "", "combination13: ", prettyJsonStringify(combination13), "\n")
 #    "2" : "Tomato"
 # }
 
-combination14 <- spreadSyntaxObject(countryCapitalsInAsia, list("Cucumber", "Onion"))
+combination14 <- spreadSyntaxObject(countryCapitalsInAsia, list("Cucumber", "Cabbage"))
 cat(paste(sep = "", "combination14: ", prettyJsonStringify(combination14), "\n"))
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "1" : "Cucumber",
-#    "2" : "Onion"
+#    "2" : "Cabbage"
 # }
 
 # cat("\n# [...array1, ...object1]: // this combination throw an error in JavaScript\n")

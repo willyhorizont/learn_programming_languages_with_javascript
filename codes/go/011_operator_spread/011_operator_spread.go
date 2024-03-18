@@ -130,14 +130,14 @@ func main() {
 	//     "Tomato"
 	// ]
 
-	combination2 := spreadSyntaxArray(fruits, array{"Cucumber", "Onion"})
+	combination2 := spreadSyntaxArray(fruits, array{"Cucumber", "Cabbage"})
 	fmt.Println("combination2:", prettyJsonStringify(combination2))
 	// combination2: [
 	//     "Mango",
 	//     "Melon",
 	//     "Banana",
 	//     "Cucumber",
-	//     "Onion"
+	//     "Cabbage"
 	// ]
 
 	fmt.Println("// { ...object1, ...object2 }:")
@@ -176,7 +176,7 @@ func main() {
 	//     ]
 	// ]
 
-	combination6 := spreadSyntaxArray(fruits, object{"vegetables": array{"Cucumber", "Onion"}})
+	combination6 := spreadSyntaxArray(fruits, object{"vegetables": array{"Cucumber", "Cabbage"}})
 	fmt.Println("combination6:", prettyJsonStringify(combination6))
 	// combination6: [
 	//     "Mango",
@@ -184,7 +184,7 @@ func main() {
 	//     "Banana",
 	//     [
 	//         "Cucumber",
-	//         "Onion"
+	//         "Cabbage"
 	//     ]
 	// ]
 
@@ -255,7 +255,7 @@ func main() {
 	//     ]
 	// }
 
-	combination12 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Onion"}})
+	combination12 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Cabbage"}})
 	fmt.Println("combination12:", prettyJsonStringify(combination12))
 	// combination12: {
 	//     "Thailand": "Bangkok",
@@ -263,7 +263,7 @@ func main() {
 	//     "Japan": "Tokyo",
 	//     "vegetables": [
 	//         "Cucumber",
-	//         "Onion"
+	//         "Cabbage"
 	//     ]
 	// }
 
@@ -279,14 +279,14 @@ func main() {
 	//    "1" : "Tomato"
 	// }
 
-	combination14 := spreadSyntaxObject(countryCapitalsInAsia, array{"Cucumber", "Onion"})
+	combination14 := spreadSyntaxObject(countryCapitalsInAsia, array{"Cucumber", "Cabbage"})
 	fmt.Println("combination14:", prettyJsonStringify(combination14))
 	// combination14: {
 	//    "Thailand" : "Bangkok",
 	//    "China" : "Beijing",
 	//    "Japan" : "Tokyo",
 	//    "0" : "Cucumber",
-	//    "1" : "Onion"
+	//    "1" : "Cabbage"
 	// }
 
 	// fmt.Println("// [...array1, ...object1]: // this combination throw an error in JavaScript")

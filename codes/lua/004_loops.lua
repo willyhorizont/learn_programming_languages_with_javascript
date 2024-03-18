@@ -1,4 +1,4 @@
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -12,17 +12,13 @@ end
 i1 = 1
 while (true) do
     if (i1 == 2) then
+        if (i1 >= 5) then break end
         i1 = i1 + 1
-        if (i1 > 5) then
-            break
-        end
         goto next
     end
-    s_print("while loop v1, i1 is ", i1)
+    sprint("while loop v1, i1 is ", i1)
+    if (i1 >= 5) then break end
     i1 = i1 + 1
-    if (i1 > 5) then
-        break
-    end
     ::next::
 end
 
@@ -32,7 +28,7 @@ while (i2 <= 5) do
         i2 = i2 + 1
         goto next
     end
-    s_print("while loop v2, i2 is ", i2)
+    sprint("while loop v2, i2 is ", i2)
     i2 = i2 + 1
     ::next::
 end
@@ -40,17 +36,13 @@ end
 -- for loop
 
 for i3 = 1, 5, 1 do -- start, stop, step
-    if (i3 == 2) then
-        goto next
-    end
-    s_print("for loop ascending, i3 is ", i3)
+    if (i3 == 2) then goto next end
+    sprint("for loop ascending, i3 is ", i3)
     ::next::
 end
 
 for i4 = 5, 1, -1 do -- start, stop, step
-    if (i4 == 2) then
-        goto next
-    end
-    s_print("for loop descending, i4 is ", i4)
+    if (i4 == 2) then goto next end
+    sprint("for loop descending, i4 is ", i4)
     ::next::
 end

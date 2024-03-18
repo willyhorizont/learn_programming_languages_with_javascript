@@ -8,31 +8,31 @@ def fizzbuzz_v1(stop_number)
     while (true)
         if (result == "")
             result = "#{number}"
+            break if (number >= stop_number)
             number += 1
-            break if (number > stop_number)
             next
         end
         if (((number % 3) === 0) && ((number % 5) === 0))
             result = "#{result}, FizzBuzz"
+            break if (number >= stop_number)
             number += 1
-            break if (number > stop_number)
             next
         end
         if ((number % 3) === 0)
             result = "#{result}, Fizz"
+            break if (number >= stop_number)
             number += 1
-            break if (number > stop_number)
             next
         end
         if ((number % 5) === 0)
             result = "#{result}, Buzz"
+            break if (number >= stop_number)
             number += 1
-            break if (number > stop_number)
             next
         end
         result = "#{result}, #{number}"
+        break if (number >= stop_number)
         number += 1
-        break if (number > stop_number)
     end
     return result
 end
@@ -86,8 +86,8 @@ def fizzbuzz_v3(stop_number)
         else
             result = "#{result}, #{number}"
         end
+        break if (number >= stop_number)
         number += 1
-        break if (number > stop_number)
     end
     return result
 end
@@ -121,8 +121,8 @@ def fizzbuzz_v5(stop_number)
     number = 1
     while (true)
         result = ((result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{result}, FizzBuzz" : (((number % 3) === 0) ? "#{result}, Fizz" : (((number % 5) === 0) ? "#{result}, Buzz" : "#{result}, #{number}"))))
+        break if (number >= stop_number)
         number += 1
-        break if (number > stop_number)
     end
     return result
 end
@@ -143,7 +143,7 @@ def fizzbuzz_v7(stop_number)
     raise StandardError.new("Argument should be a number") if (stop_number.is_a?(Numeric) == false)
     raise StandardError.new("Argument should be > 0") if (stop_number < 1)
     result = ""
-    for number in (1.step(stop_number, 1)) do
+    for number in (1.step(stop_number, 1)) do # start.f(stop, step)
         if (result == "")
             result = "#{number}"
             next
@@ -169,7 +169,7 @@ def fizzbuzz_v7(stop_number)
     raise StandardError.new("Argument should be a number") if (stop_number.is_a?(Numeric) == false)
     raise StandardError.new("Argument should be > 0") if (stop_number < 1)
     result = ""
-    for number in (1.step(stop_number, 1)) do
+    for number in (1.step(stop_number, 1)) do # start.f(stop, step)
         if (result == "")
             result = "#{number}"
         elsif (((number % 3) === 0) && ((number % 5) === 0))
@@ -189,7 +189,7 @@ def fizzbuzz_v8(stop_number)
     raise StandardError.new("Argument should be a number") if (stop_number.is_a?(Numeric) == false)
     raise StandardError.new("Argument should be > 0") if (stop_number < 1)
     result = ""
-    for number in (1.step(stop_number, 1)) do
+    for number in (1.step(stop_number, 1)) do # start.f(stop, step)
         result = ((result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{result}, FizzBuzz" : (((number % 3) === 0) ? "#{result}, Fizz" : (((number % 5) === 0) ? "#{result}, Buzz" : "#{result}, #{number}"))))
     end
     return result

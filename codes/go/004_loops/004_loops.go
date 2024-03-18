@@ -13,17 +13,17 @@ func main() {
 	i1 := 1
 	for (true) {
 		if (i1 == 2) {
-			i1 += 1
-			if (i1 > 5) {
+			if (i1 >= 5) {
 				break
 			}
+			i1 += 1
 			continue
 		}
 		fmt.Println("while loop v1, i1 is", fmt.Sprint(i1))
-		i1 += 1
-		if (i1 > 5) {
+		if (i1 >= 5) {
 			break
 		}
+		i1 += 1
 	}
 
 	i2 := 1

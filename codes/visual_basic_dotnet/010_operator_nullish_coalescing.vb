@@ -46,28 +46,28 @@ Module Program
         ' JavaScript-like Optional Chaining Operator (?.) function
         If ((((TypeOf Anything Is Dictionary(Of String, Object)) = false) AndAlso ((TypeOf Anything Is List(Of Object)) = false)) OrElse (ObjectPropertiesArray.Length = 0)) Then Return Anything
         Dim ArrayReduceCallback As Func(Of Object, Object, Object) = Function(ByVal CurrentResult As Object, ByVal CurrentItem As Object) As Object
-            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is Dictionary(Of String, Object)) AndAlso (TypeOf CurrentItem Is String)) Then
+            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is Dictionary(Of String, Object)) AndAlso (TypeOf CurrentItem Is String) AndAlso DirectCast(Anything, Dictionary(Of String, Object)).ContainsKey(CStr(CurrentItem))) Then
                 Try
                     Return DirectCast(Anything, Dictionary(Of String, Object))(CStr(CurrentItem))
                 Catch Ex As Exception
                     Return Nothing
                 End Try
             End If
-            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem))) Then
+            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(Anything, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(Anything, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
                     Return Nothing
                 End Try
             End If
-            If ((TypeOf CurrentResult Is Dictionary(Of String, Object)) AndAlso (TypeOf CurrentItem Is String)) Then
+            If ((TypeOf CurrentResult Is Dictionary(Of String, Object)) AndAlso (TypeOf CurrentItem Is String) AndAlso DirectCast(CurrentResult, Dictionary(Of String, Object)).ContainsKey(CStr(CurrentItem))) Then
                 Try
                     Return DirectCast(CurrentResult, Dictionary(Of String, Object))(CStr(CurrentItem))
                 Catch Ex As Exception
                     Return Nothing
                 End Try
             End If
-            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (CInt(CurrentItem) < DirectCast(CurrentResult, List(Of Object)).Count)) Then
+            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(CurrentResult, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(CurrentResult, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
@@ -79,10 +79,10 @@ Module Program
         Return ObjectPropertiesArray.Aggregate(Nothing, ArrayReduceCallback)
     End Function
     Sub Main(Args As String())
-        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Optional Chaining Operator (?.) in Visual Basic (.NET)")
+        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Nullish Coalescing Operator (??) in Visual Basic (.NET)")
 
-        ' There's no JavaScript-like Optional Chaining Operator (?.) in Visual Basic (.NET).
-        ' But, we can create our own function to mimic it in Visual Basic (.NET).
+        ' There's no JavaScript-like Nullish Coalescing Operator (??) in Visual Basic (.NET).
+        ' But, we can use Visual Basic (.NET) built-in "If" function to mimic it in Visual Basic (.NET).
 
         Dim JSON_OBJECT As Object = New Dictionary(Of String, Object) From {
             {"foo", New Dictionary(Of String, Object) From {
@@ -92,18 +92,18 @@ Module Program
         }
         Console.WriteLine("JSON_OBJECT: " & PrettyJsonStringify(JSON_OBJECT))
 
-        Console.WriteLine("' using JavaScript-like Optional Chaining Operator (?.) function ""OptionalChaining""")
+        Console.WriteLine("' using Visual Basic (.NET) built-in function ""If""")
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "bar"))}")
+        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "bar"), "not found"))}")
         ' JSON_OBJECT?.foo?.bar: baz
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "baz"))}")
-        ' JSON_OBJECT?.foo?.baz: null
+        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "baz"), "not found"))}")
+        ' JSON_OBJECT?.foo?.baz: not found
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 2))}")
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 2), "not found"))}")
         ' JSON_OBJECT?.fruits?.[2]: "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 5))}")
-        ' JSON_OBJECT?.fruits?.[5]: null
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 5), "not found"))}")
+        ' JSON_OBJECT?.fruits?.[5]: not found
     End Sub
 End Module

@@ -13,8 +13,8 @@ sub factorial_v1 {
     my $i = $number;
     while (1) {
         $result *= $i;
+        last if ($i <= 1);
         $i -= 1;
-        last if ($i <= 0);
     }
     return $result;
 }

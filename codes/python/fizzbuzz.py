@@ -10,35 +10,35 @@ def fizzbuzz_v1(stop_number):
         raise Exception("Argument should be > 0")
     result = ""
     number = 1
-    while True:
+    while (True):
         if (result == ""):
             result = f'{number}'
-            number += 1
-            if (number > stop_number):
+            if (number >= stop_number):
                 break
+            number += 1
             continue
         if (((number % 3) == 0) and ((number % 5) == 0)):
             result = f'{result}, FizzBuzz'
-            number += 1
-            if (number > stop_number):
+            if (number >= stop_number):
                 break
+            number += 1
             continue
         if ((number % 3) == 0):
             result = f'{result}, Fizz'
-            number += 1
-            if (number > stop_number):
+            if (number >= stop_number):
                 break
+            number += 1
             continue
         if ((number % 5) == 0):
             result = f'{result}, Buzz'
-            number += 1
-            if (number > stop_number):
+            if (number >= stop_number):
                 break
+            number += 1
             continue
         result = f'{result}, {number}'
-        number += 1
-        if (number > stop_number):
+        if (number >= stop_number):
             break
+        number += 1
     return result
 
 
@@ -78,7 +78,7 @@ def fizzbuzz_v3(stop_number):
         raise Exception("Argument should be > 0")
     result = ""
     number = 1
-    while True:
+    while (True):
         if (result == ""):
             result = f'{number}'
         elif (((number % 3) == 0) and ((number % 5) == 0)):
@@ -89,9 +89,9 @@ def fizzbuzz_v3(stop_number):
             result = f'{result}, Buzz'
         else:
             result = f'{result}, {number}'
-        number += 1
-        if (number > stop_number):
+        if (number >= stop_number):
             break
+        number += 1
     return result
 
 
@@ -124,11 +124,11 @@ def fizzbuzz_v5(stop_number):
         raise Exception("Argument should be > 0")
     result = ""
     number = 1
-    while True:
+    while (True):
         result = f'{number}' if (result == "") else f'{result}, FizzBuzz' if (((number % 3) == 0) and ((number % 5) == 0)) else f'{result}, Fizz' if ((number % 3) == 0) else f'{result}, Buzz' if ((number % 5) == 0) else f'{result}, {number}'
-        number += 1
-        if (number > stop_number):
+        if (number >= stop_number):
             break
+        number += 1
     return result
 
 
@@ -151,7 +151,7 @@ def fizzbuzz_v7(stop_number):
     if (stop_number < 1):
         raise Exception("Argument should be > 0")
     result = ""
-    for number in range(1, stop_number + 1):
+    for number in range(1, stop_number + 1):  # (start, stop, step)
         if (result == ""):
             result = f'{number}'
             continue
@@ -174,7 +174,7 @@ def fizzbuzz_v8(stop_number):
     if (stop_number < 1):
         raise Exception("Argument should be > 0")
     result = ""
-    for number in range(1, stop_number + 1):
+    for number in range(1, stop_number + 1):  # (start, stop, step)
         if (result == ""):
             result = f'{number}'
         elif (((number % 3) == 0) and ((number % 5) == 0)):
@@ -194,7 +194,7 @@ def fizzbuzz_v9(stop_number):
     if (stop_number < 1):
         raise Exception("Argument should be > 0")
     result = ""
-    for number in range(1, stop_number + 1):
+    for number in range(1, stop_number + 1):  # (start, stop, step)
         result = f'{number}' if (result == "") else f'{result}, FizzBuzz' if (((number % 3) == 0) and ((number % 5) == 0)) else f'{result}, Fizz' if ((number % 3) == 0) else f'{result}, Buzz' if ((number % 5) == 0) else f'{result}, {number}'
     return result
 

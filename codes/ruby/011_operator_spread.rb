@@ -41,14 +41,14 @@ print("\n", "combination1: ", JSON.pretty_generate(combination1, { "indent": " "
 #     "Tomato"
 # ]
 
-combination2 = [*fruits, *["Cucumber", "Onion"]]
+combination2 = [*fruits, *["Cucumber", "Cabbage"]]
 print("\n", "combination2: ", JSON.pretty_generate(combination2, { "indent": " " * 4 }))
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onion"
+#     "Cabbage"
 # ]
 
 print("\n", "# { ...object1, ...object2 }:\n")
@@ -87,7 +87,7 @@ print("\n", "combination5: ", JSON.pretty_generate(combination5, { "indent": " "
 #     ]
 # ]
 
-combination6 = [*fruits, ["Cucumber", "Onion"]]
+combination6 = [*fruits, ["Cucumber", "Cabbage"]]
 print("\n", "combination6: ", JSON.pretty_generate(combination6, { "indent": " " * 4 }))
 # combination6: [
 #     "Mango",
@@ -95,7 +95,7 @@ print("\n", "combination6: ", JSON.pretty_generate(combination6, { "indent": " "
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # ]
 
@@ -166,7 +166,7 @@ print("\n", "combination11: ", JSON.pretty_generate(combination11, { "indent": "
 #     ]
 # }
 
-combination12 = {**country_capitals_in_asia, "vegetables" => ["Cucumber", "Onion"]}
+combination12 = {**country_capitals_in_asia, "vegetables" => ["Cucumber", "Cabbage"]}
 print("\n", "combination12: ", JSON.pretty_generate(combination12, { "indent": " " * 4 }))
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -174,7 +174,7 @@ print("\n", "combination12: ", JSON.pretty_generate(combination12, { "indent": "
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # }
 
@@ -190,14 +190,14 @@ print("\n", "combination13: ", JSON.pretty_generate(combination13, { "indent": "
 #    "1" : "Tomato"
 # }
 
-combination14 = {**country_capitals_in_asia, **array_to_object.call(["Cucumber", "Onion"])}
+combination14 = {**country_capitals_in_asia, **array_to_object.call(["Cucumber", "Cabbage"])}
 print("\n", "combination14: ", JSON.pretty_generate(combination14, { "indent": " " * 4 }))
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "0" : "Cucumber",
-#    "1" : "Onion"
+#    "1" : "Cabbage"
 # }
 
 # print("\n", "# [...array1, ...object1]: // this combination throw an error in JavaScript\n")

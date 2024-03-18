@@ -7,7 +7,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -145,7 +145,7 @@ isAnyNumberLessThan500 = arraySomeV1({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is any number < 500: \(isAnyNumberLessThan500)")
 // is any number < 500: true
@@ -154,7 +154,7 @@ isAnyNumberMoreThan500 = arraySomeV1({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
@@ -165,7 +165,7 @@ isAnyNumberLessThan500 = arraySomeV2({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is any number < 500: \(isAnyNumberLessThan500)")
 // is any number < 500: true
@@ -174,7 +174,7 @@ isAnyNumberMoreThan500 = arraySomeV2({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
@@ -185,7 +185,7 @@ isAnyNumberLessThan500 = arraySomeV3({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is any number < 500: \(isAnyNumberLessThan500)")
 // is any number < 500: true
@@ -194,7 +194,7 @@ isAnyNumberMoreThan500 = arraySomeV3({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
@@ -205,7 +205,7 @@ isAnyNumberLessThan500 = arraySomeV4({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, numbers)
 print("is any number < 500: \(isAnyNumberLessThan500)")
 // is any number < 500: true
@@ -214,7 +214,7 @@ isAnyNumberMoreThan500 = arraySomeV4({ (number: Any?, _: Int, _: MyArray) -> Boo
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, numbers)
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
@@ -225,7 +225,7 @@ isAnyNumberLessThan500 = numbers.contains { (number: Any?) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }
 print("is any number < 500: \(isAnyNumberLessThan500)")
 // is any number < 500: true
@@ -234,12 +234,12 @@ isAnyNumberMoreThan500 = numbers.contains { (number: Any?) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }
 print("is any number > 500: \(isAnyNumberMoreThan500)")
 // is any number > 500: false
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.some() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -270,7 +270,7 @@ isAnyProductPriceLessThan500 = arraySomeV1({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is any product price < 500: \(isAnyProductPriceLessThan500)")
 // is any product price < 500: true
@@ -279,7 +279,7 @@ isAnyProductPriceMoreThan500 = arraySomeV1({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is any product price > 500: \(isAnyProductPriceMoreThan500)")
 // is any product price > 500: false
@@ -290,7 +290,7 @@ isAnyProductPriceLessThan500 = arraySomeV2({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is any product price < 500: \(isAnyProductPriceLessThan500)")
 // is any product price < 500: true
@@ -299,7 +299,7 @@ isAnyProductPriceMoreThan500 = arraySomeV2({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is any product price > 500: \(isAnyProductPriceMoreThan500)")
 // is any product price > 500: false
@@ -310,7 +310,7 @@ isAnyProductPriceLessThan500 = arraySomeV3({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is any product price < 500: \(isAnyProductPriceLessThan500)")
 // is any product price < 500: true
@@ -319,7 +319,7 @@ isAnyProductPriceMoreThan500 = arraySomeV3({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is any product price > 500: \(isAnyProductPriceMoreThan500)")
 // is any product price > 500: false
@@ -330,7 +330,7 @@ isAnyProductPriceLessThan500 = arraySomeV4({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }, products)
 print("is any product price < 500: \(isAnyProductPriceLessThan500)")
 // is any product price < 500: true
@@ -339,7 +339,7 @@ isAnyProductPriceMoreThan500 = arraySomeV4({ (product: Any?, _: Int, _: MyArray)
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }, products)
 print("is any product price > 500: \(isAnyProductPriceMoreThan500)")
 // is any product price > 500: false
@@ -350,7 +350,7 @@ isAnyProductPriceLessThan500 = products.contains { (product: Any?) -> Bool in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result < 500
+    return (result < 500)
 }
 print("is any product price < 500: \(isAnyProductPriceLessThan500)")
 // is any product price < 500: true
@@ -359,7 +359,7 @@ isAnyProductPriceMoreThan500 = products.contains { (product: Any?) -> Bool in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result > 500
+    return (result > 500)
 }
 print("is any product price > 500: \(isAnyProductPriceMoreThan500)")
 // is any product price > 500: false

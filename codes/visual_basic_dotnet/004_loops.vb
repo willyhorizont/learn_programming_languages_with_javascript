@@ -5,13 +5,13 @@ Module Program
         Dim I1 As Integer = 1
         While (true)
             If (I1 = 2) Then
+                If (I1 >= 5) Then Exit While
                 I1 += 1
-                If (I1 > 5) Then Exit While
                 Continue While
             End If
             Console.WriteLine($"while loop v1, I1 is {I1}")
+            If (I1 >= 5) Then Exit While
             I1 += 1
-            If (I1 > 5) Then Exit While
         End While
 
         Dim I2 As Integer = 1

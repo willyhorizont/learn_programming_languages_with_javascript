@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -22,16 +22,16 @@ JSON_OBJECT = {
     },
     fruits = {"apple", "mango", "banana"}
 }
-s_print("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
+sprint("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
 
-s_print("JSON_OBJECT?.foo?.bar: ", pretty_json_stringify(JSON_OBJECT["foo"]["bar"]))
+sprint("JSON_OBJECT?.foo?.bar: ", pretty_json_stringify(JSON_OBJECT["foo"]["bar"]))
 -- JSON_OBJECT?.foo?.bar: "baz"
 
-s_print("JSON_OBJECT?.foo?.baz: ", pretty_json_stringify(JSON_OBJECT["foo"]["baz"]))
+sprint("JSON_OBJECT?.foo?.baz: ", pretty_json_stringify(JSON_OBJECT["foo"]["baz"]))
 -- JSON_OBJECT?.foo?.baz: null
 
-s_print("JSON_OBJECT?.fruits?.[2]: ", pretty_json_stringify(JSON_OBJECT["fruits"][2]))
+sprint("JSON_OBJECT?.fruits?.[2]: ", pretty_json_stringify(JSON_OBJECT["fruits"][2]))
 -- JSON_OBJECT?.fruits?.[2]: "mango"
 
-s_print("JSON_OBJECT?.fruits?.[5]: ", pretty_json_stringify(JSON_OBJECT["fruits"][5]))
+sprint("JSON_OBJECT?.fruits?.[5]: ", pretty_json_stringify(JSON_OBJECT["fruits"][5]))
 -- JSON_OBJECT?.fruits?.[5]: null

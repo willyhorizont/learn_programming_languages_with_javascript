@@ -39,14 +39,14 @@ print(f'combination1: {json.dumps(combination1, indent=4)}')
 #     "Tomato"
 # ]
 
-combination2 = [*fruits, *["Cucumber", "Onion"]]
+combination2 = [*fruits, *["Cucumber", "Cabbage"]]
 print(f'combination2: {json.dumps(combination2, indent=4)}')
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onion"
+#     "Cabbage"
 # ]
 
 print("\n# { ...object1, ...object2 }:\n")
@@ -85,7 +85,7 @@ print(f'combination5: {json.dumps(combination5, indent=4)}')
 #     ]
 # ]
 
-combination6 = [*fruits, ["Cucumber", "Onion"]]
+combination6 = [*fruits, ["Cucumber", "Cabbage"]]
 print(f'combination6: {json.dumps(combination6, indent=4)}')
 # combination6: [
 #     "Mango",
@@ -93,7 +93,7 @@ print(f'combination6: {json.dumps(combination6, indent=4)}')
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # ]
 
@@ -164,7 +164,7 @@ print(f'combination11: {json.dumps(combination11, indent=4)}')
 #     ]
 # }
 
-combination12 = {**country_capitals_in_asia, "vegetables": ["Cucumber", "Onion"]}
+combination12 = {**country_capitals_in_asia, "vegetables": ["Cucumber", "Cabbage"]}
 print(f'combination12: {json.dumps(combination12, indent=4)}')
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -172,7 +172,7 @@ print(f'combination12: {json.dumps(combination12, indent=4)}')
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # }
 
@@ -188,17 +188,17 @@ print(f'combination13: {json.dumps(combination13, indent=4)}')
 #    "2" : "Tomato"
 # }
 
-combination14 = {**country_capitals_in_asia, **array_to_object(["Cucumber", "Onion"])}
+combination14 = {**country_capitals_in_asia, **array_to_object(["Cucumber", "Cabbage"])}
 print(f'combination14: {json.dumps(combination14, indent=4)}')
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "1" : "Cucumber",
-#    "2" : "Onion"
+#    "2" : "Cabbage"
 # }
 
-# print("\n# [...array1, ...object1]: # this combination throw an error in JavaScript\n")
+# print("\n# [...array1, ...object1]:  # this combination throw an error in JavaScript\n")
 
 # this combination throw an error in JavaScript
 # combination_error_in_javascript1 = [*fruits, *country_capitals_in_asia]

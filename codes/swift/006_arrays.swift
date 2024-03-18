@@ -7,7 +7,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -94,105 +94,121 @@ print("fruits: \(prettyArrayOfPrimitives(fruits))")
 print("fruits, length:", fruits.count)
 // fruits, length: 3
 
-print("fruits, get mango:", fruits[1] ?? "undefined")
-// fruits, get mango: mango
+print("fruits, get mango:", prettyJsonStringify(fruits[1] ?? "nil"))
+// fruits, get mango: "mango"
 
-// this is called optional binding
-if let result = fruits[1] {
-    print("fruits, get mango: \(result)")
-    // fruits, get mango: mango
-}
+print("fruits, get mango:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = fruits[1] {
+        return result
+    }
+    return nil
+}()))
+// fruits, get mango: "mango"
 
-print("fruits, get mango:", { () -> Any in
+print("fruits, get mango:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = fruits[1] else {
-        return "undefined"
+        return nil
     }
     return result
-}())
-// fruits, get mango: mango
+}()))
+// fruits, get mango: "mango"
 
-print("fruits, first element:", (fruits.first ?? "undefined") ?? "undefined")
-// fruits, first element: apple
+print("fruits, first element:", prettyJsonStringify((fruits.first ?? "nil") ?? "nil"))
+// fruits, first element: "apple"
 
-// this is called optional binding
-if let result = fruits.first {
-    if let result2 = result {
-        print("fruits, first element:", result2)
-        // fruits, first element: apple
+print("fruits, first element:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = fruits.first {
+        if let result = result {
+            return result
+        }
     }
-}
+    return nil
+}()))
+// fruits, first element: "apple"
 
-print("fruits, first element:", { () -> Any in
+print("fruits, first element:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = fruits.first, let result = result else {
-        return "undefined"
+        return nil
     }
     return result
-}())
-// fruits, first element: apple
+}()))
+// fruits, first element: "apple"
 
-print("fruits, first element:", fruits[0] ?? "undefined")
-// fruits, first element: apple
+print("fruits, first element:", prettyJsonStringify(fruits[0] ?? "nil"))
+// fruits, first element: "apple"
 
-// this is called optional binding
-if let result = fruits[0] {
-    print("fruits, first element:", result)
-    // fruits, first element: apple
-}
+print("fruits, first element:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = fruits[0] {
+        return result
+    }
+    return nil
+}()))
+// fruits, first element: "apple"
 
-print("fruits, first element:", { () -> Any in
+print("fruits, first element:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = fruits[0] else {
-        return "undefined"
+        return nil
     }
     return result
-}())
-// fruits, first element: apple
+}()))
+// fruits, first element: "apple"
 
-print("fruits, last element:", fruits[fruits.count - 1] ?? "undefined")
-// fruits, last element: orange
+print("fruits, last element:", prettyJsonStringify(fruits[fruits.count - 1] ?? "nil"))
+// fruits, last element: "orange"
 
-// this is called optional binding
-if let result = fruits[fruits.count - 1] {
-    print("fruits, last element:", result)
-}
+print("fruits, last element:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = fruits[fruits.count - 1] {
+        return result
+    }
+    return nil
+}()))
+// fruits, last element: "orange"
 
-print("fruits, last element:", { () -> Any in
+print("fruits, last element:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = fruits[fruits.count - 1] else {
-        return "undefined"
+        return nil
     }
     return result
-}())
-// fruits, last element: orange
+}()))
+// fruits, last element: "orange"
 
-print("fruits, last element:", (fruits.last ?? "undefined") ?? "undefined")
-// fruits, last element: orange
+print("fruits, last element:", prettyJsonStringify((fruits.last ?? "nil") ?? "nil"))
+// fruits, last element: "orange"
 
-// this is called optional binding
-if let result = fruits.last {
-    if let result = result {
-        print("fruits, last element:", result)
-        // fruits, last element: orange
+print("fruits, last element:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = fruits.last {
+        if let result = result {
+            return result
+        }
     }
-}
+    return nil
+}()))
+// fruits, last element: "orange"
 
-print("fruits, last element:", { () -> Any in
+print("fruits, last element:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = fruits.last, let result = result else {
-        return "undefined"
+        return nil
     }
     return result
-}())
-// fruits, last element: orange
+}()))
+// fruits, last element: "orange"
 
 for (arrayItemIndex, arrayItem) in fruits.enumerated() {
-    print("fruits, for loop, index: \(arrayItemIndex), value: \(arrayItem ?? "undefined")")
+    print("fruits, for loop, index: \(arrayItemIndex), value: \(prettyJsonStringify(arrayItem ?? "nil"))")
 }
-// fruits, for loop, index: 0, value: apple
-// fruits, for loop, index: 1, value: mango
-// fruits, for loop, index: 2, value: orange
+// fruits, for loop, index: 0, value: "apple"
+// fruits, for loop, index: 1, value: "mango"
+// fruits, for loop, index: 2, value: "orange"
 
 // Array of Objects in Swift
 
@@ -212,14 +228,14 @@ for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
     if let arrayItem = arrayItem as? MyObject {
         for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
-            print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
+            print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
         }
     }
 }
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+// products, foreach loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
+// products, foreach loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
+// products, foreach loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
+// products, foreach loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
 
 for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
@@ -227,10 +243,10 @@ for (arrayItemIndex, arrayItem) in products.enumerated() {
         continue
     }
     for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
-        print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
+        print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
     }
 }
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+// products, foreach loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
+// products, foreach loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
+// products, foreach loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
+// products, foreach loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"

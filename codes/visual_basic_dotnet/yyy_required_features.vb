@@ -114,7 +114,7 @@ Module Program
             End Function
             Return ChangeIndentLevel()
         End Function
-        Console.WriteLine("GetModifiedIndentLevel: " & GetModifiedIndentLevel())
+        Console.WriteLine("GetModifiedIndentLevel(): " & GetModifiedIndentLevel())
         Dim CreateNewGame As Func(Of Integer, Action) = Function(InitialCredit As Integer)
             Dim CurrentCredit = InitialCredit
             Console.WriteLine("initial credit: " & InitialCredit)
@@ -214,16 +214,12 @@ Module Program
         '     return (rectangleWidth * rectangleLength);
         ' };
         ' console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
-        ' const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
+        ' const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
         '     return (rectangleWidth * rectangleLength);
         ' };
         ' console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
-        ' const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
-        '     return (rectangleWidth * rectangleLength);
-        ' };
+        ' const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
         ' console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
-        ' const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-        ' console.log("getRectangleAreaV4(7, 5):", getRectangleAreaV4(7, 5));
         ' ```
         Dim GetRectangleAreaV1 = Function(ByVal RectangleWidth As Integer, ByVal RectangleLength As Integer) As Integer
             Return (RectangleWidth * RectangleLength)

@@ -180,16 +180,12 @@ cat(paste(sep = "", "multiplyBy2Result: ", multiplyBy2Result, "\n"))
 #     return (rectangleWidth * rectangleLength);
 # };
 # console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
-# const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
+# const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
 #     return (rectangleWidth * rectangleLength);
 # };
 # console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
-# const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
-#     return (rectangleWidth * rectangleLength);
-# };
+# const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
 # console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
-# const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-# console.log("getRectangleAreaV4(7, 5):", getRectangleAreaV4(7, 5));
 # ```
 getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
     return(rectangleWidth * rectangleLength)

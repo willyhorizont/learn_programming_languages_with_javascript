@@ -7,8 +7,8 @@ function factorial_v1(number::Int)
     i = number
     while (true)
         result *= i
+        if (i <= 1) break end
         i -= 1
-        if (i <= 0) break end
     end
     return result
 end
@@ -29,7 +29,7 @@ function factorial_v3(number::Int)
     if (number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (number == 0) return 1 end
     result = 1
-    for i in number:-1:1
+    for i in (number:-1:1) # (start:step:stop)
         result *= i
     end
     return result

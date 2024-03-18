@@ -4,6 +4,7 @@ import json
 # There's no JavaScript-like Array.find() in Python.
 # But, we can create our own function to mimic it in Python.
 
+
 def array_find_v1(callback_function, an_array):
     '''JavaScript-like Array.find() function'''
     data_found = None
@@ -114,7 +115,7 @@ print(f'product to find: {product_to_find}')
 
 print('# using JavaScript-like Array.find() function "array_find_v1"')
 
-product_found = array_find_v1(lambda product, *_: product['code'] == product_to_find, products)
+product_found = array_find_v1(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -123,7 +124,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v2"')
 
-product_found = array_find_v2(lambda product, *_: product['code'] == product_to_find, products)
+product_found = array_find_v2(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -132,7 +133,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v3"')
 
-product_found = array_find_v3(lambda product, *_: product['code'] == product_to_find, products)
+product_found = array_find_v3(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",
@@ -141,7 +142,7 @@ print(f'product found: {json.dumps(product_found, indent=4)}')
 
 print('# using JavaScript-like Array.find() function "array_find_v4"')
 
-product_found = array_find_v4(lambda product, *_: product['code'] == product_to_find, products)
+product_found = array_find_v4(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found: {json.dumps(product_found, indent=4)}')
 # product found: {
 #     "code": "bubble_gum",

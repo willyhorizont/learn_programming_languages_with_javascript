@@ -3,7 +3,7 @@ Imports System.Collections.Generic ' Dictionary, KeyValuePair
 Module Program
     Function GiveMeRespect(ByVal Parameter As String) As String
         ' Custom Error
-        If (Parameter <> "respect") Then Throw New Exception("You should give me ""respect""!")
+        If (Parameter <> "respect") Then Throw New Exception("Exception: You should give me ""respect""!")
         Return "Thank you for giving me ""respect""!"
     End Function
 
@@ -17,7 +17,7 @@ Module Program
             Response = GiveMeRespect("boo!")
             Console.WriteLine(Response)
         Catch AnException As Exception
-            Console.WriteLine(AnException)
+            Console.WriteLine(AnException.Message)
         End Try
         Console.WriteLine("I'm sorry!")
 

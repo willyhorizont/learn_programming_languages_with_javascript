@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -125,12 +125,12 @@ end
 print('\n-- JavaScript-like Array.reduce() in JavaScript-like-Array Lua table')
 
 numbers = {36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.reduce() function \"array_reduce\"")
 
 numbers_total = array_reduce(function(current_result, current_number) return (current_result + current_number) end, numbers, 0)
-s_print("total number: ", pretty_json_stringify(numbers_total))
+sprint("total number: ", pretty_json_stringify(numbers_total))
 -- total number: 41.2
 
 print('\n-- JavaScript-like Array.reduce() in JavaScript-like-Array-of-Objects Lua table')
@@ -153,12 +153,12 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.reduce() function \"array_reduce\"")
 
 products_grouped = array_reduce(function(current_result, current_product) return (((current_product.price > 100) and spread_syntax_object(current_result, { expensive = spread_syntax_array(current_result.expensive, { current_product = current_product }) })) or spread_syntax_object(current_result, { cheap = spread_syntax_array(current_result.cheap, { current_product = current_product }) })) end, products, { expensive = {}, cheap = {} })
-s_print("grouped products: ", pretty_json_stringify(products_grouped))
+sprint("grouped products: ", pretty_json_stringify(products_grouped))
 -- grouped products: {
 --     "expensive": [
 --         {

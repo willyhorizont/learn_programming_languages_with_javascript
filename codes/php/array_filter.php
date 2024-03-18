@@ -146,7 +146,7 @@ echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v1\"");
 
-$products_below_100 = array_filter_v1(fn($product) => $product['price'] <= 100, $products);
+$products_below_100 = array_filter_v1(fn($product) => ($product['price'] <= 100), $products);
 echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
 // products with price <= 100 only: [
 //     {
@@ -155,7 +155,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 //     }
 // ]
 
-$products_above_100 = array_filter_v1(fn($product) => $product['price'] >= 100, $products);
+$products_above_100 = array_filter_v1(fn($product) => ($product['price'] >= 100), $products);
 echo("\n" . "products with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {
@@ -174,7 +174,7 @@ echo("\n" . "products with price >= 100 only: " . json_encode($products_above_10
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v2\"");
 
-$products_below_100 = array_filter_v2(fn($product) => $product['price'] <= 100, $products);
+$products_below_100 = array_filter_v2(fn($product) => ($product['price'] <= 100), $products);
 echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
 // products with price <= 100 only: [
 //     {
@@ -183,7 +183,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 //     }
 // ]
 
-$products_above_100 = array_filter_v2(fn($product) => $product['price'] >= 100, $products);
+$products_above_100 = array_filter_v2(fn($product) => ($product['price'] >= 100), $products);
 echo("\n" . "products with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {
@@ -202,7 +202,7 @@ echo("\n" . "products with price >= 100 only: " . json_encode($products_above_10
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v3\"");
 
-$products_below_100 = array_filter_v3(fn($product) => $product['price'] <= 100, $products);
+$products_below_100 = array_filter_v3(fn($product) => ($product['price'] <= 100), $products);
 echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
 // products with price <= 100 only: [
 //     {
@@ -211,7 +211,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 //     }
 // ]
 
-$products_above_100 = array_filter_v3(fn($product) => $product['price'] >= 100, $products);
+$products_above_100 = array_filter_v3(fn($product) => ($product['price'] >= 100), $products);
 echo("\n" . "products with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {
@@ -230,7 +230,7 @@ echo("\n" . "products with price >= 100 only: " . json_encode($products_above_10
 
 echo("\n// using JavaScript-like Array.filter() function \"array_filter_v4\"");
 
-$products_below_100 = array_filter_v4(fn($product) => $product['price'] <= 100, $products);
+$products_below_100 = array_filter_v4(fn($product) => ($product['price'] <= 100), $products);
 echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
 // products with price <= 100 only: [
 //     {
@@ -239,7 +239,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 //     }
 // ]
 
-$products_above_100 = array_filter_v4(fn($product) => $product['price'] >= 100, $products);
+$products_above_100 = array_filter_v4(fn($product) => ($product['price'] >= 100), $products);
 echo("\n" . "products with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {
@@ -258,7 +258,7 @@ echo("\n" . "products with price >= 100 only: " . json_encode($products_above_10
 
 echo("\n// using PHP Array.filter() built-in function \"array_values(array_filter)\"");
 
-$products_below_100 = array_values(array_filter($products, fn($product) => $product['price'] <= 100));
+$products_below_100 = array_values(array_filter($products, fn($product) => ($product['price'] <= 100)));
 echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
 // products with price <= 100 only: [
 //     {
@@ -267,7 +267,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 //     }
 // ]
 
-$products_above_100 = array_values(array_filter($products, fn($product) => $product['price'] >= 100));
+$products_above_100 = array_values(array_filter($products, fn($product) => ($product['price'] >= 100)));
 echo("\n" . "products with price >= 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
 // products with price >= 100 only: [
 //     {

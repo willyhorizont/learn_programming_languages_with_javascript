@@ -10,7 +10,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -126,7 +126,7 @@ numbersEven = arrayFilterV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
 print("even numbers only: \(prettyArrayOfPrimitives(numbersEven))")
 // even numbers only: [12, 34, 36, 4, 254]
@@ -135,7 +135,7 @@ numbersOdd = arrayFilterV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
 print("odd numbers only: \(prettyArrayOfPrimitives(numbersOdd))")
 // odd numbers only: [27, 23, 65, 93, 87]
@@ -146,7 +146,7 @@ numbersEven = arrayFilterV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
 print("even numbers only: \(prettyArrayOfPrimitives(numbersEven))")
 // even numbers only: [12, 34, 36, 4, 254]
@@ -155,7 +155,7 @@ numbersOdd = arrayFilterV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
 print("odd numbers only: \(prettyArrayOfPrimitives(numbersOdd))")
 // odd numbers only: [27, 23, 65, 93, 87]
@@ -166,7 +166,7 @@ numbersEven = numbers.filter {
     guard let result = $0 as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }
 print("even numbers only: \(prettyArrayOfPrimitives(numbersEven))")
 // even numbers only: [12, 34, 36, 4, 254]
@@ -175,12 +175,12 @@ numbersOdd = numbers.filter {
     guard let result = $0 as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }
 print("odd numbers only: \(prettyArrayOfPrimitives(numbersOdd))")
 // odd numbers only: [27, 23, 65, 93, 87]
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -211,7 +211,7 @@ productsBelow100 = arrayFilterV1({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result <= 100
+    return (result <= 100)
 }, products)
 print("products with price <= 100 only: \(prettyJsonStringify(productsBelow100))")
 // products with price <= 100 only: [
@@ -225,7 +225,7 @@ productsAbove100 = arrayFilterV1({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result >= 100
+    return (result >= 100)
 }, products)
 print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
 // products with price >= 100 only: [
@@ -249,7 +249,7 @@ productsBelow100 = arrayFilterV2({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result <= 100
+    return (result <= 100)
 }, products)
 print("products with price <= 100 only: \(prettyJsonStringify(productsBelow100))")
 // products with price <= 100 only: [
@@ -263,7 +263,7 @@ productsAbove100 = arrayFilterV2({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result >= 100
+    return (result >= 100)
 }, products)
 print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
 // products with price >= 100 only: [
@@ -287,7 +287,7 @@ productsBelow100 = products.filter {
     guard let result = $0 as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result <= 100
+    return (result <= 100)
 }
 print("products with price <= 100 only: \(prettyJsonStringify(productsBelow100))")
 // products with price <= 100 only: [
@@ -301,7 +301,7 @@ productsAbove100 = products.filter {
     guard let result = $0 as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return result >= 100
+    return (result >= 100)
 }
 print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
 // products with price >= 100 only: [

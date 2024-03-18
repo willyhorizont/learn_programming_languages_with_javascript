@@ -37,20 +37,6 @@ arrayIncludesV1 <- function(searchElement, anArray) {
     isElementFound <- FALSE
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- (arrayItem == searchElement)
-        if (isConditionMatch == TRUE) {
-            isElementFound <- TRUE
-            break
-        }
-    }
-    return(isElementFound)
-}
-
-arrayIncludesV2 <- function(searchElement, anArray) {
-    # JavaScript-like Array.includes() function
-    isElementFound <- FALSE
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
         if (arrayItem == searchElement) {
             isElementFound <- TRUE
             break
@@ -59,17 +45,7 @@ arrayIncludesV2 <- function(searchElement, anArray) {
     return(isElementFound)
 }
 
-arrayIncludesV3 <- function(searchElement, anArray) {
-    # JavaScript-like Array.includes() function
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- (arrayItem == searchElement)
-        if (isConditionMatch == TRUE) return(TRUE)
-    }
-    return(FALSE)
-}
-
-arrayIncludesV4 <- function(searchElement, anArray) {
+arrayIncludesV2 <- function(searchElement, anArray) {
     # JavaScript-like Array.includes() function
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
@@ -124,49 +100,5 @@ cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ",
 
 aName <- "Ezekiel"
 isMyFriend <- arrayIncludesV2(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Ezekiel": FALSE
-
-cat("# using JavaScript-like Array.includes() function \"arrayIncludesV3\"\n")
-
-aName <- "Alisa"
-isMyFriend <- arrayIncludesV3(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Alisa": TRUE
-
-aName <- "Trivia"
-isMyFriend <- arrayIncludesV3(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Trivia": TRUE
-
-aName <- "Tony"
-isMyFriend <- arrayIncludesV3(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Tony": FALSE
-
-aName <- "Ezekiel"
-isMyFriend <- arrayIncludesV3(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Ezekiel": FALSE
-
-cat("# using JavaScript-like Array.includes() function \"arrayIncludesV4\"\n")
-
-aName <- "Alisa"
-isMyFriend <- arrayIncludesV4(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Alisa": TRUE
-
-aName <- "Trivia"
-isMyFriend <- arrayIncludesV4(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Trivia": TRUE
-
-aName <- "Tony"
-isMyFriend <- arrayIncludesV4(aName, myFriends)
-cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
-# is my friends includes "Tony": FALSE
-
-aName <- "Ezekiel"
-isMyFriend <- arrayIncludesV4(aName, myFriends)
 cat(paste(sep = "", "is my friends includes ", prettyJsonStringify(aName), ": ", isMyFriend, "\n"))
 # is my friends includes "Ezekiel": FALSE

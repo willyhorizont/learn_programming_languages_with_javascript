@@ -1,8 +1,8 @@
 import json
 
-
 # There's no JavaScript-like Array.findIndex() in Python.
 # But, we can create our own function to mimic it in Python.
+
 
 def array_find_index_v1(callback_function, an_array):
     '''JavaScript-like Array.findIndex() function'''
@@ -52,25 +52,25 @@ print(f'number to find: {number_to_find}')
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v1"')
 
-number_found_index = array_find_index_v1(lambda number, *_: number == number_to_find, numbers)
+number_found_index = array_find_index_v1(lambda number, *_: (number == number_to_find), numbers)
 print(f'number found index: {number_found_index}')
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v2"')
 
-number_found_index = array_find_index_v2(lambda number, *_: number == number_to_find, numbers)
+number_found_index = array_find_index_v2(lambda number, *_: (number == number_to_find), numbers)
 print(f'number found index: {number_found_index}')
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v3"')
 
-number_found_index = array_find_index_v3(lambda number, *_: number == number_to_find, numbers)
+number_found_index = array_find_index_v3(lambda number, *_: (number == number_to_find), numbers)
 print(f'number found index: {number_found_index}')
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v4"')
 
-number_found_index = array_find_index_v4(lambda number, *_: number == number_to_find, numbers)
+number_found_index = array_find_index_v4(lambda number, *_: (number == number_to_find), numbers)
 print(f'number found index: {number_found_index}')
 # number found index: 2
 
@@ -101,24 +101,24 @@ print(f'product to find: {product_to_find}')
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v1"')
 
-product_found_index = array_find_index_v1(lambda product, *_: product['code'] == product_to_find, products)
+product_found_index = array_find_index_v1(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found index: {product_found_index}')
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v2"')
 
-product_found_index = array_find_index_v2(lambda product, *_: product['code'] == product_to_find, products)
+product_found_index = array_find_index_v2(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found index: {product_found_index}')
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v3"')
 
-product_found_index = array_find_index_v3(lambda product, *_: product['code'] == product_to_find, products)
+product_found_index = array_find_index_v3(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found index: {product_found_index}')
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v4"')
 
-product_found_index = array_find_index_v4(lambda product, *_: product['code'] == product_to_find, products)
+product_found_index = array_find_index_v4(lambda product, *_: (product['code'] == product_to_find), products)
 print(f'product found index: {product_found_index}')
 # product found index: 0

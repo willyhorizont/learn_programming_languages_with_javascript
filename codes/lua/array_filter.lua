@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -67,26 +67,26 @@ end
 print('\n-- JavaScript-like Array.filter() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.filter() function \"array_filter_v1\"")
 
 numbers_even = array_filter_v1(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even numbers only: ", pretty_array_of_primitives(numbers_even))
+sprint("even numbers only: ", pretty_array_of_primitives(numbers_even))
 -- even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v1(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
+sprint("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
 -- odd numbers only: [27, 23, 65, 93, 87]
 
 print("-- using JavaScript-like Array.filter() function \"array_filter_v2\"")
 
 numbers_even = array_filter_v2(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even numbers only: ", pretty_array_of_primitives(numbers_even))
+sprint("even numbers only: ", pretty_array_of_primitives(numbers_even))
 -- even numbers only: [12, 34, 36, 4, 254]
 
 numbers_odd = array_filter_v2(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
+sprint("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
 -- odd numbers only: [27, 23, 65, 93, 87]
 
 print('\n-- JavaScript-like Array.filter() in JavaScript-like-Array-of-Objects Lua table')
@@ -109,12 +109,12 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.filter() function \"array_filter_v1\"")
 
 products_below_100 = array_filter_v1(function (product) return (product.price <= 100) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(products_below_100))
+sprint("products with price <= 100 only: ", pretty_json_stringify(products_below_100))
 -- products with price <= 100 only: [
 --     {
 --         "code": "potato_chips",
@@ -123,7 +123,7 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(products_belo
 -- ]
 
 products_above_100 = array_filter_v1(function (product) return (product.price >= 100) end, products)
-s_print("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
+sprint("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
 -- products with price >= 100 only: [
 --     {
 --         "code": "pasta",
@@ -142,7 +142,7 @@ s_print("products with price >= 100 only: ", pretty_json_stringify(products_abov
 print("-- using JavaScript-like Array.filter() function \"array_filter_v2\"")
 
 products_below_100 = array_filter_v2(function (product) return (product.price <= 100) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(products_below_100))
+sprint("products with price <= 100 only: ", pretty_json_stringify(products_below_100))
 -- products with price <= 100 only: [
 --     {
 --         "code": "potato_chips",
@@ -151,7 +151,7 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(products_belo
 -- ]
 
 products_above_100 = array_filter_v2(function (product) return (product.price >= 100) end, products)
-s_print("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
+sprint("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
 -- products with price >= 100 only: [
 --     {
 --         "code": "pasta",

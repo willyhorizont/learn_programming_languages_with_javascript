@@ -20,7 +20,7 @@ func prettyJsonStringify(anything any) string {
 	return "undefined"
 }
 
-func ternaryOperator(trueCondition bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
+func ternary(trueCondition bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
 	if (trueCondition == true) {
 		return valueIfConditionIsTrue
 	}
@@ -35,15 +35,15 @@ func main() {
 
 	var myAnswer string
 
-	fmt.Println("// using Ternary Operator function \"ternaryOperator\"")
+	fmt.Println("// using Ternary Operator function \"ternary\"")
 
 	myAnswer = "bar"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
-	fmt.Println("is my answer correct:", ternaryOperator((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+	fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
 	// is my answer correct: wrong!
 
 	myAnswer = "foo"
 	fmt.Println("my answer: \"" + myAnswer + "\"")
-	fmt.Println("is my answer correct:", ternaryOperator((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+	fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
 	// is my answer correct: correct!
 }

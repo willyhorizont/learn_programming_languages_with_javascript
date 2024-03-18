@@ -77,7 +77,7 @@ numbersTotal = arrayReduce({ (currentResult: Any?, currentNumber: Any?, _: Int, 
     }
     return currentResult
 }, numbers, 0.0)
-print("total number: \(numbersTotal ?? "undefined")")
+print("total number: \(numbersTotal ?? "nil")")
 // total number: 41.2
 
 numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
@@ -86,5 +86,5 @@ numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) 
     }
     return currentResult
 }
-print("total number: \(numbersTotal ?? "undefined")")
+print("total number: \(numbersTotal ?? "nil")")
 // total number: 41.2

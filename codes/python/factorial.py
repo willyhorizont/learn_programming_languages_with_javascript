@@ -12,11 +12,11 @@ def factorial_v1(number: int) -> int:
         return 1
     result = 1
     i = number
-    while True:
+    while (True):
         result *= i
-        i -= 1
-        if (i <= 0):
+        if (i <= 1):
             break
+        i -= 1
     return result
 
 
@@ -43,7 +43,7 @@ def factorial_v3(number: int) -> int:
     if (number == 0):
         return 1
     result = 1
-    for i in range(number, 0, -1):
+    for i in range(number, 0, -1):  # (start, stop, step)
         result *= i
     return result
 

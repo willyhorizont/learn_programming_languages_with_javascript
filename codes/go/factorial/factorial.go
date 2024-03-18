@@ -16,10 +16,10 @@ func factorialV1(number int) (int, error) {
 	i := number
 	for (true) {
 		result *= i
-		i -= 1
-		if (i <= 0) {
+		if (i <= 1) {
 			break
 		}
+		i -= 1
 	}
 	return result, nil
 }

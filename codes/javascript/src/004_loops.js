@@ -3,13 +3,13 @@
 let i1 = 1;
 while (true) {
     if (i1 === 2) {
+        if (i1 >= 5) break;
         i1 += 1;
-        if (i1 > 5) break;
         continue;
     }
     console.log(`while loop v1, i1 is ${i1}`);
+    if (i1 >= 5) break;
     i1 += 1;
-    if (i1 > 5) break;
 }
 
 let i2 = 1;

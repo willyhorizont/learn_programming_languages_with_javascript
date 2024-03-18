@@ -1,0 +1,7 @@
+run .m file using Matlab in coderunner:
+"cd \"$dir..\\..\\utils\" && python run_matlab_octave_file.py $dir$fileName && cd \"$dir..\\..\" && matlab -batch \"run('temp.m');\""
+run .m file using GNU Octave in coderunner:
+"cd \"$dir..\\..\\utils\" && python run_matlab_octave_file.py $dir$fileName && cd \"$dir..\\..\" && octave-cli temp.m"
+
+Matlab `strcat` is `cstrcat` in GNU Octave
+Matlab `isstring` is not available in GNU Octave, use `ischar` instead

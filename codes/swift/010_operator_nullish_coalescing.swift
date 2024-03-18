@@ -5,9 +5,6 @@ typealias MyArray = [Any?]
 
 print("\n// JavaScript-like Nullish Coalescing Operator (??) in Swift")
 
-// There's no JavaScript-like Nullish Coalescing Operator (??) in Swift.
-// But, we can use Swift "optional binding" syntax to mimic it in Swift.
-
 func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
     var indentLevel = 0
     func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
@@ -60,6 +57,34 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
     return prettyJsonStringifyInner(anything, indent)
 }
 
+func optionalChaining(_ anything: Any? = nil, _ objectPropertiesArray: Any?...) -> Any? {
+    // JavaScript-like Optional Chaining Operator (?.) function
+    if ((((anything is MyObject) == false) && ((anything is MyArray) == false)) || (objectPropertiesArray.count == 0)) {
+        return anything
+    }
+    return objectPropertiesArray.reduce(nil) { (currentResult: Any?, currentItem: Any?) -> Any? in
+        guard let currentItem = currentItem else {
+            return nil
+        }
+        guard let currentResult = currentResult else {
+            if let anything = anything as? MyObject, let currentItem = currentItem as? String {
+                return anything[currentItem] as Any?
+            }
+            if let anything = anything as? MyArray, let currentItem = currentItem as? Int {
+                return (((currentItem >= 0) && (anything.count > currentItem)) ? anything[currentItem] : nil) as Any?
+            }
+            return nil
+        }
+        if let currentResult = currentResult as? MyObject, let currentItem = currentItem as? String {
+            return currentResult[currentItem] as Any?
+        }
+        if let currentResult = currentResult as? MyArray, let currentItem = currentItem as? Int {
+            return (((currentItem >= 0) && (currentResult.count > currentItem)) ? currentResult[currentItem] : nil) as Any?
+        }
+        return nil
+    }
+}
+
 let JSON_OBJECT: MyObject = [
     "foo": [
         "bar": "baz"
@@ -68,72 +93,102 @@ let JSON_OBJECT: MyObject = [
 ]
 print("JSON_OBJECT: \(prettyJsonStringify(JSON_OBJECT))")
 
-if let result = JSON_OBJECT["foo"] as? MyObject {
-    if let result = result["bar"] {
-        print("JSON_OBJECT?.foo?.bar ?? \"not found\":", (result ?? "not found"))
-    } else {
-        print("JSON_OBJECT?.foo?.bar ?? \"not found\": not found")
-    }
-} else {
-    print("JSON_OBJECT?.foo?.bar ?? \"not found\": not found")
-}
-// JSON_OBJECT?.foo?.bar ?? "not found": baz
+print("// using Swift optional binding syntax \"if let\"")
 
-if let result = JSON_OBJECT["foo"] as? MyObject {
-    if let result = result["baz"] {
-        print("JSON_OBJECT?.foo?.baz ?? \"not found\":", (result ?? "not found"))
-    } else {
-        print("JSON_OBJECT?.foo?.baz ?? \"not found\": not found")
+print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+    if let result = JSON_OBJECT["foo"] as? MyObject {
+        if let result = result["bar"] {
+            if let result = result {
+                return result
+            }
+        }
     }
-} else {
-    print("JSON_OBJECT?.foo?.baz ?? \"not found\": not found")
-}
-// JSON_OBJECT?.foo?.baz ?? "not found": not found
+    return nil
+}() ?? "not found"))
+// JSON_OBJECT?.foo?.bar: baz
 
-print("JSON_OBJECT?.foo?.bar ?? \"not found\":", { () -> Any? in
+print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+    if let result = JSON_OBJECT["foo"] as? MyObject {
+        if let result = result["baz"] {
+            if let result = result {
+                return result
+            }
+        }
+    }
+    return nil
+}() ?? "not found"))
+// JSON_OBJECT?.foo?.baz: "not found"
+
+print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+    if let result = JSON_OBJECT["fruits"] as? MyArray {
+        if let result = ((result.count > 2) ? result[2] : nil) {
+            return result
+        }
+    }
+    return nil
+}() ?? "not found"))
+// JSON_OBJECT?.fruits?.[2]: banana
+
+print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+    if let result = JSON_OBJECT["fruits"] as? MyArray {
+        if let result = ((result.count > 5) ? result[5] : nil) {
+            return result
+        }
+    }
+    return nil
+}() ?? "not found"))
+// JSON_OBJECT?.fruits?.[5]: "not found"
+
+print("// using Swift optional binding syntax \"guard let\"")
+
+print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["bar"] else {
         return nil
     }
     return result
-}() ?? "not found")
-// JSON_OBJECT?.foo?.bar ?? "not found": baz
+}() ?? "not found"))
+// JSON_OBJECT?.foo?.bar: "baz"
 
-print("JSON_OBJECT?.foo?.baz ?? \"not found\":", { () -> Any? in
+print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["baz"] else {
         return nil
     }
     return result
-}() ?? "not found")
-// JSON_OBJECT?.foo?.baz ?? "not found": not found
+}() ?? "not found"))
+// JSON_OBJECT?.foo?.baz: "not found"
 
-if let result = JSON_OBJECT["fruits"] as? MyArray {
-    let result = result.indices.contains(2) ? result[2] : nil
-    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", (result ?? "not found"))
-} else {
-    print("JSON_OBJECT?.fruits?.[2] ?? \"not found\": not found")
-}
-// JSON_OBJECT?.fruits?.[2] ?? "not found": banana
-
-if let result = JSON_OBJECT["fruits"] as? MyArray {
-    let result = result.indices.contains(5) ? result[5] : nil
-    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", (result ?? "not found"))
-} else {
-    print("JSON_OBJECT?.fruits?.[5] ?? \"not found\": not found")
-}
-// JSON_OBJECT?.fruits?.[5] ?? "not found": not found
-
-print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", { () -> Any? in
+print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return (result.indices.contains(2) ? result[2] : nil)
-}() ?? "not found")
-// JSON_OBJECT?.fruits?.[2] ?? "not found": banana
+    guard let result = ((result.count > 2) ? result[2] : nil) else {
+        return nil
+    }
+    return result
+}() ?? "not found"))
+// JSON_OBJECT?.fruits?.[2]: "banana"
 
-print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", { () -> Any? in
+print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
-    return (result.indices.contains(5) ? result[5] : nil)
-}() ?? "not found")
-// JSON_OBJECT?.fruits?.[5] ?? "not found": not found
+    guard let result = ((result.count > 5) ? result[5] : nil) else {
+        return nil
+    }
+    return result
+}() ?? "not found"))
+// JSON_OBJECT?.fruits?.[5]: "not found"
+
+print("// using JavaScript-like Optional Chaining Operator (?.) function \"optionalChaining\"")
+
+print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar") ?? "not found"))
+// JSON_OBJECT?.foo?.bar: "baz"
+
+print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz") ?? "not found"))
+// JSON_OBJECT?.foo?.baz: "not found"
+
+print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2) ?? "not found"))
+// JSON_OBJECT?.fruits?.[2]: "banana"
+
+print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5) ?? "not found"))
+// JSON_OBJECT?.fruits?.[5]: "not found"

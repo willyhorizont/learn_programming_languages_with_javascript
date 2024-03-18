@@ -1,8 +1,8 @@
 Module Program
     Sub Main(Args As String())
         ' Relational Operators / Comparison Operators:
-        ' equal to (=) *checks for equality after performing type coercion. It converts operands to the same type before making the comparison.
-        ' not equal to (<>) *checks for inequality after performing type coercion. It converts operands to the same type before making the comparison.
+        ' equal to (=)
+        ' not equal to (<>)
         ' greater than (>)
         ' less than (<)
         ' greater than or equal to (>=)

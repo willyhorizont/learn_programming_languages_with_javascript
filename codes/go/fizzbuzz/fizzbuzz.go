@@ -14,41 +14,41 @@ func fizzbuzzV1(stopNumber int) (string, error) {
 	for (true) {
 		if (result == "") {
 			result = fmt.Sprint(number)
-			number += 1
-			if (number > stopNumber) {
+			if (number >= stopNumber) {
 				break
 			}
+			number += 1
 			continue
 		}
 		if (((number % 3) == 0) && ((number % 5) == 0)) {
 			result = (result + ", FizzBuzz")
-			number += 1
-			if (number > stopNumber) {
+			if (number >= stopNumber) {
 				break
 			}
+			number += 1
 			continue
 		}
 		if ((number % 3) == 0) {
 			result = (result + ", Fizz")
-			number += 1
-			if (number > stopNumber) {
+			if (number >= stopNumber) {
 				break
 			}
+			number += 1
 			continue
 		}
 		if ((number % 5) == 0) {
 			result = (result + ", Buzz")
-			number += 1
-			if (number > stopNumber) {
+			if (number >= stopNumber) {
 				break
 			}
+			number += 1
 			continue
 		}
 		result = (result + ", " + fmt.Sprint(number))
-		number += 1
-		if (number > stopNumber) {
+		if (number >= stopNumber) {
 			break
 		}
+		number += 1
 	}
 	return result, nil
 }
@@ -104,10 +104,10 @@ func fizzbuzzV3(stopNumber int) (string, error) {
 		} else {
 			result = (result + ", " + fmt.Sprint(number))
 		}
-		number += 1
-		if (number > stopNumber) {
+		if (number >= stopNumber) {
 			break
 		}
+		number += 1
 	}
 	return result, nil
 }

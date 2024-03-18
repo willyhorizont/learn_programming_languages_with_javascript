@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -41,22 +41,22 @@ end
 -- Array in Lua
 
 fruits = {"apple", "mango", "orange"}
-s_print("fruits: ", pretty_array_of_primitives(fruits))
+sprint("fruits: ", pretty_array_of_primitives(fruits))
 
-s_print("fruits, length: ", #fruits)
+sprint("fruits, length: ", #fruits)
 -- fruits, length: 3
 
-s_print("fruits, get mango: ", fruits[2])
+sprint("fruits, get mango: ", fruits[2])
 -- fruits, get mango: mango
 
-s_print("fruits, first element: ", fruits[1])
+sprint("fruits, first element: ", fruits[1])
 -- fruits, first element: apple
 
-s_print("fruits, last element: ", fruits[#fruits])
+sprint("fruits, last element: ", fruits[#fruits])
 -- fruits, last element: orange
 
 for array_item_index, array_item in ipairs(fruits) do
-    s_print("fruits, for for loop, index: ", array_item_index, ", value: ", array_item)
+    sprint("fruits, for for loop, index: ", array_item_index, ", value: ", array_item)
 end
 -- fruits, for for loop, index: 1, value: apple
 -- fruits, for for loop, index: 2, value: mango
@@ -74,12 +74,12 @@ products = {
         name = "bubble gum"
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 for array_item_index, array_item in ipairs(products) do
     iteration_index = 0
     for object_key, object_value in pairs(array_item) do
-        s_print("products, for loop, array item index: ", array_item_index, ", iteration/entry index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
+        sprint("products, for loop, array item index: ", array_item_index, ", iteration/entry index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
         iteration_index = iteration_index + 1
     end
 end

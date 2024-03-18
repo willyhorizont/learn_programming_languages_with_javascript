@@ -10,7 +10,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -151,7 +151,7 @@ numberFoundIndex = arrayFindIndexV1({ (number: Any?, _: Int, _: MyArray) -> Bool
     guard let result = number as? Int else {
         return false
     }
-    return result == numberToFind
+    return (result == numberToFind)
 }, numbers)
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
@@ -162,7 +162,7 @@ numberFoundIndex = arrayFindIndexV2({ (number: Any?, _: Int, _: MyArray) -> Bool
     guard let result = number as? Int else {
         return false
     }
-    return result == numberToFind
+    return (result == numberToFind)
 }, numbers)
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
@@ -173,7 +173,7 @@ numberFoundIndex = arrayFindIndexV3({ (number: Any?, _: Int, _: MyArray) -> Bool
     guard let result = number as? Int else {
         return false
     }
-    return result == numberToFind
+    return (result == numberToFind)
 }, numbers)
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
@@ -184,23 +184,23 @@ numberFoundIndex = arrayFindIndexV4({ (number: Any?, _: Int, _: MyArray) -> Bool
     guard let result = number as? Int else {
         return false
     }
-    return result == numberToFind
+    return (result == numberToFind)
 }, numbers)
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
 
 print("// using Swift Array.findIndex() built-in method \"Array.firstIndex\"")
 
-numberFoundIndex = numbers.firstIndex { (number: Any?) -> Bool in
+numberFoundIndex = (numbers.firstIndex { (number: Any?) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return result == numberToFind
-} ?? -1
+    return (result == numberToFind)
+} ?? -1)
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
 
-print("\n// JavaScript-like Array.findIndex() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.findIndex() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -233,7 +233,7 @@ productFoundIndex = arrayFindIndexV1({ (product: Any?, _: Int, _: MyArray) -> Bo
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found index: \(productFoundIndex)")
 // product found index: 0
@@ -244,7 +244,7 @@ productFoundIndex = arrayFindIndexV2({ (product: Any?, _: Int, _: MyArray) -> Bo
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found index: \(productFoundIndex)")
 // product found index: 0
@@ -255,7 +255,7 @@ productFoundIndex = arrayFindIndexV3({ (product: Any?, _: Int, _: MyArray) -> Bo
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found index: \(productFoundIndex)")
 // product found index: 0
@@ -266,18 +266,18 @@ productFoundIndex = arrayFindIndexV4({ (product: Any?, _: Int, _: MyArray) -> Bo
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found index: \(productFoundIndex)")
 // product found index: 0
 
 print("// using Swift Array.findIndex() built-in method \"Array.firstIndex\"")
 
-productFoundIndex = products.firstIndex { (product: Any?) -> Bool in
+productFoundIndex = (products.firstIndex { (product: Any?) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
-} ?? -1
+    return (result == productToFind)
+} ?? -1)
 print("product found index: \(productFoundIndex)")
 // product found index: 0

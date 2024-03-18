@@ -7,7 +7,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -239,7 +239,7 @@ isAllNumberMoreThan500 = numbers.allSatisfy { (number: Any?) -> Bool in
 print("is all number > 500: \(isAllNumberMoreThan500)")
 // is all number > 500: false
 
-print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.filter() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [

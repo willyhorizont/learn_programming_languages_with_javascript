@@ -2,7 +2,7 @@ print("\n", "# Custom Error and Error Handling in Ruby")
 
 def give_me_respect(parameter)
     # Custom Error
-    raise StandardError.new("You should give me \"respect\"!") if (parameter != "respect")
+    raise StandardError.new("Error: You should give me \"respect\"!") if (parameter != "respect")
     return "Thank you for giving me \"respect\"!"
 end
 
@@ -11,7 +11,7 @@ begin
     response = give_me_respect("boo!")
     print("\n", response)
 rescue StandardError => an_error
-    print("\n", an_error)
+    print("\n", an_error.message)
 end
 print("\n", "I'm sorry!")
 

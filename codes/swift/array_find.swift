@@ -10,7 +10,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -149,18 +149,18 @@ evenNumberFound = arrayFindV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
+print("even number found: \(evenNumberFound ?? "nil")")
 // even number found: 12
 
 oddNumberFound = arrayFindV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
+print("odd number found: \(oddNumberFound ?? "nil")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV2\"")
@@ -169,18 +169,18 @@ evenNumberFound = arrayFindV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
+print("even number found: \(evenNumberFound ?? "nil")")
 // even number found: 12
 
 oddNumberFound = arrayFindV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
+print("odd number found: \(oddNumberFound ?? "nil")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV3\"")
@@ -189,18 +189,18 @@ evenNumberFound = arrayFindV3({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
+print("even number found: \(evenNumberFound ?? "nil")")
 // even number found: 12
 
 oddNumberFound = arrayFindV3({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
+print("odd number found: \(oddNumberFound ?? "nil")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV4\"")
@@ -209,21 +209,21 @@ evenNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) == 0
+    return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "undefined")")
+print("even number found: \(evenNumberFound ?? "nil")")
 // even number found: 12
 
 oddNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = number as? Int else {
         return false
     }
-    return (result % 2) != 0
+    return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "undefined")")
+print("odd number found: \(oddNumberFound ?? "nil")")
 // odd number found: 27
 
-print("\n// JavaScript-like Array.find() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.find() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -256,7 +256,7 @@ productFound = arrayFindV1({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found: \(prettyJsonStringify(productFound))")
 // product found: {
@@ -270,7 +270,7 @@ productFound = arrayFindV2({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found: \(prettyJsonStringify(productFound))")
 // product found: {
@@ -284,7 +284,7 @@ productFound = arrayFindV3({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found: \(prettyJsonStringify(productFound))")
 // product found: {
@@ -298,7 +298,7 @@ productFound = arrayFindV4({ (product: Any?, _: Int, _: MyArray) -> Bool in
     guard let result = product as? MyObject, let result = result["code"] as? String else {
         return false
     }
-    return result == productToFind
+    return (result == productToFind)
 }, products)
 print("product found: \(prettyJsonStringify(productFound))")
 // product found: {

@@ -1,4 +1,4 @@
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -17,16 +17,16 @@ function give_me_respect(parameter)
 end
 
 -- Error Handling
-is_not_error, response_or_error = pcall(give_me_respect, "boo!")
+is_not_error, response_or_error_message = pcall(give_me_respect, "boo!")
 if (is_not_error == true) then
-    print(response_or_error)
+    print(response_or_error_message)
 else
-    s_print(response_or_error)
+    sprint(response_or_error_message)
 end
 print("I'm sorry!")
 
 -- Without Error Handling
 response = give_me_respect("boo!")
 -- this will never executed
-s_print(response)
+sprint(response)
 print("I'm sorry!")

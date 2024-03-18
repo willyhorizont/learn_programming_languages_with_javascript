@@ -3,17 +3,17 @@
 var i1 = 1
 while (true) {
     if (i1 == 2) {
-        i1 += 1
-        if (i1 > 5) {
+        if (i1 >= 5) {
             break
         }
+        i1 += 1
         continue
     }
     print("while loop v1, i1 is \(i1)")
-    i1 += 1
-    if (i1 > 5) {
+    if (i1 >= 5) {
         break
     }
+    i1 += 1
 }
 
 var i2 = 1

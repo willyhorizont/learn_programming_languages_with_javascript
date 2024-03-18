@@ -57,19 +57,6 @@ func arrayIncludesV1(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	isElementFound := false
 	for _, arrayItem := range anArray {
-		isConditionMatch := (arrayItem == searchElement)
-		if (isConditionMatch == true) {
-			isElementFound = true
-			break
-		}
-	}
-	return isElementFound
-}
-
-func arrayIncludesV2(searchElement any, anArray array) bool {
-	// JavaScript-like Array.includes() function
-	isElementFound := false
-	for _, arrayItem := range anArray {
 		if (arrayItem == searchElement) {
 			isElementFound = true
 			break
@@ -78,18 +65,7 @@ func arrayIncludesV2(searchElement any, anArray array) bool {
 	return isElementFound
 }
 
-func arrayIncludesV3(searchElement any, anArray array) bool {
-	// JavaScript-like Array.includes() function
-	for _, arrayItem := range anArray {
-		isConditionMatch := (arrayItem == searchElement)
-		if (isConditionMatch == true) {
-			return true
-		}
-	}
-	return false
-}
-
-func arrayIncludesV4(searchElement any, anArray array) bool {
+func arrayIncludesV2(searchElement any, anArray array) bool {
 	// JavaScript-like Array.includes() function
 	for _, arrayItem := range anArray {
 		if (arrayItem == searchElement) {
@@ -149,50 +125,6 @@ func main() {
 
 	aName = "Ezekiel"
 	isMyFriend = arrayIncludesV2(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Ezekiel": false
-
-	fmt.Println("// using JavaScript-like Array.includes() function \"arrayIncludesV3\"")
-
-	aName = "Alisa"
-	isMyFriend = arrayIncludesV3(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Alisa": true
-
-	aName = "Trivia"
-	isMyFriend = arrayIncludesV3(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Trivia": true
-
-	aName = "Tony"
-	isMyFriend = arrayIncludesV3(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Tony": false
-
-	aName = "Ezekiel"
-	isMyFriend = arrayIncludesV3(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Ezekiel": false
-
-	fmt.Println("// using JavaScript-like Array.includes() function \"arrayIncludesV4\"")
-
-	aName = "Alisa"
-	isMyFriend = arrayIncludesV4(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Alisa": true
-
-	aName = "Trivia"
-	isMyFriend = arrayIncludesV4(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Trivia": true
-
-	aName = "Tony"
-	isMyFriend = arrayIncludesV4(aName, myFriends)
-	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
-	// is my friends includes "Tony": false
-
-	aName = "Ezekiel"
-	isMyFriend = arrayIncludesV4(aName, myFriends)
 	fmt.Println("is my friends includes " + prettyJsonStringify(aName) + ": " + prettyJsonStringify(isMyFriend))
 	// is my friends includes "Ezekiel": false
 }

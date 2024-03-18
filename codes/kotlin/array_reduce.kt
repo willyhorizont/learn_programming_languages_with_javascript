@@ -73,10 +73,8 @@ fun main() {
         val newArray = mutableListOf<Any?>()
         for ((parameterIndex, parameter) in parameters.withIndex()) {
             if (parameter is MutableMap<*, *>) {
-                val currentObject = parameter as MutableMap<String, Any?>
-                val objectKeysLength = currentObject.size
-                if (objectKeysLength == 1) {
-                    for ((objectKey, objectValue) in currentObject) {
+                if ((parameter as MutableMap<String, Any?>).size == 1) {
+                    for ((objectKey, objectValue) in (parameter as MutableMap<String, Any?>)) {
                         newArray.add(objectValue)
                     }
                     continue
@@ -114,7 +112,7 @@ fun main() {
 
     numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
         if (currentResult is Number && currentNumber is Number) {
-            currentResult.toDouble() + currentNumber.toDouble()
+            (currentResult.toDouble() + currentNumber.toDouble())
         } else {
             currentResult
         }
@@ -124,14 +122,14 @@ fun main() {
 
     numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
         when {
-            currentResult is Number && currentNumber is Number -> currentResult.toDouble() + currentNumber.toDouble()
+            currentResult is Number && currentNumber is Number -> (currentResult.toDouble() + currentNumber.toDouble())
             else -> currentResult
         }
     }, numbers, 0.0)
     println("total number: ${numbersTotal}")
     // total number: 41.2
     
-    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }, numbers, 0.0)
+    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> if (currentResult is Number && currentNumber is Number) (currentResult.toDouble() + currentNumber.toDouble()) else currentResult }, numbers, 0.0)
     println("total number: ${numbersTotal}")
     // total number: 41.2
 
@@ -139,7 +137,7 @@ fun main() {
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
         if (currentResult is Number && currentNumber is Number) {
-            currentResult.toDouble() + currentNumber.toDouble()
+            (currentResult.toDouble() + currentNumber.toDouble())
         } else {
             currentResult
         }
@@ -149,14 +147,14 @@ fun main() {
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
         when {
-            currentResult is Number && currentNumber is Number -> currentResult.toDouble() + currentNumber.toDouble()
+            currentResult is Number && currentNumber is Number -> (currentResult.toDouble() + currentNumber.toDouble())
             else -> currentResult // Return currentResult unchanged if types are incompatible
         }
     }
     println("total number: ${numbersTotal}")
     // total number: 41.2
 
-    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> if (currentResult is Number && currentNumber is Number) currentResult.toDouble() + currentNumber.toDouble() else currentResult }
+    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> if (currentResult is Number && currentNumber is Number) (currentResult.toDouble() + currentNumber.toDouble()) else currentResult }
     println("total number: ${numbersTotal}")
     // total number: 41.2
 

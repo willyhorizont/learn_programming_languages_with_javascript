@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -116,28 +116,28 @@ end
 print('\n-- JavaScript-like Spread Syntax (...) in Lua')
 
 fruits = {"Mango", "Melon", "Banana"}
-s_print("fruits: ", pretty_array_of_primitives(fruits))
+sprint("fruits: ", pretty_array_of_primitives(fruits))
 
 vegetables = {"Carrot", "Tomato"}
-s_print("vegetables: ", pretty_array_of_primitives(vegetables))
+sprint("vegetables: ", pretty_array_of_primitives(vegetables))
 
 country_capitals_in_asia = {
     Thailand = "Bangkok",
     China = "Beijing",
     Japan = "Tokyo"
 }
-s_print("country_capitals_in_asia: ", pretty_json_stringify(country_capitals_in_asia))
+sprint("country_capitals_in_asia: ", pretty_json_stringify(country_capitals_in_asia))
 
 country_capitals_in_europe = {
     France = "Paris",
     England = "London"
 }
-s_print("country_capitals_in_europe: ", pretty_json_stringify(country_capitals_in_europe))
+sprint("country_capitals_in_europe: ", pretty_json_stringify(country_capitals_in_europe))
 
 print("\n-- [...array1, ...array2]:\n")
 
 combination1 = spread_syntax_array(fruits, vegetables)
-s_print("combination1: ", pretty_json_stringify(combination1))
+sprint("combination1: ", pretty_json_stringify(combination1))
 -- combination1: [
 --     "Mango",
 --     "Melon",
@@ -146,20 +146,20 @@ s_print("combination1: ", pretty_json_stringify(combination1))
 --     "Tomato"
 -- ]
 
-combination2 = spread_syntax_array(fruits, {"Cucumber", "Onion"})
-s_print("combination2: ", pretty_json_stringify(combination2))
+combination2 = spread_syntax_array(fruits, {"Cucumber", "Cabbage"})
+sprint("combination2: ", pretty_json_stringify(combination2))
 -- combination2: [
 --     "Mango",
 --     "Melon",
 --     "Banana",
 --     "Cucumber",
---     "Onion"
+--     "Cabbage"
 -- ]
 
 print("\n-- { ...object1, ...object2 }:\n")
 
 combination3 = spread_syntax_object(country_capitals_in_asia, country_capitals_in_europe)
-s_print("combination3: ", pretty_json_stringify(combination3))
+sprint("combination3: ", pretty_json_stringify(combination3))
 -- combination3: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -169,7 +169,7 @@ s_print("combination3: ", pretty_json_stringify(combination3))
 -- }
 
 combination4 = spread_syntax_object(country_capitals_in_asia, { Germany = "Berlin", Italy = "Rome" })
-s_print("combination4: ", pretty_json_stringify(combination4))
+sprint("combination4: ", pretty_json_stringify(combination4))
 -- combination4: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -181,7 +181,7 @@ s_print("combination4: ", pretty_json_stringify(combination4))
 print("\n-- [...array1, array2]:\n")
 
 combination5 = spread_syntax_array(fruits, { vegetables = vegetables })
-s_print("combination5: ", pretty_json_stringify(combination5))
+sprint("combination5: ", pretty_json_stringify(combination5))
 -- combination5: [
 --     "Mango",
 --     "Melon",
@@ -192,22 +192,22 @@ s_print("combination5: ", pretty_json_stringify(combination5))
 --     ]
 -- ]
 
-combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Onion"} })
-s_print("combination6: ", pretty_json_stringify(combination6))
+combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Cabbage"} })
+sprint("combination6: ", pretty_json_stringify(combination6))
 -- combination6: [
 --     "Mango",
 --     "Melon",
 --     "Banana",
 --     [
 --         "Cucumber",
---         "Onion"
+--         "Cabbage"
 --     ]
 -- ]
 
 print("\n-- [...array1, object1]:\n")
 
 combination7 = spread_syntax_array(fruits, { country_capitals_in_asia = country_capitals_in_asia })
-s_print("combination7: ", pretty_json_stringify(combination7))
+sprint("combination7: ", pretty_json_stringify(combination7))
 -- combination7: [
 --     "Mango",
 --     "Melon",
@@ -220,7 +220,7 @@ s_print("combination7: ", pretty_json_stringify(combination7))
 -- ]
 
 combination8 = spread_syntax_array(fruits, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
-s_print("combination8: ", pretty_json_stringify(combination8))
+sprint("combination8: ", pretty_json_stringify(combination8))
 -- combination8: [
 --     "Mango",
 --     "Melon",
@@ -234,7 +234,7 @@ s_print("combination8: ", pretty_json_stringify(combination8))
 print("\n-- { ...object1, object2 }:\n")
 
 combination9 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = country_capitals_in_europe })
-s_print("combination9: ", pretty_json_stringify(combination9))
+sprint("combination9: ", pretty_json_stringify(combination9))
 -- combination9: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
@@ -246,7 +246,7 @@ s_print("combination9: ", pretty_json_stringify(combination9))
 --  }
 
 combination10 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
-s_print("combination10: ", pretty_json_stringify(combination10))
+sprint("combination10: ", pretty_json_stringify(combination10))
 -- combination10: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -260,7 +260,7 @@ s_print("combination10: ", pretty_json_stringify(combination10))
 print("\n-- { ...object1, array2 }:\n")
 
 combination11 = spread_syntax_object(country_capitals_in_asia, { vegetables = vegetables })
-s_print("combination11: ", pretty_json_stringify(combination11))
+sprint("combination11: ", pretty_json_stringify(combination11))
 -- combination11: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -271,22 +271,22 @@ s_print("combination11: ", pretty_json_stringify(combination11))
 --     ]
 -- }
 
-combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Onion"} })
-s_print("combination12: ", pretty_json_stringify(combination12))
+combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Cabbage"} })
+sprint("combination12: ", pretty_json_stringify(combination12))
 -- combination12: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
 --     "Japan": "Tokyo",
 --     "vegetables": [
 --         "Cucumber",
---         "Onion"
+--         "Cabbage"
 --     ]
 -- }
 
 print("\n-- { ...object1, ...array2 }:\n")
 
 combination13 = spread_syntax_object(country_capitals_in_asia, vegetables)
-s_print("combination13: ", pretty_json_stringify(combination13))
+sprint("combination13: ", pretty_json_stringify(combination13))
 -- combination13: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
@@ -295,22 +295,22 @@ s_print("combination13: ", pretty_json_stringify(combination13))
 --     "2" : "Tomato"
 --  }
 
-combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Onion"})
-s_print("combination14: ", pretty_json_stringify(combination14))
+combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Cabbage"})
+sprint("combination14: ", pretty_json_stringify(combination14))
 -- combination14: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
 --     "Japan" : "Tokyo",
 --     "1" : "Cucumber",
---     "2" : "Onion"
+--     "2" : "Cabbage"
 --  }
 
 -- print("\n-- [...array1, ...object1]: -- this combination throw an error in JavaScript\n")
 
 -- this combination throw an error in JavaScript
 -- combination_error_in_javascript1 = spread_syntax_array(fruits, country_capitals_in_asia)
--- s_print("combination_error_in_javascript1: ", pretty_json_stringify(combination_error_in_javascript1))
+-- sprint("combination_error_in_javascript1: ", pretty_json_stringify(combination_error_in_javascript1))
 
 -- this combination throw an error in JavaScript
 -- combination_error_in_javascript2 = spread_syntax_array(fruits, { Germany = "Berlin", Italy = "Rome" })
--- s_print("combination_error_in_javascript2: ", pretty_json_stringify(combination_error_in_javascript2))
+-- sprint("combination_error_in_javascript2: ", pretty_json_stringify(combination_error_in_javascript2))

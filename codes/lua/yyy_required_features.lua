@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -32,17 +32,17 @@ function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'et
     ```
 ]]
 something = "foo"
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 something = 123
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 something = true
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 something = nil
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 something = {1, 2, 3}
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 something = { foo = "bar" }
-s_print("something: ", pretty_json_stringify(something))
+sprint("something: ", pretty_json_stringify(something))
 
 --[[
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -84,17 +84,17 @@ function get_modified_indent_level()
     end
     return change_indent_level()
 end
-s_print("get_modified_indent_level(): ", get_modified_indent_level())
+sprint("get_modified_indent_level(): ", get_modified_indent_level())
 function create_new_game(initial_credit)
     local current_credit = initial_credit
-    s_print("initial credit: ", initial_credit)
+    sprint("initial credit: ", initial_credit)
     return function ()
         current_credit = current_credit - 1
         if (current_credit == 0) then
-            s_print("not enough credits")
+            sprint("not enough credits")
             return
         end
-        s_print("playing game, ", current_credit, " credit(s) remaining")
+        sprint("playing game, ", current_credit, " credit(s) remaining")
     end
 end
 play_game = create_new_game(3)
@@ -128,7 +128,7 @@ my_object = {
     },
     my_array = {1, 2, 3}
 }
-s_print("my_object: ", pretty_json_stringify(my_object))
+sprint("my_object: ", pretty_json_stringify(my_object))
 
 --[[
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -138,7 +138,7 @@ s_print("my_object: ", pretty_json_stringify(my_object))
     ```
 ]]
 my_array = {"foo", 123, true, nil, {1, 2, 3}, { foo = "bar" }}
-s_print("my_array: ", pretty_json_stringify(my_array))
+sprint("my_array: ", pretty_json_stringify(my_array))
 
 --[[
     5. support passing functions as arguments to other functions
@@ -188,7 +188,7 @@ function multiply(a)
 end
 multiply_by2 = multiply(2)
 multiply_by2_result = multiply_by2(10)
-s_print("multiply_by2_result: ", multiply_by2_result)
+sprint("multiply_by2_result: ", multiply_by2_result)
 
 --[[
     7. support assigning functions to variables
@@ -197,22 +197,18 @@ s_print("multiply_by2_result: ", multiply_by2_result)
         return (rectangleWidth * rectangleLength);
     };
     console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
-    const getRectangleAreaV2 = function (rectangleWidth, rectangleLength) {
+    const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
         return (rectangleWidth * rectangleLength);
     };
     console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
-    const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => {
-        return (rectangleWidth * rectangleLength);
-    };
+    const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
     console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
-    const getRectangleAreaV4 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-    console.log("getRectangleAreaV4(7, 5):", getRectangleAreaV4(7, 5));
     ```
 ]]
 get_rectangle_area = function(rectangle_width, rectangle_length)
     return (rectangle_width * rectangle_length)
 end
-s_print("get_rectangle_area(7, 5): ", get_rectangle_area(7, 5))
+sprint("get_rectangle_area(7, 5): ", get_rectangle_area(7, 5))
 
 --[[
     8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -257,7 +253,7 @@ my_array2 = {
     {1, 2, 3},
     { foo = "bar" }
 }
-s_print("myArray2[0](7, 5): ", my_array2[1](7, 5))
+sprint("myArray2[0](7, 5): ", my_array2[1](7, 5))
 
 my_object2 = {
     my_function = function(a, b)
@@ -272,4 +268,4 @@ my_object2 = {
     },
     my_array = {1, 2, 3}
 }
-s_print("myObject2[\"my_function\"](7, 5): ", my_object2["my_function"](7, 5))
+sprint("myObject2[\"my_function\"](7, 5): ", my_object2["my_function"](7, 5))

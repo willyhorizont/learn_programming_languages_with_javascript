@@ -115,11 +115,11 @@ println("is any number > 500: ", is_any_number_more_than_500)
 
 println("# using Julia Array.some() built-in function \"any\"")
 
-is_any_number_less_than_500 = any([number < 500 for number in numbers])
+is_any_number_less_than_500 = any([(number < 500) for number in numbers])
 println("is any number < 500: ", is_any_number_less_than_500)
 # is any number < 500: true
 
-is_any_number_more_than_500 = any([number > 500 for number in numbers])
+is_any_number_more_than_500 = any([(number > 500) for number in numbers])
 println("is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 

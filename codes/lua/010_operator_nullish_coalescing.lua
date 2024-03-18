@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -24,18 +24,18 @@ JSON_OBJECT = {
     },
     fruits = {"apple", "mango", "banana"}
 }
-s_print("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
+sprint("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
 
 print("-- using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
 
-s_print("(JSON_OBJECT?.foo?.bar ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["bar"], "not found")))
+sprint("(JSON_OBJECT?.foo?.bar ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["bar"], "not found")))
 -- (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"
 
-s_print("(JSON_OBJECT?.foo?.baz ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["baz"], "not found")))
+sprint("(JSON_OBJECT?.foo?.baz ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["baz"], "not found")))
 -- (JSON_OBJECT?.foo?.baz ?? "not found"): "not found"
 
-s_print("(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][2], "not found")))
+sprint("(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][2], "not found")))
 -- (JSON_OBJECT?.fruits?.[2] ?? "not found"): "mango"
 
-s_print("(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][5], "not found")))
+sprint("(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][5], "not found")))
 -- (JSON_OBJECT?.fruits?.[5] ?? "not found"): "not found"

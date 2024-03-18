@@ -1,10 +1,12 @@
+use JSON::Fast;
+
 # initialization v1
 my %friend1 = %(
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 );
-# print("friend1: ", pretty_json_stringify(\%friend1));
+print("friend1: ", to-json(%friend1, :spacing(4)), "\n");
 
 print("friend1, get country: {%friend1{"country"}}\n");
 # friend1, get country: Finland

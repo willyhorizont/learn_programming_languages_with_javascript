@@ -146,7 +146,7 @@ print(f'products: {json.dumps(products, indent=4)}')
 
 print('# using JavaScript-like Array.filter() function "array_filter_v1"')
 
-products_below_100 = array_filter_v1(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v1(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -155,7 +155,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v1(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v1(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -174,7 +174,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using JavaScript-like Array.filter() function "array_filter_v2"')
 
-products_below_100 = array_filter_v2(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v2(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -183,7 +183,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v2(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v2(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -202,7 +202,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using JavaScript-like Array.filter() function "array_filter_v3"')
 
-products_below_100 = array_filter_v3(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v3(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -211,7 +211,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v3(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v3(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -230,7 +230,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using JavaScript-like Array.filter() function "array_filter_v4"')
 
-products_below_100 = array_filter_v4(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v4(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -239,7 +239,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v4(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v4(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -258,7 +258,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using JavaScript-like Array.filter() function "array_filter_v5"')
 
-products_below_100 = array_filter_v5(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v5(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -267,7 +267,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v5(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v5(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -286,7 +286,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using JavaScript-like Array.filter() function "array_filter_v6"')
 
-products_below_100 = array_filter_v6(lambda product, *_: product['price'] <= 100, products)
+products_below_100 = array_filter_v6(lambda product, *_: (product['price'] <= 100), products)
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -295,7 +295,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = array_filter_v6(lambda product, *_: product['price'] >= 100, products)
+products_above_100 = array_filter_v6(lambda product, *_: (product['price'] >= 100), products)
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {
@@ -314,7 +314,7 @@ print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=
 
 print('# using Python Array.filter() built-in function "filter", the "pythonic" way')
 
-products_below_100 = list(filter(lambda product: product['price'] <= 100, products))
+products_below_100 = list(filter(lambda product: (product['price'] <= 100), products))
 print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=4)}')
 # products with price <= 100 only: [
 #     {
@@ -323,7 +323,7 @@ print(f'products with price <= 100 only: {json.dumps(products_below_100, indent=
 #     }
 # ]
 
-products_above_100 = list(filter(lambda product: product['price'] >= 100, products))
+products_above_100 = list(filter(lambda product: (product['price'] >= 100), products))
 print(f'products with price >= 100 only: {json.dumps(products_above_100, indent=4)}')
 # products with price >= 100 only: [
 #     {

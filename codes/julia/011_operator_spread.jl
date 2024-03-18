@@ -64,14 +64,14 @@ println("combination1: ", chomp(JSON.json(combination1, 4)))
 #     "Tomato"
 # ]
 
-combination2 = [fruits..., ["Cucumber", "Onion"]...]
+combination2 = [fruits..., ["Cucumber", "Cabbage"]...]
 println("combination2: ", chomp(JSON.json(combination2, 4)))
 # combination2: [
 #     "Mango",
 #     "Melon",
 #     "Banana",
 #     "Cucumber",
-#     "Onion"
+#     "Cabbage"
 # ]
 
 println("# { ...object1, ...object2 }:\n")
@@ -110,7 +110,7 @@ println("combination5: ", chomp(JSON.json(combination5, 4)))
 #     ]
 # ]
 
-combination6 = [fruits..., ["Cucumber", "Onion"]]
+combination6 = [fruits..., ["Cucumber", "Cabbage"]]
 println("combination6: ", chomp(JSON.json(combination6, 4)))
 # combination6: [
 #     "Mango",
@@ -118,7 +118,7 @@ println("combination6: ", chomp(JSON.json(combination6, 4)))
 #     "Banana",
 #     [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # ]
 
@@ -189,7 +189,7 @@ println("combination11: ", chomp(JSON.json(combination11, 4)))
 #     ]
 # }
 
-combination12 = Dict(country_capitals_in_asia..., "vegetables" => ["Cucumber", "Onion"])
+combination12 = Dict(country_capitals_in_asia..., "vegetables" => ["Cucumber", "Cabbage"])
 println("combination12: ", chomp(JSON.json(combination12, 4)))
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -197,7 +197,7 @@ println("combination12: ", chomp(JSON.json(combination12, 4)))
 #     "Japan": "Tokyo",
 #     "vegetables": [
 #         "Cucumber",
-#         "Onion"
+#         "Cabbage"
 #     ]
 # }
 
@@ -213,14 +213,14 @@ println("combination13: ", chomp(JSON.json(combination13, 4)))
 #    "2" : "Tomato"
 # }
 
-combination14 = Dict(country_capitals_in_asia..., array_to_object(["Cucumber", "Onion"])...)
+combination14 = Dict(country_capitals_in_asia..., array_to_object(["Cucumber", "Cabbage"])...)
 println("combination14: ", chomp(JSON.json(combination14, 4)))
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
 #    "1" : "Cucumber",
-#    "2" : "Onion"
+#    "2" : "Cabbage"
 # }
 
 # println("# [...array1, ...object1]: // this combination throw an error in JavaScript\n")

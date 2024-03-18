@@ -1,0 +1,2 @@
+cd $dir && matlab -nodisplay -nosplash -nodesktop -r \"run('$fileName');\"
+cd \"$dir..\\..\\utils\" && python run_matlab_octave_file.py $fileName && cd $dir && matlab -nodisplay -nosplash -nodesktop -r \"run('temp.m');\"

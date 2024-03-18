@@ -10,31 +10,31 @@ fun main() {
         while (true) {
             if (result == "") {
                 result = "${number}"
+                if (number >= stopNumber) break
                 number += 1
-                if (number > stopNumber) break
                 continue
             }
             if (((number % 3) == 0) && ((number % 5) == 0)) {
                 result = "${result}, FizzBuzz"
+                if (number >= stopNumber) break
                 number += 1
-                if (number > stopNumber) break
                 continue
             }
             if ((number % 3) == 0) {
                 result = "${result}, Fizz"
+                if (number >= stopNumber) break
                 number += 1
-                if (number > stopNumber) break
                 continue
             }
             if ((number % 5) == 0) {
                 result = "${result}, Buzz"
+                if (number >= stopNumber) break
                 number += 1
-                if (number > stopNumber) break
                 continue
             }
             result = "${result}, ${number}"
+            if (number >= stopNumber) break
             number += 1
-            if (number > stopNumber) break
         }
         return result
     }
@@ -86,8 +86,8 @@ fun main() {
             } else {
                 result = "${result}, ${number}"
             }
+            if (number >= stopNumber) break
             number += 1
-            if (number > stopNumber) break
         }
         return result
     }
@@ -119,8 +119,8 @@ fun main() {
         var number = 1
         while (true) {
             result = if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}"
+            if (number >= stopNumber) break
             number += 1
-            if (number > stopNumber) break
         }
         return result
     }

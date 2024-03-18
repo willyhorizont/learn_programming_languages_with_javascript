@@ -5,13 +5,13 @@
 $i = 1;
 while (true) {
     if ($i === 2) {
+        if ($i >= 5) break;
         $i += 1;
-        if ($i > 5) break;
         continue;
     }
     echo("\n" . "while loop v1, i is " . $i);
+    if ($i >= 5) break;
     $i += 1;
-    if ($i > 5) break;
 }
 
 $i = 1;

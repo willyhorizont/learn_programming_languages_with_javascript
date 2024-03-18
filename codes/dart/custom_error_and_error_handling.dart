@@ -12,8 +12,8 @@ void main() {
 	try {
 		response = giveMeRespect("boo!");
 		print(response);
-	} catch (anException) {
-		print(anException);
+	} catch (anErrorMessage) {
+		print(anErrorMessage);
 	}
 	print("I'm sorry!");
 

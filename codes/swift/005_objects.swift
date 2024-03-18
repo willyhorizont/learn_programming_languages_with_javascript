@@ -62,27 +62,30 @@ let friend: MyObject = [
 ]
 print("friend: \(prettyJsonStringify(friend))")
 
-print("friend, get country: \((friend["country"] ?? "undefined") ?? "undefined")")
+print("friend, get country: \((friend["country"] ?? "nil") ?? "nil")")
 // friend, get country: Finland
 
-// this is called optional binding
-if let result = friend["country"] {
-    print("friend, get country: \(result ?? "undefined")")
-    // friend, get country: Finland
-}
+print("friend, get country:", prettyJsonStringify({ () -> Any? in
+    // this is called optional binding
+    if let result = friend["country"] {
+        return result
+    }
+    return nil
+}()))
+// friend, get country: Finland
 
-print("friend, get country:", { () -> Any in
+print("friend, get country:", prettyJsonStringify({ () -> Any? in
     // this is called optional binding
     guard let result = friend["country"], let result = result else {
-        return "undefined"
+        return nil
     }
     return result
-}())
+}()))
 // friend, get country: Finland
 
 // iterate over and get each key-value pair
 for (objectKey, objectValue) in friend {
-    print("friend, for loop, key: \(objectKey), value: \(objectValue ?? "undefined")")
+    print("friend, for loop, key: \(objectKey), value: \(objectValue ?? "nil")")
 }
 // friend, for loop, key: name, value: Alisa
 // friend, for loop, key: country, value: Finland
@@ -90,7 +93,7 @@ for (objectKey, objectValue) in friend {
 
 // iterate over and get each key-value pair and iteration/entry index
 for (entryIndex, (objectKey, objectValue)) in friend.enumerated() {
-    print("friend, for loop, iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "undefined")")
+    print("friend, for loop, iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "nil")")
 }
 // friend, for loop, iteration/entry index: 0, key: name, value: Alisa
 // friend, for loop, iteration/entry index: 1, key: country, value: Finland

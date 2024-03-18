@@ -7,7 +7,7 @@ func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
     var result = "["
     for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
         guard let arrayItem = arrayItem else {
-            result += "undefined"
+            result += "nil"
             if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
                 result += ", "
             }
@@ -144,7 +144,7 @@ numbersLabeled = arrayMapV1({ (number: Any?, _: Int, _: MyArray) -> Any? in
         return nil
     }
     return [
-        String(result): (result % 2) == 0 ? "even" : "odd"
+        String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }, numbers)
 print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
@@ -188,7 +188,7 @@ numbersLabeled = arrayMapV2({ (number: Any?, _: Int, _: MyArray) -> Any? in
         return nil
     }
     return [
-        String(result): (result % 2) == 0 ? "even" : "odd"
+        String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }, numbers)
 print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
@@ -232,7 +232,7 @@ numbersLabeled = numbers.map { (number: Any?) -> Any? in
         return nil
     }
     return [
-        String(result): (result % 2) == 0 ? "even" : "odd"
+        String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }
 print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
@@ -269,7 +269,7 @@ print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
 //     }
 // ]
 
-print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Dictionaries)")
+print("\n// JavaScript-like Array.map() in Swift [[String, Any?]] (Array of Objects)")
 
 let products: MyArray = [
     [
@@ -299,7 +299,7 @@ productsLabeled = arrayMapV1({ (product: Any?, _: Int, _: MyArray) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": result > 100 ? "expensive" : "cheap"] as MyObject)
+    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }, products)
 print("labeled products: \(prettyJsonStringify(productsLabeled))")
 // labeled products: [
@@ -331,7 +331,7 @@ productsLabeled = arrayMapV2({ (product: Any?, _: Int, _: MyArray) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": result > 100 ? "expensive" : "cheap"] as MyObject)
+    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }, products)
 print("labeled products: \(prettyJsonStringify(productsLabeled))")
 // labeled products: [
@@ -363,7 +363,7 @@ productsLabeled = products.map { (product: Any?) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": result > 100 ? "expensive" : "cheap"] as MyObject)
+    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }
 print("labeled products: \(prettyJsonStringify(productsLabeled))")
 // labeled products: [

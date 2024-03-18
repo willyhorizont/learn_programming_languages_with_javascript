@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -89,46 +89,46 @@ end
 print("\n-- JavaScript-like Array.every() in JavaScript-like-Array Lua table")
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.every() function \"array_every_v1\"")
 
 is_all_number_less_than_500 = array_every_v1(function (number) return (number < 500) end, numbers)
-s_print("is all number < 500: ", is_all_number_less_than_500)
+sprint("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
 is_all_number_more_than_500 = array_every_v1(function (number) return (number > 500) end, numbers)
-s_print("is all number > 500: ", is_all_number_more_than_500)
+sprint("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v2\"")
 
 is_all_number_less_than_500 = array_every_v2(function (number) return (number < 500) end, numbers)
-s_print("is all number < 500: ", is_all_number_less_than_500)
+sprint("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
 is_all_number_more_than_500 = array_every_v2(function (number) return (number > 500) end, numbers)
-s_print("is all number > 500: ", is_all_number_more_than_500)
+sprint("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v3\"")
 
 is_all_number_less_than_500 = array_every_v3(function (number) return (number < 500) end, numbers)
-s_print("is all number < 500: ", is_all_number_less_than_500)
+sprint("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
 is_all_number_more_than_500 = array_every_v3(function (number) return (number > 500) end, numbers)
-s_print("is all number > 500: ", is_all_number_more_than_500)
+sprint("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v4\"")
 
 is_all_number_less_than_500 = array_every_v4(function (number) return (number < 500) end, numbers)
-s_print("is all number < 500: ", is_all_number_less_than_500)
+sprint("is all number < 500: ", is_all_number_less_than_500)
 -- is all number < 500: true
 
 is_all_number_more_than_500 = array_every_v4(function (number) return (number > 500) end, numbers)
-s_print("is all number > 500: ", is_all_number_more_than_500)
+sprint("is all number > 500: ", is_all_number_more_than_500)
 -- is all number > 500: false
 
 print("\n-- JavaScript-like Array.every() in JavaScript-like-Array-of-Objects Lua table")
@@ -151,44 +151,44 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.every() function \"array_every_v1\"")
 
 is_all_product_price_less_than_500 = array_every_v1(function (product) return (product.price < 500) end, products)
-s_print("is all product price < 500: ", is_all_product_price_less_than_500)
+sprint("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
 is_all_product_price_more_than_500 = array_every_v1(function (product) return (product.price > 500) end, products)
-s_print("is all product price > 500: ", is_all_product_price_more_than_500)
+sprint("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v2\"")
 
 is_all_product_price_less_than_500 = array_every_v2(function (product) return (product.price < 500) end, products)
-s_print("is all product price < 500: ", is_all_product_price_less_than_500)
+sprint("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
 is_all_product_price_more_than_500 = array_every_v2(function (product) return (product.price > 500) end, products)
-s_print("is all product price > 500: ", is_all_product_price_more_than_500)
+sprint("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v3\"")
 
 is_all_product_price_less_than_500 = array_every_v3(function (product) return (product.price < 500) end, products)
-s_print("is all product price < 500: ", is_all_product_price_less_than_500)
+sprint("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
 is_all_product_price_more_than_500 = array_every_v3(function (product) return (product.price > 500) end, products)
-s_print("is all product price > 500: ", is_all_product_price_more_than_500)
+sprint("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false
 
 print("-- using JavaScript-like Array.every() function \"array_every_v4\"")
 
 is_all_product_price_less_than_500 = array_every_v4(function (product) return (product.price < 500) end, products)
-s_print("is all product price < 500: ", is_all_product_price_less_than_500)
+sprint("is all product price < 500: ", is_all_product_price_less_than_500)
 -- is all product price < 500: true
 
 is_all_product_price_more_than_500 = array_every_v4(function (product) return (product.price > 500) end, products)
-s_print("is all product price > 500: ", is_all_product_price_more_than_500)
+sprint("is all product price > 500: ", is_all_product_price_more_than_500)
 -- is all product price > 500: false

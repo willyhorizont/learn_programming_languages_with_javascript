@@ -17,13 +17,13 @@ print(f'numbers: {json.dumps(numbers)}')
 
 print('# using JavaScript-like Array.map() function "array_reduce"')
 
-numbers_total = array_reduce(lambda current_result, current_number, *_: current_result + current_number, numbers, 0)
+numbers_total = array_reduce(lambda current_result, current_number, *_: (current_result + current_number), numbers, 0)
 print(f'total number: {numbers_total}')
 # total number: 41.2
 
 print('# using Python Array.map() built-in function "functools.reduce"')
 
-numbers_total = reduce(lambda current_result, current_number: current_result + current_number, numbers, 0)
+numbers_total = reduce(lambda current_result, current_number: (current_result + current_number), numbers, 0)
 print(f'total number: {numbers_total}')
 # total number: 41.2
 

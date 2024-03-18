@@ -17,3 +17,5 @@ most popular naming convention is kebab-case but I prefer snake_case/camelCase b
 get type:
 my $stuff = "bag";
 print("\$Stuff type is {$stuff.^name}\n");
+
+zef install JSON::Fast

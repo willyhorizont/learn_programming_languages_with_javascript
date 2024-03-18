@@ -5,7 +5,7 @@ fun main() {
 
     fun giveMeRespect(parameter: String): String {
         // Custom Error
-        if (parameter != "respect") throw Exception("You should give me \"respect\"!")
+        if (parameter != "respect") throw Exception("Exception: You should give me \"respect\"!")
         return "Thank you for giving me \"respect\"!"
     }
 
@@ -16,7 +16,7 @@ fun main() {
         response = giveMeRespect("boo!")
         println(response)
     } catch(anException: Exception) {
-        println(anException)
+        println(anException.message)
     }
     println("I'm sorry!")
 

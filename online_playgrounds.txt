@@ -6,6 +6,7 @@ JAVASCRIPT:
     https://www.tutorialspoint.com/execute_nodejs_online.php
     https://www.tutorialspoint.com/online_javascript_editor.php
     https://ide.geeksforgeeks.org/online-nodejs-compiler
+    https://www.w3schools.com/js/tryit.asp?filename=tryjs_editor
     https://www.mycompiler.io/new/nodejs
     https://paiza.io/en/projects/new?language=javascript
     https://domsignal.com/javascript-online-compiler
@@ -14,11 +15,13 @@ JAVASCRIPT:
     https://ideone.com/l/node-js
     https://coderpad.io/languages/javascript/
     https://www.adaface.com/online-compiler/online-javascript-compiler
+    https://nextleap.app/online-compiler/javascript-programming
 PYTHON:
     https://www.programiz.com/python-programming/online-compiler/#google_vignette
     https://onecompiler.com/python
     https://www.jdoodle.com/python3-programming-online
     https://www.tutorialspoint.com/python/online-python-compiler.php
+    https://www.w3schools.com/python/trypython.asp?filename=demo_compiler
     https://ide.geeksforgeeks.org/online-python3-compiler
     https://www.mycompiler.io/new/python
     https://paiza.io/en/projects/new?language=python3
@@ -27,12 +30,15 @@ PYTHON:
     https://ideone.com/l/python-3
     https://coderpad.io/languages/python-3/
     https://www.adaface.com/online-compiler/online-python-compiler
+    https://www.onlinegdb.com/online_python_compiler
+    https://nextleap.app/online-compiler/python-programming
 PHP:
     https://www.programiz.com/php/online-compiler/
     https://onecompiler.com/php
     https://www.jdoodle.com/php-online-editor/
     https://www.tutorialspoint.com/execute_php_online.php
     https://ide.geeksforgeeks.org/online-php-compiler
+    https://www.w3schools.com/php/phptryit.asp?filename=tryphp_compiler
     https://www.mycompiler.io/new/php
     https://paiza.io/en/projects/new?language=php
     https://domsignal.com/php-online-compiler
@@ -41,6 +47,7 @@ PHP:
     https://ideone.com/l/php
     https://coderpad.io/languages/php/
     https://www.adaface.com/online-compiler/online-php-compiler
+    https://www.onlinegdb.com/online_php_interpreter
 GO:
     https://go.dev/play/
     https://www.programiz.com/golang/online-compiler/
@@ -48,12 +55,15 @@ GO:
     https://www.jdoodle.com/execute-go-online
     https://www.tutorialspoint.com/execute_golang_online.php
     https://ide.geeksforgeeks.org/online-golang-compiler
+    https://www.w3schools.com/go/trygo.php?filename=demo_helloworld
     https://www.mycompiler.io/new/go
     https://paiza.io/en/projects/new?language=go
     https://domsignal.com/go-online-compiler
     https://ideone.com/l/go
     https://coderpad.io/languages/go/
     https://www.adaface.com/online-compiler/online-go-compiler
+    https://www.onlinegdb.com/online_go_compiler
+    https://nextleap.app/online-compiler/go-programming
 PERL:
     https://onecompiler.com/perl
     https://www.jdoodle.com/execute-perl-online/
@@ -65,6 +75,7 @@ PERL:
     https://ideone.com/l/perl
     https://coderpad.io/languages/perl/
     https://www.adaface.com/online-compiler/online-perl-compiler
+    https://www.onlinegdb.com/online_perl_compiler
 JULIA:
     https://www.jdoodle.com/online-compiler-julia/
     https://www.tutorialspoint.com/execute_julia_online.php
@@ -93,6 +104,7 @@ RUBY:
     https://ideone.com/l/ruby
     https://coderpad.io/languages/ruby/
     https://www.adaface.com/online-compiler/online-ruby-compiler
+    https://www.onlinegdb.com/online_ruby_compiler
 R:
     https://rdrr.io/snippets/
     https://www.programiz.com/r/online-compiler/
@@ -100,6 +112,7 @@ R:
     https://www.jdoodle.com/execute-r-online
     https://www.tutorialspoint.com/execute_r_online.php
     https://ide.geeksforgeeks.org/online-r-compiler
+    https://www.w3schools.com/r/tryr.asp?filename=demo_compiler
     https://www.mycompiler.io/new/r
     https://paiza.io/en/projects/new?language=r
     https://domsignal.com/r-online-compiler
@@ -107,11 +120,13 @@ R:
     https://ideone.com/l/r
     https://coderpad.io/languages/r/
     https://www.adaface.com/online-compiler/online-r-compiler
+    https://www.onlinegdb.com/online_r_interpreter
 KOTLIN:
     https://play.kotlinlang.org/
     https://onecompiler.com/kotlin
     https://www.jdoodle.com/compile-kotlin-online/
     https://www.tutorialspoint.com/compile_kotlin_online.php
+    https://www.w3schools.com/kotlin/trykotlin.php?filename=demo_helloworld
     https://www.mycompiler.io/new/kotlin
     https://paiza.io/en/projects/new?language=kotlin
     https://domsignal.com/kotlin-online-compiler
@@ -119,6 +134,7 @@ KOTLIN:
     https://ideone.com/l/kotlin
     https://coderpad.io/languages/kotlin/
     https://www.adaface.com/online-compiler/online-kotlin-compiler
+    https://www.onlinegdb.com/
 SWIFT:
     https://www.programiz.com/swift/online-compiler/
     https://onecompiler.com/swift
@@ -133,6 +149,7 @@ SWIFT:
     https://ideone.com/l/swift
     https://coderpad.io/languages/swift-5/
     https://www.adaface.com/online-compiler/online-swift-compiler
+    https://www.onlinegdb.com/online_swift_compiler
 DART:
     https://dartpad.dev/
     https://www.jdoodle.com/execute-dart-online/
@@ -140,3 +157,39 @@ DART:
     https://ideone.com/l/dart
     https://coderpad.io/languages/dart/
     https://www.adaface.com/online-compiler/online-dart-compiler
+VISUAL BASIC (.NET):
+    https://coderpad.io/languages/visual-basic/
+    https://www.jdoodle.com/compile-vb-dot-net-online
+    https://onecompiler.com/vb
+    https://www.tutorialspoint.com/compile_vb.net_online.php
+    https://paiza.io/en/projects/new?language=vb
+    https://ideone.com/l/vb-net
+    https://dotnetfiddle.net/
+    https://www.onlinegdb.com/online_vb_compiler
+C#:
+    https://www.programiz.com/csharp-programming/online-compiler/
+    https://onecompiler.com/csharp
+    https://www.jdoodle.com/compile-c-sharp-online/
+    https://www.tutorialspoint.com/csharp/online-csharp-compiler.php
+    https://ide.geeksforgeeks.org/online-csharp-compiler
+    https://domsignal.com/csharp-online-compiler
+    https://www.w3schools.com/cs/trycs.php?filename=demo_compiler
+    https://www.mycompiler.io/new/csharp
+    https://paiza.io/en/projects/new?language=csharp
+    https://ideone.com/l/c-sharp
+    https://dotnetfiddle.net/
+    https://www.adaface.com/online-compiler/online-csharp-compiler
+    https://www.onlinegdb.com/online_csharp_compiler
+    https://nextleap.app/online-compiler/csharp-programming
+Matlab:
+    https://onecompiler.com/octave
+    https://www.mycompiler.io/new/octave
+    https://www.jdoodle.com/execute-octave-matlab-online/
+    https://www.tutorialspoint.com/execute_matlab_online.php
+    https://ideone.com/l/octave
+GNU Octave:
+    https://onecompiler.com/octave
+    https://www.mycompiler.io/new/octave
+    https://www.jdoodle.com/execute-octave-matlab-online/
+    https://www.tutorialspoint.com/execute_matlab_online.php
+    https://ideone.com/l/octave

@@ -45,13 +45,13 @@ echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
 
 echo("\n// using JavaScript-like Array.reduce() function \"array_reduce\"");
 
-$numbers_total = array_reduce_v2(fn($current_result, $current_number) => $current_result + $current_number, $numbers, 0);
+$numbers_total = array_reduce_v2(fn($current_result, $current_number) => ($current_result + $current_number), $numbers, 0);
 echo("\n" . "total number: $numbers_total");
 // total number: 41.2
 
 echo("\n// using PHP Array.reduce() built-in function \"array_reduce\"");
 
-$numbers_total = array_reduce($numbers,  fn($current_result, $current_number) => $current_result + $current_number, 0);
+$numbers_total = array_reduce($numbers,  fn($current_result, $current_number) => ($current_result + $current_number), 0);
 echo("\n" . "total number: $numbers_total");
 // total number: 41.2
 

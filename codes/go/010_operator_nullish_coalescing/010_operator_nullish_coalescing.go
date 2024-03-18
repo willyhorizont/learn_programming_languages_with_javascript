@@ -51,14 +51,14 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
 		if (currentResult == nil && (anythingType == reflect.Map) && (currentItemTypeString == "String")) {
 			return anything.(object)[currentItem.(string)]
 		}
-		if (currentResult == nil && (anythingType == reflect.Slice) && (currentItemTypeString == "Number")) {
+		if (currentResult == nil && (anythingType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
 			return anything.(array)[currentItem.(int)]
 		}
 		currentResultType := reflect.TypeOf(currentResult).Kind()
 		if (currentResultType == reflect.Map && (currentItemTypeString == "String")) {
 			return currentResult.(object)[currentItem.(string)]
 		}
-		if ((currentResultType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (currentItem.(int) < len(currentResult.(array)))) {
+		if ((currentResultType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
 			return currentResult.(array)[currentItem.(int)]
 		}
 		return nil

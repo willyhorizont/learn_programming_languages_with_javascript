@@ -8,8 +8,8 @@ Module Program
         Dim I = Number
         While (true)
             Result *= I
+            If (I <= 1) Then Exit While
             I -= 1
-            If (I <= 0) Then Exit While
         End While
         Return Result
     End Function

@@ -1,4 +1,4 @@
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -17,8 +17,8 @@ function factorial_v1(number)
     local i = number
     while (true) do
         result = result * i
-        i = i - 1
-        if  (i <= 0) then break end
+        if  (i <= 1) then break end
+        i = (i - 1)
     end
     return result
 end
@@ -31,7 +31,7 @@ function factorial_v2(number)
     local i = number
     while (i >= 1) do
         result = result * i
-        i = i - 1
+        i = (i - 1)
     end
     return result
 end
@@ -41,7 +41,7 @@ function factorial_v3(number)
     if (number < 0) then error("Argument should bbe >= 0") end
     if (number == 0) then return 1 end
     local result = 1
-    for i = number, 1, -1 do
+    for i = number, 1, -1 do -- start, stop, step
         result = result * i
     end
     return result
@@ -55,17 +55,17 @@ function factorial_v4(number)
 end
 
 print("-- using factorial function \"factorial_v1\"")
-s_print("Factorial(5): ", factorial_v1(5))
+sprint("Factorial(5): ", factorial_v1(5))
 -- Factorial(5): 120
 
 print("-- using factorial function \"factorial_v2\"")
-s_print("Factorial(5): ", factorial_v2(5))
+sprint("Factorial(5): ", factorial_v2(5))
 -- Factorial(5): 120
 
 print("-- using factorial function \"factorial_v3\"")
-s_print("Factorial(5): ", factorial_v3(5))
+sprint("Factorial(5): ", factorial_v3(5))
 -- Factorial(5): 120
 
 print("-- using factorial function \"factorial_v4\"")
-s_print("Factorial(5): ", factorial_v4(5))
+sprint("Factorial(5): ", factorial_v4(5))
 -- Factorial(5): 120

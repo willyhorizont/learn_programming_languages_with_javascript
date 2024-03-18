@@ -13,41 +13,41 @@ func fizzbuzzV1(_ stopNumber: Int) throws -> String {
     while (true) {
         if (result == "") {
             result = "\(number)"
-            number += 1
-            if (number > stopNumber) {
+            if (number >= stopNumber) {
                 break
             }
+            number += 1
             continue
         }
         if (((number % 3) == 0) && ((number % 5) == 0)) {
             result = "\(result), FizzBuzz"
-            number += 1
-            if (number > stopNumber) {
+            if (number >= stopNumber) {
                 break
             }
+            number += 1
             continue
         }
         if ((number % 3) == 0) {
             result = "\(result), Fizz"
-            number += 1
-            if (number > stopNumber) {
+            if (number >= stopNumber) {
                 break
             }
+            number += 1
             continue
         }
         if ((number % 5) == 0) {
             result = "\(result), Buzz"
-            number += 1
-            if (number > stopNumber) {
+            if (number >= stopNumber) {
                 break
             }
+            number += 1
             continue
         }
         result = "\(result), \(number)"
-        number += 1
-        if (number > stopNumber) {
+        if (number >= stopNumber) {
             break
         }
+        number += 1
     }
     return result
 }
@@ -103,10 +103,10 @@ func fizzbuzzV3(_ stopNumber: Int) throws -> String {
         } else {
             result = "\(result), \(number)"
         }
-        number += 1
-        if (number > stopNumber) {
+        if (number >= stopNumber) {
             break
         }
+        number += 1
     }
     return result
 }
@@ -154,10 +154,10 @@ func fizzbuzzV5(_ stopNumber: Int) throws -> String {
                 )
             )
         )
-        number += 1
-        if (number > stopNumber) {
+        if (number >= stopNumber) {
             break
         }
+        number += 1
     }
     return result
 }
@@ -195,10 +195,10 @@ func fizzbuzzV7(_ stopNumber: Int) throws -> String {
     var number = 1
     while (true) {
         result = ((result == "") ? "\(number)" : ((((number % 3) == 0) && ((number % 5) == 0)) ? "\(result), FizzBuzz" : (((number % 3) == 0) ? "\(result), Fizz" : (((number % 5) == 0) ? "\(result), Buzz" : "\(result), \(number)"))))
-        number += 1
-        if (number > stopNumber) {
+        if (number >= stopNumber) {
             break
         }
+        number += 1
     }
     return result
 }

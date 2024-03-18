@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -100,12 +100,12 @@ end
 print('\n-- JavaScript-like Array.map() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.map() function \"array_map_v1\"")
 
 numbers_labeled = array_map_v1(function(number) return {[tostring(number)] = ((((number % 2) == 0) and "even") or "odd")} end, numbers)
-s_print("labeled numbers: ", pretty_json_stringify(numbers_labeled))
+sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
 -- labeled numbers: [
 --     {
 --         "12": "even"
@@ -142,7 +142,7 @@ s_print("labeled numbers: ", pretty_json_stringify(numbers_labeled))
 print("-- using JavaScript-like Array.map() function \"array_map_v2\"")
 
 numbers_labeled = array_map_v2(function(number) return {[tostring(number)] = ((((number % 2) == 0) and "even") or "odd")} end, numbers)
-s_print("labeled numbers: ", pretty_json_stringify(numbers_labeled))
+sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
 -- labeled numbers: [
 --     {
 --         "12": "even"
@@ -196,12 +196,12 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 print("-- using JavaScript-like Array.map() function \"array_map_v1\"")
 
 products_labeled = array_map_v1(function(product) return spread_syntax_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
-s_print("labeled products: ", pretty_json_stringify(products_labeled))
+sprint("labeled products: ", pretty_json_stringify(products_labeled))
 -- labeled products: [
 --     {
 --         "code": "pasta",
@@ -228,7 +228,7 @@ s_print("labeled products: ", pretty_json_stringify(products_labeled))
 print("-- using JavaScript-like Array.map() function \"array_map_v2\"")
 
 products_labeled = array_map_v2(function(product) return spread_syntax_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
-s_print("labeled products: ", pretty_json_stringify(products_labeled))
+sprint("labeled products: ", pretty_json_stringify(products_labeled))
 -- labeled products: [
 --     {
 --         "code": "pasta",

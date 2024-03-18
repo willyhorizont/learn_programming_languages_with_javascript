@@ -68,6 +68,9 @@ Module Program
         Console.WriteLine("Fruits, length: " & Fruits.Count)
         ' Fruits, length: 3
 
+        Console.WriteLine("Fruits, first element: " & Fruits(0))
+        ' Fruits, first element: apple
+
         Console.WriteLine("Fruits, get mango: " & Fruits(1))
         ' Fruits, get mango: mango
 

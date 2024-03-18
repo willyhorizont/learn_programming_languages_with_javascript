@@ -10,8 +10,8 @@ fun main() {
         var i = number
         while (true) {
             result *= i
+            if (i <= 1) break
             i -= 1
-            if (i <= 0) break
         }
         return result
     }

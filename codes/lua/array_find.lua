@@ -1,6 +1,6 @@
 JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
 
-function s_print(...)
+function sprint(...)
     local parameters = {...}
     local result = ""
     for _, parameter in ipairs(parameters) do
@@ -90,46 +90,46 @@ end
 print('\n-- JavaScript-like Array.find() in JavaScript-like-Array Lua table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-s_print("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", pretty_array_of_primitives(numbers))
 
 print("-- using JavaScript-like Array.find() function \"array_find_v1\"")
 
 even_number_found = array_find_v1(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
+sprint("even number found: ", even_number_found)
 -- even number found: 12
 
 odd_numbers_found = array_find_v1(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
+sprint("odd number found: ", odd_numbers_found)
 -- odd number found: 27
 
 print("-- using JavaScript-like Array.find() function \"array_find_v2\"")
 
 even_number_found = array_find_v2(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
+sprint("even number found: ", even_number_found)
 -- even number found: 12
 
 odd_numbers_found = array_find_v2(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
+sprint("odd number found: ", odd_numbers_found)
 -- odd number found: 27
 
 print("-- using JavaScript-like Array.find() function \"array_find_v3\"")
 
 even_number_found = array_find_v3(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
+sprint("even number found: ", even_number_found)
 -- even number found: 12
 
 odd_numbers_found = array_find_v3(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
+sprint("odd number found: ", odd_numbers_found)
 -- odd number found: 27
 
 print("-- using JavaScript-like Array.find() function \"array_find_v4\"")
 
 even_number_found = array_find_v4(function (number) return ((number % 2) == 0) end, numbers)
-s_print("even number found: ", even_number_found)
+sprint("even number found: ", even_number_found)
 -- even number found: 12
 
 odd_numbers_found = array_find_v4(function (number) return ((number % 2) ~= 0) end, numbers)
-s_print("odd number found: ", odd_numbers_found)
+sprint("odd number found: ", odd_numbers_found)
 -- odd number found: 27
 
 print('\n-- JavaScript-like Array.find() in JavaScript-like-Array-of-Objects Lua table')
@@ -152,15 +152,15 @@ products = {
         price = 499
     }
 }
-s_print("products: ", pretty_json_stringify(products))
+sprint("products: ", pretty_json_stringify(products))
 
 product_to_find = "bubble_gum"
-s_print("product to find: ", product_to_find)
+sprint("product to find: ", product_to_find)
 
 print("-- using JavaScript-like Array.find() function \"array_find_v1\"")
 
 product_found = array_find_v1(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
+sprint("products with price <= 100 only: ", pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
 --     "price": 233
@@ -169,7 +169,7 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(product_found
 print("-- using JavaScript-like Array.find() function \"array_find_v2\"")
 
 product_found = array_find_v2(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
+sprint("products with price <= 100 only: ", pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
 --     "price": 233
@@ -178,7 +178,7 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(product_found
 print("-- using JavaScript-like Array.find() function \"array_find_v3\"")
 
 product_found = array_find_v3(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
+sprint("products with price <= 100 only: ", pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
 --     "price": 233
@@ -187,7 +187,7 @@ s_print("products with price <= 100 only: ", pretty_json_stringify(product_found
 print("-- using JavaScript-like Array.find() function \"array_find_v4\"")
 
 product_found = array_find_v4(function (product) return (product.code == product_to_find) end, products)
-s_print("products with price <= 100 only: ", pretty_json_stringify(product_found))
+sprint("products with price <= 100 only: ", pretty_json_stringify(product_found))
 -- product found: {
 --     "code": "bubble_gum",
 --     "price": 233

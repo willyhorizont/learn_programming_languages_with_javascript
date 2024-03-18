@@ -10,31 +10,31 @@ function fizzbuzz_v1($stop_number) {
     while (true) {
         if ($result === "") {
             $result = "$number";
+            if ($number >= $stop_number) break;
             $number += 1;
-            if ($number > $stop_number) break;
             continue;
         }
         if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "$result, FizzBuzz";
+            if ($number >= $stop_number) break;
             $number += 1;
-            if ($number > $stop_number) break;
             continue;
         }
         if (($number % 3) === 0) {
             $result = "$result, Fizz";
+            if ($number >= $stop_number) break;
             $number += 1;
-            if ($number > $stop_number) break;
             continue;
         }
         if (($number % 5) === 0) {
             $result = "$result, Buzz";
+            if ($number >= $stop_number) break;
             $number += 1;
-            if ($number > $stop_number) break;
             continue;
         }
         $result = "$result, $number";
+        if ($number >= $stop_number) break;
         $number += 1;
-        if ($number > $stop_number) break;
     }
     return $result;
 };
@@ -88,8 +88,8 @@ function fizzbuzz_v3($stop_number) {
         } else {
             $result = "$result, $number";
         }
+        if ($number >= $stop_number) break;
         $number += 1;
-        if ($number > $stop_number) break;
     }
     return $result;
 };
@@ -135,8 +135,8 @@ function fizzbuzz_v5($stop_number) {
                 )
             )
         );
+        if ($number >= $stop_number) break;
         $number += 1;
-        if ($number > $stop_number) break;
     }
     return $result;
 };
@@ -172,8 +172,8 @@ function fizzbuzz_v7 ($stop_number) {
     $number = 1;
     while (true) {
         $result = (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number"))));
+        if ($number >= $stop_number) break;
         $number += 1;
-        if ($number > $stop_number) break;
     }
     return $result;
 };
@@ -194,7 +194,7 @@ function fizzbuzz_v9($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    for ($number = 1; $number <= $stop_number; $number += 1) {
+    foreach (range(1, $stop_number, 1) as $number) {
         if ($result === "") {
             $result = "$number";
             continue;
@@ -220,7 +220,7 @@ function fizzbuzz_v10($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    for ($number = 1; $number <= $stop_number; $number += 1) {
+    foreach (range(1, $stop_number, 1) as $number) {
         if ($result === "") {
             $result = "$number";
         } elseif ((($number % 3) === 0) && (($number % 5) === 0)) {
@@ -240,7 +240,7 @@ function fizzbuzz_v11($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    for ($number = 1; $number <= $stop_number; $number += 1) {
+    foreach (range(1, $stop_number, 1) as $number) {
         $result = (($result === "")
             ? "$number"
             : (((($number % 3) === 0) && (($number % 5) === 0))
@@ -262,7 +262,7 @@ function fizzbuzz_v12($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    for ($number = 1; $number <= $stop_number; $number += 1) {
+    foreach (range(1, $stop_number, 1) as $number) {
         $result = (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number"))));
     }
     return $result;

@@ -1,4 +1,12 @@
 =============================changelog==========================================
+23:29 | 11:29 PM | Mon | Mar | 18/03/2024
+0.0.45
+finish matlab, octave
+update so many things
+TODO:
+finish c#
+try wolfram, raku, scala, groovy, f#, crystal, java
+=============================changelog==========================================
 07:41 | 07:41 AM | Thu | Mar | 14/03/2024
 0.0.44
 dump gdscript because it doesn't support closure

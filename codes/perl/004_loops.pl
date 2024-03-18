@@ -6,13 +6,13 @@ use warnings;
 my $i1 = 1;
 while (1) {
     if ($i1 == 2) {
+        last if ($i1 >= 5);
         $i1 += 1;
-        last if ($i1 > 5);
         next;
     }
     print("while loop v1, \$i1 is $i1\n");
+    last if ($i1 >= 5);
     $i1 += 1;
-    last if ($i1 > 5);
 }
 
 my $i2 = 1;

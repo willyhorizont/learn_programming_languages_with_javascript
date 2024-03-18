@@ -59,24 +59,24 @@ func main() {
 	fruits := array{"apple", "mango", "orange"}
 	fmt.Println("fruits:", prettyArrayOfPrimitives(fruits))
 
-	fmt.Println("fruits, length:", fmt.Sprint(len(fruits)))
+	fmt.Println("fruits, length:", prettyJsonStringify(len(fruits)))
 	// fruits, length: 3
 
-	fmt.Println("fruits, get mango:", fmt.Sprint(fruits[1]))
-	// fruits, get mango: mango
+	fmt.Println("fruits, get mango:", prettyJsonStringify(fruits[1]))
+	// fruits, get mango: "mango"
 
-	fmt.Println("fruits, first element:", fmt.Sprint(fruits[0]))
-	// fruits, first element: apple
+	fmt.Println("fruits, first element:", prettyJsonStringify(fruits[0]))
+	// fruits, first element: "apple"
 
-	fmt.Println("fruits, last element:", fmt.Sprint(fruits[len(fruits)-1]))
-	// fruits, last element: orange
+	fmt.Println("fruits, last element:", prettyJsonStringify(fruits[len(fruits)-1]))
+	// fruits, last element: "orange"
 
 	for arrayItemIndex, arrayItem := range fruits {
-		fmt.Println("fruits, for loop, index:", fmt.Sprint(arrayItemIndex), "\b, value:", fmt.Sprint(arrayItem))
+		fmt.Println("fruits, for loop, index:", prettyJsonStringify(arrayItemIndex), "\b, value:", prettyJsonStringify(arrayItem))
 	}
-	// fruits, for loop, index: 0, value: apple
-	// fruits, for loop, index: 1, value: mango
-	// fruits, for loop, index: 2, value: orange
+	// fruits, for loop, index: 0, value: "apple"
+	// fruits, for loop, index: 1, value: "mango"
+	// fruits, for loop, index: 2, value: "orange"
 
 	// Array of Objects in Go
 
@@ -95,12 +95,12 @@ func main() {
 	for arrayItemIndex, arrayItem := range products {
 		iterationIndex := 0
 		for objectKey, objectValue := range arrayItem.(object) {
-			fmt.Println("products, for loop, array item index:", arrayItemIndex,  "\b, iteration/entry index:", iterationIndex, "\b, key:", fmt.Sprint(objectKey), "\b, value:", fmt.Sprint(objectValue))
+			fmt.Println("products, for loop, array item index:", prettyJsonStringify(arrayItemIndex),  "\b, iteration/entry index:", prettyJsonStringify(iterationIndex), "\b, key:", prettyJsonStringify(objectKey), "\b, value:", prettyJsonStringify(objectValue))
 			iterationIndex += 1
 		}
 	}
-	// products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-	// products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-	// products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-	// products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+	// products, for loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
+	// products, for loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
+	// products, for loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
+	// products, for loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
 }
