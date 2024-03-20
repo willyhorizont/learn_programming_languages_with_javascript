@@ -99,7 +99,7 @@ arrayReduce <- function(callbackFunction, anArray, initialValue) {
     return(result)
 }
 
-cat("\n# JavaScript-like Array.reduce() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.reduce() in R list\n")
 
 numbers <- list(36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -116,7 +116,7 @@ numbersTotal <- Reduce(function(currentResult, currentNumber) (currentResult + c
 cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
 # total number: 41.2
 
-cat("\n# JavaScript-like Array.reduce() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.reduce() in R list of Associative-list\n")
 
 products <- list(
     list(

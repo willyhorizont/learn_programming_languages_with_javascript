@@ -272,7 +272,7 @@ function arraymapv2result = arraymapv2(callbackfunction, anarray)
     arraymapv2result = newarray;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.map() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.map() in Matlab Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
 sprint("numbers: ", {numbers});
@@ -388,7 +388,7 @@ sprint("labeled numbers: ", {prettyjsonstringify({numberslabeled})});
 %     }
 % ]
 
-sprint(sprintf("\n"), "% JavaScript-like Array.map() in Matlab Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.map() in Matlab Cell-Array of structs");
 
 products = { ...
     struct( ...

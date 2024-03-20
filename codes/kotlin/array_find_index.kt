@@ -92,7 +92,7 @@ fun main() {
         return -1
     }
 
-    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList<Any?> (List)")
+    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList")
     
     val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
@@ -132,7 +132,7 @@ fun main() {
     println("number found index: ${numberFoundIndex}")
     // number found index: 2
 
-    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
+    println("\n// JavaScript-like Array.findIndex() in Kotlin MutableList of MutableMaps")
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(

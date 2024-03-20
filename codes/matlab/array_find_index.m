@@ -218,7 +218,7 @@ function arrayfindindexv4result = arrayfindindexv4(callbackfunction, anarray)
     arrayfindindexv4result = -1;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.findIndex() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.findIndex() in Matlab Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
 sprint("numbers: ", {numbers});
@@ -256,7 +256,7 @@ numberfoundindex = find(cellfun(@(number) (number == numbertofind), numbers), 1)
 sprint("number found index: ", {numberfoundindex});
 % number found index: 3
 
-sprint(sprintf("\n"), "% JavaScript-like Array.findIndex() in Matlab Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.findIndex() in Matlab Cell-Array of structs");
 
 products = { ...
     struct( ...

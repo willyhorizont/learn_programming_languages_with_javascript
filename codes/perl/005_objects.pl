@@ -11,6 +11,8 @@ sub pretty_json_stringify {
     return $pretty_json_string;
 }
 
+# in Perl, JavaScript-like Object is called Hash
+
 # initialization v1
 my %friend1 = (
     "name" => "Alisa",

@@ -47,7 +47,7 @@ def array_filter_v5(callback_function, an_array):
 # JavaScript-like Array.filter() function
 array_filter_v6 = lambda callback_function, an_array: [array_item for array_item_index, array_item in enumerate(an_array) if (callback_function(array_item, array_item_index, an_array) == True)]
 
-print('\n# JavaScript-like Array.filter() in Python List')
+print('\n# JavaScript-like Array.filter() in Python list')
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print(f'numbers: {json.dumps(numbers)}')
@@ -122,7 +122,7 @@ numbers_odd = list(filter(lambda number: ((number % 2) != 0), numbers))
 print(f'odd numbers only: {json.dumps(numbers_odd)}')
 # odd numbers only: [27, 23, 65, 93, 87]
 
-print('\n# JavaScript-like Array.filter() in Python List of Dictionaries')
+print('\n# JavaScript-like Array.filter() in Python list of dictionaries')
 
 products = [
     {

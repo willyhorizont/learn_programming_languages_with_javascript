@@ -166,7 +166,7 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
     prettyjsonstringifyresult = prettyjsonstringifyinner(anything, indent);
 end
 
-% Array
+% in GNU Octave, JavaScript-like Array is called Cell-Array
 
 fruits = {"apple", "mango", "orange"};
 sprint("fruits: ", {fruits});
@@ -194,7 +194,7 @@ end
 % fruits, foreach loop, index: 1, value: "mango"
 % fruits, foreach loop, index: 2, value: "orange"
 
-% Array of Objects
+% in GNU Octave, JavaScript-like Array of Objects is called Cell-Array of structs
 
 products = { ...
     struct( ...

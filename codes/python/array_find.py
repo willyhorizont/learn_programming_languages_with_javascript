@@ -43,7 +43,7 @@ def array_find_v4(callback_function, an_array):
     return None
 
 
-print('\n# JavaScript-like Array.find() in Python List')
+print('\n# JavaScript-like Array.find() in Python list')
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print(f'numbers: {json.dumps(numbers)}')
@@ -88,7 +88,7 @@ odd_number_found = array_find_v4(lambda number, *_: ((number % 2) != 0), numbers
 print(f'odd number found: {odd_number_found}')
 # odd number found: 27
 
-print('\n# JavaScript-like Array.find() in Python List of Dictionaries')
+print('\n# JavaScript-like Array.find() in Python list of dictionaries')
 
 products = [
     {

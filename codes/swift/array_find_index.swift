@@ -135,7 +135,7 @@ func arrayFindIndexV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArra
     return -1
 }
 
-print("\n// JavaScript-like Array.findIndex() in Swift [Any?] (Array)")
+print("\n// JavaScript-like Array.findIndex() in Swift Array")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -200,7 +200,7 @@ numberFoundIndex = (numbers.firstIndex { (number: Any?) -> Bool in
 print("number found index: \(numberFoundIndex)")
 // number found index: 2
 
-print("\n// JavaScript-like Array.findIndex() in Swift [[String, Any?]] (Array of Objects)")
+print("\n// JavaScript-like Array.findIndex() in Swift Array of Dictionaries")
 
 let products: MyArray = [
     [

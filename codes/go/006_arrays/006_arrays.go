@@ -54,7 +54,7 @@ func prettyJsonStringify(anything any) string {
 }
 
 func main() {
-	// Array in Go
+	// in Go, JavaScript-like Array is called (Slice)
 
 	fruits := array{"apple", "mango", "orange"}
 	fmt.Println("fruits:", prettyArrayOfPrimitives(fruits))
@@ -78,7 +78,7 @@ func main() {
 	// fruits, for loop, index: 1, value: "mango"
 	// fruits, for loop, index: 2, value: "orange"
 
-	// Array of Objects in Go
+	// in Go, JavaScript-like Array of Objects is called Slice of maps
 
 	products := array{
 		object{

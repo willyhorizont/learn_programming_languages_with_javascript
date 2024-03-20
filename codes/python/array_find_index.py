@@ -42,7 +42,7 @@ def array_find_index_v4(callback_function, an_array):
     return -1
 
 
-print('\n# JavaScript-like Array.findIndex() in Python List')
+print('\n# JavaScript-like Array.findIndex() in Python list')
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print(f'numbers: {json.dumps(numbers)}')
@@ -74,7 +74,7 @@ number_found_index = array_find_index_v4(lambda number, *_: (number == number_to
 print(f'number found index: {number_found_index}')
 # number found index: 2
 
-print('\n# JavaScript-like Array.findIndex() in Python List of Dictionaries')
+print('\n# JavaScript-like Array.findIndex() in Python list of dictionaries')
 
 products = [
     {

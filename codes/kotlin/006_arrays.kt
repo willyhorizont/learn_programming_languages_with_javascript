@@ -50,7 +50,7 @@ fun main() {
         return prettyJsonStringifyInner(anything, indent)
     }
 
-    // Array in Kotlin
+    // in Kotlin, JavaScript-like Array is called MutableList
 
     val fruits = mutableListOf<Any?>("apple", "mango", "orange")
     println("fruits: ${prettyArrayOfPrimitives(fruits)}")
@@ -79,7 +79,7 @@ fun main() {
     // fruits, for loop, index: 1, value: mango
     // fruits, for loop, index: 2, value: orange
 
-    // Array of Objects in Kotlin
+    // in Kotlin, JavaScript-like Array of Objects is called mutableListOf<mutableMapOf<String, Any?>>
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(

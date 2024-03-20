@@ -78,7 +78,7 @@ function array_find_index_v4($callback_function, $an_array) {
     return -1;
 };
 
-echo("\n\n// JavaScript-like Array.findIndex() in PHP Array");
+echo("\n\n// JavaScript-like Array.findIndex() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -110,7 +110,7 @@ $number_found_index = array_find_index_v4(fn($number) => ($number === $number_to
 echo("\n" . "number found index: $number_found_index");
 // number found index: 2
 
-echo("\n\n// JavaScript-like Array.findIndex() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.findIndex() in PHP array of associative-arrays");
 
 $products = [
     [

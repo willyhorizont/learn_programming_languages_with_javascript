@@ -78,7 +78,7 @@ arrayFindIndexV4 <- function(callbackFunction, anArray) {
     return(-1)
 }
 
-cat("\n# JavaScript-like Array.findIndex() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.findIndex() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -110,7 +110,7 @@ numberFoundIndex <- arrayFindIndexV4(function(number, ...) (number == numberToFi
 cat(paste(sep = "", "number found index: ", numberFoundIndex, "\n"))
 # number found index: 3
 
-cat("\n# JavaScript-like Array.findIndex() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.findIndex() in R list of Associative-list\n")
 
 products <- list(
     list(

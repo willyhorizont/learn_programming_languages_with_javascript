@@ -110,7 +110,7 @@ Module Program
     End Function
 
     Sub Main(Args As String())
-        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Array.find() in Visual Basic (.NET) List(Of Object)")
+        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Array.find() in Visual Basic (.NET) List")
 
         Dim Numbers As List(Of Object) = New List(Of Object) From {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
         Console.WriteLine($"Numbers: {PrettyArrayOfPrimitives(Numbers)}")
@@ -178,7 +178,7 @@ Module Program
         Console.WriteLine($"even number found: {OddNumberFound}")
         ' odd number found: 27
 
-        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Array.find() in Visual Basic (.NET) List(Of Dictionary(Of String, Object))")
+        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Array.find() in Visual Basic (.NET) List of Dictionaries")
 
         Dim Products As List(Of Object) = New List(Of Object) From {
             New Dictionary(Of String, Object) From {

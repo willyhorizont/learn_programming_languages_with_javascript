@@ -123,7 +123,7 @@ is_all_number_more_than_500 = all((number) -> (number > 500), numbers)
 println("is all number > 500: ", is_all_number_more_than_500)
 # is all number > 500: false
 
-println("\n# JavaScript-like Array.every() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.every() in Julia Array of Dictionaries")
 
 products = [
     Dict(

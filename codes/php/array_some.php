@@ -74,7 +74,7 @@ function array_some_v4($callback_function, $an_array) {
     return false;
 };
 
-echo("\n\n// JavaScript-like Array.some() in PHP Array");
+echo("\n\n// JavaScript-like Array.some() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -121,7 +121,7 @@ echo("\n" . "is any number > 500: $is_any_number_more_than_500");
 
 // ======================================================================================================================================================
 
-echo("\n\n// JavaScript-like Array.some() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.some() in PHP array of associative-arrays");
 
 $products = [
     [

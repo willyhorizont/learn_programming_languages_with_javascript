@@ -1,5 +1,7 @@
 require "json"
 
+# in Ruby, JavaScript-like Object is called Hash
+
 friend = {
     "name" => "Alisa",
     "country" => "Finland",

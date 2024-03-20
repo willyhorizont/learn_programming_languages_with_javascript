@@ -21,6 +21,8 @@ func prettyJsonStringify(anything any) string {
 }
 
 func main() {
+	// in Go, JavaScript-like Object is called map
+
 	friend := object{
 		"name": "Alisa",
 		"country": "Finland",

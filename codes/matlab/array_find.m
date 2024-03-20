@@ -221,7 +221,7 @@ function arrayfindv4result = arrayfindv4(callbackfunction, anarray)
     arrayfindv4result = {};
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.find() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.find() in Matlab Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
 sprint("numbers: ", {numbers});
@@ -266,7 +266,7 @@ oddnumberfound = arrayfindv4(@(number, varargin) (mod(number, 2) ~= 0), numbers)
 sprint("odd number found: ", {oddnumberfound});
 % odd number found: 27
 
-sprint(sprintf("\n"), "% JavaScript-like Array.find() in Matlab Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.find() in Matlab Cell-Array of structs");
 
 products = { ...
     struct( ...

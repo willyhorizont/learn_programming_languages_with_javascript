@@ -70,7 +70,7 @@ arraySomeV4 <- function(callbackFunction, anArray) {
     return(FALSE)
 }
 
-cat("\n# JavaScript-like Array.some() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.some() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -133,7 +133,7 @@ isAnyNumberMoreThan500 <- any((numbers > 500))
 cat(paste(sep = "", "is any number > 500: ", isAnyNumberMoreThan500, "\n"))
 # is any number > 500: FALSE
 
-cat("\n# JavaScript-like Array.some() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.some() in R list of Associative-list\n")
 
 products <- list(
     list(

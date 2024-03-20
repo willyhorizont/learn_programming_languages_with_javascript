@@ -11,7 +11,7 @@ void main() {
 		return jsonEncoder.convert(anything);
 	}
 
-	// Array in Dart
+	// in Dart, JavaScript-like Array is called List
 
 	final fruits = <dynamic>["apple", "mango", "orange"];
 	print("fruits: ${prettyArrayOfPrimitives(fruits)}");
@@ -48,7 +48,7 @@ void main() {
 	// fruits, for loop, index: 1, value: mango
 	// fruits, for loop, index: 2, value: orange
 
-	// Array of Objects in Dart
+	// in Dart, JavaScript-like Array of Objects is called List of Maps
 
 	final products = <dynamic>[
 		<String, dynamic>{

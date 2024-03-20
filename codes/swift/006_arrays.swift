@@ -86,7 +86,7 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
     return prettyJsonStringifyInner(anything, indent)
 }
 
-// Array in Swift
+// in Swift, JavaScript-like Array is called Array
 
 let fruits: MyArray = ["apple", "mango", "orange"]
 print("fruits: \(prettyArrayOfPrimitives(fruits))")
@@ -210,7 +210,7 @@ for (arrayItemIndex, arrayItem) in fruits.enumerated() {
 // fruits, for loop, index: 1, value: "mango"
 // fruits, for loop, index: 2, value: "orange"
 
-// Array of Objects in Swift
+// in Swift, JavaScript-like Array of Objects is called Array of Dictionaries
 
 let products: MyArray = [
     [

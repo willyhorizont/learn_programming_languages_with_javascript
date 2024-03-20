@@ -27,7 +27,7 @@ sub pretty_array_of_primitives {
     return $result;
 }
 
-# Array in Perl
+# in Perl, JavaScript-like Array is called Array
 
 # initialization v1
 my @fruits1 = ("apple", "mango", "orange");
@@ -95,7 +95,7 @@ for my $array_item_index (0..(scalar(@{$fruits2}) - 1)) { # we can also replace 
 # fruits2, for loop, index: 1, value: mango
 # fruits2, for loop, index: 2, value: orange
 
-# Array of Objects in Perl
+# in Perl, JavaScript-like Array of Objects is called Array of Hashes
 
 # initialization v1
 my @products1 = (

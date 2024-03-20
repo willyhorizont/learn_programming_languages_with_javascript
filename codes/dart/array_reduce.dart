@@ -22,7 +22,7 @@ void main() {
 		return result;
 	}
 
-    print("\n// JavaScript-like Array.reduce() in Dart List<dynamic> (List)");
+    print("\n// JavaScript-like Array.reduce() in Dart List");
 
 	final numbers = <dynamic>[36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3];
 	print("numbers: ${prettyArrayOfPrimitives(numbers)}");
@@ -41,7 +41,7 @@ void main() {
     print("total number: ${prettyJsonStringify(numbersTotal)}");
 	// total number: 41.2
 
-	print("\n// JavaScript-like Array.reduce() in Dart List<Map<String, dynamic>> (List of Maps)");
+	print("\n// JavaScript-like Array.reduce() in Dart List of Maps");
 
 	final products = <dynamic>[
 		<String, dynamic>{

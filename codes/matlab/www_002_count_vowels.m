@@ -10,25 +10,41 @@ Description:
 %}
 
 function countvowelsv1result = countvowelsv1(astring)
-    splittedstring = cellstr(split(astring, ""));
-    countvowelsv1result = numel(splittedstring(cellfun(@(aletter) ~isempty(find(cellfun(@(avowel) strcmp(aletter, avowel), {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}), 1)), splittedstring)));
+    astring = char(astring);
+    splittedstringcellarray = {};
+    for i = (1:1:length(astring))
+        splittedstringcellarray{i} = astring(i);
+    end
+    countvowelsv1result = numel(splittedstringcellarray(cellfun(@(aletter) ~isempty(find(cellfun(@(avowel) strcmp(aletter, avowel), {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}), 1)), splittedstringcellarray)));
 end
 disp(num2str(countvowelsv1("Hello World"))); %3
 
 function countvowelsv2result = countvowelsv2(astring)
-    splittedstring = cellstr(split(astring, ""));
-    countvowelsv2result = numel(splittedstring(cellfun(@(aletter) ~isempty(find(cellfun(@(avowel) strcmp(upper(aletter), avowel), {"A", "I", "U", "E", "O"}), 1)), splittedstring)));
+    astring = char(astring);
+    splittedstringcellarray = {};
+    for i = (1:1:length(astring))
+        splittedstringcellarray{i} = astring(i);
+    end
+    countvowelsv2result = numel(splittedstringcellarray(cellfun(@(aletter) ~isempty(find(cellfun(@(avowel) strcmp(upper(aletter), avowel), {"A", "I", "U", "E", "O"}), 1)), splittedstringcellarray)));
 end
 disp(num2str(countvowelsv2("Hello World"))); %3
 
 function countvowelsv3result = countvowelsv3(astring)
-    splittedstring = cellstr(split(astring, ""));
-    countvowelsv3result = numel(splittedstring(cellfun(@(aletter) ~isempty(strfind("aiueoAIUEO", aletter)), splittedstring)));
+    astring = char(astring);
+    splittedstringcellarray = {};
+    for i = (1:1:length(astring))
+        splittedstringcellarray{i} = astring(i);
+    end
+    countvowelsv3result = numel(splittedstringcellarray(cellfun(@(aletter) ~isempty(strfind("aiueoAIUEO", aletter)), splittedstringcellarray)));
 end
 disp(num2str(countvowelsv3("Hello World"))); %3
 
 function countvowelsv4result = countvowelsv4(astring)
-    splittedstring = cellstr(split(astring, ""));
-    countvowelsv4result = numel(splittedstring(cellfun(@(aletter) ~isempty(strfind("AIUEO", upper(aletter))), splittedstring)));
+    astring = char(astring);
+    splittedstringcellarray = {};
+    for i = (1:1:length(astring))
+        splittedstringcellarray{i} = astring(i);
+    end
+    countvowelsv4result = numel(splittedstringcellarray(cellfun(@(aletter) ~isempty(strfind("AIUEO", upper(aletter))), splittedstringcellarray)));
 end
 disp(num2str(countvowelsv4("Hello World"))); %3

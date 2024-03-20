@@ -55,6 +55,8 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
     return prettyJsonStringifyInner(anything, indent)
 }
 
+// in Swift, JavaScript-like Object is called Dictionary
+
 let friend: MyObject = [
     "name": "Alisa",
     "country": "Finland",

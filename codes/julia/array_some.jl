@@ -123,7 +123,7 @@ is_any_number_more_than_500 = any([(number > 500) for number in numbers])
 println("is any number > 500: ", is_any_number_more_than_500)
 # is any number > 500: false
 
-println("\n# JavaScript-like Array.some() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.some() in Julia Array of Dictionaries")
 
 products = [
     Dict(

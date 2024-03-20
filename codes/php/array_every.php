@@ -74,7 +74,7 @@ function array_every_v4($callback_function, $an_array) {
     return true;
 };
 
-echo("\n\n// JavaScript-like Array.every() in PHP Array");
+echo("\n\n// JavaScript-like Array.every() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -119,7 +119,7 @@ $is_all_number_more_than_500 = bool_to_string(array_every_v4(fn($number) => ($nu
 echo("\n" . "is all number > 500: $is_all_number_more_than_500");
 // is all number > 500: false
 
-echo("\n\n// JavaScript-like Array.every() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.every() in PHP array of associative-arrays");
 
 $products = [
     [

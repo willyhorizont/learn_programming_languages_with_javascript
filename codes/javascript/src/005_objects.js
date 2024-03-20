@@ -9,6 +9,9 @@ console.log(`friend: ${JSON.stringify(friend, null, ' '.repeat(4))}`);
 console.log(`friend, get country: ${friend["country"]}`);
 // friend, get country: Finland
 
+console.log(`friend, get country: ${friend?.["country"]}`);
+// friend, get country: Finland
+
 console.log(`friend, get country: ${friend.country}`);
 // friend, get country: Finland
 

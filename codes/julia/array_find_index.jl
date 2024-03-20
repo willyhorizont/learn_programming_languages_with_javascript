@@ -107,7 +107,7 @@ number_found_index = findfirst((number) -> (number === number_to_find), numbers)
 println("number found index: ", number_found_index)
 # number found index: 3
 
-println("\n# JavaScript-like Array.findIndex() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.findIndex() in Julia Array of Dictionaries")
 
 products = [
     Dict(

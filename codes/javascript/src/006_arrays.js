@@ -3,16 +3,16 @@
 const fruits = ["apple", "mango", "orange"];
 console.log(`fruits: ${JSON.stringify(fruits).split(',').join(', ')}`);
 
-console.log("fruits, length:", fruits.length);
+console.log(`fruits, length: ${fruits.length}`);
 // fruits, length: 3
 
-console.log("fruits, get mango:", fruits[1]);
+console.log(`fruits, get mango: ${fruits[1]}`);
 // fruits, get mango: mango
 
-console.log("fruits, first element:", fruits[0]);
+console.log(`fruits, first element: ${fruits[0]}`);
 // fruits, first element: apple
 
-console.log("fruits, last element:", fruits[fruits.length - 1]);
+console.log(`fruits, last element: ${fruits[fruits.length - 1]}`);
 // fruits, last element: orange
 
 fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}`));

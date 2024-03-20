@@ -26,7 +26,7 @@ while (i2 <= 5) {
 
 for (let i3 = 1; i3 <= 5; i3 += 1) {
     if (i3 === 2) continue;
-    console.log(`for loop v1, i3 is ${i3}`);
+    console.log(`for loop, i3 is ${i3}`);
 }
 
 // foreach loop

@@ -190,7 +190,7 @@ func main() {
 	//     }
 	// ]
 
-	fmt.Println("\n// JavaScript-like Array.map() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.map() in Go Slice of maps")
 
 	products := array{
 		object{

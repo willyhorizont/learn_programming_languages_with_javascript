@@ -18,7 +18,7 @@ while (i <= 5) {
         i <- i + 1
         next
     }
-    cat(paste(sep = "", "while loop v1, i is ", i, "\n"))
+    cat(paste(sep = "", "while loop v2, i is ", i, "\n"))
     i <- i + 1
 }
 

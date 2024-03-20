@@ -34,7 +34,7 @@ void main() {
 		return newArray;
 	}
 
-    print("\n// JavaScript-like Array.map() in Dart List<dynamic> (List)");
+    print("\n// JavaScript-like Array.map() in Dart List");
 
 	final numbers = <dynamic>[12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 	print("numbers: ${prettyArrayOfPrimitives(numbers)}");
@@ -152,7 +152,7 @@ void main() {
 	//     }
 	// ]
 
-	print("\n// JavaScript-like Array.map() in Dart List<Map<String, dynamic>> (List of Maps)");
+	print("\n// JavaScript-like Array.map() in Dart List of Maps");
 
 	final products = <dynamic>[
 		<String, dynamic>{

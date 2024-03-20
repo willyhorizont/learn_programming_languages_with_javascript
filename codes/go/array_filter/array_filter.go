@@ -113,7 +113,7 @@ func main() {
 	fmt.Println("odd numbers only:", prettyArrayOfPrimitives(numbersOdd))
 	// odd numbers only: [27, 23, 65, 93, 87]
 
-	fmt.Println("\n// JavaScript-like Array.filter() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.filter() in Go Slice of maps")
 
 	products := array{
 		object{

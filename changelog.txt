@@ -1,4 +1,12 @@
 =============================changelog==========================================
+04:08 | 04:08 AM | Thu | Mar | 21/03/2024
+0.0.46
+finish c#
+update so many things
+try .gitattributes part 1
+TODO:
+try wolfram, raku, scala, groovy, f#, crystal, java
+=============================changelog==========================================
 23:29 | 11:29 PM | Mon | Mar | 18/03/2024
 0.0.45
 finish matlab, octave

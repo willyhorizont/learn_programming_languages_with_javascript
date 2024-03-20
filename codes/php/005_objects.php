@@ -1,5 +1,7 @@
 <?php
 
+// in PHP, JavaScript-like Object is called associative-array
+
 $friend = [
     "name" => "Alisa",
     "country" => "Finland",

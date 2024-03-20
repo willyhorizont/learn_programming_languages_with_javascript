@@ -194,7 +194,7 @@ function fizzbuzz_v9($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) {
+    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
         if ($result === "") {
             $result = "$number";
             continue;
@@ -220,7 +220,7 @@ function fizzbuzz_v10($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) {
+    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
         if ($result === "") {
             $result = "$number";
         } elseif ((($number % 3) === 0) && (($number % 5) === 0)) {
@@ -240,7 +240,7 @@ function fizzbuzz_v11($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) {
+    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
         $result = (($result === "")
             ? "$number"
             : (((($number % 3) === 0) && (($number % 5) === 0))
@@ -262,7 +262,7 @@ function fizzbuzz_v12($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) {
+    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
         $result = (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number"))));
     }
     return $result;

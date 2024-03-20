@@ -191,7 +191,7 @@ function arrayfilterv2result = arrayfilterv2(callbackfunction, anarray)
     arrayfilterv2result = datafiltered;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.filter() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.filter() in Matlab Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
 sprint("numbers: ", {numbers});
@@ -226,7 +226,7 @@ numbersodd = numbers(cellfun(@(number) (mod(number, 2) ~= 0), numbers));
 sprint("odd numbers only: ", {numbersodd});
 % odd numbers only: [27, 23, 65, 93, 87]
 
-sprint(sprintf("\n"), "% JavaScript-like Array.filter() in Matlab Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.filter() in Matlab Cell-Array of structs");
 
 products = { ...
     struct( ...

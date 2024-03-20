@@ -36,7 +36,7 @@ def list_files():
     PATH_CODES_SWIFT = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'swift')
     PATH_CODES_DART = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'dart')
     PATH_CODES_VISUAL_BASIC_DOTNET = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'visual_basic_dotnet')
-    # PATH_CODES_CS = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'c#')
+    PATH_CODES_CSHARP = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'csharp')
     PATH_CODES_MATLAB = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'matlab')
     PATH_CODES_GNU_OCTAVE = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'gnu_octave')
     # PATH_CODES_RAKU = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'raku')
@@ -54,7 +54,7 @@ def list_files():
     FILE_CODES_SWIFT = get_file_list(PATH_CODES_SWIFT)
     FILE_CODES_DART = get_file_list(PATH_CODES_DART)
     FILE_CODES_VISUAL_BASIC_DOTNET = get_file_list(PATH_CODES_VISUAL_BASIC_DOTNET)
-    # FILE_CODES_CS = get_file_list(PATH_CODES_CS)
+    FILE_CODES_CSHARP = get_file_list(PATH_CODES_CSHARP)
     FILE_CODES_MATLAB = get_file_list(PATH_CODES_MATLAB)
     FILE_CODES_GNU_OCTAVE = get_file_list(PATH_CODES_GNU_OCTAVE)
     # FILE_CODES_RAKU = get_file_list(PATH_CODES_RAKU)
@@ -72,7 +72,7 @@ def list_files():
     FILE_CODES_SWIFT = ["SWIFT", *FILE_CODES_SWIFT]
     FILE_CODES_DART = ["DART", *FILE_CODES_DART]
     FILE_CODES_VISUAL_BASIC_DOTNET = ["VISUAL_BASIC_DOTNET", *FILE_CODES_VISUAL_BASIC_DOTNET]
-    # FILE_CODES_CS = ["C#", *FILE_CODES_CS]
+    FILE_CODES_CSHARP = ["C#", *FILE_CODES_CSHARP]
     FILE_CODES_MATLAB = ["MATLAB", *FILE_CODES_MATLAB]
     FILE_CODES_GNU_OCTAVE = ["GNU_OCTAVE", *FILE_CODES_GNU_OCTAVE]
     # FILE_CODES_RAKU = ["RAKU", *FILE_CODES_RAKU]
@@ -91,7 +91,7 @@ def list_files():
         FILE_CODES_SWIFT,
         FILE_CODES_DART,
         FILE_CODES_VISUAL_BASIC_DOTNET,
-        # FILE_CODES_CS,
+        FILE_CODES_CSHARP,
         FILE_CODES_MATLAB,
         FILE_CODES_GNU_OCTAVE,
         # FILE_CODES_RAKU

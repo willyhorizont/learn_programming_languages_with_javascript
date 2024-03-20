@@ -164,7 +164,7 @@ func main() {
 	fmt.Println("odd number found:", oddNumberFound)
 	// odd number found: 27
 
-	fmt.Println("\n// JavaScript-like Array.find() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.find() in Go Slice of maps")
 
 	products := array{
 		object{

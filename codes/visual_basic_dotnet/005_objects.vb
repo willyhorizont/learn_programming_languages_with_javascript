@@ -43,6 +43,8 @@ Module Program
         Return PrettyJsonStringifyInner(Anything, Indent)
     End Function
     Sub Main(Args As String())
+        ' in Visual Basic (.NET), JavaScript-like Object is called Dictionary
+
         Dim MyFriend As Object = New Dictionary(Of String, Object) From {
             {"name", "Alisa"},
             {"country", "Finland"},

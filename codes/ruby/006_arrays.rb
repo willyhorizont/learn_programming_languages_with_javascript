@@ -1,6 +1,6 @@
 require "json"
 
-# Array in Ruby
+# in Ruby, JavaScript-like Array is called Array
 
 fruits = ["apple", "mango", "orange"]
 print("\n", "fruits: ", fruits)
@@ -37,7 +37,7 @@ fruits.each_with_index { |array_item, array_item_index| print("fruits, foreach l
 # fruits, foreach loop, index: 1, value: mango
 # fruits, foreach loop, index: 2, value: orange
 
-# Array of Objects in Ruby
+# in Ruby, JavaScript-like Array of Objects is called Array of Hashes
 
 products = [
     {

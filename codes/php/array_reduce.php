@@ -38,7 +38,7 @@ function array_reduce_v2($callback_function, $an_array, $initial_value) {
     return $result;
 };
 
-echo("\n\n// JavaScript-like Array.reduce() in PHP Array");
+echo("\n\n// JavaScript-like Array.reduce() in PHP array");
 
 $numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -55,7 +55,7 @@ $numbers_total = array_reduce($numbers,  fn($current_result, $current_number) =>
 echo("\n" . "total number: $numbers_total");
 // total number: 41.2
 
-echo("\n\n// JavaScript-like Array.reduce() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.reduce() in PHP array of associative-arrays");
 
 $products = [
     [

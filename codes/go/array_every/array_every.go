@@ -163,7 +163,7 @@ func main() {
 	fmt.Println("is all number > 500:", prettyJsonStringify(isAllNumberMoreThan500))
 	// is all number > 500: false
 
-	fmt.Println("\n// JavaScript-like Array.every() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.every() in Go Slice of maps")
 
 	products := array{
 		object{

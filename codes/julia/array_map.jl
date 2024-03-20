@@ -240,7 +240,7 @@ println("labeled numbers: ", chomp(JSON.json(numbers_labeled, 4)))
 #     }
 # ]
 
-println("\n# JavaScript-like Array.map() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.map() in Julia Array of Dictionaries")
 
 products = [
     Dict(

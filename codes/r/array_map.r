@@ -81,7 +81,7 @@ arrayMapV2 <- function(callbackFunction, anArray) {
     return(newArray)
 }
 
-cat("\n# JavaScript-like Array.map() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.map() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -197,7 +197,7 @@ cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\
 #     }
 # ]
 
-cat("\n# JavaScript-like Array.map() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.map() in R list of Associative-list\n")
 
 products <- list(
     list(

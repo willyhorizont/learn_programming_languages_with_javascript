@@ -29,7 +29,7 @@ function pretty_array_of_primitives($an_array_of_primitives) {
     return $result;
 };
 
-// Array in PHP
+// in PHP, JavaScript-like Array is called array
 
 $fruits = ["apple", "mango", "orange"];
 echo("\n" . "fruits: " . pretty_array_of_primitives($fruits));
@@ -53,7 +53,7 @@ foreach ($fruits as $array_item_index => $array_item) {
 // fruits, foreach loop, index: 1, value: mango
 // fruits, foreach loop, index: 2, value: orange
 
-// Array of Objects in PHP
+// in PHP, JavaScript-like Array of Objects is called array of associative-arrays
 
 $products = [
     [

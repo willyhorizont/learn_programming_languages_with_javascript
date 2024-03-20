@@ -1,5 +1,7 @@
 using JSON
 
+# in Julia, JavaScript-like Object is called Dict / Dictionary
+
 friend = Dict(
     "name" => "Alisa",
     "country" => "Finland",

@@ -54,7 +54,7 @@ arrayFilterV2 <- function(callbackFunction, anArray) {
     return(dataFiltered)
 }
 
-cat("\n# JavaScript-like Array.filter() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.filter() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -89,7 +89,7 @@ numbersOdd <- Filter(function(number) ((number %% 2) != 0), numbers)
 cat(paste(sep = "", "odd numbers only: ", prettyArrayOfPrimitives(numbersOdd), "\n"))
 # odd numbers only: [27, 23, 65, 93, 87]
 
-cat("\n# JavaScript-like Array.filter() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.filter() in R list of Associative-list\n")
 
 products <- list(
     list(

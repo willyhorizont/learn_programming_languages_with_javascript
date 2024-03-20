@@ -67,7 +67,7 @@ function array_map_v4($callback_function, $an_array) {
     return $new_array;
 };
 
-echo("\n\n// JavaScript-like Array.map() in PHP Array");
+echo("\n\n// JavaScript-like Array.map() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -257,7 +257,7 @@ echo("\n" . "labeled numbers: " . json_encode($numbers_labeled, JSON_PRETTY_PRIN
 //     }
 // ]
 
-echo("\n\n// JavaScript-like Array.map() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.map() in PHP array of associative-arrays");
 
 $products = [
     [

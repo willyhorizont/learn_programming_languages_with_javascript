@@ -7,6 +7,8 @@ prettyJsonStringify <- function(anything) {
     return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
 }
 
+# in R, JavaScript-like Object is called Associative-list
+
 friend <- list(
     name = "Alisa",
     country = "Finland",

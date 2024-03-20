@@ -60,7 +60,7 @@ Module Program
     Sub Main(Args As String())
         Dim ArrayItemIndex As Integer = 0
 
-        ' Array
+        ' in Visual Basic (.NET), JavaScript-like Array is called List
 
         Dim Fruits As List(Of Object) = New List(Of Object) From {"apple", "mango", "orange"}
         Console.WriteLine("Fruits: " & PrettyArrayOfPrimitives(Fruits))
@@ -86,7 +86,7 @@ Module Program
         ' Fruits, foreach loop, index: 1, value: mango
         ' Fruits, foreach loop, index: 2, value: orange
 
-        ' Array of Objects
+        ' in Visual Basic (.NET), JavaScript-like Array of Objects is called List of Dictionaries
 
         Dim Products As List(Of Object) = New List(Of Object) From {
             New Dictionary(Of String, Object) From {

@@ -38,7 +38,7 @@ def array_some_v4(callback_function, an_array):
     return False
 
 
-print('\n# JavaScript-like Array.some() in Python List')
+print('\n# JavaScript-like Array.some() in Python list')
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print(f'numbers: {json.dumps(numbers)}')
@@ -83,7 +83,7 @@ is_any_numbers_more_than500 = any([(number > 500) for number in numbers])
 print(f'is any number > 500: {is_any_numbers_more_than500}')
 # is any number > 500: False
 
-print('\n# JavaScript-like Array.some() in Python List of Dictionaries')
+print('\n# JavaScript-like Array.some() in Python list of dictionaries')
 
 products = [
     {

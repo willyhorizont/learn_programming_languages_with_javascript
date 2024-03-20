@@ -29,7 +29,7 @@ prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
     return(result)
 }
 
-# Array in R
+# in R, JavaScript-like Array is called list
 
 fruits <- list("apple", "mango", "orange")
 cat(paste(sep = "", "fruits: ", prettyArrayOfPrimitives(fruits), "\n"))
@@ -54,7 +54,7 @@ for (arrayItemIndex in seq_along(fruits)) {
 # fruits, foreach loop, index: 2, value: mango
 # fruits, foreach loop, index: 3, value: orange
 
-# Array of Objects in R
+# in R, JavaScript-like Array of Objects is called list of Associative-list
 
 products <- list(
     list(

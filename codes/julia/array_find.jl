@@ -133,7 +133,7 @@ odd_numbers_found = array_find_v5((number) -> ((number % 2) !== 0), numbers)
 println("odd number found: ", odd_numbers_found)
 # odd number found: 27
 
-println("\n# JavaScript-like Array.find() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.find() in Julia Array of Dictionaries")
 
 products = [
     Dict(

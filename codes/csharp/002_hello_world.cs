@@ -1,4 +1,4 @@
-using System; // Console, Func<,,>, Action<>, Action
+using System; // Console, Func<>, Action<>, Action
 
 class Program {
     static void Main(string[] Args) {

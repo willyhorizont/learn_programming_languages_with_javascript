@@ -1,6 +1,6 @@
 import json
 
-# Array in Python
+# in Python, JavaScript-like Array is called list
 
 fruits = ["apple", "mango", "orange"]
 print(f'fruits: {json.dumps(fruits)}')
@@ -26,7 +26,7 @@ for (array_item_index, array_item) in enumerate(fruits):
 # fruits, for loop, index: 1, value: mango
 # fruits, for loop, index: 2, value: orange
 
-# Array of Objects in Python
+# in Python, JavaScript-like Array of Objects is called list of dictionaries
 
 products = [
     {

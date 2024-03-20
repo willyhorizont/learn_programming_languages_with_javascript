@@ -38,7 +38,7 @@ fun main() {
         if (i4 == 2) {
             continue
         }
-        println("for loop v1 ascending v2, i4 is ${i4}")
+        println("for loop v2 ascending v2, i4 is ${i4}")
     }
 
     for (i5 in ((1..5).reversed() step 1)) {
@@ -52,20 +52,20 @@ fun main() {
         if (i6 == 2) {
             continue
         }
-        println("for loop v1 descending v2, i6 is ${i6}")
+        println("for loop v3 descending v2, i6 is ${i6}")
     }
 
     ((1..5) step 1).forEach { i7 ->
         if (i7 == 2) {
             return@forEach
         }
-        println("for loop v2 ascending, i7 is ${i7}")
+        println("for loop v4 ascending, i7 is ${i7}")
     }
 
     ((1..5) step 1).reversed().forEach { i8 ->
         if (i8 == 2) {
             return@forEach
         }
-        println("for loop v2 descending, i8 is ${i8}")
+        println("for loop v4 descending, i8 is ${i8}")
     }
 }

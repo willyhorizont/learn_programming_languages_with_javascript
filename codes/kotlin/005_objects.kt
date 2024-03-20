@@ -38,6 +38,8 @@ fun main() {
         return prettyJsonStringifyInner(anything, indent)
     }
 
+    // in Kotlin, JavaScript-like Object is called MutableMap
+
     val friend = mutableMapOf<String, Any?>(
         "name" to "Alisa",
         "country" to "Finland",

@@ -61,7 +61,7 @@ void main() {
 		return -1;
 	}
 
-    print("\n// JavaScript-like Array.findIndex() in Dart List<dynamic> (List)");
+    print("\n// JavaScript-like Array.findIndex() in Dart List");
 
 	final numbers = <dynamic>[12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 	print("numbers: ${prettyArrayOfPrimitives(numbers)}");
@@ -101,7 +101,7 @@ void main() {
     print("number found index: ${numberFoundIndex}");
     // number found index: 2
 
-	print("\n// JavaScript-like Array.findIndex() in Dart List<Map<String, dynamic>> (List of Maps)");
+	print("\n// JavaScript-like Array.findIndex() in Dart List of Maps");
 
 	final products = <dynamic>[
 		<String, dynamic>{

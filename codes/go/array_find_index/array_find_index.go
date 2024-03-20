@@ -142,7 +142,7 @@ func main() {
 	fmt.Println("number found index:", numberFoundIndex)
 	// number found index: 2
 
-	fmt.Println("\n// JavaScript-like Array.findIndex() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.findIndex() in Go Slice of maps")
 
 	products := array{
 		object{

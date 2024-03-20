@@ -78,7 +78,7 @@ arrayFindV4 <- function(callbackFunction, anArray) {
     return(NULL)
 }
 
-cat("\n# JavaScript-like Array.find() in JavaScript-like-Array R list\n")
+cat("\n# JavaScript-like Array.find() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
 cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
@@ -123,7 +123,7 @@ oddNumbersFound <- arrayFindV4(function(number, ...) ((number %% 2) != 0), numbe
 cat(paste(sep = "", "odd number found: ", oddNumbersFound, "\n"))
 # odd number found: 27
 
-cat("\n# JavaScript-like Array.find() in JavaScript-like-Array-of-Objects R list\n")
+cat("\n# JavaScript-like Array.find() in R list of Associative-list\n")
 
 products <- list(
     list(

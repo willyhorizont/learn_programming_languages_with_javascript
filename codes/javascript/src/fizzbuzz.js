@@ -269,57 +269,57 @@ const fizzbuzzV12 = (stopNumber) => {
 const fizzbuzzV13 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
-    return Array.from(Array(stopNumber + 1).keys()).slice(1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))));
+    return Array.from(Array(stopNumber + 1).keys()).slice(1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))), "");
 };
 
 console.log('// using fizzbuzz function "fizzbuzzV1"');
-console.log('FizzBuzz(36):', fizzbuzzV1(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV1(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV2"');
-console.log('FizzBuzz(36):', fizzbuzzV2(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV2(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV3"');
-console.log('FizzBuzz(36):', fizzbuzzV3(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV3(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV4"');
-console.log('FizzBuzz(36):', fizzbuzzV4(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV4(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV5"');
-console.log('FizzBuzz(36):', fizzbuzzV5(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV5(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV6"');
-console.log('FizzBuzz(36):', fizzbuzzV6(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV6(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV7"');
-console.log('FizzBuzz(36):', fizzbuzzV7(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV7(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV8"');
-console.log('FizzBuzz(36):', fizzbuzzV8(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV8(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV9"');
-console.log('FizzBuzz(36):', fizzbuzzV9(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV9(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV10"');
-console.log('FizzBuzz(36):', fizzbuzzV10(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV10(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV11"');
-console.log('FizzBuzz(36):', fizzbuzzV11(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV11(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV12"');
-console.log('FizzBuzz(36):', fizzbuzzV12(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV12(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console.log('// using fizzbuzz function "fizzbuzzV13"');
-console.log('FizzBuzz(36):', fizzbuzzV13(36));
+console.log(`FizzBuzz(36): ${fizzbuzzV13(36)}`);
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

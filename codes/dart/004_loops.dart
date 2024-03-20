@@ -27,7 +27,7 @@ void main() {
 
     for (dynamic i3 = 1; i3 <= 5; i3 += 1) {
         if (i3 == 2) continue;
-        print("for loop v1, i3 is ${i3}");
+        print("for loop, i3 is ${i3}");
     }
 
 	// foreach loop

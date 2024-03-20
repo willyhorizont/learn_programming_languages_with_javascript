@@ -135,7 +135,7 @@ func arrayFindV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
     return nil
 }
 
-print("\n// JavaScript-like Array.find() in Swift [Any?] (Array)")
+print("\n// JavaScript-like Array.find() in Swift Array")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print("numbers: \(prettyArrayOfPrimitives(numbers))")
@@ -223,7 +223,7 @@ oddNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
 print("odd number found: \(oddNumberFound ?? "nil")")
 // odd number found: 27
 
-print("\n// JavaScript-like Array.find() in Swift [[String, Any?]] (Array of Objects)")
+print("\n// JavaScript-like Array.find() in Swift Array of Dictionaries")
 
 let products: MyArray = [
     [

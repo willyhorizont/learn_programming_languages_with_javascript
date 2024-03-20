@@ -87,7 +87,7 @@ fun main() {
         return true
     }
 
-    println("\n// JavaScript-like Array.every() in Kotlin MutableList<Any?> (List)")
+    println("\n// JavaScript-like Array.every() in Kotlin MutableList")
     
     val numbers = mutableListOf<Any?>(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
     println("numbers: ${prettyArrayOfPrimitives(numbers)}")
@@ -145,7 +145,7 @@ fun main() {
     println("is all number > 500: ${isAllNumberMoreThan500}")
     // is all number > 500: false
 
-    println("\n// JavaScript-like Array.every() in Kotlin MutableList<MutableMap<String, Any?>> (List of Maps)")
+    println("\n// JavaScript-like Array.every() in Kotlin MutableList of MutableMaps")
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(

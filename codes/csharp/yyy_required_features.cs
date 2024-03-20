@@ -1,61 +1,61 @@
-using System; // Console, Func<,,>, Action<>, Action
+using System; // Console, Func<>, Action<>, Action
 using System.Linq; // Enumerable
-using System.Collections.Generic; // Dictionary<,>, KeyValuePair<,>
+using System.Collections.Generic; // Dictionary<>, List<>, KeyValuePair<>, IEnumerable<>
 
 class Program {
-    static bool IsNumeric(dynamic Anything) {
-        return (Anything is sbyte || Anything is byte || Anything is short || Anything is ushort || Anything is int || Anything is uint || Anything is long || Anything is ulong || Anything is float || Anything is double || Anything is decimal);
-    }
-    static string PrettyJsonStringify(dynamic Anything, string Indent = "    ") {
-        int IndentLevel = 0;
-        Func<dynamic, string, string> PrettyJsonStringifyInner = null;
-        PrettyJsonStringifyInner = (dynamic AnythingInner, string IndentInner) => {
-            if (AnythingInner == null) {
-                return "null";
-            }
-            if (AnythingInner is string) {
-                return "\"" + (string)AnythingInner + "\"";
-            }
-            if (IsNumeric(AnythingInner) || AnythingInner is bool) {
-                return AnythingInner.ToString();
-            }
-            if (AnythingInner is dynamic[]) {
-                IndentLevel += 1;
-                string Result = "[" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                int ArrayItemIndex = 0;
-                foreach (dynamic ArrayItem in (dynamic[])AnythingInner) {
-                    Result += PrettyJsonStringifyInner(ArrayItem, IndentInner);
-                    if ((ArrayItemIndex + 1) != ((dynamic[])AnythingInner).Length) {
-                        Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    }
-                    ArrayItemIndex += 1;
-                }
-                IndentLevel -= 1;
-                Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "]";
-                return Result;
-            }
-            if (AnythingInner is Dictionary<string, dynamic>) {
-                IndentLevel += 1;
-                string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                int IterationIndex = 0;
-                foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
-                    string ObjectKey = ObjectEntry.Key;
-                    dynamic ObjectValue = ObjectEntry.Value;
-                    Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                    if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
-                        Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    }
-                    IterationIndex += 1;
-                }
-                IndentLevel -= 1;
-                Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
-                return Result;
-            }
-            return "null";
-        };
-        return PrettyJsonStringifyInner(Anything, Indent);
-    }
     static void Main(string[] Args) {
+        dynamic IsNumeric = (Func<dynamic, bool>)((dynamic Anything) => (Anything is sbyte || Anything is byte || Anything is short || Anything is ushort || Anything is int || Anything is uint || Anything is long || Anything is ulong || Anything is float || Anything is double || Anything is decimal));
+
+        string PrettyJsonStringify(dynamic Anything, string Indent = "    ") {
+            int IndentLevel = 0;
+            dynamic PrettyJsonStringifyInner = null;
+            PrettyJsonStringifyInner = (Func<dynamic, string, string>)((dynamic AnythingInner, string IndentInner) => {
+                if (AnythingInner == null) {
+                    return "null";
+                }
+                if (AnythingInner is string) {
+                    return "\"" + (string)AnythingInner + "\"";
+                }
+                if (IsNumeric(AnythingInner) || AnythingInner is bool) {
+                    return AnythingInner.ToString().Replace(",", ".");
+                }
+                if (AnythingInner is List<dynamic>) {
+                    IndentLevel += 1;
+                    string Result = "[" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
+                    int ArrayItemIndex = 0;
+                    foreach (dynamic ArrayItem in (List<dynamic>)AnythingInner) {
+                        Result += PrettyJsonStringifyInner(ArrayItem, IndentInner);
+                        if ((ArrayItemIndex + 1) != ((List<dynamic>)AnythingInner).Count) {
+                            Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
+                        }
+                        ArrayItemIndex += 1;
+                    }
+                    IndentLevel -= 1;
+                    Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "]";
+                    return Result;
+                }
+                if (AnythingInner is Dictionary<string, dynamic>) {
+                    IndentLevel += 1;
+                    string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
+                    int IterationIndex = 0;
+                    foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
+                        string ObjectKey = ObjectEntry.Key;
+                        dynamic ObjectValue = ObjectEntry.Value;
+                        Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
+                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                            Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
+                        }
+                        IterationIndex += 1;
+                    }
+                    IndentLevel -= 1;
+                    Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
+                    return Result;
+                }
+                return "null";
+            });
+            return PrettyJsonStringifyInner(Anything, Indent);
+        }
+
         /*
             1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
             ```javascript
@@ -84,9 +84,9 @@ class Program {
         Console.WriteLine("Something: " + PrettyJsonStringify(Something));
         Something = null;
         Console.WriteLine("Something: " + PrettyJsonStringify(Something));
-        Something = new dynamic[] { 1, 2, 3 };
+        Something = new List<dynamic>() {1, 2, 3};
         Console.WriteLine("Something: " + PrettyJsonStringify(Something));
-        Something = new Dictionary<string, dynamic>() { { "foo", "bar" } };
+        Something = new Dictionary<string, dynamic>() {{"foo", "bar"}};
         Console.WriteLine("Something: " + PrettyJsonStringify(Something));
 
         /*
@@ -120,20 +120,20 @@ class Program {
             playGame();
             ```
         */
-        Func<int> GetModifiedIndentLevel = () => {
+        dynamic GetModifiedIndentLevel = (Func<dynamic>)(() => {
             int IndentLevel = 0;
-            Func<int> ChangeIndentLevel = null;
-            ChangeIndentLevel = () => {
+            dynamic ChangeIndentLevel = null;
+            ChangeIndentLevel = (Func<dynamic>)(() => {
                 IndentLevel += 1;
                 if (IndentLevel < 5) {
                     ChangeIndentLevel();
                 }
                 return IndentLevel;
-            };
+            });
             return ChangeIndentLevel();
-        };
+        });
         Console.WriteLine("GetModifiedIndentLevel(): " + GetModifiedIndentLevel());
-        Func<int, Action> CreateNewGame = (InitialCredit) => {
+        dynamic CreateNewGame = (Func<dynamic, Action>)((dynamic InitialCredit) => {
             int CurrentCredit = InitialCredit;
             Console.WriteLine("initial credit: " + InitialCredit);
             return () => {
@@ -144,7 +144,7 @@ class Program {
                 }
                 Console.WriteLine($"playing game, {CurrentCredit} credit(s) remaining");
             };
-        };
+        });
         dynamic PlayGame = CreateNewGame(3);
         PlayGame();
         PlayGame();
@@ -173,7 +173,7 @@ class Program {
             {"my_object", new Dictionary<string, dynamic>() {
                 { "foo", "bar" }
             }},
-            {"my_array", new dynamic[] { 1, 2, 3 }}
+            {"my_array", new List<dynamic>() {1, 2, 3}}
         };
         Console.WriteLine("MyObject: " + PrettyJsonStringify(MyObject));
 
@@ -184,7 +184,7 @@ class Program {
             console.log("myArray:", myArray);
             ```
         */
-        dynamic MyArray = new dynamic[] { "foo", 123, true, null, new dynamic[] { 1, 2, 3 }, new Dictionary<string, dynamic>() { { "foo", "bar" } } };
+        dynamic MyArray = new List<dynamic>() {"foo", 123, true, null, new List<dynamic>() {1, 2, 3}, new Dictionary<string, dynamic>() {{"foo", "bar"}}};
         Console.WriteLine("MyArray: " + PrettyJsonStringify(MyArray));
 
         /*
@@ -203,13 +203,13 @@ class Program {
             });
             ```
         */
-        Action<Action> SayHello = (CallbackFunction) => {
+        void SayHello(Action CallbackFunction) {
             Console.WriteLine("hello");
             CallbackFunction();
-        };
-        Action SayHowAreYou = () => {
+        }
+        void SayHowAreYou() {
             Console.WriteLine("how are you?");
-        };
+        }
         SayHello(SayHowAreYou);
         SayHello((Action)(() => {
             Console.WriteLine("how are you?");
@@ -228,13 +228,13 @@ class Program {
             console.log("multiplyBy2Result:", multiplyBy2Result);
             ```
         */
-        Func<int, Func<int, int>> Multiply = (A) => {
-            return (B) => {
+        dynamic Multiply = (Func<dynamic, Func<dynamic, dynamic>>)((dynamic A) => {
+            return (Func<dynamic, dynamic>)((dynamic B) => {
                 return (A * B);
-            };
-        };
-        Func<int, int> MultiplyBy2 = Multiply(2);
-        int MultiplyBy2Result = MultiplyBy2(10);
+            });
+        });
+        dynamic MultiplyBy2 = (Func<dynamic, dynamic>)Multiply(2);
+        dynamic MultiplyBy2Result = MultiplyBy2(10);
         Console.WriteLine("MultiplyBy2Result: " + MultiplyBy2Result);
 
         /*
@@ -252,14 +252,12 @@ class Program {
             console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
             ```
         */
-        Func<int, int, int> GetRectangleAreaV1 = (RectangleWidth, RectangleLength) => {
+        dynamic GetRectangleAreaV1 = (Func<dynamic, dynamic, dynamic>)((dynamic RectangleWidth, dynamic RectangleLength) => {
             return (RectangleWidth * RectangleLength);
-        };
+        });
         Console.WriteLine("GetRectangleAreaV1(7, 5): " + GetRectangleAreaV1(7, 5));
-        Func<int, int, int> GetRectangleAreaV2 = (RectangleWidth, RectangleLength) => (RectangleWidth * RectangleLength);
+        dynamic GetRectangleAreaV2 = (Func<dynamic, dynamic, dynamic>)((dynamic RectangleWidth, dynamic RectangleLength) => (RectangleWidth * RectangleLength));
         Console.WriteLine("GetRectangleAreaV2(7, 5): " + GetRectangleAreaV2(7, 5));
-        dynamic GetRectangleAreaV3 = (Func<int, int, int>)((RectangleWidth, RectangleLength) => (RectangleWidth * RectangleLength));
-        Console.WriteLine("GetRectangleAreaV3(7, 5): " + GetRectangleAreaV3(7, 5));
 
         /*
             8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -293,21 +291,21 @@ class Program {
             console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
             ```
         */
-        dynamic MyArray2 = new dynamic[] {
-            (Func<int, int, int>)((A, B) => {
+        dynamic MyArray2 = new List<dynamic>() {
+            (Func<dynamic, dynamic, dynamic>)((dynamic A, dynamic B) => {
                 return (A * B);
             }),
             "foo",
             123,
             true,
             null,
-            new dynamic[] { 1, 2, 3 },
-            new Dictionary<string, dynamic>() { { "foo", "bar" } }
+            new List<dynamic>() {1, 2, 3},
+            new Dictionary<string, dynamic>() {{"foo", "bar"}}
         };
         Console.WriteLine("myArray2[0](7, 5): " + MyArray2[0](7, 5));
 
         dynamic MyObject2 = new Dictionary<string, dynamic>() {
-            {"my_function", (Func<int, int, int>)((A, B) => {
+            {"my_function", (Func<dynamic, dynamic, dynamic>)((dynamic A, dynamic B) => {
                 return (A * B);
             })},
             {"my_string", "foo"},
@@ -317,7 +315,7 @@ class Program {
             {"my_object", new Dictionary<string, dynamic>() {
                 { "foo", "bar" }
             }},
-            {"my_array", new dynamic[] { 1, 2, 3 }}
+            {"my_array", new List<dynamic>() {1, 2, 3}}
         };
         Console.WriteLine("myObject2[\"my_function\"](7, 5): " + MyObject2["my_function"](7, 5));
     }

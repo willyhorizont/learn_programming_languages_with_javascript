@@ -55,7 +55,7 @@ numbers_total = foldl((current_result, current_number) -> (current_result + curr
 println("total number: ", numbers_total)
 # total number: 41.2
 
-println("\n# JavaScript-like Array.reduce() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.reduce() in Julia Array of Dictionaries")
 
 products = [
     Dict(

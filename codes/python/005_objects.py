@@ -1,5 +1,7 @@
 import json
 
+# in Python, JavaScript-like Object is called dict / dictionary
+
 friend = {
     "name": "Alisa",
     "country": "Finland",

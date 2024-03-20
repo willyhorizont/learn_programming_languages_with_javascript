@@ -109,7 +109,7 @@ numbers_odd = filter((number) -> ((number % 2) !== 0), numbers)
 println("odd numbers only: ", pretty_array_of_primitives(numbers_odd))
 # odd numbers only: [27, 23, 65, 93, 87]
 
-println("\n# JavaScript-like Array.filter() in Julia Array of Dicts")
+println("\n# JavaScript-like Array.filter() in Julia Array of Dictionaries")
 
 products = [
     Dict(

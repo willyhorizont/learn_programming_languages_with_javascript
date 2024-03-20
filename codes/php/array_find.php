@@ -78,7 +78,7 @@ function array_find_v4($callback_function, $an_array) {
     return null;
 };
 
-echo("\n\n// JavaScript-like Array.find() in PHP Array");
+echo("\n\n// JavaScript-like Array.find() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
@@ -123,7 +123,7 @@ $odd_number_found = array_find_v4(fn($number) => (($number % 2) !== 0), $numbers
 echo("\n" . "odd number found: $odd_number_found");
 // odd number found: 27
 
-echo("\n\n// JavaScript-like Array.find() in PHP Array of Associative-Arrays");
+echo("\n\n// JavaScript-like Array.find() in PHP array of associative-arrays");
 
 $products = [
     [

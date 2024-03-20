@@ -43,7 +43,7 @@ def array_map_v5(callback_function, an_array):
 # JavaScript-like Array.map() function
 array_map_v6 = lambda callback_function, an_array: [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]
 
-print('\n# JavaScript-like Array.map() in Python List')
+print('\n# JavaScript-like Array.map() in Python list')
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
 print(f'numbers: {json.dumps(numbers)}')
@@ -307,7 +307,7 @@ print(f'labeled numbers: {json.dumps(numbers_labeled, indent=4)}')
 #     }
 # ]
 
-print('\n# JavaScript-like Array.map() in Python List of Dictionaries')
+print('\n# JavaScript-like Array.map() in Python list of dictionaries')
 
 products = [
     {

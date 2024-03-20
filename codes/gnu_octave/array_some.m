@@ -218,7 +218,7 @@ function arraysomev4result = arraysomev4(callbackfunction, anarray)
     arraysomev4result = false;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.some() in GNU Octave Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.some() in GNU Octave Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
 sprint("numbers: ", {numbers});
@@ -273,7 +273,7 @@ isanynumbermorethan500 = any(cellfun(@(number) (number > 500), numbers));
 sprint("is any number > 500: ", {isanynumbermorethan500});
 % is any number > 500: false
 
-sprint(sprintf("\n"), "% JavaScript-like Array.some() in GNU Octave Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.some() in GNU Octave Cell-Array of structs");
 
 products = { ...
     struct( ...

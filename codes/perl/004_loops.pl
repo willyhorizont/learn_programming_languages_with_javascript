@@ -39,7 +39,7 @@ for my $i4 (1..5) {
 
 for my $i5 (reverse(1..5)) {
     next if ($i5 == 2);
-    print("for loop v2 ascending, \$i5 is $i5\n");
+    print("for loop v2 descending, \$i5 is $i5\n");
 }
 
 foreach my $i6 (1..5) {
@@ -49,5 +49,5 @@ foreach my $i6 (1..5) {
 
 foreach my $i7 (reverse(1..5)) {
     next if ($i7 == 2);
-    print("for loop v3 ascending, \$i7 is $i7\n");
+    print("for loop v3 descending, \$i7 is $i7\n");
 }

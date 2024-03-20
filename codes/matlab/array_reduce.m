@@ -292,7 +292,7 @@ function arrayreduceresult = arrayreduce(callbackfunction, anarray, initialvalue
     arrayreduceresult = currentresult;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell-Array");
 
 numbers = {36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3};
 sprint("numbers: ", {numbers});
@@ -303,7 +303,7 @@ numberstotal = arrayreduce(@(currentresult, currentnumber, varargin) (currentres
 sprint("total number: ", {numberstotal});
 % total number: 41.2
 
-sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell Array of Structs");
+sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell-Array of structs");
 
 products = { ...
     struct( ...

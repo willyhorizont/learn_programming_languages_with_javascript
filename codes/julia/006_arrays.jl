@@ -23,7 +23,7 @@ function pretty_array_of_primitives(an_array_of_primitives)
     return result
 end
 
-# Array in Julia
+# in Julia, JavaScript-like Array is called Array
 
 fruits = ["apple", "mango", "orange"]
 println("fruits: ", pretty_array_of_primitives(fruits))
@@ -47,7 +47,7 @@ end
 # fruits, for loop, index: 2, value: mango
 # fruits, for loop, index: 3, value: orange
 
-# Array of Objects in Julia
+# in Julia, JavaScript-like Array of Objects is called Array of Dictionaries
 
 products = [
     Dict(

@@ -40,12 +40,12 @@ Module Program
 
         For Each I5 As Integer In Enumerable.Range(1, 5)
             If (I5 = 2) Then Continue For
-            Console.WriteLine($"for loop ascending, I5 is {I5}")
+            Console.WriteLine($"foreach loop ascending, I5 is {I5}")
         Next
 
         For Each I6 As Integer In Enumerable.Range(1, 5).Reverse()
             If (I6 = 2) Then Continue For
-            Console.WriteLine($"for loop ascending, I6 is {I6}")
+            Console.WriteLine($"foreach loop descending, I6 is {I6}")
         Next
     End Sub
 End Module

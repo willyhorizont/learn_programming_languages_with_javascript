@@ -6,6 +6,8 @@ void main() {
 		return jsonEncoder.convert(anything);
 	}
 
+	// in Dart, JavaScript-like Object is called Map
+
     final friend = <String, dynamic>{
 		"name": "Alisa",
 		"country": "Finland",

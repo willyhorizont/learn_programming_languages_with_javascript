@@ -170,7 +170,7 @@ func main() {
 	fmt.Println("total number:", prettyJsonStringify(numbersTotal))
 	// total number: 41.2
 
-	fmt.Println("\n// JavaScript-like Array.reduce() in Slice of Maps")
+	fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice of maps")
 
 	products := array{
 		object{

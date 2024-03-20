@@ -111,7 +111,7 @@ function arrayincludesv2result = arrayincludesv2(searchelement, anarray)
     arrayincludesv2result = false;
 end
 
-sprint(sprintf("\n"), "% JavaScript-like Array.includes() in Matlab Cell Array");
+sprint(sprintf("\n"), "% JavaScript-like Array.includes() in Matlab Cell-Array");
 
 myfriends = {"Alisa", "Trivia"};
 sprint("my friends: ", {myfriends});
