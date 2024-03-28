@@ -267,26 +267,26 @@ productsGrouped = arrayReduce({ (currentResult: Any?, currentProduct: Any?, _: I
 }, products, ["expensive": MyArray(), "cheap": MyArray()] as MyObject)
 print("grouped products: \(prettyJsonStringify(productsGrouped))")
 // grouped products: {
-// 	"expensive": [
-// 		{
-// 			"code": "pasta",
-// 			"price": 321
-// 		},
-// 		{
-// 			"code": "bubble_gum",
-// 			"price": 233
-// 		},
-// 		{
-// 			"code": "towel",
-// 			"price": 499
-// 		}
-// 	],
-// 	"cheap": [
-// 		{
-// 			"code": "potato_chips",
-// 			"price": 5
-// 		}
-// 	]
+//     "expensive": [
+//         {
+//             "code": "pasta",
+//             "price": 321
+//         },
+//         {
+//             "code": "bubble_gum",
+//             "price": 233
+//         },
+//         {
+//             "code": "towel",
+//             "price": 499
+//         }
+//     ],
+//     "cheap": [
+//         {
+//             "code": "potato_chips",
+//             "price": 5
+//         }
+//     ]
 // }
 
 print("// using Swift Array.reduce() built-in method \"Array.reduce\"")
@@ -299,24 +299,24 @@ productsGrouped = products.reduce(["expensive": MyArray(), "cheap": MyArray()] a
 }
 print("grouped products: \(prettyJsonStringify(productsGrouped))")
 // grouped products: {
-// 	"expensive": [
-// 		{
-// 			"code": "pasta",
-// 			"price": 321
-// 		},
-// 		{
-// 			"code": "bubble_gum",
-// 			"price": 233
-// 		},
-// 		{
-// 			"code": "towel",
-// 			"price": 499
-// 		}
-// 	],
-// 	"cheap": [
-// 		{
-// 			"code": "potato_chips",
-// 			"price": 5
-// 		}
-// 	]
+//     "expensive": [
+//         {
+//             "code": "pasta",
+//             "price": 321
+//         },
+//         {
+//             "code": "bubble_gum",
+//             "price": 233
+//         },
+//         {
+//             "code": "towel",
+//             "price": 499
+//         }
+//     ],
+//     "cheap": [
+//         {
+//             "code": "potato_chips",
+//             "price": 5
+//         }
+//     ]
 // }

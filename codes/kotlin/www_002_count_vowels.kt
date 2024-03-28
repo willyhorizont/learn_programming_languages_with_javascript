@@ -12,27 +12,27 @@ Description:
 */
 
 fun main() {
-    val countVowelsV1: (String) -> Int = { aString -> aString.split("").toMutableList().fold(0) { result: Int, aLetter: String -> if (aLetter in mutableListOf<String>("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) (result + 1) else result } }
+    val countVowelsV1: (String) -> Int = { aString -> aString.split("").toMutableList().fold(0) { currentResult: Int, aCharacter: String -> if (aCharacter in mutableListOf<String>("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) (currentResult + 1) else currentResult } }
     println(countVowelsV1("Hello World")) // 3
 
-    val countVowelsV2: (String) -> Int = { aString -> aString.split("").toMutableList().fold(0) { result: Int, aLetter: String -> if (aLetter.uppercase() in mutableListOf<String>("A", "I", "U", "E", "O")) (result + 1) else result } }
+    val countVowelsV2: (String) -> Int = { aString -> aString.split("").toMutableList().fold(0) { currentResult: Int, aCharacter: String -> if (aCharacter.uppercase() in mutableListOf<String>("A", "I", "U", "E", "O")) (currentResult + 1) else currentResult } }
     println(countVowelsV2("Hello World")) // 3
 
-    val countVowelsV3: (String) -> Int = { aString -> aString.toCharArray().fold(0) { result: Int, aLetter: Char -> if ("aiueoAIUEO".contains(aLetter)) (result + 1) else result } }
+    val countVowelsV3: (String) -> Int = { aString -> aString.toCharArray().fold(0) { currentResult: Int, aCharacter: Char -> if ("aiueoAIUEO".contains(aCharacter)) (currentResult + 1) else currentResult } }
     println(countVowelsV3("Hello World")) // 3
 
-    val countVowelsV4: (String) -> Int = { aString -> aString.toCharArray().fold(0) { result: Int, aLetter: Char -> if ("AIUEO".contains(aLetter.uppercase())) (result + 1) else result } }
+    val countVowelsV4: (String) -> Int = { aString -> aString.toCharArray().fold(0) { currentResult: Int, aCharacter: Char -> if ("AIUEO".contains(aCharacter.uppercase())) (currentResult + 1) else currentResult } }
     println(countVowelsV4("Hello World")) // 3
 
-    val countVowelsV5: (String) -> Int = { aString -> aString.split("").toMutableList().filter { aLetter: String -> (aLetter in mutableListOf<String>("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) }.size }
+    val countVowelsV5: (String) -> Int = { aString -> aString.split("").toMutableList().filter { aCharacter: String -> (aCharacter in mutableListOf<String>("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) }.size }
     println(countVowelsV5("Hello World")) // 3
 
-    val countVowelsV6: (String) -> Int = { aString -> aString.split("").toMutableList().filter { aLetter: String -> (aLetter.uppercase() in mutableListOf<String>("A", "I", "U", "E", "O")) }.size }
+    val countVowelsV6: (String) -> Int = { aString -> aString.split("").toMutableList().filter { aCharacter: String -> (aCharacter.uppercase() in mutableListOf<String>("A", "I", "U", "E", "O")) }.size }
     println(countVowelsV6("Hello World")) // 3
 
-    val countVowelsV7: (String) -> Int = { aString -> aString.toCharArray().filter { aLetter: Char -> ("aiueoAIUEO".contains(aLetter)) }.size }
+    val countVowelsV7: (String) -> Int = { aString -> aString.toCharArray().filter { aCharacter: Char -> ("aiueoAIUEO".contains(aCharacter)) }.size }
     println(countVowelsV7("Hello World")) // 3
 
-    val countVowelsV8: (String) -> Int = { aString -> aString.toCharArray().filter { aLetter: Char -> ("AIUEO".contains(aLetter.uppercase())) }.size }
+    val countVowelsV8: (String) -> Int = { aString -> aString.toCharArray().filter { aCharacter: Char -> ("AIUEO".contains(aCharacter.uppercase())) }.size }
     println(countVowelsV8("Hello World")) // 3
 }

@@ -6,7 +6,7 @@ Module Program
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"

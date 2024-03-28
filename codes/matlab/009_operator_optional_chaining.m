@@ -221,14 +221,14 @@ sprint("JSONOBJECT: ", {prettyjsonstringify({JSONOBJECT})});
 
 disp("% using JavaScript-like Optional Chaining Operator (?.) function ""optionalchaining""");
 
-sprint("JSON_OBJECT?.foo?.bar: ", {optionalchaining(JSONOBJECT, "foo", "bar")});
-% JSON_OBJECT?.foo?.bar: "baz"
+sprint("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", {optionalchaining(JSONOBJECT, "foo", "bar")});
+% JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-sprint("JSON_OBJECT?.foo?.baz: ", {optionalchaining(JSONOBJECT, "foo", "baz")});
-% JSON_OBJECT?.foo?.baz: null
+sprint("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", {optionalchaining(JSONOBJECT, "foo", "baz")});
+% JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-sprint("JSON_OBJECT?.fruits?.[2]: ", {optionalchaining(JSONOBJECT, "fruits", 2)});
-% JSON_OBJECT?.fruits?.[2]: "mango"
+sprint("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", {optionalchaining(JSONOBJECT, "fruits", 2)});
+% JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "mango"
 
-sprint("JSON_OBJECT?.fruits?.[5]: ", {optionalchaining(JSONOBJECT, "fruits", 5)});
-% JSON_OBJECT?.fruits?.[5]: null
+sprint("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", {optionalchaining(JSONOBJECT, "fruits", 5)});
+% JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null

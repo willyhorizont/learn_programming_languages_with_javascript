@@ -11,7 +11,7 @@ Description:
     patrick feeney => P.F
 =#
 
-abbreviate_name = (complete_name) -> join(map(((name) -> uppercase(name[1])), split(complete_name, " ")), ".")
+abbreviate_name = (complete_name) -> join(map(((a_name) -> uppercase(a_name[1])), split(complete_name, " ")), ".")
 println(abbreviate_name("Sam Harris"))
 # S.H
 println(abbreviate_name("patrick feeney"))

@@ -23,14 +23,14 @@ JSON_OBJECT <- list(
 )
 cat(paste(sep = "", "JSON_OBJECT: ", prettyJsonStringify(JSON_OBJECT), "\n"))
 
-cat(paste(sep = "", "(JSON_OBJECT?.foo?.bar ?? \"not found\"): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$foo$bar, error = function(err) NULL), "not found")), "\n"))
-# (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"
+cat(paste(sep = "", "(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$foo$bar, error = function(err) NULL), "not found")), "\n"))
+# (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-cat(paste(sep = "", "(JSON_OBJECT?.foo?.baz ?? \"not found\"): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$foo$baz, error = function(err) NULL), "not found")), "\n"))
-# (JSON_OBJECT?.foo?.baz ?? "not found"): "not found"
+cat(paste(sep = "", "(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$foo$baz, error = function(err) NULL), "not found")), "\n"))
+# (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-cat(paste(sep = "", "(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$fruits[[2]], error = function(err) NULL), "not found")), "\n"))
-# (JSON_OBJECT?.fruits?.[2] ?? "not found"): "mango"
+cat(paste(sep = "", "(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$fruits[[2]], error = function(err) NULL), "not found")), "\n"))
+# (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "mango"
 
-cat(paste(sep = "", "(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$fruits[[5]], error = function(err) NULL), "not found")), "\n"))
-# (JSON_OBJECT?.fruits?.[5] ?? "not found"): "not found"
+cat(paste(sep = "", "(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): ", prettyJsonStringify(nullishCoalescing(tryCatch(JSON_OBJECT$fruits[[5]], error = function(err) NULL), "not found")), "\n"))
+# (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

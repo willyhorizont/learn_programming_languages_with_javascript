@@ -198,7 +198,7 @@ fizbuzzV9 <- function(stopNumber) {
 fizbuzzV10 <- function(stopNumber) {
     if (is.numeric(stopNumber) == FALSE) stop("argument should be a stopNumber")
     if (stopNumber < 1) stop("Argument should be > 0")
-    return(Reduce(function(currentResult, number) (if (currentResult == "") paste(sep = "", number) else if (((number %% 3) == 0) && ((number %% 5) == 0)) paste(sep = "", currentResult, ", FizzBuzz") else if ((number %% 3) == 0) paste(sep = "", currentResult, ", Fizz") else if ((number %% 5) == 0) paste(sep = "", currentResult, ", Buzz") else paste(sep = "", currentResult, ", ", number)), 1:stopNumber, ""))
+    return(Reduce(function(currentResult, currentNumber) (if (currentResult == "") paste(sep = "", currentNumber) else if (((currentNumber %% 3) == 0) && ((currentNumber %% 5) == 0)) paste(sep = "", currentResult, ", FizzBuzz") else if ((currentNumber %% 3) == 0) paste(sep = "", currentResult, ", Fizz") else if ((currentNumber %% 5) == 0) paste(sep = "", currentResult, ", Buzz") else paste(sep = "", currentResult, ", ", currentNumber)), 1:stopNumber, ""))
 }
 
 cat("# using fizzbuzz function \"fizbuzzV1\"\n")

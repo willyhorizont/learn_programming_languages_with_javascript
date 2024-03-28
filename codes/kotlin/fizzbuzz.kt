@@ -191,7 +191,7 @@ fun main() {
 
     fun fizzbuzzV10(stopNumber: Int): String {
         if (stopNumber < 1) throw Exception("Argument should be > 0")
-        return ((1..stopNumber) step 1).fold("") { currentResult: String, number: Int ->  if (currentResult == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${currentResult}, FizzBuzz" else if ((number % 3) == 0) "${currentResult}, Fizz" else if ((number % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${number}" }
+        return ((1..stopNumber) step 1).fold("") { currentResult: String, currentNumber: Int ->  if (currentResult == "") "${currentNumber}" else if (((currentNumber % 3) == 0) && ((currentNumber % 5) == 0)) "${currentResult}, FizzBuzz" else if ((currentNumber % 3) == 0) "${currentResult}, Fizz" else if ((currentNumber % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${currentNumber}" }
     }
 
     println("// using fizzbuzz function \"fizzbuzzV1\"")

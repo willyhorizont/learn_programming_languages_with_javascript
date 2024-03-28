@@ -30,7 +30,7 @@ func main():
     print("something: ", JSON.stringify(something, "    "))
     something = [1, 2, 3]
     print("something: ", JSON.stringify(something, "    "))
-    something = { "foo": "bar" }
+    something = {"foo": "bar"}
     print("something: ", JSON.stringify(something, "    "))
 
     # 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too

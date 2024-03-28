@@ -11,7 +11,7 @@ Description:
     patrick feeney => P.F
 */
 
-let abbreviateName = { (completeName: String) -> String in completeName.split(separator: " ").map { (name: Substring) -> String in name.first!.uppercased() }.joined(separator: ".") }
+let abbreviateName = { (completeName: String) -> String in completeName.split(separator: " ").map { (aName: Substring) -> String in aName.first!.uppercased() }.joined(separator: ".") }
 print(abbreviateName("Sam Harris"))
 // S.H
 print(abbreviateName("patrick feeney"))

@@ -229,14 +229,14 @@ sprint("JSONOBJECT: ", {prettyjsonstringify({JSONOBJECT})});
 
 disp("% using JavaScript-like Nullish Coalescing Operator (??) function ""nullishcoalescing""");
 
-sprint("JSON_OBJECT?.foo?.bar ?? ""not found"": ", {nullishcoalescing(optionalchaining(JSONOBJECT, "foo", "bar"), "not found")});
-% JSON_OBJECT?.foo?.bar ?? "not found": "baz"
+sprint("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): ", {nullishcoalescing(optionalchaining(JSONOBJECT, "foo", "bar"), "not found")});
+% (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-sprint("JSON_OBJECT?.foo?.baz ?? ""not found"": ", {nullishcoalescing(optionalchaining(JSONOBJECT, "foo", "baz"), "not found")});
-% JSON_OBJECT?.foo?.baz ?? "not found": "not found"
+sprint("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): ", {nullishcoalescing(optionalchaining(JSONOBJECT, "foo", "baz"), "not found")});
+% (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-sprint("JSON_OBJECT?.fruits?.[2] ?? ""not found"": ", {nullishcoalescing(optionalchaining(JSONOBJECT, "fruits", 2), "not found")});
-% JSON_OBJECT?.fruits?.[2] ?? "not found": "mango"
+sprint("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): ", {nullishcoalescing(optionalchaining(JSONOBJECT, "fruits", 2), "not found")});
+% (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "mango"
 
-sprint("JSON_OBJECT?.fruits?.[5] ?? ""not found"": ", {nullishcoalescing(optionalchaining(JSONOBJECT, "fruits", 5), "not found")});
-% JSON_OBJECT?.fruits?.[5] ?? "not found": "not found"
+sprint("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): ", {nullishcoalescing(optionalchaining(JSONOBJECT, "fruits", 5), "not found")});
+% (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

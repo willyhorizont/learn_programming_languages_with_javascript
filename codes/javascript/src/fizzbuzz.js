@@ -269,7 +269,7 @@ const fizzbuzzV12 = (stopNumber) => {
 const fizzbuzzV13 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
-    return Array.from(Array(stopNumber + 1).keys()).slice(1).reduce((currentResult, number) => ((currentResult === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((number % 3) === 0) ? `${currentResult}, Fizz` : (((number % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${number}`)))), "");
+    return Array.from(Array(stopNumber + 1).keys()).slice(1).reduce((currentResult, currentNumber) => ((currentResult === "") ? `${currentNumber}` : ((((currentNumber % 3) === 0) && ((currentNumber % 5) === 0)) ? `${currentResult}, FizzBuzz` : (((currentNumber % 3) === 0) ? `${currentResult}, Fizz` : (((currentNumber % 5) === 0) ? `${currentResult}, Buzz` : `${currentResult}, ${currentNumber}`)))), "");
 };
 
 console.log('// using fizzbuzz function "fizzbuzzV1"');

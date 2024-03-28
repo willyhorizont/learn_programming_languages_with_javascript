@@ -16,7 +16,7 @@ class Program {
                 if (AnythingInner is string) {
                     return "\"" + (string)AnythingInner + "\"";
                 }
-                if (IsNumeric(AnythingInner) || AnythingInner is bool) {
+                if ((IsNumeric(AnythingInner) == true) || AnythingInner is bool) {
                     return AnythingInner.ToString().Replace(",", ".");
                 }
                 if (AnythingInner is List<dynamic>) {
@@ -62,11 +62,11 @@ class Program {
                 ? Anything
                 : (ObjectPropertiesArray.Aggregate(null, (Func<dynamic, dynamic, dynamic>)((dynamic CurrentResult, dynamic CurrentItem) => (((CurrentResult == null) && (Anything is Dictionary<string, dynamic>) && (CurrentItem is string))
                     ? (Anything.ContainsKey(CurrentItem) ? Anything[CurrentItem] : null)
-                    : (((CurrentResult == null) && (Anything is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) 
+                    : (((CurrentResult == null) && (Anything is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) 
                         ? Anything[CurrentItem]
                         : (((CurrentResult is Dictionary<string, dynamic>) && (CurrentItem is string))
                             ? (CurrentResult.ContainsKey(CurrentItem) ? CurrentResult[CurrentItem] : null)
-                            : (((CurrentResult is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem))
+                            : (((CurrentResult is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem))
                                 ? CurrentResult[CurrentItem]
                                 : null
                             )
@@ -86,16 +86,16 @@ class Program {
         };
         Console.WriteLine($"JSON_OBJECT: {PrettyJsonStringify(JSON_OBJECT)}");
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar ?? \"not found\": {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "bar") ?? "not found")}");
-        // JSON_OBJECT?.foo?.bar: "baz"
+        Console.WriteLine($"(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "bar") ?? "not found")}");
+        // (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz ?? \"not found\": {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "baz") ?? "not found")}");
-        // JSON_OBJECT?.foo?.baz: "not found"
+        Console.WriteLine($"(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "baz") ?? "not found")}");
+        // (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2] ?? \"not found\": {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 2) ?? "not found")}");
-        // JSON_OBJECT?.fruits?.[2]: "banana"
+        Console.WriteLine($"(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 2) ?? "not found")}");
+        // (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5] ?? \"not found\": {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 5) ?? "not found")}");
-        // JSON_OBJECT?.fruits?.[5]: "not found"
+        Console.WriteLine($"(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 5) ?? "not found")}");
+        // (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
     }
 }

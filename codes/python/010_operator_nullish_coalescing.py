@@ -50,42 +50,42 @@ print(f'JSON_OBJECT: {json.dumps(JSON_OBJECT, indent=4)}')
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v1"')
 
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "foo", "bar"), "not found")}')
-# JSON_OBJECT?.foo?.bar ?? "not found": baz
+print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "foo", "bar"), "not found")}')
+# (JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): baz
 
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "foo", "baz"), "not found")}')
-# JSON_OBJECT?.foo?.baz ?? "not found": not found
+print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "foo", "baz"), "not found")}')
+# (JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): not found
 
-print(f'JSON_OBJECT?.fruits?.[2] ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "fruits", 2), "not found")}')
-# JSON_OBJECT?.fruits?.[2] ?? "not found": banana
+print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "fruits", 2), "not found")}')
+# (JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): banana
 
-print(f'JSON_OBJECT?.fruits?.[5] ?? \"not found\": {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "fruits", 5), "not found")}')
-# JSON_OBJECT?.fruits?.[5] ?? "not found": not found
+print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {nullish_coalescing_v1(optional_chaining_v1(JSON_OBJECT, "fruits", 5), "not found")}')
+# (JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): not found
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v2"')
 
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "foo", "bar"), "not found")}')
-# JSON_OBJECT?.foo?.bar ?? "not found": baz
+print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "foo", "bar"), "not found")}')
+# (JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): baz
 
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "foo", "baz"), "not found")}')
-# JSON_OBJECT?.foo?.baz ?? "not found": not found
+print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "foo", "baz"), "not found")}')
+# (JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): not found
 
-print(f'JSON_OBJECT?.fruits?.[2] ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "fruits", 2), "not found")}')
-# JSON_OBJECT?.fruits?.[2] ?? "not found": banana
+print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "fruits", 2), "not found")}')
+# (JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): banana
 
-print(f'JSON_OBJECT?.fruits?.[5] ?? \"not found\": {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "fruits", 5), "not found")}')
-# JSON_OBJECT?.fruits?.[5] ?? "not found": not found
+print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {nullish_coalescing_v2(optional_chaining_v1(JSON_OBJECT, "fruits", 5), "not found")}')
+# (JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): not found
 
 print('# using Python Ternary Syntax And Python Walrus Operator (:=), the "pythonic" way')
 
-print(f'JSON_OBJECT?.foo?.bar ?? \"not found\": {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "foo", "bar")) else anything}')
-# JSON_OBJECT?.foo?.bar ?? "not found": baz
+print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "foo", "bar")) else anything}')
+# (JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): baz
 
-print(f'JSON_OBJECT?.foo?.baz ?? \"not found\": {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "foo", "baz")) else anything}')
-# JSON_OBJECT?.foo?.baz ?? "not found": not found
+print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "foo", "baz")) else anything}')
+# (JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): not found
 
-print(f'JSON_OBJECT?.fruits?.[2] ?? \"not found\": {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "fruits", 2)) else anything}')
-# JSON_OBJECT?.fruits?.[2] ?? "not found": banana
+print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "fruits", 2)) else anything}')
+# (JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): banana
 
-print(f'JSON_OBJECT?.fruits?.[5] ?? \"not found\": {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "fruits", 5)) else anything}')
-# JSON_OBJECT?.fruits?.[5] ?? "not found": not found
+print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {"not found" if (anything := optional_chaining_v1(JSON_OBJECT, "fruits", 5)) else anything}')
+# (JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): not found

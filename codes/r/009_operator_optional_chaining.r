@@ -20,14 +20,14 @@ JSON_OBJECT <- list(
 )
 cat(paste(sep = "", "JSON_OBJECT: ", prettyJsonStringify(JSON_OBJECT), "\n"))
 
-cat(paste(sep = "", "JSON_OBJECT?.foo?.bar: ", prettyJsonStringify(tryCatch(JSON_OBJECT$foo$bar, error = function(err) NULL)), "\n"))
-# JSON_OBJECT?.foo?.bar: "baz"
+cat(paste(sep = "", "JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", prettyJsonStringify(tryCatch(JSON_OBJECT$foo$bar, error = function(err) NULL)), "\n"))
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-cat(paste(sep = "", "JSON_OBJECT?.foo?.baz: ", prettyJsonStringify(tryCatch(JSON_OBJECT$foo$baz, error = function(err) NULL)), "\n"))
-# JSON_OBJECT?.foo?.baz: null
+cat(paste(sep = "", "JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", prettyJsonStringify(tryCatch(JSON_OBJECT$foo$baz, error = function(err) NULL)), "\n"))
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-cat(paste(sep = "", "JSON_OBJECT?.fruits?.[2]: ", prettyJsonStringify(tryCatch(JSON_OBJECT$fruits[[2]], error = function(err) NULL)), "\n"))
-# JSON_OBJECT?.fruits?.[2]: "mango"
+cat(paste(sep = "", "JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", prettyJsonStringify(tryCatch(JSON_OBJECT$fruits[[2]], error = function(err) NULL)), "\n"))
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "mango"
 
-cat(paste(sep = "", "JSON_OBJECT?.fruits?.[5]: ", prettyJsonStringify(tryCatch(JSON_OBJECT$fruits[[5]], error = function(err) NULL)), "\n"))
-# JSON_OBJECT?.fruits?.[5]: null
+cat(paste(sep = "", "JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", prettyJsonStringify(tryCatch(JSON_OBJECT$fruits[[5]], error = function(err) NULL)), "\n"))
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null

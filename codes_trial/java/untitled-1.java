@@ -89,7 +89,7 @@ class yyy_requirements {
         /*
         4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
         ```javascript
-        const myArray = ["foo", 17, true, null, [1, 2, 3], { "foo": "bar" }];
+        const myArray = ["foo", 17, true, null, [1, 2, 3], {"foo": "bar"}];
         console.log("myArray: ", myArray);
         ```
         */

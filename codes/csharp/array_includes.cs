@@ -11,7 +11,7 @@ class Program {
             foreach (dynamic ArrayItem in AnArrayOfPrimitives) {
                 if (((ArrayItem is string) == false) && (IsNumeric(ArrayItem) == false) && ((ArrayItem is bool) == false) && (ArrayItem != null)) continue;
                 if (ArrayItem is string) Result += $"\"{ArrayItem}\"";
-                if (IsNumeric(ArrayItem)) Result += ArrayItem.ToString().Replace(",", ".");
+                if (IsNumeric(ArrayItem) == true) Result += ArrayItem.ToString().Replace(",", ".");
                 if (ArrayItem is bool) Result += $"{ArrayItem.ToLower()}";
                 if (ArrayItem == null) Result += "null";
                 if ((ArrayItemIndex + 1) != AnArrayOfPrimitives.Count) Result += ", ";

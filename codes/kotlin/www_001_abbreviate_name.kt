@@ -14,7 +14,7 @@ Description:
 */
 
 fun main() {
-    val abbreviateName: (String) -> String = { completeName -> completeName.split(" ").toMutableList().map { name: String -> name.first().uppercase() }.joinToString(".") }
+    val abbreviateName: (String) -> String = { completeName -> completeName.split(" ").toMutableList().map { aName: String -> aName.first().uppercase() }.joinToString(".") }
     println(abbreviateName("Sam Harris"))
     // S.H
     println(abbreviateName("patrick feeney"))

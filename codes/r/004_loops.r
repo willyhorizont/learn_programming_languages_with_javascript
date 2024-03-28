@@ -24,22 +24,26 @@ while (i <= 5) {
 
 # for loop
 
-for (i in (1:5)) { # (start, stop)
+for (i in (1:10)) { # (start, stop)
+    if (i > 5) break
     if (i == 2) next
     cat(paste(sep = "", "for loop v1 ascending, i is ", i, "\n"))
 }
 
-for (i in (5:1)) { # (start, stop)
-    if (i == 2) next
+for (i in (10:1)) { # (start, stop)
+    if (i <= 5) break
+    if (i == 9) next
     cat(paste(sep = "", "for loop v1 descending, i is ", i, "\n"))
 }
 
-for (i in seq(1, 5, by = 1)) { # (start, stop, by = step)
+for (i in seq(1, 10, by = 1)) { # (start, stop, by = step)
+    if (i > 5) break
     if (i == 2) next
     cat(paste(sep = "", "for loop v2 ascending, i is ", i, "\n"))
 }
 
-for (i in seq(5, 1, by = -1)) { # (start, stop, by = step)
-    if (i == 2) next
+for (i in seq(10, 1, by = -1)) { # (start, stop, by = step)
+    if (i <= 5) break
+    if (i == 9) next
     cat(paste(sep = "", "for loop v2 descending, i is ", i, "\n"))
 }

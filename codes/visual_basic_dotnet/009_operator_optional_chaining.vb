@@ -6,7 +6,7 @@ Module Program
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
@@ -53,7 +53,7 @@ Module Program
                     Return Nothing
                 End Try
             End If
-            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(Anything, List(Of Object)).Count > CInt(CurrentItem))) Then
+            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem) == true) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(Anything, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(Anything, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
@@ -67,7 +67,7 @@ Module Program
                     Return Nothing
                 End Try
             End If
-            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(CurrentResult, List(Of Object)).Count > CInt(CurrentItem))) Then
+            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem) == true) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(CurrentResult, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(CurrentResult, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
@@ -94,16 +94,16 @@ Module Program
 
         Console.WriteLine("' using JavaScript-like Optional Chaining Operator (?.) function ""OptionalChaining""")
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "bar"))}")
-        ' JSON_OBJECT?.foo?.bar: baz
+        Console.WriteLine($"JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "bar"))}")
+        ' JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: baz
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "baz"))}")
-        ' JSON_OBJECT?.foo?.baz: null
+        Console.WriteLine($"JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "foo", "baz"))}")
+        ' JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 2))}")
-        ' JSON_OBJECT?.fruits?.[2]: "banana"
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 2))}")
+        ' JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 5))}")
-        ' JSON_OBJECT?.fruits?.[5]: null
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: {PrettyJsonStringify(OptionalChaining(JSON_OBJECT, "fruits", 5))}")
+        ' JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null
     End Sub
 End Module

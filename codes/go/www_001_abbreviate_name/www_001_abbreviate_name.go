@@ -19,17 +19,17 @@ Description:
 */
 
 func abbreviateName(completeName string) string {
-	names := strings.Split(completeName, " ")
-	namesNew := []string{}
-	for _, name := range names {
-		namesNew = append(namesNew, strings.ToUpper(string(name[0])))
-	}
-	return strings.Join(namesNew, ".")
+    names := strings.Split(completeName, " ")
+    namesNew := []string{}
+    for _, aName := range names {
+        namesNew = append(namesNew, strings.ToUpper(string(aName[0])))
+    }
+    return strings.Join(namesNew, ".")
 }
 
 func main() {
-	fmt.Println(abbreviateName("Sam Harris"))
-	// S.H
-	fmt.Println(abbreviateName("patrick feeney"))
-	// P.F
+    fmt.Println(abbreviateName("Sam Harris"))
+    // S.H
+    fmt.Println(abbreviateName("patrick feeney"))
+    // P.F
 }

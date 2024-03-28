@@ -182,43 +182,43 @@ fun main() {
     productFound = arrayFindV1({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
+    //     "code":"bubble_gum",
+    //     "price": 233
+    // }
 
     println("// using JavaScript-like Array.find() function \"arrayFindV2\"")
 
     productFound = arrayFindV2({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
+    //     "code":"bubble_gum",
+    //     "price": 233
+    // }
 
     println("// using JavaScript-like Array.find() function \"arrayFindV3\"")
 
     productFound = arrayFindV3({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
+    //     "code":"bubble_gum",
+    //     "price": 233
+    // }
 
     println("// using JavaScript-like Array.find() function \"arrayFindV4\"")
 
     productFound = arrayFindV4({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }, products)
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
+    //     "code":"bubble_gum",
+    //     "price": 233
+    // }
     
     println("// using Kotlin Array.find() built-in method \"Array.find\"")
 
     productFound = products.find { product: Any? -> (((product as MutableMap<String, Any?>)["code"] as String) == productToFind) }
     println("product found: ${prettyJsonStringify(productFound)}")
     // product found: {
-	//     "code":"bubble_gum",
-	//     "price": 233
-	// }
+    //     "code":"bubble_gum",
+    //     "price": 233
+    // }
 }

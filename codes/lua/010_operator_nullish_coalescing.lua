@@ -28,14 +28,14 @@ sprint("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
 
 print("-- using JavaScript-like Nullish Coalescing Operator (??) function \"nullish_coalescing\"")
 
-sprint("(JSON_OBJECT?.foo?.bar ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["bar"], "not found")))
--- (JSON_OBJECT?.foo?.bar ?? "not found"): "baz"
+sprint("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["bar"], "not found")))
+-- (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-sprint("(JSON_OBJECT?.foo?.baz ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["baz"], "not found")))
--- (JSON_OBJECT?.foo?.baz ?? "not found"): "not found"
+sprint("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["foo"]["baz"], "not found")))
+-- (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-sprint("(JSON_OBJECT?.fruits?.[2] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][2], "not found")))
--- (JSON_OBJECT?.fruits?.[2] ?? "not found"): "mango"
+sprint("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][2], "not found")))
+-- (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "mango"
 
-sprint("(JSON_OBJECT?.fruits?.[5] ?? \"not found\"): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][5], "not found")))
--- (JSON_OBJECT?.fruits?.[5] ?? "not found"): "not found"
+sprint("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing(JSON_OBJECT["fruits"][5], "not found")))
+-- (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

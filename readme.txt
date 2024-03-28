@@ -73,3 +73,7 @@ to run Matlab code:
 to run Octave code:
 1. cd codes/gnu_octave
 2. octave-cli filename.m
+
+to run Wolfram code:
+1. cd codes/wolfram
+2. wolframscript -file filename.wls

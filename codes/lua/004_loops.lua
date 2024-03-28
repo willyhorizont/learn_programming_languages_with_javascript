@@ -35,14 +35,16 @@ end
 
 -- for loop
 
-for i3 = 1, 5, 1 do -- start, stop, step
+for i3 = 1, 10, 1 do -- start, stop, step
+    if (i3 > 5) then break end
     if (i3 == 2) then goto next end
     sprint("for loop ascending, i3 is ", i3)
     ::next::
 end
 
-for i4 = 5, 1, -1 do -- start, stop, step
-    if (i4 == 2) then goto next end
+for i4 = 10, 1, -1 do -- start, stop, step
+    if (i4 <= 5) then break end
+    if (i4 == 9) then goto next end
     sprint("for loop descending, i4 is ", i4)
     ::next::
 end

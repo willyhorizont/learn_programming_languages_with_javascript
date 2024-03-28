@@ -13,14 +13,14 @@ JSON_OBJECT = Dict(
 )
 println("JSON_OBJECT: ", chomp(JSON.json(JSON_OBJECT, 4)))
 
-println("JSON_OBJECT?.foo?.bar: ", try JSON_OBJECT["foo"]["bar"] catch(err) nothing end)
-# JSON_OBJECT?.foo?.bar: baz
+println("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", try JSON_OBJECT["foo"]["bar"] catch(err) nothing end)
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: baz
 
-println("JSON_OBJECT?.foo?.baz: ", try JSON_OBJECT["foo"]["baz"] catch(err) nothing end)
-# JSON_OBJECT?.foo?.baz: nothing
+println("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", try JSON_OBJECT["foo"]["baz"] catch(err) nothing end)
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: nothing
 
-println("JSON_OBJECT?.fruits?.[2]: ", try JSON_OBJECT["fruits"][2] catch(err) nothing end)
-# JSON_OBJECT?.fruits?.[2]: mango
+println("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", try JSON_OBJECT["fruits"][2] catch(err) nothing end)
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: mango
 
-println("JSON_OBJECT?.fruits?.[5]: ", try JSON_OBJECT["fruits"][5] catch(err) nothing end)
-# JSON_OBJECT?.fruits?.[5]: nothing
+println("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", try JSON_OBJECT["fruits"][5] catch(err) nothing end)
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: nothing

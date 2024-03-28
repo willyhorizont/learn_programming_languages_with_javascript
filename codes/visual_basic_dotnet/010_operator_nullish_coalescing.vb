@@ -6,7 +6,7 @@ Module Program
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
@@ -53,7 +53,7 @@ Module Program
                     Return Nothing
                 End Try
             End If
-            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(Anything, List(Of Object)).Count > CInt(CurrentItem))) Then
+            If ((CurrentResult Is Nothing) AndAlso (TypeOf Anything Is List(Of Object)) AndAlso (IsNumeric(CurrentItem) == true) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(Anything, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(Anything, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
@@ -67,7 +67,7 @@ Module Program
                     Return Nothing
                 End Try
             End If
-            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem)) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(CurrentResult, List(Of Object)).Count > CInt(CurrentItem))) Then
+            If ((TypeOf CurrentResult Is List(Of Object)) AndAlso (IsNumeric(CurrentItem) == true) AndAlso (CInt(CurrentItem) >= 0) AndAlso (DirectCast(CurrentResult, List(Of Object)).Count > CInt(CurrentItem))) Then
                 Try
                     Return DirectCast(CurrentResult, List(Of Object))(CInt(CurrentItem))
                 Catch Ex As Exception
@@ -94,16 +94,16 @@ Module Program
 
         Console.WriteLine("' using Visual Basic (.NET) built-in function ""If""")
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "bar"), "not found"))}")
-        ' JSON_OBJECT?.foo?.bar: baz
+        Console.WriteLine($"(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "bar"), "not found"))}")
+        ' (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "baz"), "not found"))}")
-        ' JSON_OBJECT?.foo?.baz: not found
+        Console.WriteLine($"(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "foo", "baz"), "not found"))}")
+        ' (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): not found
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 2), "not found"))}")
-        ' JSON_OBJECT?.fruits?.[2]: "banana"
+        Console.WriteLine($"(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 2), "not found"))}")
+        ' (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 5), "not found"))}")
-        ' JSON_OBJECT?.fruits?.[5]: not found
+        Console.WriteLine($"(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): {PrettyJsonStringify(If(OptionalChaining(JSON_OBJECT, "fruits", 5), "not found"))}")
+        ' (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): not found
     End Sub
 End Module

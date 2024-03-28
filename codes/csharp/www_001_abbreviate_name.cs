@@ -16,7 +16,7 @@ class Program {
             Sam Harris => S.H
             patrick feeney => P.F
         */
-        dynamic AbbreviateName = (Func<string, string>)((string CompleteName) => String.Join(".", ((IEnumerable<string>)CompleteName.Split((char)" "[0])).Select((Func<string, string>)((string Name) => Name[0].ToString().ToUpper())).ToList()));
+        dynamic AbbreviateName = (Func<string, string>)((string CompleteName) => String.Join(".", ((IEnumerable<string>)CompleteName.Split((char)" "[0])).Select((Func<string, string>)((string AName) => AName[0].ToString().ToUpper())).ToList()));
         Console.WriteLine(AbbreviateName("Sam Harris"));
         // S.H
         Console.WriteLine(AbbreviateName("patrick feeney"));

@@ -12,7 +12,7 @@ Description:
 =end
 
 def abbreviate_name(complete_name)
-    return complete_name.split(" ").map { |name| name[0].upcase }.join(".")
+    return complete_name.split(" ").map { |a_name| a_name[0].upcase }.join(".")
 end
 print(abbreviate_name("Sam Harris"), "\n")
 # S.H

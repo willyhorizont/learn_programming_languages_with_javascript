@@ -11,7 +11,7 @@ Description:
     patrick feeney => P.F 
 %}
 
-abbreviatename = @(completename) strjoin(cellfun(@(name) upper(name(1)), strsplit(completename, " "), "UniformOutput", false), ".");
+abbreviatename = @(completename) strjoin(cellfun(@(aname) upper(aname(1)), strsplit(completename, " "), "UniformOutput", false), ".");
 disp(abbreviatename("Sam Harris"));
 % S.H
 disp(abbreviatename("patrick feeney"));

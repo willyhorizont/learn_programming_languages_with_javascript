@@ -100,111 +100,111 @@ fun main() {
     numbersLabeled = arrayMapV1({ number: Any?, _: Int, _: MutableList<Any?> -> mutableMapOf<String, Any?>(number.toString() to (if (((number as Int) % 2) == 0) "even" else "odd")) }, numbers)
     println("labeled numbers: ${prettyJsonStringify(numbersLabeled)}")
     // labeled numbers: [
-	//     {
-	//         "12": "even"
-	//     },
-	//     {
-	//         "34": "even"
-	//     },
-	//     {
-	//         "27": "odd"
-	//     },
-	//     {
-	//         "23": "odd"
-	//     },
-	//     {
-	//         "65": "odd"
-	//     },
-	//     {
-	//         "93": "odd"
-	//     },
-	//     {
-	//         "36": "even"
-	//     },
-	//     {
-	//         "87": "odd"
-	//     },
-	//     {
-	//         "4": "even"
-	//     },
-	//     {
-	//         "254": "even"
-	//     }
-	// ]
+    //     {
+    //         "12": "even"
+    //     },
+    //     {
+    //         "34": "even"
+    //     },
+    //     {
+    //         "27": "odd"
+    //     },
+    //     {
+    //         "23": "odd"
+    //     },
+    //     {
+    //         "65": "odd"
+    //     },
+    //     {
+    //         "93": "odd"
+    //     },
+    //     {
+    //         "36": "even"
+    //     },
+    //     {
+    //         "87": "odd"
+    //     },
+    //     {
+    //         "4": "even"
+    //     },
+    //     {
+    //         "254": "even"
+    //     }
+    // ]
 
     println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
     numbersLabeled = arrayMapV2({ number: Any?, _: Int, _: MutableList<Any?> -> mutableMapOf<String, Any?>(number.toString() to (if (((number as Int) % 2) == 0) "even" else "odd")) }, numbers)
     println("labeled numbers: ${prettyJsonStringify(numbersLabeled)}")
     // labeled numbers: [
-	//     {
-	//         "12": "even"
-	//     },
-	//     {
-	//         "34": "even"
-	//     },
-	//     {
-	//         "27": "odd"
-	//     },
-	//     {
-	//         "23": "odd"
-	//     },
-	//     {
-	//         "65": "odd"
-	//     },
-	//     {
-	//         "93": "odd"
-	//     },
-	//     {
-	//         "36": "even"
-	//     },
-	//     {
-	//         "87": "odd"
-	//     },
-	//     {
-	//         "4": "even"
-	//     },
-	//     {
-	//         "254": "even"
-	//     }
-	// ]
+    //     {
+    //         "12": "even"
+    //     },
+    //     {
+    //         "34": "even"
+    //     },
+    //     {
+    //         "27": "odd"
+    //     },
+    //     {
+    //         "23": "odd"
+    //     },
+    //     {
+    //         "65": "odd"
+    //     },
+    //     {
+    //         "93": "odd"
+    //     },
+    //     {
+    //         "36": "even"
+    //     },
+    //     {
+    //         "87": "odd"
+    //     },
+    //     {
+    //         "4": "even"
+    //     },
+    //     {
+    //         "254": "even"
+    //     }
+    // ]
 
     println("// using Kotlin Array.map() built-in method \"Array.map\"")
 
     numbersLabeled = numbers.map { number: Any? -> mutableMapOf<String, Any?>(number.toString() to (if (((number as Int) % 2) == 0) "even" else "odd")) }
     println("labeled numbers: ${prettyJsonStringify(numbersLabeled)}")
     // labeled numbers: [
-	//     {
-	//         "12": "even"
-	//     },
-	//     {
-	//         "34": "even"
-	//     },
-	//     {
-	//         "27": "odd"
-	//     },
-	//     {
-	//         "23": "odd"
-	//     },
-	//     {
-	//         "65": "odd"
-	//     },
-	//     {
-	//         "93": "odd"
-	//     },
-	//     {
-	//         "36": "even"
-	//     },
-	//     {
-	//         "87": "odd"
-	//     },
-	//     {
-	//         "4": "even"
-	//     },
-	//     {
-	//         "254": "even"
-	//     }
-	// ]
+    //     {
+    //         "12": "even"
+    //     },
+    //     {
+    //         "34": "even"
+    //     },
+    //     {
+    //         "27": "odd"
+    //     },
+    //     {
+    //         "23": "odd"
+    //     },
+    //     {
+    //         "65": "odd"
+    //     },
+    //     {
+    //         "93": "odd"
+    //     },
+    //     {
+    //         "36": "even"
+    //     },
+    //     {
+    //         "87": "odd"
+    //     },
+    //     {
+    //         "4": "even"
+    //     },
+    //     {
+    //         "254": "even"
+    //     }
+    // ]
 
     println("\n// JavaScript-like Array.map() in Kotlin MutableList of MutableMaps")
 
@@ -235,79 +235,79 @@ fun main() {
     productsLabeled = arrayMapV1({ product: Any?, _: Int, _: MutableList<Any?> -> spreadSyntaxObject(product, mutableMapOf<String, Any?>("label" to (if (((product as MutableMap<String, Any?>)["price"] as Int) > 100) "expensive" else "cheap"))) }, products)
     println("labeled products: ${prettyJsonStringify(productsLabeled)}")
     // labeled products: [
-	//     {
-	//         "code": "pasta",
-	//         "price": 321,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "bubble_gum",
-	//         "price": 233,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "potato_chips",
-	//         "price": 5,
-	//         "label": "cheap"
-	//     },
-	//     {
-	//         "code": "towel",
-	//         "price": 499,
-	//         "label": "expensive"
-	//     }
-	// ]
+    //     {
+    //         "code": "pasta",
+    //         "price": 321,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "bubble_gum",
+    //         "price": 233,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "potato_chips",
+    //         "price": 5,
+    //         "label": "cheap"
+    //     },
+    //     {
+    //         "code": "towel",
+    //         "price": 499,
+    //         "label": "expensive"
+    //     }
+    // ]
 
     println("// using JavaScript-like Array.map() function \"arrayMapV2\"")
 
     productsLabeled = arrayMapV2({ product: Any?, _: Int, _: MutableList<Any?> -> spreadSyntaxObject(product, mutableMapOf<String, Any?>("label" to (if (((product as MutableMap<String, Any?>)["price"] as Int) > 100) "expensive" else "cheap"))) }, products)
     println("labeled products: ${prettyJsonStringify(productsLabeled)}")
     // labeled products: [
-	//     {
-	//         "code": "pasta",
-	//         "price": 321,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "bubble_gum",
-	//         "price": 233,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "potato_chips",
-	//         "price": 5,
-	//         "label": "cheap"
-	//     },
-	//     {
-	//         "code": "towel",
-	//         "price": 499,
-	//         "label": "expensive"
-	//     }
-	// ]
+    //     {
+    //         "code": "pasta",
+    //         "price": 321,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "bubble_gum",
+    //         "price": 233,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "potato_chips",
+    //         "price": 5,
+    //         "label": "cheap"
+    //     },
+    //     {
+    //         "code": "towel",
+    //         "price": 499,
+    //         "label": "expensive"
+    //     }
+    // ]
 
     println("// using Kotlin Array.map() built-in method \"Array.map\"")
 
     productsLabeled = products.map { product: Any? -> spreadSyntaxObject(product, mutableMapOf<String, Any?>("label" to (if (((product as MutableMap<String, Any?>)["price"] as Int) > 100) "expensive" else "cheap"))) }
     println("labeled products: ${prettyJsonStringify(productsLabeled)}")
     // labeled products: [
-	//     {
-	//         "code": "pasta",
-	//         "price": 321,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "bubble_gum",
-	//         "price": 233,
-	//         "label": "expensive"
-	//     },
-	//     {
-	//         "code": "potato_chips",
-	//         "price": 5,
-	//         "label": "cheap"
-	//     },
-	//     {
-	//         "code": "towel",
-	//         "price": 499,
-	//         "label": "expensive"
-	//     }
-	// ]
+    //     {
+    //         "code": "pasta",
+    //         "price": 321,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "bubble_gum",
+    //         "price": 233,
+    //         "label": "expensive"
+    //     },
+    //     {
+    //         "code": "potato_chips",
+    //         "price": 5,
+    //         "label": "cheap"
+    //     },
+    //     {
+    //         "code": "towel",
+    //         "price": 499,
+    //         "label": "expensive"
+    //     }
+    // ]
 }

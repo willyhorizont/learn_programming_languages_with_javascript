@@ -189,7 +189,7 @@ Module Program
 
     Function FizzbuzzV10(ByVal StopNumber As Integer) As String
         If (StopNumber < 1) Then Throw New Exception("Argument should be > 0")
-        Return Enumerable.Range(1, StopNumber).Aggregate("", Function(ByVal CurrentResult As Object, ByVal Number As Double) If((CurrentResult = ""), $"{Number}", If((((Number Mod 3) = 0) AndAlso ((Number Mod 5) = 0)), $"{CurrentResult}, FizzBuzz", If(((Number Mod 3) = 0), $"{CurrentResult}, Fizz", If(((Number Mod 5) = 0), $"{CurrentResult}, Buzz", $"{CurrentResult}, {Number}")))))
+        Return Enumerable.Range(1, StopNumber).Aggregate("", Function(ByVal CurrentResult As Object, ByVal CurrentNumber As Double) If((CurrentResult = ""), $"{CurrentNumber}", If((((CurrentNumber Mod 3) = 0) AndAlso ((CurrentNumber Mod 5) = 0)), $"{CurrentResult}, FizzBuzz", If(((CurrentNumber Mod 3) = 0), $"{CurrentResult}, Fizz", If(((CurrentNumber Mod 5) = 0), $"{CurrentResult}, Buzz", $"{CurrentResult}, {CurrentNumber}")))))
     End Function
 
     Sub Main(Args As String())

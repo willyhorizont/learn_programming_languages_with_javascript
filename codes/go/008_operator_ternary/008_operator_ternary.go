@@ -13,37 +13,37 @@ type array []any
 type object map[string]any
 
 func prettyJsonStringify(anything any) string {
-	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-	if (err == nil) {
-		return string(marshalledJson)
-	}
-	return "undefined"
+    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
+    if (err == nil) {
+        return string(marshalledJson)
+    }
+    return "undefined"
 }
 
 func ternary(trueCondition bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
-	if (trueCondition == true) {
-		return valueIfConditionIsTrue
-	}
-	return valueIfConditionIsFalse
+    if (trueCondition == true) {
+        return valueIfConditionIsTrue
+    }
+    return valueIfConditionIsFalse
 }
 
 func main() {
-	fmt.Println("\n// Ternary Operator in Go")
+    fmt.Println("\n// Ternary Operator in Go")
 
-	const CORRECT_ANSWER = "foo"
-	fmt.Println("correct answer:", prettyJsonStringify(CORRECT_ANSWER))
+    const CORRECT_ANSWER = "foo"
+    fmt.Println("correct answer:", prettyJsonStringify(CORRECT_ANSWER))
 
-	var myAnswer string
+    var myAnswer string
 
-	fmt.Println("// using Ternary Operator function \"ternary\"")
+    fmt.Println("// using Ternary Operator function \"ternary\"")
 
-	myAnswer = "bar"
-	fmt.Println("my answer: \"" + myAnswer + "\"")
-	fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
-	// is my answer correct: wrong!
+    myAnswer = "bar"
+    fmt.Println("my answer: \"" + myAnswer + "\"")
+    fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+    // is my answer correct: wrong!
 
-	myAnswer = "foo"
-	fmt.Println("my answer: \"" + myAnswer + "\"")
-	fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
-	// is my answer correct: correct!
+    myAnswer = "foo"
+    fmt.Println("my answer: \"" + myAnswer + "\"")
+    fmt.Println("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+    // is my answer correct: correct!
 }

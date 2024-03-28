@@ -106,17 +106,23 @@ while (i <= 5)
     i = i + 1;
 end
 
-% for loop and foreach loop
+% for loop and also foreach loop
 
-for i = (1:1:5) % (start:step:stop)
+for i = (1:1:10) % (start:step:stop)
+    if (i > 5)
+        break;
+    end
     if (i == 2)
         continue;
     end
     sprint("for loop ascending, i is ", {i});
 end
 
-for i = (5:-1:1) % (start:step:stop)
-    if (i == 2)
+for i = (10:-1:1) % (start:step:stop)
+    if (i <= 5)
+        break;
+    end
+    if (i == 9)
         continue;
     end
     sprint("for loop descending, i is ", {i});

@@ -5,9 +5,9 @@ Module Program
         Dim Result As String = "["
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArrayOfPrimitives
-            If (((TypeOf ArrayItem Is String) = false) AndAlso ((IsNumeric(ArrayItem)) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
+            If (((TypeOf ArrayItem Is String) = false) AndAlso (IsNumeric(ArrayItem) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
             If (TypeOf ArrayItem Is String) Then Result += """" & ArrayItem & """"
-            If IsNumeric(ArrayItem) Then Result += CStr(ArrayItem).Replace(",", ".")
+            If (IsNumeric(ArrayItem) = true) Then Result += CStr(ArrayItem).Replace(",", ".")
             If (TypeOf ArrayItem Is Boolean) Then Result += CStr(ArrayItem)
             If (ArrayItem Is Nothing) Then Result += "null"
             If ((ArrayItemIndex + 1) <> AnArrayOfPrimitives.Count) Then Result += ", "
@@ -22,7 +22,7 @@ Module Program
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
@@ -210,53 +210,53 @@ Module Program
         ProductFound = ArrayFindV1(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("code") = ProductToFind), Products)
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
 
         Console.WriteLine("' using JavaScript-like Array.find() function ""ArrayFindV2""")
 
         ProductFound = ArrayFindV2(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("code") = ProductToFind), Products)
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
 
         Console.WriteLine("' using JavaScript-like Array.find() function ""ArrayFindV3""")
 
         ProductFound = ArrayFindV3(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("code") = ProductToFind), Products)
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
 
         Console.WriteLine("' using JavaScript-like Array.find() function ""ArrayFindV4""")
 
         ProductFound = ArrayFindV4(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("code") = ProductToFind), Products)
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
 
         Console.WriteLine("' using Visual Basic (.NET) Array.some() built-in method ""Array.Find()""")
 
         ProductFound = Products.Find(Function(ByVal Product As Object) (Product("code") = ProductToFind))
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
 
         Console.WriteLine("' using Visual Basic (.NET) Array.some() built-in method ""Array.FirstOrDefault()""")
 
         ProductFound = Products.FirstOrDefault(Function(ByVal Product As Object) (Product("code") = ProductToFind))
         Console.WriteLine($"product found: {PrettyJsonStringify(ProductFound)}")
         ' product found: {
-	    '     "code":"bubble_gum",
-	    '     "price": 233
-	    ' }
+        '     "code":"bubble_gum",
+        '     "price": 233
+        ' }
     End Sub
 End Module

@@ -12,9 +12,9 @@ Description:
 */
 
 void main() {
-	final abbreviateName = (dynamic completeName) => completeName.split(" ").map((dynamic name) => (name[0].toUpperCase())).toList().join(".");
-	print(abbreviateName("Sam Harris"));
-	// S.H
-	print(abbreviateName("patrick feeney"));
-	// P.F
+    final abbreviateName = (dynamic completeName) => completeName.split(" ").map((dynamic aName) => (aName[0].toUpperCase())).toList().join(".");
+    print(abbreviateName("Sam Harris"));
+    // S.H
+    print(abbreviateName("patrick feeney"));
+    // P.F
 }

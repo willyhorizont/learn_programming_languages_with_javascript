@@ -16,92 +16,92 @@ type array []any
 type object map[string]any
 
 func prettyJsonStringify(anything any) string {
-	marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-	if (err == nil) {
-		return string(marshalledJson)
-	}
-	return "undefined"
+    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
+    if (err == nil) {
+        return string(marshalledJson)
+    }
+    return "undefined"
 }
 
 func prettyArrayOfPrimitives(anArray array) string {
-	result := "["
-	for arrayItemIndex, arrayItem := range anArray {
-		if (arrayItem == nil) {
-			result += "nil"
-		}
-		if (arrayItem != nil) {
-			switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-			case reflect.String:
-				result += "\"" + arrayItem.(string) + "\""
-			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-				result += fmt.Sprint(arrayItem)
-			case reflect.Bool:
-				if (arrayItem.(bool) == true) {
-					result += "true"
-				} else {
-					result += "false"
-				}
-			case reflect.Invalid:
-				result += "nil"
-			default:
-				continue
-			}
-		}
-		if ((arrayItemIndex + 1) != len(anArray)) {
-			result = result + ", "
-		}
-	}
-	result = result + "]"
-	return result
+    result := "["
+    for arrayItemIndex, arrayItem := range anArray {
+        if (arrayItem == nil) {
+            result += "nil"
+        }
+        if (arrayItem != nil) {
+            switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
+            case reflect.String:
+                result += "\"" + arrayItem.(string) + "\""
+            case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+                result += fmt.Sprint(arrayItem)
+            case reflect.Bool:
+                if (arrayItem.(bool) == true) {
+                    result += "true"
+                } else {
+                    result += "false"
+                }
+            case reflect.Invalid:
+                result += "nil"
+            default:
+                continue
+            }
+        }
+        if ((arrayItemIndex + 1) != len(anArray)) {
+            result = result + ", "
+        }
+    }
+    result = result + "]"
+    return result
 }
 
 func spreadSyntaxObject(parameters ...any) object {
-	var newObject = make(object)
-	for _, parameter := range parameters {
-		parameterType := reflect.TypeOf(parameter).Kind()
-		if (parameterType == reflect.Map) {
-			for objectKey, objectValue := range parameter.(object) {
-				newObject[objectKey] = objectValue
-			}
-		}
-		if (parameterType == reflect.Slice) {
-			for arrayItemIndex, arrayItem := range parameter.(array) {
-				newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
-			}
-		}
-	}
-	return newObject
+    var newObject = make(object)
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Map) {
+            for objectKey, objectValue := range parameter.(object) {
+                newObject[objectKey] = objectValue
+            }
+        }
+        if (parameterType == reflect.Slice) {
+            for arrayItemIndex, arrayItem := range parameter.(array) {
+                newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
+            }
+        }
+    }
+    return newObject
 }
 
 func spreadSyntaxArray(parameters ...any) array {
-	var newArray = array{}
-	for _, parameter := range parameters {
-		parameterType := reflect.TypeOf(parameter).Kind()
-		if (parameterType == reflect.Map) {
-			if (len(parameter.(object)) == 1) {
-				for _, objectValue := range parameter.(object) {
-					newArray = append(newArray, objectValue)
-				}
-				continue
-			}
-			newArray = append(newArray, parameter)
-			continue
-		}
-		if (parameterType == reflect.Slice) {
-			newArray = append(newArray, parameter.(array)...)
-			continue
-		}
-	}
-	return newArray
+    var newArray = array{}
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Map) {
+            if (len(parameter.(object)) == 1) {
+                for _, objectValue := range parameter.(object) {
+                    newArray = append(newArray, objectValue)
+                }
+                continue
+            }
+            newArray = append(newArray, parameter)
+            continue
+        }
+        if (parameterType == reflect.Slice) {
+            newArray = append(newArray, parameter.(array)...)
+            continue
+        }
+    }
+    return newArray
 }
 
 func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
-	// JavaScript-like Array.reduce() function
-	result := initialValue
-	for arrayItemIndex, arrayItem := range anArray {
-		result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
-	}
-	return result
+    // JavaScript-like Array.reduce() function
+    result := initialValue
+    for arrayItemIndex, arrayItem := range anArray {
+        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+    }
+    return result
 }
 
 func getFloatV1(anything any) (float64, error) {
@@ -150,20 +150,20 @@ func getFloatV2(anything any) (float64, error) {
 }
 
 func main() {
-	numbers := array{36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
+    numbers := array{36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
 
-	numbersTotal := arrayReduce(func(currentResult any, currentNumber any, _ int, _ array) any {
-		// currentResultF64, currentResultF64Error := getFloatV2(currentResult)
-		// currentNumberF64, currentNumberF64Error := getFloatV2(currentNumber)
-		currentResultF64, currentResultF64Error := getFloatV1(currentResult)
-		currentNumberF64, currentNumberF64Error := getFloatV1(currentNumber)
-		if (currentResultF64Error == nil && currentNumberF64Error == nil) {
-			return (currentResultF64 + currentNumberF64)
-		}
-		return currentResult
-	}, numbers, 0.0)
-	fmt.Println("total number:", prettyJsonStringify(numbersTotal))
-	// total number: 635
+    numbersTotal := arrayReduce(func(currentResult any, currentNumber any, _ int, _ array) any {
+        // currentResultF64, currentResultF64Error := getFloatV2(currentResult)
+        // currentNumberF64, currentNumberF64Error := getFloatV2(currentNumber)
+        currentResultF64, currentResultF64Error := getFloatV1(currentResult)
+        currentNumberF64, currentNumberF64Error := getFloatV1(currentNumber)
+        if (currentResultF64Error == nil && currentNumberF64Error == nil) {
+            return (currentResultF64 + currentNumberF64)
+        }
+        return currentResult
+    }, numbers, 0.0)
+    fmt.Println("total number:", prettyJsonStringify(numbersTotal))
+    // total number: 635
 
     var mixedSlice = array{1, 2, 3, "a", "b", "c", true, false, nil}
     fmt.Println(mixedSlice) // Output: [nil nil nil]

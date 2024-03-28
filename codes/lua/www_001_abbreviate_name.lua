@@ -38,7 +38,7 @@ function array_map(callback_function, an_array)
     return new_array
 end
 
-abbreviate_name = function(complete_name) return table.concat(array_map(function(name) return string.upper(string.sub(name, 1, 1)) end, split_string(complete_name, " ")), ".") end
+abbreviate_name = function(complete_name) return table.concat(array_map(function(a_name) return string.upper(string.sub(a_name, 1, 1)) end, split_string(complete_name, " ")), ".") end
 print(abbreviate_name("Sam Harris"))
 -- S.H
 print(abbreviate_name("patrick feeney"))

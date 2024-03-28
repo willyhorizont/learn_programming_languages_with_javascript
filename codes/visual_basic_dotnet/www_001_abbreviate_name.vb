@@ -13,7 +13,7 @@ Imports System.Collections.Generic ' Dictionary, KeyValuePair
 
 Module Program
     Function AbbreviateNameV1(ByVal CompleteName As String) As String
-        Return Join(CompleteName.Split(" ").Select(Function(ByVal Name As String) Name(0).ToString().ToUpper()).ToArray(), ".")
+        Return Join(CompleteName.Split(" ").Select(Function(ByVal AName As String) AName(0).ToString().ToUpper()).ToArray(), ".")
     End Function
 
     Sub Main(Args As String())
@@ -22,7 +22,7 @@ Module Program
         Console.WriteLine(AbbreviateNameV1("patrick feeney"))
         ' P.F
 
-        Dim AbbreviateNameV2 = Function(ByVal CompleteName As String) Join(CompleteName.Split(" ").Select(Function(ByVal Name As String) Name(0).ToString().ToUpper()).ToArray(), ".")
+        Dim AbbreviateNameV2 = Function(ByVal CompleteName As String) Join(CompleteName.Split(" ").Select(Function(ByVal AName As String) AName(0).ToString().ToUpper()).ToArray(), ".")
         Console.WriteLine(AbbreviateNameV2("Sam Harris"))
         ' S.H
         Console.WriteLine(AbbreviateNameV2("patrick feeney"))

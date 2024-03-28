@@ -16,7 +16,7 @@ class Program {
                 if (AnythingInner is string) {
                     return "\"" + (string)AnythingInner + "\"";
                 }
-                if (IsNumeric(AnythingInner) || AnythingInner is bool) {
+                if ((IsNumeric(AnythingInner) == true) || AnythingInner is bool) {
                     return AnythingInner.ToString().Replace(",", ".");
                 }
                 if (AnythingInner is List<dynamic>) {
@@ -66,9 +66,9 @@ class Program {
             if (((Anything is Dictionary<string, dynamic>) == false) && ((Anything is List<dynamic>) == false) || (ObjectPropertiesArray.Length == 0)) return Anything;
             return ObjectPropertiesArray.Aggregate(null, (Func<dynamic, dynamic, dynamic>)((dynamic CurrentResult, dynamic CurrentItem) => {
                 if ((CurrentResult == null) && (Anything is Dictionary<string, dynamic>) && (CurrentItem is string)) return (Anything.ContainsKey(CurrentItem) ? Anything[CurrentItem] : null);
-                if ((CurrentResult == null) && (Anything is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) return Anything[CurrentItem];
+                if ((CurrentResult == null) && (Anything is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) return Anything[CurrentItem];
                 if ((CurrentResult is Dictionary<string, dynamic>) && (CurrentItem is string)) return (CurrentResult.ContainsKey(CurrentItem) ? CurrentResult[CurrentItem] : null);
-                if ((CurrentResult is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem)) return CurrentResult[CurrentItem];
+                if ((CurrentResult is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem)) return CurrentResult[CurrentItem];
                 return null;
             }));
         }
@@ -79,11 +79,11 @@ class Program {
                 ? Anything
                 : (ObjectPropertiesArray.Aggregate(null, (Func<dynamic, dynamic, dynamic>)((dynamic CurrentResult, dynamic CurrentItem) => (((CurrentResult == null) && (Anything is Dictionary<string, dynamic>) && (CurrentItem is string))
                     ? (Anything.ContainsKey(CurrentItem) ? Anything[CurrentItem] : null)
-                    : (((CurrentResult == null) && (Anything is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) 
+                    : (((CurrentResult == null) && (Anything is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (Anything.Count > CurrentItem)) 
                         ? Anything[CurrentItem]
                         : (((CurrentResult is Dictionary<string, dynamic>) && (CurrentItem is string))
                             ? (CurrentResult.ContainsKey(CurrentItem) ? CurrentResult[CurrentItem] : null)
-                            : (((CurrentResult is List<dynamic>) && (CurrentItem is int) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem))
+                            : (((CurrentResult is List<dynamic>) && (IsNumeric(CurrentItem) == true) && (CurrentItem >= 0) && (CurrentResult.Count > CurrentItem))
                                 ? CurrentResult[CurrentItem]
                                 : null
                             )
@@ -103,30 +103,30 @@ class Program {
 
         Console.WriteLine("// using JavaScript-like Optional Chaining Operator (?.) function \"OptionalChainingV1\"");
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "foo", "bar"))}");
-        // JSON_OBJECT?.foo?.bar: "baz"
+        Console.WriteLine($"JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "foo", "bar"))}");
+        // JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "foo", "baz"))}");
-        // JSON_OBJECT?.foo?.baz: null
+        Console.WriteLine($"JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "foo", "baz"))}");
+        // JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "fruits", 2))}");
-        // JSON_OBJECT?.fruits?.[2]: "banana"
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "fruits", 2))}");
+        // JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "fruits", 5))}");
-        // JSON_OBJECT?.fruits?.[5]: null
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: {PrettyJsonStringify(OptionalChainingV1(JSON_OBJECT, "fruits", 5))}");
+        // JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null
 
         Console.WriteLine("// using JavaScript-like Optional Chaining Operator (?.) function \"OptionalChainingV2\"");
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.bar: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "bar"))}");
-        // JSON_OBJECT?.foo?.bar: "baz"
+        Console.WriteLine($"JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "bar"))}");
+        // JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-        Console.WriteLine($"JSON_OBJECT?.foo?.baz: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "baz"))}");
-        // JSON_OBJECT?.foo?.baz: null
+        Console.WriteLine($"JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "foo", "baz"))}");
+        // JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[2]: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 2))}");
-        // JSON_OBJECT?.fruits?.[2]: "banana"
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 2))}");
+        // JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-        Console.WriteLine($"JSON_OBJECT?.fruits?.[5]: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 5))}");
-        // JSON_OBJECT?.fruits?.[5]: null
+        Console.WriteLine($"JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: {PrettyJsonStringify(OptionalChainingV2(JSON_OBJECT, "fruits", 5))}");
+        // JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null
     }
 }

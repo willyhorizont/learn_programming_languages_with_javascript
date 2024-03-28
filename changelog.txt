@@ -1,4 +1,11 @@
 =============================changelog==========================================
+20:32 | 08:32 PM | Thu | Mar | 28/03/2024
+0.0.51
+finish wolfram
+update so many things
+TODO:
+try raku, scala, groovy, f#, crystal, java
+=============================changelog==========================================
 04:08 | 04:08 AM | Thu | Mar | 21/03/2024
 0.0.50
 try .gitattributes part 5

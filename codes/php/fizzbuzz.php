@@ -271,7 +271,7 @@ function fizzbuzz_v12($stop_number) {
 function fizzbuzz_v13($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
-    return array_reduce(range(1, $stop_number), fn($result, $number) => (($result === "") ? "$number" : (((($number % 3) === 0) && (($number % 5) === 0)) ? "$result, FizzBuzz" : ((($number % 3) === 0) ? "$result, Fizz" : ((($number % 5) === 0) ? "$result, Buzz" : "$result, $number")))), "");
+    return array_reduce(range(1, $stop_number), fn($current_result, $current_number) => (($current_result === "") ? "$current_number" : (((($current_number % 3) === 0) && (($current_number % 5) === 0)) ? "$current_result, FizzBuzz" : ((($current_number % 3) === 0) ? "$current_result, Fizz" : ((($current_number % 5) === 0) ? "$current_result, Buzz" : "$current_result, $current_number")))), "");
 };
 
 echo("\n// using fizzbuzz function \"fizzbuzz_v1\"");

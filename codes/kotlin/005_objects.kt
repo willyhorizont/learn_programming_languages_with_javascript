@@ -51,18 +51,18 @@ fun main() {
     // friend, get country: Finland
 
     // iterate over and get each key-value pair
-    friend.forEach { (objectKey, objectValue) -> println("friend, foreach loop, key: ${objectKey}, value: ${objectValue}") }
-    // fruits, for loop, key: 0, value: apple
-	// fruits, for loop, key: 1, value: mango
-	// fruits, for loop, key: 2, value: orange
-
-    // iterate over and get each key-value pair
     for ((objectKey, objectValue) in friend) {
         println("friend, for loop, key: ${objectKey}, value: ${objectValue}")
     }
     // fruits, for loop, key: 0, value: apple
-	// fruits, for loop, key: 1, value: mango
-	// fruits, for loop, key: 2, value: orange
+    // fruits, for loop, key: 1, value: mango
+    // fruits, for loop, key: 2, value: orange
+
+    // iterate over and get each key-value pair
+    friend.forEach { (objectKey, objectValue) -> println("friend, foreach loop, key: ${objectKey}, value: ${objectValue}") }
+    // fruits, for loop, key: 0, value: apple
+    // fruits, for loop, key: 1, value: mango
+    // fruits, for loop, key: 2, value: orange
 
     // iterate over and get each key-value pair and iteration/entry index
     friend.entries.forEachIndexed { entryIndex, entryItem ->

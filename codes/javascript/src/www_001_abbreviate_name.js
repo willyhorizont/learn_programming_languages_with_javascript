@@ -11,13 +11,13 @@ Description:
     patrick feeney => P.F
 */
 
-const abbreviateNameV1 = (completeName) => completeName.split(" ").map((name) => name[0].toUpperCase()).join(".");
+const abbreviateNameV1 = (completeName) => completeName.split(" ").map((aName) => aName[0].toUpperCase()).join(".");
 console.log(abbreviateNameV1("Sam Harris"));
 // S.H
 console.log(abbreviateNameV1("patrick feeney"));
 // P.F
 
-const abbreviateNameV2 = (completeName) => completeName.split(" ").map((name) => name.charAt(0).toUpperCase()).join(".");
+const abbreviateNameV2 = (completeName) => completeName.split(" ").map((aName) => aName.charAt(0).toUpperCase()).join(".");
 console.log(abbreviateNameV2("Sam Harris"));
 // S.H
 console.log(abbreviateNameV2("patrick feeney"));

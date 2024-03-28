@@ -67,56 +67,56 @@ print(f'JSON_OBJECT: {json.dumps(JSON_OBJECT, indent=4)}')
 
 print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v1"')
 
-print(f'JSON_OBJECT?.foo?.bar: {optional_chaining_v1(JSON_OBJECT, "foo", "bar")}')
-# JSON_OBJECT?.foo?.bar: baz
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {optional_chaining_v1(JSON_OBJECT, "foo", "bar")}')
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: baz
 
-print(f'JSON_OBJECT?.foo?.baz: {optional_chaining_v1(JSON_OBJECT, "foo", "baz")}')
-# JSON_OBJECT?.foo?.baz: None
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {optional_chaining_v1(JSON_OBJECT, "foo", "baz")}')
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: None
 
-print(f'JSON_OBJECT?.fruits?.[2]: {optional_chaining_v1(JSON_OBJECT, "fruits", 2)}')
-# JSON_OBJECT?.fruits?.[2]: banana
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {optional_chaining_v1(JSON_OBJECT, "fruits", 2)}')
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: banana
 
-print(f'JSON_OBJECT?.fruits?.[5]: {optional_chaining_v1(JSON_OBJECT, "fruits", 5)}')
-# JSON_OBJECT?.fruits?.[5]: None
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {optional_chaining_v1(JSON_OBJECT, "fruits", 5)}')
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: None
 
 print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v2"')
 
-print(f'JSON_OBJECT?.foo?.bar: {optional_chaining_v2(JSON_OBJECT, "foo", "bar")}')
-# JSON_OBJECT?.foo?.bar: baz
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {optional_chaining_v2(JSON_OBJECT, "foo", "bar")}')
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: baz
 
-print(f'JSON_OBJECT?.foo?.baz: {optional_chaining_v2(JSON_OBJECT, "foo", "baz")}')
-# JSON_OBJECT?.foo?.baz: None
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {optional_chaining_v2(JSON_OBJECT, "foo", "baz")}')
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: None
 
-print(f'JSON_OBJECT?.fruits?.[2]: {optional_chaining_v2(JSON_OBJECT, "fruits", 2)}')
-# JSON_OBJECT?.fruits?.[2]: banana
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {optional_chaining_v2(JSON_OBJECT, "fruits", 2)}')
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: banana
 
-print(f'JSON_OBJECT?.fruits?.[5]: {optional_chaining_v2(JSON_OBJECT, "fruits", 5)}')
-# JSON_OBJECT?.fruits?.[5]: None
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {optional_chaining_v2(JSON_OBJECT, "fruits", 5)}')
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: None
 
 print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v3"')
 
-print(f'JSON_OBJECT?.foo?.bar: {optional_chaining_v3(JSON_OBJECT, "foo", "bar")}')
-# JSON_OBJECT?.foo?.bar: baz
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {optional_chaining_v3(JSON_OBJECT, "foo", "bar")}')
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: baz
 
-print(f'JSON_OBJECT?.foo?.baz: {optional_chaining_v3(JSON_OBJECT, "foo", "baz")}')
-# JSON_OBJECT?.foo?.baz: None
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {optional_chaining_v3(JSON_OBJECT, "foo", "baz")}')
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: None
 
-print(f'JSON_OBJECT?.fruits?.[2]: {optional_chaining_v3(JSON_OBJECT, "fruits", 2)}')
-# JSON_OBJECT?.fruits?.[2]: banana
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {optional_chaining_v3(JSON_OBJECT, "fruits", 2)}')
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: banana
 
-print(f'JSON_OBJECT?.fruits?.[5]: {optional_chaining_v3(JSON_OBJECT, "fruits", 5)}')
-# JSON_OBJECT?.fruits?.[5]: None
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {optional_chaining_v3(JSON_OBJECT, "fruits", 5)}')
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: None
 
 print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v4"')
 
-print(f'JSON_OBJECT?.foo?.bar: {optional_chaining_v4(JSON_OBJECT, "foo", "bar")}')
-# JSON_OBJECT?.foo?.bar: baz
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {optional_chaining_v4(JSON_OBJECT, "foo", "bar")}')
+# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: baz
 
-print(f'JSON_OBJECT?.foo?.baz: {optional_chaining_v4(JSON_OBJECT, "foo", "baz")}')
-# JSON_OBJECT?.foo?.baz: None
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {optional_chaining_v4(JSON_OBJECT, "foo", "baz")}')
+# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: None
 
-print(f'JSON_OBJECT?.fruits?.[2]: {optional_chaining_v4(JSON_OBJECT, "fruits", 2)}')
-# JSON_OBJECT?.fruits?.[2]: banana
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {optional_chaining_v4(JSON_OBJECT, "fruits", 2)}')
+# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: banana
 
-print(f'JSON_OBJECT?.fruits?.[5]: {optional_chaining_v4(JSON_OBJECT, "fruits", 5)}')
-# JSON_OBJECT?.fruits?.[5]: None
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {optional_chaining_v4(JSON_OBJECT, "fruits", 5)}')
+# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: None

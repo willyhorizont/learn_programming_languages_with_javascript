@@ -15,6 +15,6 @@ void main() {
     something = [1, 2, 3];
     print(something); // Output: [1, 2, 3]
 
-    something = {"foo": "bar"};
+    something = { "foo": "bar" };
     print(something); // Output: {foo: bar}
 }

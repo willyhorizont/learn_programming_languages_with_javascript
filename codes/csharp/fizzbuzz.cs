@@ -263,7 +263,7 @@ class Program {
 
         dynamic FizzBuzzV13(int StopNumber) {
             if (StopNumber < 1) throw new InvalidOperationException("Argument should be > 0");
-            return Enumerable.Range(1, StopNumber).Aggregate("", (Func<dynamic, int, dynamic>)((dynamic CurrentResult, int Number) => ((CurrentResult == "") ? $"{Number}" : ((((Number % 3) == 0) && ((Number % 5) == 0)) ? $"{CurrentResult}, FizzBuzz" : (((Number % 3) == 0) ? $"{CurrentResult}, Fizz" : (((Number % 5) == 0) ? $"{CurrentResult}, Buzz" : $"{CurrentResult}, {Number}"))))));
+            return Enumerable.Range(1, StopNumber).Aggregate("", (Func<dynamic, int, dynamic>)((dynamic CurrentResult, int CurrentNumber) => ((CurrentResult == "") ? $"{CurrentNumber}" : ((((CurrentNumber % 3) == 0) && ((CurrentNumber % 5) == 0)) ? $"{CurrentResult}, FizzBuzz" : (((CurrentNumber % 3) == 0) ? $"{CurrentResult}, Fizz" : (((CurrentNumber % 5) == 0) ? $"{CurrentResult}, Buzz" : $"{CurrentResult}, {CurrentNumber}"))))));
         }
 
         Console.WriteLine("// using fizzbuzz function \"FizzBuzzV1\"");

@@ -29,20 +29,23 @@ class Program {
 
         // for loop
 
-        for (int i3 = 1; i3 <= 5; i3 += 1) {
+        for (int i3 = 1; i3 <= 10; i3 += 1) {
+            if (i3 > 5) break;
             if (i3 == 2) continue;
             Console.WriteLine($"for loop, i3 is {i3}");
         }
 
         // foreach loop
 
-        foreach (int i4 in Enumerable.Range(1, 5)) {
+        foreach (int i4 in Enumerable.Range(1, 10)) {
+            if (i4 > 5) break;
             if (i4 == 2) continue;
             Console.WriteLine($"foreach loop ascending, i4 is {i4}");
         }
 
-        foreach (int i5 in Enumerable.Range(1, 5).Reverse().ToList()) {
-            if (i5 == 2) continue;
+        foreach (int i5 in Enumerable.Range(1, 10).Reverse().ToList()) {
+            if (i5 <= 5) break;
+            if (i5 == 9) continue;
             Console.WriteLine($"foreach loop descending, i5 is {i5}");
         }
     }

@@ -109,50 +109,12 @@ fun main() {
     var numbersTotal: Any?
 
     println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
-
-    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
-        if (currentResult is Number && currentNumber is Number) {
-            (currentResult.toDouble() + currentNumber.toDouble())
-        } else {
-            currentResult
-        }
-    }, numbers, 0.0)
-    println("total number: ${numbersTotal}")
-    // total number: 41.2
-
-    numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> 
-        when {
-            currentResult is Number && currentNumber is Number -> (currentResult.toDouble() + currentNumber.toDouble())
-            else -> currentResult
-        }
-    }, numbers, 0.0)
-    println("total number: ${numbersTotal}")
-    // total number: 41.2
     
     numbersTotal = arrayReduce({ currentResult: Any?, currentNumber: Any?, _: Int, _: MutableList<Any?> -> if (currentResult is Number && currentNumber is Number) (currentResult.toDouble() + currentNumber.toDouble()) else currentResult }, numbers, 0.0)
     println("total number: ${numbersTotal}")
     // total number: 41.2
 
     println("// using Kotlin Array.reduce() built-in method \"Array.fold\"")
-
-    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
-        if (currentResult is Number && currentNumber is Number) {
-            (currentResult.toDouble() + currentNumber.toDouble())
-        } else {
-            currentResult
-        }
-    }
-    println("total number: ${numbersTotal}")
-    // total number: 41.2
-
-    numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> 
-        when {
-            currentResult is Number && currentNumber is Number -> (currentResult.toDouble() + currentNumber.toDouble())
-            else -> currentResult // Return currentResult unchanged if types are incompatible
-        }
-    }
-    println("total number: ${numbersTotal}")
-    // total number: 41.2
 
     numbersTotal = numbers.fold(0.0) { currentResult: Any?, currentNumber: Any? -> if (currentResult is Number && currentNumber is Number) (currentResult.toDouble() + currentNumber.toDouble()) else currentResult }
     println("total number: ${numbersTotal}")
@@ -187,52 +149,52 @@ fun main() {
     productsGrouped = arrayReduce({ currentResult: Any?, currentProduct: Any?, _: Int, _: MutableList<Any?> -> (if (((currentProduct as MutableMap<String, Any?>)["price"] as Int) > 100) spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("expensive" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["expensive"], mutableMapOf<String, Any?>("currentProduct" to currentProduct)))) else spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("cheap" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["cheap"], mutableMapOf<String, Any?>("currentProduct" to currentProduct))))) }, products, mutableMapOf<String, Any?>("expensive" to mutableListOf<Any?>(), "cheap" to mutableListOf<Any?>()))
     println("grouped products: ${prettyJsonStringify(productsGrouped)}")
     // grouped products: {
-	// 	"expensive": [
-	// 		{
-	// 			"code": "pasta",
-	// 			"price": 321
-	// 		},
-	// 		{
-	// 			"code": "bubble_gum",
-	// 			"price": 233
-	// 		},
-	// 		{
-	// 			"code": "towel",
-	// 			"price": 499
-	// 		}
-	// 	],
-	// 	"cheap": [
-	// 		{
-	// 			"code": "potato_chips",
-	// 			"price": 5
-	// 		}
-	// 	]
-	// }
+    //     "expensive": [
+    //         {
+    //             "code": "pasta",
+    //             "price": 321
+    //         },
+    //         {
+    //             "code": "bubble_gum",
+    //             "price": 233
+    //         },
+    //         {
+    //             "code": "towel",
+    //             "price": 499
+    //         }
+    //     ],
+    //     "cheap": [
+    //         {
+    //             "code": "potato_chips",
+    //             "price": 5
+    //         }
+    //     ]
+    // }
 
     println("// using Kotlin Array.reduce() built-in method \"Array.fold\"")
 
     productsGrouped = products.fold(mutableMapOf<String, Any?>("expensive" to mutableListOf<Any?>(), "cheap" to mutableListOf<Any?>())) { currentResult: Any?, currentProduct: Any? -> (if (((currentProduct as MutableMap<String, Any?>)["price"] as Int) > 100) spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("expensive" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["expensive"], mutableMapOf<String, Any?>("currentProduct" to currentProduct)))) else spreadSyntaxObject(currentResult, mutableMapOf<String, Any?>("cheap" to spreadSyntaxArray((currentResult as MutableMap<String, Any?>)["cheap"], mutableMapOf<String, Any?>("currentProduct" to currentProduct))))) }
     println("grouped products: ${prettyJsonStringify(productsGrouped)}")
     // grouped products: {
-	// 	"expensive": [
-	// 		{
-	// 			"code": "pasta",
-	// 			"price": 321
-	// 		},
-	// 		{
-	// 			"code": "bubble_gum",
-	// 			"price": 233
-	// 		},
-	// 		{
-	// 			"code": "towel",
-	// 			"price": 499
-	// 		}
-	// 	],
-	// 	"cheap": [
-	// 		{
-	// 			"code": "potato_chips",
-	// 			"price": 5
-	// 		}
-	// 	]
-	// }
+    //     "expensive": [
+    //         {
+    //             "code": "pasta",
+    //             "price": 321
+    //         },
+    //         {
+    //             "code": "bubble_gum",
+    //             "price": 233
+    //         },
+    //         {
+    //             "code": "towel",
+    //             "price": 499
+    //         }
+    //     ],
+    //     "cheap": [
+    //         {
+    //             "code": "potato_chips",
+    //             "price": 5
+    //         }
+    //     ]
+    // }
 }

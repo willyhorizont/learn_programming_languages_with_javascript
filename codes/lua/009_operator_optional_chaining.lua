@@ -24,14 +24,14 @@ JSON_OBJECT = {
 }
 sprint("JSON_OBJECT: ", pretty_json_stringify(JSON_OBJECT))
 
-sprint("JSON_OBJECT?.foo?.bar: ", pretty_json_stringify(JSON_OBJECT["foo"]["bar"]))
--- JSON_OBJECT?.foo?.bar: "baz"
+sprint("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", pretty_json_stringify(JSON_OBJECT["foo"]["bar"]))
+-- JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-sprint("JSON_OBJECT?.foo?.baz: ", pretty_json_stringify(JSON_OBJECT["foo"]["baz"]))
--- JSON_OBJECT?.foo?.baz: null
+sprint("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", pretty_json_stringify(JSON_OBJECT["foo"]["baz"]))
+-- JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-sprint("JSON_OBJECT?.fruits?.[2]: ", pretty_json_stringify(JSON_OBJECT["fruits"][2]))
--- JSON_OBJECT?.fruits?.[2]: "mango"
+sprint("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", pretty_json_stringify(JSON_OBJECT["fruits"][2]))
+-- JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "mango"
 
-sprint("JSON_OBJECT?.fruits?.[5]: ", pretty_json_stringify(JSON_OBJECT["fruits"][5]))
--- JSON_OBJECT?.fruits?.[5]: null
+sprint("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", pretty_json_stringify(JSON_OBJECT["fruits"][5]))
+-- JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null

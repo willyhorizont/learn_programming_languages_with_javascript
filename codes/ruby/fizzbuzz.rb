@@ -198,7 +198,7 @@ end
 def fizzbuzz_v9(stop_number)
     raise StandardError.new("Argument should be a number") if (stop_number.is_a?(Numeric) == false)
     raise StandardError.new("Argument should be > 0") if (stop_number < 1)
-    return (1.step(stop_number, 1)).reduce("") { |current_result, number| ((current_result == "") ? "#{number}" : ((((number % 3) === 0) && ((number % 5) === 0)) ? "#{current_result}, FizzBuzz" : (((number % 3) === 0) ? "#{current_result}, Fizz" : (((number % 5) === 0) ? "#{current_result}, Buzz" : "#{current_result}, #{number}")))) }
+    return (1.step(stop_number, 1)).reduce("") { |current_result, current_number| ((current_result == "") ? "#{current_number}" : ((((current_number % 3) === 0) && ((current_number % 5) === 0)) ? "#{current_result}, FizzBuzz" : (((current_number % 3) === 0) ? "#{current_result}, Fizz" : (((current_number % 5) === 0) ? "#{current_result}, Buzz" : "#{current_result}, #{current_number}")))) }
 end
 
 print("\n", "# using fizzbuzz function \"fizzbuzz_v1\"")

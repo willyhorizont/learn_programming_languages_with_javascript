@@ -5,9 +5,9 @@ Module Program
         Dim Result As String = "["
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArrayOfPrimitives
-            If (((TypeOf ArrayItem Is String) = false) AndAlso ((IsNumeric(ArrayItem)) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
+            If (((TypeOf ArrayItem Is String) = false) AndAlso (IsNumeric(ArrayItem) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
             If (TypeOf ArrayItem Is String) Then Result += """" & ArrayItem & """"
-            If IsNumeric(ArrayItem) Then Result += CStr(ArrayItem).Replace(",", ".")
+            If (IsNumeric(ArrayItem) = true) Then Result += CStr(ArrayItem).Replace(",", ".")
             If (TypeOf ArrayItem Is Boolean) Then Result += CStr(ArrayItem)
             If (ArrayItem Is Nothing) Then Result += "null"
             If ((ArrayItemIndex + 1) <> AnArrayOfPrimitives.Count) Then Result += ", "

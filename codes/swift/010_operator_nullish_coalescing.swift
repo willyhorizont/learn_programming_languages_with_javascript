@@ -95,7 +95,7 @@ print("JSON_OBJECT: \(prettyJsonStringify(JSON_OBJECT))")
 
 print("// using Swift optional binding syntax \"if let\"")
 
-print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["foo"] as? MyObject {
         if let result = result["bar"] {
             if let result = result {
@@ -105,9 +105,9 @@ print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify({ () -> Any
     }
     return nil
 }() ?? "not found"))
-// JSON_OBJECT?.foo?.bar: baz
+// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["foo"] as? MyObject {
         if let result = result["baz"] {
             if let result = result {
@@ -117,9 +117,9 @@ print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify({ () -> Any
     }
     return nil
 }() ?? "not found"))
-// JSON_OBJECT?.foo?.baz: "not found"
+// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["fruits"] as? MyArray {
         if let result = ((result.count > 2) ? result[2] : nil) {
             return result
@@ -127,9 +127,9 @@ print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> 
     }
     return nil
 }() ?? "not found"))
-// JSON_OBJECT?.fruits?.[2]: banana
+// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["fruits"] as? MyArray {
         if let result = ((result.count > 5) ? result[5] : nil) {
             return result
@@ -137,27 +137,27 @@ print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> 
     }
     return nil
 }() ?? "not found"))
-// JSON_OBJECT?.fruits?.[5]: "not found"
+// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
 
 print("// using Swift optional binding syntax \"guard let\"")
 
-print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["bar"] else {
         return nil
     }
     return result
 }() ?? "not found"))
-// JSON_OBJECT?.foo?.bar: "baz"
+// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["baz"] else {
         return nil
     }
     return result
 }() ?? "not found"))
-// JSON_OBJECT?.foo?.baz: "not found"
+// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
@@ -166,9 +166,9 @@ print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify({ () -> 
     }
     return result
 }() ?? "not found"))
-// JSON_OBJECT?.fruits?.[2]: "banana"
+// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> Any? in
+print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
@@ -177,18 +177,18 @@ print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify({ () -> 
     }
     return result
 }() ?? "not found"))
-// JSON_OBJECT?.fruits?.[5]: "not found"
+// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
 
 print("// using JavaScript-like Optional Chaining Operator (?.) function \"optionalChaining\"")
 
-print("JSON_OBJECT?.foo?.bar ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar") ?? "not found"))
-// JSON_OBJECT?.foo?.bar: "baz"
+print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar") ?? "not found"))
+// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-print("JSON_OBJECT?.foo?.baz ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz") ?? "not found"))
-// JSON_OBJECT?.foo?.baz: "not found"
+print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz") ?? "not found"))
+// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-print("JSON_OBJECT?.fruits?.[2] ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2) ?? "not found"))
-// JSON_OBJECT?.fruits?.[2]: "banana"
+print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2) ?? "not found"))
+// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-print("JSON_OBJECT?.fruits?.[5] ?? \"not found\":", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5) ?? "not found"))
-// JSON_OBJECT?.fruits?.[5]: "not found"
+print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5) ?? "not found"))
+// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

@@ -14,6 +14,6 @@ Description:
 
 sub count_vowels {
     my ($a_string) = @_;
-    return grep { (index("aiueoAIUEO", $_) != -1) } split("", $a_string);
+    return scalar(@{[grep { (index("aiueoAIUEO", $_) != -1) } split("", $a_string)]});
 }
 print(count_vowels("Hello World") . "\n"); # 3

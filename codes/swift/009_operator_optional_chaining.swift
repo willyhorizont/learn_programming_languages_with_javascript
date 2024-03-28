@@ -98,7 +98,7 @@ print("JSON_OBJECT: \(prettyJsonStringify(JSON_OBJECT))")
 
 print("// using Swift optional binding syntax \"if let\"")
 
-print("JSON_OBJECT?.foo?.bar:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']:", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["foo"] as? MyObject {
         if let result = result["bar"] {
             if let result = result {
@@ -108,9 +108,9 @@ print("JSON_OBJECT?.foo?.bar:", prettyJsonStringify({ () -> Any? in
     }
     return nil
 }()))
-// JSON_OBJECT?.foo?.bar: baz
+// JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: baz
 
-print("JSON_OBJECT?.foo?.baz:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']:", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["foo"] as? MyObject {
         if let result = result["baz"] {
             if let result = result {
@@ -120,9 +120,9 @@ print("JSON_OBJECT?.foo?.baz:", prettyJsonStringify({ () -> Any? in
     }
     return nil
 }()))
-// JSON_OBJECT?.foo?.baz: nil
+// JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: nil
 
-print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]:", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["fruits"] as? MyArray {
         if let result = ((result.count > 2) ? result[2] : nil) {
             return result
@@ -130,9 +130,9 @@ print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify({ () -> Any? in
     }
     return nil
 }()))
-// JSON_OBJECT?.fruits?.[2]: banana
+// JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: banana
 
-print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]:", prettyJsonStringify({ () -> Any? in
     if let result = JSON_OBJECT["fruits"] as? MyArray {
         if let result = ((result.count > 5) ? result[5] : nil) {
             return result
@@ -140,27 +140,27 @@ print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify({ () -> Any? in
     }
     return nil
 }()))
-// JSON_OBJECT?.fruits?.[5]: nil
+// JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: nil
 
 print("// using Swift optional binding syntax \"guard let\"")
 
-print("JSON_OBJECT?.foo?.bar:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["bar"] else {
         return nil
     }
     return result
 }()))
-// JSON_OBJECT?.foo?.bar: "baz"
+// JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-print("JSON_OBJECT?.foo?.baz:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["baz"] else {
         return nil
     }
     return result
 }()))
-// JSON_OBJECT?.foo?.baz: nil
+// JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: nil
 
-print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
@@ -169,9 +169,9 @@ print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify({ () -> Any? in
     }
     return result
 }()))
-// JSON_OBJECT?.fruits?.[2]: "banana"
+// JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify({ () -> Any? in
+print("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]:", prettyJsonStringify({ () -> Any? in
     guard let result = JSON_OBJECT["fruits"] as? MyArray else {
         return nil
     }
@@ -180,18 +180,18 @@ print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify({ () -> Any? in
     }
     return result
 }()))
-// JSON_OBJECT?.fruits?.[5]: nil
+// JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: nil
 
 print("// using JavaScript-like Optional Chaining Operator (?.) function \"optionalChaining\"")
 
-print("JSON_OBJECT?.foo?.bar:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar")))
-// JSON_OBJECT?.foo?.bar: "baz"
+print("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar")))
+// JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-print("JSON_OBJECT?.foo?.baz:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz")))
-// JSON_OBJECT?.foo?.baz: nil
+print("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz")))
+// JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: nil
 
-print("JSON_OBJECT?.fruits?.[2]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2)))
-// JSON_OBJECT?.fruits?.[2]: "banana"
+print("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2)))
+// JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-print("JSON_OBJECT?.fruits?.[5]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5)))
-// JSON_OBJECT?.fruits?.[5]: nil
+print("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5)))
+// JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: nil

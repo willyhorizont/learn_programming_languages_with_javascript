@@ -50,6 +50,11 @@ fun main() {
         return prettyJsonStringifyInner(anything, indent)
     }
 
+    println("\n// JavaScript-like Spread Syntax (...) in Kotlin")
+
+    // There's no JavaScript-like Spread Syntax (...) in Kotlin.
+    // But, we can create our own function to mimic it in Kotlin.
+
     fun spreadSyntaxObject(vararg parameters: Any?): MutableMap<String, Any?> {
         val newObject = mutableMapOf<String, Any?>()
         for ((parameterIndex, parameter) in parameters.withIndex()) {
@@ -91,11 +96,6 @@ fun main() {
         }
         return newArray
     }
-
-    println("\n// JavaScript-like Spread Syntax (...) in Kotlin")
-
-    // There's no JavaScript-like Spread Syntax (...) in Kotlin.
-    // But, we can create our own function to mimic it in Kotlin.
 
     val fruits = mutableListOf<Any?>("Mango", "Melon", "Banana")
     println("fruits: ${prettyArrayOfPrimitives(fruits)}")

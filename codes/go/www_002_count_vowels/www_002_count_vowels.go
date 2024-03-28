@@ -16,16 +16,27 @@ Description:
     The input string will only consist of lower case letters and/or spaces.
 */
 
-func countVowels(aString string) int {
-	result := 0
-	for _, aLetter := range strings.Split(aString, "") {
-		if (strings.Contains("aiueoAIUEO", aLetter) == true) {
-			result += 1
-		}
-	}
-	return result
+func countVowelsV1(aString string) int {
+    result := 0
+    for _, aCharacter := range strings.Split(aString, "") {
+        if (strings.Contains("aiueoAIUEO", aCharacter) == true) {
+            result += 1
+        }
+    }
+    return result
 }
 
 func main() {
-	fmt.Println(countVowels("Hello World")) // 3
+	fmt.Println(countVowelsV1("Hello World")) // 3
+
+	countVowelsV2 := func(aString string) int {
+        result := 0
+		for _, aCharacter := range strings.Split(aString, "") {
+			if (strings.Contains("aiueoAIUEO", aCharacter) == true) {
+				result += 1
+			}
+		}
+		return result
+    }
+    fmt.Println(countVowelsV2("Hello World")) // 3
 }

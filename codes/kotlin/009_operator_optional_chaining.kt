@@ -51,27 +51,27 @@ fun main() {
     )
     println("JSON_OBJECT: ${prettyJsonStringify(JSON_OBJECT)}")
 
-    println("JSON_OBJECT?.foo?.bar: ${try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["bar"] } catch (err: Exception) { null }}")
-    // JSON_OBJECT?.foo?.bar: baz
+    println("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ${try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["bar"] } catch (err: Exception) { null }}")
+    // JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: baz
 
-    println("JSON_OBJECT?.foo?.baz: ${try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["baz"] } catch (err: Exception) { null }}")
-    // JSON_OBJECT?.foo?.baz: null // undefined and null is null in Kotlin
+    println("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ${try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["baz"] } catch (err: Exception) { null }}")
+    // JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null // undefined and null is null in Kotlin
 
-    println("JSON_OBJECT?.foo?.bar: ${prettyJsonStringify(try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["bar"] } catch (err: Exception) { null })}")
-    // JSON_OBJECT?.foo?.bar: "baz"
+    println("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ${prettyJsonStringify(try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["bar"] } catch (err: Exception) { null })}")
+    // JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-    println("JSON_OBJECT?.foo?.baz: ${prettyJsonStringify(try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["baz"] } catch (err: Exception) { null })}")
-    // JSON_OBJECT?.foo?.baz: undefined
+    println("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ${prettyJsonStringify(try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["baz"] } catch (err: Exception) { null })}")
+    // JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: undefined
 
-    println("JSON_OBJECT?.fruits?.[2]: ${try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[2] } catch (err: Exception) { null }}")
-    // JSON_OBJECT?.fruits?.[2]: banana
+    println("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ${try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[2] } catch (err: Exception) { null }}")
+    // JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: banana
 
-    println("JSON_OBJECT?.fruits?.[5]: ${try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[5] } catch (err: Exception) { null }}")
-    // JSON_OBJECT?.fruits?.[5]: null // undefined and null is null in Kotlin
+    println("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ${try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[5] } catch (err: Exception) { null }}")
+    // JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null // undefined and null is null in Kotlin
 
-    println("JSON_OBJECT?.fruits?.[2]: ${prettyJsonStringify(try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[2] } catch (err: Exception) { null })}")
-    // JSON_OBJECT?.fruits?.[2]: "banana"
+    println("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ${prettyJsonStringify(try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[2] } catch (err: Exception) { null })}")
+    // JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-    println("JSON_OBJECT?.fruits?.[5]: ${prettyJsonStringify(try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[5] } catch (err: Exception) { null })}")
-    // JSON_OBJECT?.fruits?.[5]: undefined
+    println("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ${prettyJsonStringify(try { (JSON_OBJECT["fruits"] as MutableList<Any?>)[5] } catch (err: Exception) { null })}")
+    // JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: undefined
 }

@@ -24,69 +24,82 @@ end
 
 # for loop
 
-for i in (1..5) do # (start..step)
+for i in (1..10) do # (start..step)
+    break if (i > 5)
     next if (i == 2)
     print("for loop v1 ascending, i is #{i}\n")
 end
 
-for i in (1..5).to_a.reverse do # (start..step)
-    next if (i == 2)
+for i in (1..10).to_a.reverse do # (start..step)
+    break if (i <= 5)
+    next if (i == 9)
     print("for loop v1 descending, i is #{i}\n")
 end
 
-for i in (1.upto(5)) do # (start.f(stop))
+for i in (1.upto(10)) do # (start.f(stop))
+    break if (i > 5)
     next if (i == 2)
     print("for loop v2 ascending, i is #{i}\n")
 end
 
-for i in (5.downto(1)) do # (start.f(stop))
-    next if (i == 2)
+for i in (10.downto(1)) do # (start.f(stop))
+    break if (i <= 5)
+    next if (i == 9)
     print("for loop v2 descending, i is #{i}\n")
 end
 
-for i in (1.step(5, 1)) do # start.f(stop, step)
+for i in (1.step(10, 1)) do # start.f(stop, step)
+    break if (i > 5)
     next if (i == 2)
     print("for loop v3 ascending, i is #{i}\n")
 end
 
-for i in (5.step(1, -1)) do # start.f(stop, step)
-    next if (i == 2)
+for i in (10.step(1, -1)) do # start.f(stop, step)
+    break if (i <= 5)
+    next if (i == 9)
     print("for loop v3 descending, i is #{i}\n")
 end
 
 # foreach loop
 
-(1..5).each do |i| # (start..stop)
+(1..10).each do |i| # (start..stop)
+    break if (i > 5)
     next if (i == 2)
     print("foreach loop v1 ascending, i is #{i}\n")
 end
 
-(1..5).to_a.reverse.each do |i| # (start..stop)
-    next if (i == 2)
+(1..10).to_a.reverse.each do |i| # (start..stop)
+    break if (i <= 5)
+    next if (i == 9)
     print("foreach loop v1 descending v1, i is #{i}\n")
 end
 
-(1..5).reverse_each do |i| # (start..stop)
-    next if (i == 2)
+(1..10).reverse_each do |i| # (start..stop)
+    break if (i <= 5)
+    next if (i == 9)
     print("foreach loop v1 descending v2, i is #{i}\n")
 end
 
-(1.upto(5)).each do |i| # (start.f(stop))
+(1.upto(10)).each do |i| # (start.f(stop))
+    break if (i > 5)
     next if (i == 2)
     print("foreach loop v2 ascending, i is #{i}\n")
 end
 
-(5.downto(1)).each do |i| # (start.f(stop))
-    next if (i == 2)
+(10.downto(1)).each do |i| # (start.f(stop))
+    break if (i <= 5)
+    next if (i == 9)
     print("foreach loop v2 descending, i is #{i}\n")
 end
 
-(1.step(5, 1)).each do |i| # start.f(stop, step)
+(1.step(10, 1)).each do |i| # start.f(stop, step)
+    break if (i > 5)
     next if (i == 2)
     print("foreach loop v3 ascending, i is #{i}\n")
 end
 
-(5.step(1, -1)).each do |i| # start.f(stop, step)
-    next if (i == 2)
+(10.step(1, -1)).each do |i| # start.f(stop, step)
+    break if (i <= 5)
+    next if (i == 9)
     print("foreach loop v3 descending, i is #{i}\n")
 end

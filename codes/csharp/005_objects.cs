@@ -16,7 +16,7 @@ class Program {
                 if (AnythingInner is string) {
                     return "\"" + (string)AnythingInner + "\"";
                 }
-                if (IsNumeric(AnythingInner) || AnythingInner is bool) {
+                if ((IsNumeric(AnythingInner) == true) || AnythingInner is bool) {
                     return AnythingInner.ToString().Replace(",", ".");
                 }
                 if (AnythingInner is List<dynamic>) {

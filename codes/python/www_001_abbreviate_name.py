@@ -11,7 +11,7 @@ Description:
     patrick feeney => P.F
 '''
 
-abbreviate_name = lambda complete_name: ".".join(map(lambda name: name[0].upper(), complete_name.split(" ")))
+abbreviate_name = lambda complete_name: ".".join(map(lambda a_name: a_name[0].upper(), complete_name.split(" ")))
 print(abbreviate_name("Sam Harris"))
 # S.H
 print(abbreviate_name("patrick feeney"))

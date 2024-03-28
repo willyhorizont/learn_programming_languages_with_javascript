@@ -5,9 +5,9 @@ Module Program
         Dim Result As String = "["
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArrayOfPrimitives
-            If (((TypeOf ArrayItem Is String) = false) AndAlso ((IsNumeric(ArrayItem)) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
+            If (((TypeOf ArrayItem Is String) = false) AndAlso (IsNumeric(ArrayItem) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
             If (TypeOf ArrayItem Is String) Then Result += """" & ArrayItem & """"
-            If IsNumeric(ArrayItem) Then Result += CStr(ArrayItem).Replace(",", ".")
+            If (IsNumeric(ArrayItem) = true) Then Result += CStr(ArrayItem).Replace(",", ".")
             If (TypeOf ArrayItem Is Boolean) Then Result += CStr(ArrayItem)
             If (ArrayItem Is Nothing) Then Result += "null"
             If ((ArrayItemIndex + 1) <> AnArrayOfPrimitives.Count) Then Result += ", "
@@ -22,7 +22,7 @@ Module Program
         Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If IsNumeric(AnythingInner) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
@@ -309,7 +309,7 @@ Module Program
         '     "1": "Cabbage"
         ' }
 
-        ' Console.WriteLine($"{Environment.NewLine}' [...array1, ...object1] ` this combination throw an error in JavaScript:{Environment.NewLine}")
+        ' Console.WriteLine($"{Environment.NewLine}' [...array1, ...object1]: ` this combination throw an error in JavaScript:{Environment.NewLine}")
 
         ' this combination throw an error in JavaScript
         ' Dim CombinationErrorInJavascript1 = SpreadSyntaxArray(Fruits, CountryCapitalsInAsia)

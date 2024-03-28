@@ -20,14 +20,18 @@ while (i <= 5):
     print(f"while loop v2, i is {i}")
     i += 1
 
-# for loop
+# for loop and also foreach loop
 
-for i in range(1, (5 + 1), 1):  # (start, stop, step)
+for i in range(1, (10 + 1), 1):  # (start, stop, step)
+    if (i > 5):
+        break
     if (i == 2):
         continue
     print(f"for loop ascending, i is {i}")
 
-for i in range(5, (1 - 1), -1):  # (start, stop, step)
-    if (i == 2):
+for i in range(10, (1 - 1), -1):  # (start, stop, step)
+    if (i <= 5):
+        break
+    if (i == 9):
         continue
     print(f"for loop descending, i is {i}")
