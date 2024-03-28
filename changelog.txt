@@ -2,6 +2,14 @@
 20:32 | 08:32 PM | Thu | Mar | 28/03/2024
 0.0.52
 finish wolfram
+update gitattributes #2
+update so many things
+TODO:
+try raku, scala, groovy, f#, crystal, java
+=============================changelog==========================================
+20:32 | 08:32 PM | Thu | Mar | 28/03/2024
+0.0.52
+finish wolfram
 update gitattributes
 update so many things
 TODO:
