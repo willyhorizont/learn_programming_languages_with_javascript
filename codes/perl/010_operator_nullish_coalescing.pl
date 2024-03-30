@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-print("\n# JavaScript-like Nullish Coalescing Operator (??) in Perl\n");
+print("\n# JavaScript-like Nullish Coalescing Operator (??) in Perl", "\n");
 
 sub pretty_json_stringify {
     my ($anything) = @_;
@@ -28,14 +28,14 @@ my %JSON_OBJECT = (
     },
     "fruits" => ["apple", "mango", "banana"]
 );
-print("JSON_OBJECT: " . pretty_json_stringify(\%JSON_OBJECT) . "\n");
+print("JSON_OBJECT: ", pretty_json_stringify(\%JSON_OBJECT), "\n");
 
-print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"bar"}, "not found")) . "\n");
+print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"bar"}, "not found")), "\n");
 # (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
-print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"baz"}, "not found")) . "\n");
+print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"foo"}{"baz"}, "not found")), "\n");
 # (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[2], "not found")) . "\n");
+print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[2], "not found")), "\n");
 # (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
-print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): " . pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[5], "not found")) . "\n");
+print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): ", pretty_json_stringify(nullish_coalescing($JSON_OBJECT{"fruits"}[5], "not found")), "\n");
 # (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

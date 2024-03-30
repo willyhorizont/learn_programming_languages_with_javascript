@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Scalar::Util qw(looks_like_number);
 
-print("\n# FizzBuzz(n) in Perl\n");
+print("\n# FizzBuzz(n) in Perl", "\n");
 
 sub fizzbuzz_v1 {
     my ($stop_number) = @_;
@@ -365,65 +365,65 @@ sub fizzbuzz_v16 {
 }
 
 print("# using fizzbuzz function \"fizzbuzz_v1\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v1(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v1(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v2\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v2(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v2(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v3\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v3(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v3(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v4\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v4(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v4(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v5\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v5(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v5(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v6\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v6(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v6(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v7\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v7(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v7(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v8\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v8(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v8(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v9\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v9(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v9(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v10\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v10(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v10(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v11\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v11(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v11(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v12\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v12(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v12(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v13\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v13(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v13(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v14\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v14(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v14(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v15\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v15(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v15(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print("# using fizzbuzz function \"fizzbuzz_v16\"\n");
-print("FizzBuzz(36): " . fizzbuzz_v16(36) . "\n");
+print("FizzBuzz(36): ", fizzbuzz_v16(36), "\n");
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

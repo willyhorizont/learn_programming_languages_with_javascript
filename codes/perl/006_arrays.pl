@@ -19,35 +19,35 @@ sub pretty_array_of_primitives {
         my $is_string = (defined($array_item) && ref($array_item) eq "");
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
-        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
-        $result = $result . $array_item if ($is_number);
-        $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
+        $result = ($result . "\"" . $array_item . "\"") if ($is_string && !$is_number);
+        $result = ($result . $array_item) if ($is_number);
+        $result = ($result . ", ") if (($array_item_index + 1) != $number_of_parameters);
     }
     $result = $result . "]";
     return $result;
 }
 
-# in Perl, JavaScript-like Array is called Array
+# in Perl, JavaScript-like Array is called List
 
 # initialization v1
 my @fruits1 = ("apple", "mango", "orange");
-print("fruits1: " . pretty_array_of_primitives(@fruits1) . "\n");
+print("fruits1: ", pretty_array_of_primitives(@fruits1), "\n");
 
-print("fruits1, length: " . scalar(@fruits1) . "\n");
+print("fruits1, length: ", scalar(@fruits1), "\n");
 # fruits1, length: 3
 
-print("fruits1, get mango: " . $fruits1[1] . "\n");
+print("fruits1, get mango: ", $fruits1[1], "\n");
 # fruits1, get mango: mango
 
-print("fruits1, first element: " . $fruits1[0] . "\n");
+print("fruits1, first element: ", $fruits1[0], "\n");
 # fruits1, first element: apple
 
-print("fruits1, last element: " . $fruits1[-1] . "\n");
+print("fruits1, last element: ", $fruits1[-1], "\n");
 # fruits1, last element: orange
 
 for my $array_item_index (0..(scalar(@fruits1) - 1)) { # we can also replace `(scalar(@fruits1) - 1)` with `$#fruits1`
     my $array_item = $fruits1[$array_item_index];
-    print("fruits1, index: $array_item_index, value: $array_item\n");
+    print("fruits1, index: $array_item_index, value: $array_item", "\n");
 }
 # fruits1, for loop, index: 0, value: apple
 # fruits1, for loop, index: 1, value: mango
@@ -55,47 +55,47 @@ for my $array_item_index (0..(scalar(@fruits1) - 1)) { # we can also replace `(s
 
 # initialization v2
 my $fruits2 = ["apple", "mango", "orange"];
-print("fruits2: " . pretty_array_of_primitives($fruits2) . "\n");
+print("fruits2: ", pretty_array_of_primitives($fruits2), "\n");
 
-print("fruits2, length: " . scalar(@{$fruits2}) . "\n");
+print("fruits2, length: ", scalar(@{$fruits2}), "\n");
 # fruits2, length: 3
 
-print("fruits2, get mango: " . $$fruits2[1] . "\n");
+print("fruits2, get mango: ", $$fruits2[1], "\n");
 # fruits2, get mango: mango
 
-print("fruits2, get mango: " . ${$fruits2}[1] . "\n");
+print("fruits2, get mango: ", ${$fruits2}[1], "\n");
 # fruits2, get mango: mango
 
-print("fruits2, get mango: " . $fruits2->[1] . "\n");
+print("fruits2, get mango: ", $fruits2->[1], "\n");
 # fruits2, get mango: mango
 
-print("fruits2, first element: " . $$fruits2[0] . "\n");
+print("fruits2, first element: ", $$fruits2[0], "\n");
 # fruits2, first element: apple
 
-print("fruits2, first element: " . ${$fruits2}[0] . "\n");
+print("fruits2, first element: ", ${$fruits2}[0], "\n");
 # fruits2, first element: apple
 
-print("fruits2, first element: " . $fruits2->[0] . "\n");
+print("fruits2, first element: ", $fruits2->[0], "\n");
 # fruits2, first element: apple
 
-print("fruits2, last element: " . $$fruits2[-1] . "\n");
+print("fruits2, last element: ", $$fruits2[-1], "\n");
 # fruits2, last element: orange
 
-print("fruits2, last element: " . ${$fruits2}[-1] . "\n");
+print("fruits2, last element: ", ${$fruits2}[-1], "\n");
 # fruits2, last element: orange
 
-print("fruits2, last element: " . $fruits2->[-1] . "\n");
+print("fruits2, last element: ", $fruits2->[-1], "\n");
 # fruits2, last element: orange
 
 for my $array_item_index (0..(scalar(@{$fruits2}) - 1)) { # we can also replace `(scalar(@{$fruits2}) - 1)` with `$#{$fruits2}`
     my $array_item = @{$fruits2}[$array_item_index];
-    print("fruits2, index: $array_item_index, value: $array_item\n");
+    print("fruits2, index: $array_item_index, value: $array_item", "\n");
 }
 # fruits2, for loop, index: 0, value: apple
 # fruits2, for loop, index: 1, value: mango
 # fruits2, for loop, index: 2, value: orange
 
-# in Perl, JavaScript-like Array of Objects is called Array of Hashes
+# in Perl, JavaScript-like Array of Objects is called List of Hashes
 
 # initialization v1
 my @products1 = (
@@ -108,7 +108,7 @@ my @products1 = (
         "name" => "potato chips"
     }
 );
-print("products1: " . pretty_json_stringify(\@products1) . "\n");
+print("products1: ", pretty_json_stringify(\@products1), "\n");
 
 for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$array_item_index];
@@ -117,7 +117,7 @@ for my $array_item_index (0..(scalar(@products1) - 1)) {
         my $entry_index = $entry_index / 2;
         my $object_key = $object_entries[$entry_index];
         my $object_value = $object_entries[$entry_index + 1];
-        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
     }
 }
 # products1, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
@@ -130,7 +130,7 @@ for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $entry_index = 0;
     foreach my $object_key (keys(%{$array_item})) {
         my $object_value = %{$array_item}{$object_key};
-        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
         $entry_index += 1;
     }
 }
@@ -143,7 +143,7 @@ for my $array_item_index (0..(scalar(@products1) - 1)) {
     my $array_item = $products1[$array_item_index];
     my $entry_index = 0;
     while (my ($object_key, $object_value) = each(%{$array_item})) {
-        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products1, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
         $entry_index += 1;
     }
 }
@@ -163,7 +163,7 @@ my $products2 = [
         "name" => "potato chips"
     }
 ];
-print("products2: " . pretty_json_stringify($products2) . "\n");
+print("products2: ", pretty_json_stringify($products2), "\n");
 
 for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
@@ -172,7 +172,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
         my $entry_index = $entry_index / 2;
         my $object_key = $object_entries[$entry_index];
         my $object_value = $object_entries[$entry_index + 1];
-        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
     }
 }
 # products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
@@ -185,7 +185,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $entry_index = 0;
     foreach my $object_key (keys(%{$array_item})) {
         my $object_value = %{$array_item}{$object_key};
-        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
         $entry_index += 1;
     }
 }
@@ -199,7 +199,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $entry_index = 0;
     foreach my $object_key (keys(%{$array_item})) {
         my $object_value = $array_item->{$object_key};
-        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
         $entry_index += 1;
     }
 }
@@ -212,7 +212,7 @@ for my $array_item_index (0..(scalar(@{$products2}) - 1)) {
     my $array_item = @{$products2}[$array_item_index];
     my $entry_index = 0;
     while (my ($object_key, $object_value) = each(%{$array_item})) {
-        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value\n");
+        print("products2, for loop, array item index: $array_item_index, iteration/entry index: $entry_index, key: $object_key, value: $object_value", "\n");
         $entry_index += 1;
     }
 }

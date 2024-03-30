@@ -77,3 +77,7 @@ to run Octave code:
 to run Wolfram code:
 1. cd codes/wolfram
 2. wolframscript -file filename.wls
+
+to run Raku code:
+1. cd codes/raku
+2. raku filename.raku

@@ -40,7 +40,7 @@ def list_files():
     PATH_CODES_MATLAB = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'matlab')
     PATH_CODES_GNU_OCTAVE = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'gnu_octave')
     PATH_CODES_WOLFRAM = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'wolfram')
-    # PATH_CODES_RAKU = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'raku')
+    PATH_CODES_RAKU = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'raku')
 
     FILE_CODES_JAVASCRIPT = get_file_list(PATH_CODES_JAVASCRIPT)
     FILE_CODES_PYTHON = get_file_list(PATH_CODES_PYTHON)
@@ -59,7 +59,7 @@ def list_files():
     FILE_CODES_MATLAB = get_file_list(PATH_CODES_MATLAB)
     FILE_CODES_GNU_OCTAVE = get_file_list(PATH_CODES_GNU_OCTAVE)
     FILE_CODES_WOLFRAM = get_file_list(PATH_CODES_WOLFRAM)
-    # FILE_CODES_RAKU = get_file_list(PATH_CODES_RAKU)
+    FILE_CODES_RAKU = get_file_list(PATH_CODES_RAKU)
 
     FILE_CODES_JAVASCRIPT = ["JAVASCRIPT", *FILE_CODES_JAVASCRIPT]
     FILE_CODES_PYTHON = ["PYTHON", *FILE_CODES_PYTHON]
@@ -78,7 +78,7 @@ def list_files():
     FILE_CODES_MATLAB = ["MATLAB", *FILE_CODES_MATLAB]
     FILE_CODES_GNU_OCTAVE = ["GNU_OCTAVE", *FILE_CODES_GNU_OCTAVE]
     FILE_CODES_WOLFRAM = ["WOLFRAM", *FILE_CODES_WOLFRAM]
-    # FILE_CODES_RAKU = ["RAKU", *FILE_CODES_RAKU]
+    FILE_CODES_RAKU = ["RAKU", *FILE_CODES_RAKU]
 
     FILE_CODES = [
         FILE_CODES_JAVASCRIPT,
@@ -98,7 +98,7 @@ def list_files():
         FILE_CODES_MATLAB,
         FILE_CODES_GNU_OCTAVE,
         FILE_CODES_WOLFRAM,
-        # FILE_CODES_RAKU
+        FILE_CODES_RAKU
     ]
 
     if os.path.isfile(PATH_CSV_OUTPUT_LIST_FILE):

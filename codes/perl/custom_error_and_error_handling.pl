@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Try::Tiny; # https://metacpan.org/pod/Try::Tiny
 
-print("\n# Custom Error and Error Handling in Perl\n");
+print("\n# Custom Error and Error Handling in Perl", "\n");
 
 sub give_me_respect {
     my ($parameter) = @_;
@@ -16,15 +16,15 @@ my $response;
 # Error Handling using 3rd party module "Try::Tiny"
 # https://metacpan.org/pod/Try::Tiny
 try {
-    $response = give_me_respect("bool!");
-    print($response . "\n");
+    $response = give_me_respect("boo!");
+    print($response, "\n");
 } catch {
-    print($_ . "\n");
+    print($_, "\n");
 };
-print("I'm sorry!" . "\n");
+print("I'm sorry!", "\n");
 
 # Without Error Handling
-$response = give_me_respect("bool!");
+$response = give_me_respect("boo!");
 # this will never executed
-print($response . "\n");
+print($response, "\n");
 print("I'm sorry!");

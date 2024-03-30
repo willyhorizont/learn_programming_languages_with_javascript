@@ -188,25 +188,25 @@ console.log("multiplyBy2Result:", multiplyBy2Result);
     const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
         return (rectangleWidth * rectangleLength);
     };
-    console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
+    console.log(`getRectangleAreaV1(7, 5): ${getRectangleAreaV1(7, 5)}`);
     const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
         return (rectangleWidth * rectangleLength);
     };
-    console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
+    console.log(`getRectangleAreaV2(7, 5): ${getRectangleAreaV2(7, 5)}`);
     const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-    console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
+    console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
     ```
 */
 const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
     return (rectangleWidth * rectangleLength);
 };
-console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
+console.log(`getRectangleAreaV1(7, 5): ${getRectangleAreaV1(7, 5)}`);
 const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
     return (rectangleWidth * rectangleLength);
 };
-console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
+console.log(`getRectangleAreaV2(7, 5): ${getRectangleAreaV2(7, 5)}`);
 const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
+console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
 
 /*
     8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure

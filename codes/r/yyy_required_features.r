@@ -179,13 +179,13 @@ cat(paste(sep = "", "multiplyBy2Result: ", multiplyBy2Result, "\n"))
 # const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
 #     return (rectangleWidth * rectangleLength);
 # };
-# console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
+# console.log(`getRectangleAreaV1(7, 5): ${getRectangleAreaV1(7, 5)}`);
 # const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
 #     return (rectangleWidth * rectangleLength);
 # };
-# console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
+# console.log(`getRectangleAreaV2(7, 5): ${getRectangleAreaV2(7, 5)}`);
 # const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-# console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
+# console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
 # ```
 getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
     return(rectangleWidth * rectangleLength)

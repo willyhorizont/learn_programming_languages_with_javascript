@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-print("\n# JavaScript-like Optional Chaining Operator (?.) in Perl\n");
+print("\n# JavaScript-like Optional Chaining Operator (?.) in Perl", "\n");
 
 sub pretty_json_stringify {
     my ($anything) = @_;
@@ -21,16 +21,16 @@ my %JSON_OBJECT = (
     },
     "fruits" => ["apple", "mango", "banana"]
 );
-print("JSON_OBJECT: " . pretty_json_stringify(\%JSON_OBJECT) . "\n");
+print("JSON_OBJECT: ", pretty_json_stringify(\%JSON_OBJECT), "\n");
 
-print("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: " . pretty_json_stringify($JSON_OBJECT{"foo"}{"bar"}) . "\n");
+print("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", pretty_json_stringify($JSON_OBJECT{"foo"}{"bar"}), "\n");
 # JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-print("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: " . pretty_json_stringify($JSON_OBJECT{"foo"}{"baz"}) . "\n");
+print("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", pretty_json_stringify($JSON_OBJECT{"foo"}{"baz"}), "\n");
 # JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-print("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: " . pretty_json_stringify($JSON_OBJECT{"fruits"}[2]) . "\n");
+print("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", pretty_json_stringify($JSON_OBJECT{"fruits"}[2]), "\n");
 # JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-print("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: " . pretty_json_stringify($JSON_OBJECT{"fruits"}[5]) . "\n");
+print("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", pretty_json_stringify($JSON_OBJECT{"fruits"}[5]), "\n");
 # JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null

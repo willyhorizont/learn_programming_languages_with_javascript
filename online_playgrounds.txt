@@ -195,3 +195,5 @@ GNU Octave:
     https://ideone.com/l/octave
 Wolfram:
     None is free :v
+Raku:
+    https://glot.io/new/raku

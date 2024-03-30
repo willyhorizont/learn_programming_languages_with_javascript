@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Scalar::Util qw(looks_like_number);
 
-print("\n# Factorial(n) in Perl\n");
+print("\n# Factorial(n) in Perl", "\n");
 
 sub factorial_v1 {
     my ($number) = @_;
@@ -53,24 +53,18 @@ sub factorial_v4 {
     return ($number * factorial_v4($number - 1));
 }
 
-sub factorial_v5 { (!(looks_like_number($_[0])) ? die("Argument should be a number") : (($_[0] < 0) ? die("Argument should be >= 0") : (($_[0] == 0) ? 1 : ($_[0] * factorial_v4($_[0] - 1))))) }
-
 print("# using factorial function \"factorial_v1\"\n");
-print("Factorial(5): " . factorial_v1(5) . "\n");
+print("Factorial(5): ", factorial_v1(5), "\n");
 # Factorial(5): 120
 
 print("# using factorial function \"factorial_v2\"\n");
-print("Factorial(5): " . factorial_v2(5) . "\n");
+print("Factorial(5): ", factorial_v2(5), "\n");
 # Factorial(5): 120
 
 print("# using factorial function \"factorial_v3\"\n");
-print("Factorial(5): " . factorial_v3(5) . "\n");
+print("Factorial(5): ", factorial_v3(5), "\n");
 # Factorial(5): 120
 
 print("# using factorial function \"factorial_v4\"\n");
-print("Factorial(5): " . factorial_v4(5) . "\n");
-# Factorial(5): 120
-
-print("# using factorial function \"factorial_v5\"\n");
-print("Factorial(5): " . factorial_v5(5) . "\n");
+print("Factorial(5): ", factorial_v4(5), "\n");
 # Factorial(5): 120

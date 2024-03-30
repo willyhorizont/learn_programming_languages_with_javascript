@@ -1,4 +1,11 @@
 =============================changelog==========================================
+00:11 | 12:11 AM | Sun | Mar | 31/03/2024
+0.0.53
+finish learn Raku
+update Perl
+TODO:
+try scala, groovy, f#, crystal, java
+=============================changelog==========================================
 20:32 | 08:32 PM | Thu | Mar | 28/03/2024
 0.0.52
 finish wolfram

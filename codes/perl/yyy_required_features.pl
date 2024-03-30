@@ -28,17 +28,17 @@ sub pretty_json_stringify {
     ```
 =cut
 my $something = "foo";
-print("something: " . pretty_json_stringify($something) . "\n");
+print("something: ", pretty_json_stringify($something), "\n");
 $something = 123;
-print("something: " . pretty_json_stringify($something) . "\n");
+print("something: ", pretty_json_stringify($something), "\n");
 $something = 1;
-print("something: " . pretty_json_stringify($something) . "\n");
+print("something: ", pretty_json_stringify($something), "\n");
 $something = undef;
-print("something: " . pretty_json_stringify($something) . "\n");
+print("something: ", pretty_json_stringify($something), "\n");
 $something = [1, 2, 3];
-print("something: " . pretty_json_stringify($something) . "\n");
-$something = { "foo" => "bar" };
-print("something: " . pretty_json_stringify($something) . "\n");
+print("something: ", pretty_json_stringify($something), "\n");
+$something = {"foo" => "bar"};
+print("something: ", pretty_json_stringify($something), "\n");
 
 =begin
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -81,18 +81,18 @@ sub get_modified_indent_level {
     };
     return $change_indent_level->();
 }
-print("get_modified_indent_level(): " . get_modified_indent_level() . "\n");
+print("get_modified_indent_level(): ", get_modified_indent_level(), "\n");
 sub create_new_game {
     my ($initial_credit) = @_;
     my $current_credit = $initial_credit;
-    print("initial credit: " . $initial_credit . "\n");
+    print("initial credit: ", $initial_credit, "\n");
     return sub {
         $current_credit -= 1;
         if ($current_credit == 0) {
-            print("not enough credits" . "\n");
+            print("not enough credits", "\n");
             return;
         }
-        print("playing game, " . $current_credit . " credit(s) remaining", "\n");
+        print("playing game, ", $current_credit, " credit(s) remaining", "\n");
     };
 }
 
@@ -117,17 +117,29 @@ $play_game->();
     console.log("myObject:", myObject);
     ```
 =cut
-my $my_object = {
+my $my_object_v1 = {
     "my_string" => "foo",
     "my_number" => 123,
     "my_bool" => 1,
     "my_null" => undef,
-    "my_object" => {
+    "my_object_v1" => {
         "foo" => "bar"
     },
     "my_array" => [1, 2, 3]
 };
-print("my_object: " . pretty_json_stringify($my_object) . "\n");
+print("my_object_v1: ", pretty_json_stringify($my_object_v1), "\n");
+my %my_object_v2 = (
+    "my_string" => "foo",
+    "my_number" => 123,
+    "my_bool" => 1,
+    "my_null" => undef,
+    "my_object_v2" => {
+        "foo" => "bar"
+    },
+    "my_array" => [1, 2, 3]
+);
+print("my_object_v2: ", pretty_json_stringify({%my_object_v2}), "\n");
+print("my_object_v2: ", pretty_json_stringify(\%my_object_v2), "\n");
 
 =begin
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -136,8 +148,11 @@ print("my_object: " . pretty_json_stringify($my_object) . "\n");
     console.log("myArray:", myArray);
     ```
 =cut
-my $my_array = ["foo", 123, 1, undef, [1, 2, 3], { "foo" => "bar" }];
-print("my_array: " . pretty_json_stringify($my_array) . "\n");
+my $my_array_v1 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
+print("my_array_v1: ", pretty_json_stringify($my_array_v1), "\n");
+my @my_array_v2 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
+print("my_array_v2: ", pretty_json_stringify(\@my_array_v2), "\n");
+print("my_array_v2: ", pretty_json_stringify([@my_array_v2]), "\n");
 
 =begin
     5. support passing functions as arguments to other functions
@@ -157,15 +172,15 @@ print("my_array: " . pretty_json_stringify($my_array) . "\n");
 =cut
 sub say_hello {
     my ($callback_function_ref) = @_;
-    print("hello" . "\n");
+    print("hello", "\n");
     $callback_function_ref -> (); # or &$callback_function_ref();
 }
 sub say_how_are_you {
-    print("how are you?" . "\n");
+    print("how are you?", "\n");
 }
 say_hello(\&say_how_are_you);
 say_hello(sub {
-    print("how are you?" . "\n");
+    print("how are you?", "\n");
 });
 
 =begin
@@ -185,12 +200,12 @@ sub multiply {
     my ($a) = @_;
     return sub {
         my ($b) = @_;
-        return $a * $b;
+        return ($a * $b);
     };
 }
 my $multiply_by2 = multiply(2);
 my $multiply_by2_result = $multiply_by2->(10);
-print("multiply_by2_result: " . $multiply_by2_result . "\n");
+print("multiply_by2_result: ", $multiply_by2_result, "\n");
 
 =begin
     7. support assigning functions to variables
@@ -198,20 +213,20 @@ print("multiply_by2_result: " . $multiply_by2_result . "\n");
     const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
         return (rectangleWidth * rectangleLength);
     };
-    console.log("getRectangleAreaV1(7, 5):", getRectangleAreaV1(7, 5));
+    console.log(`getRectangleAreaV1(7, 5): ${getRectangleAreaV1(7, 5)}`);
     const getRectangleAreaV2 = (rectangleWidth, rectangleLength) => {
         return (rectangleWidth * rectangleLength);
     };
-    console.log("getRectangleAreaV2(7, 5):", getRectangleAreaV2(7, 5));
+    console.log(`getRectangleAreaV2(7, 5): ${getRectangleAreaV2(7, 5)}`);
     const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
-    console.log("getRectangleAreaV3(7, 5):", getRectangleAreaV3(7, 5));
+    console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
     ```
 =cut
 my $get_rectangle_area = sub {
     my ($rectangle_width, $rectangle_length) = @_;
-    return $rectangle_width * $rectangle_length;
+    return ($rectangle_width * $rectangle_length);
 };
-print("get_rectangle_area(7, 5): " . $get_rectangle_area->(7, 5) . "\n");
+print("get_rectangle_area(7, 5): ", $get_rectangle_area->(7, 5), "\n");
 
 =begin
     8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -245,24 +260,37 @@ print("get_rectangle_area(7, 5): " . $get_rectangle_area->(7, 5) . "\n");
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
 =cut
-my $my_array2 = [
+my $my_array2_v1 = [
     sub {
         my ($a, $b) = @_;
-        return $a * $b;
+        return ($a * $b);
     },
     "foo",
     123,
     1,
     undef,
     [1, 2, 3],
-    { "foo" => "bar" }
+    {"foo" => "bar"}
 ];
-print("myArray2[0](7, 5): " . $my_array2->[0]->(7, 5) . "\n");
+print("myArray2[0](7, 5): ", $my_array2_v1->[0]->(7, 5), "\n");
+my @my_array2_v2 = (
+    sub {
+        my ($a, $b) = @_;
+        return ($a * $b);
+    },
+    "foo",
+    123,
+    1,
+    undef,
+    [1, 2, 3],
+    {"foo" => "bar"}
+);
+print("myArray2[0](7, 5): ", $my_array2_v2[0]->(7, 5), "\n");
 
 my $my_object2 = {
     "my_function" => sub {
         my ($a, $b) = @_;
-        return $a * $b;
+        return ($a * $b);
     },
     "my_string" => "foo",
     "my_number" => 123,
@@ -273,4 +301,19 @@ my $my_object2 = {
     },
     "my_array" => [1, 2, 3]
 };
-print("myObject2[\"my_function\"](7, 5): " . $my_object2->{"my_function"}->(7, 5) . "\n");
+print("myObject2[\"my_function\"](7, 5): ", $my_object2->{"my_function"}->(7, 5), "\n");
+my %my_object2_v2 = (
+    "my_function" => sub {
+        my ($a, $b) = @_;
+        return ($a * $b);
+    },
+    "my_string" => "foo",
+    "my_number" => 123,
+    "my_bool" => 1,
+    "my_null" => undef,
+    "my_object" => {
+        "foo" => "bar"
+    },
+    "my_array" => [1, 2, 3]
+);
+print("myObject2[\"my_function\"](7, 5): ", $my_object2_v2{"my_function"}->(7, 5), "\n");

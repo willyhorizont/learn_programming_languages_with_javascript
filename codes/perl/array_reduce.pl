@@ -19,9 +19,9 @@ sub pretty_array_of_primitives {
         my $is_string = (defined($array_item) && ref($array_item) eq "");
         my $is_number = looks_like_number($array_item);
         last if (!$is_string && !$is_number);
-        $result = $result . "\"" . $array_item . "\"" if ($is_string && !$is_number);
-        $result = $result . $array_item if ($is_number);
-        $result = $result . ", " if (($array_item_index + 1) != $number_of_parameters);
+        $result = ($result . "\"" . $array_item . "\"") if ($is_string && !$is_number);
+        $result = ($result . $array_item) if ($is_number);
+        $result = ($result . ", ") if (($array_item_index + 1) != $number_of_parameters);
     }
     $result = $result . "]";
     return $result;
@@ -89,18 +89,18 @@ sub array_reduce {
     return $result;
 }
 
-print("\n# JavaScript-like Array.reduce() in Perl Array\n");
+print("\n# JavaScript-like Array.reduce() in Perl List", "\n");
 
 my @numbers = (36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3);
-print("numbers: " . pretty_array_of_primitives(@numbers) . "\n");
+print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
 my $numbers_total = array_reduce(sub { my ($current_result, $current_number) = @_; return ($current_result + $current_number); }, \@numbers, 0);
-print("total number: $numbers_total\n");
+print("total number: $numbers_total", "\n");
 # total number: 41.2
 
-print("\n# JavaScript-like Array.reduce() in Perl Array of Hashes\n");
+print("\n# JavaScript-like Array.reduce() in Perl List of Hashes", "\n");
 
 my @products = (
     {
@@ -120,7 +120,7 @@ my @products = (
         "price" => 499
     }
 );
-print("products: " . pretty_json_stringify(\@products) . "\n");
+print("products: ", pretty_json_stringify(\@products), "\n");
 
 print("# using JavaScript-like Array.reduce() function \"array_reduce\"\n");
 
@@ -130,14 +130,14 @@ my %products_grouped;
     my ($current_result_ref, $current_product_ref) = @_;
     if ($current_product_ref->{"price"} > 100) {
         my @current_result_new_expensive_value = spread_syntax_array($current_result_ref->{"expensive"}, $current_product_ref);
-        my %current_result_new = spread_syntax_object($current_result_ref, { "expensive" => \@current_result_new_expensive_value });
+        my %current_result_new = spread_syntax_object($current_result_ref, {"expensive" => \@current_result_new_expensive_value});
         return \%current_result_new;
     }
     my @current_result_new_cheap_value = spread_syntax_array($current_result_ref->{"cheap"}, $current_product_ref);
-    my %current_result_new = spread_syntax_object($current_result_ref, { "cheap" => \@current_result_new_cheap_value });
+    my %current_result_new = spread_syntax_object($current_result_ref, {"cheap" => \@current_result_new_cheap_value});
     return \%current_result_new;
-}, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: " . pretty_json_stringify(\%products_grouped) . "\n");
+}, \@products, {"expensive" => [], "cheap" => []});
+print("grouped products: ", pretty_json_stringify(\%products_grouped), "\n");
 # grouped products: {
 #     "expensive": [
 #         {
@@ -163,10 +163,10 @@ print("grouped products: " . pretty_json_stringify(\%products_grouped) . "\n");
 
 %products_grouped = array_reduce(sub {
     my ($current_result_ref, $current_product_ref) = @_;
-    return {spread_syntax_object($current_result_ref, { "expensive" => [spread_syntax_array($current_result_ref->{"expensive"}, $current_product_ref)] })} if ($current_product_ref->{"price"} > 100);
-    return {spread_syntax_object($current_result_ref, { "cheap" => [spread_syntax_array($current_result_ref->{"cheap"}, $current_product_ref)] })};
-}, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: " . pretty_json_stringify(\%products_grouped) . "\n");
+    return {spread_syntax_object($current_result_ref, {"expensive" => [spread_syntax_array($current_result_ref->{"expensive"}, $current_product_ref)]})} if ($current_product_ref->{"price"} > 100);
+    return {spread_syntax_object($current_result_ref, {"cheap" => [spread_syntax_array($current_result_ref->{"cheap"}, $current_product_ref)]})};
+}, \@products, {"expensive" => [], "cheap" => []});
+print("grouped products: ", pretty_json_stringify(\%products_grouped), "\n");
 # grouped products: {
 #     "expensive": [
 #         {
@@ -190,8 +190,8 @@ print("grouped products: " . pretty_json_stringify(\%products_grouped) . "\n");
 #     ]
 # }
 
-%products_grouped = array_reduce(sub { my ($current_result_ref, $current_product_ref) = @_; (($current_product_ref->{"price"} > 100) ? {spread_syntax_object($current_result_ref, { "expensive" => [spread_syntax_array($current_result_ref->{"expensive"}, $current_product_ref)] })} : {spread_syntax_object($current_result_ref, { "cheap" => [spread_syntax_array($current_result_ref->{"cheap"}, $current_product_ref)] })}) }, \@products, { "expensive" => [], "cheap" => [] });
-print("grouped products: " . pretty_json_stringify(\%products_grouped) . "\n");
+%products_grouped = array_reduce(sub { my ($current_result_ref, $current_product_ref) = @_; (($current_product_ref->{"price"} > 100) ? {spread_syntax_object($current_result_ref, {"expensive" => [spread_syntax_array($current_result_ref->{"expensive"}, $current_product_ref)]})} : {spread_syntax_object($current_result_ref, {"cheap" => [spread_syntax_array($current_result_ref->{"cheap"}, $current_product_ref)]})}) }, \@products, {"expensive" => [], "cheap" => []});
+print("grouped products: ", pretty_json_stringify(\%products_grouped), "\n");
 # grouped products: {
 #     "expensive": [
 #         {
