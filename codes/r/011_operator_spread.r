@@ -157,7 +157,7 @@ cat(paste(sep = "", "combination4: ", prettyJsonStringify(combination4), "\n"))
 #     "Italy": "Rome"
 # }
 
-cat("\n# [...array1, array2]:\n")
+cat("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 <- spreadSyntaxArray(fruits, list(vegetables = vegetables))
 cat(paste(sep = "", "combination5: ", prettyJsonStringify(combination5), "\n"))
@@ -183,7 +183,7 @@ cat(paste(sep = "", "combination6: ", prettyJsonStringify(combination6), "\n"))
 #     ]
 # ]
 
-cat("\n# [...array1, object1]:\n")
+cat("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 <- spreadSyntaxArray(fruits, list(countryCapitalsInAsia = countryCapitalsInAsia))
 cat(paste(sep = "", "combination7: ", prettyJsonStringify(combination7), "\n"))
@@ -210,7 +210,7 @@ cat(paste(sep = "", "combination8: ", prettyJsonStringify(combination8), "\n"))
 #     }
 # ]
 
-cat("\n# { ...object1, object2 }:\n")
+cat("\n# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 <- spreadSyntaxObject(countryCapitalsInAsia, list(countryCapitalsInEurope = countryCapitalsInEurope))
 cat(paste(sep = "", "combination9: ", prettyJsonStringify(combination9), "\n"))
@@ -236,7 +236,7 @@ cat(paste(sep = "", "combination10: ", prettyJsonStringify(combination10), "\n")
 #     }
 # }
 
-cat("\n# { ...object1, array2 }:\n")
+cat("\n# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 <- spreadSyntaxObject(countryCapitalsInAsia, list(vegetables = vegetables))
 cat(paste(sep = "", "combination11: ", prettyJsonStringify(combination11), "\n"))

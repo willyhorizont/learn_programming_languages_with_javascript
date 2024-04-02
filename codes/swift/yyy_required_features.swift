@@ -40,9 +40,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -156,10 +156,10 @@ playGame()
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject:", myObject);
     ```
@@ -169,10 +169,10 @@ var myObject: MyObject = [
     "my_number": 123,
     "my_bool": true,
     "my_null": nil,
+    "my_array": [1, 2, 3] as MyArray,
     "my_object": [
         "foo": "bar"
-    ] as MyObject,
-    "my_array": [1, 2, 3] as MyArray
+    ] as MyObject
 ]
 print("myObject: \(prettyJsonStringify(myObject))")
 
@@ -270,7 +270,7 @@ print("getRectangleAreaV2(7, 5): \(getRectangleAreaV2(7, 5))")
         true,
         null,
         [1, 2, 3],
-        { "foo": "bar" },
+        { "foo": "bar" }
     ];
     console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -282,10 +282,10 @@ print("getRectangleAreaV2(7, 5): \(getRectangleAreaV2(7, 5))")
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
@@ -311,9 +311,9 @@ var myObject2: MyObject = [
     "my_number": 123,
     "my_bool": true,
     "my_null": nil,
+    "my_array": [1, 2, 3] as MyArray,
     "my_object": [
         "foo": "bar"
-    ] as MyObject,
-    "my_array": [1, 2, 3] as MyArray
+    ] as MyObject
 ]
 print("myObject2[\"my_function\"](7, 5): \((myObject2["my_function"] as! (Int, Int) -> Int)(7, 5))")

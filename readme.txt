@@ -81,3 +81,7 @@ to run Wolfram code:
 to run Raku code:
 1. cd codes/raku
 2. raku filename.raku
+
+to run Scala code:
+1. cd codes/scala
+2. scala filename.scala

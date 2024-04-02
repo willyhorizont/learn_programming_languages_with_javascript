@@ -13,8 +13,8 @@ void main() {
 
     dynamic arrayToObject(dynamic anArray) {
         final newObject = <String, dynamic>{};
-        for (final entryItem in anArray.asMap().entries) {
-            newObject[entryItem.key.toString()] = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            newObject[objectEntry.key.toString()] = objectEntry.value;
         }
         return newObject;
     }
@@ -84,7 +84,7 @@ void main() {
     //     "Italy": "Rome"
     // }
 
-    print("\n// [...array1, array2]:\n");
+    print("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
     final combination5 = <dynamic>[...fruits, vegetables];
     print("combination5: ${prettyJsonStringify(combination5)}");
@@ -110,7 +110,7 @@ void main() {
     //     ]
     // ]
 
-    print("\n// [...array1, object1]:\n");
+    print("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
     final combination7 = <dynamic>[...fruits, countryCapitalsInAsia];
     print("combination7: ${prettyJsonStringify(combination7)}");
@@ -137,7 +137,7 @@ void main() {
     //     }
     // ]
 
-    print("\n// { ...object1, object2 }:\n");
+    print("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
 
     final combination9 = <String, dynamic>{ ...countryCapitalsInAsia, "countryCapitalsInEurope": countryCapitalsInEurope };
     print("combination9: ${prettyJsonStringify(combination9)}");
@@ -163,7 +163,7 @@ void main() {
     //     }
     // }
 
-    print("\n// { ...object1, array2 }:\n");
+    print("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
 
     final combination11 = <String, dynamic>{ ...countryCapitalsInAsia, "vegetables": vegetables };
     print("combination11: ${prettyJsonStringify(combination11)}");

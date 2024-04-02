@@ -40,9 +40,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -93,10 +93,10 @@ for (objectKey, objectValue) in friend {
 // friend, for loop, key: country, value: Finland
 // friend, for loop, key: age, value: 25
 
-// iterate over and get each key-value pair and iteration/entry index
-for (entryIndex, (objectKey, objectValue)) in friend.enumerated() {
-    print("friend, for loop, iteration/entry index: \(entryIndex), key: \(objectKey), value: \(objectValue ?? "nil")")
+// iterate over and get each key-value pair and object iteration/entry index
+for (objectEntryIndex, (objectKey, objectValue)) in friend.enumerated() {
+    print("friend, for loop, object iteration/entry index: \(objectEntryIndex), key: \(objectKey), value: \(objectValue ?? "nil")")
 }
-// friend, for loop, iteration/entry index: 0, key: name, value: Alisa
-// friend, for loop, iteration/entry index: 1, key: country, value: Finland
-// friend, for loop, iteration/entry index: 2, key: age, value: 25
+// friend, for loop, object iteration/entry index: 0, key: name, value: Alisa
+// friend, for loop, object iteration/entry index: 1, key: country, value: Finland
+// friend, for loop, object iteration/entry index: 2, key: age, value: 25

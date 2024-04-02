@@ -14,9 +14,9 @@ void main() {
     dynamic arrayFindIndexV1(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.findIndex() function
         dynamic dataFoundIndex = -1;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == true) {
                 dataFoundIndex = arrayItemIndex;
@@ -29,9 +29,9 @@ void main() {
     dynamic arrayFindIndexV2(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.findIndex() function
         dynamic dataFoundIndex = -1;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
                 dataFoundIndex = arrayItemIndex;
                 break;
@@ -42,9 +42,9 @@ void main() {
 
     dynamic arrayFindIndexV3(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.findIndex() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == true) return arrayItemIndex;
         }
@@ -53,9 +53,9 @@ void main() {
 
     dynamic arrayFindIndexV4(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.findIndex() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItemIndex;
         }
         return -1;

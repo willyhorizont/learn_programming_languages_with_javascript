@@ -14,9 +14,9 @@ void main() {
     dynamic arrayMapV1(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.map() function
         dynamic newArray = <dynamic>[];
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic newArrayItem = callbackFunction(arrayItem, arrayItemIndex, anArray);
             newArray.add(newArrayItem);
         }
@@ -26,9 +26,9 @@ void main() {
     dynamic arrayMapV2(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.map() function
         dynamic newArray = <dynamic>[];
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             newArray.add(callbackFunction(arrayItem, arrayItemIndex, anArray));
         }
         return newArray;

@@ -1,5 +1,5 @@
 (* ? function statement or function declaration *)
-(* ! this type of function can't have local variable, can't have multiline body*)
+(* ! this type of function can't have local variable, can't have multiline body *)
 GetRectangleAreaV1[RectangleWidth_, RectangleLength_] := (RectangleWidth * RectangleLength);
 (* call the function example: GetRectangleAreaV1[7, 5] *)
 
@@ -10,7 +10,7 @@ GetRectangleAreaV2[RectangleWidth_, RectangleLength_] := Module[{},
 (* call the function example: GetRectangleAreaV2[7, 5] *)
 
 (* ? function expression using pure function "Function" *)
-(* ! this type of function can't be variadic 🤮, can't have local variable, can't have multiline body*)
+(* ! this type of function can't be variadic 🤮, can't have local variable, can't have multiline body *)
 GetRectangleAreaV3 = Function[{RectangleWidth, RectangleLength}, (RectangleWidth * RectangleLength)];
 (* call the function example: GetRectangleAreaV3[7, 5] *)
 
@@ -22,7 +22,7 @@ GetRectangleAreaV5 = Function[{RectangleWidth, RectangleLength}, Module[{},
 (* call the function example: GetRectangleAreaV5[7, 5] *)
 
 (* ? function expression using pure function shorthand notation (() &) *)
-(* this type of function can't have local variable, can't have multiline body*)
+(* this type of function can't have local variable, can't have multiline body *)
 (* use #1, #2, #3 and so on to access AParameters in each order, use # to acces single AParameter, use {##} for variadic function *)
 GetRectangleAreaV5 = ((#1 * #2) &);
 (* call the function example: GetRectangleAreaV5[7, 5] *)
@@ -40,7 +40,7 @@ GetRectangleAreaV7 = (Module[{RectangleWidth = #1, RectangleLength = #2}, (Recta
 (* call the function example: GetRectangleAreaV7[7, 5] *)
 
 (* ? anonymous function *)
-(* ! this type of function can't be variadic 🤮, can't have local variable, can't have multiline body*)
+(* ! this type of function can't be variadic 🤮, can't have local variable, can't have multiline body *)
 (* Function[{RectangleWidth, RectangleLength}, (RectangleWidth * RectangleLength)] *)
 (* ! this type of function can't be variadic 🤮 *)
 (*

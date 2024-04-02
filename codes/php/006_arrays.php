@@ -47,11 +47,11 @@ echo("\n" . "fruits, last element: " . end($fruits));
 // fruits, last element: orange
 
 foreach ($fruits as $array_item_index => $array_item) {
-    echo("\n" . "fruits, foreach loop, index: " . $array_item_index . ", value: " . $array_item);
+    echo("\n" . "fruits, forEach loop, index: " . $array_item_index . ", value: " . $array_item);
 }
-// fruits, foreach loop, index: 0, value: apple
-// fruits, foreach loop, index: 1, value: mango
-// fruits, foreach loop, index: 2, value: orange
+// fruits, forEach loop, index: 0, value: apple
+// fruits, forEach loop, index: 1, value: mango
+// fruits, forEach loop, index: 2, value: orange
 
 // in PHP, JavaScript-like Array of Objects is called array of associative-arrays
 
@@ -68,13 +68,13 @@ $products = [
 echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
 
 foreach ($products as $array_item_index => $array_item) {
-    $iteration_index = 0;
+    $object_iteration_index = 0;
     foreach ($array_item as $object_key => $object_value) {
-        echo("\n" . "products, foreach loop, array item index: " . $array_item_index . ", iteration/entry index: " . $iteration_index . ", key: " . $object_key . ", value: " . $object_value);
-        $iteration_index += 1;
+        echo("\n" . "products, forEach loop, array item index: " . $array_item_index . ", object iteration/entry index: " . $object_iteration_index . ", key: " . $object_key . ", value: " . $object_value);
+        $object_iteration_index += 1;
     }
 }
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+// products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+// products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+// products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+// products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips

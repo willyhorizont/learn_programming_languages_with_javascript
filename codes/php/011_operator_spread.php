@@ -94,7 +94,7 @@ echo("\n" . "\$combination4: " . json_encode($combination4, JSON_PRETTY_PRINT));
 //     "Italy": "Rome"
 // }
 
-echo("\n\n// [...array1, array2]:\n");
+echo("\n\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 $combination5 = [...$fruits, $vegetables];
 echo("\n" . "\$combination5: " . json_encode($combination5, JSON_PRETTY_PRINT));
@@ -120,7 +120,7 @@ echo("\n" . "\$combination6: " . json_encode($combination6, JSON_PRETTY_PRINT));
 //     ]
 // ]
 
-echo("\n\n// [...array1, object1]:\n");
+echo("\n\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 $combination7 = [...$fruits, $country_capitals_in_asia];
 echo("\n" . "\$combination7: " . json_encode($combination7, JSON_PRETTY_PRINT));
@@ -147,7 +147,7 @@ echo("\n" . "\$combination8: " . json_encode($combination8, JSON_PRETTY_PRINT));
 //     }
 // ]
 
-echo("\n\n// { ...object1, object2 }:\n");
+echo("\n\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
 
 $combination9 = [...$country_capitals_in_asia, "country_capitals_in_europe" => $country_capitals_in_europe];
 echo("\n" . "\$combination9: " . json_encode($combination9, JSON_PRETTY_PRINT));
@@ -173,7 +173,7 @@ echo("\n" . "\$combination10: " . json_encode($combination10, JSON_PRETTY_PRINT)
 //     }
 // }
 
-echo("\n\n// { ...object1, array2 }:\n");
+echo("\n\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
 
 $combination11 = [...$country_capitals_in_asia, "vegetables" => $vegetables];
 echo("\n" . "\$combination11: " . json_encode($combination11, JSON_PRETTY_PRINT));

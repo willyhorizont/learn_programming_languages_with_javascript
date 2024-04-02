@@ -26,13 +26,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"

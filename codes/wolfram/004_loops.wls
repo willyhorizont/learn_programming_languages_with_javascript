@@ -36,24 +36,24 @@ Module[{J},
     ];
 ];
 
-(* foreach loop *)
+(* forEach loop *)
 
 Module[{J},
     For[J = 1, (J <= Length[Range[1, 10, 1]]), J += 1,
         If[(J > 5), Break[]];
         If[(J == 2), Continue[]];
-        Print["foreach loop v1, J is ", J];
+        Print["forEach loop v1, J is ", J];
     ];
 ];
 
 Map[(Module[{J = #},
     If[(J > 5), Return[Null, Module]];
     If[(J == 2), Return[Null, Module]];
-    Print["foreach loop v2 ascending, J is ", J];
+    Print["forEach loop v2 ascending, J is ", J];
 ] &), Range[1, 10, 1]]; (* [start, stop, step] *)
 
 Map[(Module[{J = #},
     If[(J <= 5), Return[Null, Module]];
     If[(J == 9), Return[Null, Module]];
-    Print["foreach loop v2 descending, J is ", J];
+    Print["forEach loop v2 descending, J is ", J];
 ] &), Range[10, 1, -1]]; (* [start, stop, step] *)

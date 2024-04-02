@@ -13,3 +13,6 @@ kotlin filename.jar
 Compile and run the application
 kotlinc filename.kt -include-runtime -d filename.jar && java -jar filename.jar
 kotlinc filename.kt -include-runtime -d filename.jar && kotlin filename.jar
+
+: Any(?!\\?)
+var [a-zA-Z0-9]+:\s+(?!Any\?)

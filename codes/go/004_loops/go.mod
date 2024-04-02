@@ -1,3 +1,3 @@
 module 004_loops
 
-go 1.21.3
+go 1.21.4

@@ -101,10 +101,10 @@ playGame()
 #     "my_number": 123,
 #     "my_bool": true,
 #     "my_null": null,
+#     "my_array": [1, 2, 3],
 #     "my_object": {
 #         "foo": "bar"
-#     },
-#     "my_array": [1, 2, 3]
+#     }
 # };
 # console.log("myObject:", myObject);
 # ```
@@ -113,10 +113,10 @@ myObject <- list(
     "my_number" = 123,
     "my_bool" = TRUE,
     "my_null" = NULL,
+    "my_array" = list(1, 2, 3),
     "my_object" = list(
         "foo" = "bar"
-    ),
-    "my_array" = list(1, 2, 3)
+    )
 )
 cat(paste(sep = "", "myObject: ", prettyJsonStringify(myObject), "\n"))
 
@@ -205,7 +205,7 @@ cat(paste(sep = "", "getRectangleAreaV2(7, 5): ", getRectangleAreaV2(7, 5), "\n"
 #     true,
 #     null,
 #     [1, 2, 3],
-#     { "foo": "bar" },
+#     { "foo": "bar" }
 # ];
 # console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -217,10 +217,10 @@ cat(paste(sep = "", "getRectangleAreaV2(7, 5): ", getRectangleAreaV2(7, 5), "\n"
 #     "my_number": 123,
 #     "my_bool": true,
 #     "my_null": null,
+#     "my_array": [1, 2, 3],
 #     "my_object": {
 #         "foo": "bar"
-#     },
-#     "my_array": [1, 2, 3]
+#     }
 # };
 # console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
 # ```
@@ -245,9 +245,9 @@ myObject2 <- list(
     "my_number" = 123,
     "my_bool" = TRUE,
     "my_null" = NULL,
+    "my_array" = list(1, 2, 3),
     "my_object" = list(
         "foo" = "bar"
-    ),
-    "my_array" = list(1, 2, 3)
+    )
 )
 cat(paste(sep = "", "myObject2[0](7, 5): ", myObject2[["my_function"]](7, 5), "\n"))

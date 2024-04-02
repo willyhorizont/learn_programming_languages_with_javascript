@@ -14,9 +14,9 @@ void main() {
     dynamic arrayReduce(dynamic callbackFunction, dynamic anArray, dynamic initialValue) {
         // JavaScript-like Array.reduce() function
         dynamic result = initialValue;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             result = callbackFunction(result, arrayItem, arrayItemIndex, anArray);
         }
         return result;

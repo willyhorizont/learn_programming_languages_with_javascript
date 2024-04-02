@@ -1,12 +1,12 @@
 #=
-Source:
-    https://www.codewars.com/kata/54ff3102c1bad923760001f3
-Title:
-    Vowel Count
-Description:
-    Return the number (count) of vowels in the given string.
-    We will consider a, e, i, o, u as vowels for this Kata (but not y).
-    The input string will only consist of lower case letters and/or spaces.
+    Source:
+        https://www.codewars.com/kata/54ff3102c1bad923760001f3
+    Title:
+        Vowel Count
+    Description:
+        Return the number (count) of vowels in the given string.
+        We will consider a, e, i, o, u as vowels for this Kata (but not y).
+        The input string will only consist of lower case letters and/or spaces.
 =#
 
 count_vowels_v1 = (a_string) -> reduce((current_result, a_character) -> (a_character in ["a", "i", "u", "e", "o", "A", "I", "U", "E", "O"] ? (current_result + 1) : current_result), split(a_string, ""); init=0)

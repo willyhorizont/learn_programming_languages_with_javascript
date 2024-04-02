@@ -182,11 +182,7 @@ C#:
     https://www.onlinegdb.com/online_csharp_compiler
     https://nextleap.app/online-compiler/csharp-programming
 Matlab:
-    https://onecompiler.com/octave
-    https://www.mycompiler.io/new/octave
-    https://www.jdoodle.com/execute-octave-matlab-online/
-    https://www.tutorialspoint.com/execute_matlab_online.php
-    https://ideone.com/l/octave
+    None is free :v
 GNU Octave:
     https://onecompiler.com/octave
     https://www.mycompiler.io/new/octave
@@ -197,3 +193,14 @@ Wolfram:
     None is free :v
 Raku:
     https://glot.io/new/raku
+Scala:
+    https://scastie.scala-lang.org/
+    https://onecompiler.com/scala
+    https://www.jdoodle.com/compile-scala-online/
+    https://www.tutorialspoint.com/compile_scala_online.php
+    https://ide.geeksforgeeks.org/online-scala-compiler
+    https://paiza.io/en/projects/new?language=scala
+    https://domsignal.com/scala-online-compiler
+    https://ideone.com/l/scala
+    https://coderpad.io/languages/scala/
+    https://www.adaface.com/online-compiler/online-scala-compiler

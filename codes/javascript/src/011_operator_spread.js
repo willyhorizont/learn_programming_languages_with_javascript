@@ -63,7 +63,7 @@ console.log(`combination4: ${JSON.stringify(combination4, null, ' '.repeat(4))}`
 //     "Italy": "Rome"
 // }
 
-console.log("\n// [...array1, array2]:\n");
+console.log("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 const combination5 = [...fruits, vegetables];
 console.log(`combination5: ${JSON.stringify(combination5, null, ' '.repeat(4))}`);
@@ -89,7 +89,7 @@ console.log(`combination6: ${JSON.stringify(combination6, null, ' '.repeat(4))}`
 //     ]
 // ]
 
-console.log("\n// [...array1, object1]:\n");
+console.log("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 const combination7 = [...fruits, countryCapitalsInAsia];
 console.log(`combination7: ${JSON.stringify(combination7, null, ' '.repeat(4))}`);
@@ -116,7 +116,7 @@ console.log(`combination8: ${JSON.stringify(combination8, null, ' '.repeat(4))}`
 //     }
 // ]
 
-console.log("\n// { ...object1, object2 }:\n");
+console.log("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
 
 const combination9 = { ...countryCapitalsInAsia, countryCapitalsInEurope };
 console.log(`combination9: ${JSON.stringify(combination9, null, ' '.repeat(4))}`);
@@ -142,7 +142,7 @@ console.log(`combination10: ${JSON.stringify(combination10, null, ' '.repeat(4))
 //     }
 // }
 
-console.log("\n// { ...object1, array2 }:\n");
+console.log("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
 
 const combination11 = { ...countryCapitalsInAsia, vegetables };
 console.log(`combination11: ${JSON.stringify(combination11, null, ' '.repeat(4))}`);

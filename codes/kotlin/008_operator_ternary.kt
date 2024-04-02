@@ -3,7 +3,7 @@
 fun main() {
     println("\n// Ternary Operator in Kotlin")
 
-    val CORRECT_ANSWER = "foo"
+    val CORRECT_ANSWER: Any? = "foo"
     println("correct answer: ${CORRECT_ANSWER}")
 
     var myAnswer: Any?

@@ -126,9 +126,9 @@ print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_b
 #     }
 # ]
 
-products_above_100 = array_filter_v1.call(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v1.call(->(product, _, _) { (product["price"]  > 100) }, products)
+print("\n", "products with price > 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -154,9 +154,9 @@ print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_b
 #     }
 # ]
 
-products_above_100 = array_filter_v2.call(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v2.call(->(product, _, _) { (product["price"]  > 100) }, products)
+print("\n", "products with price > 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -182,9 +182,9 @@ print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_b
 #     }
 # ]
 
-products_above_100 = array_filter_v3.call(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v3.call(->(product, _, _) { (product["price"]  > 100) }, products)
+print("\n", "products with price > 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -210,9 +210,9 @@ print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_b
 #     }
 # ]
 
-products_above_100 = array_filter_v4.call(->(product, _, _) { (product["price"]  >= 100) }, products)
-print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v4.call(->(product, _, _) { (product["price"]  > 100) }, products)
+print("\n", "products with price > 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -238,9 +238,9 @@ print("\n", "products with price <= 100 only: ", JSON.pretty_generate(products_b
 #     }
 # ]
 
-products_above_100 = products.select { |product| (product["price"]  >= 100) }
-print("\n", "products with price >= 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
-# products with price >= 100 only: [
+products_above_100 = products.select { |product| (product["price"]  > 100) }
+print("\n", "products with price > 100 only: ", JSON.pretty_generate(products_above_100, { "indent": " " * 4 }))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321

@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = strcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = strcat(currentresult, ",");
             end
         end
@@ -148,11 +148,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = strcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = strcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -259,9 +259,9 @@ sprint("products with price <= 100 only: ", prettyjsonstringify({productsbelow10
 %     }
 % ]
 
-productsabove100 = arrayfilterv1(@(product, varargin) (product.("price") >= 100), products);
-sprint("products with price >= 100 only: ", prettyjsonstringify({productsabove100}));
-% products with price >= 100 only: [
+productsabove100 = arrayfilterv1(@(product, varargin) (product.("price") > 100), products);
+sprint("products with price > 100 only: ", prettyjsonstringify({productsabove100}));
+% products with price > 100 only: [
 %     {
 %         "code": "pasta",
 %         "price": 321
@@ -287,9 +287,9 @@ sprint("products with price <= 100 only: ", prettyjsonstringify({productsbelow10
 %     }
 % ]
 
-productsabove100 = arrayfilterv2(@(product, varargin) (product.("price") >= 100), products);
-sprint("products with price >= 100 only: ", prettyjsonstringify({productsabove100}));
-% products with price >= 100 only: [
+productsabove100 = arrayfilterv2(@(product, varargin) (product.("price") > 100), products);
+sprint("products with price > 100 only: ", prettyjsonstringify({productsabove100}));
+% products with price > 100 only: [
 %     {
 %         "code": "pasta",
 %         "price": 321
@@ -315,9 +315,9 @@ sprint("products with price <= 100 only: ", prettyjsonstringify({productsbelow10
 %     }
 % ]
 
-productsabove100 = products(cellfun(@(product) (product.("price") >= 100), products));
-sprint("products with price >= 100 only: ", prettyjsonstringify({productsabove100}));
-% products with price >= 100 only: [
+productsabove100 = products(cellfun(@(product) (product.("price") > 100), products));
+sprint("products with price > 100 only: ", prettyjsonstringify({productsabove100}));
+% products with price > 100 only: [
 %     {
 %         "code": "pasta",
 %         "price": 321

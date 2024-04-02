@@ -7,18 +7,18 @@ PATH_CSV_OUTPUT_LIST_FILE = os.path.join(PATH_CURRENT_FILE, '..', 'file_list.csv
 files_to_be_excluded = ["go.mod", "JSON.lua"]
 
 
-def get_file_list(path_file):
+def get_file_list(a_path):
     file_list = []
-    def get_file_list_inner_function(path_file_inner):
-        for file_or_folder in os.listdir(path_file_inner):
-            current_path_file = os.path.join(path_file_inner, file_or_folder)
-            if os.path.isfile(current_path_file):
+    def get_file_list_inner(a_path_inner):
+        for file_or_folder in os.listdir(a_path_inner):
+            current_path = os.path.join(a_path_inner, file_or_folder)
+            if os.path.isfile(current_path):
                 if file_or_folder not in files_to_be_excluded:
                     file_list.append(file_or_folder)
                 continue
-            if (new_file_or_folder := get_file_list_inner_function(current_path_file)) is not None:
+            if (new_file_or_folder := get_file_list_inner(current_path)) is not None:
                 file_list.append(new_file_or_folder)
-    get_file_list_inner_function(path_file)
+    get_file_list_inner(a_path)
     return file_list
 
 
@@ -41,6 +41,7 @@ def list_files():
     PATH_CODES_GNU_OCTAVE = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'gnu_octave')
     PATH_CODES_WOLFRAM = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'wolfram')
     PATH_CODES_RAKU = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'raku')
+    PATH_CODES_SCALA = os.path.join(PATH_CURRENT_FILE, '..', 'codes', 'scala')
 
     FILE_CODES_JAVASCRIPT = get_file_list(PATH_CODES_JAVASCRIPT)
     FILE_CODES_PYTHON = get_file_list(PATH_CODES_PYTHON)
@@ -60,6 +61,7 @@ def list_files():
     FILE_CODES_GNU_OCTAVE = get_file_list(PATH_CODES_GNU_OCTAVE)
     FILE_CODES_WOLFRAM = get_file_list(PATH_CODES_WOLFRAM)
     FILE_CODES_RAKU = get_file_list(PATH_CODES_RAKU)
+    FILE_CODES_SCALA = get_file_list(PATH_CODES_SCALA)
 
     FILE_CODES_JAVASCRIPT = ["JAVASCRIPT", *FILE_CODES_JAVASCRIPT]
     FILE_CODES_PYTHON = ["PYTHON", *FILE_CODES_PYTHON]
@@ -79,6 +81,7 @@ def list_files():
     FILE_CODES_GNU_OCTAVE = ["GNU_OCTAVE", *FILE_CODES_GNU_OCTAVE]
     FILE_CODES_WOLFRAM = ["WOLFRAM", *FILE_CODES_WOLFRAM]
     FILE_CODES_RAKU = ["RAKU", *FILE_CODES_RAKU]
+    FILE_CODES_SCALA = ["SCALA", *FILE_CODES_SCALA]
 
     FILE_CODES = [
         FILE_CODES_JAVASCRIPT,
@@ -98,7 +101,8 @@ def list_files():
         FILE_CODES_MATLAB,
         FILE_CODES_GNU_OCTAVE,
         FILE_CODES_WOLFRAM,
-        FILE_CODES_RAKU
+        FILE_CODES_RAKU,
+        FILE_CODES_SCALA
     ]
 
     if os.path.isfile(PATH_CSV_OUTPUT_LIST_FILE):

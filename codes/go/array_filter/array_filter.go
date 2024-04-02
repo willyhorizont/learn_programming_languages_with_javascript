@@ -152,10 +152,10 @@ func main() {
     // ]
 
     productsAbove100 = arrayFilterV1(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) >= 100)
+        return (product.(object)["price"].(int) > 100)
     }, products)
-    fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
-    // products with price >= 100 only: [
+    fmt.Println("products with price > 100 only:", prettyJsonStringify(productsAbove100))
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321
@@ -184,10 +184,10 @@ func main() {
     // ]
 
     productsAbove100 = arrayFilterV2(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) >= 100)
+        return (product.(object)["price"].(int) > 100)
     }, products)
-    fmt.Println("products with price >= 100 only:", prettyJsonStringify(productsAbove100))
-    // products with price >= 100 only: [
+    fmt.Println("products with price > 100 only:", prettyJsonStringify(productsAbove100))
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321

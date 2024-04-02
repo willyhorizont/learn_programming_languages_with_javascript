@@ -81,11 +81,11 @@ function pretty_json_stringify_result = pretty_json_stringify(anything)
             % result = cstrcat("{", sprintf("\n"), repmat(indent_inner, 1, indent_level));
             % result = ["{", sprintf("\n"), repmat(indent_inner, 1, indent_level)];
             object_entries = fieldnames(anything_inner);
-            for entry_index = 1:numel(object_entries)
-                object_key = object_entries{entry_index};
+            for object_entry_index = 1:numel(object_entries)
+                object_key = object_entries{object_entry_index};
                 object_value = anything_inner.(object_key);
                 result = cstrcat(result, """", object_key, """: ", pretty_json_stringify_inner(object_value, indent_inner));
-                if (entry_index ~= numel(object_entries))
+                if (object_entry_index ~= numel(object_entries))
                     result = cstrcat(result, ",", sprintf("\n"), repeat_string(indent_inner, indent_level));
                     % result = cstrcat(result, ",", sprintf("\n"), repmat(indent_inner, 1, indent_level));
                 end
@@ -210,11 +210,11 @@ function pretty_json_stringify_result = pretty_json_stringify2(parameter)
             indent_level = indent_level + 1;
             result = cstrcat("{", sprintf("\n"), repeat_string(indent_inner, indent_level));
             object_entries = fieldnames(anything_inner);
-            for entry_index = 1:numel(object_entries)
-                object_key = object_entries{entry_index};
+            for object_entry_index = 1:numel(object_entries)
+                object_key = object_entries{object_entry_index};
                 object_value = anything_inner.(object_key);
                 result = cstrcat(result, """", object_key, """: ", pretty_json_stringify_inner(object_value, indent_inner));
-                if (entry_index ~= numel(object_entries))
+                if (object_entry_index ~= numel(object_entries))
                     result = cstrcat(result, ",", sprintf("\n"), repeat_string(indent_inner, indent_level));
                 end
             end

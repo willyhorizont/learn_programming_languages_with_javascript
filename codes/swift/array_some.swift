@@ -71,9 +71,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }

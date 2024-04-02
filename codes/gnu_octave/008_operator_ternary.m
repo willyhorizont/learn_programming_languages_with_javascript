@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = cstrcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = cstrcat(currentresult, ",");
             end
         end

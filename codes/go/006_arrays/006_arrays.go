@@ -93,14 +93,14 @@ func main() {
     fmt.Println("products:", prettyJsonStringify(products))
 
     for arrayItemIndex, arrayItem := range products {
-        iterationIndex := 0
+        objectIterationIndex := 0
         for objectKey, objectValue := range arrayItem.(object) {
-            fmt.Println("products, for loop, array item index:", prettyJsonStringify(arrayItemIndex),  "\b, iteration/entry index:", prettyJsonStringify(iterationIndex), "\b, key:", prettyJsonStringify(objectKey), "\b, value:", prettyJsonStringify(objectValue))
-            iterationIndex += 1
+            fmt.Println("products, for loop, array item index:", prettyJsonStringify(arrayItemIndex),  "\b, object iteration/entry index:", prettyJsonStringify(objectIterationIndex), "\b, key:", prettyJsonStringify(objectKey), "\b, value:", prettyJsonStringify(objectValue))
+            objectIterationIndex += 1
         }
     }
-    // products, for loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
-    // products, for loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
-    // products, for loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
-    // products, for loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
+    // products, for loop, array item index: 0, object iteration/entry index: 0, key: "id", value: "P1"
+    // products, for loop, array item index: 0, object iteration/entry index: 1, key: "name", value: "bubble gum"
+    // products, for loop, array item index: 1, object iteration/entry index: 0, key: "id", value: "P2"
+    // products, for loop, array item index: 1, object iteration/entry index: 1, key: "name", value: "potato chips"
 }

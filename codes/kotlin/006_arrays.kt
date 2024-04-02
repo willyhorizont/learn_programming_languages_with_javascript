@@ -35,11 +35,11 @@ fun main() {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
-                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
-                    val objectKey = entryItem.key
-                    val objectValue = entryItem.value
+                anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+                    val objectKey = objectEntry.key
+                    val objectValue = objectEntry.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -61,25 +61,31 @@ fun main() {
     println("fruits, get mango: ${fruits[1]}")
     // fruits, get mango: mango
 
+    println("fruits, first element: ${fruits[0]}")
+    // fruits, first element: apple
+
     println("fruits, first element: ${fruits.first()}")
     // fruits, first element: apple
+    
+    println("fruits, last element: ${fruits[(fruits.size - 1)]}")
+    // fruits, last element: orange
 
     println("fruits, last element: ${fruits.last()}")
     // fruits, last element: orange
     
-    fruits.forEachIndexed { arrayItemIndex, arrayItem -> println("fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}") }
-    // fruits, foreach loop, index: 0, value: apple
-    // fruits, foreach loop, index: 1, value: mango
-    // fruits, foreach loop, index: 2, value: orange
+    fruits.forEachIndexed { arrayItemIndex, arrayItem -> println("fruits, forEach loop, index: ${arrayItemIndex}, value: ${arrayItem}") }
+    // fruits, forEach loop, index: 0, value: apple
+    // fruits, forEach loop, index: 1, value: mango
+    // fruits, forEach loop, index: 2, value: orange
 
     for ((arrayItemIndex, arrayItem) in fruits.withIndex()) {
-        println("fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}")
+        println("fruits, forEach loop, index: ${arrayItemIndex}, value: ${arrayItem}")
     }
-    // fruits, for loop, index: 0, value: apple
-    // fruits, for loop, index: 1, value: mango
-    // fruits, for loop, index: 2, value: orange
+    // fruits, forEach loop, index: 0, value: apple
+    // fruits, forEach loop, index: 1, value: mango
+    // fruits, forEach loop, index: 2, value: orange
 
-    // in Kotlin, JavaScript-like Array of Objects is called mutableListOf<mutableMapOf<String, Any?>>
+    // in Kotlin, JavaScript-like Array of Objects is called MutableList of MutableMaps
 
     val products = mutableListOf<Any?>(
         mutableMapOf<String, Any?>(
@@ -94,26 +100,26 @@ fun main() {
     println("products: ${prettyJsonStringify(products)}")
 
     products.forEachIndexed { arrayItemIndex, arrayItem ->
-        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { entryIndex, entryItem ->
-            val objectKey = entryItem.key
-            val objectValue = entryItem.value
-            println("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}")
+        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { objectEntryIndex, objectEntry ->
+            val objectKey = objectEntry.key
+            val objectValue = objectEntry.value
+            println("products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}")
         }
     }
-    // products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
     for ((arrayItemIndex, arrayItem) in products.withIndex()) {
-        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { entryIndex, entryItem ->
-            val objectKey = entryItem.key
-            val objectValue = entryItem.value
-            println("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}")
+        (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { objectEntryIndex, objectEntry ->
+            val objectKey = objectEntry.key
+            val objectValue = objectEntry.value
+            println("products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}")
         }
     }
-    // products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 }

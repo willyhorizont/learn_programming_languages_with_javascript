@@ -109,9 +109,9 @@ print("products with price <= 100 only: ", json-stringify($products-below100, :p
 #     }
 # ]
 
-$products-above100 = array-filter-v1(sub ($product, |args) { ($product{"price"} >= 100) }, $products);
-print("products with price >= 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
-# products with price >= 100 only: [
+$products-above100 = array-filter-v1(sub ($product, |args) { ($product{"price"} > 100) }, $products);
+print("products with price > 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -137,9 +137,9 @@ print("products with price <= 100 only: ", json-stringify($products-below100, :p
 #     }
 # ]
 
-$products-above100 = array-filter-v2(sub ($product, |args) { ($product{"price"} >= 100) }, $products);
-print("products with price >= 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
-# products with price >= 100 only: [
+$products-above100 = array-filter-v2(sub ($product, |args) { ($product{"price"} > 100) }, $products);
+print("products with price > 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -156,7 +156,7 @@ print("products with price >= 100 only: ", json-stringify($products-above100, :p
 
 print("# using Raku Array.filter() built-in function \"grep\"\n");
 
-$products-below100 = $products.grep({ ($_{"price"} >= 100) });
+$products-below100 = $products.grep({ ($_{"price"} <= 100) });
 print("products with price <= 100 only: ", json-stringify($products-below100, :pretty(True)), "\n");
 # products with price <= 100 only: [
 #     {
@@ -165,9 +165,9 @@ print("products with price <= 100 only: ", json-stringify($products-below100, :p
 #     }
 # ]
 
-$products-above100 = $products.grep({ ($_{"price"} >= 100) });
-print("products with price >= 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
-# products with price >= 100 only: [
+$products-above100 = $products.grep({ ($_{"price"} > 100) });
+print("products with price > 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -182,7 +182,7 @@ print("products with price >= 100 only: ", json-stringify($products-above100, :p
 #     }
 # ]
 
-$products-below100 = $products.grep({ ($^product{"price"} >= 100) });
+$products-below100 = $products.grep({ ($^product{"price"} <= 100) });
 print("products with price <= 100 only: ", json-stringify($products-below100, :pretty(True)), "\n");
 # products with price <= 100 only: [
 #     {
@@ -191,9 +191,9 @@ print("products with price <= 100 only: ", json-stringify($products-below100, :p
 #     }
 # ]
 
-$products-above100 = $products.grep({ ($^product{"price"} >= 100) });
-print("products with price >= 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
-# products with price >= 100 only: [
+$products-above100 = $products.grep({ ($^product{"price"} > 100) });
+print("products with price > 100 only: ", json-stringify($products-above100, :pretty(True)), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321

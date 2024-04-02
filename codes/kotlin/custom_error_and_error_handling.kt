@@ -9,7 +9,7 @@ fun main() {
         return "Thank you for giving me \"respect\"!"
     }
 
-    var response: String
+    var response: Any?
 
     // Error Handling
     try {

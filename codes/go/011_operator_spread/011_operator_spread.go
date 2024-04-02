@@ -162,7 +162,7 @@ func main() {
     //     "Italy": "Rome"
     // }
 
-    fmt.Println("// [...array1, array2]:")
+    fmt.Println("// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:")
 
     combination5 := spreadSyntaxArray(fruits, object{"vegetables": vegetables})
     fmt.Println("combination5:", prettyJsonStringify(combination5))
@@ -188,7 +188,7 @@ func main() {
     //     ]
     // ]
 
-    fmt.Println("// [...array1, object1]:")
+    fmt.Println("// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:")
 
     combination7 := spreadSyntaxArray(fruits, object{"countryCapitalsInAsia": countryCapitalsInAsia})
     fmt.Println("combination7:", prettyJsonStringify(combination7))
@@ -215,7 +215,7 @@ func main() {
     //     }
     // ]
 
-    fmt.Println("// { ...object1, object2 }:")
+    fmt.Println("// { ...object1, object2 } || { ...object1, objectKey: objectValue }:")
 
     combination9 := spreadSyntaxObject(countryCapitalsInAsia, object{"countryCapitalsInEurope": countryCapitalsInEurope})
     fmt.Println("combination9:", prettyJsonStringify(combination9))
@@ -241,7 +241,7 @@ func main() {
     //    }
     //}
 
-    fmt.Println("// { ...object1, array2 }:")
+    fmt.Println("// { ...object1, array2 } || { ...object1, objectKey: objectValue }:")
 
     combination11 := spreadSyntaxObject(countryCapitalsInAsia, object{"vegetables": vegetables})
     fmt.Println("combination11:", prettyJsonStringify(combination11))

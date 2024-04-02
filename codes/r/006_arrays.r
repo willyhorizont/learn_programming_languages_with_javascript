@@ -50,9 +50,9 @@ for (arrayItemIndex in seq_along(fruits)) {
     arrayItem <- fruits[[arrayItemIndex]]
     cat(paste(sep = "", "fruits, for loop, index: ", arrayItemIndex, ", value: ", arrayItem, "\n"))
 }
-# fruits, foreach loop, index: 1, value: apple
-# fruits, foreach loop, index: 2, value: mango
-# fruits, foreach loop, index: 3, value: orange
+# fruits, forEach loop, index: 1, value: apple
+# fruits, forEach loop, index: 2, value: mango
+# fruits, forEach loop, index: 3, value: orange
 
 # in R, JavaScript-like Array of Objects is called list of Associative-list
 
@@ -70,13 +70,13 @@ cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
 
 for (arrayItemIndex in seq_along(products)) {
     arrayItem <- products[[arrayItemIndex]]
-    for (entryIndex in seq_along(arrayItem)) {
-        objectKey <- names(arrayItem)[entryIndex]
-        objectValue <- arrayItem[[entryIndex]]
-        cat(paste(sep = "", "products, for loop, array item index: ", arrayItemIndex, ", iteration/entry index: ", entryIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
+    for (objectEntryIndex in seq_along(arrayItem)) {
+        objectKey <- names(arrayItem)[objectEntryIndex]
+        objectValue <- arrayItem[[objectEntryIndex]]
+        cat(paste(sep = "", "products, for loop, array item index: ", arrayItemIndex, ", object iteration/entry index: ", objectEntryIndex, ", key: ", objectKey, ", value: ", objectValue, "\n"))
     }
 }
-# products, for loop, array item index: 1, iteration/entry index: 1, key: id, value: P1
-# products, for loop, array item index: 1, iteration/entry index: 2, key: name, value: bubble gum
-# products, for loop, array item index: 2, iteration/entry index: 1, key: id, value: P2
-# products, for loop, array item index: 2, iteration/entry index: 2, key: name, value: potato chips
+# products, for loop, array item index: 1, object iteration/entry index: 1, key: id, value: P1
+# products, for loop, array item index: 1, object iteration/entry index: 2, key: name, value: bubble gum
+# products, for loop, array item index: 2, object iteration/entry index: 1, key: id, value: P2
+# products, for loop, array item index: 2, object iteration/entry index: 2, key: name, value: potato chips

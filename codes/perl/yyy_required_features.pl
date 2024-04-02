@@ -109,10 +109,10 @@ $play_game->();
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject:", myObject);
     ```
@@ -122,10 +122,10 @@ my $my_object_v1 = {
     "my_number" => 123,
     "my_bool" => 1,
     "my_null" => undef,
-    "my_object_v1" => {
+    "my_array" => [1, 2, 3],
+    "my_object" => {
         "foo" => "bar"
-    },
-    "my_array" => [1, 2, 3]
+    }
 };
 print("my_object_v1: ", pretty_json_stringify($my_object_v1), "\n");
 my %my_object_v2 = (
@@ -133,10 +133,10 @@ my %my_object_v2 = (
     "my_number" => 123,
     "my_bool" => 1,
     "my_null" => undef,
-    "my_object_v2" => {
+    "my_array" => [1, 2, 3],
+    "my_object" => {
         "foo" => "bar"
-    },
-    "my_array" => [1, 2, 3]
+    }
 );
 print("my_object_v2: ", pretty_json_stringify({%my_object_v2}), "\n");
 print("my_object_v2: ", pretty_json_stringify(\%my_object_v2), "\n");
@@ -240,7 +240,7 @@ print("get_rectangle_area(7, 5): ", $get_rectangle_area->(7, 5), "\n");
         true,
         null,
         [1, 2, 3],
-        { "foo": "bar" },
+        { "foo": "bar" }
     ];
     console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -252,10 +252,10 @@ print("get_rectangle_area(7, 5): ", $get_rectangle_area->(7, 5), "\n");
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
@@ -296,10 +296,10 @@ my $my_object2 = {
     "my_number" => 123,
     "my_bool" => 1,
     "my_null" => undef,
+    "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
-    },
-    "my_array" => [1, 2, 3]
+    }
 };
 print("myObject2[\"my_function\"](7, 5): ", $my_object2->{"my_function"}->(7, 5), "\n");
 my %my_object2_v2 = (
@@ -311,9 +311,9 @@ my %my_object2_v2 = (
     "my_number" => 123,
     "my_bool" => 1,
     "my_null" => undef,
+    "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
-    },
-    "my_array" => [1, 2, 3]
+    }
 );
 print("myObject2[\"my_function\"](7, 5): ", $my_object2_v2{"my_function"}->(7, 5), "\n");

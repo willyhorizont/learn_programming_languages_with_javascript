@@ -66,7 +66,7 @@ loop (my $i6 = 1; $i6 <= 10; $i6 += 1) {
     print("for loop v1, \$i6 is {$i6}", "\n");
 }
 
-# for loop and also foreach loop
+# for loop and also forEach loop
 
 for (1...10) -> $i7 {
     last if ($i7 > 5);

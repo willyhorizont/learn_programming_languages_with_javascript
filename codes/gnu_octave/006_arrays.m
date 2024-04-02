@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = cstrcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = cstrcat(currentresult, ",");
             end
         end
@@ -148,11 +148,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = cstrcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = cstrcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = cstrcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -188,11 +188,11 @@ sprint("fruits, last element: ", {fruits{end}});
 
 for arrayitemindex = (1:1:numel(fruits))
     arrayitem = fruits{arrayitemindex};
-    sprint("fruits, foreach loop, index: ", {arrayitemindex}, ", value: ", {arrayitem});
+    sprint("fruits, forEach loop, index: ", {arrayitemindex}, ", value: ", {arrayitem});
 end
-% fruits, foreach loop, index: 0, value: "apple"
-% fruits, foreach loop, index: 1, value: "mango"
-% fruits, foreach loop, index: 2, value: "orange"
+% fruits, forEach loop, index: 0, value: "apple"
+% fruits, forEach loop, index: 1, value: "mango"
+% fruits, forEach loop, index: 2, value: "orange"
 
 % in GNU Octave, JavaScript-like Array of Objects is called Cell-Array of structs
 
@@ -211,13 +211,13 @@ sprint("products: ", {prettyjsonstringify({products})});
 for arrayitemindex = (1:1:numel(products))
     arrayitem = products{arrayitemindex};
     objectkeys = fieldnames(arrayitem);
-    for entryindex = (1:1:numel(objectkeys))
-        objectkey = objectkeys{entryindex};
+    for objectentryindex = (1:1:numel(objectkeys))
+        objectkey = objectkeys{objectentryindex};
         objectvalue = arrayitem.(objectkey);
-        sprint("products, foreach loop, array item index: ", {arrayitemindex}, ", iteration/entry index: ", {entryindex}, ", key: ", {objectkey}, ", value: ", {objectvalue});
+        sprint("products, forEach loop, array item index: ", {arrayitemindex}, ", object iteration/entry index: ", {objectentryindex}, ", key: ", {objectkey}, ", value: ", {objectvalue});
     end
 end
-% products, foreach loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
-% products, foreach loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
-% products, foreach loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
-% products, foreach loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
+% products, forEach loop, array item index: 0, object iteration/entry index: 0, key: "id", value: "P1"
+% products, forEach loop, array item index: 0, object iteration/entry index: 1, key: "name", value: "bubble gum"
+% products, forEach loop, array item index: 1, object iteration/entry index: 0, key: "id", value: "P2"
+% products, forEach loop, array item index: 1, object iteration/entry index: 1, key: "name", value: "potato chips"

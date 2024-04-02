@@ -74,9 +74,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -208,7 +208,7 @@ print("combination4: \(prettyJsonStringify(combination4))")
 //     "Italy": "Rome"
 // }
 
-print("\n// [...array1, array2]:\n")
+print("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 let combination5 = spreadSyntaxArray(fruits, ["vegetables": vegetables] as MyObject)
 print("combination5: \(prettyJsonStringify(combination5))")
@@ -234,7 +234,7 @@ print("combination6: \(prettyJsonStringify(combination6))")
 //     ]
 // ]
 
-print("\n// [...array1, object1]:\n")
+print("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 let combination7 = spreadSyntaxArray(fruits, ["countryCapitalsInAsia": countryCapitalsInAsia] as MyObject)
 print("combination7: \(prettyJsonStringify(combination7))")
@@ -261,7 +261,7 @@ print("combination8: \(prettyJsonStringify(combination8))")
 //     }
 // ]
 
-print("\n// { ...object1, object2 }:\n")
+print("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 let combination9 = spreadSyntaxObject(countryCapitalsInAsia, ["countryCapitalsInEurope": countryCapitalsInEurope] as MyObject)
 print("combination9: \(prettyJsonStringify(combination9))")
@@ -287,7 +287,7 @@ print("combination10: \(prettyJsonStringify(combination10))")
 //     }
 // }
 
-print("\n// { ...object1, array2 }:\n")
+print("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 let combination11 = spreadSyntaxObject(countryCapitalsInAsia, ["vegetables": vegetables] as MyObject)
 print("combination11: \(prettyJsonStringify(combination11))")

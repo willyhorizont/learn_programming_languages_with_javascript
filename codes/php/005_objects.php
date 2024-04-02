@@ -14,18 +14,18 @@ echo("\n" . "friend, get country: " . $friend["country"]);
 
 // iterate over and get each key-value pair
 foreach ($friend as $object_key => $object_value) {
-    echo("\n" . "friend, foreach loop, key: " . $object_key . ", value: " . $object_value);
+    echo("\n" . "friend, forEach loop, key: " . $object_key . ", value: " . $object_value);
 }
-// friend, foreach loop, key: name, value: Alisa
-// friend, foreach loop, key: country, value: Finland
-// friend, foreach loop, key: age, value: 25
+// friend, forEach loop, key: name, value: Alisa
+// friend, forEach loop, key: country, value: Finland
+// friend, forEach loop, key: age, value: 25
 
-// iterate over and get each key-value pair and iteration/entry index
-$iteration_index = 0;
+// iterate over and get each key-value pair and object iteration/entry index
+$object_iteration_index = 0;
 foreach ($friend as $object_key => $object_value) {
-    echo("\n" . "friend, foreach loop, iteration/entry index: " . $iteration_index . ", key: " . $object_key . ", value: " . $object_value);
-    $iteration_index += 1;
+    echo("\n" . "friend, forEach loop, object iteration/entry index: " . $object_iteration_index . ", key: " . $object_key . ", value: " . $object_value);
+    $object_iteration_index += 1;
 }
-// friend, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-// friend, foreach loop, iteration/entry index: 1, key: country, value: Finland
-// friend, foreach loop, iteration/entry index: 2, key: age, value: 25
+// friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+// friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+// friend, forEach loop, object iteration/entry index: 2, key: age, value: 25

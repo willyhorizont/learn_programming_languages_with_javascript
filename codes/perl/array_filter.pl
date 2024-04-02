@@ -131,9 +131,9 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 #     }
 # ]
 
-@products_above_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
-print("products with price >= 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
-# products with price >= 100 only: [
+@products_above_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} > 100); }, \@products);
+print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -159,9 +159,9 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 #     }
 # ]
 
-@products_above_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} >= 100); }, \@products);
-print("products with price >= 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
-# products with price >= 100 only: [
+@products_above_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} > 100); }, \@products);
+print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -187,9 +187,9 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 #     }
 # ]
 
-@products_above_100 = grep { ($_->{"price"} >= 100) } @products;
-print("products with price >= 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
-# products with price >= 100 only: [
+@products_above_100 = grep { ($_->{"price"} > 100) } @products;
+print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321

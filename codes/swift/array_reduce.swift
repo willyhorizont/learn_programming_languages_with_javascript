@@ -71,9 +71,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -140,7 +140,7 @@ func spreadSyntaxArray(_ parameters: Any?...) -> MyArray {
     return newArray
 }
 
-func getDouble(_ anything: Any?) -> Double? {
+func toDouble(_ anything: Any?) -> Double? {
     guard let anything = anything else {
         return nil
     }
@@ -214,7 +214,7 @@ var numbersTotal: Any?
 print("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
 numbersTotal = arrayReduce({ (currentResult: Any?, currentNumber: Any?, _: Int, _: MyArray) -> Any? in
-    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+    if let currentResultDouble = toDouble(currentResult), let currentNumberDouble = toDouble(currentNumber) {
         return (currentResultDouble + currentNumberDouble)
     }
     return currentResult
@@ -225,7 +225,7 @@ print("total number: \(numbersTotal ?? "nil")")
 print("// using Swift Array.reduce() built-in method \"Array.reduce\"")
 
 numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
-    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+    if let currentResultDouble = toDouble(currentResult), let currentNumberDouble = toDouble(currentNumber) {
         return (currentResultDouble + currentNumberDouble)
     }
     return currentResult

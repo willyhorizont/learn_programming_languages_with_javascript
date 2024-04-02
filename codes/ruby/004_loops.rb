@@ -60,46 +60,46 @@ for i in (10.step(1, -1)) do # start.f(stop, step)
     print("for loop v3 descending, i is #{i}\n")
 end
 
-# foreach loop
+# forEach loop
 
 (1..10).each do |i| # (start..stop)
     break if (i > 5)
     next if (i == 2)
-    print("foreach loop v1 ascending, i is #{i}\n")
+    print("forEach loop v1 ascending, i is #{i}\n")
 end
 
 (1..10).to_a.reverse.each do |i| # (start..stop)
     break if (i <= 5)
     next if (i == 9)
-    print("foreach loop v1 descending v1, i is #{i}\n")
+    print("forEach loop v1 descending v1, i is #{i}\n")
 end
 
 (1..10).reverse_each do |i| # (start..stop)
     break if (i <= 5)
     next if (i == 9)
-    print("foreach loop v1 descending v2, i is #{i}\n")
+    print("forEach loop v1 descending v2, i is #{i}\n")
 end
 
 (1.upto(10)).each do |i| # (start.f(stop))
     break if (i > 5)
     next if (i == 2)
-    print("foreach loop v2 ascending, i is #{i}\n")
+    print("forEach loop v2 ascending, i is #{i}\n")
 end
 
 (10.downto(1)).each do |i| # (start.f(stop))
     break if (i <= 5)
     next if (i == 9)
-    print("foreach loop v2 descending, i is #{i}\n")
+    print("forEach loop v2 descending, i is #{i}\n")
 end
 
 (1.step(10, 1)).each do |i| # start.f(stop, step)
     break if (i > 5)
     next if (i == 2)
-    print("foreach loop v3 ascending, i is #{i}\n")
+    print("forEach loop v3 ascending, i is #{i}\n")
 end
 
 (10.step(1, -1)).each do |i| # start.f(stop, step)
     break if (i <= 5)
     next if (i == 9)
-    print("foreach loop v3 descending, i is #{i}\n")
+    print("forEach loop v3 descending, i is #{i}\n")
 end

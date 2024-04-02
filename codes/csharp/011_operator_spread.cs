@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -77,12 +77,12 @@ class Program {
             int ParameterIndex = 0;
             foreach (dynamic Parameter in Parameters) {
                 if (Parameter is Dictionary<string, dynamic>) {
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Parameter) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         NewObject[Convert.ToString(ObjectKey)] = ObjectValue;
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     continue;
                 }
@@ -105,12 +105,12 @@ class Program {
             foreach (dynamic Parameter in Parameters) {
                 if (Parameter is Dictionary<string, dynamic>) {
                     if (Parameter.Count == 1) {
-                        int IterationIndex = 0;
+                        int ObjectIterationIndex = 0;
                         foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Parameter) {
                             string ObjectKey = ObjectEntry.Key;
                             dynamic ObjectValue = ObjectEntry.Value;
                             NewArray.Add(ObjectValue);
-                            IterationIndex += 1;
+                            ObjectIterationIndex += 1;
                         }
                         continue;
                     }
@@ -198,7 +198,7 @@ class Program {
         //     "Italy": "Rome"
         // }
 
-        Console.WriteLine("\n// [...array1, array2]:\n");
+        Console.WriteLine("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
         dynamic Combination5 = SpreadSyntaxArray(Fruits, new Dictionary<string, dynamic>() {{"Vegetables", Vegetables}});
         Console.WriteLine($"Combination5: {PrettyJsonStringify(Combination5)}");
@@ -224,7 +224,7 @@ class Program {
         //     ]
         // ]
 
-        Console.WriteLine("\n// [...array1, object1]:\n");
+        Console.WriteLine("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
         dynamic Combination7 = SpreadSyntaxArray(Fruits, new Dictionary<string, dynamic>() {{"CountryCapitalsInAsia", CountryCapitalsInAsia}});
         Console.WriteLine($"Combination7: {PrettyJsonStringify(Combination7)}");
@@ -251,7 +251,7 @@ class Program {
         //     }
         // ]
 
-        Console.WriteLine("\n// { ...object1, object2 }:\n");
+        Console.WriteLine("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
 
         dynamic Combination9 = SpreadSyntaxObject(CountryCapitalsInAsia, new Dictionary<string, dynamic>() {{"CountryCapitalsInEurope", CountryCapitalsInEurope}});
         Console.WriteLine($"Combination9: {PrettyJsonStringify(Combination9)}");
@@ -277,7 +277,7 @@ class Program {
         //     }
         // }
 
-        Console.WriteLine("\n// { ...object1, array2 }:\n");
+        Console.WriteLine("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
 
         dynamic Combination11 = SpreadSyntaxObject(CountryCapitalsInAsia, new Dictionary<string, dynamic>() {{"Vegetables", Vegetables}});
         Console.WriteLine($"Combination11: {PrettyJsonStringify(Combination11)}");

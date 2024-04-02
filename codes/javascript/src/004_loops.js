@@ -30,28 +30,28 @@ for (let i3 = 1; i3 <= 10; i3 += 1) {
     console.log(`for loop, i3 is ${i3}`);
 }
 
-// foreach loop
+// forEach loop
 
 Array.from(Array(10 + 1).keys()).slice(1).forEach((i4) => {
     if (i4 > 5) return;
     if (i4 === 2) return;
-    console.log(`foreach loop v1 ascending, i4 is ${i4}`);
+    console.log(`forEach loop v1 ascending, i4 is ${i4}`);
 });
 
 Array.from(Array(10 + 1).keys()).slice(1).reverse().forEach((i5) => {
     if (i5 <= 5) return;
     if (i5 === 9) return;
-    console.log(`foreach loop v1 descending, i5 is ${i5}`);
+    console.log(`forEach loop v1 descending, i5 is ${i5}`);
 });
 
 [...Array(10 + 1).keys()].slice(1).forEach((i6) => {
     if (i6 > 5) return;
     if (i6 === 2) return;
-    console.log(`foreach loop v2 ascending, i6 is ${i6}`);
+    console.log(`forEach loop v2 ascending, i6 is ${i6}`);
 });
 
 [...Array(10 + 1).keys()].slice(1).reverse().forEach((i7) => {
     if (i7 <= 5) return;
     if (i7 === 9) return;
-    console.log(`foreach loop v2 descending, i7 is ${i7}`);
+    console.log(`forEach loop v2 descending, i7 is ${i7}`);
 });

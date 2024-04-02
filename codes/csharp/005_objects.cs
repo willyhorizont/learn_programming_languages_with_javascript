@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -68,15 +68,15 @@ class Program {
         Console.WriteLine($"Friend, get country: {Friend["country"]}");
         // Friend, get country: Finland
 
-        int IterationIndex = 0;
+        int ObjectIterationIndex = 0;
         foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Friend) {
             string ObjectKey = ObjectEntry.Key;
             dynamic ObjectValue = ObjectEntry.Value;
-            Console.WriteLine($"Friend, foreach loop, iteration/entry index: {IterationIndex}, key: {ObjectKey}, value: {ObjectValue}");
-            IterationIndex += 1;
+            Console.WriteLine($"Friend, forEach loop, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}");
+            ObjectIterationIndex += 1;
         }
-        // Friend, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-        // Friend, foreach loop, iteration/entry index: 1, key: country, value: Finland
-        // Friend, foreach loop, iteration/entry index: 2, key: age, value: 25
+        // Friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+        // Friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+        // Friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
     }
 }

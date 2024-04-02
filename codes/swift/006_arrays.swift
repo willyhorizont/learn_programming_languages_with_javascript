@@ -71,9 +71,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -227,26 +227,26 @@ print("products: \(prettyJsonStringify(products))")
 for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
     if let arrayItem = arrayItem as? MyObject {
-        for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
-            print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
+        for (objectEntryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
+            print("products, for loop, array item index: \(arrayItemIndex), object iteration/entry index: \(objectEntryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
         }
     }
 }
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
+// products, forEach loop, array item index: 0, object iteration/entry index: 0, key: "id", value: "P1"
+// products, forEach loop, array item index: 0, object iteration/entry index: 1, key: "name", value: "bubble gum"
+// products, forEach loop, array item index: 1, object iteration/entry index: 0, key: "id", value: "P2"
+// products, forEach loop, array item index: 1, object iteration/entry index: 1, key: "name", value: "potato chips"
 
 for (arrayItemIndex, arrayItem) in products.enumerated() {
     // this is called optional binding, `as?` is called conditional casting
     guard let arrayItem = arrayItem as? MyObject else {
         continue
     }
-    for (entryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
-        print("products, for loop, array item index: \(arrayItemIndex), iteration/entry index: \(entryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
+    for (objectEntryIndex, (objectKey, objectValue)) in arrayItem.enumerated() {
+        print("products, for loop, array item index: \(arrayItemIndex), object iteration/entry index: \(objectEntryIndex), key: \(prettyJsonStringify(objectKey)), value: \(prettyJsonStringify(objectValue ?? "nil"))")
     }
 }
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: "id", value: "P1"
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: "name", value: "bubble gum"
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: "id", value: "P2"
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: "name", value: "potato chips"
+// products, forEach loop, array item index: 0, object iteration/entry index: 0, key: "id", value: "P1"
+// products, forEach loop, array item index: 0, object iteration/entry index: 1, key: "name", value: "bubble gum"
+// products, forEach loop, array item index: 1, object iteration/entry index: 0, key: "id", value: "P2"
+// products, forEach loop, array item index: 1, object iteration/entry index: 1, key: "name", value: "potato chips"

@@ -26,8 +26,8 @@ fun main() {
     val myFriends = mutableListOf<Any?>("Alisa", "Trivia")
     println("myFriends: ${prettyArrayOfPrimitives(myFriends)}")
 
-    var aName: String
-    var isMyFriend: Boolean
+    var aName: Any?
+    var isMyFriend: Any?
 
     println("// using JavaScript-like Array.includes() function \"arrayIncludesV1\"")
 

@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = strcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = strcat(currentresult, ",");
             end
         end
@@ -166,11 +166,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = strcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = strcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -225,8 +225,8 @@ function spreadsyntaxobjectresult = spreadsyntaxobject(varargin)
         parameter = varargin{parameterindex};
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = parameter.(objectkey);
                 newobject.(objectkey) = objectvalue;
             end
@@ -250,8 +250,8 @@ function spreadsyntaxarrayresult = spreadsyntaxarray(varargin)
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
             if (numel(objectkeys) == 1)
-                for entryindex = (1:1:numel(objectkeys))
-                    objectkey = objectkeys{entryindex};
+                for objectentryindex = (1:1:numel(objectkeys))
+                    objectkey = objectkeys{objectentryindex};
                     objectvalue = parameter.(objectkey);
                     newarray{end + 1} = objectvalue;
                 end

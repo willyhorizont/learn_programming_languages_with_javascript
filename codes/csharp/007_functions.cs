@@ -84,12 +84,12 @@ class Program {
         dynamic GetRectangleAreaFunctionResult2 = MyArrayOfGetRectangleAreaFunctions[1](7, 5);
         dynamic GetRectangleAreaFunctionResult3 = MyArrayOfGetRectangleAreaFunctions[2](7, 5);
 
-        dynamic Exponentiation = (Func<dynamic, dynamic, double>)((dynamic A, dynamic B) => {
+        dynamic Exponentiation = (Func<dynamic, dynamic, dynamic>)((dynamic A, dynamic B) => {
             return Math.Pow(A, B);
         });
 
         dynamic SimpleCalculator = new Dictionary<string, dynamic>() {
-            {"Exponentiation", (Func<dynamic, dynamic, double>)Exponentiation},
+            {"Exponentiation", (Func<dynamic, dynamic, dynamic>)Exponentiation},
             {"Addition", (Func<dynamic, dynamic, dynamic>)((dynamic A, dynamic B) => {
                 return (A + B);
             })},

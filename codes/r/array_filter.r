@@ -122,9 +122,9 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- arrayFilterV1(function(product, ...) (product$price >= 100), products)
-cat(paste(sep = "", "products with price >= 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
-# products with price >= 100 only: [
+productsAbove100 <- arrayFilterV1(function(product, ...) (product$price > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -150,9 +150,9 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- arrayFilterV2(function(product, ...) (product$price >= 100), products)
-cat(paste(sep = "", "products with price >= 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
-# products with price >= 100 only: [
+productsAbove100 <- arrayFilterV2(function(product, ...) (product$price > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -178,9 +178,9 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- Filter(function(product, ...) (product$price >= 100), products)
-cat(paste(sep = "", "products with price >= 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
-# products with price >= 100 only: [
+productsAbove100 <- Filter(function(product, ...) (product$price > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321

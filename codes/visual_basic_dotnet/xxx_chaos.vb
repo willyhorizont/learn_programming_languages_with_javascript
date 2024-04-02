@@ -32,15 +32,15 @@ Module Program
                 If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                     IndentLevel += 1
                     Dim Result As String = "{" & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    Dim IterationIndex As Integer = 0
+                    Dim ObjectIterationIndex As Integer = 0
                     For Each objectEntry As KeyValuePair(Of String, Object) In AnythingInner
                         Dim ObjectKey = objectEntry.Key
                         Dim ObjectValue = objectEntry.Value
                         Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                        If ((IterationIndex + 1) <> AnythingInner.Length) Then
+                        If ((ObjectIterationIndex + 1) <> AnythingInner.Length) Then
                             Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
                         End If
-                        IterationIndex += 1
+                        ObjectIterationIndex += 1
                     Next
                     IndentLevel -= 1
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -81,15 +81,15 @@ Module Program
                 If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                     IndentLevel += 1
                     Dim Result As String = "{" & vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel))
-                    Dim IterationIndex As Integer = 0
+                    Dim ObjectIterationIndex As Integer = 0
                     For Each objectEntry As KeyValuePair(Of String, Object) In AnythingInner
                         Dim ObjectKey = objectEntry.Key
                         Dim ObjectValue = objectEntry.Value
                         Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue)
-                        If ((IterationIndex + 1) <> AnythingInner.Length) Then
+                        If ((ObjectIterationIndex + 1) <> AnythingInner.Length) Then
                             Result &= "," & vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel))
                         End If
-                        IterationIndex += 1
+                        ObjectIterationIndex += 1
                     Next
                     IndentLevel -= 1
                     Result &= vbCrLf & String.Concat(Enumerable.Repeat(Indent, IndentLevel)) & "}"
@@ -187,13 +187,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"

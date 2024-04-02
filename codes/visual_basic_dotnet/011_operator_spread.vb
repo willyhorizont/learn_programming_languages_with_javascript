@@ -42,13 +42,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -182,7 +182,7 @@ Module Program
         '     "Italy": "Rome"
         ' }
 
-        Console.WriteLine($"{Environment.NewLine}' [...array1, array2]:{Environment.NewLine}")
+        Console.WriteLine($"{Environment.NewLine}' [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:{Environment.NewLine}")
 
         Dim Combination5 = SpreadSyntaxArray(Fruits, New Dictionary(Of String, Object) From {{"Vegetables", Vegetables}})
         Console.WriteLine("Combination5: " & PrettyJsonStringify(Combination5))
@@ -208,7 +208,7 @@ Module Program
         '     ]
         ' ]
 
-        Console.WriteLine($"{Environment.NewLine}' [...array1, object1]:{Environment.NewLine}")
+        Console.WriteLine($"{Environment.NewLine}' [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:{Environment.NewLine}")
 
         Dim Combination7 = SpreadSyntaxArray(Fruits, New Dictionary(Of String, Object) From {{"CountryCapitalsInAsia", CountryCapitalsInAsia}})
         Console.WriteLine("Combination7: " & PrettyJsonStringify(Combination7))
@@ -235,7 +235,7 @@ Module Program
         '     }
         ' ]
 
-        Console.WriteLine($"{Environment.NewLine}' {{ ...object1, object2 }}:{Environment.NewLine}")
+        Console.WriteLine($"{Environment.NewLine}' {{ ...object1, object2 } || { ...object1, objectKey: objectValue }}:{Environment.NewLine}")
 
         Dim Combination9 = SpreadSyntaxObject(CountryCapitalsInAsia, New Dictionary(Of String, Object) From {{"CountryCapitalsInEurope", CountryCapitalsInEurope}})
         Console.WriteLine("Combination9: " & PrettyJsonStringify(Combination9))
@@ -261,7 +261,7 @@ Module Program
         '     }
         ' }
 
-        Console.WriteLine($"{Environment.NewLine}' {{ ...object1, array2 }}:{Environment.NewLine}")
+        Console.WriteLine($"{Environment.NewLine}' {{ ...object1, array2 } || { ...object1, objectKey: objectValue }}:{Environment.NewLine}")
 
         Dim Combination11 = SpreadSyntaxObject(CountryCapitalsInAsia, New Dictionary(Of String, Object) From {{"Vegetables", Vegetables}})
         Console.WriteLine("Combination11: " & PrettyJsonStringify(Combination11))

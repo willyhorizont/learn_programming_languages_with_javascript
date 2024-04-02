@@ -35,11 +35,11 @@ fun main() {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
-                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
-                    val objectKey = entryItem.key
-                    val objectValue = entryItem.value
+                anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+                    val objectKey = objectEntry.key
+                    val objectValue = objectEntry.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -55,9 +55,7 @@ fun main() {
         val dataFiltered = mutableListOf<Any?>()
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
             val isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray)
-            if (isConditionMatch == true) {
-                dataFiltered.add(arrayItem)
-            }
+            if (isConditionMatch == true) dataFiltered.add(arrayItem)
         }
         return dataFiltered
     }
@@ -66,9 +64,7 @@ fun main() {
         // JavaScript-like Array.filter() function
         val dataFiltered = mutableListOf<Any?>()
         for ((arrayItemIndex, arrayItem) in anArray.withIndex()) {
-            if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-                dataFiltered.add(arrayItem)
-            }
+            if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) dataFiltered.add(arrayItem)
         }
         return dataFiltered
     }
@@ -147,9 +143,9 @@ fun main() {
     //     }
     // ]
 
-    productsAbove100 = arrayFilterV1({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["price"] as Int) >= 100) }, products)
-    println("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}")
-    // products with price >= 100 only: [
+    productsAbove100 = arrayFilterV1({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["price"] as Int) > 100) }, products)
+    println("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}")
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321
@@ -175,9 +171,9 @@ fun main() {
     //     }
     // ]
 
-    productsAbove100 = arrayFilterV2({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["price"] as Int) >= 100) }, products)
-    println("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}")
-    // products with price >= 100 only: [
+    productsAbove100 = arrayFilterV2({ product: Any?, _: Int, _: MutableList<Any?> -> (((product as MutableMap<String, Any?>)["price"] as Int) > 100) }, products)
+    println("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}")
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321
@@ -203,9 +199,9 @@ fun main() {
     //     }
     // ]
 
-    productsAbove100 = products.filter { product: Any? -> (((product as MutableMap<String, Any?>)["price"] as Int) >= 100) }
-    println("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}")
-    // products with price >= 100 only: [
+    productsAbove100 = products.filter { product: Any? -> (((product as MutableMap<String, Any?>)["price"] as Int) > 100) }
+    println("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}")
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321

@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = cstrcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = cstrcat(currentresult, ",");
             end
         end
@@ -148,11 +148,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = cstrcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = cstrcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = cstrcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -178,13 +178,13 @@ sprint("friend: ", {prettyjsonstringify({friend})});
 sprint("friend, get country: ", {friend.("country")});
 % friend, get country: "Finland"
 
-% iterate over and get each key-value pair and iteration/entry index
+% iterate over and get each key-value pair and object iteration/entry index
 objectkeys = fieldnames(friend);
-for entryindex = (1:1:numel(objectkeys))
-    objectkey = objectkeys{entryindex};
+for objectentryindex = (1:1:numel(objectkeys))
+    objectkey = objectkeys{objectentryindex};
     objectvalue = friend.(objectkey);
-    sprint("friend, foreach loop, iteration/entry index: ", {entryindex}, ", key: ", {objectkey}, ", value: ", {objectvalue});
+    sprint("friend, forEach loop, object iteration/entry index: ", {objectentryindex}, ", key: ", {objectkey}, ", value: ", {objectvalue});
 end
-% friend, for loop and also foreach loop, iteration/entry index: 0, key: name, value: Alisa
-% friend, for loop and also foreach loop, iteration/entry index: 1, key: country, value: Finland
-% friend, for loop and also foreach loop, iteration/entry index: 2, key: age, value: 25
+% friend, for loop and also forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+% friend, for loop and also forEach loop, object iteration/entry index: 1, key: country, value: Finland
+% friend, for loop and also forEach loop, object iteration/entry index: 2, key: age, value: 25

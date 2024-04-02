@@ -15,10 +15,10 @@ console.log(`fruits, first element: ${fruits[0]}`);
 console.log(`fruits, last element: ${fruits[fruits.length - 1]}`);
 // fruits, last element: orange
 
-fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}`));
-// fruits, foreach loop, index: 0, value: apple
-// fruits, foreach loop, index: 1, value: mango
-// fruits, foreach loop, index: 2, value: orange
+fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, forEach loop, index: ${arrayItemIndex}, value: ${arrayItem}`));
+// fruits, forEach loop, index: 0, value: apple
+// fruits, forEach loop, index: 1, value: mango
+// fruits, forEach loop, index: 2, value: orange
 
 // Array of Objects
 
@@ -34,8 +34,8 @@ const products = [
 ];
 console.log(`products: ${JSON.stringify(products, null, ' '.repeat(4))}`);
 
-products.forEach((arrayItem, arrayItemIndex) => Object.entries(arrayItem).forEach(([objectKey, objectValue], entryIndex) => console.log(`products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}`)));
-// products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-// products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-// products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-// products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+products.forEach((arrayItem, arrayItemIndex) => Object.entries(arrayItem).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}`)));
+// products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+// products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+// products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+// products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips

@@ -31,29 +31,29 @@ void main() {
         print("for loop, i3 is ${i3}");
     }
 
-    // foreach loop
+    // forEach loop
 
     Iterable.generate(10, (i) => i + 1).forEach((i4) {
         if (i4 > 5) return;
         if (i4 == 2) return;
-        print("foreach loop v1 ascending, i4 is ${i4}");
+        print("forEach loop v1 ascending, i4 is ${i4}");
     });
 
     Iterable.generate(10, (i) => 10 - i).forEach((i5) {
         if (i5 <= 5) return;
         if (i5 == 9) return;
-        print("foreach loop v1 descending, i5 is ${i5}");
+        print("forEach loop v1 descending, i5 is ${i5}");
     });
 
     List.generate(10, (i) => i + 1).forEach((i6) {
         if (i6 > 5) return;
         if (i6 == 2) return;
-        print("foreach loop v2 ascending, i6 is ${i6}");
+        print("forEach loop v2 ascending, i6 is ${i6}");
     });
 
     List.generate(10, (i) => 10 - i).forEach((i7) {
         if (i7 <= 5) return;
         if (i7 == 9) return;
-        print("foreach loop v2 descending, i7 is ${i7}");
+        print("forEach loop v2 descending, i7 is ${i7}");
     });
 }

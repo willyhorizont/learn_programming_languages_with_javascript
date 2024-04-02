@@ -30,7 +30,7 @@ fun main() {
 
     // ({ rectangleWidth: Int, rectangleLength: Int -> (rectangleWidth * rectangleLength) } as (Int, Int) -> Int)
 
-    // Passing functions as arguments to other functions
+    // ? Passing functions as arguments to other functions
 
     fun sayHello(callbackFunction: () -> Unit) {
         println("hello")
@@ -49,7 +49,7 @@ fun main() {
 
     sayHello({ -> println("how are you?") })
 
-    // Assigning functions to variables or storing them in data structures
+    // ? Assigning functions to variables or storing them in data structures
 
     val getRectangleAreaV2Copy = fun(rectangleWidth: Int, rectangleLength: Int): Int {
         return (rectangleWidth * rectangleLength)
@@ -70,8 +70,8 @@ fun main() {
     val getRectangleAreaFunctionResult3 = (myArrayOfGetRectangleAreaFunctions[2] as (Int, Int) -> Int)(7, 5)
     val getRectangleAreaFunctionResult4 = (myArrayOfGetRectangleAreaFunctions[3] as (Int, Int) -> Int)(7, 5)
 
-    fun exponentiation(a: Double, b: Double): Double {
-        return Math.pow(a, b)
+    fun exponentiation(a: Int, b: Int): Int {
+        return Math.pow(a.toDouble(), b.toDouble()).toInt()
     }
 
     val modulus = fun(a: Int, b: Int): Int {
@@ -86,12 +86,12 @@ fun main() {
         },
         "division" to { a: Int, b: Int -> (a.toDouble() / b) }
     )
-    val simpleCalculatorResult1 = (simpleCalculator["exponentiation"] as (Double, Double) -> Double)(2.0, 4.0)
+    val simpleCalculatorResult1 = (simpleCalculator["exponentiation"] as (Int, Int) -> Int)(2, 4)
     val simpleCalculatorResult2 = (simpleCalculator["modulus"] as (Int, Int) -> Int)(5, 3)
     val simpleCalculatorResult3 = (simpleCalculator["multiplication"] as (Int, Int) -> Int)(7, 5)
     val simpleCalculatorResult4 = (simpleCalculator["division"] as (Int, Int) -> Int)(81, 9)
 
-    // Returning functions as values from other functions
+    // ? Returning functions as values from other functions
 
     fun multiplyV1(a: Int): (Int) -> Int {
         fun multiplyBy(b: Int): Int {

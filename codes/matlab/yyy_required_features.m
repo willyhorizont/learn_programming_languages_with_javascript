@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = strcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = strcat(currentresult, ",");
             end
         end
@@ -148,11 +148,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = strcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = strcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -268,10 +268,10 @@ playgame();
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject:", myObject);
     ``` 
@@ -281,8 +281,10 @@ myobject = struct( ...
     "my_number", {123}, ...
     "my_bool", {true}, ...
     "my_null", {{}}, ...
-    "my_object", {struct("foo", "bar")}, ...
-    "my_array", {{1, 2, 3}} ...
+    "my_array", {{1, 2, 3}}, ...
+    "my_object", {struct( ...
+        "foo", "bar" ...
+    )} ...
 );
 sprint("myobject: ", {prettyjsonstringify({myobject})});
 
@@ -379,7 +381,7 @@ sprint("getrectangleareav2(7, 5): ", {getrectangleareav2(7, 5)});
         true,
         null,
         [1, 2, 3],
-        { "foo": "bar" },
+        { "foo": "bar" }
     ];
     console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -391,10 +393,10 @@ sprint("getrectangleareav2(7, 5): ", {getrectangleareav2(7, 5)});
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ``` 
@@ -415,7 +417,9 @@ myobject2 = struct( ...
     "my_number", {123}, ...
     "my_bool", {true}, ...
     "my_null", {{}}, ...
-    "my_object", {struct("foo", "bar")}, ...
-    "my_array", {{1, 2, 3}} ...
+    "my_array", {{1, 2, 3}}, ...
+    "my_object", {struct( ...
+        "foo", "bar" ...
+    )} ...
 );
 sprint("myObject2[""my_function""](7, 5): ", {myobject2.("my_function")(7, 5)});

@@ -1,6 +1,11 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
+    fun range(start: Int, stop: Int, stepSize: Int = 1): IntProgression {
+        if (stepSize < 0) return (start downTo stop step Math.abs(stepSize)) as IntProgression
+        return (start until (stop + 1) step stepSize) as IntProgression
+    }
+
     println("\n// FizzBuzz(n) in Kotlin")
 
     fun fizzbuzzV1(stopNumber: Int): String {
@@ -118,7 +123,7 @@ fun main() {
         var result = ""
         var number = 1
         while (true) {
-            result = if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}"
+            result = (if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}")
             if (number >= stopNumber) break
             number += 1
         }
@@ -130,7 +135,7 @@ fun main() {
         var result = ""
         var number = 1
         while (number <= stopNumber) {
-            result = if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}"
+            result = (if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}")
             number += 1
         }
         return result
@@ -139,7 +144,7 @@ fun main() {
     fun fizzbuzzV7(stopNumber: Int): String {
         if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in (1..stopNumber) step 1) {
+        for (number in range(1, stopNumber, 1)) {
             if (result == "") {
                 result = "${number}"
                 continue
@@ -164,7 +169,7 @@ fun main() {
     fun fizzbuzzV8(stopNumber: Int): String {
         if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in (1..stopNumber) step 1) {
+        for (number in range(1, stopNumber, 1)) {
             if (result == "") {
                 result = "${number}"
             } else if (((number % 3) == 0) && ((number % 5) == 0)) {
@@ -183,15 +188,15 @@ fun main() {
     fun fizzbuzzV9(stopNumber: Int): String {
         if (stopNumber < 1) throw Exception("Argument should be > 0")
         var result = ""
-        for (number in (1..stopNumber) step 1) {
-            result = if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}"
+        for (number in range(1, stopNumber, 1)) {
+            result = (if (result == "") "${number}" else if (((number % 3) == 0) && ((number % 5) == 0)) "${result}, FizzBuzz" else if ((number % 3) == 0) "${result}, Fizz" else if ((number % 5) == 0) "${result}, Buzz" else "${result}, ${number}")
         }
         return result
     }
 
     fun fizzbuzzV10(stopNumber: Int): String {
         if (stopNumber < 1) throw Exception("Argument should be > 0")
-        return ((1..stopNumber) step 1).fold("") { currentResult: String, currentNumber: Int ->  if (currentResult == "") "${currentNumber}" else if (((currentNumber % 3) == 0) && ((currentNumber % 5) == 0)) "${currentResult}, FizzBuzz" else if ((currentNumber % 3) == 0) "${currentResult}, Fizz" else if ((currentNumber % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${currentNumber}" }
+        return range(1, stopNumber, 1).fold("") { currentResult: String, currentNumber: Int ->  if (currentResult == "") "${currentNumber}" else if (((currentNumber % 3) == 0) && ((currentNumber % 5) == 0)) "${currentResult}, FizzBuzz" else if ((currentNumber % 3) == 0) "${currentResult}, Fizz" else if ((currentNumber % 5) == 0) "${currentResult}, Buzz" else "${currentResult}, ${currentNumber}" }
     }
 
     println("// using fizzbuzz function \"fizzbuzzV1\"")

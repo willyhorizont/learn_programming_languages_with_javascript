@@ -73,7 +73,7 @@ print("\n", "combination4: ", JSON.pretty_generate(combination4, { "indent": " "
 #     "Italy": "Rome"
 # }
 
-print("\n", "# [...array1, array2]:\n")
+print("\n", "# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 = [*fruits, vegetables]
 print("\n", "combination5: ", JSON.pretty_generate(combination5, { "indent": " " * 4 }))
@@ -99,7 +99,7 @@ print("\n", "combination6: ", JSON.pretty_generate(combination6, { "indent": " "
 #     ]
 # ]
 
-print("\n", "# [...array1, object1]:\n")
+print("\n", "# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 = [*fruits, country_capitals_in_asia]
 print("\n", "combination7: ", JSON.pretty_generate(combination7, { "indent": " " * 4 }))
@@ -126,7 +126,7 @@ print("\n", "combination8: ", JSON.pretty_generate(combination8, { "indent": " "
 #     }
 # ]
 
-print("\n", "# { ...object1, object2 }:\n")
+print("\n", "# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 = {**country_capitals_in_asia, "country_capitals_in_europe" => country_capitals_in_europe}
 print("\n", "combination9: ", JSON.pretty_generate(combination9, { "indent": " " * 4 }))
@@ -152,7 +152,7 @@ print("\n", "combination10: ", JSON.pretty_generate(combination10, { "indent": "
 #     }
 # }
 
-print("\n", "# { ...object1, array2 }:\n")
+print("\n", "# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 = {**country_capitals_in_asia, "vegetables" => vegetables}
 print("\n", "combination11: ", JSON.pretty_generate(combination11, { "indent": " " * 4 }))

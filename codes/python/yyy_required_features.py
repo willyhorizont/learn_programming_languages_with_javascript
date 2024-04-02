@@ -114,10 +114,10 @@ play_game()
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject:", myObject);
     ```
@@ -127,10 +127,10 @@ my_object = {
     "my_number": 123,
     "my_bool": True,
     "my_null": None,
+    "my_array": [1, 2, 3],
     "my_object": {
         "foo": "bar"
-    },
-    "my_array": [1, 2, 3]
+    }
 }
 print(f"my_object: {json.dumps(my_object, indent=4)}")
 
@@ -223,7 +223,7 @@ print(f"get_rectangle_area(7, 5): {get_rectangle_area(7, 5)}")
         true,
         null,
         [1, 2, 3],
-        { "foo": "bar" },
+        { "foo": "bar" }
     ];
     console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -235,10 +235,10 @@ print(f"get_rectangle_area(7, 5): {get_rectangle_area(7, 5)}")
         "my_number": 123,
         "my_bool": true,
         "my_null": null,
+        "my_array": [1, 2, 3],
         "my_object": {
             "foo": "bar"
-        },
-        "my_array": [1, 2, 3]
+        }
     };
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
@@ -260,9 +260,9 @@ my_object2 = {
     "my_number": 123,
     "my_bool": True,
     "my_null": None,
+    "my_array": [1, 2, 3],
     "my_object": {
         "foo": "bar"
-    },
-    "my_array": [1, 2, 3]
+    }
 }
 print(f'myObject2["my_function"](7, 5): {my_object2["my_function"](7, 5)}')

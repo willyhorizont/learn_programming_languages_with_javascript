@@ -15,12 +15,12 @@ SpreadSyntaxObject = (Module[{AParameters = {##}, NewObject},
         For[ParameterIndex = 1, (ParameterIndex <= Length[AParameters]), ParameterIndex += 1,
             AParameter = AParameters[[ParameterIndex]];
             If[(AssociationQ[AParameter] == True),
-                Module[{ObjectKeys, ObjectValues, IterationIndex, ObjectKey, ObjectValue},
+                Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
                     ObjectKeys = Keys[AParameter];
                     ObjectValues = Values[AParameter];
-                    For[IterationIndex = 1, (IterationIndex <= Length[ObjectKeys]), IterationIndex += 1,
-                        ObjectKey = ObjectKeys[[IterationIndex]];
-                        ObjectValue = ObjectValues[[IterationIndex]];
+                    For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
+                        ObjectKey = ObjectKeys[[ObjectIterationIndex]];
+                        ObjectValue = ObjectValues[[ObjectIterationIndex]];
                         NewObject[[ObjectKey]] = ObjectValue;
                     ];
                 ];
@@ -47,12 +47,12 @@ SpreadSyntaxArray = (Module[{AParameters = {##}, NewArray},
             AParameter = AParameters[[ParameterIndex]];
             If[(AssociationQ[AParameter] == True),
                 If[(Length[Keys[AParameter]] == 1),
-                    Module[{ObjectKeys, ObjectValues, IterationIndex, ObjectKey, ObjectValue},
+                    Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
                         ObjectKeys = Keys[AParameter];
                         ObjectValues = Values[AParameter];
-                        For[IterationIndex = 1, (IterationIndex <= Length[ObjectKeys]), IterationIndex += 1,
-                            ObjectKey = ObjectKeys[[IterationIndex]];
-                            ObjectValue = ObjectValues[[IterationIndex]];
+                        For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
+                            ObjectKey = ObjectKeys[[ObjectIterationIndex]];
+                            ObjectValue = ObjectValues[[ObjectIterationIndex]];
                             NewArray = Append[NewArray, ObjectValue];
                         ];
                     ];
@@ -146,7 +146,7 @@ Combination4: {
 }
 *)
 
-Print["\n(* [...array1, array2]: *)\n"];
+Print["\n(* [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]: *)\n"];
 
 Combination5 = SpreadSyntaxArray[Fruits, <|"Vegetables" -> Vegetables|>];
 Print["Combination5: ", PrettyJsonStringify[Combination5]];
@@ -176,7 +176,7 @@ Combination6: [
 ]
 *)
 
-Print["\n(* [...array1, object1]: *)\n"];
+Print["\n(* [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]: *)\n"];
 
 Combination7 = SpreadSyntaxArray[Fruits, <|"CountryCapitalsInAsia" -> CountryCapitalsInAsia|>];
 Print["Combination7: ", PrettyJsonStringify[Combination7]];
@@ -207,7 +207,7 @@ Combination8: [
 ]
 *)
 
-Print["\n(* { ...object1, object2 }: *)\n"];
+Print["\n(* { ...object1, object2 } || { ...object1, objectKey: objectValue }: *)\n"];
 
 Combination9 = SpreadSyntaxObject[CountryCapitalsInAsia, <|"CountryCapitalsInEurope" -> CountryCapitalsInEurope|>];
 Print["Combination9: ", PrettyJsonStringify[Combination9]];
@@ -237,7 +237,7 @@ Combination10: {
 }
 *)
 
-Print["\n(* { ...object1, array2 }: *)\n"];
+Print["\n(* { ...object1, array2 } || { ...object1, objectKey: objectValue }: *)\n"];
 
 Combination11 = SpreadSyntaxObject[CountryCapitalsInAsia, <|"Vegetables" -> Vegetables|>];
 Print["Combination11: ", PrettyJsonStringify[Combination11]];

@@ -23,11 +23,11 @@ fun main() {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
-                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
-                    val objectKey = entryItem.key
-                    val objectValue = entryItem.value
+                anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+                    val objectKey = objectEntry.key
+                    val objectValue = objectEntry.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -104,7 +104,7 @@ fun main() {
         ```
     */
     fun getModifiedIndentLevel(): Int {
-        var indentLevel: Int = 0
+        var indentLevel = 0
         fun changeIndentLevel(): Int {
             indentLevel += 1
             if (indentLevel < 5) changeIndentLevel()
@@ -114,7 +114,7 @@ fun main() {
     }
     println("getModifiedIndentLevel(): ${getModifiedIndentLevel()}")
     fun createNewGame(initialCredit: Int): () -> Unit {
-        var currentCredit: Int = initialCredit
+        var currentCredit = initialCredit
         println("initial credit: ${initialCredit}")
         return fun(): Unit {
             currentCredit -= 1
@@ -138,10 +138,10 @@ fun main() {
             "my_number": 123,
             "my_bool": true,
             "my_null": null,
+            "my_array": [1, 2, 3],
             "my_object": {
                 "foo": "bar"
-            },
-            "my_array": [1, 2, 3]
+            }
         };
         console.log("myObject:", myObject);
         ```
@@ -151,10 +151,10 @@ fun main() {
         "my_number" to 123,
         "my_bool" to true,
         "my_null" to null,
+        "my_array" to mutableListOf<Any?>(1, 2, 3),
         "my_object" to mutableMapOf<String, Any?>(
             "foo" to "bar"
-        ),
-        "my_array" to mutableListOf<Any?>(1, 2, 3)
+        )
     )
     println("myObject: ${prettyJsonStringify(myObject)}")
 
@@ -252,7 +252,7 @@ fun main() {
             true,
             null,
             [1, 2, 3],
-            { "foo": "bar" },
+            { "foo": "bar" }
         ];
         console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -264,10 +264,10 @@ fun main() {
             "my_number": 123,
             "my_bool": true,
             "my_null": null,
+            "my_array": [1, 2, 3],
             "my_object": {
                 "foo": "bar"
-            },
-            "my_array": [1, 2, 3]
+            }
         };
         console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
         ```
@@ -293,10 +293,10 @@ fun main() {
         "my_number" to 123,
         "my_bool" to true,
         "my_null" to null,
+        "my_array" to mutableListOf<Any?>(1, 2, 3),
         "my_object" to mutableMapOf<String, Any?>(
             "foo" to "bar"
-        ),
-        "my_array" to mutableListOf<Any?>(1, 2, 3)
+        )
     )
     println("myObject2[\"my_function\"](7, 5): ${(myObject2["my_function"] as (Int, Int) -> Int)(7, 5)}")
 }

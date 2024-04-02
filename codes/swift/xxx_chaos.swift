@@ -12,7 +12,7 @@ func arrayReduce(_ callbackFunction: (Any?, Any?, Int, MyArray) -> Any?, _ anArr
     return result
 }
 
-func getDouble(_ anything: Any?) -> Double? {
+func toDouble(_ anything: Any?) -> Double? {
     guard let anything = anything else {
         return nil
     }
@@ -72,7 +72,7 @@ let numbers: MyArray = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
 var numbersTotal: Any?
 
 numbersTotal = arrayReduce({ (currentResult: Any?, currentNumber: Any?, _: Int, _: MyArray) -> Any? in
-    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+    if let currentResultDouble = toDouble(currentResult), let currentNumberDouble = toDouble(currentNumber) {
         return currentResultDouble + currentNumberDouble
     }
     return currentResult
@@ -81,7 +81,7 @@ print("total number: \(numbersTotal ?? "nil")")
 // total number: 41.2
 
 numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) -> Any? in
-    if let currentResultDouble = getDouble(currentResult), let currentNumberDouble = getDouble(currentNumber) {
+    if let currentResultDouble = toDouble(currentResult), let currentNumberDouble = toDouble(currentNumber) {
         return currentResultDouble + currentNumberDouble
     }
     return currentResult

@@ -35,11 +35,11 @@ fun main() {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
-                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
-                    val objectKey = entryItem.key
-                    val objectValue = entryItem.value
+                anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+                    val objectKey = objectEntry.key
+                    val objectValue = objectEntry.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -100,7 +100,7 @@ fun main() {
     val numberToFind = 27
     println("number to find: ${numberToFind}")
 
-    var numberFoundIndex: Number
+    var numberFoundIndex: Any?
     
     println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
 

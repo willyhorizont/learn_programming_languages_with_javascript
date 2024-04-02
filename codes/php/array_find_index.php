@@ -137,24 +137,24 @@ echo("\n" . "product to find: $product_to_find");
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v1\"");
 
-$product_found_index = array_find_index_v1(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found_index = array_find_index_v1(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v2\"");
 
-$product_found_index = array_find_index_v2(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found_index = array_find_index_v2(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v3\"");
 
-$product_found_index = array_find_index_v3(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found_index = array_find_index_v3(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found index: $product_found_index");
 // product found index: 0
 
 echo("\n// using JavaScript-like Array.findIndex() function \"array_find_index_v4\"");
 
-$product_found_index = array_find_index_v4(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found_index = array_find_index_v4(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found index: $product_found_index");
 // product found index: 0

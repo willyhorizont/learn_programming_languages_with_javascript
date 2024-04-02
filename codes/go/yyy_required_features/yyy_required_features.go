@@ -156,10 +156,10 @@ func main() {
             "my_number": 123,
             "my_bool": true,
             "my_null": null,
+            "my_array": [1, 2, 3],
             "my_object": {
                 "foo": "bar"
-            },
-            "my_array": [1, 2, 3]
+            }
         };
         console.log("myObject:", myObject);
         ```
@@ -169,10 +169,10 @@ func main() {
         "my_number": 123,
         "my_bool": true,
         "my_null": nil,
+        "my_array": array{1, 2, 3},
         "my_object": object{
             "foo": "bar",
         },
-        "my_array": array{1, 2, 3},
     }
     fmt.Println("myObject:", prettyJsonStringify(myObject))
 
@@ -268,7 +268,7 @@ func main() {
             true,
             null,
             [1, 2, 3],
-            { "foo": "bar" },
+            { "foo": "bar" }
         ];
         console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -280,10 +280,10 @@ func main() {
             "my_number": 123,
             "my_bool": true,
             "my_null": null,
+            "my_array": [1, 2, 3],
             "my_object": {
                 "foo": "bar"
-            },
-            "my_array": [1, 2, 3]
+            }
         };
         console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
         ```
@@ -309,10 +309,10 @@ func main() {
         "my_number": 123,
         "my_bool": true,
         "my_null": nil,
+        "my_array": array{1, 2, 3},
         "my_object": object{
             "foo": "bar",
         },
-        "my_array": array{1, 2, 3},
     }
     fmt.Println("myObject2[\"my_function\"](7, 5):", myObject2["my_function"].(func(int, int) int)(7, 5))
 }

@@ -42,9 +42,9 @@ console.log(`products with price <= 100 only: ${JSON.stringify(productsBelow100,
 //     }
 // ]
 
-const productsAbove100 = products.filter((product) => (product?.price >= 100));
-console.log(`products with price >= 100 only: ${JSON.stringify(productsAbove100, null, ' '.repeat(4))}`);
-// products with price >= 100 only: [
+const productsAbove100 = products.filter((product) => (product?.price > 100));
+console.log(`products with price > 100 only: ${JSON.stringify(productsAbove100, null, ' '.repeat(4))}`);
+// products with price > 100 only: [
 //     {
 //         "code": "pasta",
 //         "price": 321

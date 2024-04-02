@@ -14,9 +14,9 @@ void main() {
     dynamic arrayEveryV1(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.every() function
         dynamic isConditionMatch = false;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == false) break;
         }
@@ -26,9 +26,9 @@ void main() {
     dynamic arrayEveryV2(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.every() function
         dynamic isConditionMatch = false;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == false) return isConditionMatch;
         }
@@ -37,9 +37,9 @@ void main() {
 
     dynamic arrayEveryV3(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.every() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == false) return false;
         }
@@ -48,9 +48,9 @@ void main() {
 
     dynamic arrayEveryV4(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.every() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == false) return false;
         }
         return true;

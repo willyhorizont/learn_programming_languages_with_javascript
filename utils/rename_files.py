@@ -6,18 +6,18 @@ PATH_CURRENT_FILE = os.path.dirname(os.path.abspath(__file__))
 files_to_be_excluded = ["go.mod", "JSON.lua"]
 
 
-def get_file_path_list(path_file, exclude_list):
+def get_file_path_list(a_path, exclude_list):
     file_list = []
-    def get_file_list_inner_function(path_file_inner, exclude_list_inner):
-        for file_or_folder in os.listdir(path_file_inner):
-            current_path_file = os.path.join(path_file_inner, file_or_folder)
-            if os.path.isfile(current_path_file):
+    def get_file_path_list_inner(a_path_inner, exclude_list_inner):
+        for file_or_folder in os.listdir(a_path_inner):
+            current_path = os.path.join(a_path_inner, file_or_folder)
+            if os.path.isfile(current_path):
                 if file_or_folder not in exclude_list_inner:
-                    file_list.append({ "file_name": file_or_folder, "file_path": current_path_file})
+                    file_list.append({ "file_name": file_or_folder, "file_path": current_path})
                 continue
-            if (new_file_or_folder := get_file_list_inner_function(current_path_file, exclude_list_inner)) is not None:
-                file_list.append({ "file_name": new_file_or_folder, "file_path": current_path_file })
-    get_file_list_inner_function(path_file, exclude_list)
+            if (new_file_or_folder := get_file_path_list_inner(current_path, exclude_list_inner)) is not None:
+                file_list.append({ "file_name": new_file_or_folder, "file_path": current_path })
+    get_file_path_list_inner(a_path, exclude_list)
     return file_list
 
 

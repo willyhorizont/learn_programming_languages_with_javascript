@@ -19,13 +19,13 @@ console.log(`friend, get country: ${friend?.country}`);
 // friend, get country: Finland
 
 // iterate over and get each key-value pair
-Object.entries(friend).forEach(([objectKey, objectValue]) => console.log(`friend, foreach loop, key: ${objectKey}, value: ${objectValue}`));
-// friend, foreach loop, key: name, value: Alisa
-// friend, foreach loop, key: country, value: Finland
-// friend, foreach loop, key: age, value: 25
+Object.entries(friend).forEach(([objectKey, objectValue]) => console.log(`friend, forEach loop, key: ${objectKey}, value: ${objectValue}`));
+// friend, forEach loop, key: name, value: Alisa
+// friend, forEach loop, key: country, value: Finland
+// friend, forEach loop, key: age, value: 25
 
-// iterate over and get each key-value pair and iteration/entry index
-Object.entries(friend).forEach(([objectKey, objectValue], entryIndex) => console.log(`friend, foreach loop, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}`));
-// friend, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-// friend, foreach loop, iteration/entry index: 1, key: country, value: Finland
-// friend, foreach loop, iteration/entry index: 2, key: age, value: 25
+// iterate over and get each key-value pair and object iteration/entry index
+Object.entries(friend).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`friend, forEach loop, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}`));
+// friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+// friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+// friend, forEach loop, object iteration/entry index: 2, key: age, value: 25

@@ -20,7 +20,7 @@ while (i <= 5):
     print(f"while loop v2, i is {i}")
     i += 1
 
-# for loop and also foreach loop
+# for loop and also forEach loop
 
 for i in range(1, (10 + 1), 1):  # (start, stop, step)
     if (i > 5):

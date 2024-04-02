@@ -14,9 +14,9 @@ void main() {
     dynamic arrayFindV1(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.find() function
         dynamic dataFound = null;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == true) {
                 dataFound = arrayItem;
@@ -29,9 +29,9 @@ void main() {
     dynamic arrayFindV2(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.find() function
         dynamic dataFound = null;
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
                 dataFound = arrayItem;
                 break;
@@ -42,9 +42,9 @@ void main() {
 
     dynamic arrayFindV3(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.find() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == true) return arrayItem;
         }
@@ -53,9 +53,9 @@ void main() {
 
     dynamic arrayFindV4(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.find() function
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) return arrayItem;
         }
         return null;

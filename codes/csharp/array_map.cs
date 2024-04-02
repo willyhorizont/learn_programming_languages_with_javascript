@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -77,12 +77,12 @@ class Program {
             int ParameterIndex = 0;
             foreach (dynamic Parameter in Parameters) {
                 if (Parameter is Dictionary<string, dynamic>) {
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Parameter) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         NewObject[Convert.ToString(ObjectKey)] = ObjectValue;
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     continue;
                 }

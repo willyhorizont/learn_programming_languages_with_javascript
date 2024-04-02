@@ -25,28 +25,28 @@ Friend = {
 Print["Friend, get country: ", PrettyJsonStringify[Friend[["country"]]]];
 (* Friend, get country: Finland *)
 
-(* iterate over and get each key-value pair and iteration/entry index *)
-Module[{ObjectKeys, ObjectValues, IterationIndex, ObjectKey, ObjectValue},
+(* iterate over and get each key-value pair and object iteration/entry index *)
+Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
     ObjectKeys = Keys[Friend];
     ObjectValues = Values[Friend];
-    For[IterationIndex = 1, (IterationIndex <= Length[ObjectKeys]), IterationIndex += 1,
-        ObjectKey = ObjectKeys[[IterationIndex]];
-        ObjectValue = ObjectValues[[IterationIndex]];
-        SPrint["Friend, foreach loop v1, iteration/entry index: ", {IterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+    For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
+        ObjectKey = ObjectKeys[[ObjectIterationIndex]];
+        ObjectValue = ObjectValues[[ObjectIterationIndex]];
+        SPrint["Friend, forEach loop v1, object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
     ];
 ];
-(* Friend, foreach loop v1, iteration/entry index: 1, key: "name", value: "Alisa" *)
-(* Friend, foreach loop v1, iteration/entry index: 2, key: "country", value: "Finland" *)
-(* Friend, foreach loop v1, iteration/entry index: 3, key: "age", value: 25 *)
+(* Friend, forEach loop v1, object iteration/entry index: 1, key: "name", value: "Alisa" *)
+(* Friend, forEach loop v1, object iteration/entry index: 2, key: "country", value: "Finland" *)
+(* Friend, forEach loop v1, object iteration/entry index: 3, key: "age", value: 25 *)
 
-(* iterate over and get each key-value pair and iteration/entry index *)
-Module[{IterationIndex},
-    IterationIndex = 1;
+(* iterate over and get each key-value pair and object iteration/entry index *)
+Module[{ObjectIterationIndex},
+    ObjectIterationIndex = 1;
     KeyValueMap[(Module[{ObjectKey = #1, ObjectValue = #2},
-        SPrint["Friend, foreach loop v2, iteration/entry index: ", {IterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
-        IterationIndex += 1;
+        SPrint["Friend, forEach loop v2, object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+        ObjectIterationIndex += 1;
     ] &), Friend];
 ];
-(* Friend, foreach loop v2, iteration/entry index: 1, key: "name", value: "Alisa" *)
-(* Friend, foreach loop v2, iteration/entry index: 2, key: "country", value: "Finland" *)
-(* Friend, foreach loop v2, iteration/entry index: 3, key: "age", value: 25 *)
+(* Friend, forEach loop v2, object iteration/entry index: 1, key: "name", value: "Alisa" *)
+(* Friend, forEach loop v2, object iteration/entry index: 2, key: "country", value: "Finland" *)
+(* Friend, forEach loop v2, object iteration/entry index: 3, key: "age", value: 25 *)

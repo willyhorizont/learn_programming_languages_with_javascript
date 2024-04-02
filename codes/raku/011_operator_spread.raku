@@ -74,7 +74,7 @@ print("combination4: ", json-stringify($combination4, :pretty(True)), "\n");
 #     "Italy": "Rome"
 # }
 
-print("\n# [...array1, array2]:\n", "\n");
+print("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
 my $combination5 = [|$fruits, $vegetables];
 print("combination5: ", json-stringify($combination5, :pretty(True)), "\n");
@@ -100,7 +100,7 @@ print("combination6: ", json-stringify($combination6, :pretty(True)), "\n");
 #     ]
 # ]
 
-print("\n# [...array1, object1]:\n", "\n");
+print("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
 my $combination7 = [|$fruits, $country-capitals-in-asia];
 print("combination7: ", json-stringify($combination7, :pretty(True)), "\n");
@@ -127,7 +127,7 @@ print("combination8: ", json-stringify($combination8, :pretty(True)), "\n");
 #     }
 # ]
 
-print("\n# \{ ...object1, object2 }:\n", "\n");
+print("\n# \{ ...object1, object2 } || \{ ...object1, objectKey: objectValue }:\n", "\n");
 
 my $combination9 = %(|$country-capitals-in-asia, %("country-capitals-in-europe" => $country-capitals-in-europe));
 print("combination9: ", json-stringify($combination9, :pretty(True)), "\n");
@@ -153,7 +153,7 @@ print("combination10: ", json-stringify($combination10, :pretty(True)), "\n");
 #     }
 # }
 
-print("\n# \{ ...object1, array2 }:\n", "\n");
+print("\n# \{ ...object1, array2 } || \{ ...object1, objectKey: objectValue }:\n", "\n");
 
 my $combination11 = %(|$country-capitals-in-asia, %("vegetables" => $vegetables));
 print("combination11: ", json-stringify($combination11, :pretty(True)), "\n");

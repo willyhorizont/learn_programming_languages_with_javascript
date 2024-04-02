@@ -1,6 +1,11 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
+    fun range(start: Int, stop: Int, stepSize: Int = 1): IntProgression {
+        if (stepSize < 0) return (start downTo stop step Math.abs(stepSize)) as IntProgression
+        return (start until (stop + 1) step stepSize) as IntProgression
+    }
+
     println("\n// Factorial(n) in Kotlin")
 
     fun factorialV1(number: Int): Int {
@@ -32,7 +37,7 @@ fun main() {
         if (number < 0) throw Exception("Argument should be >= 0")
         if (number == 0) return 1
         var result = 1
-        for (i in number downTo 1 step 1) {
+        for (i in range(number, 1, -1)) {
             result *= i
         }
         return result

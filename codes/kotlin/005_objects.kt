@@ -23,11 +23,11 @@ fun main() {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
                 var result = "{\n${indentInner.repeat(indentLevel)}"
-                anythingInner.entries.forEachIndexed { entryIndex, entryItem ->
-                    val objectKey = entryItem.key
-                    val objectValue = entryItem.value
+                anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+                    val objectKey = objectEntry.key
+                    val objectValue = objectEntry.value
                     result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((entryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
                 }
                 indentLevel -= 1
                 result += "\n${indentInner.repeat(indentLevel)}}"
@@ -59,18 +59,18 @@ fun main() {
     // fruits, for loop, key: 2, value: orange
 
     // iterate over and get each key-value pair
-    friend.forEach { (objectKey, objectValue) -> println("friend, foreach loop, key: ${objectKey}, value: ${objectValue}") }
+    friend.forEach { (objectKey, objectValue) -> println("friend, forEach loop, key: ${objectKey}, value: ${objectValue}") }
     // fruits, for loop, key: 0, value: apple
     // fruits, for loop, key: 1, value: mango
     // fruits, for loop, key: 2, value: orange
 
-    // iterate over and get each key-value pair and iteration/entry index
-    friend.entries.forEachIndexed { entryIndex, entryItem ->
-        val objectKey = entryItem.key
-        val objectValue = entryItem.value
-        println("friend, foreach loop, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}")
+    // iterate over and get each key-value pair and object iteration/entry index
+    friend.entries.forEachIndexed { objectEntryIndex, objectEntry ->
+        val objectKey = objectEntry.key
+        val objectValue = objectEntry.value
+        println("friend, forEach loop, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}")
     }
-    // friend, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-    // friend, foreach loop, iteration/entry index: 1, key: country, value: Finland
-    // friend, foreach loop, iteration/entry index: 2, key: age, value: 25
+    // friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+    // friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+    // friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
 }

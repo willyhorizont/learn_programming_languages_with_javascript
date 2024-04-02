@@ -71,7 +71,7 @@ print(f'combination4: {json.dumps(combination4, indent=4)}')
 #     "Italy": "Rome"
 # }
 
-print("\n# [...array1, array2]:\n")
+print("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 = [*fruits, vegetables]
 print(f'combination5: {json.dumps(combination5, indent=4)}')
@@ -97,7 +97,7 @@ print(f'combination6: {json.dumps(combination6, indent=4)}')
 #     ]
 # ]
 
-print("\n# [...array1, object1]:\n")
+print("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 = [*fruits, country_capitals_in_asia]
 print(f'combination7: {json.dumps(combination7, indent=4)}')
@@ -124,7 +124,7 @@ print(f'combination8: {json.dumps(combination8, indent=4)}')
 #     }
 # ]
 
-print("\n# { ...object1, object2 }:\n")
+print("\n# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 = {**country_capitals_in_asia, "country_capitals_in_europe": country_capitals_in_europe}
 print(f'combination9: {json.dumps(combination9, indent=4)}')
@@ -150,7 +150,7 @@ print(f'combination10: {json.dumps(combination10, indent=4)}')
 #     }
 # }
 
-print("\n# { ...object1, array2 }:\n")
+print("\n# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 = {**country_capitals_in_asia, "vegetables": vegetables}
 print(f'combination11: {json.dumps(combination11, indent=4)}')

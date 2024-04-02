@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -158,10 +158,10 @@ class Program {
                 "my_number": 123,
                 "my_bool": true,
                 "my_null": null,
+                "my_array": [1, 2, 3],
                 "my_object": {
                     "foo": "bar"
-                },
-                "my_array": [1, 2, 3]
+                }
             }
             ```
         */
@@ -170,10 +170,10 @@ class Program {
             {"my_number", 123},
             {"my_bool", true},
             {"my_null", null},
+            {"my_array", new List<dynamic>() {1, 2, 3}},
             {"my_object", new Dictionary<string, dynamic>() {
                 { "foo", "bar" }
-            }},
-            {"my_array", new List<dynamic>() {1, 2, 3}}
+            }}
         };
         Console.WriteLine("MyObject: " + PrettyJsonStringify(MyObject));
 
@@ -271,7 +271,7 @@ class Program {
                 true,
                 null,
                 [1, 2, 3],
-                { "foo": "bar" },
+                { "foo": "bar" }
             ];
             console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -283,10 +283,10 @@ class Program {
                 "my_number": 123,
                 "my_bool": true,
                 "my_null": null,
+                "my_array": [1, 2, 3],
                 "my_object": {
                     "foo": "bar"
-                },
-                "my_array": [1, 2, 3]
+                }
             };
             console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
             ```
@@ -312,10 +312,10 @@ class Program {
             {"my_number", 123},
             {"my_bool", true},
             {"my_null", null},
+            {"my_array", new List<dynamic>() {1, 2, 3}},
             {"my_object", new Dictionary<string, dynamic>() {
                 { "foo", "bar" }
-            }},
-            {"my_array", new List<dynamic>() {1, 2, 3}}
+            }}
         };
         Console.WriteLine("myObject2[\"my_function\"](7, 5): " + MyObject2["my_function"](7, 5));
     }

@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = cstrcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = cstrcat(currentresult, ",");
             end
         end
@@ -106,7 +106,7 @@ while (i <= 5)
     i = i + 1;
 end
 
-% for loop and also foreach loop
+% for loop and also forEach loop
 
 for i = (1:1:10) % (start:step:stop)
     if (i > 5)

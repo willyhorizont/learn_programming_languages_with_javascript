@@ -14,9 +14,9 @@ void main() {
     dynamic arrayFilterV1(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.filter() function
         dynamic dataFiltered = <dynamic>[];
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             dynamic isConditionMatch = callbackFunction(arrayItem, arrayItemIndex, anArray);
             if (isConditionMatch == true) dataFiltered.add(arrayItem);
         }
@@ -26,9 +26,9 @@ void main() {
     dynamic arrayFilterV2(dynamic callbackFunction, dynamic anArray) {
         // JavaScript-like Array.filter() function
         dynamic dataFiltered = <dynamic>[];
-        for (final entryItem in anArray.asMap().entries) {
-            final arrayItemIndex = entryItem.key;
-            final arrayItem = entryItem.value;
+        for (final objectEntry in anArray.asMap().entries) {
+            final arrayItemIndex = objectEntry.key;
+            final arrayItem = objectEntry.value;
             if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) dataFiltered.add(arrayItem);
         }
         return dataFiltered;
@@ -108,9 +108,9 @@ void main() {
     //     }
     // ]
 
-    productsAbove100 = arrayFilterV1((dynamic product, dynamic _, dynamic __) => (product["price"] >= 100), products);
-    print("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}");
-    // products with price >= 100 only: [
+    productsAbove100 = arrayFilterV1((dynamic product, dynamic _, dynamic __) => (product["price"] > 100), products);
+    print("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}");
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321
@@ -136,9 +136,9 @@ void main() {
     //     }
     // ]
 
-    productsAbove100 = arrayFilterV2((dynamic product, dynamic _, dynamic __) => (product["price"] >= 100), products);
-    print("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}");
-    // products with price >= 100 only: [
+    productsAbove100 = arrayFilterV2((dynamic product, dynamic _, dynamic __) => (product["price"] > 100), products);
+    print("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}");
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321
@@ -164,9 +164,9 @@ void main() {
     //     }
     // ]
 
-    productsAbove100 = products.where((dynamic product) => (product["price"] >= 100)).toList();
-    print("products with price >= 100 only: ${prettyJsonStringify(productsAbove100)}");
-    // products with price >= 100 only: [
+    productsAbove100 = products.where((dynamic product) => (product["price"] > 100)).toList();
+    print("products with price > 100 only: ${prettyJsonStringify(productsAbove100)}");
+    // products with price > 100 only: [
     //     {
     //         "code": "pasta",
     //         "price": 321

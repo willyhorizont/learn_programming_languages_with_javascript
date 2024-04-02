@@ -41,13 +41,13 @@ func main() {
     // fruits, for loop, key: 1, value: "mango"
     // fruits, for loop, key: 2, value: "orange"
 
-    // iterate over and get each key-value pair and iteration/entry index
-    iterationIndex := 0
+    // iterate over and get each key-value pair and object iteration/entry index
+    objectIterationIndex := 0
     for objectKey, objectValue := range friend {
-        fmt.Println("friend, for loop, iteration/entry index:", prettyJsonStringify(iterationIndex), "\b, key:", prettyJsonStringify(objectKey), "\b, value:", prettyJsonStringify(objectValue))
-        iterationIndex += 1
+        fmt.Println("friend, for loop, object iteration/entry index:", prettyJsonStringify(objectIterationIndex), "\b, key:", prettyJsonStringify(objectKey), "\b, value:", prettyJsonStringify(objectValue))
+        objectIterationIndex += 1
     }
-    // friend, for loop, iteration/entry index: 0 ,key: "name", value: "Alisa"
-    // friend, for loop, iteration/entry index: 1 ,key: "country", value: "Finland"
-    // friend, for loop, iteration/entry index: 2 ,key: "age", value: 25
+    // friend, for loop, object iteration/entry index: 0 ,key: "name", value: "Alisa"
+    // friend, for loop, object iteration/entry index: 1 ,key: "country", value: "Finland"
+    // friend, for loop, object iteration/entry index: 2 ,key: "age", value: 25
 }

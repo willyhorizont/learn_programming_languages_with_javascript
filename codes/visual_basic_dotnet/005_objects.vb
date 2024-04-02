@@ -26,13 +26,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -59,22 +59,22 @@ Module Program
         For Each ObjectEntry As KeyValuePair(Of String, Object) In MyFriend
             Dim ObjectKey = ObjectEntry.Key
             Dim ObjectValue = ObjectEntry.Value
-            Console.WriteLine($"MyFriend, foreach loop, key: {ObjectKey}, value: {ObjectValue}")
+            Console.WriteLine($"MyFriend, forEach loop, key: {ObjectKey}, value: {ObjectValue}")
         Next
-        ' MyFriend, foreach loop, key: name, value: Alisa
-        ' MyFriend, foreach loop, key: country, value: Finland
-        ' MyFriend, foreach loop, key: age, value: 25
+        ' MyFriend, forEach loop, key: name, value: Alisa
+        ' MyFriend, forEach loop, key: country, value: Finland
+        ' MyFriend, forEach loop, key: age, value: 25
 
-        ' iterate over and get each key-value pair and iteration/entry index
-        Dim IterationIndex As Integer = 0
+        ' iterate over and get each key-value pair and object iteration/entry index
+        Dim ObjectIterationIndex As Integer = 0
         For Each ObjectEntry As KeyValuePair(Of String, Object) In MyFriend
             Dim ObjectKey = ObjectEntry.Key
             Dim ObjectValue = ObjectEntry.Value
-            Console.WriteLine($"MyFriend, foreach loop, iteration/entry index: {IterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
-            IterationIndex += 1
+            Console.WriteLine($"MyFriend, forEach loop, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
+            ObjectIterationIndex += 1
         Next
-        ' MyFriend, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-        ' MyFriend, foreach loop, iteration/entry index: 1, key: country, value: Finland
-        ' MyFriend, foreach loop, iteration/entry index: 2, key: age, value: 25
+        ' MyFriend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+        ' MyFriend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+        ' MyFriend, forEach loop, object iteration/entry index: 2, key: age, value: 25
     End Sub
 End Module

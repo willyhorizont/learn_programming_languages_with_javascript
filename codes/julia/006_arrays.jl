@@ -62,11 +62,11 @@ products = [
 println("products: ", chomp(JSON.json(products, 4)))
 
 for (array_item_index, array_item) in enumerate(products)
-    for (entry_index, (object_key, object_value)) in enumerate(pairs(array_item))
-        println("products, for loop, array item index: ", array_item_index, ", iteration/entry index: ", entry_index, ", key: ", object_key, ", value: ", object_value)
+    for (object_entry_index, (object_key, object_value)) in enumerate(pairs(array_item))
+        println("products, for loop, array item index: ", array_item_index, ", object iteration/entry index: ", object_entry_index, ", key: ", object_key, ", value: ", object_value)
     end
 end
-# products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: bubble gum
-# products, for loop, array item index: 1, iteration/entry index: 2, key: id, value: P1
-# products, for loop, array item index: 2, iteration/entry index: 1, key: name, value: potato chips
-# products, for loop, array item index: 2, iteration/entry index: 2, key: id, value: P2
+# products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: bubble gum
+# products, for loop, array item index: 1, object iteration/entry index: 2, key: id, value: P1
+# products, for loop, array item index: 2, object iteration/entry index: 1, key: name, value: potato chips
+# products, for loop, array item index: 2, object iteration/entry index: 2, key: id, value: P2

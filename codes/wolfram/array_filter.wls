@@ -113,10 +113,10 @@ products with price <= 100 only: [
 ]
 *)
 
-ProductAbove100 = ArrayFilterV1[(Module[{AProduct = #1}, (AProduct[["price"]] >= 100)] &), Products];
-Print["products with price >= 100 only: ", PrettyJsonStringify[ProductAbove100]];
+ProductAbove100 = ArrayFilterV1[(Module[{AProduct = #1}, (AProduct[["price"]] > 100)] &), Products];
+Print["products with price > 100 only: ", PrettyJsonStringify[ProductAbove100]];
 (*
-products with price >= 100 only: [
+products with price > 100 only: [
     {
         "code": "pasta",
         "price": 321
@@ -145,10 +145,10 @@ products with price <= 100 only: [
 ]
 *)
 
-ProductAbove100 = ArrayFilterV2[(Module[{AProduct = #1}, (AProduct[["price"]] >= 100)] &), Products];
-Print["products with price >= 100 only: ", PrettyJsonStringify[ProductAbove100]];
+ProductAbove100 = ArrayFilterV2[(Module[{AProduct = #1}, (AProduct[["price"]] > 100)] &), Products];
+Print["products with price > 100 only: ", PrettyJsonStringify[ProductAbove100]];
 (*
-products with price >= 100 only: [
+products with price > 100 only: [
     {
         "code": "pasta",
         "price": 321
@@ -177,10 +177,10 @@ products with price <= 100 only: [
 ]
 *)
 
-ProductAbove100 = Select[Products, (Module[{AProduct = #1}, (AProduct[["price"]] >= 100)] &)];
-Print["products with price >= 100 only: ", PrettyJsonStringify[ProductAbove100]];
+ProductAbove100 = Select[Products, (Module[{AProduct = #1}, (AProduct[["price"]] > 100)] &)];
+Print["products with price > 100 only: ", PrettyJsonStringify[ProductAbove100]];
 (*
-products with price >= 100 only: [
+products with price > 100 only: [
     {
         "code": "pasta",
         "price": 321
@@ -209,10 +209,10 @@ products with price <= 100 only: [
 ]
 *)
 
-ProductAbove100 = Cases[Products, _?(Module[{AProduct = #1}, (AProduct[["price"]] >= 100)] &)];
-Print["products with price >= 100 only: ", PrettyJsonStringify[ProductAbove100]];
+ProductAbove100 = Cases[Products, _?(Module[{AProduct = #1}, (AProduct[["price"]] > 100)] &)];
+Print["products with price > 100 only: ", PrettyJsonStringify[ProductAbove100]];
 (*
-products with price >= 100 only: [
+products with price > 100 only: [
     {
         "code": "pasta",
         "price": 321

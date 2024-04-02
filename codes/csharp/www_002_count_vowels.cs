@@ -5,14 +5,14 @@ using System.Collections.Generic; // Dictionary<>, List<>, KeyValuePair<>, IEnum
 class Program {
     static void Main(string[] Args) {
         /*
-        Source:
-            https://www.codewars.com/kata/54ff3102c1bad923760001f3
-        Title:
-            Vowel Count
-        Description:
-            Return the number (count) of vowels in the given string.
-            We will consider a, e, i, o, u as vowels for this Kata (but not y).
-            The input string will only consist of lower case letters and/or spaces.
+            Source:
+                https://www.codewars.com/kata/54ff3102c1bad923760001f3
+            Title:
+                Vowel Count
+            Description:
+                Return the number (count) of vowels in the given string.
+                We will consider a, e, i, o, u as vowels for this Kata (but not y).
+                The input string will only consist of lower case letters and/or spaces.
         */
         dynamic CountVowelsV1 = (Func<string, int>)((string AString) => ((IEnumerable<char>)(AString.ToCharArray())).Aggregate(0, (Func<int, char, int>)((int CurrentResult, char ACharacter) => ((new List<dynamic>() {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}).Contains(ACharacter.ToString()) ? (CurrentResult + 1) : CurrentResult))));
         Console.WriteLine(CountVowelsV1("Hello World")); // 3

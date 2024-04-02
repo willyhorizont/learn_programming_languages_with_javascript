@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -76,12 +76,12 @@ class Program {
         // Fruits, last element: orange
 
         foreach (dynamic ArrayItem in (List<dynamic>)Fruits) {
-            Console.WriteLine($"Fruits, foreach loop, index: {ArrayItemIndex}, value: {ArrayItem}");
+            Console.WriteLine($"Fruits, forEach loop, index: {ArrayItemIndex}, value: {ArrayItem}");
             ArrayItemIndex += 1;
         }
-        // Fruits, foreach loop, index: 0, value: apple
-        // Fruits, foreach loop, index: 1, value: mango
-        // Fruits, foreach loop, index: 2, value: orange
+        // Fruits, forEach loop, index: 0, value: apple
+        // Fruits, forEach loop, index: 1, value: mango
+        // Fruits, forEach loop, index: 2, value: orange
 
         // in C#, JavaScript-like Array of Objects is called List of Dictionaries
 
@@ -98,18 +98,18 @@ class Program {
         Console.WriteLine($"Products: {PrettyJsonStringify(Products)}");
 
         foreach (dynamic ArrayItem in (List<dynamic>)Products) {
-            int IterationIndex = 0;
+            int ObjectIterationIndex = 0;
             foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)ArrayItem) {
                 string ObjectKey = ObjectEntry.Key;
                 dynamic ObjectValue = ObjectEntry.Value;
-                Console.WriteLine($"Products, foreach loop, array item index: {ArrayItemIndex}, iteration/entry index: {IterationIndex}, key: {ObjectKey}, value: {ObjectValue}");
-                IterationIndex += 1;
+                Console.WriteLine($"Products, forEach loop, array item index: {ArrayItemIndex}, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}");
+                ObjectIterationIndex += 1;
             }
             ArrayItemIndex += 1;
         }
-        // Products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-        // Products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-        // Products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-        // Products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+        // Products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+        // Products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+        // Products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+        // Products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
     }
 }

@@ -41,13 +41,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -79,12 +79,12 @@ Module Program
 
         ArrayItemIndex = 0
         For Each ArrayItem As Object In Fruits
-            Console.WriteLine($"Fruits, foreach loop, index: {ArrayItemIndex}, value: {ArrayItem}")
+            Console.WriteLine($"Fruits, forEach loop, index: {ArrayItemIndex}, value: {ArrayItem}")
             ArrayItemIndex += 1
         Next
-        ' Fruits, foreach loop, index: 0, value: apple
-        ' Fruits, foreach loop, index: 1, value: mango
-        ' Fruits, foreach loop, index: 2, value: orange
+        ' Fruits, forEach loop, index: 0, value: apple
+        ' Fruits, forEach loop, index: 1, value: mango
+        ' Fruits, forEach loop, index: 2, value: orange
 
         ' in Visual Basic (.NET), JavaScript-like Array of Objects is called List of Dictionaries
 
@@ -102,18 +102,18 @@ Module Program
 
         ArrayItemIndex = 0
         For Each ArrayItem As Object In Products
-            Dim IterationIndex As Integer = 0
+            Dim ObjectIterationIndex As Integer = 0
             For Each ObjectEntry As KeyValuePair(Of String, Object) In ArrayItem
                 Dim ObjectKey = ObjectEntry.Key
                 Dim ObjectValue = ObjectEntry.Value
-                Console.WriteLine($"Products, foreach loop, array item index: {ArrayItemIndex}, iteration/entry index: {IterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
-                IterationIndex += 1
+                Console.WriteLine($"Products, forEach loop, array item index: {ArrayItemIndex}, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
+                ObjectIterationIndex += 1
             Next
             ArrayItemIndex += 1
         Next
-        ' Products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-        ' Products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-        ' Products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-        ' Products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+        ' Products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+        ' Products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+        ' Products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+        ' Products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
     End Sub
 End Module

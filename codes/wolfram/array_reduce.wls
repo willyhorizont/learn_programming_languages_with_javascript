@@ -10,12 +10,12 @@ SpreadSyntaxObject = (Module[{AParameters = {##}, NewObject},
         For[ParameterIndex = 1, (ParameterIndex <= Length[AParameters]), ParameterIndex += 1,
             AParameter = AParameters[[ParameterIndex]];
             If[(AssociationQ[AParameter] == True),
-                Module[{ObjectKeys, ObjectValues, IterationIndex, ObjectKey, ObjectValue},
+                Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
                     ObjectKeys = Keys[AParameter];
                     ObjectValues = Values[AParameter];
-                    For[IterationIndex = 1, (IterationIndex <= Length[ObjectKeys]), IterationIndex += 1,
-                        ObjectKey = ObjectKeys[[IterationIndex]];
-                        ObjectValue = ObjectValues[[IterationIndex]];
+                    For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
+                        ObjectKey = ObjectKeys[[ObjectIterationIndex]];
+                        ObjectValue = ObjectValues[[ObjectIterationIndex]];
                         NewObject[[ObjectKey]] = ObjectValue;
                     ];
                 ];
@@ -42,12 +42,12 @@ SpreadSyntaxArray = (Module[{AParameters = {##}, NewArray},
             AParameter = AParameters[[ParameterIndex]];
             If[(AssociationQ[AParameter] == True),
                 If[(Length[Keys[AParameter]] == 1),
-                    Module[{ObjectKeys, ObjectValues, IterationIndex, ObjectKey, ObjectValue},
+                    Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
                         ObjectKeys = Keys[AParameter];
                         ObjectValues = Values[AParameter];
-                        For[IterationIndex = 1, (IterationIndex <= Length[ObjectKeys]), IterationIndex += 1,
-                            ObjectKey = ObjectKeys[[IterationIndex]];
-                            ObjectValue = ObjectValues[[IterationIndex]];
+                        For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
+                            ObjectKey = ObjectKeys[[ObjectIterationIndex]];
+                            ObjectValue = ObjectValues[[ObjectIterationIndex]];
                             NewArray = Append[NewArray, ObjectValue];
                         ];
                     ];

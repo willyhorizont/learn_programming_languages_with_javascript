@@ -37,15 +37,15 @@ class Program {
                 if (AnythingInner is Dictionary<string, dynamic>) {
                     IndentLevel += 1;
                     string Result = "{" + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
-                    int IterationIndex = 0;
+                    int ObjectIterationIndex = 0;
                     foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnythingInner) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         Result += "\"" + ObjectKey + "\": " + PrettyJsonStringifyInner(ObjectValue, IndentInner);
-                        if ((IterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
+                        if ((ObjectIterationIndex + 1) != ((Dictionary<string, dynamic>)AnythingInner).Count) {
                             Result += "," + Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel));
                         }
-                        IterationIndex += 1;
+                        ObjectIterationIndex += 1;
                     }
                     IndentLevel -= 1;
                     Result += Environment.NewLine + string.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) + "}";
@@ -169,9 +169,9 @@ class Program {
         //     }
         // ]
 
-        ProductsAbove100 = ArrayFilterV1((Func<dynamic, dynamic, List<dynamic>, bool>)((dynamic Product, dynamic ArrayItemIndex, List<dynamic> AnArray) => (Product["price"] >= 100)), Products);
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}");
-        // products with price >= 100 only: [
+        ProductsAbove100 = ArrayFilterV1((Func<dynamic, dynamic, List<dynamic>, bool>)((dynamic Product, dynamic ArrayItemIndex, List<dynamic> AnArray) => (Product["price"] > 100)), Products);
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}");
+        // products with price > 100 only: [
         //     {
         //         "code": "pasta",
         //         "price": 321
@@ -197,9 +197,9 @@ class Program {
         //     }
         // ]
 
-        ProductsAbove100 = ArrayFilterV2((Func<dynamic, dynamic, List<dynamic>, bool>)((dynamic Product, dynamic ArrayItemIndex, List<dynamic> AnArray) => (Product["price"] >= 100)), Products);
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}");
-        // products with price >= 100 only: [
+        ProductsAbove100 = ArrayFilterV2((Func<dynamic, dynamic, List<dynamic>, bool>)((dynamic Product, dynamic ArrayItemIndex, List<dynamic> AnArray) => (Product["price"] > 100)), Products);
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}");
+        // products with price > 100 only: [
         //     {
         //         "code": "pasta",
         //         "price": 321
@@ -225,9 +225,9 @@ class Program {
         //     }
         // ]
 
-        ProductsAbove100 = ((IEnumerable<dynamic>)Products).Where((Func<dynamic, bool>)((dynamic Product) => (Product["price"] >= 100))).ToList();
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}");
-        // products with price >= 100 only: [
+        ProductsAbove100 = ((IEnumerable<dynamic>)Products).Where((Func<dynamic, bool>)((dynamic Product) => (Product["price"] > 100))).ToList();
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}");
+        // products with price > 100 only: [
         //     {
         //         "code": "pasta",
         //         "price": 321

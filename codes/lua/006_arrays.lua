@@ -77,13 +77,13 @@ products = {
 sprint("products: ", pretty_json_stringify(products))
 
 for array_item_index, array_item in ipairs(products) do
-    iteration_index = 0
+    object_iteration_index = 0
     for object_key, object_value in pairs(array_item) do
-        sprint("products, for loop, array item index: ", array_item_index, ", iteration/entry index: ", iteration_index, ", key: ", object_key, ", value: ", object_value)
-        iteration_index = iteration_index + 1
+        sprint("products, for loop, array item index: ", array_item_index, ", object iteration/entry index: ", object_iteration_index, ", key: ", object_key, ", value: ", object_value)
+        object_iteration_index = object_iteration_index + 1
     end
 end
--- products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P1
--- products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: bubble gum
--- products, for loop, array item index: 2, iteration/entry index: 0, key: id, value: P1
--- products, for loop, array item index: 2, iteration/entry index: 1, key: name, value: bubble gum
+-- products, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P1
+-- products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: bubble gum
+-- products, for loop, array item index: 2, object iteration/entry index: 0, key: id, value: P1
+-- products, for loop, array item index: 2, object iteration/entry index: 1, key: name, value: bubble gum

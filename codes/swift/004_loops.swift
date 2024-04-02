@@ -88,7 +88,7 @@ for i8 in stride(from: 10, through: 1, by: -1) {
     print("for loop v3 descending, i8 is \(i8)")
 }
 
-// foreach loop
+// forEach loop
 
 (1...10).forEach { i9 in
     if (i9 > 5) {
@@ -97,7 +97,7 @@ for i8 in stride(from: 10, through: 1, by: -1) {
     if (i9 == 2) {
         return
     }
-    print("foreach loop ascending, i9 is \(i9)")
+    print("forEach loop ascending, i9 is \(i9)")
 }
 
 (1...10).reversed().forEach { i10 in
@@ -107,5 +107,5 @@ for i8 in stride(from: 10, through: 1, by: -1) {
     if (i10 == 9) {
         return
     }
-    print("foreach loop descending, i10 is \(i10)")
+    print("forEach loop descending, i10 is \(i10)")
 }

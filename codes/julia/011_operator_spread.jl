@@ -96,7 +96,7 @@ println("combination4: ", chomp(JSON.json(combination4, 4)))
 #     "Italy": "Rome"
 # }
 
-println("# [...array1, array2]:\n")
+println("# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 = [fruits..., vegetables]
 println("combination5: ", chomp(JSON.json(combination5, 4)))
@@ -122,7 +122,7 @@ println("combination6: ", chomp(JSON.json(combination6, 4)))
 #     ]
 # ]
 
-println("# [...array1, object1]:\n")
+println("# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 = [fruits..., country_capitals_in_asia]
 println("combination7: ", chomp(JSON.json(combination7, 4)))
@@ -149,7 +149,7 @@ println("combination8: ", chomp(JSON.json(combination8, 4)))
 #     }
 # ]
 
-println("# { ...object1, object2 }:\n")
+println("# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 = Dict(country_capitals_in_asia..., "country_capitals_in_europe" => country_capitals_in_europe)
 println("combination9: ", chomp(JSON.json(combination9, 4)))
@@ -175,7 +175,7 @@ println("combination10: ", chomp(JSON.json(combination10, 4)))
 #     }
 # }
 
-println("# { ...object1, array2 }:\n")
+println("# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 = Dict(country_capitals_in_asia..., "vegetables" => vegetables)
 println("combination11: ", chomp(JSON.json(combination11, 4)))

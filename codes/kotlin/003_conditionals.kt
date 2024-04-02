@@ -17,10 +17,10 @@ fun main() {
     */
 
     val CORRECT_ANSWER = 100
-    var myAge: Any
-    var myAnswer: Any
-    var hasDrivingLicense: Any
-    var canDrive: Any
+    var myAge: Any?
+    var myAnswer: Any?
+    var hasDrivingLicense: Any?
+    var canDrive: Any?
 
     println("\n" + "// basic conditional control flow\n")
 

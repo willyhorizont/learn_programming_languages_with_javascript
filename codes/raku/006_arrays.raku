@@ -71,16 +71,16 @@ my @products1 = (
 print("products1: ", json-stringify(@products1, :pretty(True)), "\n");
 
 for (@products1.kv) -> $array-item-index, $array-item {
-    for ($array-item.pairs.kv) -> $entry-index, $object-entry {
+    for ($array-item.pairs.kv) -> $object-entry-index, $object-entry {
         my $object-key = $object-entry.key;
         my $object-value = $object-entry.value;
-        print("products1, foreach loop, array item index: {$array-item-index}, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+        print("products1, forEach loop, array item index: {$array-item-index}, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
     }
 }
-# products1, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-# products1, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-# products1, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-# products1, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+# products1, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+# products1, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+# products1, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+# products1, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
 # initialization v2
 my $products2 = [
@@ -96,16 +96,16 @@ my $products2 = [
 print("products2: ", json-stringify($products2, :pretty(True)), "\n");
 
 for ($products2.kv) -> $array-item-index, $array-item {
-    for ($array-item.pairs.kv) -> $entry-index, $object-entry {
+    for ($array-item.pairs.kv) -> $object-entry-index, $object-entry {
         my $object-key = $object-entry.key;
         my $object-value = $object-entry.value;
-        print("products2, foreach loop, array item index: {$array-item-index}, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+        print("products2, forEach loop, array item index: {$array-item-index}, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
     }
 }
-# products2, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-# products2, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-# products2, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-# products2, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+# products2, for loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+# products2, for loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+# products2, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+# products2, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
 # initialization v3
 my @products3 = (
@@ -121,16 +121,16 @@ my @products3 = (
 print("products3: ", json-stringify(@products3, :pretty(True)), "\n");
 
 for (@products3.kv) -> $array-item-index, $array-item {
-    for ($array-item.pairs.kv) -> $entry-index, $object-entry {
+    for ($array-item.pairs.kv) -> $object-entry-index, $object-entry {
         my $object-key = $object-entry.key;
         my $object-value = $object-entry.value;
-        print("products3, foreach loop, array item index: {$array-item-index}, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+        print("products3, forEach loop, array item index: {$array-item-index}, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
     }
 }
-# products3, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-# products3, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-# products3, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-# products3, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+# products3, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+# products3, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+# products3, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+# products3, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
 # initialization v4 (the best way)
 my $products4 = [
@@ -146,13 +146,13 @@ my $products4 = [
 print("products4: ", json-stringify($products4, :pretty(True)), "\n");
 
 for ($products4.kv) -> $array-item-index, $array-item {
-    for ($array-item.pairs.kv) -> $entry-index, $object-entry {
+    for ($array-item.pairs.kv) -> $object-entry-index, $object-entry {
         my $object-key = $object-entry.key;
         my $object-value = $object-entry.value;
-        print("products4, foreach loop, array item index: {$array-item-index}, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+        print("products4, forEach loop, array item index: {$array-item-index}, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
     }
 }
-# products4, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-# products4, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-# products4, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-# products4, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+# products4, for loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+# products4, for loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+# products4, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+# products4, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips

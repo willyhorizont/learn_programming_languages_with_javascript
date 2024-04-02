@@ -1,12 +1,12 @@
 /*
-Source:
-    https://www.codewars.com/kata/54ff3102c1bad923760001f3
-Title:
-    Vowel Count
-Description:
-    Return the number (count) of vowels in the given string.
-    We will consider a, e, i, o, u as vowels for this Kata (but not y).
-    The input string will only consist of lower case letters and/or spaces.
+    Source:
+        https://www.codewars.com/kata/54ff3102c1bad923760001f3
+    Title:
+        Vowel Count
+    Description:
+        Return the number (count) of vowels in the given string.
+        We will consider a, e, i, o, u as vowels for this Kata (but not y).
+        The input string will only consist of lower case letters and/or spaces.
 */
 
 let countVowelsV1 = { (aString: String) -> Int in aString.split(separator: "").reduce(0) { (currentResult: Int, aCharacter: Substring) -> Int in ((["a", "i", "u", "e", "o", "A", "I", "U", "E", "O"].contains(aCharacter)) ? (currentResult + 1) : currentResult) } }

@@ -26,13 +26,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -139,10 +139,10 @@ Module Program
         '     "my_number": 123,
         '     "my_bool": true,
         '     "my_null": null,
+        '     "my_array": [1, 2, 3],
         '     "my_object": {
         '         "foo": "bar"
-        '     },
-        '     "my_array": [1, 2, 3]
+        '     }
         ' }
         ' ```
         Dim MyObject As Object = New Dictionary(Of String, Object) From {
@@ -150,11 +150,11 @@ Module Program
             {"my_number", 123},
             {"my_bool", true},
             {"my_null", Nothing},
+            {"my_array", New List(Of Object) From {1, 2, 3}},
             {"my_object", New Dictionary(Of String, Object) From {
                     {"foo", "bar"}
                 }
-            },
-            {"my_array", New List(Of Object) From {1, 2, 3}}
+            }
         }
         Console.WriteLine("MyObject: " & PrettyJsonStringify(MyObject))
 
@@ -239,7 +239,7 @@ Module Program
         '     true,
         '     null,
         '     [1, 2, 3],
-        '     { "foo": "bar" },
+        '     { "foo": "bar" }
         ' ];
         ' console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
 
@@ -251,10 +251,10 @@ Module Program
         '     "my_number": 123,
         '     "my_bool": true,
         '     "my_null": null,
+        '     "my_array": [1, 2, 3],
         '     "my_object": {
         '         "foo": "bar"
-        '     },
-        '     "my_array": [1, 2, 3]
+        '     }
         ' };
         ' console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
         ' ```
@@ -275,11 +275,11 @@ Module Program
             {"my_number", 123},
             {"my_bool", true},
             {"my_null", Nothing},
+            {"my_array", New List(Of Object) From {1, 2, 3}},
             {"my_object", New Dictionary(Of String, Object) From {
                     {"foo", "bar"}
                 }
-            },
-            {"my_array", New List(Of Object) From {1, 2, 3}}
+            }
         }
         Console.WriteLine("myObject2[""my_function""](7, 5): " & DirectCast(MyObject2("my_function"), Func(Of Integer, Integer, Integer))(7, 5))
     End Sub

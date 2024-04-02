@@ -34,14 +34,14 @@ void main() {
     print("fruits, last element: ${fruits.last}");
     // fruits, last element: orange
 
-    fruits.asMap().forEach((dynamic arrayItemIndex, dynamic arrayItem) => print("fruits, foreach loop, index: ${arrayItemIndex}, value: ${arrayItem}"));
-    // fruits, foreach loop, index: 0, value: apple
-    // fruits, foreach loop, index: 1, value: mango
-    // fruits, foreach loop, index: 2, value: orange
+    fruits.asMap().forEach((dynamic arrayItemIndex, dynamic arrayItem) => print("fruits, forEach loop, index: ${arrayItemIndex}, value: ${arrayItem}"));
+    // fruits, forEach loop, index: 0, value: apple
+    // fruits, forEach loop, index: 1, value: mango
+    // fruits, forEach loop, index: 2, value: orange
 
-    for (final entryItem in fruits.asMap().entries) {
-        final arrayItemIndex = entryItem.key;
-        final arrayItem = entryItem.value;
+    for (final objectEntry in fruits.asMap().entries) {
+        final arrayItemIndex = objectEntry.key;
+        final arrayItem = objectEntry.value;
         print("fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}");
     }
     // fruits, for loop, index: 0, value: apple
@@ -63,58 +63,58 @@ void main() {
     print("products: ${prettyJsonStringify(products)}");
 
     products.asMap().forEach((dynamic arrayItemIndex, dynamic arrayItem) {
-        arrayItem.entries.toList().asMap().forEach((dynamic entryIndex, dynamic entryItem) {
-            final objectKey = entryItem.key;
-            final objectValue = entryItem.value;
-            print("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}");
+        arrayItem.entries.toList().asMap().forEach((dynamic objectEntryIndex, dynamic objectEntry) {
+            final objectKey = objectEntry.key;
+            final objectValue = objectEntry.value;
+            print("products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}");
         });
     });
-    // products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
-    for (final entryItem in products.asMap().entries) {
-        final arrayItemIndex = entryItem.key;
-        final arrayItem = entryItem.value;
-        arrayItem.entries.toList().asMap().forEach((dynamic entryIndex, dynamic entryItem2) {
-            final objectKey = entryItem2.key;
-            final objectValue = entryItem2.value;
-            print("products, for loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}");
+    for (final objectEntry in products.asMap().entries) {
+        final arrayItemIndex = objectEntry.key;
+        final arrayItem = objectEntry.value;
+        arrayItem.entries.toList().asMap().forEach((dynamic objectEntryIndex, dynamic objectEntry) {
+            final objectKey = objectEntry.key;
+            final objectValue = objectEntry.value;
+            print("products, for loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}");
         });
     }
-    // products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, for loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, for loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
     products.asMap().forEach((dynamic arrayItemIndex, dynamic arrayItem) {
-        for (final entryItem in arrayItem.entries.toList().asMap().entries) {
-            final entryIndex = entryItem.key;
-            final objectKey = entryItem.value.key;
-            final objectValue = entryItem.value.value;
+        for (final objectEntry in arrayItem.entries.toList().asMap().entries) {
+            final objectEntryIndex = objectEntry.key;
+            final objectKey = objectEntry.value.key;
+            final objectValue = objectEntry.value.value;
 
-            print("products, foreach loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}");
+            print("products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}");
         }
     });
-    // products, foreach loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, foreach loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, foreach loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, foreach loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 
-    for (final entryItem in products.asMap().entries) {
-        final arrayItemIndex = entryItem.key;
-        final arrayItem = entryItem.value;
-        for (final entryItem2 in arrayItem.entries.toList().asMap().entries) {
-            final entryIndex = entryItem2.key;
-            final objectKey = entryItem2.value.key;
-            final objectValue = entryItem2.value.value;
+    for (final objectEntry in products.asMap().entries) {
+        final arrayItemIndex = objectEntry.key;
+        final arrayItem = objectEntry.value;
+        for (final objectEntry in arrayItem.entries.toList().asMap().entries) {
+            final objectEntryIndex = objectEntry.key;
+            final objectKey = objectEntry.value.key;
+            final objectValue = objectEntry.value.value;
 
-            print("products, for loop, array item index: ${arrayItemIndex}, iteration/entry index: ${entryIndex}, key: ${objectKey}, value: ${objectValue}");
+            print("products, for loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}");
         }
     }
-    // products, for loop, array item index: 0, iteration/entry index: 0, key: id, value: P1
-    // products, for loop, array item index: 0, iteration/entry index: 1, key: name, value: bubble gum
-    // products, for loop, array item index: 1, iteration/entry index: 0, key: id, value: P2
-    // products, for loop, array item index: 1, iteration/entry index: 1, key: name, value: potato chips
+    // products, for loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+    // products, for loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+    // products, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+    // products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
 }

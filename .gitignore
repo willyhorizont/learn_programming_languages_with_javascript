@@ -7,3 +7,6 @@ node_modules
 *.xlsx
 *.exe
 temp.*
+*.class
+*.tasty
+Program.scala

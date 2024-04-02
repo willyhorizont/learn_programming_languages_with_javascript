@@ -122,9 +122,9 @@ sprint("products with price <= 100 only: ", pretty_json_stringify(products_below
 --     }
 -- ]
 
-products_above_100 = array_filter_v1(function (product) return (product.price >= 100) end, products)
-sprint("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
--- products with price >= 100 only: [
+products_above_100 = array_filter_v1(function (product) return (product.price > 100) end, products)
+sprint("products with price > 100 only: ", pretty_json_stringify(products_above_100))
+-- products with price > 100 only: [
 --     {
 --         "code": "pasta",
 --         "price": 321
@@ -150,9 +150,9 @@ sprint("products with price <= 100 only: ", pretty_json_stringify(products_below
 --     }
 -- ]
 
-products_above_100 = array_filter_v2(function (product) return (product.price >= 100) end, products)
-sprint("products with price >= 100 only: ", pretty_json_stringify(products_above_100))
--- products with price >= 100 only: [
+products_above_100 = array_filter_v2(function (product) return (product.price > 100) end, products)
+sprint("products with price > 100 only: ", pretty_json_stringify(products_above_100))
+-- products with price > 100 only: [
 --     {
 --         "code": "pasta",
 --         "price": 321

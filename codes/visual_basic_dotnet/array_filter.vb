@@ -42,13 +42,13 @@ Module Program
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
                 Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                Dim IterationIndex As Integer = 0
+                Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((IterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
-                    IterationIndex += 1
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
                 Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
@@ -177,9 +177,9 @@ Module Program
         '     }
         ' ]
 
-        ProductsAbove100 = ArrayFilterV1(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("price") >= 100), Products)
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}")
-        ' products with price >= 100 only: [
+        ProductsAbove100 = ArrayFilterV1(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("price") > 100), Products)
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}")
+        ' products with price > 100 only: [
         '     {
         '         "code": "pasta",
         '         "price": 321
@@ -205,9 +205,9 @@ Module Program
         '     }
         ' ]
 
-        ProductsAbove100 = ArrayFilterV2(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("price") >= 100), Products)
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}")
-        ' products with price >= 100 only: [
+        ProductsAbove100 = ArrayFilterV2(Function(ByVal Product As Object, ByVal ArrayItemIndex As Integer, ByVal AnArray As List(Of Object)) (Product("price") > 100), Products)
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}")
+        ' products with price > 100 only: [
         '     {
         '         "code": "pasta",
         '         "price": 321
@@ -233,9 +233,9 @@ Module Program
         '     }
         ' ]
 
-        ProductsAbove100 = Products.Where(Function(ByVal Product As Object) (Product("price") >= 100)).ToList()
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}")
-        ' products with price >= 100 only: [
+        ProductsAbove100 = Products.Where(Function(ByVal Product As Object) (Product("price") > 100)).ToList()
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}")
+        ' products with price > 100 only: [
         '     {
         '         "code": "pasta",
         '         "price": 321
@@ -261,9 +261,9 @@ Module Program
         '     }
         ' ]
 
-        ProductsAbove100 = Products.Where(Function(ByVal Product As Object) (Product("price") >= 100)).Cast(Of Object)().ToList()
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}")
-        ' products with price >= 100 only: [
+        ProductsAbove100 = Products.Where(Function(ByVal Product As Object) (Product("price") > 100)).Cast(Of Object)().ToList()
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}")
+        ' products with price > 100 only: [
         '     {
         '         "code": "pasta",
         '         "price": 321
@@ -289,9 +289,9 @@ Module Program
         '     }
         ' ]
 
-        ProductsAbove100 = DirectCast(Products.Where(Function(ByVal Product As Object) (Product("price") >= 100)).ToList(), List(Of Object))
-        Console.WriteLine($"products with price >= 100 only: {PrettyJsonStringify(ProductsAbove100)}")
-        ' products with price >= 100 only: [
+        ProductsAbove100 = DirectCast(Products.Where(Function(ByVal Product As Object) (Product("price") > 100)).ToList(), List(Of Object))
+        Console.WriteLine($"products with price > 100 only: {PrettyJsonStringify(ProductsAbove100)}")
+        ' products with price > 100 only: [
         '     {
         '         "code": "pasta",
         '         "price": 321

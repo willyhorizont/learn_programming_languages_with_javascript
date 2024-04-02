@@ -142,9 +142,9 @@ println("products with price <= 100 only: ", chomp(JSON.json(products_below_100,
 #     }
 # ]
 
-products_above_100 = array_filter_v1((product, _, _) -> (product["price"]  >= 100), products)
-println("products with price >= 100 only: ", chomp(JSON.json(products_above_100, 4)))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v1((product, _, _) -> (product["price"]  > 100), products)
+println("products with price > 100 only: ", chomp(JSON.json(products_above_100, 4)))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -170,9 +170,9 @@ println("products with price <= 100 only: ", chomp(JSON.json(products_below_100,
 #     }
 # ]
 
-products_above_100 = array_filter_v2((product, _, _) -> (product["price"]  >= 100), products)
-println("products with price >= 100 only: ", chomp(JSON.json(products_above_100, 4)))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v2((product, _, _) -> (product["price"]  > 100), products)
+println("products with price > 100 only: ", chomp(JSON.json(products_above_100, 4)))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -198,9 +198,9 @@ println("products with price <= 100 only: ", chomp(JSON.json(products_below_100,
 #     }
 # ]
 
-products_above_100 = array_filter_v3((product, _, _) -> (product["price"]  >= 100), products)
-println("products with price >= 100 only: ", chomp(JSON.json(products_above_100, 4)))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v3((product, _, _) -> (product["price"]  > 100), products)
+println("products with price > 100 only: ", chomp(JSON.json(products_above_100, 4)))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -226,9 +226,9 @@ println("products with price <= 100 only: ", chomp(JSON.json(products_below_100,
 #     }
 # ]
 
-products_above_100 = array_filter_v4((product, _, _) -> (product["price"]  >= 100), products)
-println("products with price >= 100 only: ", chomp(JSON.json(products_above_100, 4)))
-# products with price >= 100 only: [
+products_above_100 = array_filter_v4((product, _, _) -> (product["price"]  > 100), products)
+println("products with price > 100 only: ", chomp(JSON.json(products_above_100, 4)))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321
@@ -254,9 +254,9 @@ println("products with price <= 100 only: ", chomp(JSON.json(products_below_100,
 #     }
 # ]
 
-products_above_100 = filter((product) -> (product["price"]  >= 100), products)
-println("products with price >= 100 only: ", chomp(JSON.json(products_above_100, 4)))
-# products with price >= 100 only: [
+products_above_100 = filter((product) -> (product["price"]  > 100), products)
+println("products with price > 100 only: ", chomp(JSON.json(products_above_100, 4)))
+# products with price > 100 only: [
 #     {
 #         "code": "pasta",
 #         "price": 321

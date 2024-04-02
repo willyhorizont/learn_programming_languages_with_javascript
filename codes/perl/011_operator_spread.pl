@@ -143,7 +143,7 @@ print("combination4: ", pretty_json_stringify(\%combination4), "\n");
 #     "Italy": "Rome"
 # }
 
-print("\n# [...array1, array2]:\n", "\n");
+print("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
 my @combination5 = spread_syntax_array(\@fruits, {"vegetables" => \@vegetables});
 print("combination5: ", pretty_json_stringify(\@combination5), "\n");
@@ -169,7 +169,7 @@ print("combination6: ", pretty_json_stringify(\@combination6), "\n");
 #     ]
 # ]
 
-print("\n# [...array1, object1]:\n", "\n");
+print("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
 my @combination7 = spread_syntax_array(\@fruits, {"country_capitals_in_asia" => \%country_capitals_in_asia});
 print("combination7: ", pretty_json_stringify(\@combination7), "\n");
@@ -196,7 +196,7 @@ print("combination8: ", pretty_json_stringify(\@combination8), "\n");
 #     }
 # ]
 
-print("\n# { ...object1, object2 }:\n", "\n");
+print("\n# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n", "\n");
 
 my %combination9 = spread_syntax_object(\%country_capitals_in_asia, {"country_capitals_in_europe" => \%country_capitals_in_europe});
 print("combination9: ", pretty_json_stringify(\%combination9), "\n");
@@ -222,7 +222,7 @@ print("combination10: ", pretty_json_stringify(\%combination10), "\n");
 #     }
 # }
 
-print("\n# { ...object1, array2 }:\n", "\n");
+print("\n# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n", "\n");
 
 my %combination11 = spread_syntax_object(\%country_capitals_in_asia, {"vegetables" => \@vegetables});
 print("combination11: ", pretty_json_stringify(\%combination11), "\n");

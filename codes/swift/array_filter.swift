@@ -74,9 +74,9 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
             }
             indentLevel += 1
             var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
-            for (entryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
                 result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
-                if ((entryIndex + 1) != anythingInner.count) {
+                if ((objectEntryIndex + 1) != anythingInner.count) {
                     result += ",\n\(String(repeating: indentInner, count: indentLevel))"
                 }
             }
@@ -225,10 +225,10 @@ productsAbove100 = arrayFilterV1({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return (result >= 100)
+    return (result > 100)
 }, products)
-print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
-// products with price >= 100 only: [
+print("products with price > 100 only: \(prettyJsonStringify(productsAbove100))")
+// products with price > 100 only: [
 //     {
 //         "code": "pasta",
 //         "price": 321
@@ -263,10 +263,10 @@ productsAbove100 = arrayFilterV2({ (product: Any?, _: Int, _: MyArray) -> Bool i
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return (result >= 100)
+    return (result > 100)
 }, products)
-print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
-// products with price >= 100 only: [
+print("products with price > 100 only: \(prettyJsonStringify(productsAbove100))")
+// products with price > 100 only: [
 //     {
 //         "code": "pasta",
 //         "price": 321
@@ -301,10 +301,10 @@ productsAbove100 = products.filter {
     guard let result = $0 as? MyObject, let result = result["price"] as? Int else {
         return false
     }
-    return (result >= 100)
+    return (result > 100)
 }
-print("products with price >= 100 only: \(prettyJsonStringify(productsAbove100))")
-// products with price >= 100 only: [
+print("products with price > 100 only: \(prettyJsonStringify(productsAbove100))")
+// products with price > 100 only: [
 //     {
 //         "code": "pasta",
 //         "price": 321

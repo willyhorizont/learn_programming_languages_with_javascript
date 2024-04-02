@@ -150,7 +150,7 @@ echo("\n" . "product to find: " . $product_to_find);
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v1\"");
 
-$product_found = array_find_v1(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found = array_find_v1(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
@@ -159,7 +159,7 @@ echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v2\"");
 
-$product_found = array_find_v2(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found = array_find_v2(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
@@ -168,7 +168,7 @@ echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v3\"");
 
-$product_found = array_find_v3(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found = array_find_v3(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",
@@ -177,7 +177,7 @@ echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 
 echo("\n// using JavaScript-like Array.find() function \"array_find_v4\"");
 
-$product_found = array_find_v4(fn($product) => (@$product['code'] === $product_to_find), $products);
+$product_found = array_find_v4(fn($product) => ($product['code'] === $product_to_find), $products);
 echo("\n" . "product found: " . json_encode($product_found, JSON_PRETTY_PRINT));
 // product found: {
 //     "code": "bubble_gum",

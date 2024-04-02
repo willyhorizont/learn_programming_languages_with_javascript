@@ -46,11 +46,11 @@ function stringifyresult = stringify(parameter)
         end
         currentresult = "{";
         objectkeys = fieldnames(parameter);
-        for entryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{entryindex};
+        for objectentryindex = (1:1:numel(objectkeys))
+            objectkey = objectkeys{objectentryindex};
             objectvalue = parameter.(objectkey);
             currentresult = strcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (entryindex ~= numel(objectkeys))
+            if (objectentryindex ~= numel(objectkeys))
                 currentresult = strcat(currentresult, ",");
             end
         end
@@ -148,11 +148,11 @@ function prettyjsonstringifyresult = prettyjsonstringify(parameter)
             indentlevel = indentlevel + 1;
             result = strcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
             objectkeys = fieldnames(anythinginner);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = strcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (entryindex ~= numel(objectkeys))
+                if (objectentryindex ~= numel(objectkeys))
                     result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
                 end
             end
@@ -172,8 +172,8 @@ function spreadsyntaxobjectresult = spreadsyntaxobject(varargin)
         parameter = varargin{parameterindex};
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
-            for entryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{entryindex};
+            for objectentryindex = (1:1:numel(objectkeys))
+                objectkey = objectkeys{objectentryindex};
                 objectvalue = parameter.(objectkey);
                 newobject.(objectkey) = objectvalue;
             end
@@ -197,8 +197,8 @@ function spreadsyntaxarrayresult = spreadsyntaxarray(varargin)
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
             if (numel(objectkeys) == 1)
-                for entryindex = (1:1:numel(objectkeys))
-                    objectkey = objectkeys{entryindex};
+                for objectentryindex = (1:1:numel(objectkeys))
+                    objectkey = objectkeys{objectentryindex};
                     objectvalue = parameter.(objectkey);
                     newarray{end + 1} = objectvalue;
                 end
@@ -286,7 +286,7 @@ sprint("combination4: ", prettyjsonstringify({combination4}));
 %     "Italy": "Rome"
 % }
 
-sprint(sprintf("\n"), "% [...array1, array2]:", sprintf("\n"));
+sprint(sprintf("\n"), "% [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:", sprintf("\n"));
 
 combination5 = spreadsyntaxarray(fruits, struct("vegetables", {vegetables}));
 sprint("combination5: ", prettyjsonstringify({combination5}));
@@ -312,7 +312,7 @@ sprint("combination6: ", prettyjsonstringify({combination6}));
 %     ]
 % ]
 
-sprint(sprintf("\n"), "% [...array1, object1]:", sprintf("\n"));
+sprint(sprintf("\n"), "% [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:", sprintf("\n"));
 
 combination7 = spreadsyntaxarray(fruits, struct("countrycapitalsinasia", {countrycapitalsinasia}));
 sprint("combination7: ", prettyjsonstringify({combination7}));
@@ -339,7 +339,7 @@ sprint("combination8: ", prettyjsonstringify({combination8}));
 %     }
 % ]
 
-sprint(sprintf("\n"), "% { ...object1, object2 }:", sprintf("\n"));
+sprint(sprintf("\n"), "% { ...object1, object2 } || { ...object1, objectKey: objectValue }:", sprintf("\n"));
 
 combination9 = spreadsyntaxobject(countrycapitalsinasia, struct("countrycapitalsineurope", {countrycapitalsineurope}));
 sprint("combination9: ", prettyjsonstringify({combination9}));
@@ -365,7 +365,7 @@ sprint("combination10: ", prettyjsonstringify({combination10}));
 %     }
 % }
 
-sprint(sprintf("\n"), "% { ...object1, array2 }:", sprintf("\n"));
+sprint(sprintf("\n"), "% { ...object1, array2 } || { ...object1, objectKey: objectValue }:", sprintf("\n"));
 
 combination11 = spreadsyntaxobject(countrycapitalsinasia, struct("vegetables", {vegetables}));
 sprint("combination11: ", prettyjsonstringify({combination11}));

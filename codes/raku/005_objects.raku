@@ -22,31 +22,31 @@ print("friend1, get country: ", %friend1{"country"}, "\n");
 
 # iterate over and get each key-value pair
 for (%friend1.kv) -> $object-key, $object-value {
-    print("friend1, foreach loop v1, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend1, forEach loop v1, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend1, foreach loop v1, key: name, value: Alisa
-# friend1, foreach loop v1, key: country, value: Finland
-# friend1, foreach loop v1, key: age, value: 25
+# friend1, forEach loop v1, key: name, value: Alisa
+# friend1, forEach loop v1, key: country, value: Finland
+# friend1, forEach loop v1, key: age, value: 25
 
 # iterate over and get each key-value pair
 for (%friend1.pairs) -> $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend1, foreach loop v2, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend1, forEach loop v2, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend1, foreach loop v2, key: name, value: Alisa
-# friend1, foreach loop v2, key: country, value: Finland
-# friend1, foreach loop v2, key: age, value: 25
+# friend1, forEach loop v2, key: name, value: Alisa
+# friend1, forEach loop v2, key: country, value: Finland
+# friend1, forEach loop v2, key: age, value: 25
 
-# iterate over and get each key-value pair and iteration/entry index
-for (%friend1.pairs.kv) -> $entry-index, $object-entry {
+# iterate over and get each key-value pair and object iteration/entry index
+for (%friend1.pairs.kv) -> $object-entry-index, $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend1, foreach loop, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend1, forEach loop, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend1, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-# friend1, foreach loop, iteration/entry index: 1, key: country, value: Finland
-# friend1, foreach loop, iteration/entry index: 2, key: age, value: 25
+# friend1, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend1, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend1, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
 # initialization v2
 my $friend2 = {
@@ -61,31 +61,31 @@ print("friend2, get country: ", $friend2{"country"}, "\n");
 
 # iterate over and get each key-value pair
 for ($friend2.kv) -> $object-key, $object-value {
-    print("friend2, foreach loop v1, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend2, forEach loop v1, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend2, foreach loop v1, key: name, value: Alisa
-# friend2, foreach loop v1, key: country, value: Finland
-# friend2, foreach loop v1, key: age, value: 25
+# friend2, forEach loop v1, key: name, value: Alisa
+# friend2, forEach loop v1, key: country, value: Finland
+# friend2, forEach loop v1, key: age, value: 25
 
 # iterate over and get each key-value pair
 for ($friend2.pairs) -> $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend2, foreach loop v2, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend2, forEach loop v2, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend2, foreach loop v2, key: name, value: Alisa
-# friend2, foreach loop v2, key: country, value: Finland
-# friend2, foreach loop v2, key: age, value: 25
+# friend2, forEach loop v2, key: name, value: Alisa
+# friend2, forEach loop v2, key: country, value: Finland
+# friend2, forEach loop v2, key: age, value: 25
 
-# iterate over and get each key-value pair and iteration/entry index
-for ($friend2.pairs.kv) -> $entry-index, $object-entry {
+# iterate over and get each key-value pair and object iteration/entry index
+for ($friend2.pairs.kv) -> $object-entry-index, $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend2, foreach loop, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend2, forEach loop, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend2, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-# friend2, foreach loop, iteration/entry index: 1, key: country, value: Finland
-# friend2, foreach loop, iteration/entry index: 2, key: age, value: 25
+# friend2, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend2, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend2, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
 # initialization v3 (the best way)
 my $friend3 = %(
@@ -100,28 +100,28 @@ print("friend3, get country: ", $friend3{"country"}, "\n");
 
 # iterate over and get each key-value pair
 for ($friend3.kv) -> $object-key, $object-value {
-    print("friend3, foreach loop v1, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend3, forEach loop v1, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend3, foreach loop v1, key: name, value: Alisa
-# friend3, foreach loop v1, key: country, value: Finland
-# friend3, foreach loop v1, key: age, value: 25
+# friend3, forEach loop v1, key: name, value: Alisa
+# friend3, forEach loop v1, key: country, value: Finland
+# friend3, forEach loop v1, key: age, value: 25
 
 # iterate over and get each key-value pair
 for ($friend3.pairs) -> $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend3, foreach loop v2, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend3, forEach loop v2, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend3, foreach loop v2, key: name, value: Alisa
-# friend3, foreach loop v2, key: country, value: Finland
-# friend3, foreach loop v2, key: age, value: 25
+# friend3, forEach loop v2, key: name, value: Alisa
+# friend3, forEach loop v2, key: country, value: Finland
+# friend3, forEach loop v2, key: age, value: 25
 
-# iterate over and get each key-value pair and iteration/entry index
-for ($friend3.pairs.kv) -> $entry-index, $object-entry {
+# iterate over and get each key-value pair and object iteration/entry index
+for ($friend3.pairs.kv) -> $object-entry-index, $object-entry {
     my $object-key = $object-entry.key;
     my $object-value = $object-entry.value;
-    print("friend3, foreach loop, iteration/entry index: {$entry-index}, key: {$object-key}, value: {$object-value}", "\n");
+    print("friend3, forEach loop, object iteration/entry index: {$object-entry-index}, key: {$object-key}, value: {$object-value}", "\n");
 }
-# friend3, foreach loop, iteration/entry index: 0, key: name, value: Alisa
-# friend3, foreach loop, iteration/entry index: 1, key: country, value: Finland
-# friend3, foreach loop, iteration/entry index: 2, key: age, value: 25
+# friend3, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend3, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend3, forEach loop, object iteration/entry index: 2, key: age, value: 25

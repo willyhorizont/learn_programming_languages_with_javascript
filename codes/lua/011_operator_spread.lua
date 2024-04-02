@@ -178,7 +178,7 @@ sprint("combination4: ", pretty_json_stringify(combination4))
 --     "Italy": "Rome"
 -- }
 
-print("\n-- [...array1, array2]:\n")
+print("\n-- [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 = spread_syntax_array(fruits, { vegetables = vegetables })
 sprint("combination5: ", pretty_json_stringify(combination5))
@@ -204,7 +204,7 @@ sprint("combination6: ", pretty_json_stringify(combination6))
 --     ]
 -- ]
 
-print("\n-- [...array1, object1]:\n")
+print("\n-- [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 = spread_syntax_array(fruits, { country_capitals_in_asia = country_capitals_in_asia })
 sprint("combination7: ", pretty_json_stringify(combination7))
@@ -231,7 +231,7 @@ sprint("combination8: ", pretty_json_stringify(combination8))
 --     }
 -- ]
 
-print("\n-- { ...object1, object2 }:\n")
+print("\n-- { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = country_capitals_in_europe })
 sprint("combination9: ", pretty_json_stringify(combination9))
@@ -257,7 +257,7 @@ sprint("combination10: ", pretty_json_stringify(combination10))
 --     }
 -- }
 
-print("\n-- { ...object1, array2 }:\n")
+print("\n-- { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 = spread_syntax_object(country_capitals_in_asia, { vegetables = vegetables })
 sprint("combination11: ", pretty_json_stringify(combination11))
