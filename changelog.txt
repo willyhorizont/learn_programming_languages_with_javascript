@@ -1,5 +1,12 @@
 =============================changelog==========================================
 02:17 | 02:17 AM | Wed | Apr | 03/04/2024
+0.0.55
+New:
+small fix at compile_and_run_scala_file.py
+TODO:
+try groovy, f#, crystal, java
+=============================changelog==========================================
+02:17 | 02:17 AM | Wed | Apr | 03/04/2024
 0.0.54
 finish learn Scala
 update so many things

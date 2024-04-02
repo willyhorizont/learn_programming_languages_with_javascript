@@ -11,16 +11,16 @@ def compile_and_run_scala_file():
     path_file_scala = sys.argv[1]
     path_file_scala = path_file_scala.strip()
     path_file_scala = path_file_scala.replace("\"", "\\")
-    file_name_scala = path_file_scala.split("codes\\scala2\\")[1]
+    file_name_scala = path_file_scala.split("codes\\scala\\")[1]
 
     indentation = " " * 4
     scala_object_head = "object Program {"
     scala_object_tail = "}"
     scala_main_method_head = "def main(args: Array[String]): Unit = {"
     scala_main_method_tail = "}"
-    scala_main_method_body_code_print_message_1 = f"println(\"copying \\\"~/codes/scala2/{file_name_scala}\\\"'s content to \\\"~/Program.scala\\\"'s main method body...\")"
+    scala_main_method_body_code_print_message_1 = f"println(\"copying \\\"~/codes/scala/{file_name_scala}\\\"'s content to \\\"~/Program.scala\\\"'s main method body...\")"
     scala_main_method_body_code_print_message_2 = "println(\"running code from \\\"~/Program.scala\\\"...\\n\")"
-    scala_main_method_body_comment_1 = f"// The body of this method is taken from \"~/codes/scala2/{file_name_scala}\"'s content"
+    scala_main_method_body_comment_1 = f"// The body of this method is taken from \"~/codes/scala/{file_name_scala}\"'s content"
     scala_comment_1 = "// This file is generated using \"~/utils/compile_and_run_scala_file.py\""
     scala_comment_2 = "// This file is generated because Scala requires a wrapper object with the same name as the file in order to make the program compiled"
 
