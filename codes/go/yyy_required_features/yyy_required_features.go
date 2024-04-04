@@ -4,53 +4,93 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 )
-
-const EMPTY_STRING = ""
-const TAB = "    "
 
 // type any interface{}
 type array []any
 type object map[string]any
 
-func prettyJsonStringify(anything any) string {
-    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-    if (err == nil) {
-        return string(marshalledJson)
+func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
+    // JavaScript-like Array.reduce() function
+    result := initialValue
+    for arrayItemIndex, arrayItem := range anArray {
+        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
     }
-    return "undefined"
+    return result
 }
 
-func prettyArrayOfPrimitives(anArray array) string {
-    result := "["
-    for arrayItemIndex, arrayItem := range anArray {
-        if (arrayItem == nil) {
-            result += "nil"
+func optionalChaining(anything any, objectPropertiesArray ...any) any {
+    anythingType := reflect.TypeOf(anything).Kind()
+    if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
+        return anything
+    }
+    return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
+        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return anything.(object)[currentItem.(string)]
         }
-        if (arrayItem != nil) {
-            switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-            case reflect.String:
-                result += "\"" + arrayItem.(string) + "\""
-            case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-                result += fmt.Sprint(arrayItem)
-            case reflect.Bool:
-                if (arrayItem.(bool) == true) {
-                    result += "true"
-                } else {
-                    result += "false"
-                }
-            case reflect.Invalid:
-                result += "nil"
-            default:
-                continue
-            }
+        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
+            return anything.(array)[currentItem.(int)]
         }
-        if ((arrayItemIndex + 1) != len(anArray)) {
-            result = result + ", "
+        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return currentResult.(object)[currentItem.(string)]
+        }
+        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
+            return currentResult.(array)[currentItem.(int)]
+        }
+        return nil
+    }, objectPropertiesArray, nil)
+}
+
+func jsonStringify(anything any, additionalParameter any) string {
+	jsonStringifyDefault := func(anythingInner any) string {
+        jsonMarshalled, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
+		}
+		return "null"
+    }
+	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
+        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
+		if (err == nil) {
+			return string(jsonMarshalled)
+		}
+		return "null"
+    }
+	if (additionalParameter == nil || additionalParameter == false) {
+		return jsonStringifyDefault(anything)
+	}
+	if (additionalParameter == true) {
+		return jsonStringifyPrettyDefault(anything, "    ")
+	}
+	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
+		var pretty any = optionalChaining(additionalParameter, "pretty")
+		var indent any = optionalChaining(additionalParameter, "indent")
+		if (pretty == true) {
+			if (indent == nil) {
+				indent = "    "
+			}
+			return jsonStringifyPrettyDefault(anything, indent.(string))
+		}
+		return jsonStringifyDefault(anything)
+	}
+	return jsonStringifyDefault(anything)
+}
+
+func sPrintln(parameters ...any) {
+    var parametersNew = []string{}
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
+            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+            continue
+        }
+        if (parameterType == reflect.String) {
+			parametersNew = append(parametersNew, parameter.(string))
+            continue
         }
     }
-    result = result + "]"
-    return result
+    fmt.Println(strings.Join(parametersNew, ""))
 }
 
 func main() {
@@ -75,17 +115,17 @@ func main() {
         ```
     */
     var something any = "foo"
-    fmt.Println("something:", prettyJsonStringify(something))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
     something = 123
-    fmt.Println("something:", prettyJsonStringify(something))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
     something = true
-    fmt.Println("something:", prettyJsonStringify(something))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
     something = nil
-    fmt.Println("something:", prettyJsonStringify(something))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
     something = array{1, 2, 3}
-    fmt.Println("something:", prettyArrayOfPrimitives((something).(array)))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
     something = object{"foo": "bar"}
-    fmt.Println("something:", prettyJsonStringify(something))
+    sPrintln("something: ", jsonStringify(something, object{"pretty": true}))
 
     /*
         2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -130,10 +170,10 @@ func main() {
         }
         return changeIndentLevel()
     }
-    fmt.Println("getModifiedIndentLevel():", getModifiedIndentLevel())
+    sPrintln("getModifiedIndentLevel(): ", array{getModifiedIndentLevel()})
     createNewGame := func(initialCredit int) func() {
         currentCredit := initialCredit
-        fmt.Println("initial credit:", initialCredit)
+        sPrintln("initial credit: ", array{initialCredit})
         return func() {
             currentCredit -= 1
             if (currentCredit == 0) {
@@ -174,7 +214,7 @@ func main() {
             "foo": "bar",
         },
     }
-    fmt.Println("myObject:", prettyJsonStringify(myObject))
+    sPrintln("myObject: ", jsonStringify(myObject, object{"pretty": true}))
 
     /*
         4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -184,7 +224,7 @@ func main() {
         ```
     */
     myArray := array{"foo", 123, true, nil, array{1, 2, 3}, object{"foo": "bar"}}
-    fmt.Println("myArray:", prettyJsonStringify(myArray))
+    sPrintln("myArray: ", jsonStringify(myArray, object{"pretty": true}))
 
     /*
         5. support passing functions as arguments to other functions
@@ -234,7 +274,7 @@ func main() {
     }
     multiplyBy2 := multiply(2)
     multiplyBy2Result := multiplyBy2(10)
-    fmt.Println("multiplyBy2Result:", multiplyBy2Result)
+    sPrintln("multiplyBy2Result: ", array{multiplyBy2Result})
 
     /*
         7. support assigning functions to variables
@@ -254,7 +294,7 @@ func main() {
     getRectangleArea := func(rectangleWidth int, rectangleLength int) int {
         return (rectangleWidth * rectangleLength)
     }
-    fmt.Println("getRectangleArea(7, 5):", getRectangleArea(7, 5))
+    sPrintln("getRectangleArea(7, 5): ", array{getRectangleArea(7, 5)})
 
     /*
         8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -299,7 +339,7 @@ func main() {
         array{1, 2, 3},
         object{"foo": "bar"},
     }
-    fmt.Println("myArray2[0](7, 5):", myArray2[0].(func(int, int) int)(7, 5))
+    sPrintln("myArray2[0](7, 5): ", array{myArray2[0].(func(int, int) int)(7, 5)})
 
     myObject2 := object{
         "my_function": func(a int, b int) int {
@@ -314,5 +354,5 @@ func main() {
             "foo": "bar",
         },
     }
-    fmt.Println("myObject2[\"my_function\"](7, 5):", myObject2["my_function"].(func(int, int) int)(7, 5))
+    sPrintln("myObject2[\"my_function\"](7, 5): ", array{myObject2["my_function"].(func(int, int) int)(7, 5)})
 }

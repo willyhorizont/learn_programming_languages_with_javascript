@@ -1,32 +1,42 @@
-using JSON
-
-function pretty_array_of_primitives(an_array_of_primitives)
-    result = "["
-    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false) && (isa(array_item, Bool) === false) && array_item !== nothing)
-            continue
+function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
+    indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner::String)::String
+        if (anything_inner === nothing) return "null" end
+        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
+        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
+        if (isa(anything_inner, Array) === true)
+            if (length(anything_inner) == 0) return "[]" end
+            indent_level += 1
+            result = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
+            for (array_item_index, array_item) in enumerate(anything_inner)
+                result *= json_stringify_inner(array_item, indent_inner)
+                if (array_item_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
+            return result
         end
-        if (isa(array_item, AbstractString) === true)
-            result = string(result, "\"", array_item, "\"")
+        if (isa(anything_inner, Dict) === true)
+            if (length(anything_inner) == 0) return "{}" end
+            indent_level += 1
+            result = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
+            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                result *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
+                if (object_entry_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
+            return result
         end
-        if (array_item === nothing)
-            result = string(result, "null")
-        end
-        if ((isa(array_item, Number) === true) || (isa(array_item, Bool) === true))
-            result = string(result, array_item)
-        end
-        if (array_item_index !== length(an_array_of_primitives))
-            result = string(result, ", ")
-        end
+        return "null"
     end
-    result = string(result, "]")
-    return result
+    return json_stringify_inner(anything, indent)
 end
 
 function array_to_object(an_array)
     new_object = Dict()
     for (array_item_index, array_item) in enumerate(an_array)
-        new_object[array_item_index] = array_item
+        new_object[string(array_item_index)] = array_item
     end
     return new_object
 end
@@ -34,28 +44,28 @@ end
 println("\n# JavaScript-like Spread Syntax (...) in Julia")
 
 fruits = ["Mango", "Melon", "Banana"]
-println("fruits: ", pretty_array_of_primitives(fruits))
+println("fruits: ", json_stringify(fruits))
 
 vegetables = ["Carrot", "Tomato"]
-println("vegetables: ", pretty_array_of_primitives(vegetables))
+println("vegetables: ", json_stringify(vegetables))
 
 country_capitals_in_asia = Dict(
     "Thailand" => "Bangkok",
     "China" => "Beijing",
     "Japan" => "Tokyo"
 )
-println("country_capitals_in_asia: ", chomp(JSON.json(country_capitals_in_asia, 4)))
+println("country_capitals_in_asia: ", json_stringify(country_capitals_in_asia, pretty=true))
 
 country_capitals_in_europe = Dict(
     "France" => "Paris",
     "England" => "London"
 )
-println("country_capitals_in_europe: ", chomp(JSON.json(country_capitals_in_europe, 4)))
+println("country_capitals_in_europe: ", json_stringify(country_capitals_in_europe, pretty=true))
 
 println("# [...array1, ...array2]:\n")
 
 combination1 = [fruits..., vegetables...]
-println("combination1: ", chomp(JSON.json(combination1, 4)))
+println("combination1: ", json_stringify(combination1, pretty=true))
 # combination1: [
 #     "Mango",
 #     "Melon",
@@ -65,7 +75,7 @@ println("combination1: ", chomp(JSON.json(combination1, 4)))
 # ]
 
 combination2 = [fruits..., ["Cucumber", "Cabbage"]...]
-println("combination2: ", chomp(JSON.json(combination2, 4)))
+println("combination2: ", json_stringify(combination2, pretty=true))
 # combination2: [
 #     "Mango",
 #     "Melon",
@@ -77,7 +87,7 @@ println("combination2: ", chomp(JSON.json(combination2, 4)))
 println("# { ...object1, ...object2 }:\n")
 
 combination3 = Dict(country_capitals_in_asia..., country_capitals_in_europe...)
-println("combination3: ", chomp(JSON.json(combination3, 4)))
+println("combination3: ", json_stringify(combination3, pretty=true))
 # combination3: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -87,7 +97,7 @@ println("combination3: ", chomp(JSON.json(combination3, 4)))
 # }
 
 combination4 = Dict(country_capitals_in_asia..., Dict("Germany" => "Berlin", "Italy" => "Rome")...)
-println("combination4: ", chomp(JSON.json(combination4, 4)))
+println("combination4: ", json_stringify(combination4, pretty=true))
 # combination4: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -99,7 +109,7 @@ println("combination4: ", chomp(JSON.json(combination4, 4)))
 println("# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 = [fruits..., vegetables]
-println("combination5: ", chomp(JSON.json(combination5, 4)))
+println("combination5: ", json_stringify(combination5, pretty=true))
 # combination5: [
 #     "Mango",
 #     "Melon",
@@ -111,7 +121,7 @@ println("combination5: ", chomp(JSON.json(combination5, 4)))
 # ]
 
 combination6 = [fruits..., ["Cucumber", "Cabbage"]]
-println("combination6: ", chomp(JSON.json(combination6, 4)))
+println("combination6: ", json_stringify(combination6, pretty=true))
 # combination6: [
 #     "Mango",
 #     "Melon",
@@ -125,7 +135,7 @@ println("combination6: ", chomp(JSON.json(combination6, 4)))
 println("# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination7 = [fruits..., country_capitals_in_asia]
-println("combination7: ", chomp(JSON.json(combination7, 4)))
+println("combination7: ", json_stringify(combination7, pretty=true))
 # combination7: [
 #     "Mango",
 #     "Melon",
@@ -138,7 +148,7 @@ println("combination7: ", chomp(JSON.json(combination7, 4)))
 # ]
 
 combination8 = [fruits..., Dict("Germany" => "Berlin", "Italy" => "Rome")]
-println("combination8: ", chomp(JSON.json(combination8, 4)))
+println("combination8: ", json_stringify(combination8, pretty=true))
 # combination8: [
 #     "Mango",
 #     "Melon",
@@ -152,7 +162,7 @@ println("combination8: ", chomp(JSON.json(combination8, 4)))
 println("# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9 = Dict(country_capitals_in_asia..., "country_capitals_in_europe" => country_capitals_in_europe)
-println("combination9: ", chomp(JSON.json(combination9, 4)))
+println("combination9: ", json_stringify(combination9, pretty=true))
 # combination9: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -164,7 +174,7 @@ println("combination9: ", chomp(JSON.json(combination9, 4)))
 # }
 
 combination10 = Dict(country_capitals_in_asia..., "country_capitals_in_europe" => Dict("Germany" => "Berlin", "Italy" => "Rome"))
-println("combination10: ", chomp(JSON.json(combination10, 4)))
+println("combination10: ", json_stringify(combination10, pretty=true))
 # combination10: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -178,7 +188,7 @@ println("combination10: ", chomp(JSON.json(combination10, 4)))
 println("# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11 = Dict(country_capitals_in_asia..., "vegetables" => vegetables)
-println("combination11: ", chomp(JSON.json(combination11, 4)))
+println("combination11: ", json_stringify(combination11, pretty=true))
 # combination11: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -190,7 +200,7 @@ println("combination11: ", chomp(JSON.json(combination11, 4)))
 # }
 
 combination12 = Dict(country_capitals_in_asia..., "vegetables" => ["Cucumber", "Cabbage"])
-println("combination12: ", chomp(JSON.json(combination12, 4)))
+println("combination12: ", json_stringify(combination12, pretty=true))
 # combination12: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -204,7 +214,7 @@ println("combination12: ", chomp(JSON.json(combination12, 4)))
 println("# { ...object1, ...array2 }:\n")
 
 combination13 = Dict(country_capitals_in_asia..., array_to_object(vegetables)...)
-println("combination13: ", chomp(JSON.json(combination13, 4)))
+println("combination13: ", json_stringify(combination13, pretty=true))
 # combination13: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -214,7 +224,7 @@ println("combination13: ", chomp(JSON.json(combination13, 4)))
 # }
 
 combination14 = Dict(country_capitals_in_asia..., array_to_object(["Cucumber", "Cabbage"])...)
-println("combination14: ", chomp(JSON.json(combination14, 4)))
+println("combination14: ", json_stringify(combination14, pretty=true))
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -227,8 +237,8 @@ println("combination14: ", chomp(JSON.json(combination14, 4)))
 
 # this combination throw an error in JavaScript
 # combination_error_in_javascript1 = [fruits..., country_capitals_in_asia...]
-# println("combination_error_in_javascript1: ", chomp(JSON.json(combination_error_in_javascript1, 4)))
+# println("combination_error_in_javascript1: ", json_stringify(combination_error_in_javascript1, pretty=true))
 
 # this combination throw an error in JavaScript
 # combination_error_in_javascript2 = [fruits..., Dict("Germany" => "Berlin", "Italy" => "Rome")...]
-# println("combination_error_in_javascript2: ", chomp(JSON.json(combination_error_in_javascript2, 4)))
+# println("combination_error_in_javascript2: ", json_stringify(combination_error_in_javascript2, pretty=true))

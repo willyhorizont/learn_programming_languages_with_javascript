@@ -1,59 +1,47 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
-    fun prettyArrayOfPrimitives(anArrayOfPrimitives: MutableList<Any?>): String {
-        var result = "["
-        for ((arrayItemIndex, arrayItem) in anArrayOfPrimitives.withIndex()) {
-            if (((arrayItem is String) == false) && ((arrayItem is Number) == false) && ((arrayItem is Boolean) == false) && (arrayItem != null)) continue
-            if (arrayItem is String) result += "\"${arrayItem}\""
-            if ((arrayItem is Number) || (arrayItem is Boolean) || (arrayItem == null)) result += "${arrayItem}"
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.size) result += ", "
-        }
-        result += "]"
-        return result
-    }
-
-    fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
+    fun jsonStringify(anything: Any? = null, pretty: Boolean = false, indent: String = "    "): String {
         var indentLevel = 0
-        fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
+        fun jsonStringifyInner(anythingInner: Any?, indentInner: String): String {
             if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
                 if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
-                var result = "[\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "[\n${indentInner.repeat(indentLevel)}" else "[")
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
-                    result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += jsonStringifyInner(arrayItem, indentInner)
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}]"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}]" else "]")
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
-                var result = "{\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "{\n${indentInner.repeat(indentLevel)}" else "{")
                 anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
                     val objectKey = objectEntry.key
                     val objectValue = objectEntry.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += "\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}}"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}}" else "}")
                 return result
             }
             return "null"
         }
-        return prettyJsonStringifyInner(anything, indent)
+        return jsonStringifyInner(anything, indent)
     }
 
     // in Kotlin, JavaScript-like Array is called MutableList
 
     val fruits = mutableListOf<Any?>("apple", "mango", "orange")
-    println("fruits: ${prettyArrayOfPrimitives(fruits)}")
+    println("fruits: ${jsonStringify(fruits)}")
 
     println("fruits, length: ${fruits.size}")
     // fruits, length: 3
@@ -97,7 +85,7 @@ fun main() {
             "name" to "potato chips"
         ),
     )
-    println("products: ${prettyJsonStringify(products)}")
+    println("products: ${jsonStringify(products, pretty = true)}")
 
     products.forEachIndexed { arrayItemIndex, arrayItem ->
         (arrayItem as MutableMap<String, Any?>).entries.forEachIndexed { objectEntryIndex, objectEntry ->

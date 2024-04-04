@@ -1,71 +1,161 @@
-function stringifyresult = stringify(parameter)
-    if isempty(parameter)
-        stringifyresult = "null";
-        return;
+function stringrepeatresult = stringrepeat(astring, count)
+    result = "";
+    for i = (1:1:count) % (start:step:stop)
+        result = strcat(result, astring);
     end
-    if isstring(parameter)
-        stringifyresult = strcat("""", parameter, """");
-        return;
-    end
-    if ischar(parameter)
-        stringifyresult = strcat("""", parameter, """");
-        return;
-    end
-    if isnumeric(parameter)
-        stringifyresult = num2str(parameter);
-        return;
-    end
-    if (islogical(parameter) && parameter == true)
-        stringifyresult = "true";
-        return;
-    end
-    if (islogical(parameter) && parameter == false)
-        stringifyresult = "false";
-        return;
-    end
-    if iscell(parameter)
-        if isempty(parameter)
-            stringifyresult = "[]";
-            return;
-        end
-        currentresult = "[";
-        for arrayitemindex = (1:1:numel(parameter))
-            arrayitem = parameter{arrayitemindex};
-            currentresult = strcat(currentresult, stringify(arrayitem));
-            if (arrayitemindex ~= numel(parameter))
-                currentresult = strcat(currentresult, ", ");
-            end
-        end
-        stringifyresult = strcat(currentresult, "]");
-        return;
-    end
-    if isstruct(parameter)
-        if (numel(fieldnames(parameter)) == 0)
-            stringifyresult = "{}";
-            return;
-        end
-        currentresult = "{";
-        objectkeys = fieldnames(parameter);
-        for objectentryindex = (1:1:numel(objectkeys))
-            objectkey = objectkeys{objectentryindex};
-            objectvalue = parameter.(objectkey);
-            currentresult = strcat(currentresult, """", objectkey, """: ", stringify(objectvalue));
-            if (objectentryindex ~= numel(objectkeys))
-                currentresult = strcat(currentresult, ",");
-            end
-        end
-        stringifyresult = strcat(currentresult, "}");
-        return;
-    end
-    stringifyresult = "null";
+    stringrepeatresult = result;
 end
 
-function sjoinresult = sjoin(varargin)
+function arrayreduceresult = arrayreduce(callbackfunction, anarray, initialvalue)
+    % JavaScript-like Array.reduce() function
+    currentresult = initialvalue;
+    for arrayitemindex = (1:1:numel(anarray)) % (start:step:stop)
+        arrayitem = anarray{arrayitemindex};
+        currentresult = callbackfunction(currentresult, arrayitem, arrayitemindex, anarray);
+    end
+    arrayreduceresult = currentresult;
+end
+
+function optionalchainingresult = optionalchaining(anything, varargin)
+    % JavaScript-like Optional Chaining Operator (?.) function
+    % varargin == objectpropertiesarray
+    if ((~isstruct(anything) && ~iscell(anything)) || isempty(varargin))
+        optionalchainingresult = anything;
+        return;
+    end
+    function arrayreducecallbackresult = arrayreducecallback(currentresult, currentitem, varargin)
+        % varargin == (arrayitemindex, anarray)
+        if ((isempty(currentresult) && isstruct(anything) && (isstring(currentitem) || ischar(currentitem))) && isfield(anything, currentitem))
+            arrayreducecallbackresult = anything.(currentitem);
+            return;
+        end
+        if (isempty(currentresult) && iscell(anything) && isnumeric(currentitem) && (currentitem >= 1) && (numel(anything) > currentitem))
+            arrayreducecallbackresult = anything{currentitem};
+            return;
+        end
+        if ((isstruct(currentresult) && (isstring(currentitem) || ischar(currentitem))) && isfield(currentresult, currentitem))
+            arrayreducecallbackresult = currentresult.(currentitem);
+            return;
+        end
+        if (iscell(currentresult) && isnumeric(currentitem) && (currentitem >= 1) && (numel(currentresult) > currentitem))
+            arrayreducecallbackresult = currentresult{currentitem};
+            return;
+        end
+        arrayreducecallbackresult = {};
+    end
+    optionalchainingresult = arrayreduce(@arrayreducecallback, varargin, {});
+end
+
+function ternaryresult = ternary(truecondition, valueifconditionistrue, valueifconditionisfalse)
+    if (islogical(truecondition) && (truecondition == true))
+        ternaryresult = valueifconditionistrue;
+        return;
+    end
+    ternaryresult = valueifconditionisfalse;
+end
+
+function jsonstringifyresult = jsonstringify(anything, additionalparameter)
+    indentlevel = 0;
+    function jsonstringifyinnerresult = jsonstringifyinner(anythinginner, prettyinner, indentinner)
+        if isempty(anythinginner)
+            jsonstringifyinnerresult = "null";
+            return;
+        end
+        if isstring(anythinginner)
+            jsonstringifyinnerresult = strcat("""", anythinginner, """");
+            return;
+        end
+        if ischar(anythinginner)
+            jsonstringifyinnerresult = strcat("""", anythinginner, """");
+            return;
+        end
+        if isnumeric(anythinginner)
+            jsonstringifyinnerresult = num2str(anythinginner);
+            return;
+        end
+        if (islogical(anythinginner) && (anythinginner == true))
+            jsonstringifyinnerresult = "true";
+            return;
+        end
+        if (islogical(anythinginner) && (anythinginner == false))
+            jsonstringifyinnerresult = "false";
+            return;
+        end
+        if iscell(anythinginner)
+            if isempty(anythinginner)
+                jsonstringifyinnerresult = "[]";
+                return;
+            end
+            indentlevel = indentlevel + 1;
+            result = ternary((pretty == true), strcat("[", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "[");
+            for arrayitemindex = (1:1:numel(anythinginner)) % (start:step:stop)
+                arrayitem = anythinginner{arrayitemindex};
+                result = strcat(result, jsonstringifyinner(arrayitem, prettyinner, indentinner));
+                if (arrayitemindex ~= numel(anythinginner))
+                    result = ternary((pretty == true), strcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), strcat(result, ", "));
+                end
+            end
+            indentlevel = indentlevel - 1;
+            result = ternary((pretty == true), strcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "]"), strcat(result, "]"));
+            jsonstringifyinnerresult = result;
+            return;
+        end
+        if isstruct(anythinginner)
+            if (numel(fieldnames(anythinginner)) == 0)
+                jsonstringifyinnerresult = "{}";
+                return;
+            end
+            indentlevel = indentlevel + 1;
+            result = ternary((pretty == true), strcat("{", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "{");
+            objectkeys = fieldnames(anythinginner);
+            for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
+                objectkey = objectkeys{objectentryindex};
+                objectvalue = anythinginner.(objectkey);
+                result = strcat(result, """", objectkey, """: ", jsonstringifyinner(objectvalue, prettyinner, indentinner));
+                if (objectentryindex ~= numel(objectkeys))
+                    result = ternary((pretty == true), strcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), strcat(result, ", "));
+                end
+            end
+            indentlevel = indentlevel - 1;
+            result = ternary((pretty == true), strcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "}"), strcat(result, "}"));
+            jsonstringifyinnerresult = result;
+            return;
+        end
+        jsonstringifyinnerresult = "null";
+    end
+    pretty = false;
+    indent = "    ";
+    if isempty(additionalparameter)
+        jsonstringifyresult = jsonstringifyinner(anything, true, indent);
+        return;
+    end
+    if isstruct(additionalparameter)
+        pretty = optionalchaining(additionalparameter, "pretty");
+        indent = optionalchaining(additionalparameter, "indent");
+        pretty = ternary(isempty(pretty), false, pretty);
+        indent = ternary(isempty(indent), "    ", indent);
+        jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
+        return;
+    end
+    if (islogical(additionalparameter) && (additionalparameter == true))
+        pretty = true;
+        jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
+        return;
+    end
+    if (islogical(additionalparameter) && (additionalparameter == false))
+        pretty = false;
+        jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
+        return;
+    end
+    jsonstringifyresult = jsonstringifyinner(anything, false, indent);
+end
+
+function sprint(varargin)
     currentresult = "";
-    for parameterindex = (1:1:numel(varargin))
+    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
         parameter = varargin{parameterindex};
         if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = stringify(parameter{1});
+            parameternew = jsonstringify(parameter{1}, false);
             parameternew = strrep(parameternew, """{", "{");
             parameternew = strrep(parameternew, """[", "[");
             parameternew = strrep(parameternew, "}""", "}");
@@ -73,22 +163,8 @@ function sjoinresult = sjoin(varargin)
             currentresult = strcat(currentresult, parameternew);
             continue;
         end
-        currentresult = strcat(currentresult, parameter);
-    end
-    sjoinresult = currentresult;
-end
-
-function sprint(varargin)
-    currentresult = "";
-    for parameterindex = (1:1:numel(varargin))
-        parameter = varargin{parameterindex};
-        if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = stringify(parameter{1});
-            parameternew = strrep(parameternew, """{", "{");
-            parameternew = strrep(parameternew, """[", "[");
-            parameternew = strrep(parameternew, "}""", "}");
-            parameternew = strrep(parameternew, "]""", "]");
-            currentresult = strcat(currentresult, parameternew);
+        if (~isstring(parameter) && ~ischar(parameter))
+            error("Non string argument must be wrapped in {}");
             continue;
         end
         currentresult = strcat(currentresult, parameter);
@@ -96,136 +172,13 @@ function sprint(varargin)
     disp(currentresult);
 end
 
-function srepeatresult = srepeat(astring, count)
-    result = "";
-    for i = (1:1:count)
-        result = strcat(result, astring);
-    end
-    srepeatresult = result;
-end
-
-function prettyjsonstringifyresult = prettyjsonstringify(parameter)
-    if ((nargin == 0) || (~iscell(parameter)) || (iscell(parameter) && isempty(parameter)))
-        error("Argument should be wrapped in {}");
-    end
-    indent = "    ";
-    if ((nargin == 2) && isstruct(parameter{2}) && isfield(parameter{2}, "indent"))
-        indent = parameter{2}.indent;
-    end
-    anything = parameter{1};
-    indentlevel = 0;
-    function prettyjsonstringifyinnerresult = prettyjsonstringifyinner(anythinginner, indentinner)
-        if isempty(anythinginner)
-            prettyjsonstringifyinnerresult = "null";
-            return;
-        end
-        if isstring(anythinginner)
-            prettyjsonstringifyinnerresult = strcat("""", anythinginner, """");
-            return;
-        end
-        if ischar(anythinginner)
-            prettyjsonstringifyinnerresult = strcat("""", anythinginner, """");
-            return;
-        end
-        if isnumeric(anythinginner)
-            prettyjsonstringifyinnerresult = num2str(anythinginner);
-            return;
-        end
-        if (islogical(anythinginner) && anythinginner == true)
-            prettyjsonstringifyinnerresult = "true";
-            return;
-        end
-        if (islogical(anythinginner) && anythinginner == false)
-            prettyjsonstringifyinnerresult = "false";
-            return;
-        end
-        if iscell(anythinginner)
-            if isempty(anythinginner)
-                prettyjsonstringifyinnerresult = "[]";
-                return;
-            end
-            indentlevel = indentlevel + 1;
-            result = strcat("[", sprintf("\n"), srepeat(indentinner, indentlevel));
-            for arrayitemindex = (1:1:numel(anythinginner))
-                arrayitem = anythinginner{arrayitemindex};
-                result = strcat(result, prettyjsonstringifyinner(arrayitem, indentinner));
-                if (arrayitemindex ~= numel(anythinginner))
-                    result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
-                end
-            end
-            indentlevel = indentlevel - 1;
-            result = strcat(result, sprintf("\n"), srepeat(indentinner, indentlevel), "]");
-            prettyjsonstringifyinnerresult = result;
-            return;
-        end
-        if isstruct(anythinginner)
-            if (numel(fieldnames(anythinginner)) == 0)
-                prettyjsonstringifyinnerresult = "{}";
-                return;
-            end
-            indentlevel = indentlevel + 1;
-            result = strcat("{", sprintf("\n"), srepeat(indentinner, indentlevel));
-            objectkeys = fieldnames(anythinginner);
-            for objectentryindex = (1:1:numel(objectkeys))
-                objectkey = objectkeys{objectentryindex};
-                objectvalue = anythinginner.(objectkey);
-                result = strcat(result, """", objectkey, """: ", prettyjsonstringifyinner(objectvalue, indentinner));
-                if (objectentryindex ~= numel(objectkeys))
-                    result = strcat(result, ",", sprintf("\n"), srepeat(indentinner, indentlevel));
-                end
-            end
-            indentlevel = indentlevel - 1;
-            result = strcat(result, sprintf("\n"), srepeat(indentinner, indentlevel), "}");
-            prettyjsonstringifyinnerresult = result;
-            return;
-        end
-        prettyjsonstringifyinnerresult = "null";
-    end
-    prettyjsonstringifyresult = prettyjsonstringifyinner(anything, indent);
-end
-
-function objectresult = object(varargin)
+function spreadobjectresult = spreadobject(varargin)
     newobject = struct();
-    if (mod(numel(varargin), 2) ~= 0)
-        error("Argument should be even");
-    end
-    for parameterindex = (1:1:numel(varargin))
-        parameter = varargin{parameterindex};
-        if (mod(parameterindex, 2) ~= 0)
-            if isnumeric(parameter)
-                continue;
-            end
-            if (~isstring(parameter) && ~ischar(parameter))
-                error("Even argument should be a string");
-            end
-            continue;
-        end
-        objectkey = varargin{parameterindex - 1};
-        if isnumeric(objectkey)
-            objectkey = strrep(num2str(objectkey), ".", "point");
-            objectkey = strrep(objectkey, "-", "negative");
-            newobject.(strcat("number", objectkey)) = parameter;
-            continue;
-        end
-        if isempty(regexp(objectkey, "^[a-zA-Z][a-zA-Z0-9_]*$", "once"))
-            error("Error: Object Key must begin with a letter, Object key can only contain letters, digits, and underscores.");
-        end
-        try
-            newobject.(objectkey) = parameter;
-        catch exception
-            error(strcat("Error: Object Key might be a reserved word or function name in Matlab. More Detail: ", exception.message));
-        end
-    end
-    objectresult = newobject;
-end
-
-function spreadsyntaxobjectresult = spreadsyntaxobject(varargin)
-    newobject = struct();
-    for parameterindex = (1:1:numel(varargin))
+    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
         parameter = varargin{parameterindex};
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
-            for objectentryindex = (1:1:numel(objectkeys))
+            for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                 objectkey = objectkeys{objectentryindex};
                 objectvalue = parameter.(objectkey);
                 newobject.(objectkey) = objectvalue;
@@ -233,24 +186,24 @@ function spreadsyntaxobjectresult = spreadsyntaxobject(varargin)
             continue;
         end
         if iscell(parameter)
-            for arrayitemindex = (1:1:numel(parameter))
+            for arrayitemindex = (1:1:numel(parameter)) % (start:step:stop)
                 arrayitem = parameter{arrayitemindex};
                 newobject.(strcat("index", num2str(arrayitemindex))) = arrayitem;
             end
             continue;
         end
     end
-    spreadsyntaxobjectresult = newobject;
+    spreadobjectresult = newobject;
 end
 
-function spreadsyntaxarrayresult = spreadsyntaxarray(varargin)
+function spreadarrayresult = spreadarray(varargin)
     newarray = {};
-    for parameterindex = (1:1:numel(varargin))
+    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
         parameter = varargin{parameterindex};
         if isstruct(parameter)
             objectkeys = fieldnames(parameter);
             if (numel(objectkeys) == 1)
-                for objectentryindex = (1:1:numel(objectkeys))
+                for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                     objectkey = objectkeys{objectentryindex};
                     objectvalue = parameter.(objectkey);
                     newarray{end + 1} = objectvalue;
@@ -261,41 +214,20 @@ function spreadsyntaxarrayresult = spreadsyntaxarray(varargin)
             continue;
         end
         if iscell(parameter)
-            for arrayitemindex = (1:1:numel(parameter))
+            for arrayitemindex = (1:1:numel(parameter)) % (start:step:stop)
                 arrayitem = parameter{arrayitemindex};
                 newarray{end + 1} = arrayitem;
             end
             continue;
         end
     end
-    spreadsyntaxarrayresult = newarray;
-end
-
-function ternaryresult = ternary(truecondition, valueifconditionistrue, valueifconditionisfalse)
-    if (islogical(truecondition) && truecondition == true)
-        ternaryresult = valueifconditionistrue;
-        return;
-    end
-    ternaryresult = valueifconditionisfalse;
-end
-
-% There's no JavaScript-like Array.reduce() in Matlab.
-% But, we can create our own function to mimic it in Matlab.
-
-function arrayreduceresult = arrayreduce(callbackfunction, anarray, initialvalue)
-    % JavaScript-like Array.reduce() function
-    currentresult = initialvalue;
-    for arrayitemindex = (1:1:numel(anarray))
-        arrayitem = anarray{arrayitemindex};
-        currentresult = callbackfunction(currentresult, arrayitem, arrayitemindex, anarray);
-    end
-    arrayreduceresult = currentresult;
+    spreadarrayresult = newarray;
 end
 
 sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell-Array");
 
 numbers = {36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3};
-sprint("numbers: ", {numbers});
+sprint("numbers: ", jsonstringify(numbers, false));
 
 sprint("% using JavaScript-like Array.reduce() function ""arrayreduce""");
 
@@ -307,28 +239,28 @@ sprint(sprintf("\n"), "% JavaScript-like Array.reduce() in Matlab Cell-Array of 
 
 products = { ...
     struct( ...
-        "code", "pasta", ...
-        "price", 321 ...
+        "code", {"pasta"}, ...
+        "price", {321} ...
     ), ...
     struct( ...
-        "code", "bubble_gum", ...
-        "price", 233 ...
+        "code", {"bubble_gum"}, ...
+        "price", {233} ...
     ), ...
     struct( ...
-        "code", "potato_chips", ...
-        "price", 5 ...
+        "code", {"potato_chips"}, ...
+        "price", {5} ...
     ), ...
     struct( ...
-        "code", "towel", ...
-        "price", 499 ...
+        "code", {"towel"}, ...
+        "price", {499} ...
     ) ...
 };
-sprint("products: ", prettyjsonstringify({products}));
+sprint("products: ", jsonstringify(products, struct("pretty", {true})));
 
 sprint("% using JavaScript-like Array.reduce() function ""arrayreduce""");
 
-productsgrouped = arrayreduce(@(currentresult, currentproduct, varargin) ternary((currentproduct.("price") > 100), spreadsyntaxobject(currentresult, object("expensive", spreadsyntaxarray(currentresult.("expensive"), object("currentproduct", currentproduct)))), spreadsyntaxobject(currentresult, object("cheap", spreadsyntaxarray(currentresult.("cheap"), object("currentproduct", currentproduct))))), products, object("expensive", {}, "cheap", {}));
-sprint("grouped products: ", {prettyjsonstringify({productsgrouped})});
+productsgrouped = arrayreduce(@(currentresult, currentproduct, varargin) ternary((currentproduct.("price") > 100), spreadobject(currentresult, struct("expensive", {spreadarray(currentresult.("expensive"), struct("currentproduct", {currentproduct}))})), spreadobject(currentresult, struct("cheap", {spreadarray(currentresult.("cheap"), struct("currentproduct", {currentproduct}))}))), products, struct("expensive", {{}}, "cheap", {{}}));
+sprint("grouped products: ", jsonstringify(productsgrouped, struct("pretty", {true})));
 % grouped products: {
 %     "expensive": [
 %         {

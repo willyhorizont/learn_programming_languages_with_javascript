@@ -1,41 +1,41 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
-    fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
+    fun jsonStringify(anything: Any? = null, pretty: Boolean = false, indent: String = "    "): String {
         var indentLevel = 0
-        fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
+        fun jsonStringifyInner(anythingInner: Any?, indentInner: String): String {
             if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
                 if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
-                var result = "[\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "[\n${indentInner.repeat(indentLevel)}" else "[")
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
-                    result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += jsonStringifyInner(arrayItem, indentInner)
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}]"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}]" else "]")
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
-                var result = "{\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "{\n${indentInner.repeat(indentLevel)}" else "{")
                 anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
                     val objectKey = objectEntry.key
                     val objectValue = objectEntry.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += "\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}}"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}}" else "}")
                 return result
             }
             return "null"
         }
-        return prettyJsonStringifyInner(anything, indent)
+        return jsonStringifyInner(anything, indent)
     }
 
     /*
@@ -60,17 +60,17 @@ fun main() {
     */
 
     var something: Any? = "foo"
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
     something = 123
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
     something = true
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
     something = null
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
     something = mutableListOf<Any?>(1, 2, 3)
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
     something = mutableMapOf<String, Any?>("foo" to "bar")
-    println("something: ${prettyJsonStringify(something)}")
+    println("something: ${jsonStringify(something, pretty = true)}")
 
     /*
         2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -156,7 +156,7 @@ fun main() {
             "foo" to "bar"
         )
     )
-    println("myObject: ${prettyJsonStringify(myObject)}")
+    println("myObject: ${jsonStringify(myObject, pretty = true)}")
 
     /*
         4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -166,7 +166,7 @@ fun main() {
         ```
     */
     val myArray = mutableListOf<Any?>("foo", 123, true, null, mutableListOf<Any?>(1, 2, 3), mutableMapOf<String, Any?>("foo" to "bar"))
-    println("myArray: ${prettyJsonStringify(myArray)}")
+    println("myArray: ${jsonStringify(myArray, pretty = true)}")
 
     /*
         5. support passing functions as arguments to other functions

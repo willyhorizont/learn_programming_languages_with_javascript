@@ -2,8 +2,6 @@ using System; // Console, Func<>, Action<>, Action
 
 class Program {
     static void Main(string[] Args) {
-        dynamic IsNumeric = (Func<dynamic, bool>)((dynamic Anything) => (Anything is sbyte || Anything is byte || Anything is short || Anything is ushort || Anything is int || Anything is uint || Anything is long || Anything is ulong || Anything is float || Anything is double || Anything is decimal));
-
         Console.WriteLine("\n// Factorial(n) in C#");
 
         dynamic FactorialV1(int Number) {

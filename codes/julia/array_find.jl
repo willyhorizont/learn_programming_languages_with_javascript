@@ -1,30 +1,40 @@
-using JSON
+function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
+    indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner::String)::String
+        if (anything_inner === nothing) return "null" end
+        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
+        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
+        if (isa(anything_inner, Array) === true)
+            if (length(anything_inner) == 0) return "[]" end
+            indent_level += 1
+            result = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
+            for (array_item_index, array_item) in enumerate(anything_inner)
+                result *= json_stringify_inner(array_item, indent_inner)
+                if (array_item_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
+            return result
+        end
+        if (isa(anything_inner, Dict) === true)
+            if (length(anything_inner) == 0) return "{}" end
+            indent_level += 1
+            result = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
+            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                result *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
+                if (object_entry_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
+            return result
+        end
+        return "null"
+    end
+    return json_stringify_inner(anything, indent)
+end
 
 # There's no JavaScript-like Array.find() in Julia.
 # But, we can create our own function to mimic it in Julia.
-
-function pretty_array_of_primitives(an_array_of_primitives)
-    result = "["
-    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false) && (isa(array_item, Bool) === false) && array_item !== nothing)
-            continue
-        end
-        if (isa(array_item, AbstractString) === true)
-            result = string(result, "\"", array_item, "\"")
-        end
-        if (array_item === nothing)
-            result = string(result, "null")
-        end
-        if ((isa(array_item, Number) === true) || (isa(array_item, Bool) === true))
-            result = string(result, array_item)
-        end
-        if (array_item_index !== length(an_array_of_primitives))
-            result = string(result, ", ")
-        end
-    end
-    result = string(result, "]")
-    return result
-end
 
 function array_find_v1(callback_function, an_array)
     # JavaScript-like Array.find() function
@@ -73,7 +83,7 @@ function array_find_v4(callback_function, an_array)
 end
 
 function array_find_v5(callback_function, an_array)
-    # Array.find() function using Julia Array.findIndex() built-in function "findfirst"
+    # Array.find() function using Julia Array.find() built-in function "findfirst"
     data_found_index = findfirst(callback_function, an_array)
     return ((data_found_index === nothing) ? nothing : an_array[data_found_index])
 end
@@ -81,7 +91,7 @@ end
 println("\n# JavaScript-like Array.find() in Julia Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-println("numbers: ", pretty_array_of_primitives(numbers))
+println("numbers: ", json_stringify(numbers))
 
 println("# using JavaScript-like Array.find() function \"array_find_v1\"")
 
@@ -153,7 +163,7 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", chomp(JSON.json(products, 4)))
+println("products: ", json_stringify(products, pretty=true))
 
 product_to_find = "bubble_gum"
 println("product to find: $product_to_find")
@@ -161,7 +171,7 @@ println("product to find: $product_to_find")
 println("# using JavaScript-like Array.find() function \"array_find_v1\"")
 
 product_found = array_find_v1((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
+println("product found: ", json_stringify(product_found, pretty=true))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -170,7 +180,7 @@ println("product found: ", chomp(JSON.json(product_found, 4)))
 println("# using JavaScript-like Array.find() function \"array_find_v2\"")
 
 product_found = array_find_v2((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
+println("product found: ", json_stringify(product_found, pretty=true))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -179,7 +189,7 @@ println("product found: ", chomp(JSON.json(product_found, 4)))
 println("# using JavaScript-like Array.find() function \"array_find_v3\"")
 
 product_found = array_find_v3((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
+println("product found: ", json_stringify(product_found, pretty=true))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -188,7 +198,7 @@ println("product found: ", chomp(JSON.json(product_found, 4)))
 println("# using JavaScript-like Array.find() function \"array_find_v4\"")
 
 product_found = array_find_v4((product, _, _) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
+println("product found: ", json_stringify(product_found, pretty=true))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -197,7 +207,7 @@ println("product found: ", chomp(JSON.json(product_found, 4)))
 println("# using JavaScript-like Array.find() function \"array_find_v5\"")
 
 product_found = array_find_v5((product) -> (product["code"] === product_to_find), products)
-println("product found: ", chomp(JSON.json(product_found, 4)))
+println("product found: ", json_stringify(product_found, pretty=true))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233

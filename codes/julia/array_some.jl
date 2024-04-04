@@ -1,28 +1,5 @@
 using JSON
 
-function pretty_array_of_primitives(an_array_of_primitives)
-    result = "["
-    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false) && (isa(array_item, Bool) === false) && array_item !== nothing)
-            continue
-        end
-        if (isa(array_item, AbstractString) === true)
-            result = string(result, "\"", array_item, "\"")
-        end
-        if (array_item === nothing)
-            result = string(result, "null")
-        end
-        if ((isa(array_item, Number) === true) || (isa(array_item, Bool) === true))
-            result = string(result, array_item)
-        end
-        if (array_item_index !== length(an_array_of_primitives))
-            result = string(result, ", ")
-        end
-    end
-    result = string(result, "]")
-    return result
-end
-
 function array_some_v1(callback_function, an_array)
     # JavaScript-like Array.some() function
     is_condition_match = false
@@ -71,7 +48,7 @@ end
 println("\n# JavaScript-like Array.some() in Julia Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-println("numbers: ", pretty_array_of_primitives(numbers))
+println("numbers: ", json_stringify(numbers))
 
 println("# using JavaScript-like Array.some() function \"array_some_v1\"")
 
@@ -143,7 +120,7 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", chomp(JSON.json(products, 4)))
+println("products: ", json_stringify(products, pretty=true))
 
 println("# using JavaScript-like Array.some() function \"array_some_v1\"")
 

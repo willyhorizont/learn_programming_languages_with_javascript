@@ -3,41 +3,41 @@
 fun main() {
     println("\n// JavaScript-like Nullish Coalescing Operator (??) in Kotlin")
 
-    fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
+    fun jsonStringify(anything: Any? = null, pretty: Boolean = false, indent: String = "    "): String {
         var indentLevel = 0
-        fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
+        fun jsonStringifyInner(anythingInner: Any?, indentInner: String): String {
             if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
                 if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
-                var result = "[\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "[\n${indentInner.repeat(indentLevel)}" else "[")
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
-                    result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += jsonStringifyInner(arrayItem, indentInner)
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}]"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}]" else "]")
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
-                var result = "{\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "{\n${indentInner.repeat(indentLevel)}" else "{")
                 anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
                     val objectKey = objectEntry.key
                     val objectValue = objectEntry.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += "\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}}"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}}" else "}")
                 return result
             }
             return "null"
         }
-        return prettyJsonStringifyInner(anything, indent)
+        return jsonStringifyInner(anything, indent)
     }
 
     // in Kotlin, JavaScript-like Nullish Coalescing Operator (??) is Elvis Operator (?:)
@@ -48,7 +48,7 @@ fun main() {
         ),
         "fruits" to mutableListOf<Any?>("apple", "mango", "banana")
     )
-    println("JSON_OBJECT: ${prettyJsonStringify(JSON_OBJECT)}")
+    println("JSON_OBJECT: ${jsonStringify(JSON_OBJECT, pretty = true)}")
 
     println("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): ${try { (JSON_OBJECT["foo"] as MutableMap<String, Any?>)["bar"] } catch (err: Exception) { null } ?: "not found"}")
     // (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): baz

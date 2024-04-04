@@ -4,22 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 )
-
-const EMPTY_STRING = ""
-const TAB = "    "
 
 // type any interface{}
 type array []any
 type object map[string]any
-
-func prettyJsonStringify(anything any) string {
-    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-    if (err == nil) {
-        return string(marshalledJson)
-    }
-    return "undefined"
-}
 
 func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
     // JavaScript-like Array.reduce() function
@@ -30,46 +20,84 @@ func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array,
     return result
 }
 
+// There's no JavaScript-like Optional Chaining Operator (?.) in Go.
+// But, we can create our own function to mimic it in Go.
+
 func optionalChaining(anything any, objectPropertiesArray ...any) any {
     anythingType := reflect.TypeOf(anything).Kind()
     if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
         return anything
     }
     return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
-        var currentItemTypeString any = nil
-        switch currentItemType := reflect.TypeOf(currentItem).Kind(); currentItemType {
-        case reflect.String:
-            currentItemTypeString = "String"
-        case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-            currentItemTypeString = "Number"
-        default:
-            currentItemTypeString = nil
-        }
-        if (currentItemTypeString == nil) {
-            return nil
-        }
-        if (currentResult == nil && (anythingType == reflect.Map) && (currentItemTypeString == "String")) {
+        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
             return anything.(object)[currentItem.(string)]
         }
-        if (currentResult == nil && (anythingType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
+        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
             return anything.(array)[currentItem.(int)]
         }
-        currentResultType := reflect.TypeOf(currentResult).Kind()
-        if (currentResultType == reflect.Map && (currentItemTypeString == "String")) {
+        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
             return currentResult.(object)[currentItem.(string)]
         }
-        if ((currentResultType == reflect.Slice) && (currentItemTypeString == "Number") && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
+        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
             return currentResult.(array)[currentItem.(int)]
         }
         return nil
     }, objectPropertiesArray, nil)
 }
 
+func jsonStringify(anything any, additionalParameter any) string {
+	jsonStringifyDefault := func(anythingInner any) string {
+        jsonMarshalled, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
+		}
+		return "null"
+    }
+	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
+        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
+		if (err == nil) {
+			return string(jsonMarshalled)
+		}
+		return "null"
+    }
+	if (additionalParameter == nil || additionalParameter == false) {
+		return jsonStringifyDefault(anything)
+	}
+	if (additionalParameter == true) {
+		return jsonStringifyPrettyDefault(anything, "    ")
+	}
+	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
+		var pretty any = optionalChaining(additionalParameter, "pretty")
+		var indent any = optionalChaining(additionalParameter, "indent")
+		if (pretty == true) {
+			if (indent == nil) {
+				indent = "    "
+			}
+			return jsonStringifyPrettyDefault(anything, indent.(string))
+		}
+		return jsonStringifyDefault(anything)
+	}
+	return jsonStringifyDefault(anything)
+}
+
+func sPrintln(parameters ...any) {
+    var parametersNew = []string{}
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
+            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+            continue
+        }
+        if (parameterType == reflect.String) {
+			parametersNew = append(parametersNew, parameter.(string))
+            continue
+        }
+    }
+    fmt.Println(strings.Join(parametersNew, ""))
+}
+
 func main() {
     fmt.Println("\n// JavaScript-like Optional Chaining Operator (?.) in Go")
-
-    // There's no JavaScript-like Optional Chaining Operator (?.) in Go.
-    // But, we can create our own function to mimic it in Go.
 
     JSON_OBJECT := object{
         "foo": object{
@@ -77,17 +105,17 @@ func main() {
         },
         "fruits": array{"apple", "mango", "banana"},
     }
-    fmt.Println("JSON_OBJECT:", prettyJsonStringify(JSON_OBJECT))
+    sPrintln("JSON_OBJECT: ", jsonStringify(JSON_OBJECT, object{"pretty": true}))
 
-    fmt.Println("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar")))
+    sPrintln("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", jsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar"), false))
     // JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: "baz"
 
-    fmt.Println("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz")))
+    sPrintln("JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: ", jsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz"), false))
     // JSON_OBJECT?.foo?.baz or JSON_OBJECT?.['foo']?.['baz']: null
 
-    fmt.Println("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2)))
+    sPrintln("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", jsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2), false))
     // JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: "banana"
 
-    fmt.Println("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]:", prettyJsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5)))
+    sPrintln("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", jsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5), false))
     // JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null
 }

@@ -1,9 +1,13 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     /*
@@ -27,17 +31,17 @@ void main() {
         ```
     */
     dynamic something = "foo";
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
     something = 123;
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
     something = true;
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
     something = null;
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
     something = <dynamic>[1, 2, 3];
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
     something = <String, dynamic>{"foo": "bar"};
-    print("something: ${prettyJsonStringify(something)}");
+    print("something: ${jsonStringify(something, pretty: true)}");
 
     /*
         2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -123,7 +127,7 @@ void main() {
             "foo": "bar"
         }
     };
-    print("myObject: ${prettyJsonStringify(myObject)}");
+    print("myObject: ${jsonStringify(myObject, pretty: true)}");
 
     /*
         4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -133,7 +137,7 @@ void main() {
         ```
     */
     final myArray = <dynamic>["foo", 123, true, null, <dynamic>[1, 2, 3], <String, dynamic>{"foo": "bar"}];
-    print("myArray: ${prettyJsonStringify(myArray)}");
+    print("myArray: ${jsonStringify(myArray, pretty: true)}");
 
     /*
         5. support passing functions as arguments to other functions

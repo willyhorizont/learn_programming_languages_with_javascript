@@ -1,6 +1,6 @@
 function repeat_string_result = repeat_string(a_string, multiplier)
     result = "";
-    for to_repeat = 1:multiplier
+    for to_repeat = 1:1:multiplier % (start:step:stop)
         result = cstrcat(result, a_string);
     end
     repeat_string_result = result;
@@ -55,7 +55,7 @@ function pretty_json_stringify_result = pretty_json_stringify(anything)
             result = cstrcat("[", sprintf("\n"), repeat_string(indent_inner, indent_level));
             % result = ["[", sprintf("\n"), repmat(indent_inner, 1, indent_level)];
             % result = cstrcat("[", sprintf("\n"), repmat(indent_inner, 1, indent_level));
-            for array_item_index = 1:numel(anything_inner)
+            for array_item_index = 1:numel(anything_inner) % (start:step:stop)
                 array_item = anything_inner{array_item_index};
                 result = cstrcat(result, pretty_json_stringify_inner(array_item, indent_inner));
                 if (array_item_index ~= numel(anything_inner))
@@ -81,7 +81,7 @@ function pretty_json_stringify_result = pretty_json_stringify(anything)
             % result = cstrcat("{", sprintf("\n"), repmat(indent_inner, 1, indent_level));
             % result = ["{", sprintf("\n"), repmat(indent_inner, 1, indent_level)];
             object_entries = fieldnames(anything_inner);
-            for object_entry_index = 1:numel(object_entries)
+            for object_entry_index = 1:numel(object_entries) % (start:step:stop)
                 object_key = object_entries{object_entry_index};
                 object_value = anything_inner.(object_key);
                 result = cstrcat(result, """", object_key, """: ", pretty_json_stringify_inner(object_value, indent_inner));
@@ -104,7 +104,7 @@ end
 
 something = {1, 2, 3}; % cell array
 disp(cstrcat("something: ", pretty_json_stringify(something)));
-something = struct("foo", "bar");
+something = struct("foo", {"bar"});
 disp(cstrcat("something: ", pretty_json_stringify(something)));
 
 function result = giveMeRespect1(parameter)
@@ -188,7 +188,7 @@ function pretty_json_stringify_result = pretty_json_stringify2(parameter)
             disp("iscell(anything_inner)");
             indent_level = indent_level + 1;
             result = cstrcat("[", sprintf("\n"), repeat_string(indent_inner, indent_level));
-            for array_item_index = 1:numel(anything_inner)
+            for array_item_index = 1:numel(anything_inner) % (start:step:stop)
                 array_item = anything_inner{array_item_index};
                 result = cstrcat(result, pretty_json_stringify_inner(array_item, indent_inner));
                 if (array_item_index ~= numel(anything_inner))
@@ -210,7 +210,7 @@ function pretty_json_stringify_result = pretty_json_stringify2(parameter)
             indent_level = indent_level + 1;
             result = cstrcat("{", sprintf("\n"), repeat_string(indent_inner, indent_level));
             object_entries = fieldnames(anything_inner);
-            for object_entry_index = 1:numel(object_entries)
+            for object_entry_index = 1:numel(object_entries) % (start:step:stop)
                 object_key = object_entries{object_entry_index};
                 object_value = anything_inner.(object_key);
                 result = cstrcat(result, """", object_key, """: ", pretty_json_stringify_inner(object_value, indent_inner));

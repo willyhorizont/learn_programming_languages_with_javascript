@@ -4,56 +4,96 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 )
-
-const EMPTY_STRING = ""
-const TAB = "    "
 
 // type any interface{}
 type array []any
 type object map[string]any
 
-func prettyJsonStringify(anything any) string {
-    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-    if (err == nil) {
-        return string(marshalledJson)
-    }
-    return "undefined"
-}
-
-func prettyArrayOfPrimitives(anArray array) string {
-    result := "["
+func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
+    // JavaScript-like Array.reduce() function
+    result := initialValue
     for arrayItemIndex, arrayItem := range anArray {
-        if (arrayItem == nil) {
-            result += "nil"
-        }
-        if (arrayItem != nil) {
-            switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-            case reflect.String:
-                result += "\"" + arrayItem.(string) + "\""
-            case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-                result += fmt.Sprint(arrayItem)
-            case reflect.Bool:
-                if (arrayItem.(bool) == true) {
-                    result += "true"
-                } else {
-                    result += "false"
-                }
-            case reflect.Invalid:
-                result += "nil"
-            default:
-                continue
-            }
-        }
-        if ((arrayItemIndex + 1) != len(anArray)) {
-            result = result + ", "
-        }
+        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
     }
-    result = result + "]"
     return result
 }
 
-func spreadSyntaxObject(parameters ...any) object {
+func optionalChaining(anything any, objectPropertiesArray ...any) any {
+    anythingType := reflect.TypeOf(anything).Kind()
+    if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
+        return anything
+    }
+    return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
+        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return anything.(object)[currentItem.(string)]
+        }
+        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
+            return anything.(array)[currentItem.(int)]
+        }
+        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return currentResult.(object)[currentItem.(string)]
+        }
+        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
+            return currentResult.(array)[currentItem.(int)]
+        }
+        return nil
+    }, objectPropertiesArray, nil)
+}
+
+func jsonStringify(anything any, additionalParameter any) string {
+	jsonStringifyDefault := func(anythingInner any) string {
+        jsonMarshalled, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
+		}
+		return "null"
+    }
+	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
+        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
+		if (err == nil) {
+			return string(jsonMarshalled)
+		}
+		return "null"
+    }
+	if (additionalParameter == nil || additionalParameter == false) {
+		return jsonStringifyDefault(anything)
+	}
+	if (additionalParameter == true) {
+		return jsonStringifyPrettyDefault(anything, "    ")
+	}
+	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
+		var pretty any = optionalChaining(additionalParameter, "pretty")
+		var indent any = optionalChaining(additionalParameter, "indent")
+		if (pretty == true) {
+			if (indent == nil) {
+				indent = "    "
+			}
+			return jsonStringifyPrettyDefault(anything, indent.(string))
+		}
+		return jsonStringifyDefault(anything)
+	}
+	return jsonStringifyDefault(anything)
+}
+
+func sPrintln(parameters ...any) {
+    var parametersNew = []string{}
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
+            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+            continue
+        }
+        if (parameterType == reflect.String) {
+			parametersNew = append(parametersNew, parameter.(string))
+            continue
+        }
+    }
+    fmt.Println(strings.Join(parametersNew, ""))
+}
+
+func spreadObject(parameters ...any) object {
     var newObject = make(object)
     for _, parameter := range parameters {
         parameterType := reflect.TypeOf(parameter).Kind()
@@ -61,11 +101,13 @@ func spreadSyntaxObject(parameters ...any) object {
             for objectKey, objectValue := range parameter.(object) {
                 newObject[objectKey] = objectValue
             }
+			continue
         }
         if (parameterType == reflect.Slice) {
             for arrayItemIndex, arrayItem := range parameter.(array) {
-                newObject[prettyJsonStringify(arrayItemIndex)] = arrayItem
+                newObject[jsonStringify(arrayItemIndex, false)] = arrayItem
             }
+			continue
         }
     }
     return newObject
@@ -94,7 +136,7 @@ func main() {
     fmt.Println("\n// JavaScript-like Array.map() in Go Slice")
 
     numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-    fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
+    sPrintln("numbers: ", jsonStringify(numbers, false))
 
     var numbersLabeled array
 
@@ -103,14 +145,14 @@ func main() {
     numbersLabeled = arrayMapV1(func(number any, _ int, _ array) any {
         if (number.(int)%2 == 0) {
             return object{
-                prettyJsonStringify(number): "even",
+                jsonStringify(number, false): "even",
             }
         }
         return object{
-            prettyJsonStringify(number): "odd",
+            jsonStringify(number, false): "odd",
         }
     }, numbers)
-    fmt.Println("labeled numbers:", prettyJsonStringify(numbersLabeled))
+    sPrintln("labeled numbers: ", jsonStringify(numbersLabeled, object{"pretty": true}))
     // labeled numbers: [
     //     {
     //         "12": "even"
@@ -149,14 +191,14 @@ func main() {
     numbersLabeled = arrayMapV2(func(number any, _ int, _ array) any {
         if (number.(int)%2 == 0) {
             return object{
-                prettyJsonStringify(number): "even",
+                jsonStringify(number, false): "even",
             }
         }
         return object{
-            prettyJsonStringify(number): "odd",
+            jsonStringify(number, false): "odd",
         }
     }, numbers)
-    fmt.Println("labeled numbers:", prettyJsonStringify(numbersLabeled))
+    sPrintln("labeled numbers: ", jsonStringify(numbersLabeled, object{"pretty": true}))
     // labeled numbers: [
     //     {
     //         "12": "even"
@@ -210,7 +252,7 @@ func main() {
             "price": 499,
         },
     }
-    fmt.Println("products:", prettyJsonStringify(products))
+    sPrintln("products: ", jsonStringify(products, object{"pretty": true}))
 
     var productsLabeled array
 
@@ -218,11 +260,11 @@ func main() {
 
     productsLabeled = arrayMapV1(func(product any, _ int, _ array) any {
         if (product.(object)["price"].(int) > 100) {
-            return spreadSyntaxObject(product, object{"label": "expensive"})
+            return spreadObject(product, object{"label": "expensive"})
         }
-        return spreadSyntaxObject(product, object{"label": "cheap"})
+        return spreadObject(product, object{"label": "cheap"})
     }, products)
-    fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
+    sPrintln("labeled products: ", jsonStringify(productsLabeled, object{"pretty": true}))
     // labeled products: [
     //     {
     //         "code": "pasta",
@@ -250,11 +292,11 @@ func main() {
 
     productsLabeled = arrayMapV2(func(product any, _ int, _ array) any {
         if (product.(object)["price"].(int) > 100) {
-            return spreadSyntaxObject(product, object{"label": "expensive"})
+            return spreadObject(product, object{"label": "expensive"})
         }
-        return spreadSyntaxObject(product, object{"label": "cheap"})
+        return spreadObject(product, object{"label": "cheap"})
     }, products)
-    fmt.Println("labeled products:", prettyJsonStringify(productsLabeled))
+    sPrintln("labeled products: ", jsonStringify(productsLabeled, object{"pretty": true}))
     // labeled products: [
     //     {
     //         "code": "pasta",

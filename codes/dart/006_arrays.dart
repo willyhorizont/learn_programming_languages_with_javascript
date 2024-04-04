@@ -1,20 +1,19 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyArrayOfPrimitives(dynamic anything) {
-        final jsonEncoder = new JsonEncoder();
-        return jsonEncoder.convert(anything).split(',').join(', ');
-    }
-
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     // in Dart, JavaScript-like Array is called List
 
     final fruits = <dynamic>["apple", "mango", "orange"];
-    print("fruits: ${prettyArrayOfPrimitives(fruits)}");
+    print("fruits: ${jsonStringify(fruits)}");
 
     print("fruits, length: ${fruits.length}");
     // fruits, length: 3
@@ -60,7 +59,7 @@ void main() {
             "name": "potato chips"
         }
     ];
-    print("products: ${prettyJsonStringify(products)}");
+    print("products: ${jsonStringify(products, pretty: true)}");
 
     products.asMap().forEach((dynamic arrayItemIndex, dynamic arrayItem) {
         arrayItem.entries.toList().asMap().forEach((dynamic objectEntryIndex, dynamic objectEntry) {

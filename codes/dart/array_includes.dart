@@ -1,15 +1,19 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyArrayOfPrimitives(dynamic anything) {
-        final jsonEncoder = new JsonEncoder();
-        return jsonEncoder.convert(anything).split(',').join(', ');
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     print("\n// JavaScript-like Array.includes() in Dart");
 
     final myFriends = <dynamic>["Alisa", "Trivia"];
-    print("myFriends: ${prettyArrayOfPrimitives(myFriends)}");
+    print("myFriends: ${jsonStringify(myFriends)}");
 
     dynamic aName;
     dynamic isMyFriend;

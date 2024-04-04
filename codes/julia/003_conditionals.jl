@@ -140,8 +140,8 @@ println("\n# Logical NOT (!)\n")
 
 can_drive = false
 println("can_drive:", can_drive)
-println("!canDrive:", !canDrive)
+println("!can_drive:", !can_drive)
 
 can_drive = true
 println("can_drive:", can_drive)
-println("!canDrive:", !canDrive)
+println("!can_drive:", !can_drive)

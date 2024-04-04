@@ -1,9 +1,13 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     // in Dart, JavaScript-like Object is called Map
@@ -13,7 +17,7 @@ void main() {
         "country": "Finland",
         "age": 25,
     };
-    print("friend: ${prettyJsonStringify(friend)}");
+    print("friend: ${jsonStringify(friend, pretty: true)}");
 
     print('friend, get country: ${friend["country"]}');
     // friend, get country: Finland

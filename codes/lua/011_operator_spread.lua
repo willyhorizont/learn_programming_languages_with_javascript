@@ -1,5 +1,3 @@
-JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
-
 function sprint(...)
     local parameters = {...}
     local result = ""
@@ -9,69 +7,87 @@ function sprint(...)
     print(result)
 end
 
--- There's no JavaScript-like Spread Syntax (...) in Lua.
--- But, we can create our own function to mimic it in Lua.
-
-function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
-
-function pretty_array_of_primitives(an_array_of_primitives)
-    local result = "["
-    for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if ((type(array_item) ~= "string") and (type(array_item) ~= "number") and (type(array_item) ~= "boolean") and (array_item ~= "nil")) then
-            goto next
-        end
-        if (array_item == "nil") then
-            result = result .. "null"
-        end
-        if ((type(array_item) == "string") and (array_item ~= "nil")) then
-            result = result .. "\"" .. array_item .. "\""
-        end
-        if (type(array_item) == "number") then
-            result = result .. array_item
-        end
-        if (type(array_item) == "boolean") then
-            result = result .. tostring(array_item)
-        end
-        if (array_item_index ~= #an_array_of_primitives) then
-            result = result .. ", "
-        end
-        ::next::
+function string_repeat(a_string, count)
+    local result = ""
+    for i = 1, count, 1 do -- start, stop, step
+        result = result .. a_string
     end
-    result = result .. "]"
     return result
 end
 
-function get_type(anything)
-    if (type(anything) ~= "table") then
-       return type(anything)
-    end
-    if (next(anything) == nil) then
-        return "empty_table"
-    end
-    for k, v in pairs(anything) do
-        if ((type(k) == "number") and ((k >= 1) and (k <= #anything))) then
-            return "array"
-        end
+function type_of(anything)
+    if (type(anything) ~= "table") then return type(anything) end
+    if (next(anything) == nil) then return "array" end
+    for key, value in pairs(anything) do
+        if ((type(key) == "number") and ((key >= 1) and (key <= #anything))) then return "array" end
     end
     return "object"
 end
 
-function get_object_length(an_object)
-    local object_length = 0
+function object_keys(an_object)
+    local new_array = {}
     for object_key, object_value in pairs(an_object) do
-        object_length = object_length + 1
+        table.insert(new_array, object_key)
     end
-    return object_length
+    return new_array
 end
 
-spread_syntax_object = function(...)
+function json_stringify(anything, parameter_object)
+    parameter_object = parameter_object or {}
+    local pretty = parameter_object["pretty"]
+    local indent = parameter_object["indent"]
+    pretty = ((pretty == nil) and false or pretty)
+    indent = ((indent == nil) and "    " or indent)
+    local indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner)
+        if (anything_inner == nil) then return "null" end
+        if (type_of(anything_inner) == "string") then return ("\"" .. anything_inner .. "\"") end
+        if (type_of(anything_inner) == "number" or type_of(anything_inner) == "boolean") then return tostring(anything_inner) end
+        if (type_of(anything_inner) == "array") then
+            if (#anything_inner == 0) then return "[]" end
+            indent_level = indent_level + 1
+            local result = ((pretty == true) and ("[\n" .. string_repeat(indent_inner, indent_level)) or "[")
+            for array_item_index, array_item in ipairs(anything_inner) do
+                result = result .. json_stringify_inner(array_item, indent_inner)
+                if (array_item_index ~= #anything_inner) then result = result .. ((pretty == true) and (",\n" .. string_repeat(indent_inner, indent_level)) or ", ") end
+            end
+            indent_level = indent_level - 1
+            result = result .. ((pretty == true) and ("\n" .. string_repeat(indent_inner, indent_level) .. "]") or "]")
+            return result
+        end
+        if (type_of(anything_inner) == "object") then
+            local object_keys_length = #object_keys(anything_inner)
+            if (object_keys_length == 0) then return "{}" end
+            indent_level = indent_level + 1
+            local result = ((pretty == true) and ("{\n" .. string_repeat(indent_inner, indent_level)) or "{")
+            local object_iteration_index = 0
+            for object_key, object_value in pairs(anything_inner) do
+                result = result .. "\"" .. object_key .. "\": " .. json_stringify_inner(object_value, indent_inner)
+                if ((object_iteration_index + 1) ~= object_keys_length) then result = result .. ((pretty == true) and (",\n" .. string_repeat(indent_inner, indent_level)) or ", ") end
+                object_iteration_index = object_iteration_index + 1
+            end
+            indent_level = indent_level - 1
+            result = result .. ((pretty == true) and ("\n" .. string_repeat(indent_inner, indent_level) .. "}") or "}")
+            return result
+        end
+        return "null"
+    end
+    return json_stringify_inner(anything, indent)
+end
+
+-- There's no JavaScript-like Spread Syntax (...) in Lua.
+-- But, we can create our own function to mimic it in Lua.
+
+spread_object = function(...)
     local parameters = {...}
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
-        local parameter_type = get_type(parameter)
+        local parameter_type = type_of(parameter)
         if (parameter_type == "object") then
+            local object_iteration_index = 0
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
+                object_iteration_index = object_iteration_index + 1
             end
             goto next
         end
@@ -86,16 +102,17 @@ spread_syntax_object = function(...)
     return new_object
 end
 
-spread_syntax_array = function(...)
+spread_array = function(...)
     local parameters = {...}
     local new_array = {}
     for parameter_index, parameter in ipairs(parameters) do
-        local parameter_type = get_type(parameter)
+        local parameter_type = type_of(parameter)
         if (parameter_type == "object") then
-            local object_length = get_object_length(parameter)
-            if (object_length == 1) then
+            if (#object_keys(parameter) == 1) then
+                local object_iteration_index = 0
                 for object_key, object_value in pairs(parameter) do
                     table.insert(new_array, object_value)
+                    object_iteration_index = object_iteration_index + 1
                 end
                 goto next
             end
@@ -116,28 +133,28 @@ end
 print('\n-- JavaScript-like Spread Syntax (...) in Lua')
 
 fruits = {"Mango", "Melon", "Banana"}
-sprint("fruits: ", pretty_array_of_primitives(fruits))
+sprint("fruits: ", json_stringify(fruits))
 
 vegetables = {"Carrot", "Tomato"}
-sprint("vegetables: ", pretty_array_of_primitives(vegetables))
+sprint("vegetables: ", json_stringify(vegetables))
 
 country_capitals_in_asia = {
     Thailand = "Bangkok",
     China = "Beijing",
     Japan = "Tokyo"
 }
-sprint("country_capitals_in_asia: ", pretty_json_stringify(country_capitals_in_asia))
+sprint("country_capitals_in_asia: ", json_stringify(country_capitals_in_asia, { pretty = true }))
 
 country_capitals_in_europe = {
     France = "Paris",
     England = "London"
 }
-sprint("country_capitals_in_europe: ", pretty_json_stringify(country_capitals_in_europe))
+sprint("country_capitals_in_europe: ", json_stringify(country_capitals_in_europe, { pretty = true }))
 
 print("\n-- [...array1, ...array2]:\n")
 
-combination1 = spread_syntax_array(fruits, vegetables)
-sprint("combination1: ", pretty_json_stringify(combination1))
+combination1 = spread_array(fruits, vegetables)
+sprint("combination1: ", json_stringify(combination1, { pretty = true }))
 -- combination1: [
 --     "Mango",
 --     "Melon",
@@ -146,8 +163,8 @@ sprint("combination1: ", pretty_json_stringify(combination1))
 --     "Tomato"
 -- ]
 
-combination2 = spread_syntax_array(fruits, {"Cucumber", "Cabbage"})
-sprint("combination2: ", pretty_json_stringify(combination2))
+combination2 = spread_array(fruits, {"Cucumber", "Cabbage"})
+sprint("combination2: ", json_stringify(combination2, { pretty = true }))
 -- combination2: [
 --     "Mango",
 --     "Melon",
@@ -158,8 +175,8 @@ sprint("combination2: ", pretty_json_stringify(combination2))
 
 print("\n-- { ...object1, ...object2 }:\n")
 
-combination3 = spread_syntax_object(country_capitals_in_asia, country_capitals_in_europe)
-sprint("combination3: ", pretty_json_stringify(combination3))
+combination3 = spread_object(country_capitals_in_asia, country_capitals_in_europe)
+sprint("combination3: ", json_stringify(combination3, { pretty = true }))
 -- combination3: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -168,8 +185,8 @@ sprint("combination3: ", pretty_json_stringify(combination3))
 --     "England": "London"
 -- }
 
-combination4 = spread_syntax_object(country_capitals_in_asia, { Germany = "Berlin", Italy = "Rome" })
-sprint("combination4: ", pretty_json_stringify(combination4))
+combination4 = spread_object(country_capitals_in_asia, { Germany = "Berlin", Italy = "Rome" })
+sprint("combination4: ", json_stringify(combination4, { pretty = true }))
 -- combination4: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -180,8 +197,8 @@ sprint("combination4: ", pretty_json_stringify(combination4))
 
 print("\n-- [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-combination5 = spread_syntax_array(fruits, { vegetables = vegetables })
-sprint("combination5: ", pretty_json_stringify(combination5))
+combination5 = spread_array(fruits, { vegetables = vegetables })
+sprint("combination5: ", json_stringify(combination5, { pretty = true }))
 -- combination5: [
 --     "Mango",
 --     "Melon",
@@ -192,8 +209,8 @@ sprint("combination5: ", pretty_json_stringify(combination5))
 --     ]
 -- ]
 
-combination6 = spread_syntax_array(fruits, { vegetables = {"Cucumber", "Cabbage"} })
-sprint("combination6: ", pretty_json_stringify(combination6))
+combination6 = spread_array(fruits, { vegetables = {"Cucumber", "Cabbage"} })
+sprint("combination6: ", json_stringify(combination6, { pretty = true }))
 -- combination6: [
 --     "Mango",
 --     "Melon",
@@ -206,8 +223,8 @@ sprint("combination6: ", pretty_json_stringify(combination6))
 
 print("\n-- [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-combination7 = spread_syntax_array(fruits, { country_capitals_in_asia = country_capitals_in_asia })
-sprint("combination7: ", pretty_json_stringify(combination7))
+combination7 = spread_array(fruits, { country_capitals_in_asia = country_capitals_in_asia })
+sprint("combination7: ", json_stringify(combination7, { pretty = true }))
 -- combination7: [
 --     "Mango",
 --     "Melon",
@@ -219,8 +236,8 @@ sprint("combination7: ", pretty_json_stringify(combination7))
 --     }
 -- ]
 
-combination8 = spread_syntax_array(fruits, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
-sprint("combination8: ", pretty_json_stringify(combination8))
+combination8 = spread_array(fruits, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
+sprint("combination8: ", json_stringify(combination8, { pretty = true }))
 -- combination8: [
 --     "Mango",
 --     "Melon",
@@ -233,8 +250,8 @@ sprint("combination8: ", pretty_json_stringify(combination8))
 
 print("\n-- { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
-combination9 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = country_capitals_in_europe })
-sprint("combination9: ", pretty_json_stringify(combination9))
+combination9 = spread_object(country_capitals_in_asia, { country_capitals_in_europe = country_capitals_in_europe })
+sprint("combination9: ", json_stringify(combination9, { pretty = true }))
 -- combination9: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
@@ -245,8 +262,8 @@ sprint("combination9: ", pretty_json_stringify(combination9))
 --     }
 --  }
 
-combination10 = spread_syntax_object(country_capitals_in_asia, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
-sprint("combination10: ", pretty_json_stringify(combination10))
+combination10 = spread_object(country_capitals_in_asia, { country_capitals_in_europe = { Germany = "Berlin", Italy = "Rome" } })
+sprint("combination10: ", json_stringify(combination10, { pretty = true }))
 -- combination10: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -259,8 +276,8 @@ sprint("combination10: ", pretty_json_stringify(combination10))
 
 print("\n-- { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
-combination11 = spread_syntax_object(country_capitals_in_asia, { vegetables = vegetables })
-sprint("combination11: ", pretty_json_stringify(combination11))
+combination11 = spread_object(country_capitals_in_asia, { vegetables = vegetables })
+sprint("combination11: ", json_stringify(combination11, { pretty = true }))
 -- combination11: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -271,8 +288,8 @@ sprint("combination11: ", pretty_json_stringify(combination11))
 --     ]
 -- }
 
-combination12 = spread_syntax_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Cabbage"} })
-sprint("combination12: ", pretty_json_stringify(combination12))
+combination12 = spread_object(country_capitals_in_asia, { vegetables = {"Cucumber", "Cabbage"} })
+sprint("combination12: ", json_stringify(combination12, { pretty = true }))
 -- combination12: {
 --     "Thailand": "Bangkok",
 --     "China": "Beijing",
@@ -285,8 +302,8 @@ sprint("combination12: ", pretty_json_stringify(combination12))
 
 print("\n-- { ...object1, ...array2 }:\n")
 
-combination13 = spread_syntax_object(country_capitals_in_asia, vegetables)
-sprint("combination13: ", pretty_json_stringify(combination13))
+combination13 = spread_object(country_capitals_in_asia, vegetables)
+sprint("combination13: ", json_stringify(combination13, { pretty = true }))
 -- combination13: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
@@ -295,8 +312,8 @@ sprint("combination13: ", pretty_json_stringify(combination13))
 --     "2" : "Tomato"
 --  }
 
-combination14 = spread_syntax_object(country_capitals_in_asia, {"Cucumber", "Cabbage"})
-sprint("combination14: ", pretty_json_stringify(combination14))
+combination14 = spread_object(country_capitals_in_asia, {"Cucumber", "Cabbage"})
+sprint("combination14: ", json_stringify(combination14, { pretty = true }))
 -- combination14: {
 --     "Thailand" : "Bangkok",
 --     "China" : "Beijing",
@@ -308,9 +325,9 @@ sprint("combination14: ", pretty_json_stringify(combination14))
 -- print("\n-- [...array1, ...object1]: -- this combination throw an error in JavaScript\n")
 
 -- this combination throw an error in JavaScript
--- combination_error_in_javascript1 = spread_syntax_array(fruits, country_capitals_in_asia)
--- sprint("combination_error_in_javascript1: ", pretty_json_stringify(combination_error_in_javascript1))
+-- combination_error_in_javascript1 = spread_array(fruits, country_capitals_in_asia)
+-- sprint("combination_error_in_javascript1: ", json_stringify(combination_error_in_javascript1, { pretty = true }))
 
 -- this combination throw an error in JavaScript
--- combination_error_in_javascript2 = spread_syntax_array(fruits, { Germany = "Berlin", Italy = "Rome" })
--- sprint("combination_error_in_javascript2: ", pretty_json_stringify(combination_error_in_javascript2))
+-- combination_error_in_javascript2 = spread_array(fruits, { Germany = "Berlin", Italy = "Rome" })
+-- sprint("combination_error_in_javascript2: ", json_stringify(combination_error_in_javascript2, { pretty = true }))

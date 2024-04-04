@@ -1,14 +1,13 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyArrayOfPrimitives(dynamic anything) {
-        final jsonEncoder = new JsonEncoder();
-        return jsonEncoder.convert(anything).split(',').join(', ');
-    }
-
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     dynamic arraySomeV1(dynamic callbackFunction, dynamic anArray) {
@@ -59,7 +58,7 @@ void main() {
     print("\n// JavaScript-like Array.some() in Dart List");
 
     final numbers = <dynamic>[12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-    print("numbers: ${prettyArrayOfPrimitives(numbers)}");
+    print("numbers: ${jsonStringify(numbers)}");
 
     dynamic isAnyNumberLessThan500;
     dynamic isAnyNumberMoreThan500;
@@ -134,7 +133,7 @@ void main() {
             "price": 499
         }
     ];
-    print("products: ${prettyJsonStringify(products)}");
+    print("products: ${jsonStringify(products, pretty: true)}");
 
     dynamic isAnyProductPriceLessThan500;
     dynamic isAnyProductPriceMoreThan500;

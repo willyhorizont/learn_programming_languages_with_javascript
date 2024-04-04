@@ -1,26 +1,36 @@
-using JSON
-
-function pretty_array_of_primitives(an_array_of_primitives)
-    result = "["
-    for (array_item_index, array_item) in enumerate(an_array_of_primitives)
-        if ((isa(array_item, AbstractString) === false) && (isa(array_item, Number) === false) && (isa(array_item, Bool) === false) && array_item !== nothing)
-            continue
+function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
+    indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner::String)::String
+        if (anything_inner === nothing) return "null" end
+        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
+        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
+        if (isa(anything_inner, Array) === true)
+            if (length(anything_inner) == 0) return "[]" end
+            indent_level += 1
+            result = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
+            for (array_item_index, array_item) in enumerate(anything_inner)
+                result *= json_stringify_inner(array_item, indent_inner)
+                if (array_item_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
+            return result
         end
-        if (isa(array_item, AbstractString) === true)
-            result = string(result, "\"", array_item, "\"")
+        if (isa(anything_inner, Dict) === true)
+            if (length(anything_inner) == 0) return "{}" end
+            indent_level += 1
+            result = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
+            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                result *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
+                if (object_entry_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
+            return result
         end
-        if (array_item === nothing)
-            result = string(result, "null")
-        end
-        if ((isa(array_item, Number) === true) || (isa(array_item, Bool) === true))
-            result = string(result, array_item)
-        end
-        if (array_item_index !== length(an_array_of_primitives))
-            result = string(result, ", ")
-        end
+        return "null"
     end
-    result = string(result, "]")
-    return result
+    return json_stringify_inner(anything, indent)
 end
 
 function array_find_index_v1(callback_function, an_array)
@@ -72,7 +82,7 @@ end
 println("\n# JavaScript-like Array.findIndex() in Julia Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-println("numbers: ", pretty_array_of_primitives(numbers))
+println("numbers: ", json_stringify(numbers))
 
 number_to_find = 27
 println("number to find: ", number_to_find)
@@ -127,7 +137,7 @@ products = [
         "price" => 499
     )
 ]
-println("products: ", chomp(JSON.json(products, 4)))
+println("products: ", json_stringify(products, pretty=true))
 
 product_to_find = "pasta"
 println("product to find: ", product_to_find)

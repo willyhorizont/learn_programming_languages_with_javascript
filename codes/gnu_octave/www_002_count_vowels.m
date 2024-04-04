@@ -12,7 +12,7 @@
 function splitstringresult = splitstring(astring)
     astring = char(astring);
     currentsplitstringresult = {};
-    for i = (1:1:length(astring))
+    for i = (1:1:length(astring)) % (start:step:stop)
         currentsplitstringresult{i} = astring(i);
     end
     splitstringresult = currentsplitstringresult;

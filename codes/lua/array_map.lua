@@ -1,5 +1,3 @@
-JSON = (loadfile "utils/JSON.lua")() -- Thanks to Jeffrey Friedl's awesome work, checkout his awesome personal blog at http://regex.info/blog/lua/json
-
 function sprint(...)
     local parameters = {...}
     local result = ""
@@ -9,61 +7,84 @@ function sprint(...)
     print(result)
 end
 
--- There's no JavaScript-like Array.map() in Lua.
--- But, we can create our own function to mimic it in Lua.
-
-function pretty_json_stringify(anything) return JSON:encode_pretty(anything, 'etc', { pretty=true, indent="    ", array_newline=true }) end
-
-function pretty_array_of_primitives(an_array_of_primitives)
-    local result = "["
-    for array_item_index, array_item in ipairs(an_array_of_primitives) do
-        if ((type(array_item) ~= "string") and (type(array_item) ~= "number") and (type(array_item) ~= "boolean") and (array_item ~= "nil")) then
-            goto next
-        end
-        if (array_item == "nil") then
-            result = result .. "null"
-        end
-        if ((type(array_item) == "string") and (array_item ~= "nil")) then
-            result = result .. "\"" .. array_item .. "\""
-        end
-        if (type(array_item) == "number") then
-            result = result .. array_item
-        end
-        if (type(array_item) == "boolean") then
-            result = result .. tostring(array_item)
-        end
-        if (array_item_index ~= #an_array_of_primitives) then
-            result = result .. ", "
-        end
-        ::next::
+function string_repeat(a_string, count)
+    local result = ""
+    for i = 1, count, 1 do -- start, stop, step
+        result = result .. a_string
     end
-    result = result .. "]"
     return result
 end
 
-function get_type(anything)
-    if (type(anything) ~= "table") then
-       return type(anything)
-    end
-    if (next(anything) == nil) then
-        return "empty_table"
-    end
-    for k, v in pairs(anything) do
-        if ((type(k) == "number") and ((k >= 1) and (k <= #anything))) then
-            return "array"
-        end
+function type_of(anything)
+    if (type(anything) ~= "table") then return type(anything) end
+    if (next(anything) == nil) then return "array" end
+    for key, value in pairs(anything) do
+        if ((type(key) == "number") and ((key >= 1) and (key <= #anything))) then return "array" end
     end
     return "object"
 end
 
-spread_syntax_object = function(...)
+function object_keys(an_object)
+    local new_array = {}
+    for object_key, object_value in pairs(an_object) do
+        table.insert(new_array, object_key)
+    end
+    return new_array
+end
+
+function json_stringify(anything, parameter_object)
+    parameter_object = parameter_object or {}
+    local pretty = parameter_object["pretty"]
+    local indent = parameter_object["indent"]
+    pretty = ((pretty == nil) and false or pretty)
+    indent = ((indent == nil) and "    " or indent)
+    local indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner)
+        if (anything_inner == nil) then return "null" end
+        if (type_of(anything_inner) == "string") then return ("\"" .. anything_inner .. "\"") end
+        if (type_of(anything_inner) == "number" or type_of(anything_inner) == "boolean") then return tostring(anything_inner) end
+        if (type_of(anything_inner) == "array") then
+            if (#anything_inner == 0) then return "[]" end
+            indent_level = indent_level + 1
+            local result = ((pretty == true) and ("[\n" .. string_repeat(indent_inner, indent_level)) or "[")
+            for array_item_index, array_item in ipairs(anything_inner) do
+                result = result .. json_stringify_inner(array_item, indent_inner)
+                if (array_item_index ~= #anything_inner) then result = result .. ((pretty == true) and (",\n" .. string_repeat(indent_inner, indent_level)) or ", ") end
+            end
+            indent_level = indent_level - 1
+            result = result .. ((pretty == true) and ("\n" .. string_repeat(indent_inner, indent_level) .. "]") or "]")
+            return result
+        end
+        if (type_of(anything_inner) == "object") then
+            local object_keys_length = #object_keys(anything_inner)
+            if (object_keys_length == 0) then return "{}" end
+            indent_level = indent_level + 1
+            local result = ((pretty == true) and ("{\n" .. string_repeat(indent_inner, indent_level)) or "{")
+            local object_iteration_index = 0
+            for object_key, object_value in pairs(anything_inner) do
+                result = result .. "\"" .. object_key .. "\": " .. json_stringify_inner(object_value, indent_inner)
+                if ((object_iteration_index + 1) ~= object_keys_length) then result = result .. ((pretty == true) and (",\n" .. string_repeat(indent_inner, indent_level)) or ", ") end
+                object_iteration_index = object_iteration_index + 1
+            end
+            indent_level = indent_level - 1
+            result = result .. ((pretty == true) and ("\n" .. string_repeat(indent_inner, indent_level) .. "}") or "}")
+            return result
+        end
+        return "null"
+    end
+    return json_stringify_inner(anything, indent)
+end
+
+spread_object = function(...)
     local parameters = {...}
     local new_object = {}
     for parameter_index, parameter in ipairs(parameters) do
-        local parameter_type = get_type(parameter)
+        local parameter_type = type_of(parameter)
         if (parameter_type == "object") then
+            local object_iteration_index = 0
             for object_key, object_value in pairs(parameter) do
                 new_object[object_key] = object_value
+                object_iteration_index = object_iteration_index + 1
             end
             goto next
         end
@@ -77,6 +98,9 @@ spread_syntax_object = function(...)
     end
     return new_object
 end
+
+-- There's no JavaScript-like Array.map() in Lua.
+-- But, we can create our own function to mimic it in Lua.
 
 function array_map_v1(callback_function, an_array)
     -- JavaScript-like Array.map() function
@@ -97,15 +121,15 @@ function array_map_v2(callback_function, an_array)
     return new_array
 end
 
-print('\n-- JavaScript-like Array.map() in JavaScript-like-Array Lua table')
+print('\n-- JavaScript-like Array.map() in table')
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-sprint("numbers: ", pretty_array_of_primitives(numbers))
+sprint("numbers: ", json_stringify(numbers))
 
 print("-- using JavaScript-like Array.map() function \"array_map_v1\"")
 
 numbers_labeled = array_map_v1(function(number) return {[tostring(number)] = ((((number % 2) == 0) and "even") or "odd")} end, numbers)
-sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
+sprint("labeled numbers: ", json_stringify(numbers_labeled, { pretty = true }))
 -- labeled numbers: [
 --     {
 --         "12": "even"
@@ -142,7 +166,7 @@ sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
 print("-- using JavaScript-like Array.map() function \"array_map_v2\"")
 
 numbers_labeled = array_map_v2(function(number) return {[tostring(number)] = ((((number % 2) == 0) and "even") or "odd")} end, numbers)
-sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
+sprint("labeled numbers: ", json_stringify(numbers_labeled, { pretty = true }))
 -- labeled numbers: [
 --     {
 --         "12": "even"
@@ -176,7 +200,7 @@ sprint("labeled numbers: ", pretty_json_stringify(numbers_labeled))
 --     }
 -- ]
 
-print('\n-- JavaScript-like Array.map() in JavaScript-like-Array-of-Objects Lua table')
+print('\n-- JavaScript-like Array.map() in table of hash-tables')
 
 products = {
     {
@@ -196,12 +220,12 @@ products = {
         price = 499
     }
 }
-sprint("products: ", pretty_json_stringify(products))
+sprint("products: ", json_stringify(products, { pretty = true }))
 
 print("-- using JavaScript-like Array.map() function \"array_map_v1\"")
 
-products_labeled = array_map_v1(function(product) return spread_syntax_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
-sprint("labeled products: ", pretty_json_stringify(products_labeled))
+products_labeled = array_map_v1(function(product) return spread_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
+sprint("labeled products: ", json_stringify(products_labeled, { pretty = true }))
 -- labeled products: [
 --     {
 --         "code": "pasta",
@@ -227,8 +251,8 @@ sprint("labeled products: ", pretty_json_stringify(products_labeled))
 
 print("-- using JavaScript-like Array.map() function \"array_map_v2\"")
 
-products_labeled = array_map_v2(function(product) return spread_syntax_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
-sprint("labeled products: ", pretty_json_stringify(products_labeled))
+products_labeled = array_map_v2(function(product) return spread_object(product, { label = (((product.price > 100) and "expensive") or "cheap") }) end, products)
+sprint("labeled products: ", json_stringify(products_labeled, { pretty = true }))
 -- labeled products: [
 --     {
 --         "code": "pasta",

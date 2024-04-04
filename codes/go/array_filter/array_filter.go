@@ -4,53 +4,93 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 )
-
-const EMPTY_STRING = ""
-const TAB = "    "
 
 // type any interface{}
 type array []any
 type object map[string]any
 
-func prettyJsonStringify(anything any) string {
-    marshalledJson, err := json.MarshalIndent(anything, EMPTY_STRING, TAB)
-    if (err == nil) {
-        return string(marshalledJson)
+func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
+    // JavaScript-like Array.reduce() function
+    result := initialValue
+    for arrayItemIndex, arrayItem := range anArray {
+        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
     }
-    return "undefined"
+    return result
 }
 
-func prettyArrayOfPrimitives(anArray array) string {
-    result := "["
-    for arrayItemIndex, arrayItem := range anArray {
-        if (arrayItem == nil) {
-            result += "nil"
+func optionalChaining(anything any, objectPropertiesArray ...any) any {
+    anythingType := reflect.TypeOf(anything).Kind()
+    if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
+        return anything
+    }
+    return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
+        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return anything.(object)[currentItem.(string)]
         }
-        if (arrayItem != nil) {
-            switch arrayItemType := reflect.TypeOf(arrayItem).Kind(); arrayItemType {
-            case reflect.String:
-                result += "\"" + arrayItem.(string) + "\""
-            case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
-                result += fmt.Sprint(arrayItem)
-            case reflect.Bool:
-                if (arrayItem.(bool) == true) {
-                    result += "true"
-                } else {
-                    result += "false"
-                }
-            case reflect.Invalid:
-                result += "nil"
-            default:
-                continue
-            }
+        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
+            return anything.(array)[currentItem.(int)]
         }
-        if ((arrayItemIndex + 1) != len(anArray)) {
-            result = result + ", "
+        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
+            return currentResult.(object)[currentItem.(string)]
+        }
+        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
+            return currentResult.(array)[currentItem.(int)]
+        }
+        return nil
+    }, objectPropertiesArray, nil)
+}
+
+func jsonStringify(anything any, additionalParameter any) string {
+	jsonStringifyDefault := func(anythingInner any) string {
+        jsonMarshalled, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
+		}
+		return "null"
+    }
+	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
+        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
+		if (err == nil) {
+			return string(jsonMarshalled)
+		}
+		return "null"
+    }
+	if (additionalParameter == nil || additionalParameter == false) {
+		return jsonStringifyDefault(anything)
+	}
+	if (additionalParameter == true) {
+		return jsonStringifyPrettyDefault(anything, "    ")
+	}
+	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
+		var pretty any = optionalChaining(additionalParameter, "pretty")
+		var indent any = optionalChaining(additionalParameter, "indent")
+		if (pretty == true) {
+			if (indent == nil) {
+				indent = "    "
+			}
+			return jsonStringifyPrettyDefault(anything, indent.(string))
+		}
+		return jsonStringifyDefault(anything)
+	}
+	return jsonStringifyDefault(anything)
+}
+
+func sPrintln(parameters ...any) {
+    var parametersNew = []string{}
+    for _, parameter := range parameters {
+        parameterType := reflect.TypeOf(parameter).Kind()
+        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
+            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+            continue
+        }
+        if (parameterType == reflect.String) {
+			parametersNew = append(parametersNew, parameter.(string))
+            continue
         }
     }
-    result = result + "]"
-    return result
+    fmt.Println(strings.Join(parametersNew, ""))
 }
 
 func arrayFilterV1(callbackFunction func(any, int, array) bool, anArray array) array {
@@ -80,7 +120,7 @@ func main() {
     fmt.Println("\n// JavaScript-like Array.filter() in Go Slice")
 
     numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-    fmt.Println("numbers:", prettyArrayOfPrimitives(numbers))
+    sPrintln("numbers: ", jsonStringify(numbers, false))
 
     var numbersEven array
     var numbersOdd array
@@ -90,13 +130,13 @@ func main() {
     numbersEven = arrayFilterV1(func(number any, _ int, _ array) bool {
         return ((number.(int) % 2) == 0)
     }, numbers)
-    fmt.Println("even numbers only:", prettyArrayOfPrimitives(numbersEven))
+    sPrintln("even numbers only: ", jsonStringify(numbersEven, false))
     // even numbers only: [12, 34, 36, 4, 254]
 
     numbersOdd = arrayFilterV1(func(number any, _ int, _ array) bool {
         return ((number.(int) % 2) != 0)
     }, numbers)
-    fmt.Println("odd numbers only:", prettyArrayOfPrimitives(numbersOdd))
+    sPrintln("odd numbers only: ", jsonStringify(numbersOdd, false))
     // odd numbers only: [27, 23, 65, 93, 87]
 
     fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
@@ -104,13 +144,13 @@ func main() {
     numbersEven = arrayFilterV2(func(number any, _ int, _ array) bool {
         return ((number.(int) % 2) == 0)
     }, numbers)
-    fmt.Println("even numbers only:", prettyArrayOfPrimitives(numbersEven))
+    sPrintln("even numbers only: ", jsonStringify(numbersEven, false))
     // even numbers only: [12, 34, 36, 4, 254]
 
     numbersOdd = arrayFilterV2(func(number any, _ int, _ array) bool {
         return ((number.(int) % 2) != 0)
     }, numbers)
-    fmt.Println("odd numbers only:", prettyArrayOfPrimitives(numbersOdd))
+    sPrintln("odd numbers only: ", jsonStringify(numbersOdd, false))
     // odd numbers only: [27, 23, 65, 93, 87]
 
     fmt.Println("\n// JavaScript-like Array.filter() in Go Slice of maps")
@@ -133,7 +173,7 @@ func main() {
             "price": 499,
         },
     }
-    fmt.Println("products:", prettyJsonStringify(products))
+    sPrintln("products: ", jsonStringify(products, object{"pretty": true}))
 
     var productsBelow100 array
     var productsAbove100 array
@@ -143,7 +183,7 @@ func main() {
     productsBelow100 = arrayFilterV1(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) <= 100)
     }, products)
-    fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
+    sPrintln("products with price <= 100 only: ", jsonStringify(productsBelow100, object{"pretty": true}))
     // products with price <= 100 only: [
     //     {
     //         "code": "potato_chips",
@@ -154,7 +194,7 @@ func main() {
     productsAbove100 = arrayFilterV1(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 100)
     }, products)
-    fmt.Println("products with price > 100 only:", prettyJsonStringify(productsAbove100))
+    sPrintln("products with price > 100 only: ", jsonStringify(productsAbove100, object{"pretty": true}))
     // products with price > 100 only: [
     //     {
     //         "code": "pasta",
@@ -175,7 +215,7 @@ func main() {
     productsBelow100 = arrayFilterV2(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) <= 100)
     }, products)
-    fmt.Println("products with price <= 100 only:", prettyJsonStringify(productsBelow100))
+    sPrintln("products with price <= 100 only: ", jsonStringify(productsBelow100, object{"pretty": true}))
     // products with price <= 100 only: [
     //     {
     //         "code": "potato_chips",
@@ -186,7 +226,7 @@ func main() {
     productsAbove100 = arrayFilterV2(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 100)
     }, products)
-    fmt.Println("products with price > 100 only:", prettyJsonStringify(productsAbove100))
+    sPrintln("products with price > 100 only: ", jsonStringify(productsAbove100, object{"pretty": true}))
     // products with price > 100 only: [
     //     {
     //         "code": "pasta",

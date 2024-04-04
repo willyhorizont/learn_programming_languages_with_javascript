@@ -1,41 +1,41 @@
 @Suppress("UNUSED_VARIABLE", "UNCHECKED_CAST", "USELESS_CAST")
 
 fun main() {
-    fun prettyJsonStringify(anything: Any? = null, indent: String = "    "): String {
+    fun jsonStringify(anything: Any? = null, pretty: Boolean = false, indent: String = "    "): String {
         var indentLevel = 0
-        fun prettyJsonStringifyInner(anythingInner: Any?, indentInner: String): String {
+        fun jsonStringifyInner(anythingInner: Any?, indentInner: String): String {
             if (anythingInner == null) return "null"
             if (anythingInner is String) return "\"${anythingInner}\""
             if (anythingInner is Number || anythingInner is Boolean) return "${anythingInner}"
             if (anythingInner is MutableList<*>) {
                 if (anythingInner.size == 0) return "[]"
                 indentLevel += 1
-                var result = "[\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "[\n${indentInner.repeat(indentLevel)}" else "[")
                 for ((arrayItemIndex, arrayItem) in anythingInner.withIndex()) {
-                    result += prettyJsonStringifyInner(arrayItem, indentInner)
-                    if ((arrayItemIndex + 1) != anythingInner.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += jsonStringifyInner(arrayItem, indentInner)
+                    if ((arrayItemIndex + 1) != anythingInner.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}]"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}]" else "]")
                 return result
             }
             if (anythingInner is MutableMap<*, *>) {
                 if (anythingInner.entries.size == 0) return "{}"
                 indentLevel += 1
-                var result = "{\n${indentInner.repeat(indentLevel)}"
+                var result = (if (pretty == true) "{\n${indentInner.repeat(indentLevel)}" else "{")
                 anythingInner.entries.forEachIndexed { objectEntryIndex, objectEntry ->
                     val objectKey = objectEntry.key
                     val objectValue = objectEntry.value
-                    result += "\"${objectKey}\": ${prettyJsonStringifyInner(objectValue, indentInner)}"
-                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += ",\n${indentInner.repeat(indentLevel)}"
+                    result += "\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
+                    if ((objectEntryIndex + 1) != anythingInner.entries.size) result += (if (pretty == true) ",\n${indentInner.repeat(indentLevel)}" else ", ")
                 }
                 indentLevel -= 1
-                result += "\n${indentInner.repeat(indentLevel)}}"
+                result += (if (pretty == true) "\n${indentInner.repeat(indentLevel)}}" else "}")
                 return result
             }
             return "null"
         }
-        return prettyJsonStringifyInner(anything, indent)
+        return jsonStringifyInner(anything, indent)
     }
 
     // in Kotlin, JavaScript-like Object is called MutableMap
@@ -45,7 +45,7 @@ fun main() {
         "country" to "Finland",
         "age" to 25
     )
-    println("friend: ${prettyJsonStringify(friend)}")
+    println("friend: ${jsonStringify(friend, pretty = true)}")
 
     println("friend, get country: ${friend["country"]}")
     // friend, get country: Finland
@@ -54,15 +54,15 @@ fun main() {
     for ((objectKey, objectValue) in friend) {
         println("friend, for loop, key: ${objectKey}, value: ${objectValue}")
     }
-    // fruits, for loop, key: 0, value: apple
-    // fruits, for loop, key: 1, value: mango
-    // fruits, for loop, key: 2, value: orange
+    // fruits, for loop, key: name, value: Alisa
+    // fruits, for loop, key: country, value: Finland
+    // fruits, for loop, key: age, value: 25
 
     // iterate over and get each key-value pair
     friend.forEach { (objectKey, objectValue) -> println("friend, forEach loop, key: ${objectKey}, value: ${objectValue}") }
-    // fruits, for loop, key: 0, value: apple
-    // fruits, for loop, key: 1, value: mango
-    // fruits, for loop, key: 2, value: orange
+    // fruits, for loop, key: name, value: Alisa
+    // fruits, for loop, key: country, value: Finland
+    // fruits, for loop, key: age, value: 25
 
     // iterate over and get each key-value pair and object iteration/entry index
     friend.entries.forEachIndexed { objectEntryIndex, objectEntry ->

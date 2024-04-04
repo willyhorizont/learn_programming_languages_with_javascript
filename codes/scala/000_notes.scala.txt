@@ -1,0 +1,5 @@
+cs launch scala:2.13.13
+cs launch scalac:2.13.13
+
+cs launch scala:3.4.1
+cs launch scalac:3.4.1

@@ -1,9 +1,13 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     // JavaScript-like Optional Chaining Operator (?.) function
@@ -17,7 +21,7 @@ void main() {
         },
         "fruits": <dynamic>["apple", "mango", "banana"]
     };
-    print("JSON_OBJECT: ${prettyJsonStringify(JSON_OBJECT)}");
+    print("JSON_OBJECT: ${jsonStringify(JSON_OBJECT, pretty: true)}");
 
     print('# using JavaScript-like Optional Chaining Operator (?.) function "optionalChainingV2"');
 

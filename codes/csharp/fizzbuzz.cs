@@ -3,8 +3,6 @@ using System.Linq; // Enumerable
 
 class Program {
     static void Main(string[] Args) {
-        dynamic IsNumeric = (Func<dynamic, bool>)((dynamic Anything) => (Anything is sbyte || Anything is byte || Anything is short || Anything is ushort || Anything is int || Anything is uint || Anything is long || Anything is ulong || Anything is float || Anything is double || Anything is decimal));
-
         Console.WriteLine("\n// FizzBuzz(n) in C#");
 
         dynamic FizzBuzzV1(int StopNumber) {

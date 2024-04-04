@@ -1,14 +1,13 @@
 import "dart:convert";
 
 void main() {
-    dynamic prettyArrayOfPrimitives(dynamic anything) {
-        final jsonEncoder = new JsonEncoder();
-        return jsonEncoder.convert(anything).split(',').join(', ');
-    }
-
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     dynamic arrayMapV1(dynamic callbackFunction, dynamic anArray) {
@@ -37,14 +36,14 @@ void main() {
     print("\n// JavaScript-like Array.map() in Dart List");
 
     final numbers = <dynamic>[12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-    print("numbers: ${prettyArrayOfPrimitives(numbers)}");
+    print("numbers: ${jsonStringify(numbers)}");
 
     dynamic numbersLabeled;
 
     print("// using JavaScript-like Array.map() function \"arrayMapV1\"");
 
     numbersLabeled = arrayMapV1((dynamic number, dynamic _, dynamic __) => (<String, dynamic>{ number.toString(): (((number % 2) == 0) ? "even" : "odd") }), numbers);
-    print("labeled numbers: ${prettyJsonStringify(numbersLabeled)}");
+    print("labeled numbers: ${jsonStringify(numbersLabeled, pretty: true)}");
     // labeled numbers: [
     //     {
     //         "12": "even"
@@ -81,7 +80,7 @@ void main() {
     print("// using JavaScript-like Array.map() function \"arrayMapV2\"");
 
     numbersLabeled = arrayMapV2((dynamic number, dynamic _, dynamic __) => (<String, dynamic>{ number.toString(): (((number % 2) == 0) ? "even" : "odd") }), numbers);
-    print("labeled numbers: ${prettyJsonStringify(numbersLabeled)}");
+    print("labeled numbers: ${jsonStringify(numbersLabeled, pretty: true)}");
     // labeled numbers: [
     //     {
     //         "12": "even"
@@ -118,7 +117,7 @@ void main() {
     print("// using Dart Array.map() built-in method \"Array.map().toList()\"");
 
     numbersLabeled = numbers.map((dynamic number) => (<String, dynamic>{ number.toString(): (((number % 2) == 0) ? "even" : "odd") })).toList();
-    print("labeled numbers: ${prettyJsonStringify(numbersLabeled)}");
+    print("labeled numbers: ${jsonStringify(numbersLabeled, pretty: true)}");
     // labeled numbers: [
     //     {
     //         "12": "even"
@@ -172,14 +171,14 @@ void main() {
             "price": 499
         }
     ];
-    print("products: ${prettyJsonStringify(products)}");
+    print("products: ${jsonStringify(products, pretty: true)}");
 
     dynamic productsLabeled;
 
     print("// using JavaScript-like Array.map() function \"arrayMapV1\"");
 
     productsLabeled = arrayMapV1((dynamic product, dynamic _, dynamic __) => (<String, dynamic>{ ...product, "label": ((product["price"] > 100) ? "expensive" : "cheap")}), products);
-    print("labeled products: ${prettyJsonStringify(productsLabeled)}");
+    print("labeled products: ${jsonStringify(productsLabeled, pretty: true)}");
     // labeled products: [
     //     {
     //         "code": "pasta",
@@ -206,7 +205,7 @@ void main() {
     print("// using JavaScript-like Array.map() function \"arrayMapV2\"");
 
     productsLabeled = arrayMapV2((dynamic product, dynamic _, dynamic __) => (<String, dynamic>{ ...product, "label": ((product["price"] > 100) ? "expensive" : "cheap")}), products);
-    print("labeled products: ${prettyJsonStringify(productsLabeled)}");
+    print("labeled products: ${jsonStringify(productsLabeled, pretty: true)}");
     // labeled products: [
     //     {
     //         "code": "pasta",
@@ -233,7 +232,7 @@ void main() {
     print("// using Dart Array.map() built-in method \"Array.map().toList()\"");
 
     productsLabeled = products.map((dynamic product) => (<String, dynamic>{ ...product, "label": ((product["price"] > 100) ? "expensive" : "cheap")})).toList();
-    print("labeled products: ${prettyJsonStringify(productsLabeled)}");
+    print("labeled products: ${jsonStringify(productsLabeled, pretty: true)}");
     // labeled products: [
     //     {
     //         "code": "pasta",

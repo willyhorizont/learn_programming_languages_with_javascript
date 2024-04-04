@@ -1,4 +1,37 @@
-using JSON
+function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
+    indent_level = 0
+    function json_stringify_inner(anything_inner, indent_inner::String)::String
+        if (anything_inner === nothing) return "null" end
+        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
+        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
+        if (isa(anything_inner, Array) === true)
+            if (length(anything_inner) == 0) return "[]" end
+            indent_level += 1
+            result = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
+            for (array_item_index, array_item) in enumerate(anything_inner)
+                result *= json_stringify_inner(array_item, indent_inner)
+                if (array_item_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
+            return result
+        end
+        if (isa(anything_inner, Dict) === true)
+            if (length(anything_inner) == 0) return "{}" end
+            indent_level += 1
+            result = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
+            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                result *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
+                if (object_entry_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+            end
+            indent_level -= 1
+            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
+            return result
+        end
+        return "null"
+    end
+    return json_stringify_inner(anything, indent)
+end
 
 println("\n# JavaScript-like Optional Chaining Operator (?.) in Julia")
 
@@ -11,7 +44,7 @@ JSON_OBJECT = Dict(
     ),
     "fruits" => ["apple", "mango", "banana"]
 )
-println("JSON_OBJECT: ", chomp(JSON.json(JSON_OBJECT, 4)))
+println("JSON_OBJECT: ", json_stringify(JSON_OBJECT, pretty=true))
 
 println("JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: ", try JSON_OBJECT["foo"]["bar"] catch(err) nothing end)
 # JSON_OBJECT?.foo?.bar or JSON_OBJECT?.['foo']?.['bar']: baz

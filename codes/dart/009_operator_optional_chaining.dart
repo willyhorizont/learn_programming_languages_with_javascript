@@ -6,9 +6,13 @@ void main() {
     // There's no JavaScript-like Optional Chaining Operator (?.) in Dart.
     // But, we can create our own function to mimic it in Dart.
 
-    dynamic prettyJsonStringify(dynamic anything) {
-        final jsonEncoder = new JsonEncoder.withIndent("    ");
-        return jsonEncoder.convert(anything);
+    dynamic jsonStringify(dynamic anything, { bool pretty = false, String indent = "    " }) {
+		if (pretty == true) {
+			final jsonEncoder = new JsonEncoder.withIndent(indent);
+			return jsonEncoder.convert(anything);
+		}
+		final jsonEncoder = new JsonEncoder();
+		return jsonEncoder.convert(anything).split(',').join(', ');
     }
 
     dynamic optionalChainingV1(dynamic anything, List<dynamic> objectPropertiesArray) {
@@ -42,7 +46,7 @@ void main() {
         },
         "fruits": <dynamic>["apple", "mango", "banana"]
     };
-    print("JSON_OBJECT: ${prettyJsonStringify(JSON_OBJECT)}");
+    print("JSON_OBJECT: ${jsonStringify(JSON_OBJECT, pretty: true)}");
 
     print('# using JavaScript-like Optional Chaining Operator (?.) function "optionalChainingV1"');
 

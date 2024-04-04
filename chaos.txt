@@ -78,3 +78,6 @@ if [a-zA-Z0-9_. ]+[a-zA-Z0-9_(), .]?[=><!~]+ [a-zA-Z0-9_ ]+
 \b[a-z]\w*\b
 
 (?<!")\\n"
+
+regex to find `\n` without `;` before it:
+(?<!;)\n
