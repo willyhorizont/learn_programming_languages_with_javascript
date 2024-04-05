@@ -1,38 +1,24 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
-}
-
-prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
-    result <- "["
-    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
-        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
-        if (is.character(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "\"", arrayItem, "\"")
-        }
-        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
-            result <- paste(sep = "", result, arrayItem)
-        }
-        if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "null")
-        }
-        if (arrayItemIndex != length(anArrayOfPrimitives)) {
-            result <- paste(sep = "", result, ", ")
-        }
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
     }
-    result <- paste(sep = "", result, "]")
-    return(result)
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
 # in R, JavaScript-like Array is called list
 
 fruits <- list("apple", "mango", "orange")
-cat(paste(sep = "", "fruits: ", prettyArrayOfPrimitives(fruits), "\n"))
+cat(paste(sep = "", "fruits: ", jsonStringify(fruits), "\n"))
 
 cat(paste(sep = "", "fruits, length: ", length(fruits), "\n"))
 # fruits, length: 3
@@ -66,7 +52,7 @@ products <- list(
         name = "potato chips"
     )
 )
-cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
+cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
 
 for (arrayItemIndex in seq_along(products)) {
     arrayItem <- products[[arrayItemIndex]]

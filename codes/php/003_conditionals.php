@@ -17,15 +17,10 @@
     Logical NOT (!)
 */
 
-function bool_to_string($anything) {
-    if (is_bool($anything) === false) throw new Exception("Expecting Boolean as argument");
-    return (($anything === true) ? "true" : "false");
-}
-
 print("\n# basic conditional control flow\n");
 
 $my_age = 10;
-echo("\n" . "\$my_age: " . $my_age);
+echo("\$my_age: " . $my_age . "\n");
 if ($my_age > 24) {
     print("you are old");
 } elseif ($my_age > 17) {
@@ -34,144 +29,144 @@ if ($my_age > 24) {
     print("you are under age");
 }
 
-echo("\n\n// equal to (==)\n");
+echo("\n// equal to (==)\n" . "\n");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "100";
-echo("\n" . "\$my_answer: " . $my_answer);
-echo("\n" . "\$CORRECT_ANSWER: " . $CORRECT_ANSWER);
-echo("\n(\$my_answer == \$CORRECT_ANSWER): ");
+echo("\$my_answer: " . $my_answer . "\n");
+echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
+echo("(\$my_answer == \$CORRECT_ANSWER): " . "\n");
 if ($my_answer == $CORRECT_ANSWER) {
-    echo("\n" . "Your answer is correct");
+    echo("Your answer is correct" . "\n");
 } else {
-    echo("\n" . "Your answer is wrong");
+    echo("Your answer is wrong" . "\n");
 }
 
-echo("\n\n// not equal to (!=)\n");
+echo("\n// not equal to (!=)\n" . "\n");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "25";
-echo("\n" . "\$my_answer: " . $my_answer);
-echo("\n" . "\$CORRECT_ANSWER: " . $CORRECT_ANSWER);
-echo("\n(\$my_answer != \$CORRECT_ANSWER): ");
+echo("\$my_answer: " . $my_answer . "\n");
+echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
+echo("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
 if ($my_answer != $CORRECT_ANSWER) {
-    echo("\n" . "Your answer is correct");
+    echo("Your answer is correct" . "\n");
 } else {
-    echo("\n" . "Your answer is wrong");
+    echo("Your answer is wrong" . "\n");
 }
 
-echo("\n\n// identical to (===)\n");
+echo("\n// identical to (===)\n" . "\n");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "100";
-echo("\n" . "\$my_answer: " . $my_answer);
-echo("\n" . "\$CORRECT_ANSWER: " . $CORRECT_ANSWER);
-echo("\n(\$my_answer === \$CORRECT_ANSWER): ");
+echo("\$my_answer: " . $my_answer . "\n");
+echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
+echo("(\$my_answer === \$CORRECT_ANSWER): " . "\n");
 if ($my_answer === $CORRECT_ANSWER) {
-    echo("\n" . "Your answer is correct");
+    echo("Your answer is correct" . "\n");
 } else {
-    echo("\n" . "Your answer is wrong");
+    echo("Your answer is wrong" . "\n");
 }
 
-echo("\n\n// not identical to (!==)\n");
+echo("\n// not identical to (!==)\n" . "\n");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "25";
-echo("\n" . "\$my_answer: " . $my_answer);
-echo("\n" . "\$CORRECT_ANSWER: " . $CORRECT_ANSWER);
-echo("\n(\$my_answer !== \$CORRECT_ANSWER): ");
+echo("\$my_answer: " . $my_answer . "\n");
+echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
+echo("(\$my_answer !== \$CORRECT_ANSWER): " . "\n");
 if ($my_answer !== $CORRECT_ANSWER) {
-    echo("\n" . "Your answer is correct");
+    echo("Your answer is correct" . "\n");
 } else {
-    echo("\n" . "Your answer is wrong");
+    echo("Your answer is wrong" . "\n");
 }
 
-echo("\n\n// greater than (>)\n");
+echo("\n// greater than (>)\n" . "\n");
 
 $my_age = 70;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n(\$my_age > 50): ");
-if ($my_age > 50) echo("\n" . "You are old");
+echo("\$my_age: " . $my_age . "\n");
+echo("(\$my_age > 50): " . "\n");
+if ($my_age > 50) echo("You are old" . "\n");
 
-echo("\n\n// less than (<)\n");
+echo("\n// less than (<)\n" . "\n");
 
 $my_age = 16;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n(\$my_age < 20): ");
-if ($my_age < 20) echo("\n" . "You are young");
+echo("\$my_age: " . $my_age . "\n");
+echo("(\$my_age < 20): " . "\n");
+if ($my_age < 20) echo("You are young" . "\n");
 
-echo("\n\n// greater than or equal to (>=)\n");
+echo("\n// greater than or equal to (>=)\n" . "\n");
 
 $my_age = 73;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n(\$my_age >= 65): ");
-if ($my_age >= 65) echo("\n" . "You are allowed to retire");
+echo("\$my_age: " . $my_age . "\n");
+echo("(\$my_age >= 65): " . "\n");
+if ($my_age >= 65) echo("You are allowed to retire" . "\n");
 
-echo("\n\n// less than or equal to (<=)\n");
+echo("\n// less than or equal to (<=)\n" . "\n");
 
 $my_age = 14; 
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n(\$my_age <= 16): ");
-if ($my_age <= 16) echo("\n" . "You are not allowed to drive");
+echo("\$my_age: " . $my_age . "\n");
+echo("(\$my_age <= 16): " . "\n");
+if ($my_age <= 16) echo("You are not allowed to drive" . "\n");
 
-echo("\n\n// Logical AND [\"&&\", \"and\"]\n");
+echo("\n// Logical AND [\"&&\", \"and\"]\n" . "\n");
 
 $my_age = 17;
-echo("\n" . "\$my_age: " . $my_age);
+echo("\$my_age: " . $my_age . "\n");
 $has_driving_license = false;
-echo("\n" . "\$has_driving_license: " . bool_to_string($has_driving_license));
-echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
-echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\n" . "You are allowed to drive" : "\n" . "You are not allowed to drive"));
+echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
+echo("((\$my_age >= 17) && (\$has_driving_license == true)): " . "\n");
+echo(((($my_age >= 17) && ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
 
 $my_age = 17;
-echo("\n" . "\$my_age: " . $my_age);
+echo("\$my_age: " . $my_age . "\n");
 $has_driving_license = true;
-echo("\n" . "\$has_driving_license: " . bool_to_string($has_driving_license));
-echo("\n((\$my_age >= 17) && (\$has_driving_license == true)): ");
-echo(((($my_age >= 17) && ($has_driving_license == true)) ? "\n" . "You are allowed to drive" : "\n" . "You are not allowed to drive"));
+echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
+echo("((\$my_age >= 17) && (\$has_driving_license == true)): " . "\n");
+echo(((($my_age >= 17) && ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
 
 $my_age = 17;
-echo("\n" . "\$my_age: " . $my_age);
+echo("\$my_age: " . $my_age . "\n");
 $has_driving_license = false;
-echo("\n" . "\$has_driving_license: " . bool_to_string($has_driving_license));
-echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
-echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\n" . "You are allowed to drive" : "\n" . "You are not allowed to drive"));
+echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
+echo("((\$my_age >= 17) and (\$has_driving_license == true)): " . "\n");
+echo(((($my_age >= 17) and ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
 
 $my_age = 17;
-echo("\n" . "\$my_age: " . $my_age);
+echo("\$my_age: " . $my_age . "\n");
 $has_driving_license = true;
-echo("\n" . "\$has_driving_license: " . bool_to_string($has_driving_license));
-echo("\n((\$my_age >= 17) and (\$has_driving_license == true)): ");
-echo(((($my_age >= 17) and ($has_driving_license == true)) ? "\n" . "You are allowed to drive" : "\n" . "You are not allowed to drive"));
+echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
+echo("((\$my_age >= 17) and (\$has_driving_license == true)): " . "\n");
+echo(((($my_age >= 17) and ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
 
-echo("\n\n// Logical OR [\"||\", \"or\"]\n");
+echo("\n// Logical OR [\"||\", \"or\"]\n" . "\n");
 
 $my_age = 2;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n((\$my_age <= 3) || (\$my_age >= 65)): ");
-if (($my_age <= 3) || ($my_age >= 65)) echo("\n" . "You should stay home");
+echo("\$my_age: " . $my_age . "\n");
+echo("((\$my_age <= 3) || (\$my_age >= 65)): " . "\n");
+if (($my_age <= 3) || ($my_age >= 65)) echo("You should stay home" . "\n");
 
 $my_age = 89;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n((\$my_age <= 3) || (\$my_age >= 65)): ");
-if (($my_age <= 3) || ($my_age >= 65)) echo("\n" . "You should stay home");
+echo("\$my_age: " . $my_age . "\n");
+echo("((\$my_age <= 3) || (\$my_age >= 65)): " . "\n");
+if (($my_age <= 3) || ($my_age >= 65)) echo("You should stay home" . "\n");
 
 $my_age = 2;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n((\$my_age <= 3) or (\$my_age >= 65)): ");
-if (($my_age <= 3) or ($my_age >= 65)) echo("\n" . "You should stay home");
+echo("\$my_age: " . $my_age . "\n");
+echo("((\$my_age <= 3) or (\$my_age >= 65)): " . "\n");
+if (($my_age <= 3) or ($my_age >= 65)) echo("You should stay home" . "\n");
 
 $my_age = 89;
-echo("\n" . "\$my_age: " . $my_age);
-echo("\n((\$my_age <= 3) or (\$my_age >= 65)): ");
-if (($my_age <= 3) or ($my_age >= 65)) echo("\n" . "You should stay home");
+echo("\$my_age: " . $my_age . "\n");
+echo("((\$my_age <= 3) or (\$my_age >= 65)): " . "\n");
+if (($my_age <= 3) or ($my_age >= 65)) echo("You should stay home" . "\n");
 
-echo("\n\n// Logical NOT (!)\n");
+echo("\n// Logical NOT (!)\n" . "\n");
 
 $can_drive = false;
-echo("\n" . "\$can_drive: " . bool_to_string($can_drive));
-echo("\n!\$can_drive: " . bool_to_string(!$can_drive));
+echo("\$can_drive: " . json_encode($can_drive) . "\n");
+echo("!\$can_drive: " . json_encode(!$can_drive) . "\n");
 
 $can_drive = true;
-echo("\n" . "\$can_drive: " . bool_to_string($can_drive));
-echo("\n!\$can_drive: " . bool_to_string(!$can_drive));
+echo("\$can_drive: " . json_encode($can_drive) . "\n");
+echo("!\$can_drive: " . json_encode(!$can_drive) . "\n");

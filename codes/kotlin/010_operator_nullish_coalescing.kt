@@ -40,7 +40,7 @@ fun main() {
         return jsonStringifyInner(anything, indent)
     }
 
-    // in Kotlin, JavaScript-like Nullish Coalescing Operator (??) is Elvis Operator (?:)
+    // in Kotlin, JavaScript-like Nullish Coalescing Operator (??) is called Elvis Operator (?:)
 
     val JSON_OBJECT = mutableMapOf<String, Any?>(
         "foo" to mutableMapOf<String, Any?>(

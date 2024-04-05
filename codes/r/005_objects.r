@@ -1,10 +1,18 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    }
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
 # in R, JavaScript-like Object is called Associative-list
@@ -14,7 +22,7 @@ friend <- list(
     country = "Finland",
     age = 25
 )
-cat(paste(sep = "", "friend: ", prettyJsonStringify(friend), "\n"))
+cat(paste(sep = "", "friend: ", jsonStringify(friend, pretty = TRUE), "\n"))
 
 cat(paste(sep = "", "friend, get country: ", friend[["country"]], "\n"))
 # friend, get country: Finland

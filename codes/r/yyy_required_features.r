@@ -1,10 +1,18 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    }
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
 # 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
@@ -26,17 +34,17 @@ prettyJsonStringify <- function(anything) {
 # type Any interface{}
 # ```
 something <- "foo"
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 something <- 123
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 something <- TRUE
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 something <- NULL
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 something <- list(1, 2, 3)
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 something <- list("foo" = "bar")
-cat(paste(sep = "", "something: ", prettyJsonStringify(something), "\n"))
+cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
 
 # 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
 # ```javascript
@@ -118,7 +126,7 @@ myObject <- list(
         "foo" = "bar"
     )
 )
-cat(paste(sep = "", "myObject: ", prettyJsonStringify(myObject), "\n"))
+cat(paste(sep = "", "myObject: ", jsonStringify(myObject, pretty = TRUE), "\n"))
 
 # 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
 # ```javascript
@@ -126,7 +134,7 @@ cat(paste(sep = "", "myObject: ", prettyJsonStringify(myObject), "\n"))
 # console.log("myArray:", myArray);
 # ```
 myArray <- list("foo", 123, TRUE, NULL, list(1, 2, 3), list("foo" = "bar"))
-cat(paste(sep = "", "myArray: ", prettyJsonStringify(myArray), "\n"))
+cat(paste(sep = "", "myArray: ", jsonStringify(myArray, pretty = TRUE), "\n"))
 
 # 5. support passing functions as arguments to other functions
 # ```javascript

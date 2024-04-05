@@ -1,30 +1,16 @@
 use strict;
 use warnings;
-use Scalar::Util qw(looks_like_number);
 
-sub pretty_json_stringify {
-    my ($anything) = @_;
+sub json_stringify {
     use JSON;
-    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
-    $pretty_json_string =~ s/   /    /g;
-    $pretty_json_string =~ s/\n$//g;
-    return $pretty_json_string;
-}
-
-sub pretty_array_of_primitives {
-    my $number_of_parameters = @_;
-    my $result = "[";
-    for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
-        my $array_item = $_[$array_item_index];
-        my $is_string = (defined($array_item) && ref($array_item) eq "");
-        my $is_number = looks_like_number($array_item);
-        last if (!$is_string && !$is_number);
-        $result = ($result . "\"" . $array_item . "\"") if ($is_string && !$is_number);
-        $result = ($result . $array_item) if ($is_number);
-        $result = ($result . ", ") if (($array_item_index + 1) != $number_of_parameters);
-    }
-    $result = $result . "]";
-    return $result;
+    my ($anything_ref, %additional_parameter) = @_;
+    my $pretty = $additional_parameter{"pretty"} // 0;
+    my $indent = $additional_parameter{"indent"} // "    ";
+    return JSON->new->allow_nonref->space_after->encode($anything_ref) if ($pretty == 0);
+    my $json_string_pretty = JSON->new->allow_nonref->pretty->encode($anything_ref);
+    $json_string_pretty =~ s/   /$indent/g;
+    $json_string_pretty =~ s/\n$//g;
+    return $json_string_pretty;
 }
 
 sub array_filter_v1 {
@@ -59,7 +45,7 @@ sub array_filter_v2 {
 print("\n# JavaScript-like Array.filter() in Perl List", "\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: ", json_stringify(\@numbers), "\n");
 
 my @numbers_even;
 my @numbers_odd;
@@ -67,31 +53,31 @@ my @numbers_odd;
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
 @numbers_even = array_filter_v1(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
+print("even numbers only: ", json_stringify(\@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
 @numbers_odd = array_filter_v1(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
+print("odd numbers only: ", json_stringify(\@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
 @numbers_even = array_filter_v2(sub { my ($number) = @_; return (($number % 2) == 0); }, \@numbers);
-print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
+print("even numbers only: ", json_stringify(\@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
 @numbers_odd = array_filter_v2(sub { my ($number) = @_; return (($number % 2) != 0); }, \@numbers);
-print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
+print("odd numbers only: ", json_stringify(\@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("# using Perl Array.filter() built-in function \"grep\"\n");
 
 @numbers_even = grep { (($_ % 2) == 0) } @numbers;
-print("even numbers only: ", pretty_array_of_primitives(@numbers_even), "\n");
+print("even numbers only: ", json_stringify(\@numbers_even), "\n");
 # even numbers only: [12, 34, 36, 4, 254]
 
 @numbers_odd = grep { (($_ % 2) != 0) } @numbers;
-print("odd numbers only: ", pretty_array_of_primitives(@numbers_odd), "\n");
+print("odd numbers only: ", json_stringify(\@numbers_odd), "\n");
 # odd numbers only: [27, 23, 65, 93, 87]
 
 print("\n# JavaScript-like Array.filter() in Perl List of Hashes", "\n");
@@ -114,8 +100,7 @@ my @products = (
         "price" => 499
     }
 );
-
-print("products: ", pretty_json_stringify(\@products), "\n");
+print("products: ", json_stringify(\@products, "pretty" => 1), "\n");
 
 my @products_below_100;
 my @products_above_100;
@@ -123,7 +108,7 @@ my @products_above_100;
 print("# using JavaScript-like Array.filter() function \"array_filter_v1\"\n");
 
 @products_below_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
-print("products with price <= 100 only: ", pretty_json_stringify(\@products_below_100), "\n");
+print("products with price <= 100 only: ", json_stringify(\@products_below_100, "pretty" => 1), "\n");
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -132,7 +117,7 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 # ]
 
 @products_above_100 = array_filter_v1(sub { my ($product) = @_; return ($product->{"price"} > 100); }, \@products);
-print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+print("products with price > 100 only: ", json_stringify(\@products_above_100, "pretty" => 1), "\n");
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",
@@ -151,7 +136,7 @@ print("products with price > 100 only: ", pretty_json_stringify(\@products_above
 print("# using JavaScript-like Array.filter() function \"array_filter_v2\"\n");
 
 @products_below_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} <= 100); }, \@products);
-print("products with price <= 100 only: ", pretty_json_stringify(\@products_below_100), "\n");
+print("products with price <= 100 only: ", json_stringify(\@products_below_100, "pretty" => 1), "\n");
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -160,7 +145,7 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 # ]
 
 @products_above_100 = array_filter_v2(sub { my ($product) = @_; return ($product->{"price"} > 100); }, \@products);
-print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+print("products with price > 100 only: ", json_stringify(\@products_above_100, "pretty" => 1), "\n");
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",
@@ -179,7 +164,7 @@ print("products with price > 100 only: ", pretty_json_stringify(\@products_above
 print("# using Perl Array.filter() built-in function \"grep\"\n");
 
 @products_below_100 = grep { ($_->{"price"} <= 100) } @products;
-print("products with price <= 100 only: ", pretty_json_stringify(\@products_below_100), "\n");
+print("products with price <= 100 only: ", json_stringify(\@products_below_100, "pretty" => 1), "\n");
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -188,7 +173,7 @@ print("products with price <= 100 only: ", pretty_json_stringify(\@products_belo
 # ]
 
 @products_above_100 = grep { ($_->{"price"} > 100) } @products;
-print("products with price > 100 only: ", pretty_json_stringify(\@products_above_100), "\n");
+print("products with price > 100 only: ", json_stringify(\@products_above_100, "pretty" => 1), "\n");
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",

@@ -21,17 +21,17 @@
     ```
 */
 $something = "foo";
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 $something = 123;
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 $something = true;
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 $something = null;
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 $something = [1, 2, 3];
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 $something = ["foo" => "bar"];
-echo("\n" . "something: " . json_encode($something, JSON_PRETTY_PRINT));
+echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
 
 /*
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -73,17 +73,17 @@ function get_modified_indent_level() {
     };
     return $change_indent_level();
 }
-echo("\n" . "get_modified_indent_level(): " . get_modified_indent_level());
+echo("get_modified_indent_level(): " . get_modified_indent_level() . "\n");
 function create_new_game($initial_credit) {
     $current_credit = $initial_credit;
-    echo("\n" . "initial credit: " . $initial_credit);
+    echo("initial credit: " . $initial_credit . "\n");
     return function () use (&$current_credit) {
         $current_credit -= 1;
         if ($current_credit === 0) {
-            echo("\n" . "not enough credits");
+            echo("not enough credits" . "\n");
             return;
         }
-        echo("\n" . "playing game, " . $current_credit . " credit(s) remaining");
+        echo("playing game, " . $current_credit . " credit(s) remaining" . "\n");
     };
 }
 $play_game = create_new_game(3);
@@ -117,7 +117,7 @@ $my_object = [
         "foo" => "bar"
     ]
 ];
-echo("\n" . "my_object: " . json_encode($my_object, JSON_PRETTY_PRINT));
+echo("my_object: " . str_replace("/\n$/", "", json_encode($my_object, JSON_PRETTY_PRINT)) . "\n");
 
 /*
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -127,7 +127,7 @@ echo("\n" . "my_object: " . json_encode($my_object, JSON_PRETTY_PRINT));
     ```
 */
 $my_array = ["foo", 123, true, null, [1, 2, 3], ["foo" => "bar"]];
-echo("\n" . "my_array: " . json_encode($my_array, JSON_PRETTY_PRINT));
+echo("my_array: " . str_replace("/\n$/", "", json_encode($my_array, JSON_PRETTY_PRINT)) . "\n");
 
 /*
     5. support passing functions as arguments to other functions
@@ -146,15 +146,15 @@ echo("\n" . "my_array: " . json_encode($my_array, JSON_PRETTY_PRINT));
     ```
 */
 function say_hello($callback_function) {
-    echo("\n" . "hello");
+    echo("hello" . "\n");
     $callback_function();
 }
 function say_how_are_you() {
-    echo("\n" . "how are you?");
+    echo("how are you?" . "\n");
 }
 say_hello("say_how_are_you");
 say_hello(function() {
-    echo("\n" . "how are you?");
+    echo("how are you?" . "\n");
 });
 
 /*
@@ -177,7 +177,7 @@ function multiply($a) {
 }
 $multiply_by2 = multiply(2);
 $multiply_by2_result = $multiply_by2(10);
-echo("\n" . "multiply_by2_result: " . $multiply_by2_result);
+echo("multiply_by2_result: " . $multiply_by2_result . "\n");
 
 /*
     7. support assigning functions to variables
@@ -197,9 +197,9 @@ echo("\n" . "multiply_by2_result: " . $multiply_by2_result);
 $get_rectangle_area_v1 = function ($rectangle_width, $rectangle_length) {
     return $rectangle_width * $rectangle_length;
 };
-echo("\n" . "get_rectangle_area_v1(7, 5): " . $get_rectangle_area_v1(7, 5));
+echo("get_rectangle_area_v1(7, 5): " . $get_rectangle_area_v1(7, 5) . "\n");
 $get_rectangle_area_v2 = fn($rectangle_width, $rectangle_length) => $rectangle_width * $rectangle_length;
-echo("\n" . "get_rectangle_area_v2(7, 5): " . $get_rectangle_area_v2(7, 5));
+echo("get_rectangle_area_v2(7, 5): " . $get_rectangle_area_v2(7, 5) . "\n");
 
 /*
     8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -244,7 +244,7 @@ $my_array2 = [
     [1, 2, 3],
     ["foo" => "bar"]
 ];
-echo("\n" . "myArray2[0](7, 5): " . $my_array2[0](7, 5));
+echo("myArray2[0](7, 5): " . $my_array2[0](7, 5) . "\n");
 
 $my_object2 = [
     "my_function" => function ($a, $b) {
@@ -259,4 +259,4 @@ $my_object2 = [
         "foo" => "bar"
     ]
 ];
-echo("\n" . "myObject2[\"my_function\"](7, 5): " . $my_object2["my_function"](7, 5));
+echo("myObject2[\"my_function\"](7, 5): " . $my_object2["my_function"](7, 5) . "\n");

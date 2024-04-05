@@ -1,34 +1,5 @@
 <?php
 
-function pretty_array_of_primitives($an_array_of_primitives) {
-    $result = "[";
-    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && (gettype($array_item) !== "string") && (is_bool($array_item) === false) && $array_item !== null) {
-            continue;
-        }
-        if ($array_item === null) {
-            $result = $result . "null";
-        }
-        if ($array_item === true) {
-            $result = $result . "true";
-        }
-        if ($array_item === false) {
-            $result = $result . "false";
-        }
-        if (gettype($array_item) === "string") {
-            $result = $result . "\"" . $array_item . "\"";
-        }
-        if (is_numeric($array_item) === true) {
-            $result = $result . $array_item;
-        }
-        if (($array_item_index + 1) !== count($an_array_of_primitives)){
-            $result = $result . ", ";
-        }
-    }
-    $result = $result . "]";
-    return $result;
-};
-
 function array_reduce_v2($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.reduce() function
     $result = $initial_value;
@@ -38,24 +9,24 @@ function array_reduce_v2($callback_function, $an_array, $initial_value) {
     return $result;
 };
 
-echo("\n\n// JavaScript-like Array.reduce() in PHP array");
+echo("\n// JavaScript-like Array.reduce() in PHP array" . "\n");
 
 $numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3];
-echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
+echo("numbers: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers))) . "\n");
 
-echo("\n// using JavaScript-like Array.reduce() function \"array_reduce\"");
+echo("// using JavaScript-like Array.reduce() function \"array_reduce\"" . "\n");
 
 $numbers_total = array_reduce_v2(fn($current_result, $current_number) => ($current_result + $current_number), $numbers, 0);
-echo("\n" . "total number: $numbers_total");
+echo("total number: $numbers_total" . "\n");
 // total number: 41.2
 
-echo("\n// using PHP Array.reduce() built-in function \"array_reduce\"");
+echo("// using PHP Array.reduce() built-in function \"array_reduce\"" . "\n");
 
 $numbers_total = array_reduce($numbers,  fn($current_result, $current_number) => ($current_result + $current_number), 0);
-echo("\n" . "total number: $numbers_total");
+echo("total number: $numbers_total" . "\n");
 // total number: 41.2
 
-echo("\n\n// JavaScript-like Array.reduce() in PHP array of associative-arrays");
+echo("\n// JavaScript-like Array.reduce() in PHP array of associative-arrays" . "\n");
 
 $products = [
     [
@@ -75,12 +46,12 @@ $products = [
         "price" => 499
     ]
 ];
-echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("products: " . str_replace("/\n$/", "", json_encode($products, JSON_PRETTY_PRINT)) . "\n");
 
-echo("\n// using JavaScript-like Array.reduce() function \"array_reduce\"");
+echo("// using JavaScript-like Array.reduce() function \"array_reduce\"" . "\n");
 
 $products_grouped = array_reduce_v2(fn($current_result, $current_product) => (($current_product['price'] > 100) ? [...$current_result, 'expensive' => [...$current_result['expensive'], $current_product]] : [...$current_result, 'cheap' => [...$current_result['cheap'], $current_product]]), $products, ['expensive' => [], 'cheap' => []]);
-echo("\n" . "grouped products: " . json_encode($products_grouped, JSON_PRETTY_PRINT));
+echo("grouped products: " . str_replace("/\n$/", "", json_encode($products_grouped, JSON_PRETTY_PRINT)) . "\n");
 // grouped products: {
 //     "expensive": [
 //         {
@@ -104,10 +75,10 @@ echo("\n" . "grouped products: " . json_encode($products_grouped, JSON_PRETTY_PR
 //     ]
 // }
 
-echo("\n// using PHP Array.reduce() built-in function \"array_reduce\"");
+echo("// using PHP Array.reduce() built-in function \"array_reduce\"" . "\n");
 
 $products_grouped = array_reduce($products,  fn($current_result, $current_product) => (($current_product['price'] > 100) ? [...$current_result, 'expensive' => [...$current_result['expensive'], $current_product]] : [...$current_result, 'cheap' => [...$current_result['cheap'], $current_product]]), ['expensive' => [], 'cheap' => []]);
-echo("\n" . "grouped products: " . json_encode($products_grouped, JSON_PRETTY_PRINT));
+echo("grouped products: " . str_replace("/\n$/", "", json_encode($products_grouped, JSON_PRETTY_PRINT)) . "\n");
 // grouped products: {
 //     "expensive": [
 //         {

@@ -1,5 +1,11 @@
 R --version
 
+install.packages("jsonlite")
+install.packages('jsonlite', dependencies=TRUE, repos='http://cran.rstudio.com/')
+
+installed_packages <- installed.packages()
+print(installed_packages)
+
 global assignment operator (<<-) ```r
 newIncrementer <- function() {
     something <- 0

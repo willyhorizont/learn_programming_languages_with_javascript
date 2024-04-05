@@ -1,14 +1,16 @@
 use strict;
 use warnings;
-use Scalar::Util qw(looks_like_number);
 
-sub pretty_json_stringify {
-    my ($anything) = @_;
+sub json_stringify {
     use JSON;
-    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
-    $pretty_json_string =~ s/   /    /g;
-    $pretty_json_string =~ s/\n$//g;
-    return $pretty_json_string;
+    my ($anything_ref, %additional_parameter) = @_;
+    my $pretty = $additional_parameter{"pretty"} // 0;
+    my $indent = $additional_parameter{"indent"} // "    ";
+    return JSON->new->allow_nonref->space_after->encode($anything_ref) if ($pretty == 0);
+    my $json_string_pretty = JSON->new->allow_nonref->pretty->encode($anything_ref);
+    $json_string_pretty =~ s/   /$indent/g;
+    $json_string_pretty =~ s/\n$//g;
+    return $json_string_pretty;
 }
 
 # in Perl, JavaScript-like Object is called Hash
@@ -19,7 +21,7 @@ my %friend1 = (
     "country" => "Finland",
     "age" => 25
 );
-print("friend1: ", pretty_json_stringify(\%friend1), "\n");
+print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
 
 print("friend1, get country: ", $friend1{"country"}, "\n");
 # friend1, get country: Finland
@@ -91,7 +93,7 @@ my $friend2 = {
     "country" => "Finland",
     "age" => 25
 };
-print("friend2: ", pretty_json_stringify($friend2), "\n");
+print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
 
 print("friend2, get country: ", $$friend2{"country"}, "\n");
 # friend2, get country: Finland

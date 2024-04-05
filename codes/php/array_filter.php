@@ -1,34 +1,5 @@
 <?php
 
-function pretty_array_of_primitives($an_array_of_primitives) {
-    $result = "[";
-    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && (gettype($array_item) !== "string") && (is_bool($array_item) === false) && $array_item !== null) {
-            continue;
-        }
-        if ($array_item === null) {
-            $result = $result . "null";
-        }
-        if ($array_item === true) {
-            $result = $result . "true";
-        }
-        if ($array_item === false) {
-            $result = $result . "false";
-        }
-        if (gettype($array_item) === "string") {
-            $result = $result . "\"" . $array_item . "\"";
-        }
-        if (is_numeric($array_item) === true) {
-            $result = $result . $array_item;
-        }
-        if (($array_item_index + 1) !== count($an_array_of_primitives)){
-            $result = $result . ", ";
-        }
-    }
-    $result = $result . "]";
-    return $result;
-};
-
 function array_filter_v1($callback_function, $an_array) {
     // JavaScript-like Array.filter() function
     $data_filtered = [];
@@ -67,62 +38,62 @@ function array_filter_v4($callback_function, $an_array) {
     return $data_filtered;
 };
 
-echo("\n\n// JavaScript-like Array.filter() in PHP array");
+echo("\n// JavaScript-like Array.filter() in PHP array" . "\n");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-echo("\n" . "numbers: " . pretty_array_of_primitives($numbers));
+echo("numbers: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers))) . "\n");
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v1\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v1\"" . "\n");
 
 $numbers_even = array_filter_v1(fn($number) => (($number % 2) === 0), $numbers);
-echo("\n" . "even numbers only: " . pretty_array_of_primitives($numbers_even));
+echo("even numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_even))) . "\n");
 // even numbers only: [12,34,36,4,254]
 
 $numbers_odd = array_filter_v1(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\n" . "odd numbers only: " . pretty_array_of_primitives($numbers_odd));
+echo("odd numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_odd))) . "\n");
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v2\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v2\"" . "\n");
 
 $numbers_even = array_filter_v2(fn($number) => (($number % 2) === 0), $numbers);
-echo("\n" . "even numbers only: " . pretty_array_of_primitives($numbers_even));
+echo("even numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_even))) . "\n");
 // even numbers only: [12,34,36,4,254]
 
 $numbers_odd = array_filter_v2(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\n" . "odd numbers only: " . pretty_array_of_primitives($numbers_odd));
+echo("odd numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_odd))) . "\n");
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v3\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v3\"" . "\n");
 
 $numbers_even = array_filter_v3(fn($number) => (($number % 2) === 0), $numbers);
-echo("\n" . "even numbers only: " . pretty_array_of_primitives($numbers_even));
+echo("even numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_even))) . "\n");
 // even numbers only: [12,34,36,4,254]
 
 $numbers_odd = array_filter_v3(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\n" . "odd numbers only: " . pretty_array_of_primitives($numbers_odd));
+echo("odd numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_odd))) . "\n");
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v4\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v4\"" . "\n");
 
 $numbers_even = array_filter_v4(fn($number) => (($number % 2) === 0), $numbers);
-echo("\n" . "even numbers only: " . pretty_array_of_primitives($numbers_even));
+echo("even numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_even))) . "\n");
 // even numbers only: [12,34,36,4,254]
 
 $numbers_odd = array_filter_v4(fn($number) => (($number % 2) !== 0), $numbers);
-echo("\n" . "odd numbers only: " . pretty_array_of_primitives($numbers_odd));
+echo("odd numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_odd))) . "\n");
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n// using PHP Array.filter() built-in function \"array_values(array_filter)\"");
+echo("// using PHP Array.filter() built-in function \"array_values(array_filter)\"" . "\n");
 
 $numbers_even = array_values(array_filter($numbers, fn($number) => (($number % 2) === 0)));
-echo("\n" . "even numbers only: " . pretty_array_of_primitives($numbers_even));
+echo("even numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_even))) . "\n");
 // even numbers only: [12,34,36,4,254]
 
 $numbers_odd = array_values(array_filter($numbers, fn($number) => (($number % 2) !== 0)));
-echo("\n" . "odd numbers only: " . pretty_array_of_primitives($numbers_odd));
+echo("odd numbers only: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($numbers_odd))) . "\n");
 // odd numbers only: [27,23,65,93,87]
 
-echo("\n\n// JavaScript-like Array.filter() in PHP array of associative-arrays");
+echo("\n// JavaScript-like Array.filter() in PHP array of associative-arrays" . "\n");
 
 $products = [
     [
@@ -142,12 +113,12 @@ $products = [
         "price" => 499
     ]
 ];
-echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("products: " . str_replace("/\n$/", "", json_encode($products, JSON_PRETTY_PRINT)) . "\n");
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v1\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v1\"" . "\n");
 
 $products_below_100 = array_filter_v1(fn($product) => ($product['price'] <= 100), $products);
-echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+echo("products with price <= 100 only: " . str_replace("/\n$/", "", json_encode($products_below_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -156,7 +127,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 // ]
 
 $products_above_100 = array_filter_v1(fn($product) => ($product['price'] > 100), $products);
-echo("\n" . "products with price > 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+echo("products with price > 100 only: " . str_replace("/\n$/", "", json_encode($products_above_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -172,10 +143,10 @@ echo("\n" . "products with price > 100 only: " . json_encode($products_above_100
 //     }
 // ]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v2\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v2\"" . "\n");
 
 $products_below_100 = array_filter_v2(fn($product) => ($product['price'] <= 100), $products);
-echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+echo("products with price <= 100 only: " . str_replace("/\n$/", "", json_encode($products_below_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -184,7 +155,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 // ]
 
 $products_above_100 = array_filter_v2(fn($product) => ($product['price'] > 100), $products);
-echo("\n" . "products with price > 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+echo("products with price > 100 only: " . str_replace("/\n$/", "", json_encode($products_above_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -200,10 +171,10 @@ echo("\n" . "products with price > 100 only: " . json_encode($products_above_100
 //     }
 // ]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v3\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v3\"" . "\n");
 
 $products_below_100 = array_filter_v3(fn($product) => ($product['price'] <= 100), $products);
-echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+echo("products with price <= 100 only: " . str_replace("/\n$/", "", json_encode($products_below_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -212,7 +183,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 // ]
 
 $products_above_100 = array_filter_v3(fn($product) => ($product['price'] > 100), $products);
-echo("\n" . "products with price > 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+echo("products with price > 100 only: " . str_replace("/\n$/", "", json_encode($products_above_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -228,10 +199,10 @@ echo("\n" . "products with price > 100 only: " . json_encode($products_above_100
 //     }
 // ]
 
-echo("\n// using JavaScript-like Array.filter() function \"array_filter_v4\"");
+echo("// using JavaScript-like Array.filter() function \"array_filter_v4\"" . "\n");
 
 $products_below_100 = array_filter_v4(fn($product) => ($product['price'] <= 100), $products);
-echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+echo("products with price <= 100 only: " . str_replace("/\n$/", "", json_encode($products_below_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -240,7 +211,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 // ]
 
 $products_above_100 = array_filter_v4(fn($product) => ($product['price'] > 100), $products);
-echo("\n" . "products with price > 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+echo("products with price > 100 only: " . str_replace("/\n$/", "", json_encode($products_above_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -256,10 +227,10 @@ echo("\n" . "products with price > 100 only: " . json_encode($products_above_100
 //     }
 // ]
 
-echo("\n// using PHP Array.filter() built-in function \"array_values(array_filter)\"");
+echo("// using PHP Array.filter() built-in function \"array_values(array_filter)\"" . "\n");
 
 $products_below_100 = array_values(array_filter($products, fn($product) => ($product['price'] <= 100)));
-echo("\n" . "products with price <= 100 only: " . json_encode($products_below_100, JSON_PRETTY_PRINT));
+echo("products with price <= 100 only: " . str_replace("/\n$/", "", json_encode($products_below_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -268,7 +239,7 @@ echo("\n" . "products with price <= 100 only: " . json_encode($products_below_10
 // ]
 
 $products_above_100 = array_values(array_filter($products, fn($product) => ($product['price'] > 100)));
-echo("\n" . "products with price > 100 only: " . json_encode($products_above_100, JSON_PRETTY_PRINT));
+echo("products with price > 100 only: " . str_replace("/\n$/", "", json_encode($products_above_100, JSON_PRETTY_PRINT)) . "\n");
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",

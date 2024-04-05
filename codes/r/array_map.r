@@ -1,63 +1,18 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
-}
-
-prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
-    result <- "["
-    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
-        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
-        if (is.character(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "\"", arrayItem, "\"")
-        }
-        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
-            result <- paste(sep = "", result, arrayItem)
-        }
-        if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "null")
-        }
-        if (arrayItemIndex != length(anArrayOfPrimitives)) {
-            result <- paste(sep = "", result, ", ")
-        }
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
     }
-    result <- paste(sep = "", result, "]")
-    return(result)
-}
-
-getType <- function(anything) {
-    if (is.list(anything) == FALSE) return(class(anything))
-    if (length(anything) == 0) return("empty_list")
-    if (is.null(names(anything)) == TRUE) return("array")
-    return("object")
-}
-
-spreadSyntaxObject <- function(...) {
-    parameters <- list(...)
-    newObject <- list()
-    for (parameterIndex in seq_along(parameters)) {
-        parameter <- parameters[[parameterIndex]]
-        parameterType <- getType(parameter)
-        if (parameterType == "object") {
-            for (objectKey in names(parameter)) {
-                objectValue <- parameter[[objectKey]]
-                newObject[[objectKey]] <- objectValue
-            }
-            next
-        }
-        if (parameterType == "array") {
-            for (arrayItemIndex in seq_along(parameter)) {
-                arrayItem <- parameter[[arrayItemIndex]]
-                newObject[[as.character(arrayItemIndex)]] <- arrayItem
-            }
-            next
-        }
-    }
-    return(newObject)
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
 arrayMapV1 <- function(callbackFunction, anArray) {
@@ -84,12 +39,12 @@ arrayMapV2 <- function(callbackFunction, anArray) {
 cat("\n# JavaScript-like Array.map() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
-cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
+cat(paste(sep = "", "numbers: ", jsonStringify(numbers), "\n"))
 
 cat("# using JavaScript-like Array.map() function \"arrayMapV1\"\n")
 
 numbersLabeled <- arrayMapV1(function(number, ...) setNames(list((if ((number %% 2) == 0) "even" else "odd")), as.character(number)), numbers)
-cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\n"))
+cat(paste(sep = "", "labeled numbers: ", jsonStringify(numbersLabeled, pretty = TRUE), "\n"))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -126,7 +81,7 @@ cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\
 cat("# using JavaScript-like Array.map() function \"arrayMapV2\"\n")
 
 numbersLabeled <- arrayMapV2(function(number, ...) setNames(list((if ((number %% 2) == 0) "even" else "odd")), as.character(number)), numbers)
-cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\n"))
+cat(paste(sep = "", "labeled numbers: ", jsonStringify(numbersLabeled, pretty = TRUE), "\n"))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -163,7 +118,7 @@ cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\
 cat("# using R Array.map() built-in function \"lapply\"\n")
 
 numbersLabeled <- lapply(numbers, function(number) setNames(list((if ((number %% 2) == 0) "even" else "odd")), as.character(number)))
-cat(paste(sep = "", "labeled numbers: ", prettyJsonStringify(numbersLabeled), "\n"))
+cat(paste(sep = "", "labeled numbers: ", jsonStringify(numbersLabeled, pretty = TRUE), "\n"))
 # labeled numbers: [
 #     {
 #         "12": "even"
@@ -217,12 +172,12 @@ products <- list(
         price = 499
     )
 )
-cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
+cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
 
 cat("# using JavaScript-like Array.map() function \"arrayMapV1\"\n")
 
-productsLabeled <- arrayMapV1(function(product, ...) spreadSyntaxObject(product, list(label = (if (product$price > 100) "expensive" else "cheap"))), products)
-cat(paste(sep = "", "labeled products: ", prettyJsonStringify(productsLabeled), "\n"))
+productsLabeled <- arrayMapV1(function(product, ...) c(product, list(label = (if (product[["price"]] > 100) "expensive" else "cheap"))), products)
+cat(paste(sep = "", "labeled products: ", jsonStringify(productsLabeled, pretty = TRUE), "\n"))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -248,8 +203,8 @@ cat(paste(sep = "", "labeled products: ", prettyJsonStringify(productsLabeled), 
 
 cat("# using JavaScript-like Array.map() function \"arrayMapV2\"\n")
 
-productsLabeled <- arrayMapV2(function(product, ...) spreadSyntaxObject(product, list(label = (if (product$price > 100) "expensive" else "cheap"))), products)
-cat(paste(sep = "", "labeled products: ", prettyJsonStringify(productsLabeled), "\n"))
+productsLabeled <- arrayMapV2(function(product, ...) c(product, list(label = (if (product[["price"]] > 100) "expensive" else "cheap"))), products)
+cat(paste(sep = "", "labeled products: ", jsonStringify(productsLabeled, pretty = TRUE), "\n"))
 # labeled products: [
 #     {
 #         "code": "pasta",
@@ -275,8 +230,8 @@ cat(paste(sep = "", "labeled products: ", prettyJsonStringify(productsLabeled), 
 
 cat("# using R Array.map() built-in function \"lapply\"\n")
 
-productsLabeled <- lapply(products, function(product) spreadSyntaxObject(product, list(label = (if (product$price > 100) "expensive" else "cheap"))))
-cat(paste(sep = "", "labeled products: ", prettyJsonStringify(productsLabeled), "\n"))
+productsLabeled <- lapply(products, function(product) c(product, list(label = (if (product[["price"]] > 100) "expensive" else "cheap"))))
+cat(paste(sep = "", "labeled products: ", jsonStringify(productsLabeled, pretty = TRUE), "\n"))
 # labeled products: [
 #     {
 #         "code": "pasta",

@@ -9,7 +9,7 @@ while (true) {
         $i += 1;
         continue;
     }
-    echo("\n" . "while loop v1, i is " . $i);
+    echo("while loop v1, i is " . $i . "\n");
     if ($i >= 5) break;
     $i += 1;
 }
@@ -20,7 +20,7 @@ while ($i <= 5) {
         $i += 1;
         continue;
     }
-    echo("\n" . "while loop v2, i is " . $i);
+    echo("while loop v2, i is " . $i . "\n");
     $i += 1;
 }
 
@@ -29,7 +29,7 @@ while ($i <= 5) {
 for ($i = 1; $i <= 10; $i += 1) {
     if ($i > 5) break;
     if ($i === 2) continue;
-    echo("\n" . "for loop, i is " . $i);
+    echo("for loop, i is " . $i . "\n");
 }
 
 // forEach loop
@@ -37,11 +37,11 @@ for ($i = 1; $i <= 10; $i += 1) {
 foreach (range(1, 10, 1) as $i) { // (start, stop, step)
     if ($i > 5) break;
     if ($i === 2) continue;
-    echo("\n" . "forEach loop ascending, i is " . $i);
+    echo("forEach loop ascending, i is " . $i . "\n");
 }
 
 foreach (range(10, 1, -1) as $i) { // (start, stop, step)
     if ($i <= 5) break;
     if ($i === 9) continue;
-    echo("\n" . "forEach loop descending, i is " . $i);
+    echo("forEach loop descending, i is " . $i . "\n");
 }

@@ -1,10 +1,13 @@
-sub pretty_json_stringify {
-    my ($anything) = @_;
+sub json_stringify {
     use JSON;
-    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
-    $pretty_json_string =~ s/   /    /g;
-    $pretty_json_string =~ s/\n$//g;
-    return $pretty_json_string;
+    my ($anything_ref, %additional_parameter) = @_;
+    my $pretty = $additional_parameter{"pretty"} // 0;
+    my $indent = $additional_parameter{"indent"} // "    ";
+    return JSON->new->allow_nonref->space_after->encode($anything_ref) if ($pretty == 0);
+    my $json_string_pretty = JSON->new->allow_nonref->pretty->encode($anything_ref);
+    $json_string_pretty =~ s/   /$indent/g;
+    $json_string_pretty =~ s/\n$//g;
+    return $json_string_pretty;
 }
 
 =begin
@@ -28,17 +31,17 @@ sub pretty_json_stringify {
     ```
 =cut
 my $something = "foo";
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 $something = 123;
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 $something = 1;
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 $something = undef;
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 $something = [1, 2, 3];
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 $something = {"foo" => "bar"};
-print("something: ", pretty_json_stringify($something), "\n");
+print("something: ", json_stringify($something, "pretty" => 1), "\n");
 
 =begin
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -127,7 +130,7 @@ my $my_object_v1 = {
         "foo" => "bar"
     }
 };
-print("my_object_v1: ", pretty_json_stringify($my_object_v1), "\n");
+print("my_object_v1: ", json_stringify($my_object_v1, "pretty" => 1), "\n");
 my %my_object_v2 = (
     "my_string" => "foo",
     "my_number" => 123,
@@ -138,8 +141,8 @@ my %my_object_v2 = (
         "foo" => "bar"
     }
 );
-print("my_object_v2: ", pretty_json_stringify({%my_object_v2}), "\n");
-print("my_object_v2: ", pretty_json_stringify(\%my_object_v2), "\n");
+print("my_object_v2: ", json_stringify({%my_object_v2, "pretty" => 1}), "\n");
+print("my_object_v2: ", json_stringify(\%my_object_v2, "pretty" => 1), "\n");
 
 =begin
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -149,10 +152,10 @@ print("my_object_v2: ", pretty_json_stringify(\%my_object_v2), "\n");
     ```
 =cut
 my $my_array_v1 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
-print("my_array_v1: ", pretty_json_stringify($my_array_v1), "\n");
+print("my_array_v1: ", json_stringify($my_array_v1, "pretty" => 1), "\n");
 my @my_array_v2 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
-print("my_array_v2: ", pretty_json_stringify(\@my_array_v2), "\n");
-print("my_array_v2: ", pretty_json_stringify([@my_array_v2]), "\n");
+print("my_array_v2: ", json_stringify(\@my_array_v2, "pretty" => 1), "\n");
+print("my_array_v2: ", json_stringify([@my_array_v2, "pretty" => 1]), "\n");
 
 =begin
     5. support passing functions as arguments to other functions

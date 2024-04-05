@@ -32,21 +32,21 @@ fn($rectangle_width, $rectangle_length) => $rectangle_width * $rectangle_length;
 // ? Passing functions as arguments to other functions
 
 function say_hello($callback_function) {
-    echo("\n" . "hello");
+    echo("hello" . "\n");
     $callback_function();
 }
 
 function say_how_are_you() {
-    echo("\n" . "how are you?");
+    echo("how are you?" . "\n");
 }
 
 say_hello("say_how_are_you");
 
 say_hello(function() {
-    echo("\n" . "how are you?");
+    echo("how are you?" . "\n");
 });
 
-say_hello(fn() => print("\n" . "how are you?"));
+say_hello(fn() => print("how are you?" . "\n"));
 
 // ? Assigning functions to variables or storing them in data structures
 

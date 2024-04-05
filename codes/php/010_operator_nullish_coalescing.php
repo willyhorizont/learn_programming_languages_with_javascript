@@ -1,6 +1,6 @@
 <?php
 
-echo("\n\n// JavaScript-like Nullish Coalescing Operator (??) in PHP");
+echo("\n// JavaScript-like Nullish Coalescing Operator (??) in PHP" . "\n");
 
 $JSON_OBJECT = [
     "foo" => [
@@ -8,16 +8,16 @@ $JSON_OBJECT = [
     ],
     "fruits" => ["apple", "mango", "banana"]
 ];
-echo("\n" . "JSON_OBJECT: " . json_encode($JSON_OBJECT, JSON_PRETTY_PRINT));
+echo("JSON_OBJECT: " . str_replace("/\n$/", "", json_encode($JSON_OBJECT, JSON_PRETTY_PRINT)) . "\n");
 
-echo("\n(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): " . json_encode(@$JSON_OBJECT["foo"]["bar"] ?? "not found"));
+echo("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): " . json_encode(@$JSON_OBJECT["foo"]["bar"] ?? "not found") . "\n");
 // (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
 
-echo("\n(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): " . json_encode(@$JSON_OBJECT["foo"]["baz"] ?? "not found"));
+echo("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): " . json_encode(@$JSON_OBJECT["foo"]["baz"] ?? "not found") . "\n");
 // (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
 
-echo("\n(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): " . json_encode(@$JSON_OBJECT["fruits"][2] ?? "not found"));
+echo("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): " . json_encode(@$JSON_OBJECT["fruits"][2] ?? "not found") . "\n");
 // (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
 
-echo("\n(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): " . json_encode(@$JSON_OBJECT["fruits"][5] ?? "not found"));
+echo("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): " . json_encode(@$JSON_OBJECT["fruits"][5] ?? "not found") . "\n");
 // (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"

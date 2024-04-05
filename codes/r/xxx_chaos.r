@@ -46,3 +46,15 @@ myObject <- list(
     "my_array" = list(1, 2, 3)
 )
 cat(paste(sep = "", "myObject: ", prettyJsonStringify(myObject), "\n"))
+
+friend <- list(
+    name = "Alisa",
+    country = "Finland",
+    age = 25,
+    gender = "woman"
+)
+
+friend <- friend[!names(friend) == "country"]
+# friend <- subset(friend, select = -gender) // error
+friend <- friend[setdiff(names(friend), "age")]
+cat(paste(sep = "", "friend: ", prettyJsonStringify(friend), "\n"))

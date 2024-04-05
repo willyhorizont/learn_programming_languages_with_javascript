@@ -1,6 +1,6 @@
 <?php
 
-echo("\n\n// FizzBuzz(n) in PHP");
+echo("\n// FizzBuzz(n) in PHP" . "\n");
 
 function fizzbuzz_v1($stop_number) {
     if (is_numeric($stop_number) === false) throw new Exception("Argument should be a number");
@@ -274,54 +274,54 @@ function fizzbuzz_v13($stop_number) {
     return array_reduce(range(1, $stop_number), fn($current_result, $current_number) => (($current_result === "") ? "$current_number" : (((($current_number % 3) === 0) && (($current_number % 5) === 0)) ? "$current_result, FizzBuzz" : ((($current_number % 3) === 0) ? "$current_result, Fizz" : ((($current_number % 5) === 0) ? "$current_result, Buzz" : "$current_result, $current_number")))), "");
 };
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v1\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v1(36));
+echo("// using fizzbuzz function \"fizzbuzz_v1\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v1(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v2\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v2(36));
+echo("// using fizzbuzz function \"fizzbuzz_v2\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v2(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v3\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v3(36));
+echo("// using fizzbuzz function \"fizzbuzz_v3\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v3(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v4\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v4(36));
+echo("// using fizzbuzz function \"fizzbuzz_v4\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v4(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v5\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v5(36));
+echo("// using fizzbuzz function \"fizzbuzz_v5\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v5(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v6\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v6(36));
+echo("// using fizzbuzz function \"fizzbuzz_v6\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v6(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v7\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v7(36));
+echo("// using fizzbuzz function \"fizzbuzz_v7\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v7(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v8\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v8(36));
+echo("// using fizzbuzz function \"fizzbuzz_v8\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v8(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v9\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v9(36));
+echo("// using fizzbuzz function \"fizzbuzz_v9\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v9(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v10\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v10(36));
+echo("// using fizzbuzz function \"fizzbuzz_v10\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v10(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v11\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v11(36));
+echo("// using fizzbuzz function \"fizzbuzz_v11\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v11(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"fizzbuzz_v12\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v12(36));
+echo("// using fizzbuzz function \"fizzbuzz_v12\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v12(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-echo("\n// using fizzbuzz function \"\$fizzbuzz_v13\"");
-echo("\n" . "FizzBuzz(36): " . fizzbuzz_v13(36));
+echo("// using fizzbuzz function \"\$fizzbuzz_v13\"" . "\n");
+echo("FizzBuzz(36): " . fizzbuzz_v13(36) . "\n");
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

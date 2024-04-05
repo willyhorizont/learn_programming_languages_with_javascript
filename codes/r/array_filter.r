@@ -1,32 +1,18 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
-}
-
-prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
-    result <- "["
-    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
-        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
-        if (is.character(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "\"", arrayItem, "\"")
-        }
-        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
-            result <- paste(sep = "", result, arrayItem)
-        }
-        if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "null")
-        }
-        if (arrayItemIndex != length(anArrayOfPrimitives)) {
-            result <- paste(sep = "", result, ", ")
-        }
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
     }
-    result <- paste(sep = "", result, "]")
-    return(result)
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
 arrayFilterV1 <- function(callbackFunction, anArray) {
@@ -48,7 +34,7 @@ arrayFilterV2 <- function(callbackFunction, anArray) {
     for (arrayItemIndex in seq_along(anArray)) {
         arrayItem <- anArray[[arrayItemIndex]]
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == TRUE) {
-            dataFiltered <- append(dataFiltered, arrayItem)
+            dataFiltered <- append(dataFiltered, list(arrayItem))
         }
     }
     return(dataFiltered)
@@ -57,36 +43,36 @@ arrayFilterV2 <- function(callbackFunction, anArray) {
 cat("\n# JavaScript-like Array.filter() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
-cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
+cat(paste(sep = "", "numbers: ", jsonStringify(numbers), "\n"))
 
 cat("# using JavaScript-like Array.filter() function \"arrayFilterV1\"\n")
 
 numbersEven <- arrayFilterV1(function(number, ...) ((number %% 2) == 0), numbers)
-cat(paste(sep = "", "even numbers only: ", prettyArrayOfPrimitives(numbersEven), "\n"))
+cat(paste(sep = "", "even numbers only: ", jsonStringify(numbersEven), "\n"))
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbersOdd <- arrayFilterV1(function(number, ...) ((number %% 2) != 0), numbers)
-cat(paste(sep = "", "odd numbers only: ", prettyArrayOfPrimitives(numbersOdd), "\n"))
+cat(paste(sep = "", "odd numbers only: ", jsonStringify(numbersOdd), "\n"))
 # odd numbers only: [27, 23, 65, 93, 87]
 
 cat("# using JavaScript-like Array.filter() function \"arrayFilterV2\"\n")
 
 numbersEven <- arrayFilterV2(function(number, ...) ((number %% 2) == 0), numbers)
-cat(paste(sep = "", "even numbers only: ", prettyArrayOfPrimitives(numbersEven), "\n"))
+cat(paste(sep = "", "even numbers only: ", jsonStringify(numbersEven), "\n"))
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbersOdd <- arrayFilterV2(function(number, ...) ((number %% 2) != 0), numbers)
-cat(paste(sep = "", "odd numbers only: ", prettyArrayOfPrimitives(numbersOdd), "\n"))
+cat(paste(sep = "", "odd numbers only: ", jsonStringify(numbersOdd), "\n"))
 # odd numbers only: [27, 23, 65, 93, 87]
 
 cat("# using R Array.filter() built-in function \"Filter\"\n")
 
 numbersEven <- Filter(function(number) ((number %% 2) == 0), numbers)
-cat(paste(sep = "", "even numbers only: ", prettyArrayOfPrimitives(numbersEven), "\n"))
+cat(paste(sep = "", "even numbers only: ", jsonStringify(numbersEven), "\n"))
 # even numbers only: [12, 34, 36, 4, 254]
 
 numbersOdd <- Filter(function(number) ((number %% 2) != 0), numbers)
-cat(paste(sep = "", "odd numbers only: ", prettyArrayOfPrimitives(numbersOdd), "\n"))
+cat(paste(sep = "", "odd numbers only: ", jsonStringify(numbersOdd), "\n"))
 # odd numbers only: [27, 23, 65, 93, 87]
 
 cat("\n# JavaScript-like Array.filter() in R list of Associative-list\n")
@@ -109,12 +95,12 @@ products <- list(
         price = 499
     )
 )
-cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
+cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
 
 cat("# using JavaScript-like Array.filter() function \"arrayFilterV1\"\n")
 
-productsBelow100 <- arrayFilterV1(function(product, ...) (product$price <= 100), products)
-cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(productsBelow100), "\n"))
+productsBelow100 <- arrayFilterV1(function(product, ...) (product[["price"]] <= 100), products)
+cat(paste(sep = "", "products with price <= 100 only: ", jsonStringify(productsBelow100, pretty = TRUE), "\n"))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -122,8 +108,8 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- arrayFilterV1(function(product, ...) (product$price > 100), products)
-cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+productsAbove100 <- arrayFilterV1(function(product, ...) (product[["price"]] > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", jsonStringify(productsAbove100, pretty = TRUE), "\n"))
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",
@@ -141,8 +127,8 @@ cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(prod
 
 cat("# using JavaScript-like Array.filter() function \"arrayFilterV2\"\n")
 
-productsBelow100 <- arrayFilterV2(function(product, ...) (product$price <= 100), products)
-cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(productsBelow100), "\n"))
+productsBelow100 <- arrayFilterV2(function(product, ...) (product[["price"]] <= 100), products)
+cat(paste(sep = "", "products with price <= 100 only: ", jsonStringify(productsBelow100, pretty = TRUE), "\n"))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -150,8 +136,8 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- arrayFilterV2(function(product, ...) (product$price > 100), products)
-cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+productsAbove100 <- arrayFilterV2(function(product, ...) (product[["price"]] > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", jsonStringify(productsAbove100, pretty = TRUE), "\n"))
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",
@@ -169,8 +155,8 @@ cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(prod
 
 cat("# using R Array.filter() built-in function \"Filter\"\n")
 
-productsBelow100 <- Filter(function(product, ...) (product$price <= 100), products)
-cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(productsBelow100), "\n"))
+productsBelow100 <- Filter(function(product, ...) (product[["price"]] <= 100), products)
+cat(paste(sep = "", "products with price <= 100 only: ", jsonStringify(productsBelow100, pretty = TRUE), "\n"))
 # products with price <= 100 only: [
 #     {
 #         "code": "potato_chips",
@@ -178,8 +164,8 @@ cat(paste(sep = "", "products with price <= 100 only: ", prettyJsonStringify(pro
 #     }
 # ]
 
-productsAbove100 <- Filter(function(product, ...) (product$price > 100), products)
-cat(paste(sep = "", "products with price > 100 only: ", prettyJsonStringify(productsAbove100), "\n"))
+productsAbove100 <- Filter(function(product, ...) (product[["price"]] > 100), products)
+cat(paste(sep = "", "products with price > 100 only: ", jsonStringify(productsAbove100, pretty = TRUE), "\n"))
 # products with price > 100 only: [
 #     {
 #         "code": "pasta",

@@ -67,6 +67,9 @@ simpleCalculator <- list(
 simpleCalculatorResult1 <- simpleCalculator$exponentiation(2, 4)
 simpleCalculatorResult2 <- simpleCalculator$multiplication(7, 5)
 simpleCalculatorResult3 <- simpleCalculator$multiplication(81, 9)
+simpleCalculatorResult1 <- simpleCalculator[["exponentiation"]](2, 4)
+simpleCalculatorResult2 <- simpleCalculator[["multiplication"]](7, 5)
+simpleCalculatorResult3 <- simpleCalculator[["multiplication"]](81, 9)
 
 # ? Returning functions as values from other functions
 

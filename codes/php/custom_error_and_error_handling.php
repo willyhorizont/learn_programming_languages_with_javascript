@@ -1,6 +1,6 @@
 <?php
 
-echo("\n\n// Custom Error and Error Handling in PHP");
+echo("\n// Custom Error and Error Handling in PHP" . "\n");
 
 function give_me_respect($parameter) {
     // Custom Error
@@ -11,14 +11,14 @@ function give_me_respect($parameter) {
 // Error Handling
 try {
     $response = give_me_respect("boo!");
-    echo("\n" . $response);
+    echo($response . "\n");
 } catch (Exception $an_exception) {
-    echo("\n" . $an_exception->getMessage());
+    echo($an_exception->getMessage() . "\n");
 }
-echo("\n" . "I'm sorry!");
+echo("I'm sorry!" . "\n");
 
 // Without Error Handling
 $response = give_me_respect("boo!");
 // this will never executed
-echo("\n" . $response);
-echo("\n" . "I'm sorry!");
+echo($response . "\n");
+echo("I'm sorry!" . "\n");

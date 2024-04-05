@@ -5,7 +5,7 @@ print('\n# JavaScript-like Spread Syntax (...) in Python')
 def array_to_object(an_array):
     new_object = {}
     for (array_item_index, array_item) in enumerate(an_array):
-        new_object[array_item_index] = array_item
+        new_object[str(array_item_index)] = array_item
     return new_object
 
 fruits = ["Mango", "Melon", "Banana"]

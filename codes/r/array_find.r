@@ -1,36 +1,22 @@
 library(jsonlite)
 
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    }
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
+}
+
 # There's no JavaScript-like Array.find() in R.
 # But, we can create our own function to mimic it in R.
-
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
-}
-
-prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
-    result <- "["
-    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
-        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
-        if (is.character(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "\"", arrayItem, "\"")
-        }
-        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
-            result <- paste(sep = "", result, arrayItem)
-        }
-        if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "null")
-        }
-        if (arrayItemIndex != length(anArrayOfPrimitives)) {
-            result <- paste(sep = "", result, ", ")
-        }
-    }
-    result <- paste(sep = "", result, "]")
-    return(result)
-}
 
 arrayFindV1 <- function(callbackFunction, anArray) {
     # JavaScript-like Array.find() function
@@ -81,7 +67,7 @@ arrayFindV4 <- function(callbackFunction, anArray) {
 cat("\n# JavaScript-like Array.find() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
-cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
+cat(paste(sep = "", "numbers: ", jsonStringify(numbers), "\n"))
 
 cat("# using JavaScript-like Array.find() function \"arrayFindV1\"\n")
 
@@ -143,15 +129,15 @@ products <- list(
         price = 499
     )
 )
-cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
+cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
 
 productToFind <- "bubble_gum"
 cat(paste(sep = "", "product to find: ", productToFind, "\n"))
 
 cat("# using JavaScript-like Array.find() function \"arrayFindV1\"\n")
 
-productFound <- arrayFindV1(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
+productFound <- arrayFindV1(function(product, ...) (product[["code"]] == productToFind), products)
+cat(paste(sep = "", "product found: ", jsonStringify(productFound, pretty = TRUE), "\n"))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -159,8 +145,8 @@ cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
 
 cat("# using JavaScript-like Array.find() function \"arrayFindV2\"\n")
 
-productFound <- arrayFindV2(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
+productFound <- arrayFindV2(function(product, ...) (product[["code"]] == productToFind), products)
+cat(paste(sep = "", "product found: ", jsonStringify(productFound, pretty = TRUE), "\n"))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -168,8 +154,8 @@ cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
 
 cat("# using JavaScript-like Array.find() function \"arrayFindV3\"\n")
 
-productFound <- arrayFindV3(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
+productFound <- arrayFindV3(function(product, ...) (product[["code"]] == productToFind), products)
+cat(paste(sep = "", "product found: ", jsonStringify(productFound, pretty = TRUE), "\n"))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -177,8 +163,8 @@ cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
 
 cat("# using JavaScript-like Array.find() function \"arrayFindV4\"\n")
 
-productFound <- arrayFindV4(function(product, ...) (product$code == productToFind), products)
-cat(paste(sep = "", "product found: ", prettyJsonStringify(productFound), "\n"))
+productFound <- arrayFindV4(function(product, ...) (product[["code"]] == productToFind), products)
+cat(paste(sep = "", "product found: ", jsonStringify(productFound, pretty = TRUE), "\n"))
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233

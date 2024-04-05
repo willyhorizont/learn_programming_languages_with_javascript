@@ -1,3 +1,20 @@
+library(jsonlite)
+
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    }
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
+}
+
 # Relational Operators / Comparison Operators:
 # equal to (==)
 # not equal to (!=)
@@ -82,8 +99,8 @@ cat("\n# Logical AND (&&)\n")
 myAge <- 17
 cat(paste(sep = "", "myAge: ", myAge, "\n"))
 hasDrivingLicense <- FALSE
-cat(paste(sep = "", "hasDrivingLicense: ", hasDrivingLicense, "\n"))
-cat("((myAge >= 17) && (hasDrivingLicense == TRUE)):\n")
+cat(paste(sep = "", "hasDrivingLicense: ", jsonStringify(hasDrivingLicense), "\n"))
+cat("((myAge >= 17) && (hasDrivingLicense == true)):\n")
 if ((myAge >= 17) && (hasDrivingLicense == TRUE)) {
     cat("You are allowed to drive\n")
 } else {
@@ -93,8 +110,8 @@ if ((myAge >= 17) && (hasDrivingLicense == TRUE)) {
 myAge <- 17
 cat(paste(sep = "", "myAge: ", myAge, "\n"))
 hasDrivingLicense <- TRUE
-cat(paste(sep = "", "hasDrivingLicense: ", hasDrivingLicense, "\n"))
-cat("((myAge >= 17) && (hasDrivingLicense == TRUE)):\n")
+cat(paste(sep = "", "hasDrivingLicense: ", jsonStringify(hasDrivingLicense), "\n"))
+cat("((myAge >= 17) && (hasDrivingLicense == true)):\n")
 if ((myAge >= 17) && (hasDrivingLicense == TRUE)) {
     cat("You are allowed to drive\n")
 } else {
@@ -116,9 +133,9 @@ if ((myAge <= 3) || (myAge >= 65)) cat("You should stay home\n")
 cat("\n# Logical NOT (!)\n")
 
 canDrive <- FALSE
-cat(paste(sep = "", "canDrive: ", canDrive, "\n"))
-cat(paste(sep = "", "!canDrive: ", !canDrive, "\n"))
+cat(paste(sep = "", "canDrive: ", jsonStringify(canDrive), "\n"))
+cat(paste(sep = "", "!canDrive: ", jsonStringify(!canDrive), "\n"))
 
 canDrive <- TRUE
-cat(paste(sep = "", "canDrive: ", canDrive, "\n"))
-cat(paste(sep = "", "!canDrive: ", !canDrive, "\n"))
+cat(paste(sep = "", "canDrive: ", jsonStringify(canDrive), "\n"))
+cat(paste(sep = "", "!canDrive: ", jsonStringify(!canDrive), "\n"))

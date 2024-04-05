@@ -1,16 +1,16 @@
 <?php
 
-echo("\n\n# Ternary Operator in PHP");
+echo("\n# Ternary Operator in PHP" . "\n");
 
 $CORRECT_ANSWER = 'foo';
-echo("\n" . "correct answer: \"$CORRECT_ANSWER\"");
+echo("correct answer: \"$CORRECT_ANSWER\"" . "\n");
 
 $my_answer = 'bar';
-echo("\n" . "my answer: \"$my_answer\"");
-echo("\n" . "is my answer correct: " . (($my_answer == $CORRECT_ANSWER) ? 'correct!' : 'wrong!'));
+echo("my answer: \"$my_answer\"" . "\n");
+echo("is my answer correct: " . (($my_answer == $CORRECT_ANSWER) ? 'correct!' : 'wrong!') . "\n");
 # is my answer correct: wrong!
 
 $my_answer = 'foo';
-echo("\n" . "my answer: \"$my_answer\"");
-echo("\n" . "is my answer correct: " . (($my_answer == $CORRECT_ANSWER) ? 'correct!' : 'wrong!'));
+echo("my answer: \"$my_answer\"" . "\n");
+echo("is my answer correct: " . (($my_answer == $CORRECT_ANSWER) ? 'correct!' : 'wrong!') . "\n");
 # is my answer correct: correct!

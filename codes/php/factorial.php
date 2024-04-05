@@ -1,6 +1,6 @@
 <?php
 
-echo("\n\n// Factorial(n) in PHP");
+echo("\n// Factorial(n) in PHP" . "\n");
 
 function factorial_v1($number) {
     if (is_numeric($number) === false) throw new Exception("Argument should be a number");
@@ -47,18 +47,18 @@ function factorial_v4($number) {
     return ($number * factorial_v4($number - 1));
 };
 
-echo("\n// using factorial function \"factorial_v1\"");
-echo("\n" . "Factorial(5): " . factorial_v1(5));
+echo("// using factorial function \"factorial_v1\"" . "\n");
+echo("Factorial(5): " . factorial_v1(5) . "\n");
 // Factorial(5): 120
 
-echo("\n// using factorial function \"factorial_v2\"");
-echo("\n" . "Factorial(5): " . factorial_v2(5));
+echo("// using factorial function \"factorial_v2\"" . "\n");
+echo("Factorial(5): " . factorial_v2(5) . "\n");
 // Factorial(5): 120
 
-echo("\n// using factorial function \"factorial_v3\"");
-echo("\n" . "Factorial(5): " . factorial_v3(5));
+echo("// using factorial function \"factorial_v3\"" . "\n");
+echo("Factorial(5): " . factorial_v3(5) . "\n");
 // Factorial(5): 120
 
-echo("\n// using factorial function \"factorial_v4\"");
-echo("\n" . "Factorial(5): " . factorial_v4(5));
+echo("// using factorial function \"factorial_v4\"" . "\n");
+echo("Factorial(5): " . factorial_v4(5) . "\n");
 // Factorial(5): 120

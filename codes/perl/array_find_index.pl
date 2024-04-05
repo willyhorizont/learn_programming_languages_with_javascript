@@ -1,33 +1,19 @@
 use strict;
 use warnings;
-use Scalar::Util qw(looks_like_number);
 
 # There's no JavaScript-like Array.findIndex() in Perl.
 # But, we can create our own function to mimic it in Perl.
 
-sub pretty_json_stringify {
-    my ($anything) = @_;
+sub json_stringify {
     use JSON;
-    my $pretty_json_string = JSON->new->allow_nonref->pretty->encode($anything);
-    $pretty_json_string =~ s/   /    /g;
-    $pretty_json_string =~ s/\n$//g;
-    return $pretty_json_string;
-}
-
-sub pretty_array_of_primitives {
-    my $number_of_parameters = @_;
-    my $result = "[";
-    for (my $array_item_index = 0; $array_item_index < $number_of_parameters; $array_item_index += 1) {
-        my $array_item = $_[$array_item_index];
-        my $is_string = (defined($array_item) && ref($array_item) eq "");
-        my $is_number = looks_like_number($array_item);
-        last if (!$is_string && !$is_number);
-        $result = ($result . "\"" . $array_item . "\"") if ($is_string && !$is_number);
-        $result = ($result . $array_item) if ($is_number);
-        $result = ($result . ", ") if (($array_item_index + 1) != $number_of_parameters);
-    }
-    $result = $result . "]";
-    return $result;
+    my ($anything_ref, %additional_parameter) = @_;
+    my $pretty = $additional_parameter{"pretty"} // 0;
+    my $indent = $additional_parameter{"indent"} // "    ";
+    return JSON->new->allow_nonref->space_after->encode($anything_ref) if ($pretty == 0);
+    my $json_string_pretty = JSON->new->allow_nonref->pretty->encode($anything_ref);
+    $json_string_pretty =~ s/   /$indent/g;
+    $json_string_pretty =~ s/\n$//g;
+    return $json_string_pretty;
 }
 
 sub array_find_index_v1 {
@@ -87,7 +73,7 @@ sub array_find_index_v4 {
 print("\n# JavaScript-like Array.findIndex() in Perl List", "\n");
 
 my @numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
-print("numbers: ", pretty_array_of_primitives(@numbers), "\n");
+print("numbers: ", json_stringify(\@numbers), "\n");
 
 my $number_to_find = 27;
 print("number to find: ", $number_to_find, "\n");
@@ -138,8 +124,7 @@ my @products = (
         "price" => 499
     }
 );
-
-print("products: ", pretty_json_stringify(\@products), "\n");
+print("products: ", json_stringify(\@products, "pretty" => 1), "\n");
 
 my $product_to_find = "pasta";
 print("product to find: ", $product_to_find, "\n");

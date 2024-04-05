@@ -1,92 +1,40 @@
 library(jsonlite)
 
-prettyJsonStringify <- function(anything) {
-    prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 4)
-    prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithTrailingNewLine, perl = TRUE)
-    prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-    return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
-}
-
-prettyArrayOfPrimitives <- function(anArrayOfPrimitives) {
-    result <- "["
-    for (arrayItemIndex in seq_along(anArrayOfPrimitives)) {
-        arrayItem <- anArrayOfPrimitives[[arrayItemIndex]]
-        if ((is.character(arrayItem) == FALSE) && (is.numeric(arrayItem) == FALSE) && (is.logical(arrayItem) == FALSE) && (is.null(arrayItem) == FALSE)) next
-        if (is.character(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "\"", arrayItem, "\"")
-        }
-        if ((is.numeric(arrayItem) == TRUE) || (is.logical(arrayItem) == TRUE)) {
-            result <- paste(sep = "", result, arrayItem)
-        }
-        if (is.null(arrayItem) == TRUE) {
-            result <- paste(sep = "", result, "null")
-        }
-        if (arrayItemIndex != length(anArrayOfPrimitives)) {
-            result <- paste(sep = "", result, ", ")
-        }
+jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    if (pretty == TRUE) {
+        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
+        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
+        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
+        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
     }
-    result <- paste(sep = "", result, "]")
-    return(result)
+    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
+    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
+    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
+    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
 }
 
-getType <- function(anything) {
+typeOf <- function(anything) {
     if (is.list(anything) == FALSE) return(class(anything))
-    if (length(anything) == 0) return("empty_list")
+    if (length(anything) == 0) return("array")
     if (is.null(names(anything)) == TRUE) return("array")
     return("object")
 }
 
-spreadSyntaxObject <- function(...) {
+mergeObject <- function(...) {
     parameters <- list(...)
     newObject <- list()
     for (parameterIndex in seq_along(parameters)) {
         parameter <- parameters[[parameterIndex]]
-        parameterType <- getType(parameter)
-        if (parameterType == "object") {
-            for (objectKey in names(parameter)) {
-                objectValue <- parameter[[objectKey]]
-                newObject[[objectKey]] <- objectValue
-            }
-            next
-        }
-        if (parameterType == "array") {
-            for (arrayItemIndex in seq_along(parameter)) {
-                arrayItem <- parameter[[arrayItemIndex]]
-                newObject[[as.character(arrayItemIndex)]] <- arrayItem
-            }
-            next
+        parameterType <- typeOf(parameter)
+        if (parameterType != "object") next
+        for (objectKey in names(parameter)) {
+            objectValue <- parameter[[objectKey]]
+            newObject[[objectKey]] <- objectValue
         }
     }
     return(newObject)
-}
-
-spreadSyntaxArray <- function(...) {
-    parameters <- list(...)
-    newArray <- list()
-    for (parameterIndex in seq_along(parameters)) {
-        parameter <- parameters[[parameterIndex]]
-        parameterType <- getType(parameter)
-        if (parameterType == "object") {
-            objectLength <- length(parameter)
-            if (objectLength == 1) {
-                for (objectKey in names(parameter)) {
-                    objectValue <- parameter[[objectKey]]
-                    newArray <- append(newArray, list(objectValue))
-                }
-                next
-            }
-            newArray <- append(newArray, parameter)
-            next
-        }
-        if (parameterType == "array") {
-            for (arrayItemIndex in seq_along(parameter)) {
-                arrayItem <- parameter[[arrayItemIndex]]
-                newArray <- append(newArray, list(arrayItem))
-            }
-            next
-        }
-    }
-    return(newArray)
 }
 
 arrayReduce <- function(callbackFunction, anArray, initialValue) {
@@ -102,18 +50,18 @@ arrayReduce <- function(callbackFunction, anArray, initialValue) {
 cat("\n# JavaScript-like Array.reduce() in R list\n")
 
 numbers <- list(36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3)
-cat(paste(sep = "", "numbers: ", prettyArrayOfPrimitives(numbers), "\n"))
+cat(paste(sep = "", "numbers: ", jsonStringify(numbers), "\n"))
 
 cat("# using JavaScript-like Array.reduce() function \"arrayReduce\"\n")
 
 numbersTotal <- arrayReduce(function(currentResult, currentNumber, ...) (currentResult + currentNumber), numbers, 0)
-cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
+cat(paste(sep = "", "total number: ", jsonStringify(numbersTotal), "\n"))
 # total number: 41.2
 
 cat("# using R Array.reduce() built-in function \"Reduce\"\n")
 
 numbersTotal <- Reduce(function(currentResult, currentNumber) (currentResult + currentNumber), numbers, 0)
-cat(paste(sep = "", "total number: ", prettyJsonStringify(numbersTotal), "\n"))
+cat(paste(sep = "", "total number: ", jsonStringify(numbersTotal), "\n"))
 # total number: 41.2
 
 cat("\n# JavaScript-like Array.reduce() in R list of Associative-list\n")
@@ -136,12 +84,13 @@ products <- list(
         price = 499
     )
 )
-cat(paste(sep = "", "products: ", prettyJsonStringify(products), "\n"))
+cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
 
 cat("# using JavaScript-like Array.reduce() function \"arrayReduce\"\n")
 
-productsGrouped <- arrayReduce(function(currentResult, currentProduct, ...) (if (currentProduct$price > 100) spreadSyntaxObject(currentResult, list(expensive = spreadSyntaxArray(currentResult$expensive, list(currentProduct = currentProduct)))) else spreadSyntaxObject(currentResult, list(cheap = spreadSyntaxArray(currentResult$cheap, list(currentProduct = currentProduct))))), products, list(expensive = list(), cheap = list()))
-cat(paste(sep = "", "grouped products: ", prettyJsonStringify(productsGrouped), "\n"))
+productsGrouped <- arrayReduce(function(currentResult, currentProduct, ...) (if (currentProduct[["price"]] > 100) mergeObject(currentResult, list(expensive = c(currentResult[["expensive"]], list(currentProduct)))) else mergeObject(currentResult, list(cheap = c(currentResult[["cheap"]], list(currentProduct))))), products, list(expensive = list(), cheap = list()))
+cat(paste(sep = "", "grouped products test: ", jsonStringify(productsGrouped, pretty = TRUE), "\n"))
+
 # grouped products: {
 #     "expensive": [
 #         {
@@ -167,8 +116,8 @@ cat(paste(sep = "", "grouped products: ", prettyJsonStringify(productsGrouped), 
 
 cat("# using R Array.reduce() built-in function \"Reduce\"\n")
 
-productsGrouped <- Reduce(function(currentResult, currentProduct) (if (currentProduct$price > 100) spreadSyntaxObject(currentResult, list(expensive = spreadSyntaxArray(currentResult$expensive, list(currentProduct = currentProduct)))) else spreadSyntaxObject(currentResult, list(cheap = spreadSyntaxArray(currentResult$cheap, list(currentProduct = currentProduct))))), products, list(expensive = list(), cheap = list()))
-cat(paste(sep = "", "grouped products: ", prettyJsonStringify(productsGrouped), "\n"))
+productsGrouped <- Reduce(function(currentResult, currentProduct) (if (currentProduct[["price"]] > 100) mergeObject(currentResult, list(expensive = c(currentResult[["expensive"]], list(currentProduct)))) else mergeObject(currentResult, list(cheap = c(currentResult[["cheap"]], list(currentProduct))))), products, list(expensive = list(), cheap = list()))
+cat(paste(sep = "", "grouped products: ", jsonStringify(productsGrouped, pretty = TRUE), "\n"))
 # grouped products: {
 #     "expensive": [
 #         {

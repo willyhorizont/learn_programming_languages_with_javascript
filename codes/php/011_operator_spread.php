@@ -1,59 +1,30 @@
 <?php
 
-echo("\n\n// JavaScript-like Spread Syntax (...) in PHP");
-
-function pretty_array_of_primitives($an_array_of_primitives) {
-    $result = "[";
-    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && (gettype($array_item) !== "string") && (is_bool($array_item) === false) && $array_item !== null) {
-            continue;
-        }
-        if ($array_item === null) {
-            $result = $result . "null";
-        }
-        if ($array_item === true) {
-            $result = $result . "true";
-        }
-        if ($array_item === false) {
-            $result = $result . "false";
-        }
-        if (gettype($array_item) === "string") {
-            $result = $result . "\"" . $array_item . "\"";
-        }
-        if (is_numeric($array_item) === true) {
-            $result = $result . $array_item;
-        }
-        if (($array_item_index + 1) !== count($an_array_of_primitives)){
-            $result = $result . ", ";
-        }
-    }
-    $result = $result . "]";
-    return $result;
-};
+echo("\n// JavaScript-like Spread Syntax (...) in PHP" . "\n");
 
 $fruits = ["Mango", "Melon", "Banana"];
-echo("\n" . "fruits: " . pretty_array_of_primitives($fruits));
+echo("fruits: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($fruits))) . "\n");
 
 $vegetables = ["Carrot", "Tomato"];
-echo("\n" . "vegetables: " . pretty_array_of_primitives($vegetables));
+echo("vegetables: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($vegetables))) . "\n");
 
 $country_capitals_in_asia = [
     "Thailand" => "Bangkok",
     "China" => "Beijing",
     "Japan" => "Tokyo"
 ];
-echo("\n" . "country_capitals_in_asia: " . json_encode($country_capitals_in_asia, JSON_PRETTY_PRINT));
+echo("country_capitals_in_asia: " . str_replace("/\n$/", "", json_encode($country_capitals_in_asia, JSON_PRETTY_PRINT)) . "\n");
 
 $country_capitals_in_europe = [
     "France" => "Paris",
     "England" => "London"
 ];
-echo("\n" . "country_capitals_in_asia: " . json_encode($country_capitals_in_europe, JSON_PRETTY_PRINT));
+echo("country_capitals_in_asia: " . str_replace("/\n$/", "", json_encode($country_capitals_in_europe, JSON_PRETTY_PRINT)) . "\n");
 
-echo("\n\n// [...array1, ...array2]:\n");
+echo("\n// [...array1, ...array2]:\n" . "\n");
 
 $combination1 = [...$fruits, ...$vegetables];
-echo("\n" . "\$combination1: " . json_encode($combination1, JSON_PRETTY_PRINT));
+echo("\$combination1: " . str_replace("/\n$/", "", json_encode($combination1, JSON_PRETTY_PRINT)) . "\n");
 // combination1: [
 //     "Mango",
 //     "Melon",
@@ -63,7 +34,7 @@ echo("\n" . "\$combination1: " . json_encode($combination1, JSON_PRETTY_PRINT));
 // ]
 
 $combination2 = [...$fruits, ...["Cucumber", "Cabbage"]];
-echo("\n" . "\$combination2: " . json_encode($combination2, JSON_PRETTY_PRINT));
+echo("\$combination2: " . str_replace("/\n$/", "", json_encode($combination2, JSON_PRETTY_PRINT)) . "\n");
 // combination2: [
 //     "Mango",
 //     "Melon",
@@ -72,10 +43,10 @@ echo("\n" . "\$combination2: " . json_encode($combination2, JSON_PRETTY_PRINT));
 //     "Cabbage"
 // ]
 
-echo("\n\n// { ...object1, ...object2 }:\n");
+echo("\n// { ...object1, ...object2 }:\n" . "\n");
 
 $combination3 = [...$country_capitals_in_asia, ...$country_capitals_in_europe];
-echo("\n" . "\$combination3: " . json_encode($combination3, JSON_PRETTY_PRINT));
+echo("\$combination3: " . str_replace("/\n$/", "", json_encode($combination3, JSON_PRETTY_PRINT)) . "\n");
 // combination3: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -85,7 +56,7 @@ echo("\n" . "\$combination3: " . json_encode($combination3, JSON_PRETTY_PRINT));
 // }
 
 $combination4 = [...$country_capitals_in_asia, ...["Germany" => "Berlin", "Italy" => "Rome"]];
-echo("\n" . "\$combination4: " . json_encode($combination4, JSON_PRETTY_PRINT));
+echo("\$combination4: " . str_replace("/\n$/", "", json_encode($combination4, JSON_PRETTY_PRINT)) . "\n");
 // combination4: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -94,10 +65,10 @@ echo("\n" . "\$combination4: " . json_encode($combination4, JSON_PRETTY_PRINT));
 //     "Italy": "Rome"
 // }
 
-echo("\n\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
+echo("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n" . "\n");
 
 $combination5 = [...$fruits, $vegetables];
-echo("\n" . "\$combination5: " . json_encode($combination5, JSON_PRETTY_PRINT));
+echo("\$combination5: " . str_replace("/\n$/", "", json_encode($combination5, JSON_PRETTY_PRINT)) . "\n");
 // combination5: [
 //     "Mango",
 //     "Melon",
@@ -109,7 +80,7 @@ echo("\n" . "\$combination5: " . json_encode($combination5, JSON_PRETTY_PRINT));
 // ]
 
 $combination6 = [...$fruits, ["Cucumber", "Cabbage"]];
-echo("\n" . "\$combination6: " . json_encode($combination6, JSON_PRETTY_PRINT));
+echo("\$combination6: " . str_replace("/\n$/", "", json_encode($combination6, JSON_PRETTY_PRINT)) . "\n");
 // combination6: [
 //     "Mango",
 //     "Melon",
@@ -120,10 +91,10 @@ echo("\n" . "\$combination6: " . json_encode($combination6, JSON_PRETTY_PRINT));
 //     ]
 // ]
 
-echo("\n\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
+echo("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n" . "\n");
 
 $combination7 = [...$fruits, $country_capitals_in_asia];
-echo("\n" . "\$combination7: " . json_encode($combination7, JSON_PRETTY_PRINT));
+echo("\$combination7: " . str_replace("/\n$/", "", json_encode($combination7, JSON_PRETTY_PRINT)) . "\n");
 // combination7: [
 //     "Mango",
 //     "Melon",
@@ -136,7 +107,7 @@ echo("\n" . "\$combination7: " . json_encode($combination7, JSON_PRETTY_PRINT));
 // ]
 
 $combination8 = [...$fruits, ["Germany" => "Berlin", "Italy" => "Rome"]];
-echo("\n" . "\$combination8: " . json_encode($combination8, JSON_PRETTY_PRINT));
+echo("\$combination8: " . str_replace("/\n$/", "", json_encode($combination8, JSON_PRETTY_PRINT)) . "\n");
 // combination8: [
 //     "Mango",
 //     "Melon",
@@ -147,10 +118,10 @@ echo("\n" . "\$combination8: " . json_encode($combination8, JSON_PRETTY_PRINT));
 //     }
 // ]
 
-echo("\n\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
+echo("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n" . "\n");
 
 $combination9 = [...$country_capitals_in_asia, "country_capitals_in_europe" => $country_capitals_in_europe];
-echo("\n" . "\$combination9: " . json_encode($combination9, JSON_PRETTY_PRINT));
+echo("\$combination9: " . str_replace("/\n$/", "", json_encode($combination9, JSON_PRETTY_PRINT)) . "\n");
 // combination9: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -162,7 +133,7 @@ echo("\n" . "\$combination9: " . json_encode($combination9, JSON_PRETTY_PRINT));
 // }
 
 $combination10 = [...$country_capitals_in_asia, "country_capitals_in_europe" => ["Germany" => "Berlin", "Italy" => "Rome"]];
-echo("\n" . "\$combination10: " . json_encode($combination10, JSON_PRETTY_PRINT));
+echo("\$combination10: " . str_replace("/\n$/", "", json_encode($combination10, JSON_PRETTY_PRINT)) . "\n");
 // combination10: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -173,10 +144,10 @@ echo("\n" . "\$combination10: " . json_encode($combination10, JSON_PRETTY_PRINT)
 //     }
 // }
 
-echo("\n\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
+echo("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n" . "\n");
 
 $combination11 = [...$country_capitals_in_asia, "vegetables" => $vegetables];
-echo("\n" . "\$combination11: " . json_encode($combination11, JSON_PRETTY_PRINT));
+echo("\$combination11: " . str_replace("/\n$/", "", json_encode($combination11, JSON_PRETTY_PRINT)) . "\n");
 // combination11: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -188,7 +159,7 @@ echo("\n" . "\$combination11: " . json_encode($combination11, JSON_PRETTY_PRINT)
 // }
 
 $combination12 = [...$country_capitals_in_asia, "vegetables" => ["Cucumber", "Cabbage"]];
-echo("\n" . "\$combination12: " . json_encode($combination12, JSON_PRETTY_PRINT));
+echo("\$combination12: " . str_replace("/\n$/", "", json_encode($combination12, JSON_PRETTY_PRINT)) . "\n");
 // combination12: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -199,10 +170,10 @@ echo("\n" . "\$combination12: " . json_encode($combination12, JSON_PRETTY_PRINT)
 //     ]
 // }
 
-echo("\n\n// { ...object1, ...array2 }:\n");
+echo("\n// { ...object1, ...array2 }:\n" . "\n");
 
 $combination13 = [...$country_capitals_in_asia, ...$vegetables];
-echo("\n" . "\$combination13: " . json_encode($combination13, JSON_PRETTY_PRINT));
+echo("\$combination13: " . str_replace("/\n$/", "", json_encode($combination13, JSON_PRETTY_PRINT)) . "\n");
 // combination13: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -212,7 +183,7 @@ echo("\n" . "\$combination13: " . json_encode($combination13, JSON_PRETTY_PRINT)
 // }
 
 $combination14 = [...$country_capitals_in_asia, ...["Cucumber", "Cabbage"]];
-echo("\n" . "\$combination14: " . json_encode($combination14, JSON_PRETTY_PRINT));
+echo("\$combination14: " . str_replace("/\n$/", "", json_encode($combination14, JSON_PRETTY_PRINT)) . "\n");
 // combination14: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -221,12 +192,12 @@ echo("\n" . "\$combination14: " . json_encode($combination14, JSON_PRETTY_PRINT)
 //    "1" : "Cabbage"
 // }
 
-// echo("\n\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n");
+// echo("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n" . "\n");
 
 // this combination throw an error in JavaScript
 // $combinationErrorInJavaScript1 = [...$fruits, ...$country_capitals_in_asia];
-// echo("\n" . "\$combinationErrorInJavaScript1: " . json_encode($combinationErrorInJavaScript1, JSON_PRETTY_PRINT));
+// echo("\$combinationErrorInJavaScript1: " . str_replace("/\n$/", "", json_encode($combinationErrorInJavaScript1, JSON_PRETTY_PRINT)) . "\n");
 
 // this combination throw an error in JavaScript
 // $combinationErrorInJavaScript2 = [...$fruits, ...["Germany" => "Berlin", "Italy" => "Rome"]];
-// echo("\n" . "\$combinationErrorInJavaScript2: " . json_encode($combinationErrorInJavaScript2, JSON_PRETTY_PRINT));
+// echo("\$combinationErrorInJavaScript2: " . str_replace("/\n$/", "", json_encode($combinationErrorInJavaScript2, JSON_PRETTY_PRINT)) . "\n");

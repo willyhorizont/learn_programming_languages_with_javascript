@@ -1,53 +1,24 @@
 <?php
 
-function pretty_array_of_primitives($an_array_of_primitives) {
-    $result = "[";
-    foreach ($an_array_of_primitives as $array_item_index => $array_item) {
-        if (is_numeric($array_item) === false && (gettype($array_item) !== "string") && (is_bool($array_item) === false) && $array_item !== null) {
-            continue;
-        }
-        if ($array_item === null) {
-            $result = $result . "null";
-        }
-        if ($array_item === true) {
-            $result = $result . "true";
-        }
-        if ($array_item === false) {
-            $result = $result . "false";
-        }
-        if (gettype($array_item) === "string") {
-            $result = $result . "\"" . $array_item . "\"";
-        }
-        if (is_numeric($array_item) === true) {
-            $result = $result . $array_item;
-        }
-        if (($array_item_index + 1) !== count($an_array_of_primitives)){
-            $result = $result . ", ";
-        }
-    }
-    $result = $result . "]";
-    return $result;
-};
-
 // in PHP, JavaScript-like Array is called array
 
 $fruits = ["apple", "mango", "orange"];
-echo("\n" . "fruits: " . pretty_array_of_primitives($fruits));
+echo("fruits: " . str_replace(",", ", ", str_replace(":", ": ", json_encode($fruits))) . "\n");
 
-echo("\n" . "fruits, length: " . count($fruits));
+echo("fruits, length: " . count($fruits) . "\n");
 // fruits, length: 3
 
-echo("\n" . "fruits, get mango: " . $fruits[1]);
+echo("fruits, get mango: " . $fruits[1] . "\n");
 // fruits, get mango: mango
 
-echo("\n" . "fruits, first element: " . $fruits[0]);
+echo("fruits, first element: " . $fruits[0] . "\n");
 // fruits, first element: apple
 
-echo("\n" . "fruits, last element: " . end($fruits));
+echo("fruits, last element: " . end($fruits) . "\n");
 // fruits, last element: orange
 
 foreach ($fruits as $array_item_index => $array_item) {
-    echo("\n" . "fruits, forEach loop, index: " . $array_item_index . ", value: " . $array_item);
+    echo("fruits, forEach loop, index: " . $array_item_index . ", value: " . $array_item . "\n");
 }
 // fruits, forEach loop, index: 0, value: apple
 // fruits, forEach loop, index: 1, value: mango
@@ -65,12 +36,12 @@ $products = [
         "name" => "potato chips"
     ]
 ];
-echo("\n" . "products: " . json_encode($products, JSON_PRETTY_PRINT));
+echo("products: " . str_replace("/\n$/", "", json_encode($products, JSON_PRETTY_PRINT)) . "\n");
 
 foreach ($products as $array_item_index => $array_item) {
     $object_iteration_index = 0;
     foreach ($array_item as $object_key => $object_value) {
-        echo("\n" . "products, forEach loop, array item index: " . $array_item_index . ", object iteration/entry index: " . $object_iteration_index . ", key: " . $object_key . ", value: " . $object_value);
+        echo("products, forEach loop, array item index: " . $array_item_index . ", object iteration/entry index: " . $object_iteration_index . ", key: " . $object_key . ", value: " . $object_value . "\n");
         $object_iteration_index += 1;
     }
 }
