@@ -11,19 +11,19 @@ sub fizzbuzz-v1(Int $stop-number) {
             $number += 1;
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
+        if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
             last if ($number >= $stop-number);
             $number += 1;
             next;
         }
-        if (($number % 3) == 0) {
+        if (($number % 3) === 0) {
             $result = "{$result}, Fizz";
             last if ($number >= $stop-number);
             $number += 1;
             next;
         }
-        if (($number % 5) == 0) {
+        if (($number % 5) === 0) {
             $result = "{$result}, Buzz";
             last if ($number >= $stop-number);
             $number += 1;
@@ -47,19 +47,19 @@ sub fizzbuzz-v2(Int $stop-number) {
             $number += 1;
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
+        if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
             last if ($number >= $stop-number);
             $number += 1;
             next;
         }
-        if (($number % 3) == 0) {
+        if (($number % 3) === 0) {
             $result = "{$result}, Fizz";
             last if ($number >= $stop-number);
             $number += 1;
             next;
         }
-        if (($number % 5) == 0) {
+        if (($number % 5) === 0) {
             $result = "{$result}, Buzz";
             last if ($number >= $stop-number);
             $number += 1;
@@ -82,17 +82,17 @@ sub fizzbuzz-v3(Int $stop-number) {
             $number += 1;
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
+        if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
             $number += 1;
             next;
         }
-        if (($number % 3) == 0) {
+        if (($number % 3) === 0) {
             $result = "{$result}, Fizz";
             $number += 1;
             next;
         }
-        if (($number % 5) == 0) {
+        if (($number % 5) === 0) {
             $result = "{$result}, Buzz";
             $number += 1;
             next;
@@ -110,11 +110,11 @@ sub fizzbuzz-v4(Int $stop-number) {
     while (True) {
         if ($result eq "") {
             $result = "{$number}";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
+        } elsif ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
-        } elsif (($number % 3) == 0) {
+        } elsif (($number % 3) === 0) {
             $result = "{$result}, Fizz";
-        } elsif (($number % 5) == 0) {
+        } elsif (($number % 5) === 0) {
             $result = "{$result}, Buzz";
         } else {
             $result = "{$result}, {$number}";
@@ -132,11 +132,11 @@ sub fizzbuzz-v5(Int $stop-number) {
     loop {
         if ($result eq "") {
             $result = "{$number}";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
+        } elsif ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
-        } elsif (($number % 3) == 0) {
+        } elsif (($number % 3) === 0) {
             $result = "{$result}, Fizz";
-        } elsif (($number % 5) == 0) {
+        } elsif (($number % 5) === 0) {
             $result = "{$result}, Buzz";
         } else {
             $result = "{$result}, {$number}";
@@ -154,11 +154,11 @@ sub fizzbuzz-v6(Int $stop-number) {
     while ($number <= $stop-number) {
         if ($result eq "") {
             $result = "{$number}";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
+        } elsif ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
-        } elsif (($number % 3) == 0) {
+        } elsif (($number % 3) === 0) {
             $result = "{$result}, Fizz";
-        } elsif (($number % 5) == 0) {
+        } elsif (($number % 5) === 0) {
             $result = "{$result}, Buzz";
         } else {
             $result = "{$result}, {$number}";
@@ -175,11 +175,11 @@ sub fizzbuzz-v7(Int $stop-number) {
     while (True) {
         $result = (($result eq "")
             ?? "{$number}"
-            !! (((($number % 3) == 0) && (($number % 5) == 0))
+            !! (((($number % 3) === 0) && (($number % 5) === 0))
                 ?? "{$result}, FizzBuzz"
-                !! ((($number % 3) == 0)
+                !! ((($number % 3) === 0)
                     ?? "{$result}, Fizz"
-                    !! ((($number % 5) == 0)
+                    !! ((($number % 5) === 0)
                         ?? "{$result}, Buzz"
                         !! "{$result}, {$number}"
                     )
@@ -199,11 +199,11 @@ sub fizzbuzz-v8(Int $stop-number) {
     loop {
         $result = (($result eq "")
             ?? "{$number}"
-            !! (((($number % 3) == 0) && (($number % 5) == 0))
+            !! (((($number % 3) === 0) && (($number % 5) === 0))
                 ?? "{$result}, FizzBuzz"
-                !! ((($number % 3) == 0)
+                !! ((($number % 3) === 0)
                     ?? "{$result}, Fizz"
-                    !! ((($number % 5) == 0)
+                    !! ((($number % 5) === 0)
                         ?? "{$result}, Buzz"
                         !! "{$result}, {$number}"
                     )
@@ -223,11 +223,11 @@ sub fizzbuzz-v9(Int $stop-number) {
     while ($number <= $stop-number) {
         $result = (($result eq "")
             ?? "{$number}"
-            !! (((($number % 3) == 0) && (($number % 5) == 0))
+            !! (((($number % 3) === 0) && (($number % 5) === 0))
                 ?? "{$result}, FizzBuzz"
-                !! ((($number % 3) == 0)
+                !! ((($number % 3) === 0)
                     ?? "{$result}, Fizz"
-                    !! ((($number % 5) == 0)
+                    !! ((($number % 5) === 0)
                         ?? "{$result}, Buzz"
                         !! "{$result}, {$number}"
                     )
@@ -244,7 +244,7 @@ sub fizzbuzz-v10(Int $stop-number) {
     my $result = "";
     my $number = 1;
     while (True) {
-        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) == 0) && (($number % 5) == 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) == 0) ?? "{$result}, Fizz" !! ((($number % 5) == 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
+        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) === 0) && (($number % 5) === 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) === 0) ?? "{$result}, Fizz" !! ((($number % 5) === 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
         last if ($number >= $stop-number);
         $number += 1;
     }
@@ -256,7 +256,7 @@ sub fizzbuzz-v11(Int $stop-number) {
     my $result = "";
     my $number = 1;
     loop {
-        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) == 0) && (($number % 5) == 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) == 0) ?? "{$result}, Fizz" !! ((($number % 5) == 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
+        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) === 0) && (($number % 5) === 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) === 0) ?? "{$result}, Fizz" !! ((($number % 5) === 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
         last if ($number >= $stop-number);
         $number += 1;
     }
@@ -268,7 +268,7 @@ sub fizzbuzz-v12(Int $stop-number) {
     my $result = "";
     my $number = 1;
     while ($number <= $stop-number) {
-        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) == 0) && (($number % 5) == 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) == 0) ?? "{$result}, Fizz" !! ((($number % 5) == 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
+        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) === 0) && (($number % 5) === 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) === 0) ?? "{$result}, Fizz" !! ((($number % 5) === 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
         $number += 1;
     }
     return $result;
@@ -282,15 +282,15 @@ sub fizzbuzz-v13(Int $stop-number) {
             $result = "{$number}";
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
+        if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
             next;
         }
-        if (($number % 3) == 0) {
+        if (($number % 3) === 0) {
             $result = "{$result}, Fizz";
             next;
         }
-        if (($number % 5) == 0) {
+        if (($number % 5) === 0) {
             $result = "{$result}, Buzz";
             next;
         }
@@ -307,15 +307,15 @@ sub fizzbuzz-v14(Int $stop-number) {
             $result = "{$number}";
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
+        if ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
             next;
         }
-        if (($number % 3) == 0) {
+        if (($number % 3) === 0) {
             $result = "{$result}, Fizz";
             next;
         }
-        if (($number % 5) == 0) {
+        if (($number % 5) === 0) {
             $result = "{$result}, Buzz";
             next;
         }
@@ -330,11 +330,11 @@ sub fizzbuzz-v15(Int $stop-number) {
     loop (my $number = 1; $number <= $stop-number; $number +=1) {
         if ($result eq "") {
             $result = "{$number}";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
+        } elsif ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
-        } elsif (($number % 3) == 0) {
+        } elsif (($number % 3) === 0) {
             $result = "{$result}, Fizz";
-        } elsif (($number % 5) == 0) {
+        } elsif (($number % 5) === 0) {
             $result = "{$result}, Buzz";
         } else {
             $result = "{$result}, {$number}";
@@ -349,11 +349,11 @@ sub fizzbuzz-v16(Int $stop-number) {
     for (1...$stop-number) -> $number {
         if ($result eq "") {
             $result = "{$number}";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
+        } elsif ((($number % 3) === 0) && (($number % 5) === 0)) {
             $result = "{$result}, FizzBuzz";
-        } elsif (($number % 3) == 0) {
+        } elsif (($number % 3) === 0) {
             $result = "{$result}, Fizz";
-        } elsif (($number % 5) == 0) {
+        } elsif (($number % 5) === 0) {
             $result = "{$result}, Buzz";
         } else {
             $result = "{$result}, {$number}";
@@ -368,11 +368,11 @@ sub fizzbuzz-v17(Int $stop-number) {
     loop (my $number = 1; $number <= $stop-number; $number +=1) {
         $result = (($result eq "")
             ?? "{$number}"
-            !! (((($number % 3) == 0) && (($number % 5) == 0))
+            !! (((($number % 3) === 0) && (($number % 5) === 0))
                 ?? "{$result}, FizzBuzz"
-                !! ((($number % 3) == 0)
+                !! ((($number % 3) === 0)
                     ?? "{$result}, Fizz"
-                    !! ((($number % 5) == 0)
+                    !! ((($number % 5) === 0)
                         ?? "{$result}, Buzz"
                         !! "{$result}, {$number}"
                     )
@@ -389,11 +389,11 @@ sub fizzbuzz-v18(Int $stop-number) {
     for (1...$stop-number) -> $number {
         $result = (($result eq "")
             ?? "{$number}"
-            !! (((($number % 3) == 0) && (($number % 5) == 0))
+            !! (((($number % 3) === 0) && (($number % 5) === 0))
                 ?? "{$result}, FizzBuzz"
-                !! ((($number % 3) == 0)
+                !! ((($number % 3) === 0)
                     ?? "{$result}, Fizz"
-                    !! ((($number % 5) == 0)
+                    !! ((($number % 5) === 0)
                         ?? "{$result}, Buzz"
                         !! "{$result}, {$number}"
                     )
@@ -408,7 +408,7 @@ sub fizzbuzz-v19(Int $stop-number) {
     die("Argument should be > 0") if ($stop-number < 1);
     my $result = "";
     loop (my $number = 1; $number <= $stop-number; $number +=1) {
-        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) == 0) && (($number % 5) == 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) == 0) ?? "{$result}, Fizz" !! ((($number % 5) == 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
+        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) === 0) && (($number % 5) === 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) === 0) ?? "{$result}, Fizz" !! ((($number % 5) === 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
     }
     return $result;
 }
@@ -417,7 +417,7 @@ sub fizzbuzz-v20(Int $stop-number) {
     die("Argument should be > 0") if ($stop-number < 1);
     my $result = "";
     for (1...$stop-number) -> $number {
-        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) == 0) && (($number % 5) == 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) == 0) ?? "{$result}, Fizz" !! ((($number % 5) == 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
+        $result = (($result eq "") ?? "{$number}" !! (((($number % 3) === 0) && (($number % 5) === 0)) ?? "{$result}, FizzBuzz" !! ((($number % 3) === 0) ?? "{$result}, Fizz" !! ((($number % 5) === 0) ?? "{$result}, Buzz" !! "{$result}, {$number}"))));
     }
     return $result;
 }

@@ -1,10 +1,38 @@
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
 }
 
 # There's no JavaScript-like Array.every() in Raku.
@@ -86,7 +114,7 @@ sub array-every-v8($callback-function, $an-array) {
 
 print("\n# JavaScript-like Array.every() in Raku List", "\n");
 
-my $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
+my $numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
 print("numbers: ", json-stringify($numbers), "\n");
 
 my $is-all-number-less-than500;
@@ -174,7 +202,7 @@ print("is all number > 500: ", json-stringify($is-all-number-more-than500), "\n"
 
 print("\n# JavaScript-like Array.every() in Raku List of Hashes", "\n");
 
-my $products = [
+my $products = (
     %(
         "code" => "pasta",
         "price" => 321
@@ -191,7 +219,7 @@ my $products = [
         "code" => "towel",
         "price" => 499
     )
-];
+);
 
 print("products: ", json-stringify($products, :pretty(True)), "\n");
 

@@ -50,6 +50,9 @@ fun main() {
     println("friend, get country: ${friend["country"]}")
     // friend, get country: Finland
 
+    println("friend, get total object keys: ${friend.entries.size}")
+    // friend, get total object keys: 3
+
     // iterate over and get each key-value pair
     for ((objectKey, objectValue) in friend) {
         println("friend, for loop, key: ${objectKey}, value: ${objectValue}")

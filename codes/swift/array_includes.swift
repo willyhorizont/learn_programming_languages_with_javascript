@@ -3,35 +3,56 @@ import Foundation
 typealias MyObject = [String: Any?]
 typealias MyArray = [Any?]
 
-func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
-    var result = "["
-    for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        guard let arrayItem = arrayItem else {
-            result += "nil"
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-                result += ", "
+func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String = "    ") -> String {
+    var indentLevel = 0
+    func jsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+        guard let anythingInner = anythingInner else {
+            return "null"
+        }
+        if let anythingInner = anythingInner as? String {
+            return "\"\(anythingInner)\""
+        }
+        if let anythingInner = anythingInner as? Bool {
+            return "\(anythingInner)"
+        }
+        if let anythingInner = anythingInner as? NSNumber {
+            return "\(anythingInner)"
+        }
+        if let anythingInner = anythingInner as? MyArray {
+            if (anythingInner.count == 0) {
+                return "[]"
             }
-            continue
-        }
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
-            continue
-        }
-        if let arrayItem = arrayItem as? String {
-            result += "\"\(arrayItem)\""
-        }
-        if let arrayItem = arrayItem as? Bool {
-            result += "\(arrayItem)"
-        } else {
-            if let arrayItem = arrayItem as? NSNumber {
-                result += "\(arrayItem)"
+            indentLevel += 1
+            var result = ((pretty == true) ? "[\n\(String(repeating: indentInner, count: indentLevel))" : "[")
+            for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
+                result += jsonStringifyInner(arrayItem, indentInner)
+                if ((arrayItemIndex + 1) != anythingInner.count) {
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
+                }
             }
+            indentLevel -= 1
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))]" : "]")
+            return result
         }
-        if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-            result += ", "
+        if let anythingInner = anythingInner as? MyObject {
+            if (anythingInner.count == 0) {
+                return "{}"
+            }
+            indentLevel += 1
+            var result = ((pretty == true) ? "{\n\(String(repeating: indentInner, count: indentLevel))" : "{")
+            for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
+                result += "\"\(objectKey)\": \(jsonStringifyInner(objectValue, indentInner))"
+                if ((objectEntryIndex + 1) != anythingInner.count) {
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
+                }
+            }
+            indentLevel -= 1
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))}" : "}")
+            return result
         }
+        return "null"
     }
-    result += "]"
-    return result
+    return jsonStringifyInner(anything, indent)
 }
 
 print("\n// JavaScript-like Array.includes() in Swift")
@@ -40,7 +61,7 @@ print("\n// JavaScript-like Array.includes() in Swift")
 // But, we can use Swift Array.includes() built-in method "Array.contains".
 
 let myFriends: MyArray = ["Alisa", "Trivia"]
-print("myFriends: \(prettyArrayOfPrimitives(myFriends))")
+print("myFriends: \(jsonStringify(myFriends))")
 
 var aName: String
 var isMyFriend: Bool

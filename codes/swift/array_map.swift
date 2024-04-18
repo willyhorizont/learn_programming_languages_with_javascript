@@ -3,40 +3,9 @@ import Foundation
 typealias MyObject = [String: Any?]
 typealias MyArray = [Any?]
 
-func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
-    var result = "["
-    for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        guard let arrayItem = arrayItem else {
-            result += "nil"
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-                result += ", "
-            }
-            continue
-        }
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
-            continue
-        }
-        if let arrayItem = arrayItem as? String {
-            result += "\"\(arrayItem)\""
-        }
-        if let arrayItem = arrayItem as? Bool {
-            result += "\(arrayItem)"
-        } else {
-            if let arrayItem = arrayItem as? NSNumber {
-                result += "\(arrayItem)"
-            }
-        }
-        if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-            result += ", "
-        }
-    }
-    result += "]"
-    return result
-}
-
-func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
+func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String = "    ") -> String {
     var indentLevel = 0
-    func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+    func jsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
         guard let anythingInner = anythingInner else {
             return "null"
         }
@@ -54,15 +23,15 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "[]"
             }
             indentLevel += 1
-            var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "[\n\(String(repeating: indentInner, count: indentLevel))" : "[")
             for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
-                result += prettyJsonStringifyInner(arrayItem, indentInner)
+                result += jsonStringifyInner(arrayItem, indentInner)
                 if ((arrayItemIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))]"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))]" : "]")
             return result
         }
         if let anythingInner = anythingInner as? MyObject {
@@ -70,23 +39,23 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "{}"
             }
             indentLevel += 1
-            var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "{\n\(String(repeating: indentInner, count: indentLevel))" : "{")
             for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
-                result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
+                result += "\"\(objectKey)\": \(jsonStringifyInner(objectValue, indentInner))"
                 if ((objectEntryIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))}"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))}" : "}")
             return result
         }
         return "null"
     }
-    return prettyJsonStringifyInner(anything, indent)
+    return jsonStringifyInner(anything, indent)
 }
 
-func spreadSyntaxObject(_ parameters: Any?...) -> MyObject {
+func spreadObject(_ parameters: Any?...) -> MyObject {
     var newObject = MyObject()
     for (_, parameter) in parameters.enumerated() {
         if (parameter is MyObject) {
@@ -133,7 +102,7 @@ func arrayMapV2(_ callbackFunction: (Any?, Int, MyArray) -> Any?, _ anArray: MyA
 print("\n// JavaScript-like Array.map() in Swift Array")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("numbers: \(prettyArrayOfPrimitives(numbers))")
+print("numbers: \(jsonStringify(numbers))")
 
 var numbersLabeled: MyArray
 
@@ -147,7 +116,7 @@ numbersLabeled = arrayMapV1({ (number: Any?, _: Int, _: MyArray) -> Any? in
         String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }, numbers)
-print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
+print("labeled numbers: \(jsonStringify(numbersLabeled, pretty: true))")
 // labeled numbers: [
 //     {
 //         "12": "even"
@@ -191,7 +160,7 @@ numbersLabeled = arrayMapV2({ (number: Any?, _: Int, _: MyArray) -> Any? in
         String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }, numbers)
-print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
+print("labeled numbers: \(jsonStringify(numbersLabeled, pretty: true))")
 // labeled numbers: [
 //     {
 //         "12": "even"
@@ -235,7 +204,7 @@ numbersLabeled = numbers.map { (number: Any?) -> Any? in
         String(result): (((result % 2) == 0) ? "even" : "odd")
     ] as MyObject
 }
-print("labeled numbers: \(prettyJsonStringify(numbersLabeled))")
+print("labeled numbers: \(jsonStringify(numbersLabeled, pretty: true))")
 // labeled numbers: [
 //     {
 //         "12": "even"
@@ -289,7 +258,7 @@ let products: MyArray = [
         "price": 499
     ] as MyObject
 ]
-print("products: \(prettyJsonStringify(products))")
+print("products: \(jsonStringify(products, pretty: true))")
 
 var productsLabeled: MyArray
 
@@ -299,9 +268,9 @@ productsLabeled = arrayMapV1({ (product: Any?, _: Int, _: MyArray) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
+    return spreadObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }, products)
-print("labeled products: \(prettyJsonStringify(productsLabeled))")
+print("labeled products: \(jsonStringify(productsLabeled, pretty: true))")
 // labeled products: [
 //     {
 //         "code": "pasta",
@@ -331,9 +300,9 @@ productsLabeled = arrayMapV2({ (product: Any?, _: Int, _: MyArray) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
+    return spreadObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }, products)
-print("labeled products: \(prettyJsonStringify(productsLabeled))")
+print("labeled products: \(jsonStringify(productsLabeled, pretty: true))")
 // labeled products: [
 //     {
 //         "code": "pasta",
@@ -363,9 +332,9 @@ productsLabeled = products.map { (product: Any?) -> Any? in
     guard let result = product as? MyObject, let result = result["price"] as? Int else {
         return nil
     }
-    return spreadSyntaxObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
+    return spreadObject(product, ["label": ((result > 100) ? "expensive" : "cheap")] as MyObject)
 }
-print("labeled products: \(prettyJsonStringify(productsLabeled))")
+print("labeled products: \(jsonStringify(productsLabeled, pretty: true))")
 // labeled products: [
 //     {
 //         "code": "pasta",

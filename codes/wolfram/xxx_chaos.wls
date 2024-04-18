@@ -51,3 +51,5 @@ JSONOBJECT = <|
 
 optionalChainingV1[JSONOBJECT, "foo", "baz"];
 
+indentString[n_Integer] := StringJoin[ConstantArray["x", n]]
+indentString[n_Integer] := StringJoin@ConstantArray["x", n]

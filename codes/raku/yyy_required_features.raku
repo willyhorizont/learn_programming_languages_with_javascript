@@ -1,10 +1,38 @@
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
 }
 
 #`<<<
@@ -35,7 +63,7 @@ $something = True;
 print("something: {json-stringify($something, :pretty(True))}", "\n");
 $something = Nil;
 print("something: {json-stringify($something, :pretty(True))}", "\n");
-$something = [1, 2, 3];
+$something = (1, 2, 3);
 print("something: {json-stringify($something, :pretty(True))}", "\n");
 $something = %("foo" => "bar");
 print("something: {json-stringify($something, :pretty(True))}", "\n");
@@ -119,7 +147,7 @@ my %my-object-v1 = (
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )
@@ -130,7 +158,7 @@ my $my-object-v2 = {
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )
@@ -141,7 +169,7 @@ my $my-object-v3 = %(
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )
@@ -155,10 +183,12 @@ print("my-object-v3: {json-stringify($my-object-v3, :pretty(True))}", "\n");
     console.log("myArray:", myArray);
     ```
 >>>
-my @my-array-v1 = ("foo", 123, True, Nil, [1, 2, 3], %("foo" => "bar"));
-print("my-array-v1 : {json-stringify(@my-array-v1 , :pretty(True))}", "\n");
-my $my-array-v2 = ["foo", 123, True, Nil, [1, 2, 3], %("foo" => "bar")];
-print("my-array-v2 : {json-stringify($my-array-v2 , :pretty(True))}", "\n");
+my $my-array-v1 = ["foo", 123, True, Nil, (1, 2, 3), %("foo" => "bar")];
+print("my-array-v2 : {json-stringify($my-array-v1 , :pretty(True))}", "\n");
+my @my-array-v2 = ("foo", 123, True, Nil, (1, 2, 3), %("foo" => "bar"));
+print("my-array-v1 : {json-stringify(@my-array-v2 , :pretty(True))}", "\n");
+my $my-array-v3 = ("foo", 123, True, Nil, (1, 2, 3), %("foo" => "bar"));
+print("my-array-v1 : {json-stringify($my-array-v3 , :pretty(True))}", "\n");
 
 #`<<<
     5. support passing functions as arguments to other functions
@@ -290,7 +320,7 @@ my @my-array2-v1 = (
     123,
     True,
     Nil,
-    [1, 2, 3],
+    (1, 2, 3),
     %("foo" => "bar")
 );
 print("myArray2[0](7, 5): {@my-array2-v1[0](7, 5)}", "\n");
@@ -302,7 +332,7 @@ my $my-array2-v2 = [
     123,
     True,
     Nil,
-    [1, 2, 3],
+    (1, 2, 3),
     %("foo" => "bar")
 ];
 print("myArray2[0](7, 5): {$my-array2-v2[0](7, 5)}", "\n");
@@ -315,7 +345,7 @@ my %my-object2-v1 = (
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )
@@ -329,7 +359,7 @@ my $my-object2-v2 = {
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )
@@ -343,7 +373,7 @@ my %my-object2-v3 = %(
     "my_number" => 123,
     "my_bool" => True,
     "my_null" => Nil,
-    "my_array" => [1, 2, 3],
+    "my_array" => (1, 2, 3),
     "my_object" => %(
         "foo" => "bar"
     )

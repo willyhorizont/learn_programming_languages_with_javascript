@@ -57,6 +57,9 @@ class Program {
         Console.WriteLine($"Friend, get country: {Friend["country"]}");
         // Friend, get country: Finland
 
+        Console.WriteLine($"Friend, get total object keys: {((Dictionary<string, dynamic>)Friend).Count}");
+        // Friend, get total object keys: 3
+
         int ObjectIterationIndex = 0;
         foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Friend) {
             string ObjectKey = ObjectEntry.Key;

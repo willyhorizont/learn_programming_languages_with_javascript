@@ -90,6 +90,9 @@ sprint("friend, get country: ", friend.country)
 sprint("friend, get country: ", friend["country"])
 -- friend, get country: Finland
 
+sprint("friend, get total object keys: ", #object_keys(friend))
+-- friend, get total object keys: 3
+
 -- iterate over and get each key-value pair
 for object_key, object_value in pairs(friend) do
     sprint("friend, for loop, key: ", object_key, ", value: ", object_value)

@@ -12,6 +12,9 @@ print(f'friend: {json.dumps(friend, indent=4)}')
 print(f"friend, get country: {friend['country']}")
 # friend, get country: Finland
 
+print(f"friend, get total object keys: {len(friend)}")
+# friend, get total object keys: 3
+
 # iterate over and get each key-value pair
 for object_key, object_value in friend.items():
     print(f"friend, for loop, key: {object_key}, value: {object_value}")

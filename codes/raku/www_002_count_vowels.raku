@@ -17,14 +17,14 @@ sub array-includes-v2($search-element, $an-array) {
     return False;
 }
 
-sub count-vowels-v1($a-string) { [0, |$a-string.comb()].reduce({ (array-includes-v2($^b, ["a", "i", "u", "e", "o", "A", "I", "U", "E", "O"]) ?? ($^a + 1) !! $^a) }) }
+sub count-vowels-v1($a-string) { (0, |$a-string.comb()).reduce({ (array-includes-v2($^b-a-character, ("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) ?? ($^a-current-result + 1) !! $^a-current-result) }) }
 print(count-vowels-v1("Hello World"), "\n"); # 3
 
-sub count-vowels-v2($a-string) { [0, |$a-string.comb()].reduce({ (array-includes-v2(uc($^b), ["A", "I", "U", "E", "O"]) ?? ($^a + 1) !! $^a) }) }
+sub count-vowels-v2($a-string) { (0, |$a-string.comb()).reduce({ (array-includes-v2(uc($^b-a-character), ("A", "I", "U", "E", "O")) ?? ($^a-current-result + 1) !! $^a-current-result) }) }
 print(count-vowels-v2("Hello World"), "\n"); # 3
 
-sub count-vowels-v3($a-string) { $a-string.comb().grep({ array-includes-v2($^a-character, ["a", "i", "u", "e", "o", "A", "I", "U", "E", "O"]) }).elems }
+sub count-vowels-v3($a-string) { $a-string.comb().grep({ array-includes-v2($^a-current-result-character, ("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) }).elems }
 print(count-vowels-v3("Hello World"), "\n"); # 3
 
-sub count-vowels-v4($a-string) { $a-string.comb().grep({ array-includes-v2(uc($^a-character), ["A", "I", "U", "E", "O"]) }).elems }
+sub count-vowels-v4($a-string) { $a-string.comb().grep({ array-includes-v2(uc($^a-current-result-character), ("A", "I", "U", "E", "O")) }).elems }
 print(count-vowels-v4("Hello World"), "\n"); # 3

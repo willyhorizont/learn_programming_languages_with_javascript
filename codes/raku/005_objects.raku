@@ -1,10 +1,38 @@
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
 }
 
 # in Raku, JavaScript-like Object is called Hash
@@ -19,6 +47,15 @@ print("friend1: ", json-stringify(%friend1, :pretty(True)), "\n");
 
 print("friend1, get country: ", %friend1{"country"}, "\n");
 # friend1, get country: Finland
+
+print("friend1, get total object keys: ", %friend1.elems, "\n");
+# friend1, get total object keys: 3
+
+print("friend1, get total object keys: ", %friend1.elems(), "\n");
+# friend1, get total object keys: 3
+
+print("friend1, get total object keys: ", elems(%friend1), "\n");
+# friend1, get total object keys: 3
 
 # iterate over and get each key-value pair
 for (%friend1.kv) -> $object-key, $object-value {
@@ -59,6 +96,15 @@ print("friend2: ", json-stringify($friend2, :pretty(True)), "\n");
 print("friend2, get country: ", $friend2{"country"}, "\n");
 # friend2, get country: Finland
 
+print("friend2, get total object keys: ", $friend2.elems, "\n");
+# friend2, get total object keys: 3
+
+print("friend2, get total object keys: ", $friend2.elems(), "\n");
+# friend2, get total object keys: 3
+
+print("friend2, get total object keys: ", elems($friend2), "\n");
+# friend2, get total object keys: 3
+
 # iterate over and get each key-value pair
 for ($friend2.kv) -> $object-key, $object-value {
     print("friend2, forEach loop v1, key: {$object-key}, value: {$object-value}", "\n");
@@ -97,6 +143,15 @@ print("friend3: ", json-stringify($friend3, :pretty(True)), "\n");
 
 print("friend3, get country: ", $friend3{"country"}, "\n");
 # friend3, get country: Finland
+
+print("friend3, get total object keys: ", $friend3.elems, "\n");
+# friend3, get total object keys: 3
+
+print("friend3, get total object keys: ", $friend3.elems(), "\n");
+# friend3, get total object keys: 3
+
+print("friend3, get total object keys: ", elems($friend3), "\n");
+# friend3, get total object keys: 3
 
 # iterate over and get each key-value pair
 for ($friend3.kv) -> $object-key, $object-value {

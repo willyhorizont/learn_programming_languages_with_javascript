@@ -47,6 +47,9 @@ println(s"friend: ${jsonStringify(friend, pretty = true)}")
 println(s"friend, get country: ${friend.asInstanceOf[Map[String, Any]]("country")}")
 // friend, get country: Finland
 
+println(s"friend, get total object keys: ${friend.asInstanceOf[Map[String, Any]].size}")
+// friend, get total object keys: 3
+
 // iterate over and get each key-value pair
 friend.asInstanceOf[Map[String, Any]].foreach((objectEntry: Tuple2[String, Any]) => { println(s"friend, forEach loop, key: ${objectEntry._1}, value: ${objectEntry._2}") })
 // fruits, forEach loop, key: name, value: Alisa

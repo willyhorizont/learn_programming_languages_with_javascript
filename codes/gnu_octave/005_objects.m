@@ -184,6 +184,9 @@ sprint("friend: ", jsonstringify(friend, false));
 sprint("friend, get country: ", friend.("country"));
 % friend, get country: Finland
 
+sprint("friend, get total object keys: ", {numel(fieldnames(friend))});
+% friend, get total object keys: 3
+
 % iterate over and get each key-value pair and object iteration/entry index
 objectkeys = fieldnames(friend);
 for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)

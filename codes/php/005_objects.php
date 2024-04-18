@@ -12,6 +12,9 @@ echo("friend: " . str_replace("/\n$/", "", json_encode($friend, JSON_PRETTY_PRIN
 echo("friend, get country: " . $friend["country"] . "\n");
 // friend, get country: Finland
 
+echo("friend, get total object keys: " . count($friend) . "\n");
+// friend, get total object keys: 3
+
 // iterate over and get each key-value pair
 foreach ($friend as $object_key => $object_value) {
     echo("friend, forEach loop, key: " . $object_key . ", value: " . $object_value . "\n");

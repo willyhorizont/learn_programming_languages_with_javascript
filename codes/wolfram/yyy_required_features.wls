@@ -1,4 +1,11 @@
-PrettyJsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[A-zA-Z0-9\"])\\:(?=[A-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> "    "]] &);
+JsonStringify[Anything_, OptionsPattern[{"Pretty" -> False, "Indent" -> "    "}]] := Module[{Pretty, Indent},
+    Pretty = OptionValue["Pretty"];
+    Indent = OptionValue["Indent"];
+    If[(Pretty == True),
+        Return[StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON", "Indent" -> Indent], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> Indent]],
+        Return[StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]]
+    ];
+];
 
 (*
 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
@@ -21,17 +28,17 @@ type Any interface{}
 ```
 *)
 Something = "foo";
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 Something = 123;
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 Something = True;
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 Something = Null;
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 Something = {1, 2, 3};
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 Something = <|"foo" -> "bar"|>;
-Print["Something: ", PrettyJsonStringify[Something]];
+Print["Something: ", JsonStringify[Something, "Pretty" -> True]];
 
 (*
 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -117,7 +124,7 @@ MyObject = <|
         "foo" -> "bar"
     |>
 |>;
-Print["MyObject: ", PrettyJsonStringify[MyObject]];
+Print["MyObject: ", JsonStringify[MyObject, "Pretty" -> True]];
 
 (*
 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -127,7 +134,7 @@ console.log("myArray:", myArray);
 ```
 *)
 MyArray = {"foo", 123, True, Null, {1, 2, 3}, <|"foo" -> "bar"|>};
-Print["MyArray: ", PrettyJsonStringify[MyArray]];
+Print["MyArray: ", JsonStringify[MyArray, "Pretty" -> True]];
 
 (*
 5. support passing functions as arguments to other functions

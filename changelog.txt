@@ -1,4 +1,11 @@
 =============================changelog==========================================
+15:09 | 03:09 PM | Thu | Apr | 18/04/2024
+0.0.59
+New:
+finish update JSON.stringify for R, Raku, Ruby, Swift, visual_basic_dotnet and wolfram
+TODO:
+try groovy, f#, crystal, java
+=============================changelog==========================================
 02:39 | 02:39 AM | Sat | Apr | 06/04/2024
 0.0.57
 New:

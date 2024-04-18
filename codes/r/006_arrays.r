@@ -1,18 +1,46 @@
-library(jsonlite)
+typeOf <- function(anything) {
+    if (is.list(anything) == FALSE) return(class(anything))
+    if (length(anything) == 0) return("array")
+    if (is.null(names(anything)) == TRUE) return("array")
+    return("object")
+}
 
 jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
-    if (pretty == TRUE) {
-        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
-        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
-        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
-        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    indentLevel <- 0
+    jsonStringifyInner <- function(anythingInner, indentInner) {
+        if (is.null(anythingInner)) return("null")
+        if (is.character(anythingInner)) return(paste(sep = "", "\"", anythingInner, "\""))
+        if (is.numeric(anythingInner) || is.logical(anythingInner)) return(paste(sep = "", anythingInner))
+        if (typeOf(anythingInner) == "array") {
+            if (length(anythingInner) == 0) return("[]")
+            indentLevel <<- (indentLevel + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indentInner, indentLevel)) else "[")
+            for (arrayItemIndex in seq_along(anythingInner)) {
+                arrayItem <- anythingInner[[arrayItemIndex]]
+                result <- paste(sep = "", result, jsonStringifyInner(arrayItem, indentInner))
+                if (arrayItemIndex != length(anythingInner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+            }
+            indentLevel <<- (indentLevel - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "]") else paste(sep = "", result, "]"))
+            return(result)
+        }
+        if (typeOf(anythingInner) == "object") {
+            if (length(names(anythingInner)) == 0) return("{}")
+            indentLevel <<- (indentLevel + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indentInner, indentLevel)) else "{")
+            for (objectEntryIndex in seq_along(anythingInner)) {
+                objectKey <- names(anythingInner)[objectEntryIndex]
+                objectValue <- anythingInner[[objectEntryIndex]]
+                result <- paste(sep = "", result, "\"", objectKey, "\": ", jsonStringifyInner(objectValue, indentInner))
+                if (objectEntryIndex != length(names(anythingInner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+            }
+            indentLevel <<- (indentLevel - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "}") else paste(sep = "", result, "}"))
+            return(result)
+        }
+        return("null")
     }
-    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
-    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
-    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
-    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
-    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
+    return(jsonStringifyInner(anything, indent))
 }
 
 # in R, JavaScript-like Array is called list
@@ -23,13 +51,13 @@ cat(paste(sep = "", "fruits: ", jsonStringify(fruits), "\n"))
 cat(paste(sep = "", "fruits, length: ", length(fruits), "\n"))
 # fruits, length: 3
 
-cat(paste(sep = "", "fruits, get mango: ", fruits[2], "\n"))
+cat(paste(sep = "", "fruits, get mango: ", fruits[[2]], "\n"))
 # fruits, get mango: mango
 
-cat(paste(sep = "", "fruits, first element: ", fruits[1], "\n"))
+cat(paste(sep = "", "fruits, first element: ", fruits[[1]], "\n"))
 # fruits, first element: apple
 
-cat(paste(sep = "", "fruits, last element: ", fruits[length(fruits)], "\n"))
+cat(paste(sep = "", "fruits, last element: ", fruits[[length(fruits)]], "\n"))
 # fruits, last element: orange
 
 for (arrayItemIndex in seq_along(fruits)) {

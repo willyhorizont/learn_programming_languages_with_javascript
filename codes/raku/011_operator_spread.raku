@@ -1,20 +1,48 @@
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
+}
+
 print("\n# JavaScript-like Spread Syntax (...) in Raku", "\n");
 
 # In Raku, JavaScript-like Spread Syntax (...) is called Slip Operator (|).
 
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
-}
-
-my $fruits = ["Mango", "Melon", "Banana"];
+my $fruits = ("Mango", "Melon", "Banana");
 print("fruits: ", json-stringify($fruits), "\n");
 
-my $vegetables = ["Carrot", "Tomato"];
+my $vegetables = ("Carrot", "Tomato");
 print("vegetables: ", json-stringify($vegetables), "\n");
 
 my $country-capitals-in-asia = %(
@@ -32,7 +60,7 @@ print("country-capitals-in-europe: ", json-stringify($country-capitals-in-europe
 
 print("\n# [...array1, ...array2]:\n", "\n");
 
-my $combination1 = [|$fruits, |$vegetables];
+my $combination1 = (|$fruits, |$vegetables);
 print("combination1: ", json-stringify($combination1, :pretty(True)), "\n");
 # combination1: [
 #     "Mango",
@@ -42,7 +70,7 @@ print("combination1: ", json-stringify($combination1, :pretty(True)), "\n");
 #     "Tomato"
 # ]
 
-my $combination2 = [|$fruits, "Cucumber", "Cabbage"];
+my $combination2 = (|$fruits, "Cucumber", "Cabbage");
 print("combination2: ", json-stringify($combination2, :pretty(True)), "\n");
 # combination2: [
 #     "Mango",
@@ -76,7 +104,7 @@ print("combination4: ", json-stringify($combination4, :pretty(True)), "\n");
 
 print("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
-my $combination5 = [|$fruits, $vegetables];
+my $combination5 = (|$fruits, $vegetables);
 print("combination5: ", json-stringify($combination5, :pretty(True)), "\n");
 # combination5: [
 #     "Mango",
@@ -88,7 +116,7 @@ print("combination5: ", json-stringify($combination5, :pretty(True)), "\n");
 #     ]
 # ]
 
-my $combination6 = [|$fruits, ["Cucumber", "Cabbage"]];
+my $combination6 = (|$fruits, ("Cucumber", "Cabbage"));
 print("combination6: ", json-stringify($combination6, :pretty(True)), "\n");
 # combination6: [
 #     "Mango",
@@ -102,7 +130,7 @@ print("combination6: ", json-stringify($combination6, :pretty(True)), "\n");
 
 print("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n", "\n");
 
-my $combination7 = [|$fruits, $country-capitals-in-asia];
+my $combination7 = (|$fruits, $country-capitals-in-asia);
 print("combination7: ", json-stringify($combination7, :pretty(True)), "\n");
 # combination7: [
 #     "Mango",
@@ -115,7 +143,7 @@ print("combination7: ", json-stringify($combination7, :pretty(True)), "\n");
 #     }
 # ]
 
-my $combination8 = [|$fruits, %("Germany" => "Berlin", "Italy" => "Rome") ];
+my $combination8 = (|$fruits, %("Germany" => "Berlin", "Italy" => "Rome"));
 print("combination8: ", json-stringify($combination8, :pretty(True)), "\n");
 # combination8: [
 #     "Mango",
@@ -167,7 +195,7 @@ print("combination11: ", json-stringify($combination11, :pretty(True)), "\n");
 #     ]
 # }
 
-my $combination12 = %(|$country-capitals-in-asia, %("vegetables" => ["Cucumber", "Cabbage"]));
+my $combination12 = %(|$country-capitals-in-asia, %("vegetables" => ("Cucumber", "Cabbage")));
 print("combination12: ", json-stringify($combination12, :pretty(True)), "\n");
 # combination12: {
 #     "Thailand": "Bangkok",
@@ -191,7 +219,7 @@ print("combination13: ", json-stringify($combination13, :pretty(True)), "\n");
 #    "1" : "Tomato"
 # }
 
-my $combination14 = %(|$country-capitals-in-asia, |["Cucumber", "Cabbage"].kv);
+my $combination14 = %(|$country-capitals-in-asia, |("Cucumber", "Cabbage").kv);
 print("combination14: ", json-stringify($combination14, :pretty(True)), "\n");
 # combination14: {
 #    "Thailand" : "Bangkok",
@@ -204,9 +232,9 @@ print("combination14: ", json-stringify($combination14, :pretty(True)), "\n");
 # print("\n# [...array1, ...object1]: # this combination throw an error in JavaScript\n", "\n");
 
 # this combination throw an error in JavaScript
-# my $combination-error-in-javascript1 = [|$fruits, $country-capitals-in-asia];
+# my $combination-error-in-javascript1 = (|$fruits, $country-capitals-in-asia);
 # print("combination-error-in-javascript1: ", json-stringify($combination-error-in-javascript1, :pretty(True)), "\n");
 
 # this combination throw an error in JavaScript
-# my $combination-error-in-javascript2 = [|$fruits, %("country-capitals-in-europe" => %("Germany" => "Berlin", "Italy" => "Rome"))];
+# my $combination-error-in-javascript2 = (|$fruits, %("country-capitals-in-europe" => %("Germany" => "Berlin", "Italy" => "Rome")));
 # print("combination-error-in-javascript2: ", json-stringify($combination-error-in-javascript2, :pretty(True)), "\n");

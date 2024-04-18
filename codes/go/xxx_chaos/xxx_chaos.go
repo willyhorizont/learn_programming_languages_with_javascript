@@ -95,7 +95,7 @@ func sPrintln(parameters ...any) {
     fmt.Println(strings.Join(parametersNew, ""))
 }
 
-func spreadSyntaxObject(parameters ...any) object {
+func spreadObject(parameters ...any) object {
     var newObject = make(object)
     for _, parameter := range parameters {
         parameterType := reflect.TypeOf(parameter).Kind()
@@ -115,7 +115,7 @@ func spreadSyntaxObject(parameters ...any) object {
     return newObject
 }
 
-func spreadSyntaxArray(parameters ...any) array {
+func spreadArray(parameters ...any) array {
     var newArray = array{}
     for _, parameter := range parameters {
         parameterType := reflect.TypeOf(parameter).Kind()

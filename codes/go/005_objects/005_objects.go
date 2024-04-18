@@ -106,6 +106,9 @@ func main() {
     sPrintln("friend, get country: ", friend["country"])
     // friend, get country: Finland
 
+    sPrintln("friend, get total object keys: ", array{len(friend)})
+    // friend, get total object keys: 3
+
     // iterate over and get each key-value pair
     for objectKey, objectValue := range friend {
         sPrintln("friend, for loop, key: ", objectKey, ", value: ", objectValue)

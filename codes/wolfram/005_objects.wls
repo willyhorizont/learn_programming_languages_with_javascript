@@ -1,8 +1,11 @@
-PrettyJsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> "    "]] &);
-
-JsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]] &);
-
-SPrint = (Module[{AParameters = {##}}, Print[StringJoin[MapIndexed[(Module[{ArrayItem = #1, ArrayItemIndex = #2[[1]]}, If[((ArrayQ[ArrayItem] == True) && Length[ArrayItem] == 1), JsonStringify[ArrayItem[[1]]], If[(StringQ[ArrayItem] == True), ArrayItem, ""]]] &), AParameters]]]] &);
+JsonStringify[Anything_, OptionsPattern[{"Pretty" -> False, "Indent" -> "    "}]] := Module[{Pretty, Indent},
+    Pretty = OptionValue["Pretty"];
+    Indent = OptionValue["Indent"];
+    If[(Pretty == True),
+        Return[StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON", "Indent" -> Indent], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> Indent]],
+        Return[StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]]
+    ];
+];
 
 (* in Wolfram, JavaScript-like Object is called Association *)
 
@@ -11,7 +14,7 @@ Friend = <|
     "country" -> "Finland",
     "age" -> 25
 |>;
-Print["Friend: ", PrettyJsonStringify[Friend]];
+Print["Friend: ", JsonStringify[Friend, "Pretty" -> True]];
 
 (*
 or we can also define object using curly braces ({})
@@ -22,8 +25,11 @@ Friend = {
 };
 *)
 
-Print["Friend, get country: ", PrettyJsonStringify[Friend[["country"]]]];
+Print["Friend, get country: ", Friend[["country"]]];
 (* Friend, get country: Finland *)
+
+Print["Friend, get total object keys: ", Length[Friend]];
+(* Friend, get total object keys: 3 *)
 
 (* iterate over and get each key-value pair and object iteration/entry index *)
 Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
@@ -32,7 +38,7 @@ Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
     For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
         ObjectKey = ObjectKeys[[ObjectIterationIndex]];
         ObjectValue = ObjectValues[[ObjectIterationIndex]];
-        SPrint["Friend, forEach loop v1, object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+        Print["Friend, forEach loop v1, object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
     ];
 ];
 (* Friend, forEach loop v1, object iteration/entry index: 1, key: "name", value: "Alisa" *)
@@ -43,7 +49,7 @@ Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
 Module[{ObjectIterationIndex},
     ObjectIterationIndex = 1;
     KeyValueMap[(Module[{ObjectKey = #1, ObjectValue = #2},
-        SPrint["Friend, forEach loop v2, object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+        Print["Friend, forEach loop v2, object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
         ObjectIterationIndex += 1;
     ] &), Friend];
 ];

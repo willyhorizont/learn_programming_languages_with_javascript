@@ -1,62 +1,46 @@
 Imports System.Collections.Generic ' Dictionary, KeyValuePair
 
 Module Program
-    Function PrettyArrayOfPrimitives(ByVal AnArrayOfPrimitives As List(Of Object)) As String
-        Dim Result As String = "["
-        Dim ArrayItemIndex As Integer = 0
-        For Each ArrayItem As Object In AnArrayOfPrimitives
-            If (((TypeOf ArrayItem Is String) = false) AndAlso (IsNumeric(ArrayItem) = false) AndAlso ((TypeOf ArrayItem Is Boolean) = false) AndAlso ((ArrayItem Is Nothing) = false)) Then Continue For
-            If (TypeOf ArrayItem Is String) Then Result += """" & ArrayItem & """"
-            If (IsNumeric(ArrayItem) = true) Then Result += CStr(ArrayItem).Replace(",", ".")
-            If (TypeOf ArrayItem Is Boolean) Then Result += CStr(ArrayItem)
-            If (ArrayItem Is Nothing) Then Result += "null"
-            If ((ArrayItemIndex + 1) <> AnArrayOfPrimitives.Count) Then Result += ", "
-            ArrayItemIndex += 1
-        Next
-        Result += "]"
-        Return Result
-    End Function
-
-    Function PrettyJsonStringify(ByVal Anything As Object, Optional ByVal Indent As String = "    ") As String
+    Function JsonStringify(ByVal Anything As Object, Optional ByVal Pretty As Boolean = False, Optional ByVal Indent As String = "    ") As String
         Dim IndentLevel As Integer = 0
-        Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
+        Dim JsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = True) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
                 IndentLevel += 1
-                Dim Result As String = "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "[")
                 Dim ArrayItemIndex As Integer = 0
                 For Each ArrayItem As Object In AnythingInner
-                    Result &= PrettyJsonStringifyInner(ArrayItem, IndentInner)
-                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= JsonStringifyInner(ArrayItem, IndentInner)
+                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ArrayItemIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]", "]")
                 Return Result
             End If
             If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
-                Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "{")
                 Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
-                    Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= """" & ObjectKey & """: " & JsonStringifyInner(ObjectValue, IndentInner)
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}", "}")
                 Return Result
             End If
             Return "null"
         End Function
-        Return PrettyJsonStringifyInner(Anything, Indent)
+        Return JsonStringifyInner(Anything, Indent)
     End Function
 
     Function ArrayFindIndexV1(ByVal CallbackFunction As Func(Of Object, Integer, List(Of Object), Boolean), ByVal AnArray As List(Of Object)) As Integer
@@ -113,7 +97,7 @@ Module Program
         Console.WriteLine($"{Environment.NewLine}' JavaScript-like Array.findIndex() in Visual Basic (.NET) List")
 
         Dim Numbers As List(Of Object) = New List(Of Object) From {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-        Console.WriteLine($"Numbers: {PrettyArrayOfPrimitives(Numbers)}")
+        Console.WriteLine($"Numbers: {JsonStringify(Numbers)}")
 
         Dim NumberToFind As Integer = 27
         Console.WriteLine($"number to find: {NumberToFind}")
@@ -170,10 +154,10 @@ Module Program
                 {"price", 499}
             }
         }
-        Console.WriteLine($"Products: {PrettyJsonStringify(Products)}")
+        Console.WriteLine($"Products: {JsonStringify(Products, Pretty:=True)}")
 
         Dim ProductToFind As String = "pasta"
-        Console.WriteLine($"product to find: {PrettyJsonStringify(ProductToFind)}")
+        Console.WriteLine($"product to find: {JsonStringify(ProductToFind)}")
 
         Dim ProductFoundIndex As Integer
 

@@ -1,47 +1,48 @@
 Imports System.Collections.Generic ' Dictionary, KeyValuePair
 
 Module Program
-    Function PrettyJsonStringify(ByVal Anything As Object, Optional ByVal Indent As String = "    ") As String
+    Function JsonStringify(ByVal Anything As Object, Optional ByVal Pretty As Boolean = False, Optional ByVal Indent As String = "    ") As String
         Dim IndentLevel As Integer = 0
-        Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
+        Dim JsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = True) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
                 IndentLevel += 1
-                Dim Result As String = "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "[")
                 Dim ArrayItemIndex As Integer = 0
                 For Each ArrayItem As Object In AnythingInner
-                    Result &= PrettyJsonStringifyInner(ArrayItem, IndentInner)
-                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= JsonStringifyInner(ArrayItem, IndentInner)
+                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ArrayItemIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]", "]")
                 Return Result
             End If
             If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
-                Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "{")
                 Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
-                    Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= """" & ObjectKey & """: " & JsonStringifyInner(ObjectValue, IndentInner)
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}", "}")
                 Return Result
             End If
             Return "null"
         End Function
-        Return PrettyJsonStringifyInner(Anything, Indent)
+        Return JsonStringifyInner(Anything, Indent)
     End Function
+
     Sub Main(Args As String())
         ' 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
         ' ```javascript
@@ -62,17 +63,17 @@ Module Program
         ' type Any interface{}
         ' ```
         Dim Something As Object = "foo"
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
         Something = 123
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
         Something = True
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
         Something = Nothing
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
         Something = New List(Of Object) From {1, 2, 3}
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
         Something = New Dictionary(Of String, Object) From {{"foo", "bar"}}
-        Console.WriteLine("Something: " & PrettyJsonStringify(Something))
+        Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
 
         ' 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
         ' ```javascript
@@ -156,7 +157,7 @@ Module Program
                 }
             }
         }
-        Console.WriteLine("MyObject: " & PrettyJsonStringify(MyObject))
+        Console.WriteLine("MyObject: " & JsonStringify(MyObject, Pretty:=True))
 
         ' 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
         ' ```javascript
@@ -164,7 +165,7 @@ Module Program
         ' console.log("myArray:", myArray);
         ' ```
         Dim MyArray As List(Of Object) = New List(Of Object) From {"foo", 123, true, Nothing, New List(Of Object) From {1, 2, 3}, New Dictionary(Of String, Object) From {{"foo", "bar"}}}
-        Console.WriteLine("MyArray: " & PrettyJsonStringify(MyArray))
+        Console.WriteLine("MyArray: " & JsonStringify(MyArray, Pretty:=True))
 
         ' 5. support passing functions as arguments to other functions
         ' ```javascript

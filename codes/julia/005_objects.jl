@@ -45,6 +45,9 @@ println("friend: ", json_stringify(friend, pretty=true))
 println("friend, get country: ", friend["country"])
 # friend, get country: Finland
 
+println("friend, get total object keys: ", length(friend))
+# friend, get total object keys: 3
+
 # iterate over and get each key-value pair
 for (object_key, object_value) in friend
     println("friend, for loop, key: ", object_key, ", value: ", object_value)

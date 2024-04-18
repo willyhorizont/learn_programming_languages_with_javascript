@@ -1,10 +1,38 @@
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
 }
 
 sub array-find-index-v1($callback-function, $an-array) {
@@ -51,7 +79,7 @@ sub array-find-index-v4($callback-function, $an-array) {
 
 print("\n# JavaScript-like Array.findIndex() in Raku List", "\n");
 
-my $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
+my $numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
 print("numbers: ", json-stringify($numbers), "\n");
 
 my $number-to-find = 27;
@@ -83,7 +111,7 @@ $number-found-index = array-find-index-v4(sub ($number, |args) { ($number === $n
 print("number found index: ", $number-found-index, "\n");
 # number found index: 2
 
-print("# using Raku Array.findIndex() built-in method \"List.first(predicate, :k)\"\n");
+print("# using Raku Array.findIndex() built-in method/function \"first(predicate, :k)\"\n");
 
 $number-found-index = $numbers.first({ $_ === $number-to-find }, :k);
 print("number found index: ", $number-found-index, "\n");
@@ -95,7 +123,7 @@ print("number found index: ", $number-found-index, "\n");
 
 print("\n# JavaScript-like Array.findIndex() in Raku List of Hashes", "\n");
 
-my $products = [
+my $products = (
     %(
         "code" => "pasta",
         "price" => 321
@@ -112,7 +140,7 @@ my $products = [
         "code" => "towel",
         "price" => 499
     )
-];
+);
 
 print("products: ", json-stringify($products, :pretty(True)), "\n");
 
@@ -145,7 +173,7 @@ $product-found-index = array-find-index-v4(sub ($product, |args) { ($product{"co
 print("product found index: ", $product-found-index, "\n");
 # product found index: 0
 
-print("# using Raku Array.findIndex() built-in method \"List.first(predicate, :k)\"\n");
+print("# using Raku Array.findIndex() built-in method/function \"first(predicate, :k)\"\n");
 
 $product-found-index = $products.first({ $_{"code"} === $product-to-find }, :k);
 print("product found index: ", $product-found-index, "\n");

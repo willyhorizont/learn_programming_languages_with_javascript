@@ -6,40 +6,9 @@ typealias MyArray = [Any?]
 // There's no JavaScript-like Array.find() in Swift.
 // But, we can create our own function to mimic it in Swift.
 
-func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
-    var result = "["
-    for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        guard let arrayItem = arrayItem else {
-            result += "nil"
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-                result += ", "
-            }
-            continue
-        }
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
-            continue
-        }
-        if let arrayItem = arrayItem as? String {
-            result += "\"\(arrayItem)\""
-        }
-        if let arrayItem = arrayItem as? Bool {
-            result += "\(arrayItem)"
-        } else {
-            if let arrayItem = arrayItem as? NSNumber {
-                result += "\(arrayItem)"
-            }
-        }
-        if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-            result += ", "
-        }
-    }
-    result += "]"
-    return result
-}
-
-func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
+func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String = "    ") -> String {
     var indentLevel = 0
-    func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+    func jsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
         guard let anythingInner = anythingInner else {
             return "null"
         }
@@ -57,15 +26,15 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "[]"
             }
             indentLevel += 1
-            var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "[\n\(String(repeating: indentInner, count: indentLevel))" : "[")
             for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
-                result += prettyJsonStringifyInner(arrayItem, indentInner)
+                result += jsonStringifyInner(arrayItem, indentInner)
                 if ((arrayItemIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))]"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))]" : "]")
             return result
         }
         if let anythingInner = anythingInner as? MyObject {
@@ -73,20 +42,20 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "{}"
             }
             indentLevel += 1
-            var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "{\n\(String(repeating: indentInner, count: indentLevel))" : "{")
             for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
-                result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
+                result += "\"\(objectKey)\": \(jsonStringifyInner(objectValue, indentInner))"
                 if ((objectEntryIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))}"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))}" : "}")
             return result
         }
         return "null"
     }
-    return prettyJsonStringifyInner(anything, indent)
+    return jsonStringifyInner(anything, indent)
 }
 
 func arrayFindV1(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: MyArray) -> Any? {
@@ -138,7 +107,7 @@ func arrayFindV4(_ callbackFunction: (Any?, Int, MyArray) -> Bool, _ anArray: My
 print("\n// JavaScript-like Array.find() in Swift Array")
 
 let numbers: MyArray = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("numbers: \(prettyArrayOfPrimitives(numbers))")
+print("numbers: \(jsonStringify(numbers))")
 
 var evenNumberFound: Any? = nil
 var oddNumberFound: Any? = nil
@@ -151,7 +120,7 @@ evenNumberFound = arrayFindV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "nil")")
+print("even number found: \(evenNumberFound ?? "null")")
 // even number found: 12
 
 oddNumberFound = arrayFindV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
@@ -160,7 +129,7 @@ oddNumberFound = arrayFindV1({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "nil")")
+print("odd number found: \(oddNumberFound ?? "null")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV2\"")
@@ -171,7 +140,7 @@ evenNumberFound = arrayFindV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "nil")")
+print("even number found: \(evenNumberFound ?? "null")")
 // even number found: 12
 
 oddNumberFound = arrayFindV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
@@ -180,7 +149,7 @@ oddNumberFound = arrayFindV2({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "nil")")
+print("odd number found: \(oddNumberFound ?? "null")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV3\"")
@@ -191,7 +160,7 @@ evenNumberFound = arrayFindV3({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "nil")")
+print("even number found: \(evenNumberFound ?? "null")")
 // even number found: 12
 
 oddNumberFound = arrayFindV3({ (number: Any?, _: Int, _: MyArray) -> Bool in
@@ -200,7 +169,7 @@ oddNumberFound = arrayFindV3({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "nil")")
+print("odd number found: \(oddNumberFound ?? "null")")
 // odd number found: 27
 
 print("// using JavaScript-like Array.find() function \"arrayFindV4\"")
@@ -211,7 +180,7 @@ evenNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) == 0)
 }, numbers)
-print("even number found: \(evenNumberFound ?? "nil")")
+print("even number found: \(evenNumberFound ?? "null")")
 // even number found: 12
 
 oddNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
@@ -220,7 +189,7 @@ oddNumberFound = arrayFindV4({ (number: Any?, _: Int, _: MyArray) -> Bool in
     }
     return ((result % 2) != 0)
 }, numbers)
-print("odd number found: \(oddNumberFound ?? "nil")")
+print("odd number found: \(oddNumberFound ?? "null")")
 // odd number found: 27
 
 print("\n// JavaScript-like Array.find() in Swift Array of Dictionaries")
@@ -243,7 +212,7 @@ let products: MyArray = [
         "price": 499
     ] as MyObject
 ]
-print("products: \(prettyJsonStringify(products))")
+print("products: \(jsonStringify(products, pretty: true))")
 
 let productToFind = "bubble_gum"
 print("product to find: \(productToFind)")
@@ -258,7 +227,7 @@ productFound = arrayFindV1({ (product: Any?, _: Int, _: MyArray) -> Bool in
     }
     return (result == productToFind)
 }, products)
-print("product found: \(prettyJsonStringify(productFound))")
+print("product found: \(jsonStringify(productFound, pretty: true))")
 // product found: {
 //     "code":"bubble_gum",
 //     "price": 233
@@ -272,7 +241,7 @@ productFound = arrayFindV2({ (product: Any?, _: Int, _: MyArray) -> Bool in
     }
     return (result == productToFind)
 }, products)
-print("product found: \(prettyJsonStringify(productFound))")
+print("product found: \(jsonStringify(productFound, pretty: true))")
 // product found: {
 //     "code":"bubble_gum",
 //     "price": 233
@@ -286,7 +255,7 @@ productFound = arrayFindV3({ (product: Any?, _: Int, _: MyArray) -> Bool in
     }
     return (result == productToFind)
 }, products)
-print("product found: \(prettyJsonStringify(productFound))")
+print("product found: \(jsonStringify(productFound, pretty: true))")
 // product found: {
 //     "code":"bubble_gum",
 //     "price": 233
@@ -300,7 +269,7 @@ productFound = arrayFindV4({ (product: Any?, _: Int, _: MyArray) -> Bool in
     }
     return (result == productToFind)
 }, products)
-print("product found: \(prettyJsonStringify(productFound))")
+print("product found: \(jsonStringify(productFound, pretty: true))")
 // product found: {
 //     "code":"bubble_gum",
 //     "price": 233

@@ -36,7 +36,7 @@ Print["(MyAnswer == CORRECTANSWER):"];
 If[(MyAnswer == CORRECTANSWER),
     Print["Your answer is correct"],
     Print["Your answer is wrong"]
-]
+];
 
 Print["not equal to (!=) "];
 
@@ -47,7 +47,7 @@ Print["(MyAnswer != CORRECTANSWER):"];
 If[(MyAnswer != CORRECTANSWER),
     Print["Your answer is correct"],
     Print["Your answer is wrong"]
-]
+];
 
 Print["greater than (>) "];
 

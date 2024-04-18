@@ -1,18 +1,46 @@
-library(jsonlite)
+typeOf <- function(anything) {
+    if (is.list(anything) == FALSE) return(class(anything))
+    if (length(anything) == 0) return("array")
+    if (is.null(names(anything)) == TRUE) return("array")
+    return("object")
+}
 
 jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
-    if (pretty == TRUE) {
-        prettyJsonStringWithTrailingNewLine <- prettify(toJSON(anything, pretty = TRUE, auto_unbox = TRUE), indent = 3)
-        prettyJsonStringWithCustomIndent <- gsub(strrep(" ", 3), indent, prettyJsonStringWithTrailingNewLine, perl = TRUE)
-        prettyJsonStringWithoutTrailingNewLine <- gsub("\\n$", "", prettyJsonStringWithCustomIndent, perl = TRUE)
-        prettyJsonStringWithoutTrailingNewLineAndWithProperNull <- gsub("\\{\\s*\\n\\s*\\}", "null", prettyJsonStringWithoutTrailingNewLine, perl = TRUE)
-        return(prettyJsonStringWithoutTrailingNewLineAndWithProperNull)
+    indentLevel <- 0
+    jsonStringifyInner <- function(anythingInner, indentInner) {
+        if (is.null(anythingInner)) return("null")
+        if (is.character(anythingInner)) return(paste(sep = "", "\"", anythingInner, "\""))
+        if (is.numeric(anythingInner) || is.logical(anythingInner)) return(paste(sep = "", anythingInner))
+        if (typeOf(anythingInner) == "array") {
+            if (length(anythingInner) == 0) return("[]")
+            indentLevel <<- (indentLevel + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indentInner, indentLevel)) else "[")
+            for (arrayItemIndex in seq_along(anythingInner)) {
+                arrayItem <- anythingInner[[arrayItemIndex]]
+                result <- paste(sep = "", result, jsonStringifyInner(arrayItem, indentInner))
+                if (arrayItemIndex != length(anythingInner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+            }
+            indentLevel <<- (indentLevel - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "]") else paste(sep = "", result, "]"))
+            return(result)
+        }
+        if (typeOf(anythingInner) == "object") {
+            if (length(names(anythingInner)) == 0) return("{}")
+            indentLevel <<- (indentLevel + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indentInner, indentLevel)) else "{")
+            for (objectEntryIndex in seq_along(anythingInner)) {
+                objectKey <- names(anythingInner)[objectEntryIndex]
+                objectValue <- anythingInner[[objectEntryIndex]]
+                result <- paste(sep = "", result, "\"", objectKey, "\": ", jsonStringifyInner(objectValue, indentInner))
+                if (objectEntryIndex != length(names(anythingInner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+            }
+            indentLevel <<- (indentLevel - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "}") else paste(sep = "", result, "}"))
+            return(result)
+        }
+        return("null")
     }
-    jsonStringWithoutSpaceDelimiter <- toJSON(anything, pretty = FALSE, auto_unbox = TRUE)
-    jsonStringWithSpaceDelimiterAfterComma <- gsub(",", ", ", jsonStringWithoutSpaceDelimiter, perl = TRUE)
-    jsonStringWithSpaceDelimiterAfterCommaAndColon <- gsub(":", ": ", jsonStringWithSpaceDelimiterAfterComma, perl = TRUE)
-    jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull <- gsub("{}", "null", jsonStringWithSpaceDelimiterAfterCommaAndColon, perl = TRUE)
-    return(jsonStringWithSpaceDelimiterAfterCommaAndColonAndWithProperNull)
+    return(jsonStringifyInner(anything, indent))
 }
 
 # 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
@@ -78,7 +106,7 @@ cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"
 getModifiedIndentLevel <- function() {
     indentLevel <- 0
     changeIndentLevel <- function() {
-        indentLevel <<- indentLevel + 1
+        indentLevel <<- (indentLevel + 1)
         if (indentLevel < 5) changeIndentLevel()
         return(indentLevel)
     }

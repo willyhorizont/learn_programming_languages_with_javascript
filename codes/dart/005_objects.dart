@@ -22,6 +22,9 @@ void main() {
     print('friend, get country: ${friend["country"]}');
     // friend, get country: Finland
 
+    print('friend, get total object keys: ${friend.length}');
+    // friend, get total object keys: 3
+
     // iterate over and get each key-value pair
     friend.entries.forEach((dynamic objectEntry) {
         final objectKey = objectEntry.key;

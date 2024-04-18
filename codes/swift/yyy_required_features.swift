@@ -3,9 +3,9 @@ import Foundation
 typealias MyObject = [String: Any?]
 typealias MyArray = [Any?]
 
-func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
+func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String = "    ") -> String {
     var indentLevel = 0
-    func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+    func jsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
         guard let anythingInner = anythingInner else {
             return "null"
         }
@@ -23,15 +23,15 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "[]"
             }
             indentLevel += 1
-            var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "[\n\(String(repeating: indentInner, count: indentLevel))" : "[")
             for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
-                result += prettyJsonStringifyInner(arrayItem, indentInner)
+                result += jsonStringifyInner(arrayItem, indentInner)
                 if ((arrayItemIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))]"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))]" : "]")
             return result
         }
         if let anythingInner = anythingInner as? MyObject {
@@ -39,20 +39,20 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "{}"
             }
             indentLevel += 1
-            var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "{\n\(String(repeating: indentInner, count: indentLevel))" : "{")
             for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
-                result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
+                result += "\"\(objectKey)\": \(jsonStringifyInner(objectValue, indentInner))"
                 if ((objectEntryIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))}"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))}" : "}")
             return result
         }
         return "null"
     }
-    return prettyJsonStringifyInner(anything, indent)
+    return jsonStringifyInner(anything, indent)
 }
 
 /*
@@ -76,17 +76,17 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
     ```
 */
 var something: Any? = "foo"
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 something = 123
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 something = true
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 something = nil
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 something = [1, 2, 3] as MyArray
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 something = ["foo": "bar"] as MyObject
-print("something: \(prettyJsonStringify(something))")
+print("something: \(jsonStringify(something, pretty: true))")
 
 /*
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -174,7 +174,7 @@ var myObject: MyObject = [
         "foo": "bar"
     ] as MyObject
 ]
-print("myObject: \(prettyJsonStringify(myObject))")
+print("myObject: \(jsonStringify(myObject, pretty: true))")
 
 /*
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -184,7 +184,7 @@ print("myObject: \(prettyJsonStringify(myObject))")
     ```
 */
 var myArray: MyArray = ["foo", 123, true, nil, [1, 2, 3] as MyArray, ["foo": "bar"] as MyObject]
-print("myArray: \(prettyJsonStringify(myArray))")
+print("myArray: \(jsonStringify(myArray, pretty: true))")
 
 /*
     5. support passing functions as arguments to other functions

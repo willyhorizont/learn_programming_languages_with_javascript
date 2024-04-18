@@ -3,43 +3,9 @@ import Foundation
 typealias MyObject = [String: Any?]
 typealias MyArray = [Any?]
 
-// There's no JavaScript-like Spread Syntax (...) in Swift.
-// But, we can create our own function to mimic it in Swift.
-
-func prettyArrayOfPrimitives(_ anArrayOfPrimitives: MyArray) -> String {
-    var result = "["
-    for (arrayItemIndex, arrayItem) in anArrayOfPrimitives.enumerated() {
-        guard let arrayItem = arrayItem else {
-            result += "nil"
-            if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-                result += ", "
-            }
-            continue
-        }
-        if (((arrayItem is String) == false) && ((arrayItem is NSNumber) == false)) && ((arrayItem is Bool) == false) {
-            continue
-        }
-        if let arrayItem = arrayItem as? String {
-            result += "\"\(arrayItem)\""
-        }
-        if let arrayItem = arrayItem as? Bool {
-            result += "\(arrayItem)"
-        } else {
-            if let arrayItem = arrayItem as? NSNumber {
-                result += "\(arrayItem)"
-            }
-        }
-        if ((arrayItemIndex + 1) != anArrayOfPrimitives.count) {
-            result += ", "
-        }
-    }
-    result += "]"
-    return result
-}
-
-func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> String {
+func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String = "    ") -> String {
     var indentLevel = 0
-    func prettyJsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
+    func jsonStringifyInner(_ anythingInner: Any?, _ indentInner: String) -> String {
         guard let anythingInner = anythingInner else {
             return "null"
         }
@@ -57,15 +23,15 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "[]"
             }
             indentLevel += 1
-            var result = "[\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "[\n\(String(repeating: indentInner, count: indentLevel))" : "[")
             for (arrayItemIndex, arrayItem) in anythingInner.enumerated() {
-                result += prettyJsonStringifyInner(arrayItem, indentInner)
+                result += jsonStringifyInner(arrayItem, indentInner)
                 if ((arrayItemIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))]"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))]" : "]")
             return result
         }
         if let anythingInner = anythingInner as? MyObject {
@@ -73,23 +39,26 @@ func prettyJsonStringify(_ anything: Any? = nil, indent: String = "    ") -> Str
                 return "{}"
             }
             indentLevel += 1
-            var result = "{\n\(String(repeating: indentInner, count: indentLevel))"
+            var result = ((pretty == true) ? "{\n\(String(repeating: indentInner, count: indentLevel))" : "{")
             for (objectEntryIndex, (objectKey, objectValue)) in anythingInner.enumerated() {
-                result += "\"\(objectKey)\": \(prettyJsonStringifyInner(objectValue, indentInner))"
+                result += "\"\(objectKey)\": \(jsonStringifyInner(objectValue, indentInner))"
                 if ((objectEntryIndex + 1) != anythingInner.count) {
-                    result += ",\n\(String(repeating: indentInner, count: indentLevel))"
+                    result += ((pretty == true) ? ",\n\(String(repeating: indentInner, count: indentLevel))" : ", ")
                 }
             }
             indentLevel -= 1
-            result += "\n\(String(repeating: indentInner, count: indentLevel))}"
+            result += ((pretty == true) ? "\n\(String(repeating: indentInner, count: indentLevel))}" : "}")
             return result
         }
         return "null"
     }
-    return prettyJsonStringifyInner(anything, indent)
+    return jsonStringifyInner(anything, indent)
 }
 
-func spreadSyntaxObject(_ parameters: Any?...) -> MyObject {
+// There's no JavaScript-like Spread Syntax (...) in Swift.
+// But, we can create our own function to mimic it in Swift.
+
+func spreadObject(_ parameters: Any?...) -> MyObject {
     var newObject = MyObject()
     for (_, parameter) in parameters.enumerated() {
         if (parameter is MyObject) {
@@ -114,7 +83,7 @@ func spreadSyntaxObject(_ parameters: Any?...) -> MyObject {
     return newObject
 }
 
-func spreadSyntaxArray(_ parameters: Any?...) -> MyArray {
+func spreadArray(_ parameters: Any?...) -> MyArray {
     var newArray = MyArray()
     for (_, parameter) in parameters.enumerated() {
         if (parameter is MyObject) {
@@ -146,28 +115,28 @@ func spreadSyntaxArray(_ parameters: Any?...) -> MyArray {
 print("\n// JavaScript-like Spread Syntax (...) in Swift")
 
 let fruits: MyArray = ["Mango", "Melon", "Banana"]
-print("fruits: \(prettyArrayOfPrimitives(fruits))")
+print("fruits: \(jsonStringify(fruits))")
 
 let vegetables: MyArray = ["Carrot", "Tomato"]
-print("vegetables: \(prettyArrayOfPrimitives(vegetables))")
+print("vegetables: \(jsonStringify(vegetables))")
 
 let countryCapitalsInAsia: MyObject = [
     "Thailand": "Bangkok",
     "China": "Beijing",
     "Japan": "Tokyo"
 ]
-print("countryCapitalsInAsia: \(prettyJsonStringify(countryCapitalsInAsia))")
+print("countryCapitalsInAsia: \(jsonStringify(countryCapitalsInAsia, pretty: true))")
 
 let countryCapitalsInEurope: MyObject = [
     "France": "Paris",
     "England": "London"
 ]
-print("countryCapitalsInEurope: \(prettyJsonStringify(countryCapitalsInEurope))")
+print("countryCapitalsInEurope: \(jsonStringify(countryCapitalsInEurope, pretty: true))")
 
 print("\n// [...array1, ...array2]:\n")
 
-let combination1 = spreadSyntaxArray(fruits, vegetables)
-print("combination1: \(prettyJsonStringify(combination1))")
+let combination1 = spreadArray(fruits, vegetables)
+print("combination1: \(jsonStringify(combination1, pretty: true))")
 // combination1: [
 //     "Mango",
 //     "Melon",
@@ -176,8 +145,8 @@ print("combination1: \(prettyJsonStringify(combination1))")
 //     "Tomato"
 // ]
 
-let combination2 = spreadSyntaxArray(fruits, ["Cucumber", "Cabbage"] as MyArray)
-print("combination2: \(prettyJsonStringify(combination2))")
+let combination2 = spreadArray(fruits, ["Cucumber", "Cabbage"] as MyArray)
+print("combination2: \(jsonStringify(combination2, pretty: true))")
 // combination2: [
 //     "Mango",
 //     "Melon",
@@ -188,8 +157,8 @@ print("combination2: \(prettyJsonStringify(combination2))")
 
 print("\n// { ...object1, ...object2 }:\n")
 
-let combination3 = spreadSyntaxObject(countryCapitalsInAsia, countryCapitalsInEurope)
-print("combination3: \(prettyJsonStringify(combination3))")
+let combination3 = spreadObject(countryCapitalsInAsia, countryCapitalsInEurope)
+print("combination3: \(jsonStringify(combination3, pretty: true))")
 // combination3: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -198,8 +167,8 @@ print("combination3: \(prettyJsonStringify(combination3))")
 //     "England": "London"
 // }
 
-let combination4 = spreadSyntaxObject(countryCapitalsInAsia, ["Germany": "Berlin", "Italy": "Rome"] as MyObject)
-print("combination4: \(prettyJsonStringify(combination4))")
+let combination4 = spreadObject(countryCapitalsInAsia, ["Germany": "Berlin", "Italy": "Rome"] as MyObject)
+print("combination4: \(jsonStringify(combination4, pretty: true))")
 // combination4: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -210,8 +179,8 @@ print("combination4: \(prettyJsonStringify(combination4))")
 
 print("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-let combination5 = spreadSyntaxArray(fruits, ["vegetables": vegetables] as MyObject)
-print("combination5: \(prettyJsonStringify(combination5))")
+let combination5 = spreadArray(fruits, ["vegetables": vegetables] as MyObject)
+print("combination5: \(jsonStringify(combination5, pretty: true))")
 // combination5: [
 //     "Mango",
 //     "Melon",
@@ -222,8 +191,8 @@ print("combination5: \(prettyJsonStringify(combination5))")
 //     ]
 // ]
 
-let combination6 = spreadSyntaxArray(fruits, ["vegetables": ["Cucumber", "Cabbage"] as MyArray] as MyObject)
-print("combination6: \(prettyJsonStringify(combination6))")
+let combination6 = spreadArray(fruits, ["vegetables": ["Cucumber", "Cabbage"] as MyArray] as MyObject)
+print("combination6: \(jsonStringify(combination6, pretty: true))")
 // combination6: [
 //     "Mango",
 //     "Melon",
@@ -236,8 +205,8 @@ print("combination6: \(prettyJsonStringify(combination6))")
 
 print("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-let combination7 = spreadSyntaxArray(fruits, ["countryCapitalsInAsia": countryCapitalsInAsia] as MyObject)
-print("combination7: \(prettyJsonStringify(combination7))")
+let combination7 = spreadArray(fruits, ["countryCapitalsInAsia": countryCapitalsInAsia] as MyObject)
+print("combination7: \(jsonStringify(combination7, pretty: true))")
 // combination7: [
 //     "Mango",
 //     "Melon",
@@ -249,8 +218,8 @@ print("combination7: \(prettyJsonStringify(combination7))")
 //     }
 // ]
 
-let combination8 = spreadSyntaxArray(fruits, ["countryCapitalsInEurope": ["Germany": "Berlin", "Italy": "Rome"] as MyObject] as MyObject)
-print("combination8: \(prettyJsonStringify(combination8))")
+let combination8 = spreadArray(fruits, ["countryCapitalsInEurope": ["Germany": "Berlin", "Italy": "Rome"] as MyObject] as MyObject)
+print("combination8: \(jsonStringify(combination8, pretty: true))")
 // combination8: [
 //     "Mango",
 //     "Melon",
@@ -263,8 +232,8 @@ print("combination8: \(prettyJsonStringify(combination8))")
 
 print("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
-let combination9 = spreadSyntaxObject(countryCapitalsInAsia, ["countryCapitalsInEurope": countryCapitalsInEurope] as MyObject)
-print("combination9: \(prettyJsonStringify(combination9))")
+let combination9 = spreadObject(countryCapitalsInAsia, ["countryCapitalsInEurope": countryCapitalsInEurope] as MyObject)
+print("combination9: \(jsonStringify(combination9, pretty: true))")
 // combination9: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -275,8 +244,8 @@ print("combination9: \(prettyJsonStringify(combination9))")
 //     }
 // }
 
-let combination10 = spreadSyntaxObject(countryCapitalsInAsia, ["countryCapitalsInEurope": ["Germany": "Berlin", "Italy": "Rome"] as MyObject] as MyObject)
-print("combination10: \(prettyJsonStringify(combination10))")
+let combination10 = spreadObject(countryCapitalsInAsia, ["countryCapitalsInEurope": ["Germany": "Berlin", "Italy": "Rome"] as MyObject] as MyObject)
+print("combination10: \(jsonStringify(combination10, pretty: true))")
 // combination10: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -289,8 +258,8 @@ print("combination10: \(prettyJsonStringify(combination10))")
 
 print("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
-let combination11 = spreadSyntaxObject(countryCapitalsInAsia, ["vegetables": vegetables] as MyObject)
-print("combination11: \(prettyJsonStringify(combination11))")
+let combination11 = spreadObject(countryCapitalsInAsia, ["vegetables": vegetables] as MyObject)
+print("combination11: \(jsonStringify(combination11, pretty: true))")
 // combination11: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -301,8 +270,8 @@ print("combination11: \(prettyJsonStringify(combination11))")
 //     ]
 // }
 
-let combination12 = spreadSyntaxObject(countryCapitalsInAsia, ["vegetables": ["Cucumber", "Cabbage"] as MyArray] as MyObject)
-print("combination12: \(prettyJsonStringify(combination12))")
+let combination12 = spreadObject(countryCapitalsInAsia, ["vegetables": ["Cucumber", "Cabbage"] as MyArray] as MyObject)
+print("combination12: \(jsonStringify(combination12, pretty: true))")
 // combination12: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -315,8 +284,8 @@ print("combination12: \(prettyJsonStringify(combination12))")
 
 print("\n// { ...object1, ...array2 }:\n")
 
-let combination13 = spreadSyntaxObject(countryCapitalsInAsia, vegetables)
-print("combination13: \(prettyJsonStringify(combination13))")
+let combination13 = spreadObject(countryCapitalsInAsia, vegetables)
+print("combination13: \(jsonStringify(combination13, pretty: true))")
 // combination13: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -325,8 +294,8 @@ print("combination13: \(prettyJsonStringify(combination13))")
 //     "1": "Tomato"
 // }
 
-let combination14 = spreadSyntaxObject(countryCapitalsInAsia, ["Cucumber", "Cabbage"] as MyArray)
-print("combination14: \(prettyJsonStringify(combination14))")
+let combination14 = spreadObject(countryCapitalsInAsia, ["Cucumber", "Cabbage"] as MyArray)
+print("combination14: \(jsonStringify(combination14, pretty: true))")
 // combination14: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -338,9 +307,9 @@ print("combination14: \(prettyJsonStringify(combination14))")
 // print("\n// [...array1, ...object1]: // this combination throw an error in JavaScript\n")
 
 // this combination throw an error in JavaScript
-// let combinationErrorInJavascript1 = spreadSyntaxArray(fruits, countryCapitalsInAsia)
-// print("combinationErrorInJavascript1: \(prettyJsonStringify(combinationErrorInJavascript1))")
+// let combinationErrorInJavascript1 = spreadArray(fruits, countryCapitalsInAsia)
+// print("combinationErrorInJavascript1: \(jsonStringify(combinationErrorInJavascript1, pretty: true))")
 
 // this combination throw an error in JavaScript
-// let combinationErrorInJavascript2 = spreadSyntaxArray(fruits, ["Germany": "Berlin", "Italy": "Rome"] as MyObject)
-// print("combinationErrorInJavascript2: \(prettyJsonStringify(combinationErrorInJavascript2))")
+// let combinationErrorInJavascript2 = spreadArray(fruits, ["Germany": "Berlin", "Italy": "Rome"] as MyObject)
+// print("combinationErrorInJavascript2: \(jsonStringify(combinationErrorInJavascript2, pretty: true))")

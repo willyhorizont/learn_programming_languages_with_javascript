@@ -1,39 +1,11 @@
-PrettyJsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> "    "]] &);
-
-JsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]] &);
-
-SPrint = (Module[{AParameters = {##}}, Print[StringJoin[MapIndexed[(Module[{ArrayItem = #1, ArrayItemIndex = #2[[1]]}, If[((ArrayQ[ArrayItem] == True) && Length[ArrayItem] == 1), JsonStringify[ArrayItem[[1]]], If[(StringQ[ArrayItem] == True), ArrayItem, ""]]] &), AParameters]]]] &);
-
-SpreadSyntaxObject = (Module[{AParameters = {##}, NewObject},
-    NewObject = <||>;
-    Module[{AParameter, ParameterIndex},
-        For[ParameterIndex = 1, (ParameterIndex <= Length[AParameters]), ParameterIndex += 1,
-            AParameter = AParameters[[ParameterIndex]];
-            If[(AssociationQ[AParameter] == True),
-                Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
-                    ObjectKeys = Keys[AParameter];
-                    ObjectValues = Values[AParameter];
-                    For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
-                        ObjectKey = ObjectKeys[[ObjectIterationIndex]];
-                        ObjectValue = ObjectValues[[ObjectIterationIndex]];
-                        NewObject[[ObjectKey]] = ObjectValue;
-                    ];
-                ];
-                Continue[];
-            ];
-            If[(ListQ[AParameter] == True),
-                Module[{ArrayItem, ArrayItemIndex},
-                    For[ArrayItemIndex = 1, (ArrayItemIndex <= Length[AParameter]), ArrayItemIndex += 1,
-                        ArrayItem = AParameter[[ArrayItemIndex]];
-                        NewObject[[ToString[ArrayItemIndex]]] = ArrayItem;
-                    ];
-                ];
-                Continue[];
-            ];
-        ];
+JsonStringify[Anything_, OptionsPattern[{"Pretty" -> False, "Indent" -> "    "}]] := Module[{Pretty, Indent},
+    Pretty = OptionValue["Pretty"];
+    Indent = OptionValue["Indent"];
+    If[(Pretty == True),
+        Return[StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON", "Indent" -> Indent], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> Indent]],
+        Return[StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]]
     ];
-    Return[NewObject, Module];
-] &);
+];
 
 ArrayMapV1 = (Module[{CallbackFunction = #1, AnArray = #2, NewArray},
     (* JavaScript-like Array.map() function *)
@@ -63,12 +35,12 @@ ArrayMapV2 = (Module[{CallbackFunction = #1, AnArray = #2, NewArray},
 Print["\n(* JavaScript-like Array.map() in in Wolfram List *)"];
 
 Numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
-SPrint["Numbers: ", {Numbers}];
+Print["Numbers: ", JsonStringify[Numbers]];
 
 Print["(* using JavaScript-like Array.map() function \"ArrayMapV1\" *)"];
 
 NumbersLabeled = ArrayMapV1[(Module[{ANumber = #1}, <|ToString[ANumber] -> If[(Mod[ANumber, 2] == 0), "even", "odd"]|>] &), Numbers];
-Print["labeled numbers: ", PrettyJsonStringify[NumbersLabeled]];
+Print["labeled numbers: ", JsonStringify[NumbersLabeled, "Pretty" -> True]];
 (*
 labeled numbers: [
     {
@@ -107,7 +79,7 @@ labeled numbers: [
 Print["(* using JavaScript-like Array.map() function \"ArrayMapV2\" *)"];
 
 NumbersLabeled = ArrayMapV2[(Module[{ANumber = #1}, <|ToString[ANumber] -> If[(Mod[ANumber, 2] == 0), "even", "odd"]|>] &), Numbers];
-Print["labeled numbers: ", PrettyJsonStringify[NumbersLabeled]];
+Print["labeled numbers: ", JsonStringify[NumbersLabeled, "Pretty" -> True]];
 (*
 labeled numbers: [
     {
@@ -146,7 +118,7 @@ labeled numbers: [
 Print["(* using Wolfram Array.map() built-in function \"Map[]\" *)"];
 
 NumbersLabeled = Map[(Module[{ANumber = #1}, <|ToString[ANumber] -> If[(Mod[ANumber, 2] == 0), "even", "odd"]|>] &), Numbers];
-Print["labeled numbers: ", PrettyJsonStringify[NumbersLabeled]];
+Print["labeled numbers: ", JsonStringify[NumbersLabeled, "Pretty" -> True]];
 (*
 labeled numbers: [
     {
@@ -185,7 +157,7 @@ labeled numbers: [
 Print["(* using Wolfram Array.map() built-in function \"MapIndexed[]\" *)"];
 
 NumbersLabeled = MapIndexed[(Module[{ANumber = #1}, <|ToString[ANumber] -> If[(Mod[ANumber, 2] == 0), "even", "odd"]|>] &), Numbers];
-Print["labeled numbers: ", PrettyJsonStringify[NumbersLabeled]];
+Print["labeled numbers: ", JsonStringify[NumbersLabeled, "Pretty" -> True]];
 (*
 labeled numbers: [
     {
@@ -241,12 +213,12 @@ Products = {
         "price" -> 499
     |>
 };
-Print["Products: ", PrettyJsonStringify[Products]];
+Print["Products: ", JsonStringify[Products, "Pretty" -> True]];
 
 Print["(* using JavaScript-like Array.map() function \"ArrayMapV1\" *)"];
 
-ProductLabeled = ArrayMapV1[(Module[{AProduct = #1}, SpreadSyntaxObject[AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
-Print["labeled products: ", PrettyJsonStringify[ProductLabeled]];
+ProductLabeled = ArrayMapV1[(Module[{AProduct = #1}, Join[<||>, AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
+Print["labeled products: ", JsonStringify[ProductLabeled, "Pretty" -> True]];
 (*
 labeled products: [
     {
@@ -274,8 +246,8 @@ labeled products: [
 
 Print["(* using JavaScript-like Array.map() function \"ArrayMapV2\" *)"];
 
-ProductLabeled = ArrayMapV2[(Module[{AProduct = #1}, SpreadSyntaxObject[AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
-Print["labeled products: ", PrettyJsonStringify[ProductLabeled]];
+ProductLabeled = ArrayMapV2[(Module[{AProduct = #1}, Join[<||>, AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
+Print["labeled products: ", JsonStringify[ProductLabeled, "Pretty" -> True]];
 (*
 labeled products: [
     {
@@ -303,8 +275,8 @@ labeled products: [
 
 Print["(* using Wolfram Array.map() built-in function \"Map[]\" *)"];
 
-ProductLabeled = Map[(Module[{AProduct = #1}, SpreadSyntaxObject[AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
-Print["labeled products: ", PrettyJsonStringify[ProductLabeled]];
+ProductLabeled = Map[(Module[{AProduct = #1}, Join[<||>, AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
+Print["labeled products: ", JsonStringify[ProductLabeled, "Pretty" -> True]];
 (*
 labeled products: [
     {
@@ -332,8 +304,8 @@ labeled products: [
 
 Print["(* using Wolfram Array.map() built-in function \"MapIndexed[]\" *)"];
 
-ProductLabeled = MapIndexed[(Module[{AProduct = #1}, SpreadSyntaxObject[AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
-Print["labeled products: ", PrettyJsonStringify[ProductLabeled]];
+ProductLabeled = MapIndexed[(Module[{AProduct = #1}, Join[<||>, AProduct, <|"label" -> If[(AProduct[["price"]] > 100), "expensive", "cheap"]|>]] &), Products];
+Print["labeled products: ", JsonStringify[ProductLabeled, "Pretty" -> True]];
 (*
 labeled products: [
     {

@@ -18,6 +18,9 @@ console.log(`friend, get country: ${friend.country}`);
 console.log(`friend, get country: ${friend?.country}`);
 // friend, get country: Finland
 
+console.log(`friend, get total object keys: ${Object.keys(friend).length}`);
+// friend, get total object keys: 3
+
 // iterate over and get each key-value pair
 Object.entries(friend).forEach(([objectKey, objectValue]) => console.log(`friend, forEach loop, key: ${objectKey}, value: ${objectValue}`));
 // friend, forEach loop, key: name, value: Alisa

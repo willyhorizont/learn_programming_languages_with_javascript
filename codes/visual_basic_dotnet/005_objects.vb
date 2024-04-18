@@ -1,47 +1,48 @@
 Imports System.Collections.Generic ' Dictionary, KeyValuePair
 
 Module Program
-    Function PrettyJsonStringify(ByVal Anything As Object, Optional ByVal Indent As String = "    ") As String
+    Function JsonStringify(ByVal Anything As Object, Optional ByVal Pretty As Boolean = False, Optional ByVal Indent As String = "    ") As String
         Dim IndentLevel As Integer = 0
-        Dim PrettyJsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
+        Dim JsonStringifyInner As Func(Of Object, String, String) = Function(ByVal AnythingInner As Object, ByVal IndentInner As String)
             If (AnythingInner Is Nothing) Then Return "null"
             If (TypeOf AnythingInner Is String) Then Return """" & AnythingInner & """"
-            If (IsNumeric(AnythingInner) = true) Then Return CStr(AnythingInner).Replace(",", ".")
+            If (IsNumeric(AnythingInner) = True) Then Return CStr(AnythingInner).Replace(",", ".")
             If (TypeOf AnythingInner Is Boolean) Then Return CStr(AnythingInner)
             If (TypeOf AnythingInner Is List(Of Object)) Then
                 If (AnythingInner.Count = 0) Then Return "[]"
                 IndentLevel += 1
-                Dim Result As String = "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "[" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "[")
                 Dim ArrayItemIndex As Integer = 0
                 For Each ArrayItem As Object In AnythingInner
-                    Result &= PrettyJsonStringifyInner(ArrayItem, IndentInner)
-                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= JsonStringifyInner(ArrayItem, IndentInner)
+                    If ((ArrayItemIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ArrayItemIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "]", "]")
                 Return Result
             End If
             If (TypeOf AnythingInner Is Dictionary(Of String, Object)) Then
                 If (AnythingInner.Count = 0) Then Return "{}"
                 IndentLevel += 1
-                Dim Result As String = "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                Dim Result As String = If((Pretty = True), "{" & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), "{")
                 Dim ObjectIterationIndex As Integer = 0
                 For Each ObjectEntry As KeyValuePair(Of String, Object) In AnythingInner
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
-                    Result &= """" & ObjectKey & """: " & PrettyJsonStringifyInner(ObjectValue, IndentInner)
-                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel))
+                    Result &= """" & ObjectKey & """: " & JsonStringifyInner(ObjectValue, IndentInner)
+                    If ((ObjectIterationIndex + 1) <> AnythingInner.Count) Then Result &= If((Pretty = True), "," & Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)), ", ")
                     ObjectIterationIndex += 1
                 Next
                 IndentLevel -= 1
-                Result &= Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}"
+                Result &= If((Pretty = True), Environment.NewLine & String.Concat(Enumerable.Repeat(IndentInner, IndentLevel)) & "}", "}")
                 Return Result
             End If
             Return "null"
         End Function
-        Return PrettyJsonStringifyInner(Anything, Indent)
+        Return JsonStringifyInner(Anything, Indent)
     End Function
+
     Sub Main(Args As String())
         ' in Visual Basic (.NET), JavaScript-like Object is called Dictionary
 
@@ -50,10 +51,13 @@ Module Program
             {"country", "Finland"},
             {"age", 25}
         }
-        Console.WriteLine("MyFriend: " & PrettyJsonStringify(MyFriend))
+        Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
 
-        Console.WriteLine("MyFriend, get country: Finland: " & PrettyJsonStringify(MyFriend("country")))
+        Console.WriteLine("MyFriend, get country: " & MyFriend("country"))
         ' MyFriend, get country: Finland
+
+        Console.WriteLine("MyFriend, get total object keys: " & MyFriend.Count)
+        ' MyFriend, get total object keys: 3
 
         ' iterate over and get each key-value pair
         For Each ObjectEntry As KeyValuePair(Of String, Object) In MyFriend

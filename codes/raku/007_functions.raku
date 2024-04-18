@@ -13,24 +13,24 @@ sub get-rectangle-area-v2($rectangle-width, $rectangle-length) { ($rectangle-wid
 my $get-rectangle-area-v3 = sub ($rectangle-width, $rectangle-length) {
     return ($rectangle-width * $rectangle-length);
 };
-# call the function example: $get-rectangle-area-v3->(7, 5)
+# call the function example: $get-rectangle-area-v3(7, 5)
 
 my $get-rectangle-area-v4 = sub ($rectangle-width, $rectangle-length) { ($rectangle-width * $rectangle-length) };
-# call the function example: $get-rectangle-area-v4->(7, 5)
+# call the function example: $get-rectangle-area-v4(7, 5)
 
 my &get-rectangle-area-v5 = sub ($rectangle-width, $rectangle-length) {
     return ($rectangle-width * $rectangle-length);
 };
-# call the function example: &get-rectangle-area-v5->(7, 5)
+# call the function example: &get-rectangle-area-v5(7, 5)
 
 my &get-rectangle-area-v6 = sub ($rectangle-width, $rectangle-length) { ($rectangle-width * $rectangle-length) };
-# call the function example: &get-rectangle-area-v6->(7, 5)
+# call the function example: &get-rectangle-area-v6(7, 5)
 
 my $get-rectangle-area-v7 = -> $rectangle-width, $rectangle-length { ($rectangle-width * $rectangle-length) };
-# call the function example: $get-rectangle-area-v7->(7, 5)
+# call the function example: $get-rectangle-area-v7(7, 5)
 
 my &get-rectangle-area-v8 = -> $rectangle-width, $rectangle-length { ($rectangle-width * $rectangle-length) };
-# call the function example: &get-rectangle-area-v8->(7, 5)
+# call the function example: &get-rectangle-area-v8(7, 5)
 
 # ? anonymous function
 

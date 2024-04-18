@@ -1,34 +1,62 @@
-sub json-stringify($anything, Bool :$pretty = False) {
-    use JSON::Fast;
-    return to-json($anything, :pretty(True), :spacing(4)) if ($pretty === True);
-    my $json-string = to-json($anything, :pretty(False));
-    $json-string ~~ s:g/\,/\, /;
-    $json-string ~~ s:g/\:/\: /;
-    return $json-string;;
+sub json-stringify($anything, Bool :$pretty = False, Str :$indent = " " x 4) {
+    my $indent-level = 0;
+    my $json-stringify-inner = sub ($anything-inner, $indent-inner) {
+        return "null" if ($anything-inner === Nil);
+        return "\"{$anything-inner}\"" if ($anything-inner ~~ Str);
+        return "{$anything-inner}" if (($anything-inner ~~ Numeric) || ($anything-inner ~~ Bool));
+        if ($anything-inner.^name eq "List" || $anything-inner.^name eq "Seq") {
+            return "[]" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "[\n{$indent-inner x $indent-level}" !! "[");
+            for ($anything-inner.kv) -> $array-item-index, $array-item {
+                $result ~= $json-stringify-inner($array-item, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($array-item-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}]" !! "]");
+            return $result;
+        }
+        if ($anything-inner.^name eq "Hash") {
+            return "\{}" if ($anything-inner.elems == 0);
+            $indent-level += 1;
+            my $result = (($pretty == True) ?? "\{\n{$indent-inner x $indent-level}" !! "\{");
+            for ($anything-inner.pairs.kv) -> $object-entry-index, $object-entry {
+                my $object-key = $object-entry.key;
+                my $object-value = $object-entry.value;
+                $result ~= "\"{$object-key}\": " ~ $json-stringify-inner($object-value, $indent-inner);
+                $result ~= (($pretty == True) ?? ",\n{$indent-inner x $indent-level}" !! ", ") if (($object-entry-index + 1) !== $anything-inner.elems);
+            }
+            $indent-level -= 1;
+            $result ~= (($pretty == True) ?? "\n{$indent-inner x $indent-level}}" !! "}");
+            return $result;
+        }
+        return "null";
+    };
+    return $json-stringify-inner($anything, $indent);
 }
 
 sub array-map-v1($callback-function, $an-array) {
     # JavaScript-like Array.map() function
-    my $new-array = [];
+    my $new-array = ();
     for ($an-array.kv) -> $array-item-index, $array-item {
         my $new-array-item = $callback-function($array-item, $array-item-index, $an-array);
-        $new-array.push($new-array-item);
+        $new-array = (|$new-array, $new-array-item);
     }
     return $new-array;
 }
 
 sub array-map-v2($callback-function, $an-array) {
     # JavaScript-like Array.map() function
-    my $new-array = [];
+    my $new-array = ();
     for ($an-array.kv) -> $array-item-index, $array-item {
-        $new-array.push($callback-function($array-item, $array-item-index, $an-array));
+        $new-array = (|$new-array, $callback-function($array-item, $array-item-index, $an-array));
     }
     return $new-array;
 }
 
 print("\n# JavaScript-like Array.map() in Raku List", "\n");
 
-my $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
+my $numbers = (12, 34, 27, 23, 65, 93, 36, 87, 4, 254);
 print("numbers: ", json-stringify($numbers), "\n");
 
 my $numbers-labeled;
@@ -107,7 +135,7 @@ print("labeled numbers ", json-stringify($numbers-labeled, :pretty(True)), "\n")
 #     }
 # ]
 
-print("# using Raku Array.map() built-in method \"List.map()\"\n");
+print("# using Raku Array.map() built-in method/function \"map\"\n");
 
 $numbers-labeled = $numbers.map({ %($_.Str => ((($_ % 2) === 0) ?? "even" !! "odd")) });
 print("labeled numbers ", json-stringify($numbers-labeled, :pretty(True)), "\n");
@@ -181,7 +209,7 @@ print("labeled numbers ", json-stringify($numbers-labeled, :pretty(True)), "\n")
 
 print("\n# JavaScript-like Array.map() in Raku List of Hashes", "\n");
 
-my $products = [
+my $products = (
     %(
         "code" => "pasta",
         "price" => 321
@@ -198,7 +226,7 @@ my $products = [
         "code" => "towel",
         "price" => 499
     )
-];
+);
 
 print("products: ", json-stringify($products, :pretty(True)), "\n");
 
@@ -258,7 +286,7 @@ print("labeled products: ", json-stringify($products-labeled, :pretty(True)), "\
 #     }
 # ]
 
-print("# using Raku Array.map() built-in function \"map\"\n");
+print("# using Raku Array.map() built-in method/function \"map\"\n");
 
 $products-labeled = $products.map({ %(|$_, "label" => (($_{"price"} > 100) ?? "expensive" !! "cheap")) });
 print("labeled products: ", json-stringify($products-labeled, :pretty(True)), "\n");

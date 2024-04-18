@@ -1,39 +1,42 @@
-PrettyJsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> "    "]] &);
-
-JsonStringify = (Module[{Anything = #}, StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]] &);
-
-SPrint = (Module[{AParameters = {##}}, Print[StringJoin[MapIndexed[(Module[{ArrayItem = #1, ArrayItemIndex = #2[[1]]}, If[((ArrayQ[ArrayItem] == True) && Length[ArrayItem] == 1), JsonStringify[ArrayItem[[1]]], If[(StringQ[ArrayItem] == True), ArrayItem, ""]]] &), AParameters]]]] &);
+JsonStringify[Anything_, OptionsPattern[{"Pretty" -> False, "Indent" -> "    "}]] := Module[{Pretty, Indent},
+    Pretty = OptionValue["Pretty"];
+    Indent = OptionValue["Indent"];
+    If[(Pretty == True),
+        Return[StringReplace[StringReplace[ExportString[ImportString[ExportString[Anything, "JSON", "Indent" -> Indent], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], "\t" -> Indent]],
+        Return[StringReplace[StringReplace[ExportString[Anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]]
+    ];
+];
 
 (* in Wolfram, JavaScript-like Array is called List *)
 
 Fruits = {"apple", "mango", "orange"};
-SPrint["Fruits: ", {Fruits}];
+Print["Fruits: ", JsonStringify[Fruits]];
 
-SPrint["Fruits, length: ", {Length[Fruits]}];
+Print["Fruits, length: ", Length[Fruits]];
 (* Fruits, length: 3 *)
 
-SPrint["Fruits, get mango: ", {Fruits[[2]]}];
+Print["Fruits, get mango: ", Fruits[[2]]];
 (* Fruits, get mango: 3 *)
 
-SPrint["Fruits, first element: ", {Fruits[[1]]}];
+Print["Fruits, first element: ", Fruits[[1]]];
 (* Fruits, first element: apple *)
 
-SPrint["Fruits, first element: ", {First[Fruits]}];
+Print["Fruits, first element: ", First[Fruits]];
 (* Fruits, first element: apple *)
 
-SPrint["Fruits, last element: ", {Fruits[[Length[Fruits]]]}];
+Print["Fruits, last element: ", Fruits[[Length[Fruits]]]];
 (* last element: orange *)
 
-SPrint["Fruits, last element: ", {Last[Fruits]}];
+Print["Fruits, last element: ", Last[Fruits]];
 (* last element: orange *)
 
-SPrint["Fruits, last element: ", {Fruits[[-1]]}];
+Print["Fruits, last element: ", Fruits[[-1]]];
 (* last element: orange *)
 
 Module[{ArrayItem, ArrayItemIndex},
     For[ArrayItemIndex = 1, (ArrayItemIndex <= Length[Fruits]), ArrayItemIndex += 1,
         ArrayItem = Fruits[[ArrayItemIndex]];
-        SPrint["Fruits, forEach loop v1, index: ", {ArrayItemIndex}, ", value: ", {ArrayItem}];
+        Print["Fruits, forEach loop v1, index: ", ArrayItemIndex, ", value: ", ArrayItem];
     ];
 ];
 (* Fruits, forEach loop v1, index: 1, value: "apple" *)
@@ -41,7 +44,7 @@ Module[{ArrayItem, ArrayItemIndex},
 (* Fruits, forEach loop v1, index: 3, value: "orange" *)
 
 MapIndexed[(Module[{ArrayItem = #1, ArrayItemIndex = #2[[1]]},
-    SPrint["Fruits, forEach loop v2, index: ", {ArrayItemIndex}, ", value: ", {ArrayItem}];
+    Print["Fruits, forEach loop v2, index: ", ArrayItemIndex, ", value: ", ArrayItem];
 ] &), Fruits];
 (* Fruits, forEach loop v2, index: 1, value: "apple" *)
 (* Fruits, forEach loop v2, index: 2, value: "mango" *)
@@ -59,7 +62,7 @@ Products = {
         "name" -> "potato chips"
     |>
 };
-Print["Products: ", PrettyJsonStringify[Products]];
+Print["Products: ", JsonStringify[Products, "Pretty" -> True]];
 
 Module[{ArrayItem, ArrayItemIndex},
     For[ArrayItemIndex = 1, (ArrayItemIndex <= Length[Products]), ArrayItemIndex += 1,
@@ -70,7 +73,7 @@ Module[{ArrayItem, ArrayItemIndex},
             For[ObjectIterationIndex = 1, (ObjectIterationIndex <= Length[ObjectKeys]), ObjectIterationIndex += 1,
                 ObjectKey = ObjectKeys[[ObjectIterationIndex]];
                 ObjectValue = ObjectValues[[ObjectIterationIndex]];
-                SPrint["Products, forEach loop v1, array item index: ", {ArrayItemIndex}, ", object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+                Print["Products, forEach loop v1, array item index: ", ArrayItemIndex, ", object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
             ];
         ];
     ];
@@ -84,7 +87,7 @@ MapIndexed[(Module[{ArrayItem = #1, ArrayItemIndex = #2[[1]]},
     Module[{ObjectIterationIndex},
         ObjectIterationIndex = 1;
         KeyValueMap[(Module[{ObjectKey = #1, ObjectValue = #2},
-            SPrint["Products, forEach loop v2, array item index: ", {ArrayItemIndex}, ", object iteration/entry index: ", {ObjectIterationIndex}, ", key: ", {ObjectKey}, ", value: ", {ObjectValue}];
+            Print["Products, forEach loop v2, array item index: ", ArrayItemIndex, ", object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
             ObjectIterationIndex += 1;
         ] &), ArrayItem];
     ];
