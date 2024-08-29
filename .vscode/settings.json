@@ -44,6 +44,7 @@
         "editor.formatOnType": true // Enable formatting while typing
     },
     "Lua.diagnostics.disable": [
-        "lowercase-global"
+        "lowercase-global",
+        "assign-type-mismatch"
     ]
 }

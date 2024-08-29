@@ -1,4 +1,16 @@
 =============================changelog==========================================
+(2024/08[Aug]/30[Fri]|05:47[AM]/05:47)
+1.0.60
+New:
+update 005_objects.*
+array.length
+get object by key
+change object by key
+delete object by key
+computed property names
+TODO:
+try groovy, f#, crystal, java
+=============================changelog==========================================
 15:09 | 03:09 PM | Thu | Apr | 18/04/2024
 0.0.59
 New:

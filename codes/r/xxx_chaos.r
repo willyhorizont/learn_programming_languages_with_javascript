@@ -111,3 +111,8 @@ jsonStringifyV2 <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
     }
     return(jsonStringifyInner(anything, indent))
 }
+
+# Variable and function name style should match snake_case or symbols. lintr(object_name_linter)
+# Indentation should be 2 spaces but is 4 spaces. lintr(indentation_linter)
+# Lines should not be more than 80 characters. lintr(line_length_linter)
+# Functions should have cyclomatic complexity of less than 15, this has 33. lintr(cyclocomp_linter)

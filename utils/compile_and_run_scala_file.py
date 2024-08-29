@@ -43,7 +43,8 @@ def compile_and_run_scala_file():
 {scala_object_tail}
 """)
 
-    subprocess.run(["cd", "../", "&&", "scalac", "Program.scala", "&&", "scala", "Program", "&&", "del", "*.class"], check=True, text=True, shell=True)
+    # subprocess.run(["cd", "../", "&&", "scalac", "Program.scala", "&&", "scala", "Program", "&&", "del", "*.class"], check=True, text=True, shell=True)
+    subprocess.run(["cd", "../", "&&", "scalac", "Program.scala", "-deprecation", "&&", "scala", "Program", "&&", "del", "*.class"], check=True, text=True, shell=True)
 
 
 if __name__ == "__main__":

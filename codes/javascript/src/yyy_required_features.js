@@ -32,9 +32,9 @@ console.log("something:", something);
 something = null;
 console.log("something:", something);
 something = [1, 2, 3];
-console.log("something:", JSON.stringify(something, null, ' '.repeat(4)));
+console.log("something:", JSON.stringify(something, null, " ".repeat(4)));
 something = { "foo": "bar" };
-console.log("something:", JSON.stringify(something, null, ' '.repeat(4)));
+console.log("something:", JSON.stringify(something, null, " ".repeat(4)));
 
 /*
     2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -120,7 +120,7 @@ const myObject = {
         "foo": "bar"
     }
 };
-console.log("myObject:", JSON.stringify(myObject, null, ' '.repeat(4)));
+console.log("myObject:", JSON.stringify(myObject, null, " ".repeat(4)));
 
 /*
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -130,7 +130,7 @@ console.log("myObject:", JSON.stringify(myObject, null, ' '.repeat(4)));
     ```
 */
 const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
-console.log("myArray:", JSON.stringify(myArray, null, ' '.repeat(4)));
+console.log("myArray:", JSON.stringify(myArray, null, " ".repeat(4)));
 
 /*
     5. support passing functions as arguments to other functions
@@ -266,4 +266,4 @@ const myObject2 = {
         "foo": "bar"
     }
 };
-console.log('myObject2["my_function"](7, 5):', myObject2["my_function"](7, 5));
+console.log(`myObject2["my_function"](7, 5): ${myObject2["my_function"](7, 5)}`);

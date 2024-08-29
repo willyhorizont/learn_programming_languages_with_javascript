@@ -1,4 +1,4 @@
-console.log('\n// Custom Error and Error Handling in JavaScript');
+console.log("\n// Custom Error and Error Handling in JavaScript");
 
 const giveMeRespect = (parameter) => {
     // Custom Error

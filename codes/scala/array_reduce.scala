@@ -1,6 +1,11 @@
-def MyObject(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+import scala.collection.mutable
+
+def MyObject(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))
+
 def MyArray(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.empty[Any] else arrayItems.toArray[Any])
+
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
+
 def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String = "    "): String = {
     var indentLevel: Int = 0
     def jsonStringifyInner(anythingInner: Any, indentInner: String): String = {
@@ -19,13 +24,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
             return result
         }
-        if (anythingInner.isInstanceOf[Map[_, _]]) {
-            if (anythingInner.asInstanceOf[Map[String, Any]].size == 0) return "{}"
+        if (anythingInner.isInstanceOf[mutable.Map[_, _]]) {
+            if (anythingInner.asInstanceOf[mutable.Map[String, Any]].size == 0) return "{}"
             indentLevel += 1
             var result: String = (if (pretty == true) s"{\n${indentInner * indentLevel}" else "{")
-            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[Map[String, Any]].toArray[Any].zipWithIndex) {
+            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[mutable.Map[String, Any]].toArray[Any].zipWithIndex) {
                 result += s"\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
-                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[mutable.Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}}" else "}")
@@ -103,7 +108,7 @@ var productsGrouped: Any = null
 
 println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
-productsGrouped = arrayReduce(((currentResult: Any, currentProduct: Any, _: Int, _: Array[Any]) => (if (currentProduct.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any), products, MyObject("expensive" -> MyArray(), "cheap" -> MyArray()))
+productsGrouped = arrayReduce(((currentResult: Any, currentProduct: Any, _: Int, _: Array[Any]) => (if (currentProduct.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any), products, MyObject("expensive" -> MyArray(), "cheap" -> MyArray()))
 println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 // grouped products: {
 //     "expensive": [
@@ -130,7 +135,7 @@ println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 
 println("// using Scala Array.reduce() built-in method \"Array.reduce()\"")
 
-productsGrouped = (MyArray(MyObject("expensive" -> MyArray(), "cheap" -> MyArray())) ++ products).reduce(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
+productsGrouped = (MyArray(MyObject("expensive" -> MyArray(), "cheap" -> MyArray())) ++ products).reduce(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
 println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 // grouped products: {
 //     "expensive": [
@@ -157,7 +162,7 @@ println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 
 println("// using Scala Array.reduce() built-in method \"Array.fold()()\"")
 
-productsGrouped = products.fold(MyObject("expensive" -> MyArray(), "cheap" -> MyArray()).asInstanceOf[Any])(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
+productsGrouped = products.fold(MyObject("expensive" -> MyArray(), "cheap" -> MyArray()).asInstanceOf[Any])(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
 println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 // grouped products: {
 //     "expensive": [
@@ -184,7 +189,7 @@ println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 
 println("// using Scala Array.reduce() built-in method \"Array.foldLeft()()\"")
 
-productsGrouped = products.foldLeft(MyObject("expensive" -> MyArray(), "cheap" -> MyArray()).asInstanceOf[Any])(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[Map[String, Any]]) + ("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
+productsGrouped = products.foldLeft(MyObject("expensive" -> MyArray(), "cheap" -> MyArray()).asInstanceOf[Any])(((currentResult: Any, currentProduct: Any) => (if (currentProduct.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 100) ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("expensive" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("expensive").asInstanceOf[Array[Any]]) :+ currentProduct))) else ((MyObject() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]) ++ MyObject("cheap" -> ((MyArray() ++ currentResult.asInstanceOf[mutable.Map[String, Any]]("cheap").asInstanceOf[Array[Any]]) :+ currentProduct)))): Any))
 println(s"grouped products: ${jsonStringify(productsGrouped, pretty = true)}")
 // grouped products: {
 //     "expensive": [

@@ -88,3 +88,13 @@ numbersTotal = numbers.reduce(0.0) { (currentResult: Any?, currentNumber: Any?) 
 }
 print("total number: \(numbersTotal ?? "null")")
 // total number: 41.2
+
+/*
+, let
+, jsonStringify
+() -> Any?
+nil
+result = result
+if let
+guard let
+*/

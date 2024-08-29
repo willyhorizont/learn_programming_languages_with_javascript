@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 println("Hello, World!")
 
 var something: Any = "foo"
@@ -92,3 +94,5 @@ def MyArrayV2(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.emp
 def MyObjectV1(anObject: Any): Map[String, Any] = if (anObject.asInstanceOf[Map[String, Any]].size == 0) Map.empty[String, Any].asInstanceOf[Map[String, Any]] else anObject.asInstanceOf[Map[String, Any]]
 
 def MyObjectV2(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+
+def MyObjectV3(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))

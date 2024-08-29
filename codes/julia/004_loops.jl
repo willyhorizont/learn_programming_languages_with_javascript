@@ -1,6 +1,6 @@
 # while loop
 
-i = 1
+i::Any = 1
 while (true)
     global i
     if (i === 2)
@@ -13,7 +13,7 @@ while (true)
     i += 1
 end
 
-i = 1
+i::Any = 1
 while (i <= 5)
     global i
     if (i === 2)

@@ -85,3 +85,6 @@ to run Raku code:
 to run Scala code:
 1. cd codes/scala
 2. scala filename.scala
+
+https://github.com/willyhorizont
+https://github.com/willyhorizont/learn_programming_languages_with_javascript

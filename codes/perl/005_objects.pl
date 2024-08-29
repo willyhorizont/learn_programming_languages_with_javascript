@@ -56,11 +56,11 @@ my %friend1 = (
 );
 print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
 
-print("friend1, get country: ", $friend1{"country"}, "\n");
-# friend1, get country: Finland
-
 print("friend1, get total object keys: ", scalar(keys(%friend1)), "\n");
 # friend1, get total object keys: 3
+
+print("friend1, get country: ", $friend1{"country"}, "\n");
+# friend1, get country: Finland
 
 # iterate over and get each key-value pair
 my @friend1_entries1 = %friend1;
@@ -123,6 +123,25 @@ foreach my $object_key (keys(%friend1)) {
 # friend1, forEach loop, object iteration/entry index: 1, key: country, value: Finland
 # friend1, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
+$friend1{"age"} = 27;
+print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+
+$friend1{"gender"} = "Female";
+print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+
+delete $friend1{"country"};
+print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+
+# Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+my $delivery_response1_key_message = "message";
+my %delivery_response1 = (
+    $delivery_response1_key_message => "ok"
+);
+print("delivery_response1: ", json_stringify(\%delivery_response1, "pretty" => 1), "\n");
+my $delivery_response1_key_status = "status";
+$delivery_response1{$delivery_response1_key_status} = 200;
+print("delivery_response1: ", json_stringify(\%delivery_response1, "pretty" => 1), "\n");
+
 # initialization v2
 my $friend2 = {
     "name" => "Alisa",
@@ -131,17 +150,18 @@ my $friend2 = {
 };
 print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
 
+print("friend2, get total object keys: ", scalar(keys(%{$friend2})), "\n");
+# friend2, get total object keys: 3
+
 print("friend2, get country: ", $$friend2{"country"}, "\n");
 # friend2, get country: Finland
 
 print("friend2, get country: ", ${$friend2}{"country"}, "\n");
 # friend2, get country: Finland
 
+# (the best way)
 print("friend2, get country: ", $friend2->{"country"}, "\n");
 # friend2, get country: Finland
-
-print("friend2, get total object keys: ", scalar(keys(%{$friend2})), "\n");
-# friend2, get total object keys: 3
 
 # iterate over and get each key-value pair
 my @friend2_entries1 = %{$friend2};
@@ -232,3 +252,22 @@ foreach my $object_key (keys(%{$friend2})) {
 # friend2, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
 # friend2, forEach loop, object iteration/entry index: 1, key: country, value: Finland
 # friend2, forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+$friend2->{"age"} = 27;
+print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+
+$friend2->{"gender"} = "Female";
+print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+
+delete $friend2->{"country"};
+print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+
+# Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+my $delivery_response2_key_message = "message";
+my $delivery_response2 = {
+    $delivery_response2_key_message => "ok"
+};
+print("delivery_response2: ", json_stringify($delivery_response2, "pretty" => 1), "\n");
+my $delivery_response2_key_status = "status";
+$delivery_response2->{$delivery_response2_key_status} = 200;
+print("delivery_response2: ", json_stringify($delivery_response2, "pretty" => 1), "\n");

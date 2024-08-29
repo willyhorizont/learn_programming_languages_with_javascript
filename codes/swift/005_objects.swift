@@ -57,36 +57,36 @@ func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String 
 
 // in Swift, JavaScript-like Object is called Dictionary
 
-let friend: MyObject = [
+var friend: MyObject = [
     "name": "Alisa",
     "country": "Finland",
     "age": 25
 ]
 print("friend: \(jsonStringify(friend, pretty: true))")
 
-print("friend, get country: \((friend["country"] ?? "null") ?? "null")")
+print("friend, get total object keys: \(friend.count)")
+// friend, get total object keys: 3
+
+print("friend, get country: \(friend["country"] as? String ?? "null")")
 // friend, get country: Finland
 
-print("friend, get country:", { () -> Any? in
+print("friend, get country:", { () -> String in
     // this is called optional binding
-    if let result = friend["country"] {
+    if let result = friend["country"] as? String {
         return result
     }
     return "null"
 }())
 // friend, get country: Finland
 
-print("friend, get country:", { () -> Any? in
+print("friend, get country:", { () -> String in
     // this is called optional binding
-    guard let result = friend["country"], let result = result else {
+    guard let result = friend["country"] as? String else {
         return "null"
     }
     return result
 }())
 // friend, get country: Finland
-
-print("friend, get total object keys: \(friend.count)")
-// friend, get total object keys: 3
 
 // iterate over and get each key-value pair
 for (objectKey, objectValue) in friend {
@@ -103,3 +103,22 @@ for (objectEntryIndex, (objectKey, objectValue)) in friend.enumerated() {
 // friend, for loop, object iteration/entry index: 0, key: name, value: Alisa
 // friend, for loop, object iteration/entry index: 1, key: country, value: Finland
 // friend, for loop, object iteration/entry index: 2, key: age, value: 25
+
+friend["age"] = 27
+print("friend: \(jsonStringify(friend, pretty: true))")
+
+friend["gender"] = "Female"
+print("friend: \(jsonStringify(friend, pretty: true))")
+
+friend.removeValue(forKey: "country")
+print("friend: \(jsonStringify(friend, pretty: true))")
+
+// Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+let deliveryResponseKeyMessage = "message"
+var deliveryResponse: MyObject = [
+    deliveryResponseKeyMessage: "ok"
+]
+print("deliveryResponse: \(jsonStringify(deliveryResponse, pretty: true))")
+let deliveryResponseKeyStatus = "status"
+deliveryResponse[deliveryResponseKeyStatus] = 200
+print("deliveryResponse: \(jsonStringify(deliveryResponse, pretty: true))")

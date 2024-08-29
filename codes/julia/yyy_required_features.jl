@@ -1,5 +1,5 @@
 function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
-    indent_level = 0
+    indent_level::Any = 0
     function json_stringify_inner(anything_inner, indent_inner::String)::String
         if (anything_inner === nothing) return "null" end
         if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
@@ -7,26 +7,26 @@ function json_stringify(anything; pretty::Bool = false, indent::String = "    ")
         if (isa(anything_inner, Array) === true)
             if (length(anything_inner) == 0) return "[]" end
             indent_level += 1
-            result = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
+            result_array::Any = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
             for (array_item_index, array_item) in enumerate(anything_inner)
-                result *= json_stringify_inner(array_item, indent_inner)
-                if (array_item_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+                result_array *= json_stringify_inner(array_item, indent_inner)
+                if (array_item_index !== length(anything_inner)) result_array *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
             end
             indent_level -= 1
-            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
-            return result
+            result_array *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
+            return result_array
         end
         if (isa(anything_inner, Dict) === true)
             if (length(anything_inner) == 0) return "{}" end
             indent_level += 1
-            result = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
+            result_object::Any = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
             for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
-                result *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
-                if (object_entry_index !== length(anything_inner)) result *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
+                result_object *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
+                if (object_entry_index !== length(anything_inner)) result_object *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
             end
             indent_level -= 1
-            result *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
-            return result
+            result_object *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
+            return result_object
         end
         return "null"
     end
@@ -53,7 +53,7 @@ end
     type Any interface{}
     ```
 =#
-something = "foo"
+something::Any = "foo"
 println("something: ", json_stringify(something, pretty=true))
 something = 123
 println("something: ", json_stringify(something, pretty=true))
@@ -61,9 +61,9 @@ something = true
 println("something: ", json_stringify(something, pretty=true))
 something = nothing
 println("something: ", json_stringify(something, pretty=true))
-something = [1, 2, 3]
+something = Any[1, 2, 3]
 println("something: ", json_stringify(something, pretty=true))
-something = Dict("foo" => "bar")
+something = Dict{String, Any}("foo" => "bar")
 println("something: ", json_stringify(something, pretty=true))
 
 #=
@@ -98,7 +98,7 @@ println("something: ", json_stringify(something, pretty=true))
     ```
 =#
 function get_modified_indent_level()
-    indent_level = 0
+    indent_level::Any = 0
     function change_indent_level()
         indent_level += 1
         if (indent_level < 5) change_indent_level() end
@@ -108,7 +108,7 @@ function get_modified_indent_level()
 end
 println("get_modified_indent_level(): ", get_modified_indent_level())
 function create_new_game(initial_credit)
-    current_credit = initial_credit
+    current_credit::Any = initial_credit
     println("initial credit: ", initial_credit)
     return ()-> begin
         current_credit -= 1
@@ -119,7 +119,7 @@ function create_new_game(initial_credit)
         println("playing game, $(current_credit) credit(s) remaining")
     end
 end
-play_game = create_new_game(3)
+play_game::Any = create_new_game(3)
 play_game()
 play_game()
 play_game()
@@ -140,13 +140,13 @@ play_game()
     console.log("myObject:", myObject);
     ```
 =#
-my_object = Dict(
+my_object::Any = Dict{String, Any}(
     "my_string" => "foo",
     "my_number" => 123,
     "my_bool" => true,
     "my_null" => nothing,
-    "my_array" => [1, 2, 3],
-    "my_object" => Dict(
+    "my_array" => Any[1, 2, 3],
+    "my_object" => Dict{String, Any}(
         "foo" => "bar"
     )
 )
@@ -159,7 +159,7 @@ println("my_object: ", json_stringify(my_object, pretty=true))
     console.log("myArray:", myArray);
     ```
 =#
-my_array = ["foo", 123, true, nothing, [1, 2, 3], Dict("foo" => "bar")]
+my_array::Any = Any["foo", 123, true, nothing, Any[1, 2, 3], Dict{String, Any}("foo" => "bar")]
 println("my_array: ", json_stringify(my_array, pretty=true))
 
 #=
@@ -208,8 +208,8 @@ function multiply(a)
         return (a * b)
     end
 end
-multiply_by2 = multiply(2)
-multiply_by2_result = multiply_by2(10)
+multiply_by2::Any = multiply(2)
+multiply_by2_result::Any = multiply_by2(10)
 println("multiply_by2_result: ", multiply_by2_result)
 
 #=
@@ -227,15 +227,15 @@ println("multiply_by2_result: ", multiply_by2_result)
     console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
     ```
 =#
-get_rectangle_area_v1 = function (rectangle_width, rectangle_length)
+get_rectangle_area_v1::Any = function (rectangle_width, rectangle_length)
     return (rectangle_width * rectangle_length)
 end
 println("get_rectangle_area_v1(7, 5): ", get_rectangle_area_v1(7, 5))
-get_rectangle_area_v2 = (rectangle_width, rectangle_length) -> begin
+get_rectangle_area_v2::Any = (rectangle_width, rectangle_length) -> begin
     return (rectangle_width * rectangle_length)
 end
 println("get_rectangle_area_v2(7, 5): ", get_rectangle_area_v2(7, 5))
-get_rectangle_area_v3 = (rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
+get_rectangle_area_v3::Any = (rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
 println("get_rectangle_area_v3(7, 5): ", get_rectangle_area_v3(7, 5))
 
 #=
@@ -270,7 +270,7 @@ println("get_rectangle_area_v3(7, 5): ", get_rectangle_area_v3(7, 5))
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
 =#
-my_array2 = [
+my_array2::Any = Any[
     function (a, b)
         return (a * b)
     end,
@@ -278,12 +278,12 @@ my_array2 = [
     123,
     true,
     nothing,
-    [1, 2, 3],
-    Dict("foo" => "bar")
+    Any[1, 2, 3],
+    Dict{String, Any}("foo" => "bar")
 ]
 println("myArray2[0](7, 5): ", my_array2[1](7, 5))
 
-my_object2 = Dict(
+my_object2::Any = Dict{String, Any}(
     "my_function" => function (a, b)
         return (a * b)
     end,
@@ -291,8 +291,8 @@ my_object2 = Dict(
     "my_number" => 123,
     "my_bool" => true,
     "my_null" => nothing,
-    "my_array" => [1, 2, 3],
-    "my_object" => Dict(
+    "my_array" => Any[1, 2, 3],
+    "my_object" => Dict{String, Any}(
         "foo" => "bar"
     )
 )

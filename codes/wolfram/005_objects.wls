@@ -25,11 +25,11 @@ Friend = {
 };
 *)
 
-Print["Friend, get country: ", Friend[["country"]]];
-(* Friend, get country: Finland *)
-
 Print["Friend, get total object keys: ", Length[Friend]];
 (* Friend, get total object keys: 3 *)
+
+Print["Friend, get country: ", Friend[["country"]]];
+(* Friend, get country: Finland *)
 
 (* iterate over and get each key-value pair and object iteration/entry index *)
 Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
@@ -56,3 +56,22 @@ Module[{ObjectIterationIndex},
 (* Friend, forEach loop v2, object iteration/entry index: 1, key: "name", value: "Alisa" *)
 (* Friend, forEach loop v2, object iteration/entry index: 2, key: "country", value: "Finland" *)
 (* Friend, forEach loop v2, object iteration/entry index: 3, key: "age", value: 25 *)
+
+Friend["age"] = 27
+Print["Friend: ", JsonStringify[Friend, "Pretty" -> True]];
+
+Friend["gender"] = "Female"
+Print["Friend: ", JsonStringify[Friend, "Pretty" -> True]];
+
+Friend["country"] = .
+Print["Friend: ", JsonStringify[Friend, "Pretty" -> True]];
+
+(* Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names *)
+DeliveryResponseKeyMessage = "message";
+DeliveryResponse = <|
+    DeliveryResponseKeyMessage -> "ok"
+|>;
+Print["DeliveryResponse: ", JsonStringify[DeliveryResponse, "Pretty" -> True]];
+DeliveryResponseKeyStatus = "status";
+DeliveryResponse[DeliveryResponseKeyStatus] = 200;
+Print["DeliveryResponse: ", JsonStringify[DeliveryResponse, "Pretty" -> True]];

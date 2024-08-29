@@ -179,13 +179,13 @@ friend = struct( ...
     "country", {"Finland"}, ...
     "age", {25} ...
 );
-sprint("friend: ", jsonstringify(friend, false));
-
-sprint("friend, get country: ", friend.("country"));
-% friend, get country: Finland
+sprint("friend: ", jsonstringify(friend, true));
 
 sprint("friend, get total object keys: ", {numel(fieldnames(friend))});
 % friend, get total object keys: 3
+
+sprint("friend, get country: ", friend.("country"));
+% friend, get country: Finland
 
 % iterate over and get each key-value pair and object iteration/entry index
 objectkeys = fieldnames(friend);
@@ -197,3 +197,22 @@ end
 % friend, for loop and also forEach loop, object iteration/entry index: 0, key: name, value: Alisa
 % friend, for loop and also forEach loop, object iteration/entry index: 1, key: country, value: Finland
 % friend, for loop and also forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+friend.age = 27;
+sprint("friend: ", jsonstringify(friend, true));
+
+friend.("gender") = "Female";
+sprint("friend: ", jsonstringify(friend, true));
+
+friend = rmfield(friend, "country");
+sprint("friend: ", jsonstringify(friend, true));
+
+% Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+deliveryresponsekeymessage = "message";
+deliveryresponse = struct( ...
+    deliveryresponsekeymessage, "ok" ...
+);
+sprint("deliveryresponse: ", jsonstringify(deliveryresponse, true));
+deliveryresponsekeystatus = "status";
+deliveryresponse.(deliveryresponsekeystatus) = 200;
+sprint("deliveryresponse: ", jsonstringify(deliveryresponse, true));

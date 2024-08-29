@@ -1,6 +1,11 @@
-def MyObject(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+import scala.collection.mutable
+
+def MyObject(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))
+
 def MyArray(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.empty[Any] else arrayItems.toArray[Any])
+
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
+
 def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String = "    "): String = {
     var indentLevel: Int = 0
     def jsonStringifyInner(anythingInner: Any, indentInner: String): String = {
@@ -19,13 +24,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
             return result
         }
-        if (anythingInner.isInstanceOf[Map[_, _]]) {
-            if (anythingInner.asInstanceOf[Map[String, Any]].size == 0) return "{}"
+        if (anythingInner.isInstanceOf[mutable.Map[_, _]]) {
+            if (anythingInner.asInstanceOf[mutable.Map[String, Any]].size == 0) return "{}"
             indentLevel += 1
             var result: String = (if (pretty == true) s"{\n${indentInner * indentLevel}" else "{")
-            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[Map[String, Any]].toArray[Any].zipWithIndex) {
+            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[mutable.Map[String, Any]].toArray[Any].zipWithIndex) {
                 result += s"\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
-                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[mutable.Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}}" else "}")
@@ -41,13 +46,13 @@ println("\n// JavaScript-like Spread Syntax (...) in Scala")
 // There's no JavaScript-like Spread Syntax (...) in Scala.
 // But, we can create our own function to mimic it in Scala.
 
-val arrayToObject = new Function1[Array[Any], Map[String, Any]] {
-    def apply(anArray: Array[Any]): Map[String, Any] = {
-        var newObject = MyObject()
+val arrayToObject = new Function1[Array[Any], mutable.Map[String, Any]] {
+    def apply(anArray: Array[Any]): mutable.Map[String, Any] = {
+        val newObject = MyObject()
         for ((arrayItem, arrayItemIndex) <- anArray.asInstanceOf[Array[Any]].zipWithIndex) {
-            newObject = (newObject + (arrayItemIndex.toString -> arrayItem))
+            newObject(arrayItemIndex.toString) = arrayItem
         }
-        return newObject: Map[String, Any]
+        return newObject: mutable.Map[String, Any]
     }
 }
 
@@ -169,7 +174,7 @@ println(s"combination8: ${jsonStringify(combination8, pretty = true)}")
 
 println("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
-val combination9 = ((MyObject() ++ countryCapitalsInAsia) + ("countryCapitalsInEurope" -> countryCapitalsInEurope))
+val combination9 = ((MyObject() ++ countryCapitalsInAsia) ++ MyObject("countryCapitalsInEurope" -> countryCapitalsInEurope))
 println(s"combination9: ${jsonStringify(combination9, pretty = true)}")
 // combination9: {
 //     "Thailand": "Bangkok",
@@ -181,7 +186,7 @@ println(s"combination9: ${jsonStringify(combination9, pretty = true)}")
 //     }
 // }
 
-val combination10 = ((MyObject() ++ countryCapitalsInAsia) + ("countryCapitalsInEurope" -> MyObject("Germany" -> "Berlin", "Italy" -> "Rome")))
+val combination10 = ((MyObject() ++ countryCapitalsInAsia) ++ MyObject("countryCapitalsInEurope" -> MyObject("Germany" -> "Berlin", "Italy" -> "Rome")))
 println(s"combination10: ${jsonStringify(combination10, pretty = true)}")
 // combination10: {
 //     "Thailand": "Bangkok",
@@ -195,7 +200,7 @@ println(s"combination10: ${jsonStringify(combination10, pretty = true)}")
 
 println("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
-val combination11 = ((MyObject() ++ countryCapitalsInAsia) + ("vegetables" -> vegetables))
+val combination11 = ((MyObject() ++ countryCapitalsInAsia) ++ MyObject("vegetables" -> vegetables))
 println(s"combination11: ${jsonStringify(combination11, pretty = true)}")
 // combination11: {
 //     "Thailand": "Bangkok",
@@ -207,7 +212,7 @@ println(s"combination11: ${jsonStringify(combination11, pretty = true)}")
 //     ]
 // }
 
-val combination12 = ((MyObject() ++ countryCapitalsInAsia) + ("vegetables" -> MyArray("Cucumber", "Cabbage")))
+val combination12 = ((MyObject() ++ countryCapitalsInAsia) ++ MyObject("vegetables" -> MyArray("Cucumber", "Cabbage")))
 println(s"combination12: ${jsonStringify(combination12, pretty = true)}")
 // combination12: {
 //     "Thailand": "Bangkok",

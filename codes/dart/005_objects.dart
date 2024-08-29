@@ -12,6 +12,21 @@ void main() {
 
     // in Dart, JavaScript-like Object is called Map
 
+	// Create using Map.fromEntries()
+	// final friend = Map<String, dynamic>.fromEntries([
+	// 	   MapEntry("name", "Alisa"),
+	// 	   MapEntry("country", "Finland"),
+	//     MapEntry("age", 25),
+	// ]);
+
+	// Create using Map.of()
+	// final friend = Map<String, dynamic>.of({
+	// 	  "name": "Alisa",
+	// 	  "country": "Finland",
+	//    "age": 25,
+	// });
+
+	// Create using Map Literal (the best way)
     final friend = <String, dynamic>{
         "name": "Alisa",
         "country": "Finland",
@@ -19,13 +34,13 @@ void main() {
     };
     print("friend: ${jsonStringify(friend, pretty: true)}");
 
-    print('friend, get country: ${friend["country"]}');
-    // friend, get country: Finland
-
     print('friend, get total object keys: ${friend.length}');
     // friend, get total object keys: 3
 
-    // iterate over and get each key-value pair
+    print('friend, get country: ${friend["country"]}');
+    // friend, get country: Finland
+
+	// iterate over and get each key-value pair
     friend.entries.forEach((dynamic objectEntry) {
         final objectKey = objectEntry.key;
         final objectValue = objectEntry.value;
@@ -62,4 +77,23 @@ void main() {
     // friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
     // friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
     // friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+	friend["age"] = 27;
+	print("friend: ${jsonStringify(friend, pretty: true)}");
+
+	friend["gender"] = "Female";
+	print("friend: ${jsonStringify(friend, pretty: true)}");
+
+	friend.remove("country");
+	print("friend: ${jsonStringify(friend, pretty: true)}");
+
+	// Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+	final deliveryResponseKeyMessage = "message";
+	final deliveryResponse = <String, dynamic>{
+        deliveryResponseKeyMessage: "ok"
+    };
+    print("deliveryResponse: ${jsonStringify(deliveryResponse, pretty: true)}");
+	final deliveryResponseKeyStatus = "status";
+  	deliveryResponse[deliveryResponseKeyStatus] = 200;
+    print("deliveryResponse: ${jsonStringify(deliveryResponse, pretty: true)}");
 }

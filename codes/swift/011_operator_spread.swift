@@ -120,14 +120,14 @@ print("fruits: \(jsonStringify(fruits))")
 let vegetables: MyArray = ["Carrot", "Tomato"]
 print("vegetables: \(jsonStringify(vegetables))")
 
-let countryCapitalsInAsia: MyObject = [
+var countryCapitalsInAsia: MyObject = [
     "Thailand": "Bangkok",
     "China": "Beijing",
     "Japan": "Tokyo"
 ]
 print("countryCapitalsInAsia: \(jsonStringify(countryCapitalsInAsia, pretty: true))")
 
-let countryCapitalsInEurope: MyObject = [
+var countryCapitalsInEurope: MyObject = [
     "France": "Paris",
     "England": "London"
 ]

@@ -8,15 +8,15 @@ end
 
 # Error Handling
 try
-    response = give_me_respect("boo!")
-    println(response)
+    response_1::Any = give_me_respect("boo!")
+    println(response_1)
 catch an_exception
     println(an_exception.msg)
 end
 println("I'm so sorry!")
 
 # Without Error Handling
-response = give_me_respect("boo!")
+response_2::Any = give_me_respect("boo!")
 # this will never executed
-println(response)
+println(response_2)
 println("I'm so sorry!")

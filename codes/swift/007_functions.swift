@@ -76,7 +76,7 @@ func addition(a: Int, b: Int) -> Int {
     return (a + b)
 }
 
-let simpleCalculator: MyObject = [
+var simpleCalculator: MyObject = [
     "addition": addition,
     "subtraction": { (a: Int, b: Int) -> Int in
         return (a - b)

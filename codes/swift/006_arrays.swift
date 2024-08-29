@@ -63,113 +63,109 @@ print("fruits: \(jsonStringify(fruits))")
 print("fruits, length:", fruits.count)
 // fruits, length: 3
 
-print("fruits, get mango:", jsonStringify(fruits[1] ?? "null", pretty: true))
+print("fruits, get mango:", (fruits[1] as? String ?? "null"))
 // fruits, get mango: "mango"
 
-print("fruits, get mango:", jsonStringify({ () -> Any? in
+print("fruits, get mango:", { () -> String in
     // this is called optional binding
-    if let result = fruits[1] {
+    if let result = fruits[1] as? String {
         return result
     }
-    return nil
-}(), pretty: true))
+    return "null"
+}())
 // fruits, get mango: "mango"
 
-print("fruits, get mango:", jsonStringify({ () -> Any? in
+print("fruits, get mango:", { () -> String in
     // this is called optional binding
-    guard let result = fruits[1] else {
-        return nil
+    guard let result = fruits[1] as? String else {
+        return "null"
     }
     return result
-}(), pretty: true))
+}())
 // fruits, get mango: "mango"
 
-print("fruits, first element:", jsonStringify((fruits.first ?? "null") ?? "null", pretty: true))
+print("fruits, first element:", (fruits.first as? String ?? "null"))
 // fruits, first element: "apple"
 
-print("fruits, first element:", jsonStringify({ () -> Any? in
+print("fruits, first element:", { () -> String in
     // this is called optional binding
-    if let result = fruits.first {
-        if let result = result {
-            return result
-        }
-    }
-    return nil
-}(), pretty: true))
-// fruits, first element: "apple"
-
-print("fruits, first element:", jsonStringify({ () -> Any? in
-    // this is called optional binding
-    guard let result = fruits.first, let result = result else {
-        return nil
-    }
-    return result
-}(), pretty: true))
-// fruits, first element: "apple"
-
-print("fruits, first element:", jsonStringify(fruits[0] ?? "null", pretty: true))
-// fruits, first element: "apple"
-
-print("fruits, first element:", jsonStringify({ () -> Any? in
-    // this is called optional binding
-    if let result = fruits[0] {
+    if let result = fruits.first as? String {
         return result
     }
-    return nil
-}(), pretty: true))
+    return "null"
+}())
 // fruits, first element: "apple"
 
-print("fruits, first element:", jsonStringify({ () -> Any? in
+print("fruits, first element:", { () -> String in
     // this is called optional binding
-    guard let result = fruits[0] else {
-        return nil
+    guard let result = fruits.first as? String else {
+        return "null"
     }
     return result
-}(), pretty: true))
+}())
 // fruits, first element: "apple"
 
-print("fruits, last element:", jsonStringify(fruits[fruits.count - 1] ?? "null", pretty: true))
-// fruits, last element: "orange"
+print("fruits, first element:", (fruits[0] as? String ?? "null"))
+// fruits, first element: "apple"
 
-print("fruits, last element:", jsonStringify({ () -> Any? in
+print("fruits, first element:", { () -> String in
     // this is called optional binding
-    if let result = fruits[fruits.count - 1] {
+    if let result = fruits[0] as? String {
         return result
     }
-    return nil
-}(), pretty: true))
-// fruits, last element: "orange"
+    return "null"
+}())
+// fruits, first element: "apple"
 
-print("fruits, last element:", jsonStringify({ () -> Any? in
+print("fruits, first element:", { () -> String in
     // this is called optional binding
-    guard let result = fruits[fruits.count - 1] else {
-        return nil
+    guard let result = fruits[0] as? String else {
+        return "null"
     }
     return result
-}(), pretty: true))
+}())
+// fruits, first element: "apple"
+
+print("fruits, last element:", (fruits[fruits.count - 1] as? String ?? "null"))
 // fruits, last element: "orange"
 
-print("fruits, last element:", jsonStringify((fruits.last ?? "null") ?? "null", pretty: true))
-// fruits, last element: "orange"
-
-print("fruits, last element:", jsonStringify({ () -> Any? in
+print("fruits, last element:", { () -> String in
     // this is called optional binding
-    if let result = fruits.last {
-        if let result = result {
-            return result
-        }
+    if let result = fruits[fruits.count - 1] as? String {
+        return result
     }
-    return nil
-}(), pretty: true))
+    return "null"
+}())
 // fruits, last element: "orange"
 
-print("fruits, last element:", jsonStringify({ () -> Any? in
+print("fruits, last element:", { () -> String in
     // this is called optional binding
-    guard let result = fruits.last, let result = result else {
-        return nil
+    guard let result = fruits[fruits.count - 1] as? String else {
+        return "null"
     }
     return result
-}(), pretty: true))
+}())
+// fruits, last element: "orange"
+
+print("fruits, last element:", (fruits.last as? String ?? "null"))
+// fruits, last element: "orange"
+
+print("fruits, last element:", { () -> String in
+    // this is called optional binding
+    if let result = fruits.last as? String {
+        return result
+    }
+    return "null"
+}())
+// fruits, last element: "orange"
+
+print("fruits, last element:", { () -> String in
+    // this is called optional binding
+    guard let result = fruits.last as? String else {
+        return "null"
+    }
+    return result
+}())
 // fruits, last element: "orange"
 
 for (arrayItemIndex, arrayItem) in fruits.enumerated() {

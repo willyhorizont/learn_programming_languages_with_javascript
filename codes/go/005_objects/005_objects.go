@@ -103,13 +103,13 @@ func main() {
     }
     sPrintln("friend: ", jsonStringify(friend, object{"pretty": true}))
 
+	sPrintln("friend, get total object keys: ", array{len(friend)})
+	// friend, get total object keys: 3
+
     sPrintln("friend, get country: ", friend["country"])
     // friend, get country: Finland
 
-    sPrintln("friend, get total object keys: ", array{len(friend)})
-    // friend, get total object keys: 3
-
-    // iterate over and get each key-value pair
+	// iterate over and get each key-value pair
     for objectKey, objectValue := range friend {
         sPrintln("friend, for loop, key: ", objectKey, ", value: ", objectValue)
     }
@@ -126,4 +126,23 @@ func main() {
     // friend, for loop, object iteration/entry index: 0 ,key: name, value: Alisa
     // friend, for loop, object iteration/entry index: 1 ,key: country, value: Finland
     // friend, for loop, object iteration/entry index: 2 ,key: age, value: 25
+
+	friend["age"] = 27
+	sPrintln("friend: ", jsonStringify(friend, object{"pretty": true}))
+
+	friend["gender"] = "Female"
+	sPrintln("friend: ", jsonStringify(friend, object{"pretty": true}))
+
+	delete(friend, "country")
+	sPrintln("friend: ", jsonStringify(friend, object{"pretty": true}))
+
+	// Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+	deliveryResponseKeyMessage := "message"
+	deliveryResponse := object{
+        deliveryResponseKeyMessage: "ok",
+    }
+    sPrintln("deliveryResponse: ", jsonStringify(deliveryResponse, object{"pretty": true}))
+	deliveryResponseKeyStatus := "status"
+	deliveryResponse[deliveryResponseKeyStatus] = 200
+    sPrintln("deliveryResponse: ", jsonStringify(deliveryResponse, object{"pretty": true}))
 }

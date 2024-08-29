@@ -1,6 +1,11 @@
-def MyObject(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+import scala.collection.mutable
+
+def MyObject(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))
+
 def MyArray(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.empty[Any] else arrayItems.toArray[Any])
+
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
+
 def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String = "    "): String = {
     var indentLevel: Int = 0
     def jsonStringifyInner(anythingInner: Any, indentInner: String): String = {
@@ -19,13 +24,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
             return result
         }
-        if (anythingInner.isInstanceOf[Map[_, _]]) {
-            if (anythingInner.asInstanceOf[Map[String, Any]].size == 0) return "{}"
+        if (anythingInner.isInstanceOf[mutable.Map[_, _]]) {
+            if (anythingInner.asInstanceOf[mutable.Map[String, Any]].size == 0) return "{}"
             indentLevel += 1
             var result: String = (if (pretty == true) s"{\n${indentInner * indentLevel}" else "{")
-            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[Map[String, Any]].toArray[Any].zipWithIndex) {
+            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[mutable.Map[String, Any]].toArray[Any].zipWithIndex) {
                 result += s"\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
-                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[mutable.Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}}" else "}")
@@ -120,7 +125,7 @@ var productFound: Any = null
 
 println("// using JavaScript-like Array.find() function \"arrayFindV1\"")
 
-productFound = arrayFindV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean), products)
+productFound = arrayFindV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean), products)
 println(s"product found: ${jsonStringify(productFound, pretty = true)}")
 // product found: {
 //     "code":"bubble_gum",
@@ -129,7 +134,7 @@ println(s"product found: ${jsonStringify(productFound, pretty = true)}")
 
 println("// using JavaScript-like Array.find() function \"arrayFindV2\"")
 
-productFound = arrayFindV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean), products)
+productFound = arrayFindV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean), products)
 println(s"product found: ${jsonStringify(productFound, pretty = true)}")
 // product found: {
 //     "code":"bubble_gum",
@@ -138,7 +143,7 @@ println(s"product found: ${jsonStringify(productFound, pretty = true)}")
 
 println("// using Scala Array.find() built-in method \"Array.find().getOrElse(null)\"")
 
-productFound = products.find(((product: Any) => (product.asInstanceOf[Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean)).getOrElse(null)
+productFound = products.find(((product: Any) => (product.asInstanceOf[mutable.Map[String, Any]]("code").asInstanceOf[String] == productToFind): Boolean)).getOrElse(null)
 println(s"product found: ${jsonStringify(productFound, pretty = true)}")
 // product found: {
 //     "code":"bubble_gum",

@@ -17,7 +17,7 @@
 
 println("\n# basic conditional control flow\n")
 
-my_age = 10
+my_age::Any = 10
 println("my_age: ", my_age)
 if (my_age > 24)
     println("you are old")
@@ -29,8 +29,8 @@ end
 
 println("\n# equal to (==)\n")
 
-correct_answer = 100
-my_answer = 100.0
+correct_answer::Any = 100
+my_answer::Any = 100.0
 println("my_answer: ", my_answer)
 println("correct_answer: ", correct_answer)
 println("(my_answer == correct_answer): ")
@@ -42,8 +42,8 @@ end
 
 println("\n# not equal to (!=)\n")
 
-correct_answer = 100
-my_answer = 25.0
+correct_answer::Any = 100
+my_answer::Any = 25.0
 println("my_answer: ", my_answer)
 println("correct_answer: ", correct_answer)
 println("(my_answer !== correct_answer): ")
@@ -55,8 +55,8 @@ end
 
 println("\n# identical to (===)\n")
 
-correct_answer = 100
-my_answer = 100.0
+correct_answer::Any = 100
+my_answer::Any = 100.0
 println("my_answer: ", my_answer)
 println("correct_answer: ", correct_answer)
 println("(my_answer === correct_answer): ")
@@ -68,8 +68,8 @@ end
 
 println("\n# not identical to (!==)\n")
 
-correct_answer = 100
-my_answer = 25.0
+correct_answer::Any = 100
+my_answer::Any = 25.0
 println("my_answer: ", my_answer)
 println("correct_answer: ", correct_answer)
 println("(my_answer !== correct_answer): ")
@@ -81,56 +81,56 @@ end
 
 println("\n# greater than (>)\n")
 
-my_age = 70
+my_age::Any = 70
 println("my_age: ", my_age)
 println("(my_age > 50): ")
 if (my_age > 50) println("You are old") end
 
 println("\n# less than (<)\n")
 
-my_age = 16
+my_age::Any = 16
 println("my_age: ", my_age)
 println("(my_age < 20): ")
 if (my_age < 20) println("You are young") end
 
 println("\n# greater than or equal to (>=)\n")
 
-my_age = 73
+my_age::Any = 73
 println("my_age: ", my_age)
 println("(my_age >= 65): ")
 if (my_age >= 65) println("You are allowed to retire") end
 
 println("\n# less than or equal to (<=)\n")
 
-my_age = 14
+my_age::Any = 14
 println("my_age: ", my_age)
 println("(my_age <= 16): ")
 if (my_age <= 16) println("You are not allowed to drive") end
 
 println("\n# Logical AND (&&)\n")
 
-my_age = 17
+my_age::Any = 17
 println("my_age: ", my_age)
-has_driving_license = false
+has_driving_license::Any = false
 println("has_driving_license: ", has_driving_license)
 println("((my_age >= 17) && (has_driving_license === true)): ")
 if ((my_age >= 17) && (has_driving_license === true)) println("You are allowed to drive") else println("You are not allowed to drive") end
 
-my_age = 17
+my_age::Any = 17
 println("my_age: ", my_age)
-has_driving_license = true
+has_driving_license::Any = true
 println("has_driving_license: ", has_driving_license)
 println("((my_age >= 17) && (has_driving_license === true)): ")
 if ((my_age >= 17) && (has_driving_license === true)) println("You are allowed to drive") else println("You are not allowed to drive") end
 
 println("\n# Logical OR (||)\n")
 
-my_age = 2
+my_age::Any = 2
 println("my_age: ", my_age)
 println("((my_age <= 3) || (my_age >= 65)): ")
 if ((my_age <= 3) || (my_age >= 65)) println("You should stay home") end
 
-my_age = 89
+my_age::Any = 89
 println("my_age: ", my_age)
 println("((my_age <= 3) || (my_age >= 65)): ")
 if ((my_age <= 3) || (my_age >= 65)) println("You should stay home") end
@@ -138,10 +138,10 @@ if ((my_age <= 3) || (my_age >= 65)) println("You should stay home") end
 
 println("\n# Logical NOT (!)\n")
 
-can_drive = false
+can_drive::Any = false
 println("can_drive:", can_drive)
 println("!can_drive:", !can_drive)
 
-can_drive = true
+can_drive::Any = true
 println("can_drive:", can_drive)
 println("!can_drive:", !can_drive)

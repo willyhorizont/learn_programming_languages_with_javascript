@@ -1,6 +1,11 @@
-def MyObject(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+import scala.collection.mutable
+
+def MyObject(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))
+
 def MyArray(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.empty[Any] else arrayItems.toArray[Any])
+
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
+
 def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String = "    "): String = {
     var indentLevel: Int = 0
     def jsonStringifyInner(anythingInner: Any, indentInner: String): String = {
@@ -19,13 +24,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
             return result
         }
-        if (anythingInner.isInstanceOf[Map[_, _]]) {
-            if (anythingInner.asInstanceOf[Map[String, Any]].size == 0) return "{}"
+        if (anythingInner.isInstanceOf[mutable.Map[_, _]]) {
+            if (anythingInner.asInstanceOf[mutable.Map[String, Any]].size == 0) return "{}"
             indentLevel += 1
             var result: String = (if (pretty == true) s"{\n${indentInner * indentLevel}" else "{")
-            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[Map[String, Any]].toArray[Any].zipWithIndex) {
+            for (((objectKey, objectValue), objectEntryIndex) <- anythingInner.asInstanceOf[mutable.Map[String, Any]].toArray[Any].zipWithIndex) {
                 result += s"\"${objectKey}\": ${jsonStringifyInner(objectValue, indentInner)}"
-                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((objectEntryIndex + 1) != anythingInner.asInstanceOf[mutable.Map[String, Any]].size) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}}" else "}")
@@ -138,40 +143,40 @@ var isAnyProductPriceMoreThan500: Any = null
 
 println("// using JavaScript-like Array.some() function \"arraySomeV1\"")
 
-isAnyProductPriceLessThan500 = arraySomeV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
+isAnyProductPriceLessThan500 = arraySomeV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
 println(s"is any product price < 500: ${isAnyProductPriceLessThan500}")
 // is any product price < 500: true
 
-isAnyProductPriceMoreThan500 = arraySomeV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
+isAnyProductPriceMoreThan500 = arraySomeV1(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
 println(s"is any product price > 500: ${isAnyProductPriceMoreThan500}")
 // is any product price > 500: false
 
 println("// using JavaScript-like Array.some() function \"arraySomeV2\"")
 
-isAnyProductPriceLessThan500 = arraySomeV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
+isAnyProductPriceLessThan500 = arraySomeV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
 println(s"is any product price < 500: ${isAnyProductPriceLessThan500}")
 // is any product price < 500: true
 
-isAnyProductPriceMoreThan500 = arraySomeV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
+isAnyProductPriceMoreThan500 = arraySomeV2(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
 println(s"is any product price > 500: ${isAnyProductPriceMoreThan500}")
 // is any product price > 500: false
 
 println("// using JavaScript-like Array.some() function \"arraySomeV3\"")
 
-isAnyProductPriceLessThan500 = arraySomeV3(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
+isAnyProductPriceLessThan500 = arraySomeV3(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean), products)
 println(s"is any product price < 500: ${isAnyProductPriceLessThan500}")
 // is any product price < 500: true
 
-isAnyProductPriceMoreThan500 = arraySomeV3(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
+isAnyProductPriceMoreThan500 = arraySomeV3(((product: Any, _: Int, _: Array[Any]) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean), products)
 println(s"is any product price > 500: ${isAnyProductPriceMoreThan500}")
 // is any product price > 500: false
 
 println("// using Scala Array.some() built-in method \"Array.exists()\"")
 
-isAnyProductPriceLessThan500 = products.exists(((product: Any) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean))
+isAnyProductPriceLessThan500 = products.exists(((product: Any) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] < 500): Boolean))
 println(s"is any product price < 500: ${isAnyProductPriceLessThan500}")
 // is any product price < 500: true
 
-isAnyProductPriceMoreThan500 = products.exists(((product: Any) => (product.asInstanceOf[Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean))
+isAnyProductPriceMoreThan500 = products.exists(((product: Any) => (product.asInstanceOf[mutable.Map[String, Any]]("price").asInstanceOf[Int] > 500): Boolean))
 println(s"is any product price > 500: ${isAnyProductPriceMoreThan500}")
 // is any product price > 500: false

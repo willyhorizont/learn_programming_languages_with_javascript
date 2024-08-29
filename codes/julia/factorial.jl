@@ -3,8 +3,8 @@ println("\n# Factorial(n) in Julia")
 function factorial_v1(number::Int)
     if (number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (number == 0) return 1 end
-    result = 1
-    i = number
+    result::Any = 1
+    i::Any = number
     while (true)
         result *= i
         if (i <= 1) break end
@@ -16,8 +16,8 @@ end
 function factorial_v2(number::Int)
     if (number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (number == 0) return 1 end
-    result = 1
-    i = number
+    result::Any = 1
+    i::Any = number
     while (i >= 1)
         result *= i
         i -= 1
@@ -28,7 +28,7 @@ end
 function factorial_v3(number::Int)
     if (number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (number == 0) return 1 end
-    result = 1
+    result::Any = 1
     for i in (number:-1:1) # (start:step:stop)
         result *= i
     end

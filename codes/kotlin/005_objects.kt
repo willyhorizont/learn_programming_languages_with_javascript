@@ -47,11 +47,11 @@ fun main() {
     )
     println("friend: ${jsonStringify(friend, pretty = true)}")
 
-    println("friend, get country: ${friend["country"]}")
-    // friend, get country: Finland
-
     println("friend, get total object keys: ${friend.entries.size}")
     // friend, get total object keys: 3
+
+    println("friend, get country: ${friend["country"]}")
+    // friend, get country: Finland
 
     // iterate over and get each key-value pair
     for ((objectKey, objectValue) in friend) {
@@ -76,4 +76,23 @@ fun main() {
     // friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
     // friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
     // friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+    friend["age"] = 27
+    println("friend: ${jsonStringify(friend, pretty = true)}")
+
+    friend["gender"] = "Female"
+    println("friend: ${jsonStringify(friend, pretty = true)}")
+
+    friend.remove("country")
+    println("friend: ${jsonStringify(friend, pretty = true)}")
+
+    // Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+    val deliveryResponseKeyMessage: Any? = "message"
+    val deliveryResponse = mutableMapOf<String, Any?>(
+        deliveryResponseKeyMessage.toString() to "ok"
+    )
+    println("deliveryResponse: ${jsonStringify(deliveryResponse, pretty = true)}")
+    val deliveryResponseKeyStatus: Any? = "status"
+    deliveryResponse[deliveryResponseKeyStatus.toString()] = 200
+    println("deliveryResponse: ${jsonStringify(deliveryResponse, pretty = true)}")
 }

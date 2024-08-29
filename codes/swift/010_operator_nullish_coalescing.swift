@@ -85,7 +85,7 @@ func optionalChaining(_ anything: Any? = nil, _ objectPropertiesArray: Any?...) 
     }
 }
 
-let JSON_OBJECT: MyObject = [
+var JSON_OBJECT: MyObject = [
     "foo": [
         "bar": "baz"
     ] as MyObject,
@@ -93,102 +93,16 @@ let JSON_OBJECT: MyObject = [
 ]
 print("JSON_OBJECT: \(jsonStringify(JSON_OBJECT, pretty: true))")
 
-print("// using Swift optional binding syntax \"if let\"")
-
-print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", jsonStringify({ () -> Any? in
-    if let result = JSON_OBJECT["foo"] as? MyObject {
-        if let result = result["bar"] {
-            if let result = result {
-                return result
-            }
-        }
-    }
-    return nil
-}() ?? "not found"))
-// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
-
-print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", jsonStringify({ () -> Any? in
-    if let result = JSON_OBJECT["foo"] as? MyObject {
-        if let result = result["baz"] {
-            if let result = result {
-                return result
-            }
-        }
-    }
-    return nil
-}() ?? "not found"))
-// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
-
-print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", jsonStringify({ () -> Any? in
-    if let result = JSON_OBJECT["fruits"] as? MyArray {
-        if let result = ((result.count > 2) ? result[2] : nil) {
-            return result
-        }
-    }
-    return nil
-}() ?? "not found"))
-// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
-
-print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", jsonStringify({ () -> Any? in
-    if let result = JSON_OBJECT["fruits"] as? MyArray {
-        if let result = ((result.count > 5) ? result[5] : nil) {
-            return result
-        }
-    }
-    return nil
-}() ?? "not found"))
-// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
-
-print("// using Swift optional binding syntax \"guard let\"")
-
-print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", jsonStringify({ () -> Any? in
-    guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["bar"] else {
-        return nil
-    }
-    return result
-}() ?? "not found"))
-// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
-
-print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", jsonStringify({ () -> Any? in
-    guard let result = JSON_OBJECT["foo"] as? MyObject, let result = result["baz"] else {
-        return nil
-    }
-    return result
-}() ?? "not found"))
-// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
-
-print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", jsonStringify({ () -> Any? in
-    guard let result = JSON_OBJECT["fruits"] as? MyArray else {
-        return nil
-    }
-    guard let result = ((result.count > 2) ? result[2] : nil) else {
-        return nil
-    }
-    return result
-}() ?? "not found"))
-// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
-
-print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", jsonStringify({ () -> Any? in
-    guard let result = JSON_OBJECT["fruits"] as? MyArray else {
-        return nil
-    }
-    guard let result = ((result.count > 5) ? result[5] : nil) else {
-        return nil
-    }
-    return result
-}() ?? "not found"))
-// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
-
 print("// using JavaScript-like Optional Chaining Operator (?.) function \"optionalChaining\"")
 
-print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", jsonStringify(optionalChaining(JSON_OBJECT, "foo", "bar") ?? "not found"))
-// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): "baz"
+print("(JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'):", (optionalChaining(JSON_OBJECT, "foo", "bar") as? String ?? "not found"))
+// (JSON_OBJECT?.foo?.bar ?? 'not found') or (JSON_OBJECT?.['foo']?.['bar'] ?? 'not found'): baz
 
-print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", jsonStringify(optionalChaining(JSON_OBJECT, "foo", "baz") ?? "not found"))
-// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): "not found"
+print("(JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'):", (optionalChaining(JSON_OBJECT, "foo", "baz") as? String ?? "not found"))
+// (JSON_OBJECT?.foo?.baz ?? 'not found') or (JSON_OBJECT?.['foo']?.['baz'] ?? 'not found'): not found
 
-print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", jsonStringify(optionalChaining(JSON_OBJECT, "fruits", 2) ?? "not found"))
-// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): "banana"
+print("(JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'):", (optionalChaining(JSON_OBJECT, "fruits", 2) as? String ?? "not found"))
+// (JSON_OBJECT?.fruits?.[2] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[2] ?? 'not found'): banana
 
-print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", jsonStringify(optionalChaining(JSON_OBJECT, "fruits", 5) ?? "not found"))
-// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): "not found"
+print("(JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'):", (optionalChaining(JSON_OBJECT, "fruits", 5) as? String ?? "not found"))
+// (JSON_OBJECT?.fruits?.[5] ?? 'not found') or (JSON_OBJECT?.['fruits']?.[5] ?? 'not found'): not found

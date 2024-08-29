@@ -54,11 +54,11 @@ class Program {
         };
         Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
 
-        Console.WriteLine($"Friend, get country: {Friend["country"]}");
-        // Friend, get country: Finland
-
         Console.WriteLine($"Friend, get total object keys: {((Dictionary<string, dynamic>)Friend).Count}");
         // Friend, get total object keys: 3
+
+        Console.WriteLine($"Friend, get country: {Friend["country"]}");
+        // Friend, get country: Finland
 
         int ObjectIterationIndex = 0;
         foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Friend) {
@@ -70,5 +70,30 @@ class Program {
         // Friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
         // Friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
         // Friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+        Friend["age"] = 27;
+        Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
+
+        Friend["gender"] = "Female";
+        Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
+
+        Friend["job"] = "Streamer";
+        Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
+
+        Friend.Add("address", "123 Main Street, Anytown, Finland");
+        Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
+
+        Friend.Remove("country");
+        Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
+
+        // Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+        dynamic DeliveryResponseKeyMessage = "message";
+        dynamic DeliveryResponse = new Dictionary<string, dynamic>() {
+            [DeliveryResponseKeyMessage] = "ok"
+        };
+        Console.WriteLine($"DeliveryResponse: {JsonStringify(DeliveryResponse, Pretty: true)}");
+        dynamic DeliveryResponseKeyStatus = "status";
+        DeliveryResponse[DeliveryResponseKeyStatus] = 200;
+        Console.WriteLine($"DeliveryResponse: {JsonStringify(DeliveryResponse, Pretty: true)}");
     }
 }

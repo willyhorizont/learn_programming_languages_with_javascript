@@ -53,11 +53,11 @@ Module Program
         }
         Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
 
-        Console.WriteLine("MyFriend, get country: " & MyFriend("country"))
-        ' MyFriend, get country: Finland
-
         Console.WriteLine("MyFriend, get total object keys: " & MyFriend.Count)
         ' MyFriend, get total object keys: 3
+
+        Console.WriteLine("MyFriend, get country: " & MyFriend("country"))
+        ' MyFriend, get country: Finland
 
         ' iterate over and get each key-value pair
         For Each ObjectEntry As KeyValuePair(Of String, Object) In MyFriend
@@ -80,5 +80,27 @@ Module Program
         ' MyFriend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
         ' MyFriend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
         ' MyFriend, forEach loop, object iteration/entry index: 2, key: age, value: 25
+
+        MyFriend("age") = 27
+        Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
+
+        MyFriend("gender") = "Female"
+        Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
+
+        MyFriend.Item("job") = "Streamer"
+        Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
+
+        MyFriend.Remove("country")
+        Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
+
+        ' Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+        Dim DeliveryResponseKeyMessage As Object = "message"
+        Dim DeliveryResponse As Object = New Dictionary(Of String, Object) From {
+            {DeliveryResponseKeyMessage, "ok"}
+        }
+        Console.WriteLine("DeliveryResponse: " & JsonStringify(DeliveryResponse, Pretty:=True))
+        Dim DeliveryResponseKeyStatus As Object = "status"
+        DeliveryResponse(DeliveryResponseKeyStatus) = 200
+        Console.WriteLine("DeliveryResponse: " & JsonStringify(DeliveryResponse, Pretty:=True))
     End Sub
 End Module
