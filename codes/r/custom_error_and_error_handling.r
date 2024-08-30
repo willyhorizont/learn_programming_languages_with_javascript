@@ -1,6 +1,6 @@
 cat("\n# Custom Error and Error Handling in R\n")
 
-giveMeRespect <- function(parameter) {
+give_me_respect <- function(parameter) {
     # Custom Error
     if (parameter != 0) stop("Error: You should give me \"respect\"!")
     return("Thank you for giving me \"respect\"!")
@@ -9,17 +9,17 @@ giveMeRespect <- function(parameter) {
 # Error Handling
 tryCatch(
     expr = {
-        response <- giveMeRespect("boo!")
+        response <- give_me_respect("boo!")
         cat(paste(sep = "", response, "\n"))
     },
-    error = function(anError) {
-        cat(paste(sep = "", conditionMessage(anError), "\n"))
+    error = function(an_error) {
+        cat(paste(sep = "", conditionMessage(an_error), "\n"))
     }
 )
 cat(paste(sep = "", "I'm sorry!", "\n"))
 
 # Without Error Handling
-response <- giveMeRespect("boo!")
+response <- give_me_respect("boo!")
 # this will never executed
 cat(paste(sep = "", response, "\n"))
 cat(paste(sep = "", "I'm sorry!", "\n"))

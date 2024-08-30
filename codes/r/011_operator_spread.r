@@ -1,46 +1,46 @@
-typeOf <- function(anything) {
+type_of <- function(anything) {
     if (is.list(anything) == FALSE) return(class(anything))
     if (length(anything) == 0) return("array")
     if (is.null(names(anything)) == TRUE) return("array")
     return("object")
 }
 
-jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
-    indentLevel <- 0
-    jsonStringifyInner <- function(anythingInner, indentInner) {
-        if (is.null(anythingInner)) return("null")
-        if (is.character(anythingInner)) return(paste(sep = "", "\"", anythingInner, "\""))
-        if (is.numeric(anythingInner) || is.logical(anythingInner)) return(paste(sep = "", anythingInner))
-        if (typeOf(anythingInner) == "array") {
-            if (length(anythingInner) == 0) return("[]")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indentInner, indentLevel)) else "[")
-            for (arrayItemIndex in seq_along(anythingInner)) {
-                arrayItem <- anythingInner[[arrayItemIndex]]
-                result <- paste(sep = "", result, jsonStringifyInner(arrayItem, indentInner))
-                if (arrayItemIndex != length(anythingInner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    indent_level <- 0
+    json_stringify_inner <- function(anything_inner, indent_inner) {
+        if (is.null(anything_inner)) return("null")
+        if (is.character(anything_inner)) return(paste(sep = "", "\"", anything_inner, "\""))
+        if (is.numeric(anything_inner) || is.logical(anything_inner)) return(paste(sep = "", anything_inner))
+        if (type_of(anything_inner) == "array") {
+            if (length(anything_inner) == 0) return("[]")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indent_inner, indent_level)) else "[")
+            for (array_item_index in seq_along(anything_inner)) {
+                array_item <- anything_inner[[array_item_index]]
+                result <- paste(sep = "", result, json_stringify_inner(array_item, indent_inner))
+                if (array_item_index != length(anything_inner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "]") else paste(sep = "", result, "]"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "]") else paste(sep = "", result, "]"))
             return(result)
         }
-        if (typeOf(anythingInner) == "object") {
-            if (length(names(anythingInner)) == 0) return("{}")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indentInner, indentLevel)) else "{")
-            for (objectEntryIndex in seq_along(anythingInner)) {
-                objectKey <- names(anythingInner)[objectEntryIndex]
-                objectValue <- anythingInner[[objectEntryIndex]]
-                result <- paste(sep = "", result, "\"", objectKey, "\": ", jsonStringifyInner(objectValue, indentInner))
-                if (objectEntryIndex != length(names(anythingInner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+        if (type_of(anything_inner) == "object") {
+            if (length(names(anything_inner)) == 0) return("{}")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indent_inner, indent_level)) else "{")
+            for (object_entry_index in seq_along(anything_inner)) {
+                object_key <- names(anything_inner)[object_entry_index]
+                object_value <- anything_inner[[object_entry_index]]
+                result <- paste(sep = "", result, "\"", object_key, "\": ", json_stringify_inner(object_value, indent_inner))
+                if (object_entry_index != length(names(anything_inner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "}") else paste(sep = "", result, "}"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "}") else paste(sep = "", result, "}"))
             return(result)
         }
         return("null")
     }
-    return(jsonStringifyInner(anything, indent))
+    return(json_stringify_inner(anything, indent))
 }
 
 # In R, we can use "c()" function to mimic JavaScript-like Spread Syntax (...) for Arrays
@@ -48,53 +48,53 @@ jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
 
 cc <- function(...) {
     parameters <- list(...)
-    newObject <- list()
-    for (parameterIndex in seq_along(parameters)) {
-        parameter <- parameters[[parameterIndex]]
-        parameterType <- typeOf(parameter)
-        if (parameterType == "object") {
-            for (objectKey in names(parameter)) {
-                objectValue <- parameter[[objectKey]]
-                newObject[[objectKey]] <- objectValue
+    new_object <- list()
+    for (parameter_index in seq_along(parameters)) {
+        parameter <- parameters[[parameter_index]]
+        parameter_type <- type_of(parameter)
+        if (parameter_type == "object") {
+            for (object_key in names(parameter)) {
+                object_value <- parameter[[object_key]]
+                new_object[[object_key]] <- object_value
             }
             next
         }
-        if (parameterType == "array") {
-            for (arrayItemIndex in seq_along(parameter)) {
-                arrayItem <- parameter[[arrayItemIndex]]
-                newObject[[as.character(arrayItemIndex)]] <- arrayItem
+        if (parameter_type == "array") {
+            for (array_item_index in seq_along(parameter)) {
+                array_item <- parameter[[array_item_index]]
+                new_object[[as.character(array_item_index)]] <- array_item
             }
             next
         }
     }
-    return(newObject)
+    return(new_object)
 }
 
 cat("\n# JavaScript-like Spread Syntax (...) in R\n")
 
 fruits <- list("Mango", "Melon", "Banana")
-cat(paste(sep = "", "fruits: ", jsonStringify(fruits), "\n"))
+cat(paste(sep = "", "fruits: ", json_stringify(fruits), "\n"))
 
 vegetables <- list("Carrot", "Tomato")
-cat(paste(sep = "", "vegetables: ", jsonStringify(vegetables), "\n"))
+cat(paste(sep = "", "vegetables: ", json_stringify(vegetables), "\n"))
 
-countryCapitalsInAsia <- list(
+country_capitals_in_asia <- list(
     Thailand = "Bangkok",
     China = "Beijing",
     Japan = "Tokyo"
 )
-cat(paste(sep = "", "countryCapitalsInAsia: ", jsonStringify(countryCapitalsInAsia, pretty = TRUE), "\n"))
+cat(paste(sep = "", "country_capitals_in_asia: ", json_stringify(country_capitals_in_asia, pretty = TRUE), "\n"))
 
-countryCapitalsInEurope <- list(
+country_capitals_in_europe <- list(
     France = "Paris",
     England = "London"
 )
-cat(paste(sep = "", "countryCapitalsInEurope: ", jsonStringify(countryCapitalsInEurope, pretty = TRUE), "\n"))
+cat(paste(sep = "", "country_capitals_in_europe: ", json_stringify(country_capitals_in_europe, pretty = TRUE), "\n"))
 
 cat("\n# [...array1, ...array2]:\n")
 
 combination1 <- c(fruits, vegetables)
-cat(paste(sep = "", "combination1: ", jsonStringify(combination1, pretty = TRUE), "\n"))
+cat(paste(sep = "", "combination1: ", json_stringify(combination1, pretty = TRUE), "\n"))
 # combination1: [
 #     "Mango",
 #     "Melon",
@@ -104,7 +104,7 @@ cat(paste(sep = "", "combination1: ", jsonStringify(combination1, pretty = TRUE)
 # ]
 
 combination2 <- c(fruits, list("Cucumber", "Cabbage"))
-cat(paste(sep = "", "combination2: ", jsonStringify(combination2, pretty = TRUE), "\n"))
+cat(paste(sep = "", "combination2: ", json_stringify(combination2, pretty = TRUE), "\n"))
 # combination2: [
 #     "Mango",
 #     "Melon",
@@ -115,8 +115,8 @@ cat(paste(sep = "", "combination2: ", jsonStringify(combination2, pretty = TRUE)
 
 cat("\n# { ...object1, ...object2 }:\n")
 
-combination3 <- cc(countryCapitalsInAsia, countryCapitalsInEurope)
-cat(paste(sep = "", "combination3: ", jsonStringify(combination3, pretty = TRUE), "\n"))
+combination3 <- cc(country_capitals_in_asia, country_capitals_in_europe)
+cat(paste(sep = "", "combination3: ", json_stringify(combination3, pretty = TRUE), "\n"))
 # combination3: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -125,8 +125,8 @@ cat(paste(sep = "", "combination3: ", jsonStringify(combination3, pretty = TRUE)
 #     "England": "London"
 # }
 
-combination4 <- cc(countryCapitalsInAsia, list(Germany = "Berlin", Italy = "Rome"))
-cat(paste(sep = "", "combination4: ", jsonStringify(combination4, pretty = TRUE), "\n"))
+combination4 <- cc(country_capitals_in_asia, list(Germany = "Berlin", Italy = "Rome"))
+cat(paste(sep = "", "combination4: ", json_stringify(combination4, pretty = TRUE), "\n"))
 # combination4: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -138,7 +138,7 @@ cat(paste(sep = "", "combination4: ", jsonStringify(combination4, pretty = TRUE)
 cat("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
 combination5 <- c(fruits, list(vegetables))
-cat(paste(sep = "", "combination5: ", jsonStringify(combination5, pretty = TRUE), "\n"))
+cat(paste(sep = "", "combination5: ", json_stringify(combination5, pretty = TRUE), "\n"))
 # combination5: [
 #     "Mango",
 #     "Melon",
@@ -150,7 +150,7 @@ cat(paste(sep = "", "combination5: ", jsonStringify(combination5, pretty = TRUE)
 # ]
 
 combination6 <- c(fruits, list(list("Cucumber", "Cabbage")))
-cat(paste(sep = "", "combination6: ", jsonStringify(combination6, pretty = TRUE), "\n"))
+cat(paste(sep = "", "combination6: ", json_stringify(combination6, pretty = TRUE), "\n"))
 # combination6: [
 #     "Mango",
 #     "Melon",
@@ -163,8 +163,8 @@ cat(paste(sep = "", "combination6: ", jsonStringify(combination6, pretty = TRUE)
 
 cat("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-combination7 <- c(fruits, list(countryCapitalsInAsia))
-cat(paste(sep = "", "combination7: ", jsonStringify(combination7, pretty = TRUE), "\n"))
+combination7 <- c(fruits, list(country_capitals_in_asia))
+cat(paste(sep = "", "combination7: ", json_stringify(combination7, pretty = TRUE), "\n"))
 # combination7: [
 #     "Mango",
 #     "Melon",
@@ -177,7 +177,7 @@ cat(paste(sep = "", "combination7: ", jsonStringify(combination7, pretty = TRUE)
 # ]
 
 combination8 <- c(fruits, list(list(Germany = "Berlin", Italy = "Rome")))
-cat(paste(sep = "", "combination8: ", jsonStringify(combination8, pretty = TRUE), "\n"))
+cat(paste(sep = "", "combination8: ", json_stringify(combination8, pretty = TRUE), "\n"))
 # combination8: [
 #     "Mango",
 #     "Melon",
@@ -188,36 +188,36 @@ cat(paste(sep = "", "combination8: ", jsonStringify(combination8, pretty = TRUE)
 #     }
 # ]
 
-cat("\n# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
+cat("\n# { ...object1, object2 } || { ...object1, object_key: object_value }:\n")
 
-combination9 <- cc(countryCapitalsInAsia, list(countryCapitalsInEurope = countryCapitalsInEurope))
-cat(paste(sep = "", "combination9: ", jsonStringify(combination9, pretty = TRUE), "\n"))
+combination9 <- cc(country_capitals_in_asia, list(country_capitals_in_europe = country_capitals_in_europe))
+cat(paste(sep = "", "combination9: ", json_stringify(combination9, pretty = TRUE), "\n"))
 # combination9: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
 #    "Japan" : "Tokyo",
-#    "countryCapitalsInEurope" : {
+#    "country_capitals_in_europe" : {
 #       "France" : "Paris",
 #       "England" : "London"
 #    }
 # }
 
-combination10 <- cc(countryCapitalsInAsia, list(countryCapitalsInEurope = list(Germany = "Berlin", Italy = "Rome")))
-cat(paste(sep = "", "combination10: ", jsonStringify(combination10, pretty = TRUE), "\n"))
+combination10 <- cc(country_capitals_in_asia, list(country_capitals_in_europe = list(Germany = "Berlin", Italy = "Rome")))
+cat(paste(sep = "", "combination10: ", json_stringify(combination10, pretty = TRUE), "\n"))
 # combination10: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
 #     "Japan": "Tokyo",
-#     "countryCapitalsInEurope": {
+#     "country_capitals_in_europe": {
 #         "Germany": "Berlin",
 #         "Italy": "Rome"
 #     }
 # }
 
-cat("\n# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
+cat("\n# { ...object1, array2 } || { ...object1, object_key: object_value }:\n")
 
-combination11 <- cc(countryCapitalsInAsia, list(vegetables = vegetables))
-cat(paste(sep = "", "combination11: ", jsonStringify(combination11, pretty = TRUE), "\n"))
+combination11 <- cc(country_capitals_in_asia, list(vegetables = vegetables))
+cat(paste(sep = "", "combination11: ", json_stringify(combination11, pretty = TRUE), "\n"))
 # combination11: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -228,8 +228,8 @@ cat(paste(sep = "", "combination11: ", jsonStringify(combination11, pretty = TRU
 #     ]
 # }
 
-combination12 <- cc(countryCapitalsInAsia, list(vegetables = list("Cucumber", "Cabbage")))
-cat(paste(sep = "", "combination12: ", jsonStringify(combination12, pretty = TRUE), "\n"))
+combination12 <- cc(country_capitals_in_asia, list(vegetables = list("Cucumber", "Cabbage")))
+cat(paste(sep = "", "combination12: ", json_stringify(combination12, pretty = TRUE), "\n"))
 # combination12: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -242,8 +242,8 @@ cat(paste(sep = "", "combination12: ", jsonStringify(combination12, pretty = TRU
 
 cat("\n# { ...object1, ...array2 }:\n")
 
-combination13 <- cc(countryCapitalsInAsia, vegetables)
-cat(paste(sep = "", "combination13: ", jsonStringify(combination13, pretty = TRUE), "\n"))
+combination13 <- cc(country_capitals_in_asia, vegetables)
+cat(paste(sep = "", "combination13: ", json_stringify(combination13, pretty = TRUE), "\n"))
 # combination13: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -252,8 +252,8 @@ cat(paste(sep = "", "combination13: ", jsonStringify(combination13, pretty = TRU
 #    "2" : "Tomato"
 # }
 
-combination14 <- cc(countryCapitalsInAsia, list("Cucumber", "Cabbage"))
-cat(paste(sep = "", "combination14: ", jsonStringify(combination14, pretty = TRUE), "\n"))
+combination14 <- cc(country_capitals_in_asia, list("Cucumber", "Cabbage"))
+cat(paste(sep = "", "combination14: ", json_stringify(combination14, pretty = TRUE), "\n"))
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -265,9 +265,9 @@ cat(paste(sep = "", "combination14: ", jsonStringify(combination14, pretty = TRU
 # cat("\n# [...array1, ...object1]: // this combination throw an error in JavaScript\n")
 
 # this combination throw an error in JavaScript
-# combinationErrorInJavascript1 <- c(fruits, countryCapitalsInAsia)
-# cat(paste(sep = "", "combinationErrorInJavascript1: ", jsonStringify(combinationErrorInJavascript1, pretty = TRUE), "\n"))
+# combination_error_in_javascript1 <- c(fruits, country_capitals_in_asia)
+# cat(paste(sep = "", "combination_error_in_javascript1: ", json_stringify(combination_error_in_javascript1, pretty = TRUE), "\n"))
 
 # this combination throw an error in JavaScript
-# combinationErrorInJavascript2 <- c(fruits, list(Germany = "Berlin", Italy = "Rome"))
-# cat(paste(sep = "", "combinationErrorInJavascript2: ", jsonStringify(combinationErrorInJavascript2, pretty = TRUE), "\n"))
+# combination_error_in_javascript2 <- c(fruits, list(Germany = "Berlin", Italy = "Rome"))
+# cat(paste(sep = "", "combination_error_in_javascript2: ", json_stringify(combination_error_in_javascript2, pretty = TRUE), "\n"))

@@ -1,5 +1,7 @@
 linters: linters_with_defaults(
-  cyclocomp_linter = NULL,
-  object_name_linter = NULL,
-  line_length_linter = NULL,
-  indentation_linter = indentation_linter(4))
+    object_length_linter = NULL,
+    commented_code_linter = NULL,
+    cyclocomp_linter = NULL,
+    object_name_linter = NULL,
+    line_length_linter = NULL,
+    indentation_linter = indentation_linter(4))

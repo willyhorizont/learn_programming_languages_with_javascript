@@ -1,62 +1,62 @@
 # ? function statement or function declaration and function expression at the same time
 
-getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
-    return(rectangleWidth * rectangleLength)
+get_rectangle_area_v1 <- function(rectangle_width, rectangle_length) {
+    return(rectangle_width * rectangle_length)
 }
 
-getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
+get_rectangle_area_v2 <- function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
 
 # ? anonymous function
-# function(rectangleWidth, rectangleLength) {
-#     return(rectangleWidth * rectangleLength)
+# function(rectangle_width, rectangle_length) {
+#     return(rectangle_width * rectangle_length)
 # }
-# function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
+# function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
 
 # ? Passing functions as arguments to other functions
 
-sayHello <- function(callbackFunction) {
+say_hello <- function(callback_function) {
     cat("hello\n")
-    callbackFunction()
+    callback_function()
 }
 
-sayHowAreYou <- function() {
+say_how_are_you <- function() {
     cat("how are you?\n")
 }
 
-sayHello(sayHowAreYou)
+say_hello(say_how_are_you)
 
-sayHello(function() {
+say_hello(function() {
     cat("how are you?\n")
 })
 
-sayHello(function() cat("how are you?\n"))
+say_hello(function() cat("how are you?\n"))
 
 # ? Assigning functions to variables or storing them in data structures
 
-getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
-    return(rectangleWidth * rectangleLength)
+get_rectangle_area_v1 <- function(rectangle_width, rectangle_length) {
+    return(rectangle_width * rectangle_length)
 }
 
-getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
+get_rectangle_area_v2 <- function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
 
-myArrayOfGetRectangleAreaFunctions <- list(
-    getRectangleAreaV1,
-    function(rectangleWidth, rectangleLength) {
-        return(rectangleWidth * rectangleLength)
+my_array_of_get_rectangle_area_functions <- list(
+    get_rectangle_area_v1,
+    function(rectangle_width, rectangle_length) {
+        return(rectangle_width * rectangle_length)
     },
-    function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
+    function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
 )
 
 # In R, when we store functions in a list, we should use double square brackets [[ ]] to access and call them.
-getRectangleAreaFunctionResult1 <- myArrayOfGetRectangleAreaFunctions[[1]](7, 5)
-getRectangleAreaFunctionResult2 <- myArrayOfGetRectangleAreaFunctions[[2]](7, 5)
-getRectangleAreaFunctionResult3 <- myArrayOfGetRectangleAreaFunctions[[3]](7, 5)
+get_rectangle_area_function_result1 <- my_array_of_get_rectangle_area_functions[[1]](7, 5)
+get_rectangle_area_function_result2 <- my_array_of_get_rectangle_area_functions[[2]](7, 5)
+get_rectangle_area_function_result3 <- my_array_of_get_rectangle_area_functions[[3]](7, 5)
 
 exponentiation <- function(a, b) {
     return(a ^ b)
 }
 
-simpleCalculator <- list(
+simple_calculator <- list(
     exponentiation = exponentiation,
     multiplication = function(a, b) {
         return(a * b)
@@ -64,45 +64,45 @@ simpleCalculator <- list(
     division = function(a, b) (a / b)
 )
 
-simpleCalculatorResult1 <- simpleCalculator$exponentiation(2, 4)
-simpleCalculatorResult2 <- simpleCalculator$multiplication(7, 5)
-simpleCalculatorResult3 <- simpleCalculator$multiplication(81, 9)
-simpleCalculatorResult1 <- simpleCalculator[["exponentiation"]](2, 4)
-simpleCalculatorResult2 <- simpleCalculator[["multiplication"]](7, 5)
-simpleCalculatorResult3 <- simpleCalculator[["multiplication"]](81, 9)
+simple_calculator_result1 <- simple_calculator$exponentiation(2, 4)
+simple_calculator_result2 <- simple_calculator$multiplication(7, 5)
+simple_calculator_result3 <- simple_calculator$multiplication(81, 9)
+simple_calculator_result1 <- simple_calculator[["exponentiation"]](2, 4)
+simple_calculator_result2 <- simple_calculator[["multiplication"]](7, 5)
+simple_calculator_result3 <- simple_calculator[["multiplication"]](81, 9)
 
 # ? Returning functions as values from other functions
 
-multiplyV1 <- function(a) {
-    multiplyBy <- function(b) {
+multiply_v1 <- function(a) {
+    multiply_by <- function(b) {
         return(a * b)
     }
-    return(multiplyBy)
+    return(multiply_by)
 }
-multiplyBy2 <- multiplyV1(2)
-multiplyBy2Result <- multiplyBy2(10) # 20
+multiply_by2 <- multiply_v1(2)
+multiply_by2_result <- multiply_by2(10) # 20
 
-multiplyV2 <- function(a) {
-    multiplyBy <- function(b) (a * b)
-    return(multiplyBy)
+multiply_v2 <- function(a) {
+    multiply_by <- function(b) (a * b)
+    return(multiply_by)
 }
-multiplyBy3 <- multiplyV2(3)
-multiplyBy3Result <- multiplyBy3(10) # 30
+multiply_by3 <- multiply_v2(3)
+multiply_by3_result <- multiply_by3(10) # 30
 
-multiplyV3 <- function(a) {
+multiply_v3 <- function(a) {
     return(function(b) (a * b))
 }
-multiplyBy4 <- multiplyV3(4)
-multiplyBy4Result <- multiplyBy4(10) # 40
+multiply_by4 <- multiply_v3(4)
+multiply_by4_result <- multiply_by4(10) # 40
 
-multiplyV4 <- function(a) {
+multiply_v4 <- function(a) {
     return(function(b) {
         return(a * b)
     })
 }
-multiplyBy5 <- multiplyV4(5)
-multiplyBy5Result <- multiplyBy5(10) # 50
+multiply_by5 <- multiply_v4(5)
+multiply_by5_result <- multiply_by5(10) # 50
 
-multiplyV5 <- function(a) function(b) (a * b)
-multiplyBy6 <- multiplyV5(6)
-multiplyBy6Result <- multiplyBy6(10) # 60
+multiply_v5 <- function(a) function(b) (a * b)
+multiply_by6 <- multiply_v5(6)
+multiply_by6_result <- multiply_by6(10) # 60

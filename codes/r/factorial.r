@@ -1,6 +1,6 @@
 cat("\n# Factorial(n) in R\n")
 
-factorialV1 <- function(number) {
+factorial_v1 <- function(number) {
     if (is.numeric(number) == FALSE) stop("Argument should be a number")
     if (number < 0) stop("Argument should be >= 0")
     if (number == 0) return(1)
@@ -14,7 +14,7 @@ factorialV1 <- function(number) {
     return(result)
 }
 
-factorialV2 <- function(number) {
+factorial_v2 <- function(number) {
     if (is.numeric(number) == FALSE) stop("Argument should be a number")
     if (number < 0) stop("Argument should be >= 0")
     if (number == 0) return(1)
@@ -27,7 +27,7 @@ factorialV2 <- function(number) {
     return(result)
 }
 
-factorialV3 <- function(number) {
+factorial_v3 <- function(number) {
     if (is.numeric(number) == FALSE) stop("Argument should be a number")
     if (number < 0) stop("Argument should be >= 0")
     if (number == 0) return(1)
@@ -38,25 +38,25 @@ factorialV3 <- function(number) {
     return(result)
 }
 
-factorialV4 <- function(number) {
+factorial_v4 <- function(number) {
     if (is.numeric(number) == FALSE) stop("Argument should be a number")
     if (number < 0) stop("Argument should be >= 0")
     if (number == 0) return(1)
-    return(number * factorialV4(number - 1))
+    return(number * factorial_v4(number - 1))
 }
 
-cat("# using factorial function \"factorialV1\"\n")
-cat(paste(sep = "", "Factorial(5): ", factorialV1(5), "\n"))
+cat("# using factorial function \"factorial_v1\"\n")
+cat(paste(sep = "", "Factorial(5): ", factorial_v1(5), "\n"))
 # Factorial(5): 120
 
-cat("# using factorial function \"factorialV2\"\n")
-cat(paste(sep = "", "Factorial(5): ", factorialV2(5), "\n"))
+cat("# using factorial function \"factorial_v2\"\n")
+cat(paste(sep = "", "Factorial(5): ", factorial_v2(5), "\n"))
 # Factorial(5): 120
 
-cat("# using factorial function \"factorialV3\"\n")
-cat(paste(sep = "", "Factorial(5): ", factorialV3(5), "\n"))
+cat("# using factorial function \"factorial_v3\"\n")
+cat(paste(sep = "", "Factorial(5): ", factorial_v3(5), "\n"))
 # Factorial(5): 120
 
-cat("# using factorial function \"factorialV4\"\n")
-cat(paste(sep = "", "Factorial(5): ", factorialV4(5), "\n"))
+cat("# using factorial function \"factorial_v4\"\n")
+cat(paste(sep = "", "Factorial(5): ", factorial_v4(5), "\n"))
 # Factorial(5): 120

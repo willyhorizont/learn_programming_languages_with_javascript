@@ -1,46 +1,46 @@
-typeOf <- function(anything) {
+type_of <- function(anything) {
     if (is.list(anything) == FALSE) return(class(anything))
     if (length(anything) == 0) return("array")
     if (is.null(names(anything)) == TRUE) return("array")
     return("object")
 }
 
-jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
-    indentLevel <- 0
-    jsonStringifyInner <- function(anythingInner, indentInner) {
-        if (is.null(anythingInner)) return("null")
-        if (is.character(anythingInner)) return(paste(sep = "", "\"", anythingInner, "\""))
-        if (is.numeric(anythingInner) || is.logical(anythingInner)) return(paste(sep = "", anythingInner))
-        if (typeOf(anythingInner) == "array") {
-            if (length(anythingInner) == 0) return("[]")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indentInner, indentLevel)) else "[")
-            for (arrayItemIndex in seq_along(anythingInner)) {
-                arrayItem <- anythingInner[[arrayItemIndex]]
-                result <- paste(sep = "", result, jsonStringifyInner(arrayItem, indentInner))
-                if (arrayItemIndex != length(anythingInner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    indent_level <- 0
+    json_stringify_inner <- function(anything_inner, indent_inner) {
+        if (is.null(anything_inner)) return("null")
+        if (is.character(anything_inner)) return(paste(sep = "", "\"", anything_inner, "\""))
+        if (is.numeric(anything_inner) || is.logical(anything_inner)) return(paste(sep = "", anything_inner))
+        if (type_of(anything_inner) == "array") {
+            if (length(anything_inner) == 0) return("[]")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indent_inner, indent_level)) else "[")
+            for (array_item_index in seq_along(anything_inner)) {
+                array_item <- anything_inner[[array_item_index]]
+                result <- paste(sep = "", result, json_stringify_inner(array_item, indent_inner))
+                if (array_item_index != length(anything_inner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "]") else paste(sep = "", result, "]"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "]") else paste(sep = "", result, "]"))
             return(result)
         }
-        if (typeOf(anythingInner) == "object") {
-            if (length(names(anythingInner)) == 0) return("{}")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indentInner, indentLevel)) else "{")
-            for (objectEntryIndex in seq_along(anythingInner)) {
-                objectKey <- names(anythingInner)[objectEntryIndex]
-                objectValue <- anythingInner[[objectEntryIndex]]
-                result <- paste(sep = "", result, "\"", objectKey, "\": ", jsonStringifyInner(objectValue, indentInner))
-                if (objectEntryIndex != length(names(anythingInner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+        if (type_of(anything_inner) == "object") {
+            if (length(names(anything_inner)) == 0) return("{}")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indent_inner, indent_level)) else "{")
+            for (object_entry_index in seq_along(anything_inner)) {
+                object_key <- names(anything_inner)[object_entry_index]
+                object_value <- anything_inner[[object_entry_index]]
+                result <- paste(sep = "", result, "\"", object_key, "\": ", json_stringify_inner(object_value, indent_inner))
+                if (object_entry_index != length(names(anything_inner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "}") else paste(sep = "", result, "}"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "}") else paste(sep = "", result, "}"))
             return(result)
         }
         return("null")
     }
-    return(jsonStringifyInner(anything, indent))
+    return(json_stringify_inner(anything, indent))
 }
 
 # 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
@@ -62,17 +62,17 @@ jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
 # type Any interface{}
 # ```
 something <- "foo"
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 something <- 123
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 something <- TRUE
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 something <- NULL
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 something <- list(1, 2, 3)
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 something <- list("foo" = "bar")
-cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"))
+cat(paste(sep = "", "something: ", json_stringify(something, pretty = TRUE), "\n"))
 
 # 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
 # ```javascript
@@ -103,32 +103,32 @@ cat(paste(sep = "", "something: ", jsonStringify(something, pretty = TRUE), "\n"
 # playGame();
 # playGame();
 # ```
-getModifiedIndentLevel <- function() {
-    indentLevel <- 0
-    changeIndentLevel <- function() {
-        indentLevel <<- (indentLevel + 1)
-        if (indentLevel < 5) changeIndentLevel()
-        return(indentLevel)
+get_modified_indent_level <- function() {
+    indent_level <- 0
+    change_indent_level <- function() {
+        indent_level <<- (indent_level + 1)
+        if (indent_level < 5) change_indent_level()
+        return(indent_level)
     }
-    return(changeIndentLevel())
+    return(change_indent_level())
 }
-cat(paste(sep = "", "getModifiedIndentLevel(): ", getModifiedIndentLevel(), "\n"))
-createNewGame <- function(initialCredit) {
-    currentCredit <- initialCredit
-    cat(paste(sep = "", "initial credit: ", initialCredit, "\n"))
+cat(paste(sep = "", "get_modified_indent_level(): ", get_modified_indent_level(), "\n"))
+create_new_game <- function(initial_credit) {
+    current_credit <- initial_credit
+    cat(paste(sep = "", "initial credit: ", initial_credit, "\n"))
     return(function() {
-        currentCredit <<- currentCredit - 1
-        if (currentCredit == 0) {
+        current_credit <<- current_credit - 1
+        if (current_credit == 0) {
             cat(paste(sep = "", "not enough credits", "\n"))
         } else {
-            cat(paste(sep = "", "playing game, ", currentCredit, " credit(s) remaining", "\n"))
+            cat(paste(sep = "", "playing game, ", current_credit, " credit(s) remaining", "\n"))
         }
     })
 }
-playGame <- createNewGame(3)
-playGame()
-playGame()
-playGame()
+play_game <- create_new_game(3)
+play_game()
+play_game()
+play_game()
 
 # 3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
 # ```javascript
@@ -144,7 +144,7 @@ playGame()
 # };
 # console.log("myObject:", myObject);
 # ```
-myObject <- list(
+my_object <- list(
     "my_string" = "foo",
     "my_number" = 123,
     "my_bool" = TRUE,
@@ -154,15 +154,15 @@ myObject <- list(
         "foo" = "bar"
     )
 )
-cat(paste(sep = "", "myObject: ", jsonStringify(myObject, pretty = TRUE), "\n"))
+cat(paste(sep = "", "my_object: ", json_stringify(my_object, pretty = TRUE), "\n"))
 
 # 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
 # ```javascript
 # const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
 # console.log("myArray:", myArray);
 # ```
-myArray <- list("foo", 123, TRUE, NULL, list(1, 2, 3), list("foo" = "bar"))
-cat(paste(sep = "", "myArray: ", jsonStringify(myArray, pretty = TRUE), "\n"))
+my_array <- list("foo", 123, TRUE, NULL, list(1, 2, 3), list("foo" = "bar"))
+cat(paste(sep = "", "my_array: ", json_stringify(my_array, pretty = TRUE), "\n"))
 
 # 5. support passing functions as arguments to other functions
 # ```javascript
@@ -178,15 +178,15 @@ cat(paste(sep = "", "myArray: ", jsonStringify(myArray, pretty = TRUE), "\n"))
 #     console.log("how are you?");
 # });
 # ```
-sayHello <- function(callbackFunction) {
+say_hello <- function(callback_function) {
     cat("hello\n")
-    callbackFunction()
+    callback_function()
 }
-sayHowAreYou <- function() {
+say_how_are_you <- function() {
     cat("how are you?\n")
 }
-sayHello(sayHowAreYou)
-sayHello(function() {
+say_hello(say_how_are_you)
+say_hello(function() {
     cat("how are you?\n")
 })
 
@@ -206,9 +206,9 @@ multiply <- function(a) {
         return(a * b)
     })
 }
-multiplyBy2 <- multiply(2)
-multiplyBy2Result <- multiplyBy2(10)
-cat(paste(sep = "", "multiplyBy2Result: ", multiplyBy2Result, "\n"))
+multiply_by2 <- multiply(2)
+multiply_by2_result <- multiply_by2(10)
+cat(paste(sep = "", "multiply_by2_result: ", multiply_by2_result, "\n"))
 
 # 7. support assigning functions to variables
 # ```javascript
@@ -223,12 +223,12 @@ cat(paste(sep = "", "multiplyBy2Result: ", multiplyBy2Result, "\n"))
 # const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
 # console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
 # ```
-getRectangleAreaV1 <- function(rectangleWidth, rectangleLength) {
-    return(rectangleWidth * rectangleLength)
+get_rectangle_area_v1 <- function(rectangle_width, rectangle_length) {
+    return(rectangle_width * rectangle_length)
 }
-cat(paste(sep = "", "getRectangleAreaV1(7, 5): ", getRectangleAreaV1(7, 5), "\n"))
-getRectangleAreaV2 <- function(rectangleWidth, rectangleLength) (rectangleWidth * rectangleLength)
-cat(paste(sep = "", "getRectangleAreaV2(7, 5): ", getRectangleAreaV2(7, 5), "\n"))
+cat(paste(sep = "", "get_rectangle_area_v1(7, 5): ", get_rectangle_area_v1(7, 5), "\n"))
+get_rectangle_area_v2 <- function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
+cat(paste(sep = "", "get_rectangle_area_v2(7, 5): ", get_rectangle_area_v2(7, 5), "\n"))
 
 # 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
 # ```javascript
@@ -260,7 +260,7 @@ cat(paste(sep = "", "getRectangleAreaV2(7, 5): ", getRectangleAreaV2(7, 5), "\n"
 # };
 # console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
 # ```
-myArray2 <- list(
+my_array2 <- list(
     function(a, b) {
         return(a * b)
     },
@@ -271,9 +271,9 @@ myArray2 <- list(
     list(1, 2, 3),
     list("foo" = "bar")
 )
-cat(paste(sep = "", "myArray2[0](7, 5): ", myArray2[[1]](7, 5), "\n"))
+cat(paste(sep = "", "my_array2[0](7, 5): ", my_array2[[1]](7, 5), "\n"))
 
-myObject2 <- list(
+my_object2 <- list(
     "my_function" = function(a, b) {
         return(a * b)
     },
@@ -286,4 +286,4 @@ myObject2 <- list(
         "foo" = "bar"
     )
 )
-cat(paste(sep = "", "myObject2[0](7, 5): ", myObject2[["my_function"]](7, 5), "\n"))
+cat(paste(sep = "", "my_object2[0](7, 5): ", my_object2[["my_function"]](7, 5), "\n"))

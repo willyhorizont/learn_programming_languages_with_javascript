@@ -1,4 +1,12 @@
 =============================changelog==========================================
+(2024/08[Aug]/31[Sat]|05:07[AM]/05:07)
+1.0.62
+New:
+change *.r from camelCase to snake_case
+finish set up R .lintr
+TODO:
+try groovy, f#, crystal, java
+=============================changelog==========================================
 (2024/08[Aug]/31[Sat]|03:48[AM]/03:48)
 1.0.61
 New:

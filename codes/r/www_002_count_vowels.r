@@ -7,26 +7,26 @@
 #     We will consider a, e, i, o, u as vowels for this Kata (but not y).
 #     The input string will only consist of lower case letters and/or spaces.
 
-countVowelsV1 <- function(aString) Reduce(function(currentResult, aCharacter) (if (aCharacter %in% list("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) currentResult + 1 else currentResult), strsplit(aString, split = "")[[1]], 0)
-cat(paste(sep = "", countVowelsV1("Hello World"), "\n")) # 3
+count_vowels_v1 <- function(a_string) Reduce(function(current_result, a_character) (if (a_character %in% list("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")) current_result + 1 else current_result), strsplit(a_string, split = "")[[1]], 0)
+cat(paste(sep = "", count_vowels_v1("Hello World"), "\n")) # 3
 
-countVowelsV2 <- function(aString) Reduce(function(currentResult, aCharacter) (if (toupper(aCharacter) %in% list("A", "I", "U", "E", "O")) currentResult + 1 else currentResult), strsplit(aString, split = "")[[1]], 0)
-cat(paste(sep = "", countVowelsV2("Hello World"), "\n")) # 3
+count_vowels_v2 <- function(a_string) Reduce(function(current_result, a_character) (if (toupper(a_character) %in% list("A", "I", "U", "E", "O")) current_result + 1 else current_result), strsplit(a_string, split = "")[[1]], 0)
+cat(paste(sep = "", count_vowels_v2("Hello World"), "\n")) # 3
 
-countVowelsV3 <- function(aString) Reduce(function(currentResult, aCharacter) (if (grepl(aCharacter, "aiueoAIUEO")) currentResult + 1 else currentResult), strsplit(aString, split = "")[[1]], 0)
-cat(paste(sep = "", countVowelsV3("Hello World"), "\n")) # 3
+count_vowels_v3 <- function(a_string) Reduce(function(current_result, a_character) (if (grepl(a_character, "aiueoAIUEO")) current_result + 1 else current_result), strsplit(a_string, split = "")[[1]], 0)
+cat(paste(sep = "", count_vowels_v3("Hello World"), "\n")) # 3
 
-countVowelsV4 <- function(aString) Reduce(function(currentResult, aCharacter) (if (grepl(toupper(aCharacter), "AIUEO")) currentResult + 1 else currentResult), strsplit(aString, split = "")[[1]], 0)
-cat(paste(sep = "", countVowelsV4("Hello World"), "\n")) # 3
+count_vowels_v4 <- function(a_string) Reduce(function(current_result, a_character) (if (grepl(toupper(a_character), "AIUEO")) current_result + 1 else current_result), strsplit(a_string, split = "")[[1]], 0)
+cat(paste(sep = "", count_vowels_v4("Hello World"), "\n")) # 3
 
-countVowelsV5 <- function(aString) length(Filter(function(aCharacter) (aCharacter %in% list("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")), strsplit(aString, split = "")[[1]]))
-cat(paste(sep = "", countVowelsV5("Hello World"), "\n")) # 3
+count_vowels_v5 <- function(a_string) length(Filter(function(a_character) (a_character %in% list("a", "i", "u", "e", "o", "A", "I", "U", "E", "O")), strsplit(a_string, split = "")[[1]]))
+cat(paste(sep = "", count_vowels_v5("Hello World"), "\n")) # 3
 
-countVowelsV6 <- function(aString) length(Filter(function(aCharacter) (toupper(aCharacter) %in% list("A", "I", "U", "E", "O")), strsplit(aString, split = "")[[1]]))
-cat(paste(sep = "", countVowelsV6("Hello World"), "\n")) # 3
+count_vowels_v6 <- function(a_string) length(Filter(function(a_character) (toupper(a_character) %in% list("A", "I", "U", "E", "O")), strsplit(a_string, split = "")[[1]]))
+cat(paste(sep = "", count_vowels_v6("Hello World"), "\n")) # 3
 
-countVowelsV7 <- function(aString) length(Filter(function(aCharacter) (grepl(aCharacter, "aiueoAIUEO")), strsplit(aString, split = "")[[1]]))
-cat(paste(sep = "", countVowelsV7("Hello World"), "\n")) # 3
+count_vowels_v7 <- function(a_string) length(Filter(function(a_character) (grepl(a_character, "aiueoAIUEO")), strsplit(a_string, split = "")[[1]]))
+cat(paste(sep = "", count_vowels_v7("Hello World"), "\n")) # 3
 
-countVowelsV8 <- function(aString) length(Filter(function(aCharacter) (grepl(toupper(aCharacter), "AIUEO")), strsplit(aString, split = "")[[1]]))
-cat(paste(sep = "", countVowelsV8("Hello World"), "\n")) # 3
+count_vowels_v8 <- function(a_string) length(Filter(function(a_character) (grepl(toupper(a_character), "AIUEO")), strsplit(a_string, split = "")[[1]]))
+cat(paste(sep = "", count_vowels_v8("Hello World"), "\n")) # 3

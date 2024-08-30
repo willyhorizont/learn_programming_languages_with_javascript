@@ -7,7 +7,7 @@ installed_packages <- installed.packages()
 print(installed_packages)
 
 global assignment operator (<<-) ```r
-newIncrementer <- function() {
+new_incrementer <- function() {
     something <- 0
     incr <- function() {
         something <<- something + 1
@@ -15,7 +15,7 @@ newIncrementer <- function() {
     }
     return(incr)
 }
-increment <- newIncrementer()
+increment <- new_incrementer()
 cat(paste(sep = "", "increment(): ", increment(), "\n"))
 cat(paste(sep = "", "increment(): ", increment(), "\n"))
 cat(paste(sep = "", "increment(): ", increment(), "\n"))

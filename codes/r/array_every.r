@@ -1,85 +1,85 @@
-typeOf <- function(anything) {
+type_of <- function(anything) {
     if (is.list(anything) == FALSE) return(class(anything))
     if (length(anything) == 0) return("array")
     if (is.null(names(anything)) == TRUE) return("array")
     return("object")
 }
 
-jsonStringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
-    indentLevel <- 0
-    jsonStringifyInner <- function(anythingInner, indentInner) {
-        if (is.null(anythingInner)) return("null")
-        if (is.character(anythingInner)) return(paste(sep = "", "\"", anythingInner, "\""))
-        if (is.numeric(anythingInner) || is.logical(anythingInner)) return(paste(sep = "", anythingInner))
-        if (typeOf(anythingInner) == "array") {
-            if (length(anythingInner) == 0) return("[]")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indentInner, indentLevel)) else "[")
-            for (arrayItemIndex in seq_along(anythingInner)) {
-                arrayItem <- anythingInner[[arrayItemIndex]]
-                result <- paste(sep = "", result, jsonStringifyInner(arrayItem, indentInner))
-                if (arrayItemIndex != length(anythingInner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
+    indent_level <- 0
+    json_stringify_inner <- function(anything_inner, indent_inner) {
+        if (is.null(anything_inner)) return("null")
+        if (is.character(anything_inner)) return(paste(sep = "", "\"", anything_inner, "\""))
+        if (is.numeric(anything_inner) || is.logical(anything_inner)) return(paste(sep = "", anything_inner))
+        if (type_of(anything_inner) == "array") {
+            if (length(anything_inner) == 0) return("[]")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "[\n", strrep(indent_inner, indent_level)) else "[")
+            for (array_item_index in seq_along(anything_inner)) {
+                array_item <- anything_inner[[array_item_index]]
+                result <- paste(sep = "", result, json_stringify_inner(array_item, indent_inner))
+                if (array_item_index != length(anything_inner)) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "]") else paste(sep = "", result, "]"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "]") else paste(sep = "", result, "]"))
             return(result)
         }
-        if (typeOf(anythingInner) == "object") {
-            if (length(names(anythingInner)) == 0) return("{}")
-            indentLevel <<- (indentLevel + 1)
-            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indentInner, indentLevel)) else "{")
-            for (objectEntryIndex in seq_along(anythingInner)) {
-                objectKey <- names(anythingInner)[objectEntryIndex]
-                objectValue <- anythingInner[[objectEntryIndex]]
-                result <- paste(sep = "", result, "\"", objectKey, "\": ", jsonStringifyInner(objectValue, indentInner))
-                if (objectEntryIndex != length(names(anythingInner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indentInner, indentLevel)) else paste(sep = "", result, ", "))
+        if (type_of(anything_inner) == "object") {
+            if (length(names(anything_inner)) == 0) return("{}")
+            indent_level <<- (indent_level + 1)
+            result <- (if (pretty == TRUE) paste(sep = "", "{\n", strrep(indent_inner, indent_level)) else "{")
+            for (object_entry_index in seq_along(anything_inner)) {
+                object_key <- names(anything_inner)[object_entry_index]
+                object_value <- anything_inner[[object_entry_index]]
+                result <- paste(sep = "", result, "\"", object_key, "\": ", json_stringify_inner(object_value, indent_inner))
+                if (object_entry_index != length(names(anything_inner))) result <- (if (pretty == TRUE) paste(sep = "", result, ",\n", strrep(indent_inner, indent_level)) else paste(sep = "", result, ", "))
             }
-            indentLevel <<- (indentLevel - 1)
-            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indentInner, indentLevel), "}") else paste(sep = "", result, "}"))
+            indent_level <<- (indent_level - 1)
+            result <- (if (pretty == TRUE) paste(sep = "", result, "\n", strrep(indent_inner, indent_level), "}") else paste(sep = "", result, "}"))
             return(result)
         }
         return("null")
     }
-    return(jsonStringifyInner(anything, indent))
+    return(json_stringify_inner(anything, indent))
 }
 
-arrayEveryV1 <- function(callbackFunction, anArray) {
+array_every_v1 <- function(callback_function, an_array) {
     # JavaScript-like Array.every() function
-    isConditionMatch <- FALSE
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == FALSE) break
+    is_condition_match <- FALSE
+    for (array_item_index in seq_along(an_array)) {
+        array_item <- an_array[[array_item_index]]
+        is_condition_match <- callback_function(array_item, array_item_index, an_array)
+        if (is_condition_match == FALSE) break
     }
-    return(isConditionMatch)
+    return(is_condition_match)
 }
 
-arrayEveryV2 <- function(callbackFunction, anArray) {
+array_every_v2 <- function(callback_function, an_array) {
     # JavaScript-like Array.every() function
-    isConditionMatch <- FALSE
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == FALSE) return(isConditionMatch)
+    is_condition_match <- FALSE
+    for (array_item_index in seq_along(an_array)) {
+        array_item <- an_array[[array_item_index]]
+        is_condition_match <- callback_function(array_item, array_item_index, an_array)
+        if (is_condition_match == FALSE) return(is_condition_match)
     }
-    return(isConditionMatch)
+    return(is_condition_match)
 }
 
-arrayEveryV3 <- function(callbackFunction, anArray) {
+array_every_v3 <- function(callback_function, an_array) {
     # JavaScript-like Array.every() function
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        isConditionMatch <- callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == FALSE) return(FALSE)
+    for (array_item_index in seq_along(an_array)) {
+        array_item <- an_array[[array_item_index]]
+        is_condition_match <- callback_function(array_item, array_item_index, an_array)
+        if (is_condition_match == FALSE) return(FALSE)
     }
     return(TRUE)
 }
 
-arrayEveryV4 <- function(callbackFunction, anArray) {
+array_every_v4 <- function(callback_function, an_array) {
     # JavaScript-like Array.every() function
-    for (arrayItemIndex in seq_along(anArray)) {
-        arrayItem <- anArray[[arrayItemIndex]]
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == FALSE) return(FALSE)
+    for (array_item_index in seq_along(an_array)) {
+        array_item <- an_array[[array_item_index]]
+        if (callback_function(array_item, array_item_index, an_array) == FALSE) return(FALSE)
     }
     return(TRUE)
 }
@@ -87,64 +87,64 @@ arrayEveryV4 <- function(callbackFunction, anArray) {
 cat("\n# JavaScript-like Array.every() in R list\n")
 
 numbers <- list(12, 34, 27, 23, 65, 93, 36, 87, 4, 254)
-cat(paste(sep = "", "numbers: ", jsonStringify(numbers), "\n"))
+cat(paste(sep = "", "numbers: ", json_stringify(numbers), "\n"))
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV1\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v1\"\n")
 
-isAllNumberLessThan500 <- arrayEveryV1(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- array_every_v1(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- arrayEveryV1(function(number, ...) (number > 500), numbers)
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- array_every_v1(function(number, ...) (number > 500), numbers)
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV2\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v2\"\n")
 
-isAllNumberLessThan500 <- arrayEveryV2(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- array_every_v2(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- arrayEveryV2(function(number, ...) (number > 500), numbers)
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- array_every_v2(function(number, ...) (number > 500), numbers)
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV3\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v3\"\n")
 
-isAllNumberLessThan500 <- arrayEveryV3(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- array_every_v3(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- arrayEveryV3(function(number, ...) (number > 500), numbers)
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- array_every_v3(function(number, ...) (number > 500), numbers)
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV4\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v4\"\n")
 
-isAllNumberLessThan500 <- arrayEveryV4(function(number, ...) (number < 500), numbers)
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- array_every_v4(function(number, ...) (number < 500), numbers)
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- arrayEveryV4(function(number, ...) (number > 500), numbers)
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- array_every_v4(function(number, ...) (number > 500), numbers)
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
 cat("# using R Array.every() built-in function \"all\"\n")
 
-isAllNumberLessThan500 <- all(sapply(numbers, function(number) (number < 500)))
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- all(sapply(numbers, function(number) (number < 500)))
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- all(sapply(numbers, function(number) (number > 500)))
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- all(sapply(numbers, function(number) (number > 500)))
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
-isAllNumberLessThan500 <- all((numbers < 500))
-cat(paste(sep = "", "is all number < 500: ", jsonStringify(isAllNumberLessThan500), "\n"))
+is_all_number_less_than500 <- all((numbers < 500))
+cat(paste(sep = "", "is all number < 500: ", json_stringify(is_all_number_less_than500), "\n"))
 # is all number < 500: true
 
-isAllNumberMoreThan500 <- all((numbers > 500))
-cat(paste(sep = "", "is all number > 500: ", jsonStringify(isAllNumberMoreThan500), "\n"))
+is_all_number_more_than500 <- all((numbers > 500))
+cat(paste(sep = "", "is all number > 500: ", json_stringify(is_all_number_more_than500), "\n"))
 # is all number > 500: false
 
 cat("\n# JavaScript-like Array.every() in R list of Associative-list\n")
@@ -167,54 +167,54 @@ products <- list(
         price = 499
     )
 )
-cat(paste(sep = "", "products: ", jsonStringify(products, pretty = TRUE), "\n"))
+cat(paste(sep = "", "products: ", json_stringify(products, pretty = TRUE), "\n"))
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV1\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v1\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV1(function(product, ...) (product[["price"]] < 500), products)
-cat(paste(sep = "", "is all product price < 500: ", jsonStringify(isAllProductPriceLessThan500), "\n"))
+is_all_product_price_less_than500 <- array_every_v1(function(product, ...) (product[["price"]] < 500), products)
+cat(paste(sep = "", "is all product price < 500: ", json_stringify(is_all_product_price_less_than500), "\n"))
 # is all product price < 500: true
 
-isAllProductPriceMoreThan500 <- arrayEveryV1(function(product, ...) (product[["price"]] > 500), products)
-cat(paste(sep = "", "is all product price > 500: ", jsonStringify(isAllProductPriceMoreThan500), "\n"))
+is_all_product_price_more_than500 <- array_every_v1(function(product, ...) (product[["price"]] > 500), products)
+cat(paste(sep = "", "is all product price > 500: ", json_stringify(is_all_product_price_more_than500), "\n"))
 # is all product price > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV2\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v2\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV2(function(product, ...) (product[["price"]] < 500), products)
-cat(paste(sep = "", "is all product price < 500: ", jsonStringify(isAllProductPriceLessThan500), "\n"))
+is_all_product_price_less_than500 <- array_every_v2(function(product, ...) (product[["price"]] < 500), products)
+cat(paste(sep = "", "is all product price < 500: ", json_stringify(is_all_product_price_less_than500), "\n"))
 # is all product price < 500: true
 
-isAllProductPriceMoreThan500 <- arrayEveryV2(function(product, ...) (product[["price"]] > 500), products)
-cat(paste(sep = "", "is all product price > 500: ", jsonStringify(isAllProductPriceMoreThan500), "\n"))
+is_all_product_price_more_than500 <- array_every_v2(function(product, ...) (product[["price"]] > 500), products)
+cat(paste(sep = "", "is all product price > 500: ", json_stringify(is_all_product_price_more_than500), "\n"))
 # is all product price > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV3\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v3\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV3(function(product, ...) (product[["price"]] < 500), products)
-cat(paste(sep = "", "is all product price < 500: ", jsonStringify(isAllProductPriceLessThan500), "\n"))
+is_all_product_price_less_than500 <- array_every_v3(function(product, ...) (product[["price"]] < 500), products)
+cat(paste(sep = "", "is all product price < 500: ", json_stringify(is_all_product_price_less_than500), "\n"))
 # is all product price < 500: true
 
-isAllProductPriceMoreThan500 <- arrayEveryV3(function(product, ...) (product[["price"]] > 500), products)
-cat(paste(sep = "", "is all product price > 500: ", jsonStringify(isAllProductPriceMoreThan500), "\n"))
+is_all_product_price_more_than500 <- array_every_v3(function(product, ...) (product[["price"]] > 500), products)
+cat(paste(sep = "", "is all product price > 500: ", json_stringify(is_all_product_price_more_than500), "\n"))
 # is all product price > 500: false
 
-cat("# using JavaScript-like Array.every() function \"arrayEveryV4\"\n")
+cat("# using JavaScript-like Array.every() function \"array_every_v4\"\n")
 
-isAllProductPriceLessThan500 <- arrayEveryV4(function(product, ...) (product[["price"]] < 500), products)
-cat(paste(sep = "", "is all product price < 500: ", jsonStringify(isAllProductPriceLessThan500), "\n"))
+is_all_product_price_less_than500 <- array_every_v4(function(product, ...) (product[["price"]] < 500), products)
+cat(paste(sep = "", "is all product price < 500: ", json_stringify(is_all_product_price_less_than500), "\n"))
 # is all product price < 500: true
 
-isAllProductPriceMoreThan500 <- arrayEveryV4(function(product, ...) (product[["price"]] > 500), products)
-cat(paste(sep = "", "is all product price > 500: ", jsonStringify(isAllProductPriceMoreThan500), "\n"))
+is_all_product_price_more_than500 <- array_every_v4(function(product, ...) (product[["price"]] > 500), products)
+cat(paste(sep = "", "is all product price > 500: ", json_stringify(is_all_product_price_more_than500), "\n"))
 # is all product price > 500: false
 
 cat("# using R Array.every() built-in function \"all\"\n")
 
-isAllProductPriceLessThan500 <- all(sapply(products, function(product, ...) (product[["price"]] < 500)))
-cat(paste(sep = "", "is all product price < 500: ", jsonStringify(isAllProductPriceLessThan500), "\n"))
+is_all_product_price_less_than500 <- all(sapply(products, function(product, ...) (product[["price"]] < 500)))
+cat(paste(sep = "", "is all product price < 500: ", json_stringify(is_all_product_price_less_than500), "\n"))
 # is all product price < 500: true
 
-isAllProductPriceMoreThan500 <- all(sapply(products, function(product, ...) (product[["price"]] > 500)))
-cat(paste(sep = "", "is all product price > 500: ", jsonStringify(isAllProductPriceMoreThan500), "\n"))
+is_all_product_price_more_than500 <- all(sapply(products, function(product, ...) (product[["price"]] > 500)))
+cat(paste(sep = "", "is all product price > 500: ", json_stringify(is_all_product_price_more_than500), "\n"))
 # is all product price > 500: false

@@ -9,8 +9,8 @@
 #     Sam Harris => S.H
 #     patrick feeney => P.F
 
-abbreviateName <- function(completeName) paste(unlist(lapply(strsplit(completeName, split = " "), function(aName) toupper(substr(aName, 1, 1)))), collapse = ".")
-cat(paste(sep = "", abbreviateName("Sam Harris"), "\n"))
+abbreviate_name <- function(complete_name) paste(unlist(lapply(strsplit(complete_name, split = " "), function(a_name) toupper(substr(a_name, 1, 1)))), collapse = ".")
+cat(paste(sep = "", abbreviate_name("Sam Harris"), "\n"))
 # S.H
-cat(paste(sep = "", abbreviateName("patrick feeney"), "\n"))
+cat(paste(sep = "", abbreviate_name("patrick feeney"), "\n"))
 # P.F
