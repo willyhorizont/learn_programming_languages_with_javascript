@@ -12,7 +12,7 @@ end
 print("\n", "# JavaScript-like Array.reduce() in Ruby Array")
 
 numbers = [36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
-print("\n", "numbers: ", numbers)
+print("\n", "numbers: ", JSON.generate(numbers).gsub(",", ", "))
 
 print("\n", "# using JavaScript-like Array.reduce() function \"array_reduce\"")
 

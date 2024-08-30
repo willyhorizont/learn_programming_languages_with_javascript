@@ -11,10 +11,10 @@ end
 print("\n", "# JavaScript-like Spread Syntax (...) in Ruby")
 
 fruits = ["Mango", "Melon", "Banana"]
-print("\n", "fruits: ", fruits)
+print("\n", "fruits: ", JSON.generate(fruits).gsub(",", ", "))
 
 vegetables = ["Carrot", "Tomato"]
-print("\n", "vegetables: ", vegetables)
+print("\n", "vegetables: ", JSON.generate(vegetables).gsub(",", ", "))
 
 country_capitals_in_asia = {
     "Thailand" => "Bangkok",

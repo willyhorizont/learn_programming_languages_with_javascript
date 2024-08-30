@@ -3,7 +3,7 @@ print("\n", "# JavaScript-like Array.includes() in Ruby")
 print("\n", "# using Ruby Array.includes() built-in method \"include?\"")
 
 my_friends = ["Alisa", "Trivia"]
-print("\n", "my friends: ", my_friends)
+print("\n", "my friends: ", JSON.generate(my_friends).gsub(",", ", "))
 
 a_name = "Alisa"
 is_my_friend = my_friends.include?(a_name)

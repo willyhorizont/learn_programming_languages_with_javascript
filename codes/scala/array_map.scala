@@ -178,7 +178,7 @@ println(s"labeled numbers: ${jsonStringify(numbersLabeled, pretty = true)}")
 //     }
 // ]
 
-println("\n// JavaScript-like Array.map() in Scala Array of Maps")
+println("\n// JavaScript-like Array.map() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(

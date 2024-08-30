@@ -116,7 +116,7 @@ isAnyNumberMoreThan500 = numbers.exists(((number: Any) => (number.asInstanceOf[I
 println(s"is any number > 500: ${isAnyNumberMoreThan500}")
 // is any number > 500: false
 
-println("\n// JavaScript-like Array.some() in Scala Array of Maps")
+println("\n// JavaScript-like Array.some() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(

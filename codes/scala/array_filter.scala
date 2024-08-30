@@ -98,7 +98,7 @@ numbersOdd = numbers.filter(((number: Any) => ((number.asInstanceOf[Int] % 2) !=
 println(s"odd numbers only: ${jsonStringify(numbersOdd)}")
 // odd numbers only: [27, 23, 65, 93, 87]
 
-println("\n// JavaScript-like Array.filter() in Scala Array of Maps")
+println("\n// JavaScript-like Array.filter() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(

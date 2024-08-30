@@ -96,7 +96,7 @@ oddNumberFound = numbers.find(((number: Any) => ((number.asInstanceOf[Int] % 2) 
 println(s"odd number found: ${oddNumberFound}")
 // odd number found: 27
 
-println("\n// JavaScript-like Array.find() in Scala Array of Maps")
+println("\n// JavaScript-like Array.find() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(

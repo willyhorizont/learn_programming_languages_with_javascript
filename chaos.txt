@@ -4,9 +4,10 @@ get object by key
 change object by key
 delete object by key
 computed property names
+object_keys
 
 todo:
-object_keys, object_values, object_entries, object_from_entries, 006_arrays
+object_values, object_entries, object_from_entries, 006_arrays
 array_entries, array_keys, array_values, array_for_each, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
 string, number, JSON.stringify, JSON.parse, IIFE, string interpolation

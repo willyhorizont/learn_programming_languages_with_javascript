@@ -3,7 +3,7 @@ require "json"
 # in Ruby, JavaScript-like Array is called Array
 
 fruits = ["apple", "mango", "orange"]
-print("\n", "fruits: ", fruits)
+print("\n", "fruits: ", JSON.generate(fruits).gsub(",", ", "))
 
 print("fruits, length: #{fruits.size}\n")
 # fruits, length: 3

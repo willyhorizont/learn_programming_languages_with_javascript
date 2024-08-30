@@ -44,7 +44,7 @@ Module Program
     End Function
 
     Function SpreadObject(ByVal ParamArray Parameters() As Object) As Dictionary(Of String, Object)
-        Dim NewObject As New Dictionary(Of String, Object)
+        Dim NewObject As New Dictionary(Of String, Object)()
         Dim ParameterIndex As Integer = 0
         For Each Parameter As Object In Parameters
             If (TypeOf Parameter Is Dictionary(Of String, Object)) Then
@@ -69,7 +69,7 @@ Module Program
     End Function
 
     Function SpreadArray(ByVal ParamArray Parameters() As Object) As List(Of Object)
-        Dim NewArray As New List(Of Object)
+        Dim NewArray As New List(Of Object)()
         Dim ParameterIndex As Integer = 0
         For Each Parameter As Object In Parameters
             If (TypeOf Parameter Is Dictionary(Of String, Object)) Then

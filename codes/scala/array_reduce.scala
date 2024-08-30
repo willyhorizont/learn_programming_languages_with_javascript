@@ -82,7 +82,7 @@ numbersTotal = numbers.foldLeft((0.0).asInstanceOf[Any])(((currentResult: Any, c
 println(s"total number: ${numbersTotal}")
 // total number: 41.2
 
-println("\n// JavaScript-like Array.reduce() in Scala Array of Maps")
+println("\n// JavaScript-like Array.reduce() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(

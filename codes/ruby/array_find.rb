@@ -87,7 +87,7 @@ end
 print("\n", "# JavaScript-like Array.find() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\n", "numbers: ", numbers)
+print("\n", "numbers: ", JSON.generate(numbers).gsub(",", ", "))
 
 print("\n", "# using JavaScript-like Array.find() function \"array_find_v1\"")
 

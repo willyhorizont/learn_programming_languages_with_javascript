@@ -45,7 +45,7 @@ Module Program
 
     Function ArrayFilterV1(ByVal CallbackFunction As Func(Of Object, Integer, List(Of Object), Boolean), ByVal AnArray As List(Of Object)) As List(Of Object)
         ' JavaScript-like Array.filter() function
-        Dim DataFiltered As New List(Of Object)
+        Dim DataFiltered As New List(Of Object)()
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArray
             Dim IsConditionMatch As Boolean = CallbackFunction(ArrayItem, ArrayItemIndex, AnArray)
@@ -57,7 +57,7 @@ Module Program
 
     Function ArrayFilterV2(ByVal CallbackFunction As Func(Of Object, Integer, List(Of Object), Boolean), ByVal AnArray As List(Of Object)) As List(Of Object)
         ' JavaScript-like Array.filter() function
-        Dim DataFiltered As New List(Of Object)
+        Dim DataFiltered As New List(Of Object)()
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArray
             If (CallbackFunction(ArrayItem, ArrayItemIndex, AnArray) = true) Then DataFiltered.Add(ArrayItem)
@@ -72,8 +72,8 @@ Module Program
         Dim Numbers As List(Of Object) = New List(Of Object) From {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
         Console.WriteLine($"Numbers: {JsonStringify(Numbers)}")
 
-        Dim NumbersEven As New List(Of Object)
-        Dim NumbersOdd As New List(Of Object)
+        Dim NumbersEven As New List(Of Object)()
+        Dim NumbersOdd As New List(Of Object)()
 
         Console.WriteLine("' using JavaScript-like Array.filter() function ""ArrayFilterV1""")
 
@@ -147,8 +147,8 @@ Module Program
         }
         Console.WriteLine($"Products: {JsonStringify(Products, Pretty:=True)}")
 
-        Dim ProductsBelow100 As New List(Of Object)
-        Dim ProductsAbove100 As New List(Of Object)
+        Dim ProductsBelow100 As New List(Of Object)()
+        Dim ProductsAbove100 As New List(Of Object)()
 
         Console.WriteLine("' using JavaScript-like Array.filter() function ""ArrayFilterV1""")
 

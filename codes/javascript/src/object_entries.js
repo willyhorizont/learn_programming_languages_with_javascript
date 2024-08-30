@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 console.log("\n// Object.entries() in JavaScript");
 
 const friend1 = {

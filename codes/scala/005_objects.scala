@@ -39,7 +39,7 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
     return jsonStringifyInner(anything, indent)
 }
 
-// in Scala, JavaScript-like Object is called Map
+// in Scala, JavaScript-like Object is called mutable Map
 
 val friend = MyObject(
     "name" -> "Alisa",

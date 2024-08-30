@@ -44,7 +44,7 @@ Module Program
     End Function
 
     Function SpreadObject(ByVal ParamArray Parameters() As Object) As Dictionary(Of String, Object)
-        Dim NewObject As New Dictionary(Of String, Object)
+        Dim NewObject As New Dictionary(Of String, Object)()
         Dim ParameterIndex As Integer = 0
         For Each Parameter As Object In Parameters
             If (TypeOf Parameter Is Dictionary(Of String, Object)) Then
@@ -70,7 +70,7 @@ Module Program
 
     Function ArrayMapV1(ByVal CallbackFunction As Func(Of Object, Integer, List(Of Object), Object), ByVal AnArray As List(Of Object)) As List(Of Object)
         ' JavaScript-like Array.map() function
-        Dim NewArray As New List(Of Object)
+        Dim NewArray As New List(Of Object)()
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArray
             Dim NewArrayItem As Object = CallbackFunction(ArrayItem, ArrayItemIndex, AnArray)
@@ -82,7 +82,7 @@ Module Program
 
     Function ArrayMapV2(ByVal CallbackFunction As Func(Of Object, Integer, List(Of Object), Object), ByVal AnArray As List(Of Object)) As List(Of Object)
         ' JavaScript-like Array.map() function
-        Dim NewArray As New List(Of Object)
+        Dim NewArray As New List(Of Object)()
         Dim ArrayItemIndex As Integer = 0
         For Each ArrayItem As Object In AnArray
             NewArray.Add(CallbackFunction(ArrayItem, ArrayItemIndex, AnArray))
@@ -97,7 +97,7 @@ Module Program
         Dim Numbers As List(Of Object) = New List(Of Object) From {12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
         Console.WriteLine($"Numbers: {JsonStringify(Numbers)}")
 
-        Dim NumbersLabeled As New List(Of Object)
+        Dim NumbersLabeled As New List(Of Object)()
 
         Console.WriteLine("' using JavaScript-like Array.map() function ""ArrayMapV1""")
 
@@ -269,7 +269,7 @@ Module Program
         }
         Console.WriteLine($"Products: {JsonStringify(Products, Pretty:=True)}")
 
-        Dim ProductsLabeled As New List(Of Object)
+        Dim ProductsLabeled As New List(Of Object)()
 
         Console.WriteLine("' using JavaScript-like Array.map() function ""ArrayMapV1""")
 

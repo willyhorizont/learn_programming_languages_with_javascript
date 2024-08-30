@@ -95,7 +95,7 @@ end
 print("\n", "# JavaScript-like Array.findIndex() in Ruby Array")
 
 numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254]
-print("\n", "numbers: ", numbers)
+print("\n", "numbers: ", JSON.generate(numbers).gsub(",", ", "))
 
 number_to_find = 27
 print("\n", "number to find: ", number_to_find)

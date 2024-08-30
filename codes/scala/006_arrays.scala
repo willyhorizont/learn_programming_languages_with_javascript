@@ -100,7 +100,7 @@ for ((arrayItem, arrayItemIndex) <- fruits.asInstanceOf[Array[Any]].zipWithIndex
 // fruits, forEach loop, index: 1, value: mango
 // fruits, forEach loop, index: 2, value: orange
 
-// in Scala, JavaScript-like Array of Objects is called Array of Maps
+// in Scala, JavaScript-like Array of Objects is called Array of mutable Maps
 
 val products = MyArray(
     MyObject(

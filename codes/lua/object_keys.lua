@@ -40,11 +40,11 @@ function json_stringify(anything, parameter_object)
     indent = ((indent == nil) and "    " or indent)
     local indent_level = 0
     function json_stringify_inner(anything_inner, indent_inner)
-        if (anything_inner == nil) then return nil end
+        if (anything_inner == nil) then return "null" end
         if (type_of(anything_inner) == "string") then return ("\"" .. anything_inner .. "\"") end
         if (type_of(anything_inner) == "number" or type_of(anything_inner) == "boolean") then return tostring(anything_inner) end
         if (type_of(anything_inner) == "array") then
-            if (#anything_inner == 1) then return "[]" end
+            if (#anything_inner == 0) then return "[]" end
             indent_level = indent_level + 1
             local result = ((pretty == true) and ("[\n" .. string_repeat(indent_inner, indent_level)) or "[")
             for array_item_index, array_item in ipairs(anything_inner) do
@@ -57,7 +57,7 @@ function json_stringify(anything, parameter_object)
         end
         if (type_of(anything_inner) == "object") then
             local object_keys_length = #object_keys(anything_inner)
-            if (object_keys_length == 1) then return "{}" end
+            if (object_keys_length == 0) then return "{}" end
             indent_level = indent_level + 1
             local result = ((pretty == true) and ("{\n" .. string_repeat(indent_inner, indent_level)) or "{")
             local object_iteration_index = 0
@@ -75,61 +75,14 @@ function json_stringify(anything, parameter_object)
     return json_stringify_inner(anything, indent)
 end
 
---declare variables
-boolVal = true;
-int_value = 1024;
-stringVal = "hello world";
-floatVal = 12.90;
-nilVal = nil;
+print('\n-- JavaScript-like Object.keys() in hash-table')
 
---display the data type returned for each declared value.
-sprint(type(boolVal) == "boolean");
-sprint(type(int_value) == "number");
-sprint(type(stringVal) == "string");
-sprint(type(floatVal) == "number");
-sprint(type(nilVal) == "nil");
-sprint(nil);
-
-my_array = { "a", "b", "c" }
-my_object = { a1 = "asd", a2 = "zxc", a3 = "qwe" }
-for key, value in pairs(my_array) do
-    sprint("pairs(my_array), ", "key: ", key, ", value: ", value)
-end
-for index, value in ipairs(my_array) do
-    sprint("ipairs(my_array), ", "index: ", index, ", value: ", value)
-end
-for key, value in pairs(my_object) do
-    sprint("pairs(my_object), ", "key: ", key, ", value: ", value)
-end
-for index, value in ipairs(my_object) do
-    sprint("ipairs(my_object), ", "index: ", index, ", value: ", value)
-end
-
-fruits = {"Mango", "Melon", "Banana"}
-sprint("fruits: ", json_stringify(fruits, { pretty = true }))
-
-vegetables = {"Carrot", "Tomato"}
-sprint("vegetables: ", json_stringify(vegetables))
-
-country_capitals_in_asia = {
-    Thailand = "Bangkok",
-    China = "Beijing",
-    Japan = "Tokyo"
+friend = {
+    name = "Alisa",
+    country = "Finland",
+    age = 25
 }
-sprint("country_capitals_in_asia: ", json_stringify(country_capitals_in_asia, { pretty = true }))
-sprint("country_capitals_in_asia[Singapore]: ", country_capitals_in_asia["Singapore"] == nil)
+sprint("friend: ", json_stringify(friend, { pretty = true }))
 
-country_capitals_in_europe = {
-    France = "Paris",
-    England = "London"
-}
-sprint("country_capitals_in_europe: ", json_stringify(country_capitals_in_europe))
-
-do_something = function(--[[required]]var1, --[[optional]]var2,  --[[optional]]var3)
-    var2 = var2 or 6 --default value
-    var3 = var3 or "Melon" --default value
-    --Do something with the inputs
-end
-fruit = "Mango"
-do_something("asd", { var3 = fruit })
-sprint(fruit)
+sprint("friend keys: ", json_stringify(object_keys(friend)))
+-- friend keys: ["name", "country", "age"]

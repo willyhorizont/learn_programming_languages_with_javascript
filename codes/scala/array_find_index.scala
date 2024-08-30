@@ -86,7 +86,7 @@ numberFoundIndex = numbers.indexWhere(((number: Any) => (number.asInstanceOf[Int
 println(s"number found index: ${numberFoundIndex}")
 // number found index: 2
 
-println("\n// JavaScript-like Array.findIndex() in Scala Array of Maps")
+println("\n// JavaScript-like Array.findIndex() in Scala Array of mutable Maps")
 
 val products = MyArray(
     MyObject(
