@@ -24,6 +24,7 @@ use (
     ./codes/go/factorial
     ./codes/go/fizzbuzz
     ./codes/go/object_keys
+    ./codes/go/object_values
     ./codes/go/www_001_abbreviate_name
     ./codes/go/www_002_count_vowels
     ./codes/go/xxx_chaos

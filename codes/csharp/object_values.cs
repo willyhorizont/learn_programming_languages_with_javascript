@@ -45,27 +45,27 @@ class Program {
             return JsonStringifyInner(Anything, Indent);
         }
 
-        List<dynamic> ObjectKeysV1(Dictionary<string, dynamic> AnObject) {
-            // JavaScript-like Object.keys() function
+        List<dynamic> ObjectValuesV1(Dictionary<string, dynamic> AnObject) {
+            // JavaScript-like Object.values() function
             List<dynamic> NewArray = new List<dynamic>();
             foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)AnObject) {
                 string ObjectKey = ObjectEntry.Key;
                 dynamic ObjectValue = ObjectEntry.Value;
-                NewArray.Add(ObjectKey);
+                NewArray.Add(ObjectValue);
             }
             return NewArray;
         }
 
-        List<dynamic> ObjectKeysV2(Dictionary<string, dynamic> AnObject) {
-            // JavaScript-like Object.keys() function
+        List<dynamic> ObjectValuesV2(Dictionary<string, dynamic> AnObject) {
+            // JavaScript-like Object.values() function
             List<dynamic> NewArray = new List<dynamic>();
-            foreach (var ObjectKey in AnObject.Keys) {
-                NewArray.Add(ObjectKey);
+            foreach (var ObjectValue in AnObject.Values) {
+                NewArray.Add(ObjectValue);
             }
             return NewArray;
         }
 
-        Console.WriteLine("\n// JavaScript-like Object.keys() in C# Dictionary");
+        Console.WriteLine("\n// JavaScript-like Object.values() in C# Dictionary");
 
         dynamic Friend = new Dictionary<string, dynamic>() {
             {"name", "Alisa"},
@@ -74,10 +74,10 @@ class Program {
         };
         Console.WriteLine($"Friend: {JsonStringify(Friend, Pretty: true)}");
 
-        Console.WriteLine($"friend keys: {JsonStringify(ObjectKeysV1(Friend))}");
-        // friend keys: ["name", "country", "age"]
+        Console.WriteLine($"friend values: {JsonStringify(ObjectValuesV1(Friend))}");
+        // friend values: ["Alisa", "Finland", 25]
 
-        Console.WriteLine($"friend keys: {JsonStringify(ObjectKeysV2(Friend))}");
-        // friend keys: ["name", "country", "age"]
+        Console.WriteLine($"friend values: {JsonStringify(ObjectValuesV2(Friend))}");
+        // friend values: ["Alisa", "Finland", 25]
     }
 }

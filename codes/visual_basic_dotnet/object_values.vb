@@ -43,28 +43,28 @@ Module Program
         Return JsonStringifyInner(Anything, Indent)
     End Function
 
-    Function ObjectKeysV1(ByVal AnObject As Object) As List(Of Object)
-        ' JavaScript-like Object.keys() function
+    Function ObjectValuesV1(ByVal AnObject As Object) As List(Of Object)
+        ' JavaScript-like Object.values() function
         Dim NewArray As New List(Of Object)()
         For Each ObjectEntry As KeyValuePair(Of String, Object) In AnObject
             Dim ObjectKey = ObjectEntry.Key
             Dim ObjectValue = ObjectEntry.Value
-            NewArray.Add(ObjectKey)
+            NewArray.Add(ObjectValue)
         Next
         Return NewArray
     End Function
 
-    Function ObjectKeysV2(ByVal AnObject As Object) As List(Of Object)
-        ' JavaScript-like Object.keys() function
+    Function ObjectValuesV2(ByVal AnObject As Object) As List(Of Object)
+        ' JavaScript-like Object.values() function
         Dim NewArray As New List(Of Object)()
-        For Each ObjectKey As String In AnObject.Keys
-            NewArray.Add(ObjectKey)
+        For Each ObjectValue As Object In AnObject.Values
+            NewArray.Add(ObjectValue)
         Next
         Return NewArray
     End Function
 
     Sub Main(Args As String())
-        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Object.keys() in Visual Basic (.NET) Dictionary")
+        Console.WriteLine($"{Environment.NewLine}' JavaScript-like Object.values() in Visual Basic (.NET) Dictionary")
 
         Dim MyFriend As Object = New Dictionary(Of String, Object) From {
             {"name", "Alisa"},
@@ -73,10 +73,10 @@ Module Program
         }
         Console.WriteLine("MyFriend: " & JsonStringify(MyFriend, Pretty:=True))
 
-        Console.WriteLine($"friend keys: {JsonStringify(ObjectKeysV1(MyFriend))}")
-        ' friend keys: ["name", "country", "age"]
+        Console.WriteLine($"friend values: {JsonStringify(ObjectValuesV1(MyFriend))}")
+        ' friend values: ["Alisa", "Finland", 25]
 
-        Console.WriteLine($"friend keys: {JsonStringify(ObjectKeysV2(MyFriend))}")
-        ' friend keys: ["name", "country", "age"]
+        Console.WriteLine($"friend values: {JsonStringify(ObjectValuesV2(MyFriend))}")
+        ' friend values: ["Alisa", "Finland", 25]
     End Sub
 End Module

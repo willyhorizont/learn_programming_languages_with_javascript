@@ -6,13 +6,45 @@ delete object by key
 computed property names
 object_keys
 
-todo:
-object_values, object_entries, object_from_entries, 006_arrays
+langs not review want try:
+groovy
+f#
+crystal
+java
+c3
+onyx
+lobster
+red
+pony
+reason
+haskell
+elm
+scheme
+erlang
+elixir
+lisp
+clojure
+racket
+ocaml
+roc
+gleam
+unison
+
+todo in js flavour langs repo:
+object_values, object_entries, object_from_entries, 006_arrays, typeof
 array_entries, array_keys, array_values, array_for_each, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
 string, number, JSON.stringify, JSON.parse, IIFE, string interpolation
+isAnagram
+generateAnagram
+hello world waterfall
+rectangle
+triangle
+pyramid
+palindrome
+spread string
 
-tonotdo:
+tonotdo in js flavour langs repo:
 array_concat, array_copy_within, array_flat, array_flat_map, array_reduce_right, array_find_last, array_find_last_index,
 array_with, array_of, array_pop, array_from_async, array_last_index_of, array_is_array, array_index_of
 

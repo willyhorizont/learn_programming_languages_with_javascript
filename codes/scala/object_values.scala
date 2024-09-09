@@ -39,7 +39,7 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
     return jsonStringifyInner(anything, indent)
 }
 
-println("\n// JavaScript-like Object.keys() in Scala mutable Map")
+println("\n// JavaScript-like Object.values() in Scala mutable Map")
 
 val friend = MyObject(
     "name" -> "Alisa",
@@ -48,5 +48,5 @@ val friend = MyObject(
 )
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-println(s"friend keys: ${jsonStringify(friend.keys.toArray)}")
-// friend keys: ["name", "country", "age"]
+println(s"friend values: ${jsonStringify(friend.values.toArray)}")
+// friend values: ["Alisa", "Finland", 25]

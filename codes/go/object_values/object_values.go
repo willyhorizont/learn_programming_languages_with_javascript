@@ -93,17 +93,17 @@ func sPrintln(parameters ...any) {
     fmt.Println(strings.Join(parametersNew, ""))
 }
 
-func objectKeys(anObject object) array {
-    // JavaScript-like Object.keys() function
+func objectValues(anObject object) array {
+    // JavaScript-like Object.values() function
     newArray := array{}
-    for objectKey, _ := range anObject {
-		newArray = append(newArray, objectKey)
+    for _, objectValue := range anObject {
+		newArray = append(newArray, objectValue)
     }
     return newArray
 }
 
 func main() {
-    fmt.Println("\n// JavaScript-like Object.keys() in Go map")
+    fmt.Println("\n// JavaScript-like Object.values() in Go map")
 
     friend := object{
         "name": "Alisa",
@@ -112,6 +112,6 @@ func main() {
     }
     sPrintln("friend: ", jsonStringify(friend, object{"pretty": true}))
 
-	sPrintln("friend keys: ", jsonStringify(objectKeys(friend), false))
-	// friend keys: ["name", "country", "age"]
+	sPrintln("friend values: ", jsonStringify(objectValues(friend), false))
+	// friend values: ["Alisa", "Finland", 25]
 }
