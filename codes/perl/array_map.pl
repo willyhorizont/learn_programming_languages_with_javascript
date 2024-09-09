@@ -54,7 +54,7 @@ sub array_map_v1 {
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         my $new_array_item = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
-        $new_array[scalar(@new_array)] = $new_array_item;
+        @new_array = (@new_array, $new_array_item);
     }
     return @new_array;
 }
@@ -66,7 +66,7 @@ sub array_map_v2 {
     my @an_array = @{$an_array_ref};
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
-        $new_array[scalar(@new_array)] = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
+        @new_array = (@new_array, $callback_function_ref->($array_item, $array_item_index, $an_array_ref));
     }
     return @new_array;
 }

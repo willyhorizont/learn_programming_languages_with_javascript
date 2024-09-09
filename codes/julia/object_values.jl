@@ -42,11 +42,17 @@ friend::Any = Dict{String, Any}(
 )
 println("friend: ", json_stringify(friend, pretty=true))
 
-println("friend values: ", json_stringify(collect(values(friend))))
+println("# using Julia Array comprehension and Julia Object.values() built-in function \"values(an_object)\"")
+
+println("friend values: ", json_stringify(Array{Any}([object_value for object_value in values(friend)])))
 # friend values: ["Alisa", "Finland", 25]
 
-println("friend values: ", json_stringify([value for value in values(friend)]))
+println("# using Julia Array spread syntax (...) and Julia Object.values() built-in function \"values(an_object)\"")
+
+println("friend values: ", json_stringify(Array{Any}([values(friend)...])))
 # friend values: ["Alisa", "Finland", 25]
 
-println("friend values: ", json_stringify([values(friend)...]))
+println("# using composition of Julia built-in functions \"collect(values(an_object))\"")
+
+println("friend values: ", json_stringify(Array{Any}(collect(values(friend)))))
 # friend values: ["Alisa", "Finland", 25]

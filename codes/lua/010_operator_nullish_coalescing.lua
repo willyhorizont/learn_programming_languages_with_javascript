@@ -18,8 +18,8 @@ end
 function type_of(anything)
     if (type(anything) ~= "table") then return type(anything) end
     if (next(anything) == nil) then return "array" end
-    for key, value in pairs(anything) do
-        if ((type(key) == "number") and ((key >= 1) and (key <= #anything))) then return "array" end
+    for object_key, object_value in pairs(anything) do
+        if ((type(object_key) == "number") and ((object_key >= 1) and (object_key <= #anything))) then return "array" end
     end
     return "object"
 end

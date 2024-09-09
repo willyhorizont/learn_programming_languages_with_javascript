@@ -16,3 +16,7 @@ kotlinc filename.kt -include-runtime -d filename.jar && kotlin filename.jar
 
 : Any(?!\\?)
 var [a-zA-Z0-9]+:\s+(?!Any\?)
+
+anObject.entries.map { mutableListOf<Any?>(it.key, it.value) }.toMutableList()
+is equal to
+friend.entries.map { objectEntry -> mutableListOf<Any?>(objectEntry.key, objectEntry.value) }.toMutableList()

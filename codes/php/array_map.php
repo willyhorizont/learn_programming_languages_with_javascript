@@ -5,31 +5,12 @@ function array_map_v1($callback_function, $an_array) {
     $new_array = [];
     foreach ($an_array as $array_item_index => $array_item) {
         $new_array_item = $callback_function($array_item, $array_item_index, $an_array);
-        $new_array[count($new_array)] = $new_array_item;
-    }
-    return $new_array;
-};
-
-function array_map_v2($callback_function, $an_array) {
-    // JavaScript-like Array.map() function
-    $new_array = [];
-    foreach ($an_array as $array_item_index => $array_item) {
-        $new_array_item = $callback_function($array_item, $array_item_index, $an_array);
         $new_array = [...$new_array, $new_array_item];
     }
     return $new_array;
 };
 
-function array_map_v3($callback_function, $an_array) {
-    // JavaScript-like Array.map() function
-    $new_array = [];
-    foreach ($an_array as $array_item_index => $array_item) {
-        $new_array[count($new_array)] = $callback_function($array_item, $array_item_index, $an_array);
-    }
-    return $new_array;
-};
-
-function array_map_v4($callback_function, $an_array) {
+function array_map_v2($callback_function, $an_array) {
     // JavaScript-like Array.map() function
     $new_array = [];
     foreach ($an_array as $array_item_index => $array_item) {
@@ -83,80 +64,6 @@ echo("labeled numbers: " . str_replace("/\n$/", "", json_encode($numbers_labeled
 echo("// using JavaScript-like Array.map() function \"array_map_v2\"" . "\n");
 
 $numbers_labeled = array_map_v2(fn($number) => [$number => ((($number % 2) === 0) ? 'even' : 'odd')], $numbers);
-echo("labeled numbers: " . str_replace("/\n$/", "", json_encode($numbers_labeled, JSON_PRETTY_PRINT)) . "\n");
-// labeled numbers: [
-//     {
-//         "12": "even"
-//     },
-//     {
-//         "34": "even"
-//     },
-//     {
-//         "27": "odd"
-//     },
-//     {
-//         "23": "odd"
-//     },
-//     {
-//         "65": "odd"
-//     },
-//     {
-//         "93": "odd"
-//     },
-//     {
-//         "36": "even"
-//     },
-//     {
-//         "87": "odd"
-//     },
-//     {
-//         "4": "even"
-//     },
-//     {
-//         "254": "even"
-//     }
-// ]
-
-echo("// using JavaScript-like Array.map() function \"array_map_v3\"" . "\n");
-
-$numbers_labeled = array_map_v3(fn($number) => [$number => ((($number % 2) === 0) ? 'even' : 'odd')], $numbers);
-echo("labeled numbers: " . str_replace("/\n$/", "", json_encode($numbers_labeled, JSON_PRETTY_PRINT)) . "\n");
-// labeled numbers: [
-//     {
-//         "12": "even"
-//     },
-//     {
-//         "34": "even"
-//     },
-//     {
-//         "27": "odd"
-//     },
-//     {
-//         "23": "odd"
-//     },
-//     {
-//         "65": "odd"
-//     },
-//     {
-//         "93": "odd"
-//     },
-//     {
-//         "36": "even"
-//     },
-//     {
-//         "87": "odd"
-//     },
-//     {
-//         "4": "even"
-//     },
-//     {
-//         "254": "even"
-//     }
-// ]
-
-echo("// using JavaScript-like Array.map() function \"array_map_v4\"" . "\n");
-
-$numbers_labeled = array_map_v4(fn($number) => [$number => ((($number % 2) === 0) ? 'even' : 'odd')], $numbers);
 echo("labeled numbers: " . str_replace("/\n$/", "", json_encode($numbers_labeled, JSON_PRETTY_PRINT)) . "\n");
 // labeled numbers: [
 //     {
@@ -280,60 +187,6 @@ echo("labeled products: " . str_replace("/\n$/", "", json_encode($products_label
 echo("// using JavaScript-like Array.map() function \"array_map_v2\"" . "\n");
 
 $products_labeled = array_map_v2(fn($product) => [...$product, 'label' => (($product['price'] > 100) ? 'expensive' : 'cheap')], $products);
-echo("labeled products: " . str_replace("/\n$/", "", json_encode($products_labeled, JSON_PRETTY_PRINT)) . "\n");
-// labeled products: [
-//     {
-//         "code": "pasta",
-//         "price": 321,
-//         "label": "expensive"
-//     },
-//     {
-//         "code": "bubble_gum",
-//         "price": 233,
-//         "label": "expensive"
-//     },
-//     {
-//         "code": "potato_chips",
-//         "price": 5,
-//         "label": "cheap"
-//     },
-//     {
-//         "code": "towel",
-//         "price": 499,
-//         "label": "expensive"
-//     }
-// ]
-
-echo("// using JavaScript-like Array.map() function \"array_map_v3\"" . "\n");
-
-$products_labeled = array_map_v3(fn($product) => [...$product, 'label' => (($product['price'] > 100) ? 'expensive' : 'cheap')], $products);
-echo("labeled products: " . str_replace("/\n$/", "", json_encode($products_labeled, JSON_PRETTY_PRINT)) . "\n");
-// labeled products: [
-//     {
-//         "code": "pasta",
-//         "price": 321,
-//         "label": "expensive"
-//     },
-//     {
-//         "code": "bubble_gum",
-//         "price": 233,
-//         "label": "expensive"
-//     },
-//     {
-//         "code": "potato_chips",
-//         "price": 5,
-//         "label": "cheap"
-//     },
-//     {
-//         "code": "towel",
-//         "price": 499,
-//         "label": "expensive"
-//     }
-// ]
-
-echo("// using JavaScript-like Array.map() function \"array_map_v4\"" . "\n");
-
-$products_labeled = array_map_v4(fn($product) => [...$product, 'label' => (($product['price'] > 100) ? 'expensive' : 'cheap')], $products);
 echo("labeled products: " . str_replace("/\n$/", "", json_encode($products_labeled, JSON_PRETTY_PRINT)) . "\n");
 // labeled products: [
 //     {

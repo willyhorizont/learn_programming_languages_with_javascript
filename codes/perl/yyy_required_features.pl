@@ -154,18 +154,7 @@ $play_game->();
     console.log("myObject:", myObject);
     ```
 =cut
-my $my_object_v1 = {
-    "my_string" => "foo",
-    "my_number" => 123,
-    "my_bool" => 1,
-    "my_null" => undef,
-    "my_array" => [1, 2, 3],
-    "my_object" => {
-        "foo" => "bar"
-    }
-};
-print("my_object_v1: ", json_stringify($my_object_v1, "pretty" => 1), "\n");
-my %my_object_v2 = (
+my %my_object = (
     "my_string" => "foo",
     "my_number" => 123,
     "my_bool" => 1,
@@ -175,8 +164,18 @@ my %my_object_v2 = (
         "foo" => "bar"
     }
 );
-print("my_object_v2: ", json_stringify({%my_object_v2}, "pretty" => 1), "\n");
-print("my_object_v2: ", json_stringify(\%my_object_v2, "pretty" => 1), "\n");
+print("my_object: ", json_stringify(\%my_object, "pretty" => 1), "\n");
+my $my_object_ref = {
+    "my_string" => "foo",
+    "my_number" => 123,
+    "my_bool" => 1,
+    "my_null" => undef,
+    "my_array" => [1, 2, 3],
+    "my_object" => {
+        "foo" => "bar"
+    }
+};
+print("my_object_ref: ", json_stringify($my_object_ref, "pretty" => 1), "\n");
 
 =begin
     4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -185,11 +184,10 @@ print("my_object_v2: ", json_stringify(\%my_object_v2, "pretty" => 1), "\n");
     console.log("myArray:", myArray);
     ```
 =cut
-my $my_array_v1 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
-print("my_array_v1: ", json_stringify($my_array_v1, "pretty" => 1), "\n");
-my @my_array_v2 = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
-print("my_array_v2: ", json_stringify(\@my_array_v2, "pretty" => 1), "\n");
-print("my_array_v2: ", json_stringify([@my_array_v2], "pretty" => 1), "\n");
+my @my_array = ("foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"});
+print("my_array: ", json_stringify(\@my_array, "pretty" => 1), "\n");
+my $my_array_ref = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
+print("my_array_ref: ", json_stringify($my_array_ref, "pretty" => 1), "\n");
 
 =begin
     5. support passing functions as arguments to other functions
@@ -297,20 +295,7 @@ print("get_rectangle_area(7, 5): ", $get_rectangle_area->(7, 5), "\n");
     console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
     ```
 =cut
-my $my_array2_v1 = [
-    sub {
-        my ($a, $b) = @_;
-        return ($a * $b);
-    },
-    "foo",
-    123,
-    1,
-    undef,
-    [1, 2, 3],
-    {"foo" => "bar"}
-];
-print("myArray2[0](7, 5): ", $my_array2_v1->[0]->(7, 5), "\n");
-my @my_array2_v2 = (
+my @my_array2 = (
     sub {
         my ($a, $b) = @_;
         return ($a * $b);
@@ -322,9 +307,37 @@ my @my_array2_v2 = (
     [1, 2, 3],
     {"foo" => "bar"}
 );
-print("myArray2[0](7, 5): ", $my_array2_v2[0]->(7, 5), "\n");
+print("myArray2[0](7, 5): ", $my_array2[0]->(7, 5), "\n");
+my $my_array2_ref = [
+    sub {
+        my ($a, $b) = @_;
+        return ($a * $b);
+    },
+    "foo",
+    123,
+    1,
+    undef,
+    [1, 2, 3],
+    {"foo" => "bar"}
+];
+print("myArray2[0](7, 5): ", $my_array2_ref->[0]->(7, 5), "\n");
 
-my $my_object2 = {
+my %my_object2 = (
+    "my_function" => sub {
+        my ($a, $b) = @_;
+        return ($a * $b);
+    },
+    "my_string" => "foo",
+    "my_number" => 123,
+    "my_bool" => 1,
+    "my_null" => undef,
+    "my_array" => [1, 2, 3],
+    "my_object" => {
+        "foo" => "bar"
+    }
+);
+print("myObject2[\"my_function\"](7, 5): ", $my_object2{"my_function"}->(7, 5), "\n");
+my $my_object2_ref = {
     "my_function" => sub {
         my ($a, $b) = @_;
         return ($a * $b);
@@ -338,19 +351,4 @@ my $my_object2 = {
         "foo" => "bar"
     }
 };
-print("myObject2[\"my_function\"](7, 5): ", $my_object2->{"my_function"}->(7, 5), "\n");
-my %my_object2_v2 = (
-    "my_function" => sub {
-        my ($a, $b) = @_;
-        return ($a * $b);
-    },
-    "my_string" => "foo",
-    "my_number" => 123,
-    "my_bool" => 1,
-    "my_null" => undef,
-    "my_array" => [1, 2, 3],
-    "my_object" => {
-        "foo" => "bar"
-    }
-);
-print("myObject2[\"my_function\"](7, 5): ", $my_object2_v2{"my_function"}->(7, 5), "\n");
+print("myObject2[\"my_function\"](7, 5): ", $my_object2_ref->{"my_function"}->(7, 5), "\n");

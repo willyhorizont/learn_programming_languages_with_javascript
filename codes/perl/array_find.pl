@@ -176,12 +176,12 @@ print("products: ", json_stringify(\@products, "pretty" => 1), "\n");
 my $product_to_find = "bubble_gum";
 print("product to find: $product_to_find", "\n");
 
-my $product_found;
+my $product_found_ref;
 
 print("# using JavaScript-like Array.find() function \"array_find_v1\"\n");
 
-$product_found = array_find_v1(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", (defined($product_found) ? json_stringify(\%{$product_found}, "pretty" => 1) : "undefined"), "\n");
+$product_found_ref = array_find_v1(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
+print("product found: ", (defined($product_found_ref) ? json_stringify($product_found_ref, "pretty" => 1) : "undefined"), "\n");
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -189,8 +189,8 @@ print("product found: ", (defined($product_found) ? json_stringify(\%{$product_f
 
 print("# using JavaScript-like Array.find() function \"array_find_v2\"\n");
 
-$product_found = array_find_v2(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", (defined($product_found) ? json_stringify(\%{$product_found}, "pretty" => 1) : "undefined"), "\n");
+$product_found_ref = array_find_v2(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
+print("product found: ", (defined($product_found_ref) ? json_stringify($product_found_ref, "pretty" => 1) : "undefined"), "\n");
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -198,8 +198,8 @@ print("product found: ", (defined($product_found) ? json_stringify(\%{$product_f
 
 print("# using JavaScript-like Array.find() function \"array_find_v3\"\n");
 
-$product_found = array_find_v3(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", (defined($product_found) ? json_stringify(\%{$product_found}, "pretty" => 1) : "undefined"), "\n");
+$product_found_ref = array_find_v3(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
+print("product found: ", (defined($product_found_ref) ? json_stringify($product_found_ref, "pretty" => 1) : "undefined"), "\n");
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233
@@ -207,8 +207,8 @@ print("product found: ", (defined($product_found) ? json_stringify(\%{$product_f
 
 print("# using JavaScript-like Array.find() function \"array_find_v4\"\n");
 
-$product_found = array_find_v4(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
-print("product found: ", (defined($product_found) ? json_stringify(\%{$product_found}, "pretty" => 1) : "undefined"), "\n");
+$product_found_ref = array_find_v4(sub { my ($product) = @_; return ($product->{"code"} eq $product_to_find); }, \@products);
+print("product found: ", (defined($product_found_ref) ? json_stringify($product_found_ref, "pretty" => 1) : "undefined"), "\n");
 # product found: {
 #     "code": "bubble_gum",
 #     "price": 233

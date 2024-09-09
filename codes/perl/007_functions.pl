@@ -68,7 +68,7 @@ my $get_rectangle_area_v4_copy = sub { my ($rectangle_width, $rectangle_length) 
 
 my $get_rectangle_area_v5_copy = sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) };
 
-my @my_array_of_get_rectangle_area_functions_v1 = (
+my @my_array_of_get_rectangle_area_functions = (
     \&get_rectangle_area_v1,
     sub {
         my ($rectangle_width, $rectangle_length) = @_;
@@ -78,12 +78,12 @@ my @my_array_of_get_rectangle_area_functions_v1 = (
     sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) }
 );
 
-my $get_rectangle_area_function_v1_result1 = $my_array_of_get_rectangle_area_functions_v1[0](7, 5);
-my $get_rectangle_area_function_v1_result2 = $my_array_of_get_rectangle_area_functions_v1[1](7, 5);
-my $get_rectangle_area_function_v1_result3 = $my_array_of_get_rectangle_area_functions_v1[2](7, 5);
-my $get_rectangle_area_function_v1_result4 = $my_array_of_get_rectangle_area_functions_v1[3](7, 5);
+my $get_rectangle_area_function_v1_result1 = $my_array_of_get_rectangle_area_functions[0](7, 5);
+my $get_rectangle_area_function_v1_result2 = $my_array_of_get_rectangle_area_functions[1](7, 5);
+my $get_rectangle_area_function_v1_result3 = $my_array_of_get_rectangle_area_functions[2](7, 5);
+my $get_rectangle_area_function_v1_result4 = $my_array_of_get_rectangle_area_functions[3](7, 5);
 
-my $my_array_of_get_rectangle_area_functions_v2 = [
+my $my_array_of_get_rectangle_area_functions_ref = [
     \&get_rectangle_area_v1,
     sub {
         my ($rectangle_width, $rectangle_length) = @_;
@@ -93,25 +93,25 @@ my $my_array_of_get_rectangle_area_functions_v2 = [
     sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) }
 ];
 
-my $get_rectangle_area_function_v2_result1 = $$my_array_of_get_rectangle_area_functions_v2[0](7, 5);
-my $get_rectangle_area_function_v2_result2 = $$my_array_of_get_rectangle_area_functions_v2[1](7, 5);
-my $get_rectangle_area_function_v2_result3 = $$my_array_of_get_rectangle_area_functions_v2[2](7, 5);
-my $get_rectangle_area_function_v2_result4 = $$my_array_of_get_rectangle_area_functions_v2[3](7, 5);
-my $get_rectangle_area_function_v2_result5 = ${$my_array_of_get_rectangle_area_functions_v2}[0](7, 5);
-my $get_rectangle_area_function_v2_result6 = ${$my_array_of_get_rectangle_area_functions_v2}[1](7, 5);
-my $get_rectangle_area_function_v2_result7 = ${$my_array_of_get_rectangle_area_functions_v2}[2](7, 5);
-my $get_rectangle_area_function_v2_result8 = ${$my_array_of_get_rectangle_area_functions_v2}[3](7, 5);
-my $get_rectangle_area_function_v2_result9 = $my_array_of_get_rectangle_area_functions_v2->[0](7, 5);
-my $get_rectangle_area_function_v2_result10 = $my_array_of_get_rectangle_area_functions_v2->[1](7, 5);
-my $get_rectangle_area_function_v2_result11 = $my_array_of_get_rectangle_area_functions_v2->[2](7, 5);
-my $get_rectangle_area_function_v2_result12 = $my_array_of_get_rectangle_area_functions_v2->[3](7, 5);
+my $get_rectangle_area_function_v2_result1 = $$my_array_of_get_rectangle_area_functions_ref[0](7, 5);
+my $get_rectangle_area_function_v2_result2 = $$my_array_of_get_rectangle_area_functions_ref[1](7, 5);
+my $get_rectangle_area_function_v2_result3 = $$my_array_of_get_rectangle_area_functions_ref[2](7, 5);
+my $get_rectangle_area_function_v2_result4 = $$my_array_of_get_rectangle_area_functions_ref[3](7, 5);
+my $get_rectangle_area_function_v2_result5 = ${$my_array_of_get_rectangle_area_functions_ref}[0](7, 5);
+my $get_rectangle_area_function_v2_result6 = ${$my_array_of_get_rectangle_area_functions_ref}[1](7, 5);
+my $get_rectangle_area_function_v2_result7 = ${$my_array_of_get_rectangle_area_functions_ref}[2](7, 5);
+my $get_rectangle_area_function_v2_result8 = ${$my_array_of_get_rectangle_area_functions_ref}[3](7, 5);
+my $get_rectangle_area_function_v2_result9 = $my_array_of_get_rectangle_area_functions_ref->[0](7, 5);
+my $get_rectangle_area_function_v2_result10 = $my_array_of_get_rectangle_area_functions_ref->[1](7, 5);
+my $get_rectangle_area_function_v2_result11 = $my_array_of_get_rectangle_area_functions_ref->[2](7, 5);
+my $get_rectangle_area_function_v2_result12 = $my_array_of_get_rectangle_area_functions_ref->[3](7, 5);
 
 sub exponentiation {
     my ($a, $b) = @_;
     return ($a ** $b);
 }
 
-my %simple_calculator_v1 = (
+my %simple_calculator = (
     "exponentiation" => \&exponentiation,
     "addition" => sub {
         my ($a, $b) = @_;
@@ -121,12 +121,12 @@ my %simple_calculator_v1 = (
     "multiplication" => sub { my ($a, $b) = @_; ($a - $b) }
 );
 
-my $simple_calculator_v1_result1 = $simple_calculator_v1{"exponentiation"}->(2, 4);
-my $simple_calculator_v1_result2 = $simple_calculator_v1{"addition"}->(9, 3);
-my $simple_calculator_v1_result3 = $simple_calculator_v1{"subtraction"}->(35, 8);
-my $simple_calculator_v1_result4 = $simple_calculator_v1{"multiplication"}->(7, 5);
+my $simple_calculator_result1 = $simple_calculator{"exponentiation"}->(2, 4);
+my $simple_calculator_result2 = $simple_calculator{"addition"}->(9, 3);
+my $simple_calculator_result3 = $simple_calculator{"subtraction"}->(35, 8);
+my $simple_calculator_result4 = $simple_calculator{"multiplication"}->(7, 5);
 
-my $simple_calculator_v2 = {
+my $simple_calculator_ref = {
     "exponentiation" => \&exponentiation,
     "addition" => sub {
         my ($a, $b) = @_;
@@ -136,18 +136,18 @@ my $simple_calculator_v2 = {
     "multiplication" => sub { my ($a, $b) = @_; ($a - $b) }
 };
 
-my $simple_calculator_v2_result1 = $$simple_calculator_v2{"exponentiation"}->(2, 4);
-my $simple_calculator_v2_result2 = $$simple_calculator_v2{"addition"}->(9, 3);
-my $simple_calculator_v2_result3 = $$simple_calculator_v2{"subtraction"}->(35, 8);
-my $simple_calculator_v2_result4 = $$simple_calculator_v2{"multiplication"}->(7, 5);
-my $simple_calculator_v2_result5 = ${$simple_calculator_v2}{"exponentiation"}->(2, 4);
-my $simple_calculator_v2_result6 = ${$simple_calculator_v2}{"addition"}->(9, 3);
-my $simple_calculator_v2_result7 = ${$simple_calculator_v2}{"subtraction"}->(35, 8);
-my $simple_calculator_v2_result8 = ${$simple_calculator_v2}{"multiplication"}->(7, 5);
-my $simple_calculator_v2_result9 = $simple_calculator_v2->{"exponentiation"}->(2, 4);
-my $simple_calculator_v2_result10 = $simple_calculator_v2->{"addition"}->(9, 3);
-my $simple_calculator_v2_result11 = $simple_calculator_v2->{"subtraction"}->(35, 8);
-my $simple_calculator_v2_result12 = $simple_calculator_v2->{"multiplication"}->(7, 5);
+my $simple_calculator_ref_result1 = $$simple_calculator_ref{"exponentiation"}->(2, 4);
+my $simple_calculator_ref_result2 = $$simple_calculator_ref{"addition"}->(9, 3);
+my $simple_calculator_ref_result3 = $$simple_calculator_ref{"subtraction"}->(35, 8);
+my $simple_calculator_ref_result4 = $$simple_calculator_ref{"multiplication"}->(7, 5);
+my $simple_calculator_ref_result5 = ${$simple_calculator_ref}{"exponentiation"}->(2, 4);
+my $simple_calculator_ref_result6 = ${$simple_calculator_ref}{"addition"}->(9, 3);
+my $simple_calculator_ref_result7 = ${$simple_calculator_ref}{"subtraction"}->(35, 8);
+my $simple_calculator_ref_result8 = ${$simple_calculator_ref}{"multiplication"}->(7, 5);
+my $simple_calculator_ref_result9 = $simple_calculator_ref->{"exponentiation"}->(2, 4);
+my $simple_calculator_ref_result10 = $simple_calculator_ref->{"addition"}->(9, 3);
+my $simple_calculator_ref_result11 = $simple_calculator_ref->{"subtraction"}->(35, 8);
+my $simple_calculator_ref_result12 = $simple_calculator_ref->{"multiplication"}->(7, 5);
 
 # ? Returning functions as values from other functions
 

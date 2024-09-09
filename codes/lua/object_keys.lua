@@ -18,8 +18,8 @@ end
 function type_of(anything)
     if (type(anything) ~= "table") then return type(anything) end
     if (next(anything) == nil) then return "array" end
-    for key, value in pairs(anything) do
-        if ((type(key) == "number") and ((key >= 1) and (key <= #anything))) then return "array" end
+    for object_key, object_value in pairs(anything) do
+        if ((type(object_key) == "number") and ((object_key >= 1) and (object_key <= #anything))) then return "array" end
     end
     return "object"
 end
@@ -77,12 +77,17 @@ end
 
 print('\n-- JavaScript-like Object.keys() in hash-table')
 
+-- There's no JavaScript-like Object.keys() in Lua.
+-- But, we can create our own function to mimic it in Lua.
+
 friend = {
     name = "Alisa",
     country = "Finland",
     age = 25
 }
 sprint("friend: ", json_stringify(friend, { pretty = true }))
+
+print("-- using JavaScript-like Object.keys() function \"object_keys\"")
 
 sprint("friend keys: ", json_stringify(object_keys(friend)))
 -- friend keys: ["name", "country", "age"]

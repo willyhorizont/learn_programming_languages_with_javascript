@@ -14,6 +14,7 @@ java
 c3
 onyx
 lobster
+alpaca
 red
 pony
 reason
@@ -43,6 +44,7 @@ triangle
 pyramid
 palindrome
 spread string
+climbing_stairs
 
 tonotdo in js flavour langs repo:
 array_concat, array_copy_within, array_flat, array_flat_map, array_reduce_right, array_find_last, array_find_last_index,

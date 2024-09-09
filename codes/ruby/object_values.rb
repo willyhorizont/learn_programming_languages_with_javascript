@@ -9,5 +9,8 @@ friend = {
 }
 print("\n", "friend: ", JSON.pretty_generate(friend, { "indent": " " * 4 }))
 
+print("\n", "friend values: ", JSON.generate(friend.values()).gsub(",", ", "))
+# friend values: ["Alisa", "Finland", 25]
+
 print("\n", "friend values: ", JSON.generate(friend.values).gsub(",", ", "))
 # friend values: ["Alisa", "Finland", 25]

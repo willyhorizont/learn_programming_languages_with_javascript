@@ -23,6 +23,7 @@ use (
     ./codes/go/custom_error_and_error_handling
     ./codes/go/factorial
     ./codes/go/fizzbuzz
+    ./codes/go/object_entries
     ./codes/go/object_keys
     ./codes/go/object_values
     ./codes/go/www_001_abbreviate_name

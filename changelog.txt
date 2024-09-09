@@ -1,4 +1,12 @@
 =============================changelog==========================================
+(2024/09[Sep]/10[Tue]|06:39[AM]/06:39)
+1.0.64
+New:
+add and check object_entries.*
+TODO:
+fix jsonstringify variadic function in matlab/gnu_octave
+check object_keys.* and object_values.*
+=============================changelog==========================================
 (2024/09[Sep]/09[Mon]|10:54[PM]/22:54)
 1.0.63
 New:

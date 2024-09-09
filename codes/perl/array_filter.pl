@@ -55,7 +55,7 @@ sub array_filter_v1 {
         my $array_item = $an_array[$array_item_index];
         my $is_condition_match = $callback_function_ref->($array_item, $array_item_index, $an_array_ref);
         if ($is_condition_match) {
-            $data_filtered[scalar(@data_filtered)] = $array_item;
+            @data_filtered = (@data_filtered, $array_item);
         }
     }
     return @data_filtered;
@@ -69,7 +69,7 @@ sub array_filter_v2 {
     for (my $array_item_index = 0; $array_item_index < scalar(@an_array); $array_item_index += 1) {
         my $array_item = $an_array[$array_item_index];
         if ($callback_function_ref->($array_item, $array_item_index, $an_array_ref)) {
-            $data_filtered[scalar(@data_filtered)] = $array_item;
+            @data_filtered = (@data_filtered, $array_item);
         }
     }
     return @data_filtered;

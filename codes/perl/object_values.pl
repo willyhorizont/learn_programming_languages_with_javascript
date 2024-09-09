@@ -48,22 +48,22 @@ sub json_stringify {
 
 print("\n# JavaScript-like Object.values() in Perl Hash", "\n");
 
-my %friend1 = (
+my %friend = (
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 );
-print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
 
-print("friend1 values: ", json_stringify([values(%friend1)]), "\n");
-# friend1 values: ["Alisa", "Finland", 25]
+print("friend values: ", json_stringify([values(%friend)]), "\n");
+# friend values: ["Alisa", "Finland", 25]
 
-my $friend2 = {
+my $friend_ref = {
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 };
-print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
 
-print("friend2 values: ", json_stringify([values(%{$friend2})]), "\n");
-# friend2 values: ["Alisa", "Finland", 25]
+print("friend_ref values: ", json_stringify([values(%{$friend_ref})]), "\n");
+# friend_ref values: ["Alisa", "Finland", 25]

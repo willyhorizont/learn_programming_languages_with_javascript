@@ -44,6 +44,12 @@ my %friend1 = (
 );
 print("friend1: ", json-stringify(%friend1, :pretty(True)), "\n");
 
+print("friend1 values: ", json-stringify(values(%friend1)), "\n");
+# friend values: ["Alisa", "Finland", 25]
+
+print("friend1 values: ", json-stringify(%friend1.values()), "\n");
+# friend values: ["Alisa", "Finland", 25]
+
 print("friend1 values: ", json-stringify(%friend1.values), "\n");
 # friend values: ["Alisa", "Finland", 25]
 
@@ -54,6 +60,12 @@ my $friend2 = {
 };
 print("friend2: ", json-stringify($friend2, :pretty(True)), "\n");
 
+print("friend2 values: ", json-stringify(values($friend2)), "\n");
+# friend values: ["Alisa", "Finland", 25]
+
+print("friend2 values: ", json-stringify($friend2.values()), "\n");
+# friend values: ["Alisa", "Finland", 25]
+
 print("friend2 values: ", json-stringify($friend2.values), "\n");
 # friend values: ["Alisa", "Finland", 25]
 
@@ -63,6 +75,12 @@ my $friend3 = %(
     "age" => 25
 );
 print("friend3: ", json-stringify($friend3, :pretty(True)), "\n");
+
+print("friend3 values: ", json-stringify(values($friend3)), "\n");
+# friend values: ["Alisa", "Finland", 25]
+
+print("friend3 values: ", json-stringify($friend3.values()), "\n");
+# friend values: ["Alisa", "Finland", 25]
 
 print("friend3 values: ", json-stringify($friend3.values), "\n");
 # friend values: ["Alisa", "Finland", 25]

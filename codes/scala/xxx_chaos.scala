@@ -87,12 +87,12 @@ def toDoubleV1(anything: Any): Double = {
 
 val toDoubleV2 = ((anything: Any) => (if (anything.isInstanceOf[Byte]) anything.asInstanceOf[Byte].toDouble else (if (anything.isInstanceOf[Int]) anything.asInstanceOf[Int].toDouble else (if (anything.isInstanceOf[Long]) anything.asInstanceOf[Long].toDouble else (if (anything.isInstanceOf[Short]) anything.asInstanceOf[Short].toDouble else (if (anything.isInstanceOf[Double]) anything.asInstanceOf[Double].toDouble else (if (anything.isInstanceOf[Float]) anything.asInstanceOf[Float].toDouble else (if (anything.isInstanceOf[BigInt]) anything.asInstanceOf[BigInt].toDouble else (if (anything.isInstanceOf[BigDecimal]) anything.asInstanceOf[BigDecimal].toDouble else 0.0)))))))): Double)
 
-def MyArrayV1(arrayItems: Any*): Array[Any] = if (arrayItems.toArray[Any].length == 0) Array.empty[Any].asInstanceOf[Array[Any]] else arrayItems.toArray[Any]
+def MyArrayV1(arrayItem: Any*): Array[Any] = if (arrayItem.toArray[Any].length == 0) Array.empty[Any].asInstanceOf[Array[Any]] else arrayItem.toArray[Any]
 
-def MyArrayV2(arrayItems: Any*): Array[Any] = (if (arrayItems.isEmpty) Array.empty[Any] else arrayItems.toArray[Any])
+def MyArrayV2(arrayItem: Any*): Array[Any] = (if (arrayItem.isEmpty) Array.empty[Any] else arrayItem.toArray[Any])
 
 def MyObjectV1(anObject: Any): Map[String, Any] = if (anObject.asInstanceOf[Map[String, Any]].size == 0) Map.empty[String, Any].asInstanceOf[Map[String, Any]] else anObject.asInstanceOf[Map[String, Any]]
 
-def MyObjectV2(objectEntries: (String, Any)*): Map[String, Any] = (if (objectEntries.isEmpty) Map.empty[String, Any] else objectEntries.toMap[String, Any])
+def MyObjectV2(objectEntry: (String, Any)*): Map[String, Any] = (if (objectEntry.isEmpty) Map.empty[String, Any] else objectEntry.toMap[String, Any])
 
-def MyObjectV3(objectEntries: (String, Any)*): mutable.Map[String, Any] = (if (objectEntries.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntries: _*))
+def MyObjectV3(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))

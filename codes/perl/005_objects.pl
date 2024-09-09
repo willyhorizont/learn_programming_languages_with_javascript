@@ -49,225 +49,237 @@ sub json_stringify {
 # in Perl, JavaScript-like Object is called Hash
 
 # initialization v1
-my %friend1 = (
+my %friend = (
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 );
-print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
+print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
 
-print("friend1, get total object keys: ", scalar(keys(%friend1)), "\n");
-# friend1, get total object keys: 3
+print("friend, get total object keys: ", scalar(keys(%friend)), "\n");
+# friend, get total object keys: 3
 
-print("friend1, get country: ", $friend1{"country"}, "\n");
-# friend1, get country: Finland
+print("friend, get country: ", $friend{"country"}, "\n");
+# friend, get country: Finland
 
 # iterate over and get each key-value pair
-my @friend1_entries1 = %friend1;
+my @friend1_entries1 = %friend;
 for (my $friend1_entries1 = 0; ($friend1_entries1 < scalar(@friend1_entries1)); $friend1_entries1 += 2) {
     my $object_key = $friend1_entries1[$friend1_entries1];
     my $object_value = $friend1_entries1[$friend1_entries1 + 1];
-    print("friend1, for loop, key: $object_key, value: $object_value", "\n");
+    print("friend, for loop, key: $object_key, value: $object_value", "\n");
 }
-# friend1, for loop, key: name, value: Alisa
-# friend1, for loop, key: country, value: Finland
-# friend1, for loop, key: age, value: 25
+# friend, for loop, key: name, value: Alisa
+# friend, for loop, key: country, value: Finland
+# friend, for loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys(%friend1)) {
-    my $object_value = $friend1{$object_key};
-    print("friend1, forEach loop, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%friend)) {
+    my $object_value = $friend{$object_key};
+    print("friend, forEach loop, key: $object_key, value: $object_value", "\n");
 }
-# friend1, forEach loop, key: name, value: Alisa
-# friend1, forEach loop, key: country, value: Finland
-# friend1, forEach loop, key: age, value: 25
+# friend, forEach loop, key: name, value: Alisa
+# friend, forEach loop, key: country, value: Finland
+# friend, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each(%friend1)) {
-    print("friend1, while loop, key: $object_key, value: $object_value", "\n");
+while (my ($object_key, $object_value) = each(%friend)) {
+    print("friend, while loop, key: $object_key, value: $object_value", "\n");
 }
-# friend1, forEach loop, key: name, value: Alisa
-# friend1, forEach loop, key: country, value: Finland
-# friend1, forEach loop, key: age, value: 25
+# friend, forEach loop, key: name, value: Alisa
+# friend, forEach loop, key: country, value: Finland
+# friend, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index
-my @friend1_entries2 = %friend1;
+my @friend1_entries2 = %friend;
 for (my $object_entries_index = 0; ($object_entries_index < scalar(@friend1_entries2)); $object_entries_index += 2) {
     my $object_entry_index = ($object_entries_index / 2);
     my $object_key = $friend1_entries2[$object_entry_index];
     my $object_value = $friend1_entries2[$object_entry_index + 1];
-    print("friend1, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
+    print("friend, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
 }
-# friend1, for loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend1, for loop, object iteration/entry index: 1, key: country, value: Finland
-# friend1, for loop, object iteration/entry index: 2, key: age, value: 25
+# friend, for loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend, for loop, object iteration/entry index: 1, key: country, value: Finland
+# friend, for loop, object iteration/entry index: 2, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index
 my $iteration_index2 = 0;
-while (my ($object_key, $object_value) = each(%friend1)) {
-    print("friend1, while loop, object iteration/entry index: $iteration_index2, key: $object_key, value: $object_value", "\n");
+while (my ($object_key, $object_value) = each(%friend)) {
+    print("friend, while loop, object iteration/entry index: $iteration_index2, key: $object_key, value: $object_value", "\n");
     $iteration_index2 += 1;
 }
-# friend1, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend1, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend1, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index (the best way)
 my $iteration_index1 = 0;
-foreach my $object_key (keys(%friend1)) {
-    my $object_value = $friend1{$object_key};
-    print("friend1, forEach loop, object iteration/entry index: $iteration_index1, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%friend)) {
+    my $object_value = $friend{$object_key};
+    print("friend, forEach loop, object iteration/entry index: $iteration_index1, key: $object_key, value: $object_value", "\n");
     $iteration_index1 += 1;
 }
-# friend1, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend1, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend1, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
-$friend1{"age"} = 27;
-print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+$friend{"age"} = 27;
+print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
+print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
 
-$friend1{"gender"} = "Female";
-print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+$friend{"gender"} = "Female";
+print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
+print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
 
-delete $friend1{"country"};
-print("friend1: ", json_stringify(\%friend1, "pretty" => 1), "\n");
+delete $friend{"country"};
+print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
+print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-my $delivery_response1_key_message = "message";
-my %delivery_response1 = (
-    $delivery_response1_key_message => "ok"
+my $delivery_response_key_message = "message";
+my %delivery_response = (
+    $delivery_response_key_message => "ok"
 );
-print("delivery_response1: ", json_stringify(\%delivery_response1, "pretty" => 1), "\n");
-my $delivery_response1_key_status = "status";
-$delivery_response1{$delivery_response1_key_status} = 200;
-print("delivery_response1: ", json_stringify(\%delivery_response1, "pretty" => 1), "\n");
+print("delivery_response: ", json_stringify({%delivery_response}, "pretty" => 1), "\n");
+print("delivery_response: ", json_stringify(\%delivery_response, "pretty" => 1), "\n");
+my $delivery_response_key_status = "status";
+$delivery_response{$delivery_response_key_status} = 200;
+print("delivery_response: ", json_stringify({%delivery_response}, "pretty" => 1), "\n");
+print("delivery_response: ", json_stringify(\%delivery_response, "pretty" => 1), "\n");
 
 # initialization v2
-my $friend2 = {
+my $friend_ref = {
     "name" => "Alisa",
     "country" => "Finland",
     "age" => 25
 };
-print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
 
-print("friend2, get total object keys: ", scalar(keys(%{$friend2})), "\n");
-# friend2, get total object keys: 3
+print("friend_ref, get total object keys: ", scalar(keys(%{$friend_ref})), "\n");
+# friend_ref, get total object keys: 3
 
-print("friend2, get country: ", $$friend2{"country"}, "\n");
-# friend2, get country: Finland
+print("friend_ref, get country: ", $$friend_ref{"country"}, "\n");
+# friend_ref, get country: Finland
 
-print("friend2, get country: ", ${$friend2}{"country"}, "\n");
-# friend2, get country: Finland
+print("friend_ref, get country: ", ${$friend_ref}{"country"}, "\n");
+# friend_ref, get country: Finland
 
 # (the best way)
-print("friend2, get country: ", $friend2->{"country"}, "\n");
-# friend2, get country: Finland
+print("friend_ref, get country: ", $friend_ref->{"country"}, "\n");
+# friend_ref, get country: Finland
 
 # iterate over and get each key-value pair
-my @friend2_entries1 = %{$friend2};
+my @friend2_entries1 = %{$friend_ref};
 for (my $friend2_entries1_index = 0; ($friend2_entries1_index < scalar(@friend2_entries1)); $friend2_entries1_index += 2) {
     my $object_key = $friend2_entries1[$friend2_entries1_index];
     my $object_value = $friend2_entries1[$friend2_entries1_index + 1];
-    print("friend2, for loop, key: $object_key, value: $object_value", "\n");
+    print("friend_ref, for loop, key: $object_key, value: $object_value", "\n");
 }
-# friend2, for loop, key: name, value: Alisa
-# friend2, for loop, key: country, value: Finland
-# friend2, for loop, key: age, value: 25
+# friend_ref, for loop, key: name, value: Alisa
+# friend_ref, for loop, key: country, value: Finland
+# friend_ref, for loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend2})) {
-    my $object_value = %$friend2{$object_key};
-    print("friend2, forEach loop, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%{$friend_ref})) {
+    my $object_value = %$friend_ref{$object_key};
+    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
 }
-# friend2, forEach loop, key: name, value: Alisa
-# friend2, forEach loop, key: country, value: Finland
-# friend2, forEach loop, key: age, value: 25
+# friend_ref, forEach loop, key: name, value: Alisa
+# friend_ref, forEach loop, key: country, value: Finland
+# friend_ref, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend2})) {
-    my $object_value = %{$friend2}{$object_key};
-    print("friend2, forEach loop, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%{$friend_ref})) {
+    my $object_value = %{$friend_ref}{$object_key};
+    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
 }
-# friend2, forEach loop, key: name, value: Alisa
-# friend2, forEach loop, key: country, value: Finland
-# friend2, forEach loop, key: age, value: 25
+# friend_ref, forEach loop, key: name, value: Alisa
+# friend_ref, forEach loop, key: country, value: Finland
+# friend_ref, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend2})) {
-    my $object_value = $friend2->{$object_key};
-    print("friend2, forEach loop, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%{$friend_ref})) {
+    my $object_value = $friend_ref->{$object_key};
+    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
 }
-# friend2, forEach loop, key: name, value: Alisa
-# friend2, forEach loop, key: country, value: Finland
-# friend2, forEach loop, key: age, value: 25
+# friend_ref, forEach loop, key: name, value: Alisa
+# friend_ref, forEach loop, key: country, value: Finland
+# friend_ref, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each(%{$friend2})) {
-    print("friend2, while loop, key: $object_key, value: $object_value", "\n");
+while (my ($object_key, $object_value) = each(%{$friend_ref})) {
+    print("friend_ref, while loop, key: $object_key, value: $object_value", "\n");
 }
-# friend2, forEach loop, key: name, value: Alisa
-# friend2, forEach loop, key: country, value: Finland
-# friend2, forEach loop, key: age, value: 25
+# friend_ref, forEach loop, key: name, value: Alisa
+# friend_ref, forEach loop, key: country, value: Finland
+# friend_ref, forEach loop, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index
-my @friend2_entries2 = %{$friend2};
+my @friend2_entries2 = %{$friend_ref};
 for (my $object_entries_index = 0; ($object_entries_index < scalar(@friend2_entries2)); $object_entries_index += 2) {
     my $object_entry_index = ($object_entries_index / 2);
     my $object_key = $friend2_entries2[$object_entry_index];
     my $object_value = $friend2_entries2[$object_entry_index + 1];
-    print("friend2, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
+    print("friend_ref, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
 }
-# friend2, for loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend2, for loop, object iteration/entry index: 1, key: country, value: Finland
-# friend2, for loop, object iteration/entry index: 2, key: age, value: 25
+# friend_ref, for loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend_ref, for loop, object iteration/entry index: 1, key: country, value: Finland
+# friend_ref, for loop, object iteration/entry index: 2, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index
 my $iteration_index5 = 0;
-while (my ($object_key, $object_value) = each(%{$friend2})) {
-    print("friend2, while loop, object iteration/entry index: $iteration_index5, key: $object_key, value: $object_value", "\n");
+while (my ($object_key, $object_value) = each(%{$friend_ref})) {
+    print("friend_ref, while loop, object iteration/entry index: $iteration_index5, key: $object_key, value: $object_value", "\n");
     $iteration_index5 += 1;
 }
-# friend2, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend2, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend2, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index (the best way)
 my $iteration_index3 = 0;
-foreach my $object_key (keys(%{$friend2})) {
-    my $object_value = %{$friend2}{$object_key};
-    print("friend2, forEach loop, object iteration/entry index: $iteration_index3, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%{$friend_ref})) {
+    my $object_value = %{$friend_ref}{$object_key};
+    print("friend_ref, forEach loop, object iteration/entry index: $iteration_index3, key: $object_key, value: $object_value", "\n");
     $iteration_index3 += 1;
 }
-# friend2, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend2, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend2, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
 # iterate over and get each key-value pair and object iteration/entry index (the best way)
 my $iteration_index4 = 0;
-foreach my $object_key (keys(%{$friend2})) {
-    my $object_value = $friend2->{$object_key};
-    print("friend2, forEach loop, object iteration/entry index: $iteration_index4, key: $object_key, value: $object_value", "\n");
+foreach my $object_key (keys(%{$friend_ref})) {
+    my $object_value = $friend_ref->{$object_key};
+    print("friend_ref, forEach loop, object iteration/entry index: $iteration_index4, key: $object_key, value: $object_value", "\n");
     $iteration_index4 += 1;
 }
-# friend2, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend2, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend2, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
+# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
+# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
-$friend2->{"age"} = 27;
-print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+$friend_ref->{"age"} = 27;
+print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
 
-$friend2->{"gender"} = "Female";
-print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+$friend_ref->{"gender"} = "Female";
+print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
 
-delete $friend2->{"country"};
-print("friend2: ", json_stringify($friend2, "pretty" => 1), "\n");
+delete $friend_ref->{"country"};
+print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
+print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-my $delivery_response2_key_message = "message";
-my $delivery_response2 = {
-    $delivery_response2_key_message => "ok"
+my $delivery_response_ref_key_message = "message";
+my $delivery_response_ref = {
+    $delivery_response_ref_key_message => "ok"
 };
-print("delivery_response2: ", json_stringify($delivery_response2, "pretty" => 1), "\n");
-my $delivery_response2_key_status = "status";
-$delivery_response2->{$delivery_response2_key_status} = 200;
-print("delivery_response2: ", json_stringify($delivery_response2, "pretty" => 1), "\n");
+print("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => 1), "\n");
+print("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => 1), "\n");
+my $delivery_response_ref_key_status = "status";
+$delivery_response_ref->{$delivery_response_ref_key_status} = 200;
+print("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => 1), "\n");
+print("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => 1), "\n");

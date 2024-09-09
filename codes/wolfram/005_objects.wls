@@ -32,6 +32,18 @@ Print["Friend, get country: ", Friend[["country"]]];
 (* Friend, get country: Finland *)
 
 (* iterate over and get each key-value pair and object iteration/entry index *)
+Module[{ObjectIterationIndex},
+    ObjectIterationIndex = 1;
+    KeyValueMap[(Module[{ObjectKey = #1, ObjectValue = #2},
+        Print["Friend, forEach loop v2, object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
+        ObjectIterationIndex += 1;
+    ] &), Friend];
+];
+(* Friend, forEach loop v2, object iteration/entry index: 1, key: "name", value: "Alisa" *)
+(* Friend, forEach loop v2, object iteration/entry index: 2, key: "country", value: "Finland" *)
+(* Friend, forEach loop v2, object iteration/entry index: 3, key: "age", value: 25 *)
+
+(* iterate over and get each key-value pair and object iteration/entry index (the best way) *)
 Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
     ObjectKeys = Keys[Friend];
     ObjectValues = Values[Friend];
@@ -44,18 +56,6 @@ Module[{ObjectKeys, ObjectValues, ObjectIterationIndex, ObjectKey, ObjectValue},
 (* Friend, forEach loop v1, object iteration/entry index: 1, key: "name", value: "Alisa" *)
 (* Friend, forEach loop v1, object iteration/entry index: 2, key: "country", value: "Finland" *)
 (* Friend, forEach loop v1, object iteration/entry index: 3, key: "age", value: 25 *)
-
-(* iterate over and get each key-value pair and object iteration/entry index *)
-Module[{ObjectIterationIndex},
-    ObjectIterationIndex = 1;
-    KeyValueMap[(Module[{ObjectKey = #1, ObjectValue = #2},
-        Print["Friend, forEach loop v2, object iteration/entry index: ", ObjectIterationIndex, ", key: ", ObjectKey, ", value: ", ObjectValue];
-        ObjectIterationIndex += 1;
-    ] &), Friend];
-];
-(* Friend, forEach loop v2, object iteration/entry index: 1, key: "name", value: "Alisa" *)
-(* Friend, forEach loop v2, object iteration/entry index: 2, key: "country", value: "Finland" *)
-(* Friend, forEach loop v2, object iteration/entry index: 3, key: "age", value: 25 *)
 
 Friend["age"] = 27
 Print["Friend: ", JsonStringify[Friend, "Pretty" -> True]];
