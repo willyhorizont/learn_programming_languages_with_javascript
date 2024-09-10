@@ -93,11 +93,11 @@ func sPrintln(parameters ...any) {
     fmt.Println(strings.Join(parametersNew, ""))
 }
 
-func ternary(trueCondition bool, valueIfConditionIsTrue any, valueIfConditionIsFalse any) any {
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
     if (trueCondition == true) {
-        return valueIfConditionIsTrue
+        return callbackFunctionIfConditionTrue()
     }
-    return valueIfConditionIsFalse
+    return callbackFunctionIfConditionFalse()
 }
 
 func main() {
@@ -112,11 +112,11 @@ func main() {
 
     myAnswer = "bar"
     sPrintln("my answer: ", myAnswer)
-    sPrintln("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+    sPrintln("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any { return "correct!" }, func() any { return "wrong!" }))
     // is my answer correct: wrong!
 
     myAnswer = "foo"
     sPrintln("my answer: ", myAnswer)
-    sPrintln("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), "correct!", "wrong!"))
+    sPrintln("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any { return "correct!" }, func() any { return "wrong!" }))
     // is my answer correct: correct!
 }

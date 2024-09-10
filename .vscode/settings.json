@@ -1,4 +1,179 @@
 {
+    "editor.fontFamily": "'Source Code Pro', Consolas, 'Courier New', monospace",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "php.suggest.basic": false,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "window.title": "${rootName}${separator}${activeEditorLong}${dirty}",
+    "terminal.integrated.gpuAcceleration": "off",
+    "json.maxItemsComputed": 500000,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.lineHeight": 27,
+    "editor.detectIndentation": false,
+    "[json]": {
+      "editor.quickSuggestions": {
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace",
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "javascript.validate.enable": false,
+    "editor.guides.bracketPairs": "active",
+    "editor.bracketPairColorization.enabled": true,
+    "material-icon-theme.activeIconPack": "react",
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+    "prettier.singleQuote": true,
+    "[javascript]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "editor.inlineSuggest.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "tabnine.experimentalAutoImports": true,
+    "editor.foldingMaximumRegions": 50000,
+    "rapidapi.terminalLink.enabled": false,
+    "eslint.alwaysShowStatus": true,
+    "prettier.trailingComma": "es5",
+    "javascript.suggest.paths": false,
+    "editor.showFoldingControls": "always",
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "python.formatting.provider": "none",
+    "python.formatting.autopep8Args": [
+        "--max-line-length",
+        "1000",
+        "--ignore=E731"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.formatOnType": true
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.printWidth": 1000,
+    "workbench.iconTheme": "vscode-icons",
+    "go.toolsManagement.autoUpdate": true,
+    "C_Cpp.default.cppStandard": "c++17",
+    "cmake.configureOnOpen": true,
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt",
+        "matlab.interrupt"
+    ],
+    "julia.symbolCacheDownload": true,
+    "julia.enableTelemetry": true,
+    "window.commandCenter": false,
+    "[ruby]": {
+        // All of these settings are scoped only to the Ruby language
+        "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+        "editor.formatOnSave": false, // Format files automatically when saving
+        "editor.tabSize": 4, // Use 2 spaces for indentation
+        "editor.insertSpaces": true, // Use spaces and not tabs for indentantion
+        "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
+        "editor.formatOnType": false // Enable formatting while typing
+    },
+    "[dart]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    },
+    "d.dubCompiler": "dmd.EXE",
+    "r.rpath.windows": "C:\\\\Users\\\\willy\\\\AppData\\\\Local\\\\Programs\\\\R-4.3.2\\\\bin\\\\x64\\\\R.exe",
+    "r.rterm.windows": "C:\\\\Users\\\\willy\\\\AppData\\\\Local\\\\Programs\\\\R-4.3.2\\\\bin\\\\x64\\\\Rterm.exe",
+    "files.associations": {
+        "*.rmd": "markdown",
+        "*.m": "matlab"
+    },
+    "code-runner.ignoreSelection": true,
+    "code-runner.executorMap": {
+        "javascript": "cd $dir && node $fileName",
+        "python": "cd $dir && python $fileName",
+        "php": "cd $dir && php $fileName",
+        "go": "cd $dir && go run .",
+        "perl": "cd $dir && perl $fileName",
+        "julia": "cd $dir && julia $fileName",
+        "lua": "cd $dir && lua $fileName",
+        "ruby": "cd $dir && ruby $fileName",
+        "r": "cd $dir && Rscript.exe $fileName",
+        "kotlin": "cd $dir && kotlinc $fileNameWithoutExt.kt -include-runtime -d $fileNameWithoutExt.jar && kotlin $fileNameWithoutExt.jar && del \"$dir$fileNameWithoutExt.jar\"",
+        "swift": "cd $dir && swiftc $fileName && $dir$fileNameWithoutExt && rm -f $dir$fileNameWithoutExt",
+        "dart": "cd $dir && dart run $fileName",
+        "vb": "cd $dir && vbc $fileName && $dir$fileNameWithoutExt.exe && del \"$dir$fileNameWithoutExt.exe\"",
+        "csharp": "cd $dir && csc $fileName && $dir$fileNameWithoutExt.exe && del \"$dir$fileNameWithoutExt.exe\"",
+        "matlab": "cd \"$dir..\\..\\utils\" && python run_matlab_gnu_octave_file.py $dir$fileName",
+        "wolfram": "cd $dir && wolframscript -file $fileName",
+        "raku": "cd $dir && raku $fileName",
+        // "scala": "cd $dir && scala $fileName", // run .scala file using scala interpreter
+        "scala": "cd \"$dir..\\..\\utils\" && python compile_and_run_scala_file.py $dir$fileName", // compile .scala file to .class and run the .class
+        "scala2": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"", // compile .scala file to .class and run the .class
+        "scala3": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"  && del \"$dir*.tasty\"", // compile .scala file to .class and run the .class
+        "gdscript": "cd $dir && godot --script --headless $fileName",
+        "elixir": "cd $dir && elixir $fileName",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt && del \"$dir*.class\"",
+        "perl6": "cd $dir && perl6 $fileName",
+        "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt.exe && del \"$dir$fileNameWithoutExt.exe\"",
+        "crystal": "cd $dir && crystal $fileName",
+        "mojo": "cd $dir && mojo $fileName",
+        "v": "cd $dir && v run $fileName",
+        "odin": "cd $dir && odin run $fileName -file",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "zig": "zig run",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "groovy": "groovy",
+        "powershell": "powershell -ExecutionPolicy ByPass -File",
+        "bat": "cmd /c",
+        "shellscript": "bash",
+        "fsharp": "fsi",
+        "typescript": "ts-node",
+        "coffeescript": "coffee",
+        "ocaml": "ocaml",
+        "applescript": "osascript",
+        "clojure": "lein exec",
+        "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+        "racket": "racket",
+        "scheme": "csi -script",
+        "ahk": "autohotkey",
+        "autoit": "autoit3",
+        "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+        "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+        "haskell": "runghc",
+        "nim": "nim compile --verbosity:0 --hints:off --run",
+        "lisp": "sbcl --script",
+        "kit": "kitc --run",
+        "sass": "sass --style expanded",
+        "scss": "scss --style expanded",
+        "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+        "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "sml": "cd $dir && sml $fileName"
+    },
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "none"
+    },
+    "editor.codeActionsOnSave": {},
+    "[go]": {
+        "editor.formatOnSave": false
+    },
+    "MATLAB.matlabConnectionTiming": "never",
+    "MATLAB.telemetry": false,
+    "lldb.library": "/mnt/c/WSL_Documents/Swift/swift-5.9.1-RELEASE-ubuntu22.04/usr/lib/liblldb.so",
+    "lldb.launch.expressions": "native",
+    "terminal.integrated.env.windows": {},
+    "console-ninja.featureSet": "Community",
+    "editor.stickyScroll.enabled": false,
+    "godotTools.editorPath.godot3": "\"D:\\Programs_Portable\\Godot_v3.5.3-stable_win64.exe\\godot.exe\"",
+    "godotTools.editorPath.godot4": "\"D:\\Programs_Portable\\Godot_v4.2.1-stable_win64\\godot.exe\"",
     "workbench.colorTheme": "Noctis Bordo",
     "workbench.colorCustomizations":{
         // "editor.selectionBackground" : "#542400f9",
@@ -34,17 +209,13 @@
         "editorUnnecessaryCode.background": "#00000019",
         "editorUnnecessaryCode.border": "#b50000fb",
     },
-    "[ruby]": {
-        // All of these settings are scoped only to the Ruby language
-        "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
-        "editor.formatOnSave": true, // Format files automatically when saving
-        "editor.tabSize": 4, // Use 2 spaces for indentation
-        "editor.insertSpaces": true, // Use spaces and not tabs for indentantion
-        "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
-        "editor.formatOnType": true // Enable formatting while typing
-    },
     "Lua.diagnostics.disable": [
         "lowercase-global",
         "assign-type-mismatch"
-    ]
+    ],
+    "editor.multiCursorLimit": 100000,
+    "editor.minimap.enabled": false,
+    "workbench.sideBar.location": "right",
+    "workbench.editor.pinnedTabsOnSeparateRow": true,
+    "workbench.editor.wrapTabs": false
 }

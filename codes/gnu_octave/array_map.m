@@ -46,26 +46,22 @@ function optionalchainingresult = optionalchaining(anything, varargin)
     optionalchainingresult = arrayreduce(@arrayreducecallback, varargin, {});
 end
 
-function ternaryresult = ternary(truecondition, valueifconditionistrue, valueifconditionisfalse)
+function ternaryresult = ternary(truecondition, callbackfunctionifconditiontrue, callbackfunctionifconditionfalse)
     if (islogical(truecondition) && (truecondition == true))
-        ternaryresult = valueifconditionistrue;
+        ternaryresult = callbackfunctionifconditiontrue();
         return;
     end
-    ternaryresult = valueifconditionisfalse;
+    ternaryresult = callbackfunctionifconditionfalse();
 end
 
-function jsonstringifyresult = jsonstringify(anything, additionalparameter)
+function jsonstringifyresult = jsonstringify(anything, varargin)
     indentlevel = 0;
     function jsonstringifyinnerresult = jsonstringifyinner(anythinginner, prettyinner, indentinner)
         if isempty(anythinginner)
             jsonstringifyinnerresult = "null";
             return;
         end
-        if ischar(anythinginner)
-            jsonstringifyinnerresult = cstrcat("""", anythinginner, """");
-            return;
-        end
-        if ischar(anythinginner)
+        if (ischar(anythinginner) || ischar(anythinginner))
             jsonstringifyinnerresult = cstrcat("""", anythinginner, """");
             return;
         end
@@ -87,16 +83,16 @@ function jsonstringifyresult = jsonstringify(anything, additionalparameter)
                 return;
             end
             indentlevel = indentlevel + 1;
-            result = ternary((pretty == true), cstrcat("[", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "[");
+            result = ternary((pretty == true), @() (cstrcat("[", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() ("["));
             for arrayitemindex = (1:1:numel(anythinginner)) % (start:step:stop)
                 arrayitem = anythinginner{arrayitemindex};
                 result = cstrcat(result, jsonstringifyinner(arrayitem, prettyinner, indentinner));
                 if (arrayitemindex ~= numel(anythinginner))
-                    result = ternary((pretty == true), cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), cstrcat(result, ", "));
+                    result = ternary((pretty == true), @() (cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() (cstrcat(result, ", ")));
                 end
             end
             indentlevel = indentlevel - 1;
-            result = ternary((pretty == true), cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "]"), cstrcat(result, "]"));
+            result = ternary((pretty == true), @() (cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "]")), @() (cstrcat(result, "]")));
             jsonstringifyinnerresult = result;
             return;
         end
@@ -106,48 +102,57 @@ function jsonstringifyresult = jsonstringify(anything, additionalparameter)
                 return;
             end
             indentlevel = indentlevel + 1;
-            result = ternary((pretty == true), cstrcat("{", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "{");
+            result = ternary((pretty == true), @() (cstrcat("{", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() ("{"));
             objectkeys = fieldnames(anythinginner);
             for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                 objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = cstrcat(result, """", objectkey, """: ", jsonstringifyinner(objectvalue, prettyinner, indentinner));
                 if (objectentryindex ~= numel(objectkeys))
-                    result = ternary((pretty == true), cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), cstrcat(result, ", "));
+                    result = ternary((pretty == true), @() (cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() (cstrcat(result, ", ")));
                 end
             end
             indentlevel = indentlevel - 1;
-            result = ternary((pretty == true), cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "}"), cstrcat(result, "}"));
+            result = ternary((pretty == true), @() (cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "}")), @() (cstrcat(result, "}")));
             jsonstringifyinnerresult = result;
             return;
         end
         jsonstringifyinnerresult = "null";
     end
-    pretty = false;
-    indent = "    ";
-    if isempty(additionalparameter)
-        jsonstringifyresult = jsonstringifyinner(anything, true, indent);
+    prettydefault = false;
+    indentdefault = "    ";
+    pretty = prettydefault;
+    indent = indentdefault;
+    if isempty(varargin)
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
+    additionalparameter = varargin{1};
     if isstruct(additionalparameter)
         pretty = optionalchaining(additionalparameter, "pretty");
         indent = optionalchaining(additionalparameter, "indent");
-        pretty = ternary(isempty(pretty), false, pretty);
-        indent = ternary(isempty(indent), "    ", indent);
+        pretty = ternary(isempty(pretty), @() (prettydefault), @() (pretty));
+        indent = ternary(isempty(indent), @() (indentdefault), @() (indent));
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
     if (islogical(additionalparameter) && (additionalparameter == true))
+        if (numel(varargin) >= 2)
+            additionalparameter2 = varargin{2};
+            if (ischar(additionalparameter2) || ischar(additionalparameter2))
+                indent = additionalparameter2
+            end
+        end
         pretty = true;
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
     if (islogical(additionalparameter) && (additionalparameter == false))
         pretty = false;
-        jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
-    jsonstringifyresult = jsonstringifyinner(anything, false, indent);
+    jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
 end
 
 function sprint(varargin)
@@ -155,7 +160,7 @@ function sprint(varargin)
     for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
         parameter = varargin{parameterindex};
         if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = jsonstringify(parameter{1}, false);
+            parameternew = jsonstringify(parameter{1});
             parameternew = strrep(parameternew, """{", "{");
             parameternew = strrep(parameternew, """[", "[");
             parameternew = strrep(parameternew, "}""", "}");
@@ -181,7 +186,7 @@ function newallowedobjectkeygeneratorresult = newallowedobjectkeygenerator()
             generateallowedobjectkeyinnerresult = cstrcat("key", anything);
             return;
         end
-        newobjectkeystring = jsonstringify(anything, false);
+        newobjectkeystring = jsonstringify(anything);
         if ischar(anything) || ischar(anything)
             if regexp(anything, "^[0-9]*$")
                 anything = strrep(num2str(anything), ".", "point");
@@ -250,11 +255,11 @@ end
 sprint(sprintf("\n"), "% JavaScript-like Array.map() in GNU Octave Cell-Array");
 
 numbers = {12, 34, 27, 23, 65, 93, 36, 87, 4, 254};
-sprint("numbers: ", jsonstringify(numbers, false));
+sprint("numbers: ", jsonstringify(numbers));
 
 sprint("% using JavaScript-like Array.map() function ""arraymapv1""");
 
-numberslabeled = arraymapv1(@(number, varargin) ternary((mod(number, 2) == 0), struct(generateallowedobjectkey(number), {"even"}), struct(generateallowedobjectkey(number), {"odd"})), numbers);
+numberslabeled = arraymapv1(@(number, varargin) ternary((mod(number, 2) == 0), @() (struct(generateallowedobjectkey(number), {"even"})), @() (struct(generateallowedobjectkey(number), {"odd"}))), numbers);
 sprint("labeled numbers: ", jsonstringify(numberslabeled, struct("pretty", {true})));
 % labeled numbers: [
 %     {
@@ -291,7 +296,7 @@ sprint("labeled numbers: ", jsonstringify(numberslabeled, struct("pretty", {true
 
 sprint("% using JavaScript-like Array.map() function ""arraymapv2""");
 
-numberslabeled = arraymapv2(@(number, varargin) ternary((mod(number, 2) == 0), struct(generateallowedobjectkey(number), {"even"}), struct(generateallowedobjectkey(number), {"odd"})), numbers);
+numberslabeled = arraymapv2(@(number, varargin) ternary((mod(number, 2) == 0), @() (struct(generateallowedobjectkey(number), {"even"})), @() (struct(generateallowedobjectkey(number), {"odd"}))), numbers);
 sprint("labeled numbers: ", jsonstringify(numberslabeled, struct("pretty", {true})));
 % labeled numbers: [
 %     {
@@ -328,7 +333,7 @@ sprint("labeled numbers: ", jsonstringify(numberslabeled, struct("pretty", {true
 
 sprint("% using GNU Octave Array.map() built-in function ""cellfun""");
 
-numberslabeled = cellfun(@(number) ternary((mod(number, 2) == 0), struct(generateallowedobjectkey(number), {"even"}), struct(generateallowedobjectkey(number), {"odd"})), numbers, "UniformOutput", false);
+numberslabeled = cellfun(@(number) ternary((mod(number, 2) == 0), @() (struct(generateallowedobjectkey(number), {"even"})), @() (struct(generateallowedobjectkey(number), {"odd"}))), numbers, "UniformOutput", false);
 sprint("labeled numbers: ", jsonstringify(numberslabeled, struct("pretty", {true})));
 % labeled numbers: [
 %     {
@@ -387,7 +392,7 @@ sprint("products: ", jsonstringify(products, struct("pretty", {true})));
 
 sprint("% using JavaScript-like Array.map() function ""arraymapv1""");
 
-productslabeled = arraymapv1(@(product, varargin) spreadobject(product, struct("label", {ternary((product.("price") > 100), "expensive", "cheap")})), products);
+productslabeled = arraymapv1(@(product, varargin) spreadobject(product, struct("label", {ternary((product.("price") > 100), @() ("expensive"), @() ("cheap"))})), products);
 sprint("labeled products: ", jsonstringify(productslabeled, struct("pretty", {true})));
 % labeled products: [
 %     {
@@ -414,7 +419,7 @@ sprint("labeled products: ", jsonstringify(productslabeled, struct("pretty", {tr
 
 sprint("% using JavaScript-like Array.map() function ""arraymapv2""");
 
-productslabeled = arraymapv2(@(product, varargin) spreadobject(product, struct("label", {ternary((product.("price") > 100), "expensive", "cheap")})), products);
+productslabeled = arraymapv2(@(product, varargin) spreadobject(product, struct("label", {ternary((product.("price") > 100), @() ("expensive"), @() ("cheap"))})), products);
 sprint("labeled products: ", jsonstringify(productslabeled, struct("pretty", {true})));
 % labeled products: [
 %     {
@@ -441,7 +446,7 @@ sprint("labeled products: ", jsonstringify(productslabeled, struct("pretty", {tr
 
 sprint("% using GNU Octave Array.map() built-in function ""cellfun""");
 
-productslabeled = cellfun(@(product) spreadobject(product, struct("label", {ternary((product.("price") > 100), "expensive", "cheap")})), products, "UniformOutput", false);
+productslabeled = cellfun(@(product) spreadobject(product, struct("label", {ternary((product.("price") > 100), @() ("expensive"), @() ("cheap"))})), products, "UniformOutput", false);
 sprint("labeled products: ", jsonstringify(productslabeled, struct("pretty", {true})));
 % labeled products: [
 %     {

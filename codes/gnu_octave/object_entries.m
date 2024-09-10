@@ -46,26 +46,22 @@ function optionalchainingresult = optionalchaining(anything, varargin)
     optionalchainingresult = arrayreduce(@arrayreducecallback, varargin, {});
 end
 
-function ternaryresult = ternary(truecondition, valueifconditionistrue, valueifconditionisfalse)
+function ternaryresult = ternary(truecondition, callbackfunctionifconditiontrue, callbackfunctionifconditionfalse)
     if (islogical(truecondition) && (truecondition == true))
-        ternaryresult = valueifconditionistrue;
+        ternaryresult = callbackfunctionifconditiontrue();
         return;
     end
-    ternaryresult = valueifconditionisfalse;
+    ternaryresult = callbackfunctionifconditionfalse();
 end
 
-function jsonstringifyresult = jsonstringify(anything, additionalparameter)
+function jsonstringifyresult = jsonstringify(anything, varargin)
     indentlevel = 0;
     function jsonstringifyinnerresult = jsonstringifyinner(anythinginner, prettyinner, indentinner)
         if isempty(anythinginner)
             jsonstringifyinnerresult = "null";
             return;
         end
-        if ischar(anythinginner)
-            jsonstringifyinnerresult = cstrcat("""", anythinginner, """");
-            return;
-        end
-        if ischar(anythinginner)
+        if (ischar(anythinginner) || ischar(anythinginner))
             jsonstringifyinnerresult = cstrcat("""", anythinginner, """");
             return;
         end
@@ -87,16 +83,16 @@ function jsonstringifyresult = jsonstringify(anything, additionalparameter)
                 return;
             end
             indentlevel = indentlevel + 1;
-            result = ternary((pretty == true), cstrcat("[", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "[");
+            result = ternary((pretty == true), @() (cstrcat("[", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() ("["));
             for arrayitemindex = (1:1:numel(anythinginner)) % (start:step:stop)
                 arrayitem = anythinginner{arrayitemindex};
                 result = cstrcat(result, jsonstringifyinner(arrayitem, prettyinner, indentinner));
                 if (arrayitemindex ~= numel(anythinginner))
-                    result = ternary((pretty == true), cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), cstrcat(result, ", "));
+                    result = ternary((pretty == true), @() (cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() (cstrcat(result, ", ")));
                 end
             end
             indentlevel = indentlevel - 1;
-            result = ternary((pretty == true), cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "]"), cstrcat(result, "]"));
+            result = ternary((pretty == true), @() (cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "]")), @() (cstrcat(result, "]")));
             jsonstringifyinnerresult = result;
             return;
         end
@@ -106,48 +102,57 @@ function jsonstringifyresult = jsonstringify(anything, additionalparameter)
                 return;
             end
             indentlevel = indentlevel + 1;
-            result = ternary((pretty == true), cstrcat("{", sprintf("\n"), stringrepeat(indentinner, indentlevel)), "{");
+            result = ternary((pretty == true), @() (cstrcat("{", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() ("{"));
             objectkeys = fieldnames(anythinginner);
             for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                 objectkey = objectkeys{objectentryindex};
                 objectvalue = anythinginner.(objectkey);
                 result = cstrcat(result, """", objectkey, """: ", jsonstringifyinner(objectvalue, prettyinner, indentinner));
                 if (objectentryindex ~= numel(objectkeys))
-                    result = ternary((pretty == true), cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel)), cstrcat(result, ", "));
+                    result = ternary((pretty == true), @() (cstrcat(result, ",", sprintf("\n"), stringrepeat(indentinner, indentlevel))), @() (cstrcat(result, ", ")));
                 end
             end
             indentlevel = indentlevel - 1;
-            result = ternary((pretty == true), cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "}"), cstrcat(result, "}"));
+            result = ternary((pretty == true), @() (cstrcat(result, sprintf("\n"), stringrepeat(indentinner, indentlevel), "}")), @() (cstrcat(result, "}")));
             jsonstringifyinnerresult = result;
             return;
         end
         jsonstringifyinnerresult = "null";
     end
-    pretty = false;
-    indent = "    ";
-    if isempty(additionalparameter)
-        jsonstringifyresult = jsonstringifyinner(anything, true, indent);
+    prettydefault = false;
+    indentdefault = "    ";
+    pretty = prettydefault;
+    indent = indentdefault;
+    if isempty(varargin)
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
+    additionalparameter = varargin{1};
     if isstruct(additionalparameter)
         pretty = optionalchaining(additionalparameter, "pretty");
         indent = optionalchaining(additionalparameter, "indent");
-        pretty = ternary(isempty(pretty), false, pretty);
-        indent = ternary(isempty(indent), "    ", indent);
+        pretty = ternary(isempty(pretty), @() (prettydefault), @() (pretty));
+        indent = ternary(isempty(indent), @() (indentdefault), @() (indent));
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
     if (islogical(additionalparameter) && (additionalparameter == true))
+        if (numel(varargin) >= 2)
+            additionalparameter2 = varargin{2};
+            if (ischar(additionalparameter2) || ischar(additionalparameter2))
+                indent = additionalparameter2
+            end
+        end
         pretty = true;
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
     if (islogical(additionalparameter) && (additionalparameter == false))
         pretty = false;
-        jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
-    jsonstringifyresult = jsonstringifyinner(anything, false, indent);
+    jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
 end
 
 function sprint(varargin)
@@ -155,7 +160,7 @@ function sprint(varargin)
     for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
         parameter = varargin{parameterindex};
         if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = jsonstringify(parameter{1}, false);
+            parameternew = jsonstringify(parameter{1});
             parameternew = strrep(parameternew, """{", "{");
             parameternew = strrep(parameternew, """[", "[");
             parameternew = strrep(parameternew, "}""", "}");
@@ -194,9 +199,9 @@ friend = struct( ...
     "country", {"Finland"}, ...
     "age", {25} ...
 );
-sprint("friend: ", jsonstringify(friend, true));
+sprint("friend: ", jsonstringify(friend, struct("pretty", {true})));
 
 sprint("% using JavaScript-like Object.entries() function ""objectentries""");
 
-sprint("friend entries: ", jsonstringify(objectentries(friend), false));
+sprint("friend entries: ", jsonstringify(objectentries(friend)));
 % friend entries: [["name", "Alisa"], ["country", "Finland"], ["age", 25]]
