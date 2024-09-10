@@ -43,6 +43,20 @@ json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
     return(json_stringify_inner(anything, indent))
 }
 
+# There's no JavaScript-like Object.values() in R.
+# But, we can create our own function to mimic it in R.
+
+object_values <- function(an_object) {
+    # JavaScript-like Object.values() function
+    new_array <- list()
+    for (object_entry_index in seq_along(an_object)) {
+        object_key <- names(an_object)[object_entry_index]
+        object_value <- an_object[[object_entry_index]]
+        new_array <- append(new_array, list(object_value))
+    }
+    return(new_array)
+}
+
 cat("\n# JavaScript-like Object.values() in R Associative-list\n")
 
 friend <- list(
@@ -52,5 +66,7 @@ friend <- list(
 )
 cat(paste(sep = "", "friend: ", json_stringify(friend, pretty = TRUE), "\n"))
 
-cat(paste(sep = "", "friend values: ", json_stringify(as.list(unlist(friend, use.names = FALSE))), "\n"))
+cat("# using JavaScript-like Object.values() function \"object_values\"\n")
+
+cat(paste(sep = "", "friend values: ", json_stringify(object_values(friend)), "\n"))
 # friend values: ["Alisa", "Finland", 25]

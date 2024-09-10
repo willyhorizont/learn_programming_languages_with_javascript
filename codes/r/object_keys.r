@@ -43,6 +43,19 @@ json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
     return(json_stringify_inner(anything, indent))
 }
 
+object_keys_v1 <- function(an_object) {
+    # JavaScript-like Object.keys() function
+    new_array <- list()
+    for (object_entry_index in seq_along(an_object)) {
+        object_key <- names(an_object)[object_entry_index]
+        object_value <- an_object[[object_entry_index]]
+        new_array <- append(new_array, list(object_key))
+    }
+    return(new_array)
+}
+
+object_keys_v2 <- function(an_object) (as.list(names(an_object)))
+
 cat("\n# JavaScript-like Object.keys() in R Associative-list\n")
 
 friend <- list(
@@ -51,6 +64,18 @@ friend <- list(
     age = 25
 )
 cat(paste(sep = "", "friend: ", json_stringify(friend, pretty = TRUE), "\n"))
+
+cat("# using JavaScript-like Object.keys() function \"object_keys_v1\"\n")
+
+cat(paste(sep = "", "friend keys: ", json_stringify(object_keys_v1(friend)), "\n"))
+# friend keys: ["name", "country", "age"]
+
+cat("# using JavaScript-like Object.keys() function \"object_keys_v2\"\n")
+
+cat(paste(sep = "", "friend keys: ", json_stringify(object_keys_v2(friend)), "\n"))
+# friend keys: ["name", "country", "age"]
+
+cat("# using R Object.keys() built-in function \"as.list(names)\"\n")
 
 cat(paste(sep = "", "friend keys: ", json_stringify(as.list(names(friend))), "\n"))
 # friend keys: ["name", "country", "age"]
