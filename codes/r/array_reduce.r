@@ -44,21 +44,21 @@ json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
 }
 
 cc <- function(...) {
-    parameters <- list(...)
+    arguments <- list(...)
     new_object <- list()
-    for (parameter_index in seq_along(parameters)) {
-        parameter <- parameters[[parameter_index]]
-        parameter_type <- type_of(parameter)
-        if (parameter_type == "object") {
-            for (object_key in names(parameter)) {
-                object_value <- parameter[[object_key]]
+    for (argument_index in seq_along(arguments)) {
+        argument <- arguments[[argument_index]]
+        argument_type <- type_of(argument)
+        if (argument_type == "object") {
+            for (object_key in names(argument)) {
+                object_value <- argument[[object_key]]
                 new_object[[object_key]] <- object_value
             }
             next
         }
-        if (parameter_type == "array") {
-            for (array_item_index in seq_along(parameter)) {
-                array_item <- parameter[[array_item_index]]
+        if (argument_type == "array") {
+            for (array_item_index in seq_along(argument)) {
+                array_item <- argument[[array_item_index]]
                 new_object[[as.character(array_item_index)]] <- array_item
             }
             next

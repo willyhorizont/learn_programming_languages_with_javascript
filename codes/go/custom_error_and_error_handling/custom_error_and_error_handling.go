@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-func giveMeRespect(parameter string) (string, error) {
-    if (parameter != "respect") {
+func giveMeRespect(argument string) (string, error) {
+    if (argument != "respect") {
         return "", errors.New("Error: You should give me \"respect\"!")
     }
     return "Thank you for giving me \"respect\"!", nil

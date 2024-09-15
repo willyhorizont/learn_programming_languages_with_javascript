@@ -1,7 +1,9 @@
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
 console.log("\n// Array.findIndex() in JavaScript Array");
 
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-console.log(`numbers: ${JSON.stringify(numbers).split(",").join(", ")}`);
+console.log(`numbers: ${jsonStringify(numbers)}`);
 
 const numberToFind = 27;
 console.log(`number to find: ${numberToFind}`);
@@ -30,7 +32,7 @@ const products = [
         "price": 499
     }
 ];
-console.log(`products: ${JSON.stringify(products, null, " ".repeat(4))}`);
+console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 
 const productToFind = "pasta";
 console.log(`product to find: ${productToFind}`);

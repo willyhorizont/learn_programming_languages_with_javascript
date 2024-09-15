@@ -55,23 +55,23 @@ func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String 
     return jsonStringifyInner(anything, indent)
 }
 
-func spreadObject(_ parameters: Any?...) -> MyObject {
+func spreadObject(_ arguments: Any?...) -> MyObject {
     var newObject = MyObject()
-    for (_, parameter) in parameters.enumerated() {
-        if (parameter is MyObject) {
-            guard let parameter = parameter as? MyObject else {
+    for (_, argument) in arguments.enumerated() {
+        if (argument is MyObject) {
+            guard let argument = argument as? MyObject else {
                 continue
             }
-            for (objectKey, objectValue) in parameter {
+            for (objectKey, objectValue) in argument {
                 newObject[objectKey] = objectValue
             }
             continue
         }
-        if (parameter is MyArray) {
-            guard let parameter = parameter as? MyArray else {
+        if (argument is MyArray) {
+            guard let argument = argument as? MyArray else {
                 continue
             }
-            for (arrayItemIndex, arrayItem) in parameter.enumerated() {
+            for (arrayItemIndex, arrayItem) in argument.enumerated() {
                 newObject[String(arrayItemIndex)] = arrayItem
             }
             continue
@@ -80,27 +80,27 @@ func spreadObject(_ parameters: Any?...) -> MyObject {
     return newObject
 }
 
-func spreadArray(_ parameters: Any?...) -> MyArray {
+func spreadArray(_ arguments: Any?...) -> MyArray {
     var newArray = MyArray()
-    for (_, parameter) in parameters.enumerated() {
-        if (parameter is MyObject) {
-            guard let parameter = parameter as? MyObject else {
+    for (_, argument) in arguments.enumerated() {
+        if (argument is MyObject) {
+            guard let argument = argument as? MyObject else {
                 continue
             }
-            if (parameter.count == 1) {
-                for (_, objectValue) in parameter {
+            if (argument.count == 1) {
+                for (_, objectValue) in argument {
                     newArray.append(objectValue)
                 }
                 continue
             }
-            newArray.append(parameter)
+            newArray.append(argument)
             continue
         }
-        if (parameter is MyArray) {
-            guard let parameter = parameter as? MyArray else {
+        if (argument is MyArray) {
+            guard let argument = argument as? MyArray else {
                 continue
             }
-            for (_, arrayItem) in parameter.enumerated() {
+            for (_, arrayItem) in argument.enumerated() {
                 newArray.append(arrayItem)
             }
             continue

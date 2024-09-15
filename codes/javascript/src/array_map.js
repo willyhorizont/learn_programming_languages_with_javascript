@@ -1,10 +1,12 @@
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
 console.log("\n// Array.map() in JavaScript Array");
 
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-console.log(`numbers: ${JSON.stringify(numbers).split(",").join(", ")}`);
+console.log(`numbers: ${jsonStringify(numbers)}`);
 
 const numbersLabeled = numbers.map((number) => ({ [number]: (((number % 2) === 0) ? "even" : "odd") }));
-console.log(`labeled numbers: ${JSON.stringify(numbersLabeled, null, " ".repeat(4))}`);
+console.log(`labeled numbers: ${jsonStringify(numbersLabeled, { pretty: true })}`);
 // labeled numbers: [
 //     {
 //         "12": "even"
@@ -58,10 +60,10 @@ const products = [
         "price": 499
     }
 ];
-console.log(`products: ${JSON.stringify(products, null, " ".repeat(4))}`);
+console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 
 const productsLabeled = products.map((product) => ({ ...product, label: ((product?.price > 100) ? "expensive" : "cheap") }));
-console.log(`labeled products: ${JSON.stringify(productsLabeled, null, " ".repeat(4))}`);
+console.log(`labeled products: ${jsonStringify(productsLabeled, { pretty: true })}`);
 // labeled products: [
 //     {
 //         "code": "pasta",

@@ -45,70 +45,89 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
     }, objectPropertiesArray, nil)
 }
 
-func jsonStringify(anything any, additionalParameter any) string {
-	jsonStringifyDefault := func(anythingInner any) string {
-        jsonMarshalled, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
-		}
-		return "null"
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
+    if (trueCondition == true) {
+        return callbackFunctionIfConditionTrue()
     }
-	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
-        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
-		if (err == nil) {
-			return string(jsonMarshalled)
-		}
-		return "null"
-    }
-	if (additionalParameter == nil || additionalParameter == false) {
-		return jsonStringifyDefault(anything)
-	}
-	if (additionalParameter == true) {
-		return jsonStringifyPrettyDefault(anything, "    ")
-	}
-	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
-		var pretty any = optionalChaining(additionalParameter, "pretty")
-		var indent any = optionalChaining(additionalParameter, "indent")
-		if (pretty == true) {
-			if (indent == nil) {
-				indent = "    "
+    return callbackFunctionIfConditionFalse()
+}
+
+func jsonStringify(restArguments ...any) string {
+	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
+		if (prettyInner == true) {
+			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+			if (err == nil) {
+				return string(jsonStringifyInnerResult)
 			}
-			return jsonStringifyPrettyDefault(anything, indent.(string))
+			return "null"
 		}
-		return jsonStringifyDefault(anything)
+        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
+		}
+		return "null"
+    }
+    var anything any = restArguments[0]
+	prettyDefault := false
+	indentDefault := "    "
+	var pretty any = prettyDefault
+	var indent any = indentDefault
+	if (len(restArguments) == 1) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
 	}
-	return jsonStringifyDefault(anything)
+	var optionalArgument any = restArguments[1]
+	if (optionalArgument == false) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
+		pretty = optionalChaining(optionalArgument, "pretty")
+		indent = optionalChaining(optionalArgument, "indent")
+		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
+		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	if (optionalArgument == true) {
+		if (len(restArguments) >= 3) {
+			var additionalArgument2 any = restArguments[2]
+			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
+				indent = additionalArgument2
+			}
+		}
+		pretty = optionalArgument
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	return jsonStringifyInner(anything, prettyDefault, indentDefault)
 }
 
-func sPrintln(parameters ...any) {
-    var parametersNew = []string{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
-            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+func sprint(restArguments ...any) {
+    var newArray = []string{}
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
+            newArray = append(newArray, jsonStringify(argument.(array)[0]))
             continue
         }
-        if (parameterType == reflect.String) {
-			parametersNew = append(parametersNew, parameter.(string))
+        if (argumentType == reflect.String) {
+			newArray = append(newArray, argument.(string))
             continue
         }
     }
-    fmt.Println(strings.Join(parametersNew, ""))
+    fmt.Println(strings.Join(newArray, ""))
 }
 
-func spreadObject(parameters ...any) object {
+func spreadObject(restArguments ...any) object {
     var newObject = make(object)
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Map) {
-            for objectKey, objectValue := range parameter.(object) {
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Map) {
+            for objectKey, objectValue := range argument.(object) {
                 newObject[objectKey] = objectValue
             }
 			continue
         }
-        if (parameterType == reflect.Slice) {
-            for arrayItemIndex, arrayItem := range parameter.(array) {
-                newObject[jsonStringify(arrayItemIndex, false)] = arrayItem
+        if (argumentType == reflect.Slice) {
+            for arrayItemIndex, arrayItem := range argument.(array) {
+                newObject[jsonStringify(arrayItemIndex)] = arrayItem
             }
 			continue
         }
@@ -116,22 +135,22 @@ func spreadObject(parameters ...any) object {
     return newObject
 }
 
-func spreadArray(parameters ...any) array {
+func spreadArray(restArguments ...any) array {
     var newArray = array{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Map) {
-            if (len(parameter.(object)) == 1) {
-                for _, objectValue := range parameter.(object) {
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Map) {
+            if (len(argument.(object)) == 1) {
+                for _, objectValue := range argument.(object) {
                     newArray = append(newArray, objectValue)
                 }
                 continue
             }
-            newArray = append(newArray, parameter)
+            newArray = append(newArray, argument)
             continue
         }
-        if (parameterType == reflect.Slice) {
-            newArray = append(newArray, parameter.(array)...)
+        if (argumentType == reflect.Slice) {
+            newArray = append(newArray, argument.(array)...)
             continue
         }
     }
@@ -142,28 +161,28 @@ func main() {
     fmt.Println("\n// JavaScript-like Spread Syntax (...) in Go")
 
     fruits := array{"Mango", "Melon", "Banana"}
-    sPrintln("fruits: ", jsonStringify(fruits, false))
+    sprint("fruits: ", jsonStringify(fruits))
 
     vegetables := array{"Carrot", "Tomato"}
-    sPrintln("vegetables: ", jsonStringify(vegetables, false))
+    sprint("vegetables: ", jsonStringify(vegetables))
 
     countryCapitalsInAsia := object{
         "Thailand": "Bangkok",
         "China": "Beijing",
         "Japan": "Tokyo",
     }
-    sPrintln("countryCapitalsInAsia: ", jsonStringify(countryCapitalsInAsia, object{"pretty": true}))
+    sprint("countryCapitalsInAsia: ", jsonStringify(countryCapitalsInAsia, object{"pretty": true}))
 
     countryCapitalsInEurope := object{
         "France": "Paris",
         "England": "London",
     }
-    sPrintln("countryCapitalsInEurope: ", jsonStringify(countryCapitalsInEurope, object{"pretty": true}))
+    sprint("countryCapitalsInEurope: ", jsonStringify(countryCapitalsInEurope, object{"pretty": true}))
 
     fmt.Println("// [...array1, ...array2]:")
 
     combination1 := spreadArray(fruits, vegetables)
-    sPrintln("combination1: ", jsonStringify(combination1, object{"pretty": true}))
+    sprint("combination1: ", jsonStringify(combination1, object{"pretty": true}))
     // combination1: [
     //     "Mango",
     //     "Melon",
@@ -173,7 +192,7 @@ func main() {
     // ]
 
     combination2 := spreadArray(fruits, array{"Cucumber", "Cabbage"})
-    sPrintln("combination2: ", jsonStringify(combination2, object{"pretty": true}))
+    sprint("combination2: ", jsonStringify(combination2, object{"pretty": true}))
     // combination2: [
     //     "Mango",
     //     "Melon",
@@ -185,7 +204,7 @@ func main() {
     fmt.Println("// { ...object1, ...object2 }:")
 
     combination3 := spreadObject(countryCapitalsInAsia, countryCapitalsInEurope)
-    sPrintln("combination3: ", jsonStringify(combination3, object{"pretty": true}))
+    sprint("combination3: ", jsonStringify(combination3, object{"pretty": true}))
     // combination3: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -195,7 +214,7 @@ func main() {
     // }
 
     combination4 := spreadObject(countryCapitalsInAsia, object{"Germany": "Berlin", "Italy": "Rome"})
-    sPrintln("combination4: ", jsonStringify(combination4, object{"pretty": true}))
+    sprint("combination4: ", jsonStringify(combination4, object{"pretty": true}))
     // combination4: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -207,7 +226,7 @@ func main() {
     fmt.Println("// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:")
 
     combination5 := spreadArray(fruits, object{"vegetables": vegetables})
-    sPrintln("combination5: ", jsonStringify(combination5, object{"pretty": true}))
+    sprint("combination5: ", jsonStringify(combination5, object{"pretty": true}))
     // combination5: [
     //     "Mango",
     //     "Melon",
@@ -219,7 +238,7 @@ func main() {
     // ]
 
     combination6 := spreadArray(fruits, object{"vegetables": array{"Cucumber", "Cabbage"}})
-    sPrintln("combination6: ", jsonStringify(combination6, object{"pretty": true}))
+    sprint("combination6: ", jsonStringify(combination6, object{"pretty": true}))
     // combination6: [
     //     "Mango",
     //     "Melon",
@@ -233,7 +252,7 @@ func main() {
     fmt.Println("// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:")
 
     combination7 := spreadArray(fruits, object{"countryCapitalsInAsia": countryCapitalsInAsia})
-    sPrintln("combination7: ", jsonStringify(combination7, object{"pretty": true}))
+    sprint("combination7: ", jsonStringify(combination7, object{"pretty": true}))
     // combination7: [
     //     "Mango",
     //     "Melon",
@@ -246,7 +265,7 @@ func main() {
     // ]
 
     combination8 := spreadArray(fruits, object{"Germany": "Berlin", "Italy": "Rome"})
-    sPrintln("combination8: ", jsonStringify(combination8, object{"pretty": true}))
+    sprint("combination8: ", jsonStringify(combination8, object{"pretty": true}))
     // combination8: [
     //     "Mango",
     //     "Melon",
@@ -260,7 +279,7 @@ func main() {
     fmt.Println("// { ...object1, object2 } || { ...object1, objectKey: objectValue }:")
 
     combination9 := spreadObject(countryCapitalsInAsia, object{"countryCapitalsInEurope": countryCapitalsInEurope})
-    sPrintln("combination9: ", jsonStringify(combination9, object{"pretty": true}))
+    sprint("combination9: ", jsonStringify(combination9, object{"pretty": true}))
     // combination9: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -272,7 +291,7 @@ func main() {
     // }
 
     combination10 := spreadObject(countryCapitalsInAsia, object{"countryCapitalsInEurope": object{"Germany": "Berlin", "Italy": "Rome"}})
-    sPrintln("combination10: ", jsonStringify(combination10, object{"pretty": true}))
+    sprint("combination10: ", jsonStringify(combination10, object{"pretty": true}))
     //combination10: {
     //    "Thailand": "Bangkok",
     //    "China": "Beijing",
@@ -286,7 +305,7 @@ func main() {
     fmt.Println("// { ...object1, array2 } || { ...object1, objectKey: objectValue }:")
 
     combination11 := spreadObject(countryCapitalsInAsia, object{"vegetables": vegetables})
-    sPrintln("combination11: ", jsonStringify(combination11, object{"pretty": true}))
+    sprint("combination11: ", jsonStringify(combination11, object{"pretty": true}))
     // combination11: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -298,7 +317,7 @@ func main() {
     // }
 
     combination12 := spreadObject(countryCapitalsInAsia, object{"vegetables": array{"Cucumber", "Cabbage"}})
-    sPrintln("combination12: ", jsonStringify(combination12, object{"pretty": true}))
+    sprint("combination12: ", jsonStringify(combination12, object{"pretty": true}))
     // combination12: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -312,7 +331,7 @@ func main() {
     fmt.Println("// { ...object1, ...array2 }:")
 
     combination13 := spreadObject(countryCapitalsInAsia, vegetables)
-    sPrintln("combination13: ", jsonStringify(combination13, object{"pretty": true}))
+    sprint("combination13: ", jsonStringify(combination13, object{"pretty": true}))
     // combination13: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -322,7 +341,7 @@ func main() {
     // }
 
     combination14 := spreadObject(countryCapitalsInAsia, array{"Cucumber", "Cabbage"})
-    sPrintln("combination14: ", jsonStringify(combination14, object{"pretty": true}))
+    sprint("combination14: ", jsonStringify(combination14, object{"pretty": true}))
     // combination14: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -335,9 +354,9 @@ func main() {
 
     // this combination throw an error in JavaScript
     // combinationErrorInJavaScript1 := spreadObject(fruits, countryCapitalsInAsia)
-    // sPrintln("combinationErrorInJavaScript1: ", jsonStringify(combinationErrorInJavaScript1, object{"pretty": true}))
+    // sprint("combinationErrorInJavaScript1: ", jsonStringify(combinationErrorInJavaScript1, object{"pretty": true}))
 
     // this combination throw an error in JavaScript
     // combinationErrorInJavaScript2 := spreadObject(fruits, object{"Germany": "Berlin", "Italy": "Rome"})
-    // sPrintln("combinationErrorInJavaScript2: ", jsonStringify(combinationErrorInJavaScript2, object{"pretty": true}))
+    // sprint("combinationErrorInJavaScript2: ", jsonStringify(combinationErrorInJavaScript2, object{"pretty": true}))
 }

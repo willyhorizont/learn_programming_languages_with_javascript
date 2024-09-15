@@ -1,28 +1,30 @@
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
 console.log("\n// Spread Syntax (...)");
 
 const fruits = ["Mango", "Melon", "Banana"];
-console.log(`fruits: ${JSON.stringify(fruits).split(",").join(", ")}`);
+console.log(`fruits: ${jsonStringify(fruits)}`);
 
 const vegetables = ["Carrot", "Tomato"];
-console.log(`vegetables: ${JSON.stringify(vegetables).split(",").join(", ")}`);
+console.log(`vegetables: ${jsonStringify(vegetables)}`);
 
 const countryCapitalsInAsia = {
     "Thailand": "Bangkok",
     "China": "Beijing",
     "Japan": "Tokyo"
 };
-console.log(`countryCapitalsInAsia: ${JSON.stringify(countryCapitalsInAsia, null, " ".repeat(4))}`);
+console.log(`countryCapitalsInAsia: ${jsonStringify(countryCapitalsInAsia, { pretty: true })}`);
 
 const countryCapitalsInEurope = {
     "France": "Paris",
     "England": "London"
 };
-console.log(`countryCapitalsInEurope: ${JSON.stringify(countryCapitalsInEurope, null, " ".repeat(4))}`);
+console.log(`countryCapitalsInEurope: ${jsonStringify(countryCapitalsInEurope, { pretty: true })}`);
 
 console.log("\n// [...array1, ...array2]:\n");
 
 const combination1 = [...fruits, ...vegetables];
-console.log(`combination1: ${JSON.stringify(combination1, null, " ".repeat(4))}`);
+console.log(`combination1: ${jsonStringify(combination1, { pretty: true })}`);
 // combination1: [
 //     "Mango",
 //     "Melon",
@@ -32,7 +34,7 @@ console.log(`combination1: ${JSON.stringify(combination1, null, " ".repeat(4))}`
 // ]
 
 const combination2 = [...fruits, ...["Cucumber", "Cabbage"]];
-console.log(`combination2: ${JSON.stringify(combination2, null, " ".repeat(4))}`);
+console.log(`combination2: ${jsonStringify(combination2, { pretty: true })}`);
 // combination2: [
 //     "Mango",
 //     "Melon",
@@ -44,7 +46,7 @@ console.log(`combination2: ${JSON.stringify(combination2, null, " ".repeat(4))}`
 console.log("\n// { ...object1, ...object2 }:\n");
 
 const combination3 = { ...countryCapitalsInAsia, ...countryCapitalsInEurope };
-console.log(`combination3: ${JSON.stringify(combination3, null, " ".repeat(4))}`);
+console.log(`combination3: ${jsonStringify(combination3, { pretty: true })}`);
 // combination3: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -54,7 +56,7 @@ console.log(`combination3: ${JSON.stringify(combination3, null, " ".repeat(4))}`
 // }
 
 const combination4 = { ...countryCapitalsInAsia, ...{ "Germany": "Berlin", "Italy": "Rome" } };
-console.log(`combination4: ${JSON.stringify(combination4, null, " ".repeat(4))}`);
+console.log(`combination4: ${jsonStringify(combination4, { pretty: true })}`);
 // combination4: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -66,7 +68,7 @@ console.log(`combination4: ${JSON.stringify(combination4, null, " ".repeat(4))}`
 console.log("\n// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 const combination5 = [...fruits, vegetables];
-console.log(`combination5: ${JSON.stringify(combination5, null, " ".repeat(4))}`);
+console.log(`combination5: ${jsonStringify(combination5, { pretty: true })}`);
 // combination5: [
 //     "Mango",
 //     "Melon",
@@ -78,7 +80,7 @@ console.log(`combination5: ${JSON.stringify(combination5, null, " ".repeat(4))}`
 // ]
 
 const combination6 = [...fruits, ["Cucumber", "Cabbage"]];
-console.log(`combination6: ${JSON.stringify(combination6, null, " ".repeat(4))}`);
+console.log(`combination6: ${jsonStringify(combination6, { pretty: true })}`);
 // combination6: [
 //     "Mango",
 //     "Melon",
@@ -92,7 +94,7 @@ console.log(`combination6: ${JSON.stringify(combination6, null, " ".repeat(4))}`
 console.log("\n// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n");
 
 const combination7 = [...fruits, countryCapitalsInAsia];
-console.log(`combination7: ${JSON.stringify(combination7, null, " ".repeat(4))}`);
+console.log(`combination7: ${jsonStringify(combination7, { pretty: true })}`);
 // combination7: [
 //     "Mango",
 //     "Melon",
@@ -105,7 +107,7 @@ console.log(`combination7: ${JSON.stringify(combination7, null, " ".repeat(4))}`
 // ]
 
 const combination8 = [...fruits, { "Germany": "Berlin", "Italy": "Rome" }];
-console.log(`combination8: ${JSON.stringify(combination8, null, " ".repeat(4))}`);
+console.log(`combination8: ${jsonStringify(combination8, { pretty: true })}`);
 // combination8: [
 //     "Mango",
 //     "Melon",
@@ -119,7 +121,7 @@ console.log(`combination8: ${JSON.stringify(combination8, null, " ".repeat(4))}`
 console.log("\n// { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n");
 
 const combination9 = { ...countryCapitalsInAsia, countryCapitalsInEurope };
-console.log(`combination9: ${JSON.stringify(combination9, null, " ".repeat(4))}`);
+console.log(`combination9: ${jsonStringify(combination9, { pretty: true })}`);
 // combination9: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -131,7 +133,7 @@ console.log(`combination9: ${JSON.stringify(combination9, null, " ".repeat(4))}`
 // }
 
 const combination10 = { ...countryCapitalsInAsia, "countryCapitalsInEurope": { "Germany": "Berlin", "Italy": "Rome" } };
-console.log(`combination10: ${JSON.stringify(combination10, null, " ".repeat(4))}`);
+console.log(`combination10: ${jsonStringify(combination10, { pretty: true })}`);
 // combination10: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -145,7 +147,7 @@ console.log(`combination10: ${JSON.stringify(combination10, null, " ".repeat(4))
 console.log("\n// { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n");
 
 const combination11 = { ...countryCapitalsInAsia, vegetables };
-console.log(`combination11: ${JSON.stringify(combination11, null, " ".repeat(4))}`);
+console.log(`combination11: ${jsonStringify(combination11, { pretty: true })}`);
 // combination11: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -157,7 +159,7 @@ console.log(`combination11: ${JSON.stringify(combination11, null, " ".repeat(4))
 // }
 
 const combination12 = { ...countryCapitalsInAsia, "vegetables": ["Cucumber", "Cabbage"] };
-console.log(`combination12: ${JSON.stringify(combination12, null, " ".repeat(4))}`);
+console.log(`combination12: ${jsonStringify(combination12, { pretty: true })}`);
 // combination12: {
 //     "Thailand": "Bangkok",
 //     "China": "Beijing",
@@ -171,7 +173,7 @@ console.log(`combination12: ${JSON.stringify(combination12, null, " ".repeat(4))
 console.log("\n// { ...object1, ...array2 }:\n");
 
 const combination13 = { ...countryCapitalsInAsia, ...vegetables };
-console.log(`combination13: ${JSON.stringify(combination13, null, " ".repeat(4))}`);
+console.log(`combination13: ${jsonStringify(combination13, { pretty: true })}`);
 // combination13: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -181,7 +183,7 @@ console.log(`combination13: ${JSON.stringify(combination13, null, " ".repeat(4))
 // }
 
 const combination14 = { ...countryCapitalsInAsia, ...["Cucumber", "Cabbage"] };
-console.log(`combination14: ${JSON.stringify(combination14, null, " ".repeat(4))}`);
+console.log(`combination14: ${jsonStringify(combination14, { pretty: true })}`);
 // combination14: {
 //    "Thailand" : "Bangkok",
 //    "China" : "Beijing",
@@ -194,8 +196,8 @@ console.log(`combination14: ${JSON.stringify(combination14, null, " ".repeat(4))
 
 // this combination throw an error
 // const combinationError1 = [...fruits, ...countryCapitalsInAsia];
-// console.log(`combinationError1: ${JSON.stringify(combinationError1, null, " ".repeat(4))}`);
+// console.log(`combinationError1: ${jsonStringify(combinationError1, { pretty: true })}`);
 
 // this combination throw an error
 // const combinationError2 = [...fruits, ...{ "Germany": "Berlin", "Italy": "Rome" }];
-// console.log(`combinationError2: ${JSON.stringify(combinationError2, null, " ".repeat(4))}`);
+// console.log(`combinationError2: ${jsonStringify(combinationError2, { pretty: true })}`);

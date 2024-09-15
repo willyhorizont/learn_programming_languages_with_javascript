@@ -1,10 +1,10 @@
 function sprint(...)
-    local parameters = {...}
-    local result = ""
-    for _, parameter in ipairs(parameters) do
-        result = result .. tostring(parameter)
+    local rest_arguments = {...}
+    local new_array = {}
+    for _, argument in ipairs(rest_arguments) do
+        table.insert(new_array, tostring(argument))
     end
-    print(result)
+    print(table.concat(new_array, ""))
 end
 
 function string_repeat(a_string, count)
@@ -32,10 +32,10 @@ function object_keys(an_object)
     return new_array
 end
 
-function json_stringify(anything, parameter_object)
-    parameter_object = parameter_object or {}
-    local pretty = parameter_object["pretty"]
-    local indent = parameter_object["indent"]
+function json_stringify(anything, argument_object)
+    argument_object = argument_object or {}
+    local pretty = argument_object["pretty"]
+    local indent = argument_object["indent"]
     pretty = ((pretty == nil) and false or pretty)
     indent = ((indent == nil) and "    " or indent)
     local indent_level = 0
@@ -76,20 +76,20 @@ function json_stringify(anything, parameter_object)
 end
 
 spread_object = function(...)
-    local parameters = {...}
+    local rest_arguments = {...}
     local new_object = {}
-    for parameter_index, parameter in ipairs(parameters) do
-        local parameter_type = type_of(parameter)
-        if (parameter_type == "object") then
+    for argument_index, argument in ipairs(rest_arguments) do
+        local argument_type = type_of(argument)
+        if (argument_type == "object") then
             local object_iteration_index = 0
-            for object_key, object_value in pairs(parameter) do
+            for object_key, object_value in pairs(argument) do
                 new_object[object_key] = object_value
                 object_iteration_index = object_iteration_index + 1
             end
             goto next
         end
-        if (parameter_type == "array") then
-            for array_item_index, array_item in ipairs(parameter) do
+        if (argument_type == "array") then
+            for array_item_index, array_item in ipairs(argument) do
                 new_object[tostring(array_item_index)] = array_item
             end
             goto next

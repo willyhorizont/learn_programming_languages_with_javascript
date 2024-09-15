@@ -5,6 +5,8 @@ change object by key
 delete object by key
 computed property names
 object_keys
+object_values
+object_entries
 
 langs not review want try:
 groovy
@@ -12,6 +14,8 @@ f#
 crystal
 java
 c3
+elixir
+clojure
 onyx
 lobster
 alpaca
@@ -20,9 +24,9 @@ pony
 reason
 haskell
 elm
+commom lisp
 scheme
 erlang
-elixir
 lisp
 clojure
 racket
@@ -31,11 +35,47 @@ roc
 gleam
 unison
 
+TODO:
+check everything in each language
+replace ".." to " .. " in *.pl
+create IIFE.*
+check jsonstringify in *.*
+check 006_arrays.*
+check 005_objects.*
+check chaos.txt for more
+
+stuck mid way:
+string_interpolation.*
+function_variadic_rest_arguments.*
+console_log.*
+006_arrays.*
+function_optional_argument_default_argument_value.*
+json_stringify.*
+get_type.*
+005_objects.*
+function_iife.*
+004_loops.*
+generate_number_sequence.*
+object_from_entries.*
+
 todo in js flavour langs repo:
-object_values, object_entries, object_from_entries, 006_arrays, typeof
-array_entries, array_keys, array_values, array_for_each, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
+simultaneously {
+    create string_interpolation.*
+    create function_variadic_rest_arguments.*, rename arguments to rest arguments
+    create console_log.* in *.* especially in PHP, change sprint to console_log
+    refactor 006_arrays.*, iterate over and print each item and index
+    create function_optional_argument_default_argument_value.*
+    create json_stringify.* optional argument default argument value
+    create get_type.*
+    refactor 005_objects.*, iterate over and print each key-value pair and object entry / iteration index
+    create function_iife.*
+    refactor 004_loops.* encapsulate loops inside iife
+    create generate_number_sequence.*
+    create object_from_entries.*
+}
+array_entries, array_keys, array_values, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
-string, number, JSON.stringify, JSON.parse, IIFE, string interpolation
+string, number, json_parse, string interpolation
 isAnagram
 generateAnagram
 hello world waterfall
@@ -45,9 +85,11 @@ pyramid
 palindrome
 spread string
 climbing_stairs
+fibonacci_sequence
+prime_sequence
 
 tonotdo in js flavour langs repo:
-array_concat, array_copy_within, array_flat, array_flat_map, array_reduce_right, array_find_last, array_find_last_index,
+array_for_each, array_concat, array_copy_within, array_flat, array_flat_map, array_reduce_right, array_find_last, array_find_last_index,
 array_with, array_of, array_pop, array_from_async, array_last_index_of, array_is_array, array_index_of
 
 Agda

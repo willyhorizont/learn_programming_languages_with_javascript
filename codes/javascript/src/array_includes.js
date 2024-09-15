@@ -1,7 +1,9 @@
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
 console.log("\n// Array.includes() in JavaScript");
 
 const myFriends = ["Alisa", "Trivia"];
-console.log(`my friends: ${JSON.stringify(myFriends).split(",").join(", ")}`);
+console.log(`my friends: ${jsonStringify(myFriends)}`);
 
 let aName;
 let isMyFriend;

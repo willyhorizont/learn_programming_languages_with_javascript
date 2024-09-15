@@ -17,16 +17,16 @@
     Logical NOT (!)
 */
 
-print("\n# basic conditional control flow\n");
+echo("\n# basic conditional control flow\n");
 
 $my_age = 10;
 echo("\$my_age: " . $my_age . "\n");
 if ($my_age > 24) {
-    print("you are old");
+    echo("you are old");
 } elseif ($my_age > 17) {
-    print("you are young");
+    echo("you are young");
 } else {
-    print("you are under age");
+    echo("you are under age");
 }
 
 echo("\n// equal to (==)\n" . "\n");

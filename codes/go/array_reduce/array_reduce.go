@@ -44,55 +44,74 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
     }, objectPropertiesArray, nil)
 }
 
-func jsonStringify(anything any, additionalParameter any) string {
-	jsonStringifyDefault := func(anythingInner any) string {
-        jsonMarshalled, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
-		}
-		return "null"
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
+    if (trueCondition == true) {
+        return callbackFunctionIfConditionTrue()
     }
-	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
-        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
-		if (err == nil) {
-			return string(jsonMarshalled)
-		}
-		return "null"
-    }
-	if (additionalParameter == nil || additionalParameter == false) {
-		return jsonStringifyDefault(anything)
-	}
-	if (additionalParameter == true) {
-		return jsonStringifyPrettyDefault(anything, "    ")
-	}
-	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
-		var pretty any = optionalChaining(additionalParameter, "pretty")
-		var indent any = optionalChaining(additionalParameter, "indent")
-		if (pretty == true) {
-			if (indent == nil) {
-				indent = "    "
-			}
-			return jsonStringifyPrettyDefault(anything, indent.(string))
-		}
-		return jsonStringifyDefault(anything)
-	}
-	return jsonStringifyDefault(anything)
+    return callbackFunctionIfConditionFalse()
 }
 
-func sPrintln(parameters ...any) {
-    var parametersNew = []string{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
-            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+func jsonStringify(restArguments ...any) string {
+	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
+		if (prettyInner == true) {
+			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+			if (err == nil) {
+				return string(jsonStringifyInnerResult)
+			}
+			return "null"
+		}
+        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
+		}
+		return "null"
+    }
+    var anything any = restArguments[0]
+	prettyDefault := false
+	indentDefault := "    "
+	var pretty any = prettyDefault
+	var indent any = indentDefault
+	if (len(restArguments) == 1) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	var optionalArgument any = restArguments[1]
+	if (optionalArgument == false) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
+		pretty = optionalChaining(optionalArgument, "pretty")
+		indent = optionalChaining(optionalArgument, "indent")
+		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
+		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	if (optionalArgument == true) {
+		if (len(restArguments) >= 3) {
+			var additionalArgument2 any = restArguments[2]
+			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
+				indent = additionalArgument2
+			}
+		}
+		pretty = optionalArgument
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	return jsonStringifyInner(anything, prettyDefault, indentDefault)
+}
+
+func sprint(restArguments ...any) {
+    var newArray = []string{}
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
+            newArray = append(newArray, jsonStringify(argument.(array)[0]))
             continue
         }
-        if (parameterType == reflect.String) {
-			parametersNew = append(parametersNew, parameter.(string))
+        if (argumentType == reflect.String) {
+			newArray = append(newArray, argument.(string))
             continue
         }
     }
-    fmt.Println(strings.Join(parametersNew, ""))
+    fmt.Println(strings.Join(newArray, ""))
 }
 
 func getFloat(anything any) (float64, error) {
@@ -130,19 +149,19 @@ func getFloat(anything any) (float64, error) {
     }
 }
 
-func spreadObject(parameters ...any) object {
+func spreadObject(restArguments ...any) object {
     var newObject = make(object)
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Map) {
-            for objectKey, objectValue := range parameter.(object) {
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Map) {
+            for objectKey, objectValue := range argument.(object) {
                 newObject[objectKey] = objectValue
             }
 			continue
         }
-        if (parameterType == reflect.Slice) {
-            for arrayItemIndex, arrayItem := range parameter.(array) {
-                newObject[jsonStringify(arrayItemIndex, false)] = arrayItem
+        if (argumentType == reflect.Slice) {
+            for arrayItemIndex, arrayItem := range argument.(array) {
+                newObject[jsonStringify(arrayItemIndex)] = arrayItem
             }
 			continue
         }
@@ -150,22 +169,22 @@ func spreadObject(parameters ...any) object {
     return newObject
 }
 
-func spreadArray(parameters ...any) array {
+func spreadArray(restArguments ...any) array {
     var newArray = array{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Map) {
-            if (len(parameter.(object)) == 1) {
-                for _, objectValue := range parameter.(object) {
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Map) {
+            if (len(argument.(object)) == 1) {
+                for _, objectValue := range argument.(object) {
                     newArray = append(newArray, objectValue)
                 }
                 continue
             }
-            newArray = append(newArray, parameter)
+            newArray = append(newArray, argument)
             continue
         }
-        if (parameterType == reflect.Slice) {
-            newArray = append(newArray, parameter.(array)...)
+        if (argumentType == reflect.Slice) {
+            newArray = append(newArray, argument.(array)...)
             continue
         }
     }
@@ -176,7 +195,7 @@ func main() {
     fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice")
 
     numbers := array{36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
-    sPrintln("numbers: ", jsonStringify(numbers, false))
+    sprint("numbers: ", jsonStringify(numbers))
 
     fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
@@ -188,7 +207,7 @@ func main() {
         }
         return currentResult
     }, numbers, 0.0)
-    sPrintln("total number: ", array{numbersTotal})
+    sprint("total number: ", array{numbersTotal})
     // total number: 41.2
 
     fmt.Println("\n// JavaScript-like Array.reduce() in Go Slice of maps")
@@ -211,7 +230,7 @@ func main() {
             "price": 499,
         },
     }
-    sPrintln("products: ", jsonStringify(products, object{"pretty": true}))
+    sprint("products: ", jsonStringify(products, object{"pretty": true}))
 
     fmt.Println("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
 
@@ -221,7 +240,7 @@ func main() {
         }
         return spreadObject(currentResult, object{"cheap": spreadArray(currentResult.(object)["cheap"], object{"currentProduct": currentProduct})})
     }, products, object{"expensive": array{}, "cheap": array{}})
-    sPrintln("grouped products: ", jsonStringify(productsGrouped, object{"pretty": true}))
+    sprint("grouped products: ", jsonStringify(productsGrouped, object{"pretty": true}))
     // grouped products: {
     //     "expensive": [
     //         {

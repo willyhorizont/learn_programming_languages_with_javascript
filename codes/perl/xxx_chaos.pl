@@ -13,9 +13,9 @@ if (!$false_value) {
 
 sub json_stringify_v1 {
     use JSON;
-    my ($anything_ref, %additional_parameter) = @_;
-    my $pretty = $additional_parameter{"pretty"} // 0;
-    my $indent = $additional_parameter{"indent"} // "    ";
+    my ($anything_ref, %optionalar_gument) = @_;
+    my $pretty = $optionalar_gument{"pretty"} // 0;
+    my $indent = $optionalar_gument{"indent"} // "    ";
     return JSON->new->allow_nonref->space_after->encode($anything_ref) if (!$pretty);
     my $json_string_pretty = JSON->new->allow_nonref->pretty->encode($anything_ref);
     $json_string_pretty =~ s/   /$indent/g;
@@ -24,9 +24,9 @@ sub json_stringify_v1 {
 }
 
 sub json_stringify_v2 {
-    my ($anything_ref, %additional_parameter) = @_;
-    my $pretty = $additional_parameter{"pretty"} // 0;
-    my $indent = $additional_parameter{"indent"} // "    ";
+    my ($anything_ref, %optionalar_gument) = @_;
+    my $pretty = $optionalar_gument{"pretty"} // 0;
+    my $indent = $optionalar_gument{"indent"} // "    ";
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {

@@ -4,8 +4,8 @@ enum GenericException: Error {
     case genericError(String)
 }
 
-func giveMeRespect(_ parameter: String) throws -> String {
-    if (parameter != "respect") {
+func giveMeRespect(_ argument: String) throws -> String {
+    if (argument != "respect") {
         // Custom Error
         throw GenericException.genericError("You should give me \"respect\"!")
     }

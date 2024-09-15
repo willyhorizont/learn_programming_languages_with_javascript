@@ -1,8 +1,8 @@
 cat("\n# Custom Error and Error Handling in R\n")
 
-give_me_respect <- function(parameter) {
+give_me_respect <- function(argument) {
     # Custom Error
-    if (parameter != 0) stop("Error: You should give me \"respect\"!")
+    if (argument != 0) stop("Error: You should give me \"respect\"!")
     return("Thank you for giving me \"respect\"!")
 }
 

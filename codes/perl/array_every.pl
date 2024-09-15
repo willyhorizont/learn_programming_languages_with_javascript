@@ -4,9 +4,9 @@ use List::Util qw(all);
 use Scalar::Util qw(looks_like_number);
 
 sub json_stringify {
-    my ($anything_ref, %additional_parameter) = @_;
-    my $pretty = $additional_parameter{"pretty"} // 0;
-    my $indent = $additional_parameter{"indent"} // "    ";
+    my ($anything_ref, %optionalar_gument) = @_;
+    my $pretty = $optionalar_gument{"pretty"} // 0;
+    my $indent = $optionalar_gument{"indent"} // "    ";
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {

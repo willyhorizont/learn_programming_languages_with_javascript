@@ -1,5 +1,5 @@
 escape character for `"` is not `\"` but `""`
 newline in vb is not `\n` but `vbCrLf` or `vbNewLine` or `Environment.NewLine`
 regex to find camelCase: \b[a-z]+(?:[A-Z][a-z]*)*\b
-optional function parameter / function default argument in lambda expression is not permitted
+optional function argument / function default argument in lambda expression is not permitted
 Friend in visual_basic_dotnet is reserved keyword :D

@@ -127,29 +127,28 @@ function jsonstringifyresult = jsonstringify(anything, varargin)
         jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
-    additionalparameter = varargin{1};
-    if isstruct(additionalparameter)
-        pretty = optionalchaining(additionalparameter, "pretty");
-        indent = optionalchaining(additionalparameter, "indent");
+    optionalargument = varargin{1};
+    if (islogical(optionalargument) && (optionalargument == false))
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
+        return;
+    end
+    if isstruct(optionalargument)
+        pretty = optionalchaining(optionalargument, "pretty");
+        indent = optionalchaining(optionalargument, "indent");
         pretty = ternary(isempty(pretty), @() (prettydefault), @() (pretty));
         indent = ternary(isempty(indent), @() (indentdefault), @() (indent));
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
-    if (islogical(additionalparameter) && (additionalparameter == true))
+    if (islogical(optionalargument) && (optionalargument == true))
         if (numel(varargin) >= 2)
-            additionalparameter2 = varargin{2};
-            if (ischar(additionalparameter2) || ischar(additionalparameter2))
-                indent = additionalparameter2
+            optionalargument2 = varargin{2};
+            if (ischar(optionalargument2) || ischar(optionalargument2))
+                indent = optionalargument2
             end
         end
-        pretty = true;
+        pretty = optionalargument;
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
-        return;
-    end
-    if (islogical(additionalparameter) && (additionalparameter == false))
-        pretty = false;
-        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
     jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
@@ -157,42 +156,42 @@ end
 
 function sprint(varargin)
     currentresult = "";
-    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
-        parameter = varargin{parameterindex};
-        if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = jsonstringify(parameter{1});
-            parameternew = strrep(parameternew, """{", "{");
-            parameternew = strrep(parameternew, """[", "[");
-            parameternew = strrep(parameternew, "}""", "}");
-            parameternew = strrep(parameternew, "]""", "]");
-            currentresult = cstrcat(currentresult, parameternew);
+    for argumentindex = (1:1:numel(varargin)) % (start:step:stop)
+        argument = varargin{argumentindex};
+        if (iscell(argument) && (numel(argument) == 1))
+            argumentnew = jsonstringify(argument{1});
+            argumentnew = strrep(argumentnew, """{", "{");
+            argumentnew = strrep(argumentnew, """[", "[");
+            argumentnew = strrep(argumentnew, "}""", "}");
+            argumentnew = strrep(argumentnew, "]""", "]");
+            currentresult = cstrcat(currentresult, argumentnew);
             continue;
         end
-        if (~ischar(parameter) && ~ischar(parameter))
+        if (~ischar(argument) && ~ischar(argument))
             error("Non string argument must be wrapped in {}");
             continue;
         end
-        currentresult = cstrcat(currentresult, parameter);
+        currentresult = cstrcat(currentresult, argument);
     end
     disp(currentresult);
 end
 
 function spreadobjectresult = spreadobject(varargin)
     newobject = struct();
-    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
-        parameter = varargin{parameterindex};
-        if isstruct(parameter)
-            objectkeys = fieldnames(parameter);
+    for argumentindex = (1:1:numel(varargin)) % (start:step:stop)
+        argument = varargin{argumentindex};
+        if isstruct(argument)
+            objectkeys = fieldnames(argument);
             for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                 objectkey = objectkeys{objectentryindex};
-                objectvalue = parameter.(objectkey);
+                objectvalue = argument.(objectkey);
                 newobject.(objectkey) = objectvalue;
             end
             continue;
         end
-        if iscell(parameter)
-            for arrayitemindex = (1:1:numel(parameter)) % (start:step:stop)
-                arrayitem = parameter{arrayitemindex};
+        if iscell(argument)
+            for arrayitemindex = (1:1:numel(argument)) % (start:step:stop)
+                arrayitem = argument{arrayitemindex};
                 newobject.(cstrcat("index", num2str(arrayitemindex))) = arrayitem;
             end
             continue;
@@ -203,24 +202,24 @@ end
 
 function spreadarrayresult = spreadarray(varargin)
     newarray = {};
-    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
-        parameter = varargin{parameterindex};
-        if isstruct(parameter)
-            objectkeys = fieldnames(parameter);
+    for argumentindex = (1:1:numel(varargin)) % (start:step:stop)
+        argument = varargin{argumentindex};
+        if isstruct(argument)
+            objectkeys = fieldnames(argument);
             if (numel(objectkeys) == 1)
                 for objectentryindex = (1:1:numel(objectkeys)) % (start:step:stop)
                     objectkey = objectkeys{objectentryindex};
-                    objectvalue = parameter.(objectkey);
+                    objectvalue = argument.(objectkey);
                     newarray{end + 1} = objectvalue;
                 end
                 continue;
             end
-            newarray{end + 1} = parameter;
+            newarray{end + 1} = argument;
             continue;
         end
-        if iscell(parameter)
-            for arrayitemindex = (1:1:numel(parameter)) % (start:step:stop)
-                arrayitem = parameter{arrayitemindex};
+        if iscell(argument)
+            for arrayitemindex = (1:1:numel(argument)) % (start:step:stop)
+                arrayitem = argument{arrayitemindex};
                 newarray{end + 1} = arrayitem;
             end
             continue;

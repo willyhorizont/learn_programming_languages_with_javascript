@@ -2,9 +2,9 @@
 
 echo("\n// Custom Error and Error Handling in PHP" . "\n");
 
-function give_me_respect($parameter) {
+function give_me_respect($argument) {
     // Custom Error
-    if ($parameter !== "respect") throw new Exception("Exception: You should give me \"respect\"!");
+    if ($argument !== "respect") throw new Exception("Exception: You should give me \"respect\"!");
     return "Thank you for giving me \"respect\"!";
 };
 

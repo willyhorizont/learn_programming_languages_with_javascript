@@ -4,7 +4,7 @@
 // But, we can create our own function to mimic it in PHP.
 
 function array_every_v1($callback_function, $an_array) {
-    // JavaScript-like Array.every() function
+    // JavaScript-like Array.every() function array_every_v1
     $is_condition_match = false;
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
@@ -14,7 +14,7 @@ function array_every_v1($callback_function, $an_array) {
 };
 
 function array_every_v2($callback_function, $an_array) {
-    // JavaScript-like Array.every() function
+    // JavaScript-like Array.every() function array_every_v2
     $is_condition_match = false;
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
@@ -24,7 +24,7 @@ function array_every_v2($callback_function, $an_array) {
 };
 
 function array_every_v3($callback_function, $an_array) {
-    // JavaScript-like Array.every() function
+    // JavaScript-like Array.every() function array_every_v3
     foreach ($an_array as $array_item_index => $array_item) {
         $is_condition_match = $callback_function($array_item, $array_item_index, $an_array);
         if ($is_condition_match === false) return false;
@@ -33,7 +33,7 @@ function array_every_v3($callback_function, $an_array) {
 };
 
 function array_every_v4($callback_function, $an_array) {
-    // JavaScript-like Array.every() function
+    // JavaScript-like Array.every() function array_every_v4
     foreach ($an_array as $array_item_index => $array_item) {
         if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
     }

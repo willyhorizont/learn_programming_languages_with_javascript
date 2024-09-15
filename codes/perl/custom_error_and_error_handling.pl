@@ -5,9 +5,9 @@ use Try::Tiny; # https://metacpan.org/pod/Try::Tiny
 print("\n# Custom Error and Error Handling in Perl", "\n");
 
 sub give_me_respect {
-    my ($parameter) = @_;
+    my ($argument) = @_;
     # Custom Error
-    die("Error: You should give me \"respect\"!") if ($parameter ne "respect");
+    die("Error: You should give me \"respect\"!") if ($argument ne "respect");
     return "Thank you for giving me \"respect\"!";
 }
 

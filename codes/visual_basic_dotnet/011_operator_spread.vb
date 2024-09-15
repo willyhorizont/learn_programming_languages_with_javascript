@@ -46,56 +46,56 @@ Module Program
     ' There's no JavaScript-like Spread Syntax (...) in Visual Basic (.NET).
     ' But, we can create our own function to mimic it in Visual Basic (.NET).
 
-    Function SpreadObject(ByVal ParamArray Parameters() As Object) As Dictionary(Of String, Object)
+    Function SpreadObject(ByVal ParamArray Arguments() As Object) As Dictionary(Of String, Object)
         Dim NewObject As New Dictionary(Of String, Object)()
-        Dim ParameterIndex As Integer = 0
-        For Each Parameter As Object In Parameters
-            If (TypeOf Parameter Is Dictionary(Of String, Object)) Then
-                For Each ObjectEntry As KeyValuePair(Of String, Object) In Parameter
+        Dim ArgumentIndex As Integer = 0
+        For Each Argument As Object In Arguments
+            If (TypeOf Argument Is Dictionary(Of String, Object)) Then
+                For Each ObjectEntry As KeyValuePair(Of String, Object) In Argument
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     NewObject(CStr(ObjectKey)) = ObjectValue
                 Next
                 Continue For
             End If
-            If (TypeOf Parameter Is List(Of Object)) Then
+            If (TypeOf Argument Is List(Of Object)) Then
                 Dim ArrayItemIndex As Integer = 0
-                For Each ArrayItem As Object In Parameter
+                For Each ArrayItem As Object In Argument
                     NewObject(CStr(ArrayItemIndex)) = ArrayItem
                     ArrayItemIndex += 1
                 Next
                 Continue For
             End If
-            ParameterIndex += 1
+            ArgumentIndex += 1
         Next
         Return NewObject
     End Function
 
-    Function SpreadArray(ByVal ParamArray Parameters() As Object) As List(Of Object)
+    Function SpreadArray(ByVal ParamArray Arguments() As Object) As List(Of Object)
         Dim NewArray As New List(Of Object)()
-        Dim ParameterIndex As Integer = 0
-        For Each Parameter As Object In Parameters
-            If (TypeOf Parameter Is Dictionary(Of String, Object)) Then
-                If (Parameter.Count = 1) Then
-                    For Each ObjectEntry As KeyValuePair(Of String, Object) In Parameter
+        Dim ArgumentIndex As Integer = 0
+        For Each Argument As Object In Arguments
+            If (TypeOf Argument Is Dictionary(Of String, Object)) Then
+                If (Argument.Count = 1) Then
+                    For Each ObjectEntry As KeyValuePair(Of String, Object) In Argument
                         Dim ObjectKey = ObjectEntry.Key
                         Dim ObjectValue = ObjectEntry.Value
                         NewArray.Add(ObjectValue)
                     Next
                     Continue For
                 End If
-                NewArray.Add(Parameter)
+                NewArray.Add(Argument)
                 Continue For
             End If
-            If (TypeOf Parameter Is List(Of Object)) Then
+            If (TypeOf Argument Is List(Of Object)) Then
                 Dim ArrayItemIndex As Integer = 0
-                For Each ArrayItem As Object In Parameter
+                For Each ArrayItem As Object In Argument
                     NewArray.Add(ArrayItem)
                     ArrayItemIndex += 1
                 Next
                 Continue For
             End If
-            ParameterIndex += 1
+            ArgumentIndex += 1
         Next
         Return NewArray
     End Function

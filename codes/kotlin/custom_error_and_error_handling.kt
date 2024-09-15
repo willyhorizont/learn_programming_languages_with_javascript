@@ -3,9 +3,9 @@
 fun main() {
     println("\n// Custom Error and Error Handling in Kotlin")
 
-    fun giveMeRespect(parameter: String): String {
+    fun giveMeRespect(argument: String): String {
         // Custom Error
-        if (parameter != "respect") throw Exception("Exception: You should give me \"respect\"!")
+        if (argument != "respect") throw Exception("Exception: You should give me \"respect\"!")
         return "Thank you for giving me \"respect\"!"
     }
 

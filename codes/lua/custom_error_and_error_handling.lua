@@ -1,18 +1,18 @@
 function sprint(...)
-    local parameters = {...}
-    local result = ""
-    for _, parameter in ipairs(parameters) do
-        result = result .. tostring(parameter)
+    local rest_arguments = {...}
+    local new_array = {}
+    for _, argument in ipairs(rest_arguments) do
+        table.insert(new_array, tostring(argument))
     end
-    print(result)
+    print(table.concat(new_array, ""))
 end
 
 print('\n-- Custom Error and Error Handling in Lua')
 
-function give_me_respect(parameter)
+function give_me_respect(argument)
     -- Custom Error
-    if (type(parameter) ~= "string") then error("Argument should be a string") end
-    if (parameter ~= "respect") then error("You should give me \"respect\"!") end
+    if (type(argument) ~= "string") then error("Argument should be a string") end
+    if (argument ~= "respect") then error("You should give me \"respect\"!") end
     return "Thank you for giving me \"respect\"!"
 end
 

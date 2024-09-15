@@ -7,4 +7,4 @@ function getModifiedIndentLevel() {
     }
     return changeIndentLevel();
 }
-console.log("getModifiedIndentLevel():", getModifiedIndentLevel());
+console.log(`getModifiedIndentLevel(): ${getModifiedIndentLevel()}`);

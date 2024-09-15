@@ -1,3 +1,5 @@
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
 console.log("\n// Object.entries() in JavaScript");
 
 const friend1 = {
@@ -5,9 +7,9 @@ const friend1 = {
     "country": "Finland",
     "age": 25
 };
-console.log(`friend1: ${JSON.stringify(friend1, null, " ".repeat(4))}`);
+console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
 
-console.log(`friend1 entries: ${JSON.stringify(Object.entries(friend1)).split(",").join(", ")}`);
+console.log(`friend1 entries: ${jsonStringify(Object.entries(friend1))}`);
 // friend1 entries: [["name", "Alisa"], ["country", "Finland"], ["age", 25]]
 
 const friend2 = new Map([
@@ -15,7 +17,7 @@ const friend2 = new Map([
     ["country", "Finland"],
     ["age", 25]
 ]);
-console.log(`Object.fromEntries([...friend2]): ${JSON.stringify(Object.fromEntries([...friend2]), null, " ".repeat(4))}`);
+console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
-console.log(`friend2 entries: ${JSON.stringify(Array.from(friend2.entries())).split(",").join(", ")}`);
+console.log(`friend2 entries: ${jsonStringify(Array.from(friend2.entries()))}`);
 // friend2 entries: [["name", "Alisa"], ["country", "Finland"], ["age", 25]]

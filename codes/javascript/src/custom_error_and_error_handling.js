@@ -1,8 +1,8 @@
 console.log("\n// Custom Error and Error Handling in JavaScript");
 
-const giveMeRespect = (parameter) => {
+const giveMeRespect = (argument) => {
     // Custom Error
-    if (parameter !== "respect") throw new Error('Error: You should give me "respect"!');
+    if (argument !== "respect") throw new Error('Error: You should give me "respect"!');
     return 'Thank you for giving me "respect"!';
 };
 

@@ -1,6 +1,6 @@
 from numbers import Number
 
-print('\n# FizzBuzz(n) in Python')
+print("\n# FizzBuzz(n) in Python")
 
 
 def fizzbuzz_v1(stop_number):
@@ -208,41 +208,41 @@ def fizzbuzz_v10(stop_number):
 
 
 print('# using fizzbuzz function "fizzbuzz_v1"')
-print('FizzBuzz(36):', fizzbuzz_v1(36))
+print(f"FizzBuzz(36): {fizzbuzz_v1(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v2"')
-print('FizzBuzz(36):', fizzbuzz_v2(36))
+print(f"FizzBuzz(36): {fizzbuzz_v2(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v3"')
-print('FizzBuzz(36):', fizzbuzz_v3(36))
+print(f"FizzBuzz(36): {fizzbuzz_v3(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v4"')
-print('FizzBuzz(36):', fizzbuzz_v4(36))
+print(f"FizzBuzz(36): {fizzbuzz_v4(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v5"')
-print('FizzBuzz(36):', fizzbuzz_v5(36))
+print(f"FizzBuzz(36): {fizzbuzz_v5(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v6"')
-print('FizzBuzz(36):', fizzbuzz_v6(36))
+print(f"FizzBuzz(36): {fizzbuzz_v6(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v7"')
-print('FizzBuzz(36):', fizzbuzz_v7(36))
+print(f"FizzBuzz(36): {fizzbuzz_v7(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v8"')
-print('FizzBuzz(36):', fizzbuzz_v8(36))
+print(f"FizzBuzz(36): {fizzbuzz_v8(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v9"')
-print('FizzBuzz(36):', fizzbuzz_v9(36))
+print(f"FizzBuzz(36): {fizzbuzz_v9(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 print('# using fizzbuzz function "fizzbuzz_v10"')
-print('FizzBuzz(36):', fizzbuzz_v10(36))
+print(f"FizzBuzz(36): {fizzbuzz_v10(36)}")
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

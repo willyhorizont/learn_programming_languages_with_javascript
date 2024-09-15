@@ -1,10 +1,10 @@
 function sprint(...)
-    local parameters = {...}
-    local result = ""
-    for _, parameter in ipairs(parameters) do
-        result = result .. tostring(parameter)
+    local rest_arguments = {...}
+    local new_array = {}
+    for _, argument in ipairs(rest_arguments) do
+        table.insert(new_array, tostring(argument))
     end
-    print(result)
+    print(table.concat(new_array, ""))
 end
 
 -- while loop

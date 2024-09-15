@@ -45,13 +45,13 @@ class Program {
             return JsonStringifyInner(Anything, Indent);
         }
 
-        Dictionary<string, dynamic> SpreadObject(params dynamic[] Parameters) {
+        Dictionary<string, dynamic> SpreadObject(params dynamic[] Arguments) {
             dynamic NewObject = new Dictionary<string, dynamic>();
-            int ParameterIndex = 0;
-            foreach (dynamic Parameter in Parameters) {
-                if (Parameter is Dictionary<string, dynamic>) {
+            int ArgumentIndex = 0;
+            foreach (dynamic Argument in Arguments) {
+                if (Argument is Dictionary<string, dynamic>) {
                     int ObjectIterationIndex = 0;
-                    foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Parameter) {
+                    foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Argument) {
                         string ObjectKey = ObjectEntry.Key;
                         dynamic ObjectValue = ObjectEntry.Value;
                         NewObject[Convert.ToString(ObjectKey)] = ObjectValue;
@@ -59,27 +59,27 @@ class Program {
                     }
                     continue;
                 }
-                if (Parameter is List<dynamic>) {
+                if (Argument is List<dynamic>) {
                     int ArrayItemIndex = 0;
-                    foreach (dynamic ArrayItem in (List<dynamic>)Parameter) {
+                    foreach (dynamic ArrayItem in (List<dynamic>)Argument) {
                         NewObject.Add(Convert.ToString(ArrayItemIndex), ArrayItem);
                         ArrayItemIndex += 1;
                     }
                     continue;
                 }
-                ParameterIndex += 1;
+                ArgumentIndex += 1;
             }
             return NewObject;
         }
 
-        List<dynamic> SpreadArray(params dynamic[] Parameters) {
+        List<dynamic> SpreadArray(params dynamic[] Arguments) {
             dynamic NewArray = new List<dynamic>();
-            int ParameterIndex = 0;
-            foreach (dynamic Parameter in Parameters) {
-                if (Parameter is Dictionary<string, dynamic>) {
-                    if (Parameter.Count == 1) {
+            int ArgumentIndex = 0;
+            foreach (dynamic Argument in Arguments) {
+                if (Argument is Dictionary<string, dynamic>) {
+                    if (Argument.Count == 1) {
                         int ObjectIterationIndex = 0;
-                        foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Parameter) {
+                        foreach (KeyValuePair<string, dynamic> ObjectEntry in (Dictionary<string, dynamic>)Argument) {
                             string ObjectKey = ObjectEntry.Key;
                             dynamic ObjectValue = ObjectEntry.Value;
                             NewArray.Add(ObjectValue);
@@ -87,18 +87,18 @@ class Program {
                         }
                         continue;
                     }
-                    NewArray.Add(Parameter);
+                    NewArray.Add(Argument);
                     continue;
                 }
-                if (Parameter is List<dynamic>) {
+                if (Argument is List<dynamic>) {
                     int ArrayItemIndex = 0;
-                    foreach (dynamic ArrayItem in (List<dynamic>)Parameter) {
+                    foreach (dynamic ArrayItem in (List<dynamic>)Argument) {
                         NewArray.Add(ArrayItem);
                         ArrayItemIndex += 1;
                     }
                     continue;
                 }
-                ParameterIndex += 1;
+                ArgumentIndex += 1;
             }
             return NewArray;
         }

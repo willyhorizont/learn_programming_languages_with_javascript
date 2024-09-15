@@ -1,8 +1,8 @@
 print("\n", "# Custom Error and Error Handling in Ruby")
 
-def give_me_respect(parameter)
+def give_me_respect(argument)
     # Custom Error
-    raise StandardError.new("Error: You should give me \"respect\"!") if (parameter != "respect")
+    raise StandardError.new("Error: You should give me \"respect\"!") if (argument != "respect")
     return "Thank you for giving me \"respect\"!"
 end
 

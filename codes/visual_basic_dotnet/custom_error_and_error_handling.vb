@@ -1,9 +1,9 @@
 Imports System.Collections.Generic ' Dictionary, KeyValuePair
 
 Module Program
-    Function GiveMeRespect(ByVal Parameter As String) As String
+    Function GiveMeRespect(ByVal Argument As String) As String
         ' Custom Error
-        If (Parameter <> "respect") Then Throw New Exception("Exception: You should give me ""respect""!")
+        If (Argument <> "respect") Then Throw New Exception("Exception: You should give me ""respect""!")
         Return "Thank you for giving me ""respect""!"
     End Function
 

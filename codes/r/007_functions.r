@@ -3,8 +3,10 @@
 get_rectangle_area_v1 <- function(rectangle_width, rectangle_length) {
     return(rectangle_width * rectangle_length)
 }
+# call the function example: get_rectangle_area_v1(7, 5)
 
 get_rectangle_area_v2 <- function(rectangle_width, rectangle_length) (rectangle_width * rectangle_length)
+# call the function example: get_rectangle_area_v2(7, 5)
 
 # ? anonymous function
 # function(rectangle_width, rectangle_length) {

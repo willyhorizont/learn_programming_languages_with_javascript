@@ -1,6 +1,6 @@
 from numbers import Number
 
-print('\n# Factorial(n) in Python')
+print("\n# Factorial(n) in Python")
 
 
 def factorial_v1(number: int) -> int:
@@ -59,17 +59,17 @@ def factorial_v4(number: int) -> int:
 
 
 print('# using factorial function "factorial_v1"')
-print('Factorial(5):', factorial_v1(5))
+print(f"Factorial(5): {factorial_v1(5)}")
 # Factorial(5): 120
 
 print('# using factorial function "factorial_v2"')
-print('Factorial(5):', factorial_v2(5))
+print(f"Factorial(5): {factorial_v2(5)}")
 # Factorial(5): 120
 
 print('# using factorial function "factorial_v3"')
-print('Factorial(5):', factorial_v3(5))
+print(f"Factorial(5): {factorial_v3(5)}")
 # Factorial(5): 120
 
 print('# using factorial function "factorial_v4"')
-print('Factorial(5):', factorial_v4(5))
+print(f"Factorial(5): {factorial_v4(5)}")
 # Factorial(5): 120

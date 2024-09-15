@@ -1,7 +1,9 @@
-// Array
+const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+
+console.log("// Array in JavaScript");
 
 const fruits = ["apple", "mango", "orange"];
-console.log(`fruits: ${JSON.stringify(fruits).split(",").join(", ")}`);
+console.log(`fruits: ${jsonStringify(fruits)}`);
 
 console.log(`fruits, length: ${fruits.length}`);
 // fruits, length: 3
@@ -42,19 +44,21 @@ console.log(`fruits, last element: ${fruits.at(fruits.length - 1)}`);
 console.log(`fruits, last element: ${fruits?.at?.(fruits.length - 1)}`);
 // fruits, last element: orange
 
-fruits[0] = "banana";
-console.log(`fruits: ${JSON.stringify(fruits).split(",").join(", ")}`);
+// iterate over and print each item and index
+for (let arrayItemIndex = 0; (arrayItemIndex < fruits.length); arrayItemIndex += 1) {
+    const arrayItem = fruits[arrayItemIndex];
+    console.log(`fruits, for loop, index: ${arrayItemIndex}, item: ${arrayItem}`);
+}
+// fruits, for loop, index: 0, item: apple
+// fruits, for loop, index: 1, item: mango
+// fruits, for loop, index: 2, item: orange
 
-// Array of Objects
+// iterate over and print each item and index
+fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, for each loop, index: ${arrayItemIndex}, item: ${arrayItem}`));
+// fruits, for each loop, index: 0, item: apple
+// fruits, for each loop, index: 1, item: mango
+// fruits, for each loop, index: 2, item: orange
 
-const products = [
-    {
-        "id": "P1",
-        "name": "bubble gum"
-    },
-    {
-        "id": "P2",
-        "name": "potato chips"
-    }
-];
-console.log(`products: ${JSON.stringify(products, null, " ".repeat(4))}`);
+fruits.push("banana");
+console.log(`fruits: ${jsonStringify(fruits)}`);
+// fruits: ["apple", "mango", "orange", "banana"]

@@ -55,23 +55,23 @@ func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String 
     return jsonStringifyInner(anything, indent)
 }
 
-func spreadObject(_ parameters: Any?...) -> MyObject {
+func spreadObject(_ arguments: Any?...) -> MyObject {
     var newObject = MyObject()
-    for (_, parameter) in parameters.enumerated() {
-        if (parameter is MyObject) {
-            guard let parameter = parameter as? MyObject else {
+    for (_, argument) in arguments.enumerated() {
+        if (argument is MyObject) {
+            guard let argument = argument as? MyObject else {
                 continue
             }
-            for (objectKey, objectValue) in parameter {
+            for (objectKey, objectValue) in argument {
                 newObject[objectKey] = objectValue
             }
             continue
         }
-        if (parameter is MyArray) {
-            guard let parameter = parameter as? MyArray else {
+        if (argument is MyArray) {
+            guard let argument = argument as? MyArray else {
                 continue
             }
-            for (arrayItemIndex, arrayItem) in parameter.enumerated() {
+            for (arrayItemIndex, arrayItem) in argument.enumerated() {
                 newObject[String(arrayItemIndex)] = arrayItem
             }
             continue

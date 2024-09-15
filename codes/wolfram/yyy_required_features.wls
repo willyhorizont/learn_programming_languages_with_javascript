@@ -11,17 +11,17 @@ JsonStringify[Anything_, OptionsPattern[{"Pretty" -> False, "Indent" -> "    "}]
 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
 ```javascript
 let something = "foo";
-console.log("something:", something);
+console.log(`something: ${something}`);
 something = 123;
-console.log("something:", something);
+console.log(`something: ${something}`);
 something = true;
-console.log("something:", something);
+console.log(`something: ${something}`);
 something = null;
-console.log("something:", something);
+console.log(`something: ${something}`);
 something = [1, 2, 3];
-console.log("something:", something);
+console.log(`something: ${something}`);
 something = { "foo": "bar" };
-console.log("something:", something);
+console.log(`something: ${something}`);
 ```
 ```go
 type Any interface{}
@@ -52,10 +52,10 @@ function getModifiedIndentLevel() {
     }
     return changeIndentLevel();
 }
-console.log("getModifiedIndentLevel():", getModifiedIndentLevel());
+console.log(`getModifiedIndentLevel(): ${getModifiedIndentLevel()}`);
 function createNewGame(initialCredit) {
     let currentCredit = initialCredit;
-    console.log("initial credit:", initialCredit);
+    console.log(`initial credit: ${initialCredit}`);
     return function () {
         currentCredit -= 1;
         if (currentCredit === 0) {
@@ -111,7 +111,7 @@ const myObject = {
         "foo": "bar"
     }
 };
-console.log("myObject:", myObject);
+console.log(`myObject: ${myObject}`);
 ```
 *)
 MyObject = <|
@@ -130,7 +130,7 @@ Print["MyObject: ", JsonStringify[MyObject, "Pretty" -> True]];
 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
 ```javascript
 const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
-console.log("myArray:", myArray);
+console.log(`myArray: ${myArray}`);
 ```
 *)
 MyArray = {"foo", 123, True, Null, {1, 2, 3}, <|"foo" -> "bar"|>};
@@ -175,7 +175,7 @@ function multiply(a) {
 }
 const multiplyBy2 = multiply(2);
 const multiplyBy2Result = multiplyBy2(10);
-console.log("multiplyBy2Result:", multiplyBy2Result);
+console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
 ```
 *)
 Multiply = (Module[{A = #},
@@ -223,8 +223,7 @@ const myArray2 = [
     [1, 2, 3],
     { "foo": "bar" }
 ];
-console.log("myArray2[0](7, 5):", myArray2[0](7, 5));
-
+console.log(`myArray2[0](7, 5): ${myArray2[0](7, 5)}`);
 const myObject2 = {
     "my_function": function (a, b) {
         return (a * b);
@@ -238,7 +237,7 @@ const myObject2 = {
         "foo": "bar"
     }
 };
-console.log("myObject2["my_function"](7, 5):", myObject2["my_function"](7, 5));
+console.log(`myObject2["my_function"](7, 5): ${myObject2["my_function"](7, 5)}`);
 ```
 *)
 MyArray2 = {
@@ -253,7 +252,6 @@ MyArray2 = {
     <|"foo" -> "bar"|>
 };
 Print["myArray2[0](7, 5): ", MyArray2[[1]][7, 5]];
-
 MyObject = <|
     "my_function" -> (Module[{A = #1, B = #2},
         Return[(A * B), Module];

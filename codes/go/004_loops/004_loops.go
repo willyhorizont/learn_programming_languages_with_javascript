@@ -42,55 +42,74 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
     }, objectPropertiesArray, nil)
 }
 
-func jsonStringify(anything any, additionalParameter any) string {
-	jsonStringifyDefault := func(anythingInner any) string {
-        jsonMarshalled, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
-		}
-		return "null"
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
+    if (trueCondition == true) {
+        return callbackFunctionIfConditionTrue()
     }
-	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
-        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
-		if (err == nil) {
-			return string(jsonMarshalled)
-		}
-		return "null"
-    }
-	if (additionalParameter == nil || additionalParameter == false) {
-		return jsonStringifyDefault(anything)
-	}
-	if (additionalParameter == true) {
-		return jsonStringifyPrettyDefault(anything, "    ")
-	}
-	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
-		var pretty any = optionalChaining(additionalParameter, "pretty")
-		var indent any = optionalChaining(additionalParameter, "indent")
-		if (pretty == true) {
-			if (indent == nil) {
-				indent = "    "
-			}
-			return jsonStringifyPrettyDefault(anything, indent.(string))
-		}
-		return jsonStringifyDefault(anything)
-	}
-	return jsonStringifyDefault(anything)
+    return callbackFunctionIfConditionFalse()
 }
 
-func sPrintln(parameters ...any) {
-    var parametersNew = []string{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
-            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+func jsonStringify(restArguments ...any) string {
+	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
+		if (prettyInner == true) {
+			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+			if (err == nil) {
+				return string(jsonStringifyInnerResult)
+			}
+			return "null"
+		}
+        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
+		}
+		return "null"
+    }
+    var anything any = restArguments[0]
+	prettyDefault := false
+	indentDefault := "    "
+	var pretty any = prettyDefault
+	var indent any = indentDefault
+	if (len(restArguments) == 1) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	var optionalArgument any = restArguments[1]
+	if (optionalArgument == false) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
+		pretty = optionalChaining(optionalArgument, "pretty")
+		indent = optionalChaining(optionalArgument, "indent")
+		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
+		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	if (optionalArgument == true) {
+		if (len(restArguments) >= 3) {
+			var additionalArgument2 any = restArguments[2]
+			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
+				indent = additionalArgument2
+			}
+		}
+		pretty = optionalArgument
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	return jsonStringifyInner(anything, prettyDefault, indentDefault)
+}
+
+func sprint(restArguments ...any) {
+    var newArray = []string{}
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
+            newArray = append(newArray, jsonStringify(argument.(array)[0]))
             continue
         }
-        if (parameterType == reflect.String) {
-			parametersNew = append(parametersNew, parameter.(string))
+        if (argumentType == reflect.String) {
+			newArray = append(newArray, argument.(string))
             continue
         }
     }
-    fmt.Println(strings.Join(parametersNew, ""))
+    fmt.Println(strings.Join(newArray, ""))
 }
 
 func main() {
@@ -105,7 +124,7 @@ func main() {
             i1 += 1
             continue
         }
-        sPrintln("while loop v1, i1 is ", array{i1})
+        sprint("while loop v1, i1 is ", array{i1})
         if (i1 >= 5) {
             break
         }
@@ -118,7 +137,7 @@ func main() {
             i2 += 1
             continue
         }
-        sPrintln("while loop v2, i2 is ", array{i2})
+        sprint("while loop v2, i2 is ", array{i2})
         i2 += 1
     }
 
@@ -131,6 +150,6 @@ func main() {
         if (i3 == 2) {
             continue
         }
-        sPrintln("for loop, i3 is ", array{i3})
+        sprint("for loop, i3 is ", array{i3})
     }
 }

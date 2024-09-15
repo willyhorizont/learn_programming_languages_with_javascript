@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/09[Sep]/15[Sun]|10:00[PM]/22:00)
+1.0.67
+New:
+add object_from_entries.*
+update and improve jsonstringify in *.go
+create and rename and change so many things
+TODO:
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/11[Wed]|01:46[AM]/01:46)
 1.0.66
 New:

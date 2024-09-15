@@ -1,8 +1,8 @@
 println("\n// Custom Error and Error Handling in Scala")
 
-def giveMeRespect(parameter: String): String = {
+def giveMeRespect(argument: String): String = {
     // Custom Error
-    if (parameter != "respect") throw new Exception("Exception: You should give me \"respect\"!")
+    if (argument != "respect") throw new Exception("Exception: You should give me \"respect\"!")
     return "Thank you for giving me \"respect\"!"
 }
 

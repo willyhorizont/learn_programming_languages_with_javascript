@@ -38,17 +38,17 @@ fun main() {
         return jsonStringifyInner(anything, indent)
     }
 
-    fun spreadObject(vararg parameters: Any?): MutableMap<String, Any?> {
+    fun spreadObject(vararg arguments: Any?): MutableMap<String, Any?> {
         val newObject = mutableMapOf<String, Any?>()
-        for ((parameterIndex, parameter) in parameters.withIndex()) {
-            if (parameter is MutableMap<*, *>) {
-                for ((objectKey, objectValue) in parameter as MutableMap<String, Any?>) {
+        for ((argumentIndex, argument) in arguments.withIndex()) {
+            if (argument is MutableMap<*, *>) {
+                for ((objectKey, objectValue) in argument as MutableMap<String, Any?>) {
                     newObject[objectKey.toString()] = objectValue
                 }
                 continue
             }
-            if (parameter is MutableList<*>) {
-                for ((arrayItemIndex, arrayItem) in (parameter as MutableList<Any?>).withIndex()) {
+            if (argument is MutableList<*>) {
+                for ((arrayItemIndex, arrayItem) in (argument as MutableList<Any?>).withIndex()) {
                     newObject[arrayItemIndex.toString()] = arrayItem
                 }
                 continue

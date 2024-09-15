@@ -15,7 +15,7 @@
 
 function abbreviate_name($complete_name) {
     return join(".", array_map(fn($a_name) => strtoupper($a_name[0]), explode(" ", $complete_name)));
-}
+};
 echo(abbreviate_name("Sam Harris") . "\n");
 // S.H
 echo(abbreviate_name("patrick feeney") . "\n");

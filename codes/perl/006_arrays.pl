@@ -3,9 +3,9 @@ use warnings;
 use Scalar::Util qw(looks_like_number);
 
 sub json_stringify {
-    my ($anything_ref, %additional_parameter) = @_;
-    my $pretty = $additional_parameter{"pretty"} // 0;
-    my $indent = $additional_parameter{"indent"} // "    ";
+    my ($anything_ref, %optionalar_gument) = @_;
+    my $pretty = $optionalar_gument{"pretty"} // 0;
+    my $indent = $optionalar_gument{"indent"} // "    ";
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
@@ -56,6 +56,9 @@ print("fruits: ", json_stringify(\@fruits), "\n");
 print("fruits, length: ", scalar(@fruits), "\n");
 # fruits, length: 3
 
+print("fruits, length: ", ($#fruits + 1), "\n");
+# fruits, length: 3
+
 print("fruits, get mango: ", $fruits[1], "\n");
 # fruits, get mango: mango
 
@@ -65,13 +68,71 @@ print("fruits, first element: ", $fruits[0], "\n");
 print("fruits, last element: ", $fruits[-1], "\n");
 # fruits, last element: orange
 
-for my $array_item_index (0..(scalar(@fruits) - 1)) { # we can also replace `(scalar(@fruits) - 1)` with `$#fruits`
-    my $array_item = $fruits[$array_item_index];
-    print("fruits, index: $array_item_index, value: $array_item", "\n");
+# iterate over and get each item and index
+sub {
+    my $array_item_index = 0;
+    while ($array_item_index < scalar(@fruits)) {
+        my $array_item = $fruits[$array_item_index];
+        print("fruits, index: $array_item_index, value: $array_item, while loop", "\n");
+        $array_item_index += 1;
+    }
+}->();
+# fruits, index: 0, value: apple, while loop
+# fruits, index: 1, value: mango, while loop
+# fruits, index: 2, value: orange, while loop
+
+# iterate over and get each item and index
+while (my ($array_item_index, $array_item) = each(@fruits)) {
+    print("fruits, index: $array_item_index, value: $array_item, while loop", "\n");
 }
-# fruits, for loop, index: 0, value: apple
-# fruits, for loop, index: 1, value: mango
-# fruits, for loop, index: 2, value: orange
+# fruits, index: 0, value: apple, while loop
+# fruits, index: 1, value: mango, while loop
+# fruits, index: 2, value: orange, while loop
+
+# iterate over and get each item and index
+for (my $array_item_index = 0; $array_item_index < scalar(@fruits); $array_item_index += 1) {
+    my $array_item = $fruits[$array_item_index];
+    print("fruits, index: $array_item_index, value: $array_item, for loop", "\n");
+}
+# fruits, index: 0, value: apple, for loop
+# fruits, index: 1, value: mango, for loop
+# fruits, index: 2, value: orange, for loop
+
+# iterate over and get each item and index
+foreach my $array_item_index (0 .. $#fruits) {
+    my $array_item = $fruits[$array_item_index];
+    print("fruits, index: $array_item_index, value: $array_item, for each loop", "\n");
+}
+# fruits, index: 0, value: apple, for each loop
+# fruits, index: 1, value: mango, for each loop
+# fruits, index: 2, value: orange, for each loop
+
+# iterate over and get each item and index
+for my $array_item_index (0 .. $#fruits) {
+    my $array_item = $fruits[$array_item_index];
+    print("fruits, index: $array_item_index, value: $array_item, for each loop", "\n");
+}
+# fruits, index: 0, value: apple, for each loop
+# fruits, index: 1, value: mango, for each loop
+# fruits, index: 2, value: orange, for each loop
+
+# iterate over and get each item and index
+foreach my $array_item_index (0 .. (scalar(@fruits) - 1)) {
+    my $array_item = $fruits[$array_item_index];
+    print("fruits, index: $array_item_index, value: $array_item, for each loop", "\n");
+}
+# fruits, index: 0, value: apple, for each loop
+# fruits, index: 1, value: mango, for each loop
+# fruits, index: 2, value: orange, for each loop
+
+# iterate over and get each item and index
+for my $array_item_index (0 .. (scalar(@fruits) - 1)) {
+    my $array_item = $fruits[$array_item_index];
+    print("fruits, index: $array_item_index, value: $array_item, for each loop", "\n");
+}
+# fruits, index: 0, value: apple, for each loop
+# fruits, index: 1, value: mango, for each loop
+# fruits, index: 2, value: orange, for each loop
 
 # initialization v2
 my $fruits_ref = ["apple", "mango", "orange"];

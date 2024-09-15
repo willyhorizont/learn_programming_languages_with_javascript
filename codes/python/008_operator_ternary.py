@@ -1,4 +1,4 @@
-print('\n# Ternary Operator in Python')
+print("\n# Ternary Operator in Python")
 
 CORRECT_ANSWER = 'foo'
 print(f'correct answer: "{CORRECT_ANSWER}"')

@@ -10,7 +10,7 @@ prettyJsonStringify = (Module[{anything = #}, Return[StringReplace[ExportString[
 
 jsonStringify = (Module[{anything = #}, Return[StringReplace[StringReplace[ExportString[anything, "JSON", "Compact" -> True], RegularExpression["(?<=[a-zA-Z0-9\}\]\"])\\,(?=[a-zA-Z0-9\{\\[\"])"] -> ", "], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "], Module]] &);
 
-sPrint = (Module[{parameters = {##}}, Print[StringJoin[MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]}, If[((ArrayQ[arrayItem] == True) && Length[arrayItem] == 1), Return[jsonStringify[arrayItem[[1]]], Module], If[(StringQ[arrayItem] == True), Return[arrayItem, Module], Return["", Module]]]] &), parameters]]]] &);
+sPrint = (Module[{arguments = {##}}, Print[StringJoin[MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]}, If[((ArrayQ[arrayItem] == True) && Length[arrayItem] == 1), Return[jsonStringify[arrayItem[[1]]], Module], If[(StringQ[arrayItem] == True), Return[arrayItem, Module], Return["", Module]]]] &), arguments]]]] &);
 
 prettyJsonStringify = (Module[{anything = #}, StringReplace[ExportString[ImportString[ExportString[anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]] &);
 Print[prettyJsonStringify[<|"foo" -> "bar"|>]];
@@ -20,8 +20,8 @@ jsonStringify = (Module[{anything = #}, StringReplace[StringReplace[ExportString
 Print[jsonStringify[{1, 2, 3}]];
 Print[jsonStringify[<|"foo" -> "bar"|>]];
 
-sPrint = (Module[{parameters = {##}},
-    parametersNew = MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]},
+sPrint = (Module[{arguments = {##}},
+    result = MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]},
         If[((ArrayQ[arrayItem] == True) && Length[arrayItem] == 1),
             Return[jsonStringify[arrayItem[[1]]], Module];
         ];
@@ -29,11 +29,11 @@ sPrint = (Module[{parameters = {##}},
             Return[arrayItem, Module];
         ];
         Return["", Module];
-    ] &), parameters];
-    Print[StringJoin[parametersNew]];
+    ] &), arguments];
+    Print[StringJoin[result]];
 ] &);
 
-sPrint = (Module[{parameters = {##}}, Print[StringJoin[MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]}, If[((ArrayQ[arrayItem] == True) && Length[arrayItem] == 1), Return[jsonStringify[arrayItem[[1]]], Module], If[(StringQ[arrayItem] == True), Return[arrayItem, Module], Return["", Module]]]] &), parameters]]]] &);
+sPrint = (Module[{arguments = {##}}, Print[StringJoin[MapIndexed[(Module[{arrayItem = #1, arrayItemIndex = #2[[1]]}, If[((ArrayQ[arrayItem] == True) && Length[arrayItem] == 1), Return[jsonStringify[arrayItem[[1]]], Module], If[(StringQ[arrayItem] == True), Return[arrayItem, Module], Return["", Module]]]] &), arguments]]]] &);
 
 prettyJsonStringify = (Module[{anything = #}, StringReplace[ExportString[ImportString[ExportString[anything, "JSON"], "RawJSON"], "JSON", "Compact" -> False], RegularExpression["(?<=[a-zA-Z0-9\"])\\:(?=[a-zA-Z0-9\{\\[\"])"] -> ": "]] &);
 

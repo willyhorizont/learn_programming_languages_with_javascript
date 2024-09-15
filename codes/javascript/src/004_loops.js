@@ -1,57 +1,79 @@
+const generateNumberSequenceArray = (startNumber, stopNumber) => {
+    if (stopNumber > startNumber) {
+        const numberSequenceArrayAscending = [];
+        for (let aNumber = startNumber; (aNumber <= stopNumber); aNumber += 1) {
+            numberSequenceArrayAscending.push(aNumber);
+        }
+        return numberSequenceArrayAscending;
+    }
+    if (startNumber > stopNumber) {
+        const numberSequenceArrayDescending = [];
+        for (let aNumber = startNumber; (aNumber >= stopNumber); aNumber -= 1) {
+            numberSequenceArrayDescending.push(aNumber);
+        }
+        return numberSequenceArrayDescending;
+    }
+    return [0];
+};
+
 // while loop
 
-let i1 = 1;
-while (true) {
-    if (i1 === 2) {
-        if (i1 >= 5) break;
-        i1 += 1;
-        continue;
+(() => {
+    let i = 1;
+    while (true) {
+        if (i === 2) {
+            if (i >= 5) break;
+            i += 1;
+            continue;
+        }
+        console.log(`while loop v1, i is ${i}`);
+        if (i >= 5) break;
+        i += 1;
     }
-    console.log(`while loop v1, i1 is ${i1}`);
-    if (i1 >= 5) break;
-    i1 += 1;
-}
+})();
 
-let i2 = 1;
-while (i2 <= 5) {
-    if (i2 === 2) {
-        i2 += 1;
-        continue;
+(() => {
+    let i = 1;
+    while (i <= 5) {
+        if (i === 2) {
+            i += 1;
+            continue;
+        }
+        console.log(`while loop v2, i is ${i}`);
+        i += 1;
     }
-    console.log(`while loop v2, i2 is ${i2}`);
-    i2 += 1;
-}
+})();
 
 // for loop
 
-for (let i3 = 1; i3 <= 10; i3 += 1) {
-    if (i3 > 5) break;
-    if (i3 === 2) continue;
-    console.log(`for loop, i3 is ${i3}`);
+for (let i = 1; i <= 10; i += 1) {
+    if (i > 5) break;
+    if (i === 2) continue;
+    console.log(`for loop, i is ${i}`);
 }
 
 // forEach loop
 
-Array.from(Array(10 + 1).keys()).slice(1).forEach((i4) => {
-    if (i4 > 5) return;
-    if (i4 === 2) return;
-    console.log(`forEach loop v1 ascending, i4 is ${i4}`);
+generateNumberSequenceArray(1, 10).forEach((i) => {
+    if (i > 5) return;
+    if (i === 2) return;
+    console.log(`forEach loop v1 ascending, i is ${i}`);
 });
 
-Array.from(Array(10 + 1).keys()).slice(1).reverse().forEach((i5) => {
-    if (i5 <= 5) return;
-    if (i5 === 9) return;
-    console.log(`forEach loop v1 descending, i5 is ${i5}`);
+generateNumberSequenceArray(10, 1).forEach((i) => {
+    if (i <= 5) return;
+    if (i === 9) return;
+    console.log(`forEach loop v1 descending, i is ${i}`);
 });
 
-[...Array(10 + 1).keys()].slice(1).forEach((i6) => {
-    if (i6 > 5) return;
-    if (i6 === 2) return;
-    console.log(`forEach loop v2 ascending, i6 is ${i6}`);
+generateNumberSequenceArray(1, 10).forEach((i) => {
+    if (i > 5) return;
+    if (i === 2) return;
+    console.log(`forEach loop v2 ascending, i is ${i}`);
 });
 
-[...Array(10 + 1).keys()].slice(1).reverse().forEach((i7) => {
-    if (i7 <= 5) return;
-    if (i7 === 9) return;
-    console.log(`forEach loop v2 descending, i7 is ${i7}`);
+generateNumberSequenceArray(10, 1).forEach((i) => {
+    if (i <= 5) return;
+    if (i === 9) return;
+    console.log(`forEach loop v2 descending, i is ${i}`);
 });

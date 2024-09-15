@@ -43,27 +43,27 @@ Module Program
         Return JsonStringifyInner(Anything, Indent)
     End Function
 
-    Function SpreadObject(ByVal ParamArray Parameters() As Object) As Dictionary(Of String, Object)
+    Function SpreadObject(ByVal ParamArray Arguments() As Object) As Dictionary(Of String, Object)
         Dim NewObject As New Dictionary(Of String, Object)()
-        Dim ParameterIndex As Integer = 0
-        For Each Parameter As Object In Parameters
-            If (TypeOf Parameter Is Dictionary(Of String, Object)) Then
-                For Each ObjectEntry As KeyValuePair(Of String, Object) In Parameter
+        Dim ArgumentIndex As Integer = 0
+        For Each Argument As Object In Arguments
+            If (TypeOf Argument Is Dictionary(Of String, Object)) Then
+                For Each ObjectEntry As KeyValuePair(Of String, Object) In Argument
                     Dim ObjectKey = ObjectEntry.Key
                     Dim ObjectValue = ObjectEntry.Value
                     NewObject(CStr(ObjectKey)) = ObjectValue
                 Next
                 Continue For
             End If
-            If (TypeOf Parameter Is List(Of Object)) Then
+            If (TypeOf Argument Is List(Of Object)) Then
                 Dim ArrayItemIndex As Integer = 0
-                For Each ArrayItem As Object In Parameter
+                For Each ArrayItem As Object In Argument
                     NewObject(CStr(ArrayItemIndex)) = ArrayItem
                     ArrayItemIndex += 1
                 Next
                 Continue For
             End If
-            ParameterIndex += 1
+            ArgumentIndex += 1
         Next
         Return NewObject
     End Function

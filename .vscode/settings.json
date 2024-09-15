@@ -219,5 +219,5 @@
     "workbench.editor.pinnedTabsOnSeparateRow": true,
     "workbench.editor.tabSizing": "fit",
     "workbench.editor.titleScrollbarSizing": "large",
-    "workbench.editor.wrapTabs": false,
+    "workbench.editor.wrapTabs": true,
 }

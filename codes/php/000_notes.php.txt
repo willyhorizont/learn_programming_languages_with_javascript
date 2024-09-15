@@ -1,0 +1,22 @@
+$something = "something";
+// original $something can't be mutated, because $something passed by value
+(function () use ($something) {
+    $something = "anything";
+    echo $something;
+})();
+echo $something;
+
+// original $something can be mutated, because $something passed by reference
+(function () use (&$something) {
+    $something = "anything";
+    echo $something;
+})();
+echo $something;
+
+// original $something can be mutated, because $something passed by reference
+(function () {
+    global $something;
+    $something = "anything";
+    echo $something;
+})();
+echo $something;

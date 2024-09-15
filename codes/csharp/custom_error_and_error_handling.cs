@@ -4,9 +4,9 @@ class Program {
     static void Main(string[] Args) {
         Console.WriteLine("\n// Custom Error and Error Handling in C#");
 
-        dynamic GiveMeRespect(dynamic Parameter) {
+        dynamic GiveMeRespect(dynamic Argument) {
             // Custom Error
-            if (Parameter != "respect") throw new InvalidOperationException("Exception: You should give me \"respect\"!");
+            if (Argument != "respect") throw new InvalidOperationException("Exception: You should give me \"respect\"!");
             return "Thank you for giving me \"respect\"!";
         }
 

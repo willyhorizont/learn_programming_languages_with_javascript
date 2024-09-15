@@ -1,10 +1,10 @@
 function sprint(...)
-    local parameters = {...}
-    local result = ""
-    for _, parameter in ipairs(parameters) do
-        result = result .. tostring(parameter)
+    local rest_arguments = {...}
+    local new_array = {}
+    for _, argument in ipairs(rest_arguments) do
+        table.insert(new_array, tostring(argument))
     end
-    print(result)
+    print(table.concat(new_array, ""))
 end
 
 function string_repeat(a_string, count)
@@ -32,10 +32,10 @@ function object_keys(an_object)
     return new_array
 end
 
-function json_stringify(anything, parameter_object)
-    parameter_object = parameter_object or {}
-    local pretty = parameter_object["pretty"]
-    local indent = parameter_object["indent"]
+function json_stringify(anything, argument_object)
+    argument_object = argument_object or {}
+    local pretty = argument_object["pretty"]
+    local indent = argument_object["indent"]
     pretty = ((pretty == nil) and false or pretty)
     indent = ((indent == nil) and "    " or indent)
     local indent_level = 0

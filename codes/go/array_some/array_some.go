@@ -42,55 +42,74 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
     }, objectPropertiesArray, nil)
 }
 
-func jsonStringify(anything any, additionalParameter any) string {
-	jsonStringifyDefault := func(anythingInner any) string {
-        jsonMarshalled, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
-		}
-		return "null"
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
+    if (trueCondition == true) {
+        return callbackFunctionIfConditionTrue()
     }
-	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
-        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
-		if (err == nil) {
-			return string(jsonMarshalled)
-		}
-		return "null"
-    }
-	if (additionalParameter == nil || additionalParameter == false) {
-		return jsonStringifyDefault(anything)
-	}
-	if (additionalParameter == true) {
-		return jsonStringifyPrettyDefault(anything, "    ")
-	}
-	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
-		var pretty any = optionalChaining(additionalParameter, "pretty")
-		var indent any = optionalChaining(additionalParameter, "indent")
-		if (pretty == true) {
-			if (indent == nil) {
-				indent = "    "
-			}
-			return jsonStringifyPrettyDefault(anything, indent.(string))
-		}
-		return jsonStringifyDefault(anything)
-	}
-	return jsonStringifyDefault(anything)
+    return callbackFunctionIfConditionFalse()
 }
 
-func sPrintln(parameters ...any) {
-    var parametersNew = []string{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
-            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+func jsonStringify(restArguments ...any) string {
+	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
+		if (prettyInner == true) {
+			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+			if (err == nil) {
+				return string(jsonStringifyInnerResult)
+			}
+			return "null"
+		}
+        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
+		}
+		return "null"
+    }
+    var anything any = restArguments[0]
+	prettyDefault := false
+	indentDefault := "    "
+	var pretty any = prettyDefault
+	var indent any = indentDefault
+	if (len(restArguments) == 1) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	var optionalArgument any = restArguments[1]
+	if (optionalArgument == false) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
+		pretty = optionalChaining(optionalArgument, "pretty")
+		indent = optionalChaining(optionalArgument, "indent")
+		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
+		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	if (optionalArgument == true) {
+		if (len(restArguments) >= 3) {
+			var additionalArgument2 any = restArguments[2]
+			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
+				indent = additionalArgument2
+			}
+		}
+		pretty = optionalArgument
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	return jsonStringifyInner(anything, prettyDefault, indentDefault)
+}
+
+func sprint(restArguments ...any) {
+    var newArray = []string{}
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
+            newArray = append(newArray, jsonStringify(argument.(array)[0]))
             continue
         }
-        if (parameterType == reflect.String) {
-			parametersNew = append(parametersNew, parameter.(string))
+        if (argumentType == reflect.String) {
+			newArray = append(newArray, argument.(string))
             continue
         }
     }
-    fmt.Println(strings.Join(parametersNew, ""))
+    fmt.Println(strings.Join(newArray, ""))
 }
 
 func arraySomeV1(callbackFunction func(any, int, array) bool, anArray array) bool {
@@ -142,7 +161,7 @@ func main() {
     fmt.Println("\n// JavaScript-like Array.some() in Go Slice")
 
     numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-    sPrintln("numbers: ", jsonStringify(numbers, false))
+    sprint("numbers: ", jsonStringify(numbers))
 
     var isAnyNumberLessThan500 bool
     var isAnyNumberMoreThan500 bool
@@ -152,13 +171,13 @@ func main() {
     isAnyNumberLessThan500 = arraySomeV1(func(number any, _ int, _ array) bool {
         return (number.(int) < 500)
     }, numbers)
-    sPrintln("is any number < 500: ", array{isAnyNumberLessThan500})
+    sprint("is any number < 500: ", array{isAnyNumberLessThan500})
     // is any number < 500: true
 
     isAnyNumberMoreThan500 = arraySomeV1(func(number any, _ int, _ array) bool {
         return (number.(int) > 500)
     }, numbers)
-    sPrintln("is any number > 500: ", array{isAnyNumberMoreThan500})
+    sprint("is any number > 500: ", array{isAnyNumberMoreThan500})
     // is any number > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV2\"")
@@ -166,13 +185,13 @@ func main() {
     isAnyNumberLessThan500 = arraySomeV2(func(number any, _ int, _ array) bool {
         return (number.(int) < 500)
     }, numbers)
-    sPrintln("is any number < 500: ", array{isAnyNumberLessThan500})
+    sprint("is any number < 500: ", array{isAnyNumberLessThan500})
     // is any number < 500: true
 
     isAnyNumberMoreThan500 = arraySomeV2(func(number any, _ int, _ array) bool {
         return (number.(int) > 500)
     }, numbers)
-    sPrintln("is any number > 500: ", array{isAnyNumberMoreThan500})
+    sprint("is any number > 500: ", array{isAnyNumberMoreThan500})
     // is any number > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV3\"")
@@ -180,13 +199,13 @@ func main() {
     isAnyNumberLessThan500 = arraySomeV3(func(number any, _ int, _ array) bool {
         return (number.(int) < 500)
     }, numbers)
-    sPrintln("is any number < 500: ", array{isAnyNumberLessThan500})
+    sprint("is any number < 500: ", array{isAnyNumberLessThan500})
     // is any number < 500: true
 
     isAnyNumberMoreThan500 = arraySomeV3(func(number any, _ int, _ array) bool {
         return (number.(int) > 500)
     }, numbers)
-    sPrintln("is any number > 500: ", array{isAnyNumberMoreThan500})
+    sprint("is any number > 500: ", array{isAnyNumberMoreThan500})
     // is any number > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV4\"")
@@ -194,13 +213,13 @@ func main() {
     isAnyNumberLessThan500 = arraySomeV4(func(number any, _ int, _ array) bool {
         return (number.(int) < 500)
     }, numbers)
-    sPrintln("is any number < 500: ", array{isAnyNumberLessThan500})
+    sprint("is any number < 500: ", array{isAnyNumberLessThan500})
     // is any number < 500: true
 
     isAnyNumberMoreThan500 = arraySomeV4(func(number any, _ int, _ array) bool {
         return (number.(int) > 500)
     }, numbers)
-    sPrintln("is any number > 500: ", array{isAnyNumberMoreThan500})
+    sprint("is any number > 500: ", array{isAnyNumberMoreThan500})
     // is any number > 500: false
 
     fmt.Println("\n// JavaScript-like Array.some() in Go Slice of maps")
@@ -224,7 +243,7 @@ func main() {
         },
     }
 
-    sPrintln("products: ", jsonStringify(products, object{"pretty": true}))
+    sprint("products: ", jsonStringify(products, object{"pretty": true}))
 
     var isAnyProductPriceLessThan500 bool
     var isAnyProductPriceMoreThan500 bool
@@ -234,13 +253,13 @@ func main() {
     isAnyProductPriceLessThan500 = arraySomeV1(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) < 500)
     }, products)
-    sPrintln("is any product price < 500: ", array{isAnyProductPriceLessThan500})
+    sprint("is any product price < 500: ", array{isAnyProductPriceLessThan500})
     // is any product price < 500: true
 
     isAnyProductPriceMoreThan500 = arraySomeV1(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 500)
     }, products)
-    sPrintln("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
+    sprint("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
     // is any product price > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV2\"")
@@ -248,13 +267,13 @@ func main() {
     isAnyProductPriceLessThan500 = arraySomeV2(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) < 500)
     }, products)
-    sPrintln("is any product price < 500: ", array{isAnyProductPriceLessThan500})
+    sprint("is any product price < 500: ", array{isAnyProductPriceLessThan500})
     // is any product price < 500: true
 
     isAnyProductPriceMoreThan500 = arraySomeV2(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 500)
     }, products)
-    sPrintln("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
+    sprint("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
     // is any product price > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV3\"")
@@ -262,13 +281,13 @@ func main() {
     isAnyProductPriceLessThan500 = arraySomeV3(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) < 500)
     }, products)
-    sPrintln("is any product price < 500: ", array{isAnyProductPriceLessThan500})
+    sprint("is any product price < 500: ", array{isAnyProductPriceLessThan500})
     // is any product price < 500: true
 
     isAnyProductPriceMoreThan500 = arraySomeV3(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 500)
     }, products)
-    sPrintln("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
+    sprint("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
     // is any product price > 500: false
 
     fmt.Println("// using JavaScript-like Array.some() function \"arraySomeV4\"")
@@ -276,12 +295,12 @@ func main() {
     isAnyProductPriceLessThan500 = arraySomeV4(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) < 500)
     }, products)
-    sPrintln("is any product price < 500: ", array{isAnyProductPriceLessThan500})
+    sprint("is any product price < 500: ", array{isAnyProductPriceLessThan500})
     // is any product price < 500: true
 
     isAnyProductPriceMoreThan500 = arraySomeV4(func(product any, _ int, _ array) bool {
         return (product.(object)["price"].(int) > 500)
     }, products)
-    sPrintln("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
+    sprint("is any product price > 500: ", array{isAnyProductPriceMoreThan500})
     // is any product price > 500: false
 }

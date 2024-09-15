@@ -1,8 +1,8 @@
 Print["\n(* Custom Error and Error Handling in Wolfram *)"];
 
-GiveMeRespect = (Module[{AParameter = #},
+GiveMeRespect = (Module[{AnArgument = #},
     (* Custom Error *)
-    If[(AParameter != "respect"), Throw["Error: You should give me \"respect\"!"]];
+    If[(AnArgument != "respect"), Throw["Error: You should give me \"respect\"!"]];
     Return["Thank you for giving me \"respect\"!", Module];
 ] &);
 

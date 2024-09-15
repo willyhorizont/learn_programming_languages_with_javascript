@@ -127,29 +127,28 @@ function jsonstringifyresult = jsonstringify(anything, varargin)
         jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
-    additionalparameter = varargin{1};
-    if isstruct(additionalparameter)
-        pretty = optionalchaining(additionalparameter, "pretty");
-        indent = optionalchaining(additionalparameter, "indent");
+    optionalargument = varargin{1};
+    if (islogical(optionalargument) && (optionalargument == false))
+        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
+        return;
+    end
+    if isstruct(optionalargument)
+        pretty = optionalchaining(optionalargument, "pretty");
+        indent = optionalchaining(optionalargument, "indent");
         pretty = ternary(isempty(pretty), @() (prettydefault), @() (pretty));
         indent = ternary(isempty(indent), @() (indentdefault), @() (indent));
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
         return;
     end
-    if (islogical(additionalparameter) && (additionalparameter == true))
+    if (islogical(optionalargument) && (optionalargument == true))
         if (numel(varargin) >= 2)
-            additionalparameter2 = varargin{2};
-            if (isstring(additionalparameter2) || ischar(additionalparameter2))
-                indent = additionalparameter2
+            optionalargument2 = varargin{2};
+            if (isstring(optionalargument2) || ischar(optionalargument2))
+                indent = optionalargument2
             end
         end
-        pretty = true;
+        pretty = optionalargument;
         jsonstringifyresult = jsonstringifyinner(anything, pretty, indent);
-        return;
-    end
-    if (islogical(additionalparameter) && (additionalparameter == false))
-        pretty = false;
-        jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
         return;
     end
     jsonstringifyresult = jsonstringifyinner(anything, prettydefault, indentdefault);
@@ -157,30 +156,30 @@ end
 
 function sprint(varargin)
     currentresult = "";
-    for parameterindex = (1:1:numel(varargin)) % (start:step:stop)
-        parameter = varargin{parameterindex};
-        if (iscell(parameter) && (numel(parameter) == 1))
-            parameternew = jsonstringify(parameter{1});
-            parameternew = strrep(parameternew, """{", "{");
-            parameternew = strrep(parameternew, """[", "[");
-            parameternew = strrep(parameternew, "}""", "}");
-            parameternew = strrep(parameternew, "]""", "]");
-            currentresult = strcat(currentresult, parameternew);
+    for argumentindex = (1:1:numel(varargin)) % (start:step:stop)
+        argument = varargin{argumentindex};
+        if (iscell(argument) && (numel(argument) == 1))
+            argumentnew = jsonstringify(argument{1});
+            argumentnew = strrep(argumentnew, """{", "{");
+            argumentnew = strrep(argumentnew, """[", "[");
+            argumentnew = strrep(argumentnew, "}""", "}");
+            argumentnew = strrep(argumentnew, "]""", "]");
+            currentresult = strcat(currentresult, argumentnew);
             continue;
         end
-        if (~isstring(parameter) && ~ischar(parameter))
+        if (~isstring(argument) && ~ischar(argument))
             error("Non string argument must be wrapped in {}");
             continue;
         end
-        currentresult = strcat(currentresult, parameter);
+        currentresult = strcat(currentresult, argument);
     end
     disp(currentresult);
 end
 
 sprint(sprintf("\n"), "% Custom Error and Error Handling in Matlab");
 
-function result = giveMeRespect(parameter)
-    if ~strcmp(parameter, "respect")
+function result = giveMeRespect(argument)
+    if ~strcmp(argument, "respect")
         % Custom Error
         error("You should give me ""respect""!");
     end

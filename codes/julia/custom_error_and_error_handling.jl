@@ -1,8 +1,8 @@
 println("\n# Custom Error and Error Handling in Julia")
 
-function give_me_respect(parameter::String)
+function give_me_respect(argument::String)
     # Custom Error
-    if (parameter != "respect") throw(ErrorException("Exception: You should give me \"respect\"!")) end
+    if (argument != "respect") throw(ErrorException("Exception: You should give me \"respect\"!")) end
     return "Thank you for giving me \"respect\"!"
 end
 

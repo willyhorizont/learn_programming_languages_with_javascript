@@ -107,9 +107,9 @@ disp(strcat("something: ", pretty_json_stringify(something)));
 something = struct("foo", {"bar"});
 disp(strcat("something: ", pretty_json_stringify(something)));
 
-function result = giveMeRespect1(parameter)
+function result = giveMeRespect1(argument)
     % Custom Error
-    if ~strcmp(parameter, 'respect')
+    if ~strcmp(argument, 'respect')
         error("You should give me ""respect""!");
     end
     result = 'Thank you for giving me "respect"!';
@@ -121,9 +121,9 @@ catch exception
     disp(strcat('Error: ', exception.message));
 end
 
-function result = giveMeRespect2(parameter)
+function result = giveMeRespect2(argument)
     % Custom Error
-    if ~strcmp(parameter, 'respect')
+    if ~strcmp(argument, 'respect')
         exception = MException('Program:generic', 'You should give me "respect"!');
         throw(exception);
     end
@@ -142,16 +142,16 @@ disp(append("zxc: ", "asd")); % zxc: asd
 disp(["zxc: ", "asd"]); % "zxc: "    "asd"
 disp({1, 2, 3}); % "zxc: "    "asd"
 
-function pretty_json_stringify_result = pretty_json_stringify2(parameter)
-    if ((nargin == 0) || (~iscell(parameter)))
+function pretty_json_stringify_result = pretty_json_stringify2(argument)
+    if ((nargin == 0) || (~iscell(argument)))
         pretty_json_stringify_result = "";
         return;
     end
     indent = "    ";
-    if ((nargin == 2) && isstruct(parameter{2}) && isfield(parameter{2}, "indent"))
-        indent = parameter{2}.indent;
+    if ((nargin == 2) && isstruct(argument{2}) && isfield(argument{2}, "indent"))
+        indent = argument{2}.indent;
     end
-    anything = parameter{1};
+    anything = argument{1};
     indent_level = 0;
     function pretty_json_stringify_inner_result = pretty_json_stringify_inner(anything_inner, indent_inner)
         if (isempty(anything_inner))
@@ -360,3 +360,24 @@ disp(num2str(getrectangleareav1(7, 5)));
 getrectangleareav2 = @(rectanglewidth, rectanglelength) rectanglewidth * rectanglelength;
 disp(num2str(getrectangleareav2(7, 5)));
 
+function consolelog(varargin)
+    newarray = {};
+    for argumentindex = (1:1:numel(varargin)) % (start:step:stop)
+        argument = varargin{argumentindex};
+        if (iscell(argument) && (numel(argument) == 1))
+            argumentnew = jsonstringify(argument{1});
+            argumentnew = strrep(argumentnew, """{", "{");
+            argumentnew = strrep(argumentnew, """[", "[");
+            argumentnew = strrep(argumentnew, "}""", "}");
+            argumentnew = strrep(argumentnew, "]""", "]");
+            newarray{end + 1} = argumentnew;
+            continue;
+        end
+        if (~isstring(argument) && ~ischar(argument))
+            error("Non string argument must be wrapped in {}");
+            continue;
+        end
+        newarray{end + 1} = argument;
+    end
+    disp(strjoin(newarray, ''));
+end

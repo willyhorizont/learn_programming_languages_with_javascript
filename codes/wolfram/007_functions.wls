@@ -23,19 +23,19 @@ GetRectangleAreaV5 = Function[{RectangleWidth, RectangleLength}, Module[{},
 
 (* ? function expression using pure function shorthand notation (() &) *)
 (* this type of function can't have local variable, can't have multiline body *)
-(* use #1, #2, #3 and so on to access AParameters in each order, use # to acces single AParameter, use {##} for variadic function *)
+(* use #1, #2, #3 and so on to access function arguments in each order, use # to acces single function argument, use {##} for variadic function *)
 GetRectangleAreaV5 = ((#1 * #2) &);
 (* call the function example: GetRectangleAreaV5[7, 5] *)
 
 (* ? function expression using pure function shorthand notation (() &) + "Module" to make it can have local variable and multiline body *)
-(* use #1, #2, #3 and so on to access AParameters in each order, use # to acces single AParameter, use {##} for variadic function *)
+(* use #1, #2, #3 and so on to access function arguments in each order, use # to acces single function argument, use {##} for variadic function *)
 GetRectangleAreaV6 = (Module[{RectangleWidth = #1, RectangleLength = #2},
     Return[(RectangleWidth * RectangleLength), Module];
 ] &);
 (* call the function example: GetRectangleAreaV6[7, 5] *)
 
 (* ? function expression using pure function shorthand notation (() &) + "Module" to make it can have local variable and multiline body *)
-(* use #1, #2, #3 and so on to access AParameters in each order, use # to acces single AParameter, use {##} for variadic function *)
+(* use #1, #2, #3 and so on to access function arguments in each order, use # to acces single function argument, use {##} for variadic function *)
 GetRectangleAreaV7 = (Module[{RectangleWidth = #1, RectangleLength = #2}, (RectangleWidth * RectangleLength)] &);
 (* call the function example: GetRectangleAreaV7[7, 5] *)
 

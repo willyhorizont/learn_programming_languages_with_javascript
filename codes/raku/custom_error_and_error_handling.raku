@@ -1,8 +1,8 @@
 print("\n# Custom Error and Error Handling in Raku", "\n");
 
-sub give-me-respect(Str $parameter) {
+sub give-me-respect(Str $argument) {
     # Custom Error
-    die("Error: You should give me \"respect\"!") if ($parameter ne "respect");
+    die("Error: You should give me \"respect\"!") if ($argument ne "respect");
     return "Thank you for giving me \"respect\"!";
 }
 

@@ -42,55 +42,74 @@ func optionalChaining(anything any, objectPropertiesArray ...any) any {
     }, objectPropertiesArray, nil)
 }
 
-func jsonStringify(anything any, additionalParameter any) string {
-	jsonStringifyDefault := func(anythingInner any) string {
-        jsonMarshalled, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonMarshalled), ",", ", ")
-		}
-		return "null"
+func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
+    if (trueCondition == true) {
+        return callbackFunctionIfConditionTrue()
     }
-	jsonStringifyPrettyDefault := func(anythingInner any, indentInner string) string {
-        jsonMarshalled, err := json.MarshalIndent(anythingInner, "", indentInner)
-		if (err == nil) {
-			return string(jsonMarshalled)
-		}
-		return "null"
-    }
-	if (additionalParameter == nil || additionalParameter == false) {
-		return jsonStringifyDefault(anything)
-	}
-	if (additionalParameter == true) {
-		return jsonStringifyPrettyDefault(anything, "    ")
-	}
-	if (reflect.TypeOf(additionalParameter).Kind() == reflect.Map) {
-		var pretty any = optionalChaining(additionalParameter, "pretty")
-		var indent any = optionalChaining(additionalParameter, "indent")
-		if (pretty == true) {
-			if (indent == nil) {
-				indent = "    "
-			}
-			return jsonStringifyPrettyDefault(anything, indent.(string))
-		}
-		return jsonStringifyDefault(anything)
-	}
-	return jsonStringifyDefault(anything)
+    return callbackFunctionIfConditionFalse()
 }
 
-func sPrintln(parameters ...any) {
-    var parametersNew = []string{}
-    for _, parameter := range parameters {
-        parameterType := reflect.TypeOf(parameter).Kind()
-        if (parameterType == reflect.Slice && (len(parameter.(array)) == 1)) {
-            parametersNew = append(parametersNew, jsonStringify(parameter.(array)[0], false))
+func jsonStringify(restArguments ...any) string {
+	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
+		if (prettyInner == true) {
+			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+			if (err == nil) {
+				return string(jsonStringifyInnerResult)
+			}
+			return "null"
+		}
+        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
+		if (err == nil) {
+			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
+		}
+		return "null"
+    }
+    var anything any = restArguments[0]
+	prettyDefault := false
+	indentDefault := "    "
+	var pretty any = prettyDefault
+	var indent any = indentDefault
+	if (len(restArguments) == 1) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	var optionalArgument any = restArguments[1]
+	if (optionalArgument == false) {
+		return jsonStringifyInner(anything, prettyDefault, indentDefault)
+	}
+	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
+		pretty = optionalChaining(optionalArgument, "pretty")
+		indent = optionalChaining(optionalArgument, "indent")
+		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
+		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	if (optionalArgument == true) {
+		if (len(restArguments) >= 3) {
+			var additionalArgument2 any = restArguments[2]
+			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
+				indent = additionalArgument2
+			}
+		}
+		pretty = optionalArgument
+		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
+	}
+	return jsonStringifyInner(anything, prettyDefault, indentDefault)
+}
+
+func sprint(restArguments ...any) {
+    var newArray = []string{}
+    for _, argument := range restArguments {
+        argumentType := reflect.TypeOf(argument).Kind()
+        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
+            newArray = append(newArray, jsonStringify(argument.(array)[0]))
             continue
         }
-        if (parameterType == reflect.String) {
-			parametersNew = append(parametersNew, parameter.(string))
+        if (argumentType == reflect.String) {
+			newArray = append(newArray, argument.(string))
             continue
         }
     }
-    fmt.Println(strings.Join(parametersNew, ""))
+    fmt.Println(strings.Join(newArray, ""))
 }
 
 func arrayFindIndexV1(callbackFunction func(any, int, array) bool, anArray array) int {
@@ -143,10 +162,10 @@ func main() {
     fmt.Println("\n// JavaScript-like Array.findIndex() in Go Slice")
 
     numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-    sPrintln("numbers: ", jsonStringify(numbers, false))
+    sprint("numbers: ", jsonStringify(numbers))
 
     numberToFind := 27
-    sPrintln("number to find: ", array{numberToFind})
+    sprint("number to find: ", array{numberToFind})
 
     var numberFoundIndex int
 
@@ -155,7 +174,7 @@ func main() {
     numberFoundIndex = arrayFindIndexV1(func(number any, _ int, _ array) bool {
         return (number.(int) == numberToFind)
     }, numbers)
-    sPrintln("number found index: ", array{numberFoundIndex})
+    sprint("number found index: ", array{numberFoundIndex})
     // number found index: 2
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
@@ -163,7 +182,7 @@ func main() {
     numberFoundIndex = arrayFindIndexV2(func(number any, _ int, _ array) bool {
         return (number.(int) == numberToFind)
     }, numbers)
-    sPrintln("number found index: ", array{numberFoundIndex})
+    sprint("number found index: ", array{numberFoundIndex})
     // number found index: 2
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
@@ -171,7 +190,7 @@ func main() {
     numberFoundIndex = arrayFindIndexV3(func(number any, _ int, _ array) bool {
         return (number.(int) == numberToFind)
     }, numbers)
-    sPrintln("number found index: ", array{numberFoundIndex})
+    sprint("number found index: ", array{numberFoundIndex})
     // number found index: 2
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
@@ -179,7 +198,7 @@ func main() {
     numberFoundIndex = arrayFindIndexV4(func(number any, _ int, _ array) bool {
         return (number.(int) == numberToFind)
     }, numbers)
-    sPrintln("number found index: ", array{numberFoundIndex})
+    sprint("number found index: ", array{numberFoundIndex})
     // number found index: 2
 
     fmt.Println("\n// JavaScript-like Array.findIndex() in Go Slice of maps")
@@ -202,10 +221,10 @@ func main() {
             "price": 499,
         },
     }
-    sPrintln("products: ", jsonStringify(products, object{"pretty": true}))
+    sprint("products: ", jsonStringify(products, object{"pretty": true}))
     
         productToFind := "pasta"
-        sPrintln("product to find: ", productToFind)
+        sprint("product to find: ", productToFind)
     
     var productFoundIndex int
 
@@ -214,7 +233,7 @@ func main() {
     productFoundIndex = arrayFindIndexV1(func(product any, _ int, _ array) bool {
         return (product.(object)["code"] == productToFind)
     }, products)
-    sPrintln("product found index: ", array{productFoundIndex})
+    sprint("product found index: ", array{productFoundIndex})
     // product found index: 0
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
@@ -222,7 +241,7 @@ func main() {
     productFoundIndex = arrayFindIndexV2(func(product any, _ int, _ array) bool {
         return (product.(object)["code"] == productToFind)
     }, products)
-    sPrintln("product found index: ", array{productFoundIndex})
+    sprint("product found index: ", array{productFoundIndex})
     // product found index: 0
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
@@ -230,7 +249,7 @@ func main() {
     productFoundIndex = arrayFindIndexV3(func(product any, _ int, _ array) bool {
         return (product.(object)["code"] == productToFind)
     }, products)
-    sPrintln("product found index: ", array{productFoundIndex})
+    sprint("product found index: ", array{productFoundIndex})
     // product found index: 0
 
     fmt.Println("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
@@ -238,6 +257,6 @@ func main() {
     productFoundIndex = arrayFindIndexV4(func(product any, _ int, _ array) bool {
         return (product.(object)["code"] == productToFind)
     }, products)
-    sPrintln("product found index: ", array{productFoundIndex})
+    sprint("product found index: ", array{productFoundIndex})
     // product found index: 0
 }

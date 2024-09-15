@@ -18,7 +18,7 @@
 print("\n# basic conditional control flow\n")
 
 my_age = 10
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 if (my_age > 24):
     print("you are old")
 elif (my_age > 17):
@@ -30,8 +30,8 @@ print("\n# equal to (==)\n")
 
 correct_answer = 100
 my_answer = 100.0
-print("my_answer: ", my_answer)
-print("correct_answer: ", correct_answer)
+print(f"my_answer: {my_answer}")
+print(f"correct_answer: {correct_answer}")
 print("(my_answer == correct_answer): ")
 if (my_answer == correct_answer):
     print("Your answer is correct")
@@ -42,8 +42,8 @@ print("\n# not equal to (!=)\n")
 
 correct_answer = 100
 my_answer = 25.0
-print("my_answer: ", my_answer)
-print("correct_answer: ", correct_answer)
+print(f"my_answer: {my_answer}")
+print(f"correct_answer: {correct_answer}")
 print("(my_answer != correct_answer): ")
 if (my_answer != correct_answer):
     print("Your answer is correct")
@@ -54,8 +54,8 @@ print("\n# identical to (is)\n")
 
 correct_answer = 100
 my_answer = 100.0
-print("my_answer: ", my_answer)
-print("correct_answer: ", correct_answer)
+print(f"my_answer: {my_answer}")
+print(f"correct_answer: {correct_answer}")
 print("(my_answer is correct_answer): ")
 if (my_answer is correct_answer):
     print("Your answer is correct")
@@ -66,8 +66,8 @@ print("\n# not identical to (not)\n")
 
 correct_answer = 100
 my_answer = 25.0
-print("my_answer: ", my_answer)
-print("correct_answer: ", correct_answer)
+print(f"my_answer: {my_answer}")
+print(f"correct_answer: {correct_answer}")
 print("(my_answer is not correct_answer): ")
 if (my_answer is not correct_answer):
     print("Your answer is correct")
@@ -77,7 +77,7 @@ else:
 print("\n# greater than (>)\n")
 
 my_age = 70
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("(my_age > 50): ")
 if (my_age > 50):
     print("You are old")
@@ -85,7 +85,7 @@ if (my_age > 50):
 print("\n# less than (<)\n")
 
 my_age = 16
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("(my_age < 20): ")
 if (my_age < 20):
     print("You are young")
@@ -93,7 +93,7 @@ if (my_age < 20):
 print("\n# greater than or equal to (>=)\n")
 
 my_age = 73
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("(my_age >= 65): ")
 if (my_age >= 65):
     print("You are allowed to retire")
@@ -101,7 +101,7 @@ if (my_age >= 65):
 print("\n# less than or equal to (<=)\n")
 
 my_age = 14
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("(my_age <= 16): ")
 if (my_age <= 16):
     print("You are not allowed to drive")
@@ -109,29 +109,29 @@ if (my_age <= 16):
 print("\n# Logical AND (and)\n")
 
 my_age = 17
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 has_driving_license = False
-print("has_driving_license: ", has_driving_license)
+print(f"has_driving_license: {has_driving_license}")
 print("((my_age >= 17) and (has_driving_license == True)): ")
 print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
 my_age = 17
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 has_driving_license = True
-print("has_driving_license: ", has_driving_license)
+print(f"has_driving_license: {has_driving_license}")
 print("((my_age >= 17) and (has_driving_license == True)): ")
 print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
 print("\n# Logical OR (or)\n")
 
 my_age = 2
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("((my_age <= 3) or (my_age >= 65)): ")
 if ((my_age <= 3) or (my_age >= 65)):
     print("You should stay home")
 
 my_age = 89
-print("my_age: ", my_age)
+print(f"my_age: {my_age}")
 print("((my_age <= 3) or (my_age >= 65)): ")
 if ((my_age <= 3) or (my_age >= 65)):
     print("You should stay home")
@@ -139,9 +139,9 @@ if ((my_age <= 3) or (my_age >= 65)):
 print("\n# Logical NOT (not)\n")
 
 can_drive = False
-print("can_drive:", can_drive)
-print("not can_drive:", not can_drive)
+print(f"can_drive: {can_drive}")
+print(f"not can_drive: {not can_drive}")
 
 can_drive = True
-print("can_drive:", can_drive)
-print("not can_drive:", not can_drive)
+print(f"can_drive: {can_drive}")
+print(f"not can_drive: {not can_drive}")
