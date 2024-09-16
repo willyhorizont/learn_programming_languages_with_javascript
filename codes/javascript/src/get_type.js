@@ -4,13 +4,20 @@ const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) 
 
 console.log("// get type of something in JavaScript");
 
+const isNull = (anything) => ((Object.prototype.toString.call(anything) === "[object Null]") && (anything === null));
+const isBoolean = (anything) => ((Object.prototype.toString.call(anything) === "[object Boolean]") && ((anything === true) || (anything === false)));
+const isString = (anything) => (Object.prototype.toString.call(anything) === "[object String]");
+const isNumeric = (anything) => ((Object.prototype.toString.call(anything) === "[object Number]") && (Number.isNaN(anything) === false) && (Number.isFinite(anything) === true));
+const isObject = (anything) => (Object.prototype.toString.call(anything) === "[object Object]");
+const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
+
 const getType = (anything) => {
-    if ((Object.prototype.toString.call(anything) === "[object Null]") && (anything === null)) return "Null";
-    if ((Object.prototype.toString.call(anything) === "[object Boolean]") && ((anything === true) || (anything === false))) return "Boolean";
-    if (Object.prototype.toString.call(anything) === "[object String]") return "String";
-    if ((Object.prototype.toString.call(anything) === "[object Number]") && (Number.isNaN(anything) === false) && (Number.isFinite(anything) === true)) return "Numeric";
-    if (Object.prototype.toString.call(anything) === "[object Object]") return "Object";
-    if ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true)) return "Array";
+    if (isNull(anything) === true) return "Null";
+    if (isBoolean(anything) === true) return "Boolean";
+    if (isString(anything) === true) return "String";
+    if (isNumeric(anything) === true) return "Numeric";
+    if (isObject(anything) === true) return "Object";
+    if (isArray(anything) === true) return "Array";
     return Object.prototype.toString.call(anything).split("[object ").join("").slice(0, -1);
 };
 

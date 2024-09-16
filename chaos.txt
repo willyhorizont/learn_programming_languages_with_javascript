@@ -56,6 +56,7 @@ get_type.*
 function_iife.*
 004_loops.*
 generate_number_sequence.*
+variables_and_scopes.*
 object_from_entries.*
 
 todo in js flavour langs repo:
@@ -71,6 +72,7 @@ simultaneously {
     create function_iife.*
     refactor 004_loops.* encapsulate loops inside iife
     create generate_number_sequence.*
+    create variables_and_scopes.*
     create object_from_entries.*
 }
 array_entries, array_keys, array_values, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,

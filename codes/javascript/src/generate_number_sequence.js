@@ -18,7 +18,11 @@ const generateNumberSequence = (startNumber, stopNumber) => {
     return [0];
 };
 
-console.log(`generateNumberSequence(0, 9): ${jsonStringify(generateNumberSequence(0, 9))}`); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-console.log(`generateNumberSequence(1, 10): ${jsonStringify(generateNumberSequence(1, 10))}`); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-console.log(`generateNumberSequence(10, 1): ${jsonStringify(generateNumberSequence(10, 1))}`); // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-console.log(`generateNumberSequence(9, 0): ${jsonStringify(generateNumberSequence(9, 0))}`); // [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+console.log(`generateNumberSequence(0, 9): ${jsonStringify(generateNumberSequence(0, 9))}`);
+// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(`generateNumberSequence(1, 10): ${jsonStringify(generateNumberSequence(1, 10))}`);
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(`generateNumberSequence(10, 1): ${jsonStringify(generateNumberSequence(10, 1))}`);
+// [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+console.log(`generateNumberSequence(9, 0): ${jsonStringify(generateNumberSequence(9, 0))}`);
+// [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]

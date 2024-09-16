@@ -2,7 +2,7 @@
 
 const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) ? (JSON.stringify(anything, null, " ".repeat(4))) : (JSON.stringify(anything)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
 
-console.log("// Object in JavaScript");
+console.log("// JavaScript Object");
 
 const friend1 = {
     "name": "Alisa",
@@ -89,13 +89,13 @@ Object.entries(Object.fromEntries([...friend2])).forEach(([objectKey, objectValu
 // friend2, for each loop, object entry index: 2, key: age, value: 25
 
 friend2.set("age", 27);
-console.log(`Object.fromEntries([...friend2]): ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.set("gender", "Female");
-console.log(`Object.fromEntries([...friend2]): ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.set("job", "Streamer");
-console.log(`Object.fromEntries([...friend2]): ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.delete("country");
-console.log(`Object.fromEntries([...friend2]): ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);

@@ -19,7 +19,6 @@ console.log("any String:", jsonStringify(anyString), "any Numeric:", jsonStringi
 // using Template literals / Template strings (String Interpolation)
 console.log(`any String: ${jsonStringify(anyString)}, any Numeric: ${jsonStringify(anyNumeric)}, any Boolean: ${jsonStringify(anyBoolean)}, any Null: ${jsonStringify(anyNull)}, any Array: ${jsonStringify(anyArray)}, any Object: ${jsonStringify(anyObject)}`);
 
-// custom function
 const consoleLog = (...restArguments) => console.log(restArguments.join(""));
 
 // using custom function

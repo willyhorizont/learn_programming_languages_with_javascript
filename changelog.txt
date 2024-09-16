@@ -1,4 +1,24 @@
 =============================changelog==========================================
+(2024/09[Sep]/17[Tue]|01:11[AM]/01:11)
+1.0.68
+New:
+finish string_interpolation.py
+finish function_variadic_rest_arguments.py
+finish console_log.py
+finish 006_arrays.py
+finish function_optional_argument_default_argument_value.py
+finish json_stringify.py
+finish get_type.py
+finish 005_objects.py
+finish function_iife.py
+finish 004_loops.py
+finish generate_number_sequence.py
+finish variables_and_scopes.py
+finish object_from_entries.py
+TODO:
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/15[Sun]|10:00[PM]/22:00)
 1.0.67
 New:
