@@ -1,5 +1,60 @@
 <?php
 
+function json_stringify($anything, $optional_argument = ["pretty" => false]) {
+    return (((@$optional_argument["pretty"] ?? false) === true) ? (str_replace("/\n$/", "", json_encode($anything, JSON_PRETTY_PRINT))) : (str_replace("{", "{ ", str_replace("}", " }", str_replace(",", ", ", str_replace(":", ": ", json_encode($anything)))))));
+};
+
+function console_log(...$rest_arguments) {
+    echo join("", $rest_arguments) . "\n";
+};
+
+function array_every($callback_function, $an_array) {
+    // JavaScript-like Array.every() function array_every_v4
+    foreach ($an_array as $array_item_index => $array_item) {
+        if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
+    }
+    return true;
+};
+
+function is_like_js_null($anything) {
+    return (((gettype($anything) === "null") || (gettype($anything) === "NULL")) && (is_null($anything) === true) && (isset($anything) === false));
+};
+
+function is_like_js_boolean($anything) {
+    return (((gettype($anything) === "boolean") || (gettype($anything) === "bool")) && (is_bool($anything) === true) && (($anything === true) || ($anything === false)));
+};
+
+function is_like_js_string($anything) {
+    return ((gettype($anything) === "string") && (is_string($anything) === true));
+};
+
+function is_like_js_numeric($anything) {
+    return (((gettype($anything) === "integer") || (gettype($anything) === "int") || (gettype($anything) === "float") || (gettype($anything) === "double")) && ((is_int($anything) === true) || (is_integer($anything) === true) || (is_float($anything) === true) || (is_double($anything) === true)) && (is_numeric($anything) === true));
+};
+
+function is_like_js_array($anything) {
+    return ((gettype($anything) === "array") && (is_array($anything) === true));
+};
+
+function is_like_js_object($anything) {
+    if (is_like_js_array($anything) === false) return false;
+    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+};
+
+function get_type($anything) {
+    if (is_like_js_null($anything) === true) return "Null";
+    if (is_like_js_boolean($anything) === true) return "Boolean";
+    if (is_like_js_string($anything) === true) return "String";
+    if (is_like_js_numeric($anything) === true) return "Numeric";
+    if (is_like_js_object($anything) === true) return "Object";
+    if (is_like_js_array($anything) === true) return "Array";
+    return ucwords(strtolower(gettype($anything)));
+};
+
+function string_interpolation(...$rest_arguments) {
+    return array_reduce($rest_arguments,  fn($current_result, $current_argument) => ($current_result . (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : ($current_argument))), "");
+};
+
 /*
 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
 ```javascript
@@ -21,17 +76,17 @@ type Any interface{}
 ```
 */
 $something = "foo";
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 $something = 123;
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 $something = true;
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 $something = null;
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 $something = [1, 2, 3];
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 $something = ["foo" => "bar"];
-echo("something: " . str_replace("/\n$/", "", json_encode($something, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("something: ", json_stringify($something, ["pretty" => true])));
 
 /*
 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -73,17 +128,17 @@ function get_modified_indent_level() {
     };
     return $change_indent_level();
 };
-echo("get_modified_indent_level(): " . get_modified_indent_level() . "\n");
+console_log(string_interpolation("get_modified_indent_level(): ", [get_modified_indent_level()]));
 function create_new_game($initial_credit) {
     $current_credit = $initial_credit;
-    echo("initial credit: " . $initial_credit . "\n");
+    console_log(string_interpolation("initial_credit: ", [$initial_credit]));
     return function () use (&$current_credit) {
         $current_credit -= 1;
         if ($current_credit === 0) {
-            echo("not enough credits" . "\n");
+            console_log("not enough credits");
             return;
         }
-        echo("playing game, " . $current_credit . " credit(s) remaining" . "\n");
+        console_log(string_interpolation("playing game, ", [$current_credit], " credit(s) remaining"));
     };
 };
 $play_game = create_new_game(3);
@@ -117,7 +172,7 @@ $my_object = [
         "foo" => "bar"
     ]
 ];
-echo("my_object: " . str_replace("/\n$/", "", json_encode($my_object, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("my_object: ", json_stringify($my_object, ["pretty" => true])));
 
 /*
 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -127,7 +182,7 @@ console.log(`myArray: ${myArray}`);
 ```
 */
 $my_array = ["foo", 123, true, null, [1, 2, 3], ["foo" => "bar"]];
-echo("my_array: " . str_replace("/\n$/", "", json_encode($my_array, JSON_PRETTY_PRINT)) . "\n");
+console_log(string_interpolation("my_array: ", json_stringify($my_array, ["pretty" => true])));
 
 /*
 5. support passing functions as arguments to other functions
@@ -145,21 +200,18 @@ sayHello(function () {
 });
 ```
 */
-function say_hello_v1($callback_function) {
-    echo("hello" . "\n");
+function say_hello($callback_function) {
+    console_log("hello");
     $callback_function();
 };
-function say_how_are_you_v1() {
-    echo("how are you?" . "\n");
+function say_how_are_you() {
+    console_log("how are you?");
 };
-$say_how_are_you_v2 = function () {
-    echo("how are you?" . "\n");
-};
-say_hello_v1("say_how_are_you_v1");
-say_hello_v1($say_how_are_you_v2);
-say_hello_v1(function() {
-    echo("how are you?" . "\n");
+say_hello("say_how_are_you"); // 🤮
+say_hello(function() {
+    console_log("how are you?");
 });
+say_hello(fn() => console_log("how are you?"));
 
 /*
 6. support returning functions as values from other functions
@@ -181,7 +233,7 @@ function multiply($a) {
 };
 $multiply_by2 = multiply(2);
 $multiply_by2_result = $multiply_by2(10);
-echo("multiply_by2_result: " . $multiply_by2_result . "\n");
+console_log(string_interpolation("multiply_by2_result: ", $multiply_by2_result));
 
 /*
 7. support assigning functions to variables
@@ -201,9 +253,9 @@ console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
 $get_rectangle_area_v1 = function ($rectangle_width, $rectangle_length) {
     return ($rectangle_width * $rectangle_length);
 };
-echo("get_rectangle_area_v1(7, 5): " . $get_rectangle_area_v1(7, 5) . "\n");
+console_log(string_interpolation("get_rectangle_area_v1(7, 5): ", $get_rectangle_area_v1(7, 5)));
 $get_rectangle_area_v2 = fn($rectangle_width, $rectangle_length) => ($rectangle_width * $rectangle_length);
-echo("get_rectangle_area_v2(7, 5): " . $get_rectangle_area_v2(7, 5) . "\n");
+console_log(string_interpolation("get_rectangle_area_v2(7, 5): ", $get_rectangle_area_v2(7, 5)));
 
 /*
 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -247,7 +299,7 @@ $my_array2 = [
     [1, 2, 3],
     ["foo" => "bar"]
 ];
-echo("myArray2[0](7, 5): " . $my_array2[0](7, 5) . "\n");
+console_log(string_interpolation("myArray2[0](7, 5): ", @$my_array2[0](7, 5)));
 $my_object2 = [
     "my_function" => function ($a, $b) {
         return ($a * $b);
@@ -261,4 +313,4 @@ $my_object2 = [
         "foo" => "bar"
     ]
 ];
-echo("myObject2[\"my_function\"](7, 5): " . $my_object2["my_function"](7, 5) . "\n");
+console_log(string_interpolation('myObject2["my_function"](7, 5): ', @$my_object2["my_function"](7, 5)));

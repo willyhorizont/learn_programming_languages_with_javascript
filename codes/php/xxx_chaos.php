@@ -1,5 +1,18 @@
 <?php
 
+/*
+done
+console_log\((?!.*string_interpolation)
+(?<!@)\$\w+\[ regex pattern to find non optional chaining in PHP
+\}\n
+\"
+ . 
+ . "\n"
+"\$
+\$
+"$
+*/
+
 $item1 = "something";
 echo "item1: ", $item1, "\n";
 // original $item1 can't be mutated, because $item1 passed by value

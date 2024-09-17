@@ -1,19 +1,12 @@
 <?php
 
 function json_stringify($anything, $optional_argument = ["pretty" => false]) {
-    $pretty = ($optional_argument["pretty"] ?? false);
-    return (($pretty === true) ? (str_replace("/\n$/", "", json_encode($anything, JSON_PRETTY_PRINT))) : (str_replace("{", "{ ", str_replace("}", " }", str_replace(",", ", ", str_replace(":", ": ", json_encode($anything)))))));
+    return (((@$optional_argument["pretty"] ?? false) === true) ? (str_replace("/\n$/", "", json_encode($anything, JSON_PRETTY_PRINT))) : (str_replace("{", "{ ", str_replace("}", " }", str_replace(",", ", ", str_replace(":", ": ", json_encode($anything)))))));
 };
 
 function console_log(...$rest_arguments) {
     echo join("", $rest_arguments) . "\n";
 };
-
-function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  fn($current_result, $current_argument) => ($current_result . (((is_array($current_argument) === true) && count($current_argument) === 1) ? (json_stringify(@$current_argument[0])) : ($current_argument))), "");
-};
-
-console_log("// get type of something in in PHP");
 
 function array_every($callback_function, $an_array) {
     // JavaScript-like Array.every() function array_every_v4
@@ -55,8 +48,14 @@ function get_type($anything) {
     if (is_like_js_numeric($anything) === true) return "Numeric";
     if (is_like_js_object($anything) === true) return "Object";
     if (is_like_js_array($anything) === true) return "Array";
-    return gettype($anything);
+    return ucwords(strtolower(gettype($anything)));
 };
+
+function string_interpolation(...$rest_arguments) {
+    return array_reduce($rest_arguments,  fn($current_result, $current_argument) => ($current_result . (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : ($current_argument))), "");
+};
+
+console_log("// get type of something in in PHP");
 
 $any_string = "foo";
 console_log(string_interpolation("any_string: ", [$any_string]));
@@ -81,4 +80,3 @@ console_log(string_interpolation("type of any_array is ", get_type($any_array)))
 $any_object = ["foo" => "bar"];
 console_log(string_interpolation("any_object: ", [$any_object]));
 console_log(string_interpolation("type of any_object is ", get_type($any_object)));
-

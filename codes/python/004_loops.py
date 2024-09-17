@@ -1,5 +1,4 @@
-# generate_number_sequence_v2
-generate_number_sequence = lambda start_number, stop_number: list(range(start_number, (stop_number + 1), 1)) if (stop_number > start_number) else list(range(start_number, (stop_number - 1), -1)) if (start_number > stop_number) else [0]
+generate_number_sequence = lambda start_number, stop_number: list(range(start_number, (stop_number + 1), 1)) if (stop_number > start_number) else list(range(start_number, (stop_number - 1), -1)) if (start_number > stop_number) else [0]  # generate_number_sequence_v2
 
 # while loop
 

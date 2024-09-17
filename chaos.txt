@@ -1,3 +1,5 @@
+\n\n$ regex to find multiple line whitepace at the end of the file
+
 done:
 array.length
 get object by key

@@ -17,8 +17,8 @@ nullish_coalescing = lambda anything, default_value: default_value if (anything 
 json_stringify = lambda anything, **optional_argument: (json.dumps(anything, indent=4)) if (nullish_coalescing(optional_chaining(optional_argument, "pretty"), False) == True) else (json.dumps(anything).replace("{", "{ ").replace("}", " }"))
 
 
-# generate_number_sequence_v1
 def generate_number_sequence_v1(start_number, stop_number):
+    # generate_number_sequence_v1
     if (stop_number > start_number):
         return list(range(start_number, (stop_number + 1), 1))
     if (start_number > stop_number):
@@ -26,8 +26,7 @@ def generate_number_sequence_v1(start_number, stop_number):
     return [0]
 
 
-# generate_number_sequence_v2
-generate_number_sequence_v2 = lambda start_number, stop_number: list(range(start_number, (stop_number + 1), 1)) if (stop_number > start_number) else list(range(start_number, (stop_number - 1), -1)) if (start_number > stop_number) else [0]
+generate_number_sequence_v2 = lambda start_number, stop_number: list(range(start_number, (stop_number + 1), 1)) if (stop_number > start_number) else list(range(start_number, (stop_number - 1), -1)) if (start_number > stop_number) else [0]  # generate_number_sequence_v2
 
 print(f"generate_number_sequence_v1(0, 9): {json_stringify(generate_number_sequence_v1(0, 9))}");
 # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -1,5 +1,60 @@
 <?php
 
+function json_stringify($anything, $optional_argument = ["pretty" => false]) {
+    return (((@$optional_argument["pretty"] ?? false) === true) ? (str_replace("/\n$/", "", json_encode($anything, JSON_PRETTY_PRINT))) : (str_replace("{", "{ ", str_replace("}", " }", str_replace(",", ", ", str_replace(":", ": ", json_encode($anything)))))));
+};
+
+function console_log(...$rest_arguments) {
+    echo join("", $rest_arguments) . "\n";
+};
+
+function array_every($callback_function, $an_array) {
+    // JavaScript-like Array.every() function array_every_v4
+    foreach ($an_array as $array_item_index => $array_item) {
+        if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
+    }
+    return true;
+};
+
+function is_like_js_null($anything) {
+    return (((gettype($anything) === "null") || (gettype($anything) === "NULL")) && (is_null($anything) === true) && (isset($anything) === false));
+};
+
+function is_like_js_boolean($anything) {
+    return (((gettype($anything) === "boolean") || (gettype($anything) === "bool")) && (is_bool($anything) === true) && (($anything === true) || ($anything === false)));
+};
+
+function is_like_js_string($anything) {
+    return ((gettype($anything) === "string") && (is_string($anything) === true));
+};
+
+function is_like_js_numeric($anything) {
+    return (((gettype($anything) === "integer") || (gettype($anything) === "int") || (gettype($anything) === "float") || (gettype($anything) === "double")) && ((is_int($anything) === true) || (is_integer($anything) === true) || (is_float($anything) === true) || (is_double($anything) === true)) && (is_numeric($anything) === true));
+};
+
+function is_like_js_array($anything) {
+    return ((gettype($anything) === "array") && (is_array($anything) === true));
+};
+
+function is_like_js_object($anything) {
+    if (is_like_js_array($anything) === false) return false;
+    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+};
+
+function get_type($anything) {
+    if (is_like_js_null($anything) === true) return "Null";
+    if (is_like_js_boolean($anything) === true) return "Boolean";
+    if (is_like_js_string($anything) === true) return "String";
+    if (is_like_js_numeric($anything) === true) return "Numeric";
+    if (is_like_js_object($anything) === true) return "Object";
+    if (is_like_js_array($anything) === true) return "Array";
+    return ucwords(strtolower(gettype($anything)));
+};
+
+function string_interpolation(...$rest_arguments) {
+    return array_reduce($rest_arguments,  fn($current_result, $current_argument) => ($current_result . (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : ($current_argument))), "");
+};
+
 /*
     Relational Operators / Comparison Operators:
     equal to (==) *checks for equality after performing type coercion. It converts operands to the same type before making the comparison.
@@ -17,156 +72,156 @@
     Logical NOT (!)
 */
 
-echo("\n# basic conditional control flow\n");
+console_log("\n// basic conditional control flow");
 
 $my_age = 10;
-echo("\$my_age: " . $my_age . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 if ($my_age > 24) {
-    echo("you are old");
+    console_log("you are old");
 } elseif ($my_age > 17) {
-    echo("you are young");
+    console_log("you are young");
 } else {
-    echo("you are under age");
+    console_log("you are under age");
 }
 
-echo("\n// equal to (==)\n" . "\n");
+console_log("\n// equal to (==)");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "100";
-echo("\$my_answer: " . $my_answer . "\n");
-echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-echo("(\$my_answer == \$CORRECT_ANSWER): " . "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+console_log(string_interpolation('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]));
+console_log('($my_answer == $CORRECT_ANSWER): ');
 if ($my_answer == $CORRECT_ANSWER) {
-    echo("Your answer is correct" . "\n");
+    console_log("Your answer is correct");
 } else {
-    echo("Your answer is wrong" . "\n");
+    console_log("Your answer is wrong");
 }
 
-echo("\n// not equal to (!=)\n" . "\n");
+console_log("\n// not equal to (!=)");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "25";
-echo("\$my_answer: " . $my_answer . "\n");
-echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-echo("(\$my_answer != \$CORRECT_ANSWER): " . "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+console_log(string_interpolation('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]));
+console_log('($my_answer != $CORRECT_ANSWER): ');
 if ($my_answer != $CORRECT_ANSWER) {
-    echo("Your answer is correct" . "\n");
+    console_log("Your answer is correct");
 } else {
-    echo("Your answer is wrong" . "\n");
+    console_log("Your answer is wrong");
 }
 
-echo("\n// identical to (===)\n" . "\n");
+console_log("\n// identical to (===)");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "100";
-echo("\$my_answer: " . $my_answer . "\n");
-echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-echo("(\$my_answer === \$CORRECT_ANSWER): " . "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+console_log(string_interpolation('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]));
+console_log('($my_answer === $CORRECT_ANSWER): ');
 if ($my_answer === $CORRECT_ANSWER) {
-    echo("Your answer is correct" . "\n");
+    console_log("Your answer is correct");
 } else {
-    echo("Your answer is wrong" . "\n");
+    console_log("Your answer is wrong");
 }
 
-echo("\n// not identical to (!==)\n" . "\n");
+console_log("\n// not identical to (!==)");
 
 $CORRECT_ANSWER = 100;
 $my_answer = "25";
-echo("\$my_answer: " . $my_answer . "\n");
-echo("\$CORRECT_ANSWER: " . $CORRECT_ANSWER . "\n");
-echo("(\$my_answer !== \$CORRECT_ANSWER): " . "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+console_log(string_interpolation('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]));
+console_log('($my_answer !== $CORRECT_ANSWER): ');
 if ($my_answer !== $CORRECT_ANSWER) {
-    echo("Your answer is correct" . "\n");
+    console_log("Your answer is correct");
 } else {
-    echo("Your answer is wrong" . "\n");
+    console_log("Your answer is wrong");
 }
 
-echo("\n// greater than (>)\n" . "\n");
+console_log("\n// greater than (>)");
 
 $my_age = 70;
-echo("\$my_age: " . $my_age . "\n");
-echo("(\$my_age > 50): " . "\n");
-if ($my_age > 50) echo("You are old" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('($my_age > 50): ');
+if ($my_age > 50) console_log("You are old");
 
-echo("\n// less than (<)\n" . "\n");
+console_log("\n// less than (<)");
 
 $my_age = 16;
-echo("\$my_age: " . $my_age . "\n");
-echo("(\$my_age < 20): " . "\n");
-if ($my_age < 20) echo("You are young" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('($my_age < 20): ');
+if ($my_age < 20) console_log("You are young");
 
-echo("\n// greater than or equal to (>=)\n" . "\n");
+console_log("\n// greater than or equal to (>=)");
 
 $my_age = 73;
-echo("\$my_age: " . $my_age . "\n");
-echo("(\$my_age >= 65): " . "\n");
-if ($my_age >= 65) echo("You are allowed to retire" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('($my_age >= 65): ');
+if ($my_age >= 65) console_log("You are allowed to retire");
 
-echo("\n// less than or equal to (<=)\n" . "\n");
+console_log("\n// less than or equal to (<=)");
 
 $my_age = 14; 
-echo("\$my_age: " . $my_age . "\n");
-echo("(\$my_age <= 16): " . "\n");
-if ($my_age <= 16) echo("You are not allowed to drive" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('($my_age <= 16): ');
+if ($my_age <= 16) console_log("You are not allowed to drive");
 
-echo("\n// Logical AND [\"&&\", \"and\"]\n" . "\n");
+console_log('\n// Logical AND ["&&", "and"]');
 
 $my_age = 17;
-echo("\$my_age: " . $my_age . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 $has_driving_license = false;
-echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
-echo("((\$my_age >= 17) && (\$has_driving_license == true)): " . "\n");
-echo(((($my_age >= 17) && ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
+console_log(string_interpolation('$has_driving_license: ', [$has_driving_license]));
+console_log('(($my_age >= 17) && ($has_driving_license === true)): ');
+console_log(((($my_age >= 17) && ($has_driving_license === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 $my_age = 17;
-echo("\$my_age: " . $my_age . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 $has_driving_license = true;
-echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
-echo("((\$my_age >= 17) && (\$has_driving_license == true)): " . "\n");
-echo(((($my_age >= 17) && ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
+console_log(string_interpolation('$has_driving_license: ', [$has_driving_license]));
+console_log('(($my_age >= 17) && ($has_driving_license === true)): ');
+console_log(((($my_age >= 17) && ($has_driving_license === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 $my_age = 17;
-echo("\$my_age: " . $my_age . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 $has_driving_license = false;
-echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
-echo("((\$my_age >= 17) and (\$has_driving_license == true)): " . "\n");
-echo(((($my_age >= 17) and ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
+console_log(string_interpolation('$has_driving_license: ', [$has_driving_license]));
+console_log('(($my_age >= 17) and ($has_driving_license === true)): ');
+console_log(((($my_age >= 17) and ($has_driving_license === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 $my_age = 17;
-echo("\$my_age: " . $my_age . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 $has_driving_license = true;
-echo("\$has_driving_license: " . json_encode($has_driving_license) . "\n");
-echo("((\$my_age >= 17) and (\$has_driving_license == true)): " . "\n");
-echo(((($my_age >= 17) and ($has_driving_license == true)) ? "You are allowed to drive" : "You are not allowed to drive") . "\n");
+console_log(string_interpolation('$has_driving_license: ', [$has_driving_license]));
+console_log('(($my_age >= 17) and ($has_driving_license === true)): ');
+console_log(((($my_age >= 17) and ($has_driving_license === true)) ? "You are allowed to drive" : "You are not allowed to drive"));
 
-echo("\n// Logical OR [\"||\", \"or\"]\n" . "\n");
+console_log('\n// Logical OR ["||", "or"]');
 
 $my_age = 2;
-echo("\$my_age: " . $my_age . "\n");
-echo("((\$my_age <= 3) || (\$my_age >= 65)): " . "\n");
-if (($my_age <= 3) || ($my_age >= 65)) echo("You should stay home" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) || ($my_age >= 65)): ');
+if (($my_age <= 3) || ($my_age >= 65)) console_log("You should stay home");
 
 $my_age = 89;
-echo("\$my_age: " . $my_age . "\n");
-echo("((\$my_age <= 3) || (\$my_age >= 65)): " . "\n");
-if (($my_age <= 3) || ($my_age >= 65)) echo("You should stay home" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) || ($my_age >= 65)): ');
+if (($my_age <= 3) || ($my_age >= 65)) console_log("You should stay home");
 
 $my_age = 2;
-echo("\$my_age: " . $my_age . "\n");
-echo("((\$my_age <= 3) or (\$my_age >= 65)): " . "\n");
-if (($my_age <= 3) or ($my_age >= 65)) echo("You should stay home" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) or ($my_age >= 65)): ');
+if (($my_age <= 3) or ($my_age >= 65)) console_log("You should stay home");
 
 $my_age = 89;
-echo("\$my_age: " . $my_age . "\n");
-echo("((\$my_age <= 3) or (\$my_age >= 65)): " . "\n");
-if (($my_age <= 3) or ($my_age >= 65)) echo("You should stay home" . "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) or ($my_age >= 65)): ');
+if (($my_age <= 3) or ($my_age >= 65)) console_log("You should stay home");
 
-echo("\n// Logical NOT (!)\n" . "\n");
+console_log("\n// Logical NOT (!)");
 
 $can_drive = false;
-echo("\$can_drive: " . json_encode($can_drive) . "\n");
-echo("!\$can_drive: " . json_encode(!$can_drive) . "\n");
+console_log(string_interpolation('$can_drive: ', [$can_drive]));
+console_log(string_interpolation('!$can_drive: ', [!$can_drive]));
 
 $can_drive = true;
-echo("\$can_drive: " . json_encode($can_drive) . "\n");
-echo("!\$can_drive: " . json_encode(!$can_drive) . "\n");
+console_log(string_interpolation('$can_drive: ', [$can_drive]));
+console_log(string_interpolation('!$can_drive: ', [!$can_drive]));

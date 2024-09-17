@@ -18,7 +18,7 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 
 
 def array_some_v1(callback_function, an_array):
-    '''JavaScript-like Array.some() function'''
+    '''JavaScript-like Array.some() function array_some_v1'''
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
@@ -28,7 +28,7 @@ def array_some_v1(callback_function, an_array):
 
 
 def array_some_v2(callback_function, an_array):
-    '''JavaScript-like Array.some() function'''
+    '''JavaScript-like Array.some() function array_some_v2'''
     is_condition_match = False
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
@@ -38,7 +38,7 @@ def array_some_v2(callback_function, an_array):
 
 
 def array_some_v3(callback_function, an_array):
-    '''JavaScript-like Array.some() function'''
+    '''JavaScript-like Array.some() function array_some_v3'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
@@ -47,7 +47,7 @@ def array_some_v3(callback_function, an_array):
 
 
 def array_some_v4(callback_function, an_array):
-    '''JavaScript-like Array.some() function'''
+    '''JavaScript-like Array.some() function array_some_v4'''
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
             return True

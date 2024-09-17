@@ -44,6 +44,9 @@ console.log(`fruits, last element: ${fruits.at(fruits.length - 1)}`);
 console.log(`fruits, last element: ${fruits?.at?.(fruits.length - 1)}`);
 // fruits, last element: orange
 
+console.log(`fruits, last element: ${fruits?.at?.(-1)}`);
+// fruits, last element: orange
+
 // iterate over and print each item and index
 for (let arrayItemIndex = 0; (arrayItemIndex < fruits.length); arrayItemIndex += 1) {
     const arrayItem = fruits[arrayItemIndex];

@@ -18,7 +18,7 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 
 
 def array_map_v1(callback_function, an_array):
-    '''JavaScript-like Array.map() function'''
+    '''JavaScript-like Array.map() function array_map_v1'''
     new_array = []
     for array_item_index, array_item in enumerate(an_array):
         new_array_item = callback_function(array_item, array_item_index, an_array)
@@ -27,7 +27,7 @@ def array_map_v1(callback_function, an_array):
 
 
 def array_map_v2(callback_function, an_array):
-    '''JavaScript-like Array.map() function'''
+    '''JavaScript-like Array.map() function array_map_v2'''
     new_array = []
     for array_item_index, array_item in enumerate(an_array):
         new_array_item = callback_function(array_item, array_item_index, an_array)
@@ -36,7 +36,7 @@ def array_map_v2(callback_function, an_array):
 
 
 def array_map_v3(callback_function, an_array):
-    '''JavaScript-like Array.map() function'''
+    '''JavaScript-like Array.map() function array_map_v3'''
     new_array = []
     for array_item_index, array_item in enumerate(an_array):
         new_array.append(callback_function(array_item, array_item_index, an_array))
@@ -44,7 +44,7 @@ def array_map_v3(callback_function, an_array):
 
 
 def array_map_v4(callback_function, an_array):
-    '''JavaScript-like Array.map() function'''
+    '''JavaScript-like Array.map() function array_map_v4'''
     new_array = []
     for array_item_index, array_item in enumerate(an_array):
         new_array = [*new_array, callback_function(array_item, array_item_index, an_array)]
@@ -52,12 +52,11 @@ def array_map_v4(callback_function, an_array):
 
 
 def array_map_v5(callback_function, an_array):
-    '''JavaScript-like Array.map() function'''
+    '''JavaScript-like Array.map() function array_map_v5'''
     return [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]
 
 
-# JavaScript-like Array.map() function
-array_map_v6 = lambda callback_function, an_array: [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]
+array_map_v6 = lambda callback_function, an_array: [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]  # '''JavaScript-like Array.map() function array_map_v6'''
 
 print("\n# JavaScript-like Array.map() in Python list")
 

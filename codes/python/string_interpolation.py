@@ -18,23 +18,30 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 
 print("# JavaScript-like Template literals / Template strings (String Interpolation) in Python (f-string)")
 
-print(f"1 + 2 + 3 + 4 = {1 + 2 + 3 + 4}")
-
 my_name = "Alisa"
 my_age = 25
 print(f"my name is {my_name} and I am {my_age}.")
+
+print(f"1 + 2 + 3 + 4 = {1 + 2 + 3 + 4}")
+
+
+def get_rectangle_area(rectangle_width, rectangle_length):
+    return (rectangle_width * rectangle_length)
+
+
+print(f"get_rectangle_area(7, 5): {get_rectangle_area(7, 5)}")
 
 any_string = "foo"
 print(f'any string: {json_stringify(any_string)}')
 
 any_numeric = 123
-print(f"any numeric: {any_numeric}")
+print(f"any numeric: {json_stringify(any_numeric)}")
 
 any_boolean = True
-print(f"any boolean: {any_boolean}")
+print(f"any boolean: {json_stringify(any_boolean)}")
 
 any_null = None
-print(f"any null: {any_null}")
+print(f"any null: {json_stringify(any_null)}")
 
 any_array = [1, 2, 3]
 print(f'any array: {json_stringify(any_array)}')

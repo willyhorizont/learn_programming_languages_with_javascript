@@ -21,5 +21,4 @@ console.log(`any String: ${jsonStringify(anyString)}, any Numeric: ${jsonStringi
 
 const consoleLog = (...restArguments) => console.log(restArguments.join(""));
 
-// using custom function
 consoleLog("any String: ", jsonStringify(anyString), ", any Numeric: ", jsonStringify(anyNumeric), ", any Boolean: ", jsonStringify(anyBoolean), ", any Null: ", jsonStringify(anyNull), ", any Array: ", jsonStringify(anyArray), ", any Object: ", jsonStringify(anyObject));

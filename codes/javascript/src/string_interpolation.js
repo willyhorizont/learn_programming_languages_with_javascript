@@ -2,23 +2,28 @@ const jsonStringify = (anything, { pretty = false } = {}) => ((pretty === true) 
 
 console.log("// Template literals / Template strings (String Interpolation) in JavaScript");
 
-console.log(`1 + 2 + 3 + 4 = ${1 + 2 + 3 + 4}`);
-
 const myName = "Alisa";
 const myAge = 25;
 console.log(`my name is ${myName} and I am ${myAge}.`);
+
+console.log(`1 + 2 + 3 + 4 = ${1 + 2 + 3 + 4}`);
+
+function getRectangleArea(rectangleWidth, rectangleLength) {
+    return (rectangleWidth * rectangleLength);
+}
+console.log(`getRectangleArea(7, 5): ${getRectangleArea(7, 5)}`);
 
 const anyString = "foo";
 console.log(`any string: ${jsonStringify(anyString)}`);
 
 const anyNumeric = 123;
-console.log(`any numeric: ${anyNumeric}`);
+console.log(`any numeric: ${jsonStringify(anyNumeric)}`);
 
 const anyBoolean = true;
-console.log(`any boolean: ${anyBoolean}`);
+console.log(`any boolean: ${jsonStringify(anyBoolean)}`);
 
 const anyNull = null;
-console.log(`any null: ${anyNull}`);
+console.log(`any null: ${jsonStringify(anyNull)}`);
 
 const anyArray = [1, 2, 3];
 console.log(`any array: ${jsonStringify(anyArray)}`);

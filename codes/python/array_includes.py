@@ -18,12 +18,11 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 
 
 def array_includes_v1(search_element, an_array):
-    '''JavaScript-like Array.includes() function'''
+    '''JavaScript-like Array.includes() function array_includes_v1'''
     return search_element in an_array
 
 
-# JavaScript-like Array.includes() function
-array_includes_v2 = lambda search_element, an_array: search_element in an_array
+array_includes_v2 = lambda search_element, an_array: search_element in an_array  # '''JavaScript-like Array.includes() function array_includes_v2'''
 
 print("\n# JavaScript-like Array.includes() in Python")
 

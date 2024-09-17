@@ -20,7 +20,7 @@ def _():
 print(f"yyy: {yyy}")  # yyy: global_scope, 1
 
 yyy = "global_scope, 1"
-# local scope, can access global variables but to modify it need to use "global" keyword
+# local scope, can access global variables but to modify them need to use "global" keyword
 
 
 @lambda _: _()
@@ -36,7 +36,7 @@ def _():
 print(f"yyy: {yyy}")  # yyy: local_scope, 1
 
 yyy = "global_scope, 1"
-# local scope, can access variables from enclosing (outer) function but to modify it need to use "nonlocal" keyword
+# local scope, can access variables from enclosing (outer) function but to modify them need to use "nonlocal" keyword
 
 
 @lambda _: _()

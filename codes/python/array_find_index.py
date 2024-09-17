@@ -21,7 +21,7 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 
 
 def array_find_index_v1(callback_function, an_array):
-    '''JavaScript-like Array.findIndex() function'''
+    '''JavaScript-like Array.findIndex() function array_find_index_v1'''
     data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
@@ -32,7 +32,7 @@ def array_find_index_v1(callback_function, an_array):
 
 
 def array_find_index_v2(callback_function, an_array):
-    '''JavaScript-like Array.findIndex() function'''
+    '''JavaScript-like Array.findIndex() function array_find_index_v2'''
     data_found_index = -1
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
@@ -42,7 +42,7 @@ def array_find_index_v2(callback_function, an_array):
 
 
 def array_find_index_v3(callback_function, an_array):
-    '''JavaScript-like Array.findIndex() function'''
+    '''JavaScript-like Array.findIndex() function array_find_index_v3'''
     for array_item_index, array_item in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
@@ -51,7 +51,7 @@ def array_find_index_v3(callback_function, an_array):
 
 
 def array_find_index_v4(callback_function, an_array):
-    '''JavaScript-like Array.findIndex() function'''
+    '''JavaScript-like Array.findIndex() function array_find_index_v4'''
     for array_item_index, array_item in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
             return array_item_index
