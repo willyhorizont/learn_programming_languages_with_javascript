@@ -148,7 +148,7 @@ func arraySomeV3(callbackFunction func(any, int, array) bool, anArray array) boo
 }
 
 func arraySomeV4(callbackFunction func(any, int, array) bool, anArray array) bool {
-    // JavaScript-like Array.some() function
+    // JavaScript-like Array.some() function arraySomeV4
     for arrayItemIndex, arrayItem := range anArray {
         if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
             return true

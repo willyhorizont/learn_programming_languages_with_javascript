@@ -43,24 +43,24 @@ def get_type(anything):
 
 any_string = "foo"
 print(f"any_string: {json_stringify(any_string)}")
-print(f"type of any_string is {get_type(any_string)}")
+print(f'type of any_string: "{get_type(any_string)}"')
 
 any_numeric = 123
 print(f"any_numeric: {json_stringify(any_numeric)}")
-print(f"type of any_numeric is {get_type(any_numeric)}")
+print(f'type of any_numeric: "{get_type(any_numeric)}"')
 
 any_boolean = True
 print(f"any_boolean: {json_stringify(any_boolean)}")
-print(f"type of any_boolean is {get_type(any_boolean)}")
+print(f'type of any_boolean: "{get_type(any_boolean)}"')
 
 any_null = None
 print(f"any_null: {json_stringify(any_null)}")
-print(f"type of any_null is {get_type(any_null)}")
+print(f'type of any_null: "{get_type(any_null)}"')
 
 any_array = [1, 2, 3]
 print(f"any_array: {json_stringify(any_array)}")
-print(f"type of any_array is {get_type(any_array)}")
+print(f'type of any_array: "{get_type(any_array)}"')
 
 any_object = {"foo": "bar"}
 print(f"any_object: {json_stringify(any_object)}")
-print(f"type of any_object is {get_type(any_object)}")
+print(f'type of any_object: "{get_type(any_object)}"')

@@ -124,11 +124,19 @@ func main() {
 
     myAnswer = "bar"
     sprint("my answer: ", myAnswer)
-    sprint("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any { return "correct!" }, func() any { return "wrong!" }))
+    sprint("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any {
+		return "correct!"
+	}, func() any {
+		return "wrong!"
+	}))
     // is my answer correct: wrong!
 
     myAnswer = "foo"
     sprint("my answer: ", myAnswer)
-    sprint("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any { return "correct!" }, func() any { return "wrong!" }))
+    sprint("is my answer correct:", ternary((myAnswer == CORRECT_ANSWER), func() any {
+		return "correct!"
+	}, func() any {
+		return "wrong!"
+	}))
     // is my answer correct: correct!
 }

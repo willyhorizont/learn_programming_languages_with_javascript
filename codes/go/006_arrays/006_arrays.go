@@ -7,159 +7,194 @@ import (
 	"strings"
 )
 
-// type any interface{}
-type array []any
-type object map[string]any
-
-func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
-    // JavaScript-like Array.reduce() function
-    result := initialValue
-    for arrayItemIndex, arrayItem := range anArray {
-        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+func main() {
+	jsLikeType := struct {
+		Null string
+		Boolean string
+		String string
+		Numeric string
+		Object string
+		Array string
+	}{
+		Null: "Null",
+		Boolean: "Boolean",
+		String: "String",
+		Numeric: "Numeric",
+		Object: "Object",
+		Array: "Array",
+	}
+	ternary := func(trueCondition bool, callbackFunctionIfConditionTrue func() interface{}, callbackFunctionIfConditionFalse func() interface{}) interface{} {
+		if (trueCondition == true) {
+			return callbackFunctionIfConditionTrue()
+		}
+		return callbackFunctionIfConditionFalse()
+	}
+	arraySome := func(callbackFunction func(interface{}, int, []interface{}) bool, anArray []interface{}) bool {
+		// JavaScript-like Array.some() function arraySomeV4
+		for arrayItemIndex, arrayItem := range anArray {
+			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+				return true
+			}
+		}
+		return false
+	}
+	isLikeJsNull := func(anything interface{}) bool {
+		return (anything == nil)
     }
-    return result
-}
-
-func optionalChaining(anything any, objectPropertiesArray ...any) any {
-    anythingType := reflect.TypeOf(anything).Kind()
-    if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
-        return anything
+	isLikeJsBoolean := func(anything interface{}) bool {
+        return ((reflect.TypeOf(anything).Kind() == reflect.Bool) && ((anything == true) || (anything == false)))
     }
-    return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
-        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
-            return anything.(object)[currentItem.(string)]
-        }
-        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
-            return anything.(array)[currentItem.(int)]
-        }
-        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
-            return currentResult.(object)[currentItem.(string)]
-        }
-        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
-            return currentResult.(array)[currentItem.(int)]
-        }
-        return nil
-    }, objectPropertiesArray, nil)
-}
-
-func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
-    if (trueCondition == true) {
-        return callbackFunctionIfConditionTrue()
+	isLikeJsString := func(anything interface{}) bool {
+        return (reflect.TypeOf(anything).Kind() == reflect.String)
     }
-    return callbackFunctionIfConditionFalse()
-}
-
-func jsonStringify(restArguments ...any) string {
-	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
-		if (prettyInner == true) {
-			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
+	isLikeJsNumeric := func(anything interface{}) bool {
+        return (arraySome(func(numericType interface{}, _ int, _ []interface{}) bool {
+			return (reflect.TypeOf(anything).Kind() == numericType)
+		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128}))
+    }
+	isLikeJsObject := func(anything interface{}) bool {
+		return ((reflect.TypeOf(anything).Kind() == reflect.Map) || ((reflect.TypeOf(anything).Kind() == reflect.Map) && (reflect.TypeOf(anything).Key().Kind() == reflect.String) && (reflect.TypeOf(anything).Elem().Kind() == reflect.Interface)) || (reflect.TypeOf(anything) == reflect.TypeOf(map[string]interface{}{})) || (reflect.TypeOf(anything).String() == "map[string]interface {}") || (reflect.TypeOf(anything).String() == "map[string]interface {  }"))
+    }
+	isLikeJsArray := func(anything interface{}) bool {
+        return ((reflect.TypeOf(anything).Kind() == reflect.Slice) || (reflect.TypeOf(anything) == reflect.TypeOf([]interface{}{})) || (reflect.TypeOf(anything).String() == "[]interface {}") || (reflect.TypeOf(anything).String() == "[]interface {  }"))
+    }
+	getType := func(anything interface{}) string {
+		if (isLikeJsNull(anything) == true) {
+			return jsLikeType.Null
+		}
+		if (isLikeJsBoolean(anything) == true) {
+			return jsLikeType.Boolean
+		}
+		if (isLikeJsString(anything) == true) {
+			return jsLikeType.String
+		}
+		if (isLikeJsNumeric(anything) == true) {
+			return jsLikeType.Numeric
+		}
+		if (isLikeJsObject(anything) == true) {
+			return jsLikeType.Object
+		}
+		if (isLikeJsArray(anything) == true) {
+			return jsLikeType.Array
+		}
+		return reflect.TypeOf(anything).String()
+    }
+	arrayReduce := func(callbackFunction func(interface{}, interface{}, int, []interface{}) interface{}, anArray []interface{}, initialValue interface{}) interface{} {
+		// JavaScript-like Array.reduce() function
+		result := initialValue
+		for arrayItemIndex, arrayItem := range anArray {
+			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+		}
+		return result
+	}
+	optionalChaining := func(anything interface{}, restArguments ...interface{}) interface{} {
+		if (((getType(anything) != jsLikeType.Object) && (getType(anything) != jsLikeType.Array)) || (len(restArguments) == 0)) {
+			return anything
+		}
+		return arrayReduce(func(currentResult interface{}, currentItem interface{}, _ int, _ []interface{}) interface{} {
+			if ((getType(currentResult) == jsLikeType.Null) && (getType(anything) == jsLikeType.Object) && (getType(currentItem) == jsLikeType.String)) {
+				return anything.(map[string]interface{})[currentItem.(string)]
+			}
+			if ((getType(currentResult) == jsLikeType.Null) && (getType(anything) == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.([]interface{})) > currentItem.(int))) {
+				return anything.([]interface{})[currentItem.(int)]
+			}
+			if ((getType(currentResult) == jsLikeType.Object) && (getType(currentItem) == jsLikeType.String)) {
+				return currentResult.(map[string]interface{})[currentItem.(string)]
+			}
+			if ((getType(currentResult) == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.([]interface{})) > currentItem.(int))) {
+				return currentResult.([]interface{})[currentItem.(int)]
+			}
+			return nil
+		}, restArguments, nil)
+	}
+	nullishCoalescing := func(anything interface{}, defaultValue interface{}) interface{} {
+		if (anything == nil) {
+			return defaultValue
+		} else {
+			return anything
+		}
+	}
+	jsonStringify := func(restArguments ...interface{}) string {
+		prettyDefault := false
+		indentDefault := "    "
+		jsonStringifyInner := func(anythingInner interface{}, prettyInner bool) string {
+			if (prettyInner == true) {
+				jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentDefault)
+				if (err == nil) {
+					return string(jsonStringifyInnerResult)
+				}
+				return "null"
+			}
+			jsonStringifyInnerResult, err := json.Marshal(anythingInner)
 			if (err == nil) {
-				return string(jsonStringifyInnerResult)
+				return strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(jsonStringifyInnerResult), "{", "{ ")), "}", " }")), ":", ": ")), ",", ", ")
 			}
 			return "null"
 		}
-        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
-		}
-		return "null"
+		var anything interface{} = restArguments[0]
+		var pretty interface{} = nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
+		return jsonStringifyInner(anything, pretty.(bool))
+	}
+	stringInterpolation := func(restArguments ...interface{}) string {
+        return (arrayReduce(func(currentResult interface{}, currentArgument interface{}, _ int, _ []interface{}) interface{} {
+			return (currentResult.(string) + ternary(
+				(getType(currentArgument) == jsLikeType.String),
+				(func() interface{} {
+					return currentArgument.(string)
+				}),
+				(func() interface{} {
+					return (ternary(
+						((getType(currentArgument) == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1)),
+						(func() interface{} {
+							return jsonStringify(currentArgument.([]interface{})[0])
+						}),
+						(func() interface{} {
+							return jsonStringify(currentArgument)
+						}),
+					).(string))
+				}),
+			).(string))
+		}, restArguments, "").(string))
     }
-    var anything any = restArguments[0]
-	prettyDefault := false
-	indentDefault := "    "
-	var pretty any = prettyDefault
-	var indent any = indentDefault
-	if (len(restArguments) == 1) {
-		return jsonStringifyInner(anything, prettyDefault, indentDefault)
-	}
-	var optionalArgument any = restArguments[1]
-	if (optionalArgument == false) {
-		return jsonStringifyInner(anything, prettyDefault, indentDefault)
-	}
-	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
-		pretty = optionalChaining(optionalArgument, "pretty")
-		indent = optionalChaining(optionalArgument, "indent")
-		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
-		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
-		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
-	}
-	if (optionalArgument == true) {
-		if (len(restArguments) >= 3) {
-			var additionalArgument2 any = restArguments[2]
-			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
-				indent = additionalArgument2
-			}
-		}
-		pretty = optionalArgument
-		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
-	}
-	return jsonStringifyInner(anything, prettyDefault, indentDefault)
-}
-
-func sprint(restArguments ...any) {
-    var newArray = []string{}
-    for _, argument := range restArguments {
-        argumentType := reflect.TypeOf(argument).Kind()
-        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
-            newArray = append(newArray, jsonStringify(argument.(array)[0]))
-            continue
-        }
-        if (argumentType == reflect.String) {
-			newArray = append(newArray, argument.(string))
-            continue
-        }
+	consoleLog := func(restArguments ...interface{}) {
+        fmt.Println(stringInterpolation(restArguments...))
     }
-    fmt.Println(strings.Join(newArray, ""))
-}
 
-func main() {
-    // in Go, JavaScript-like Array is called (Slice)
+	consoleLog("// JavaScript-like Array in Go (Slice)")
 
-    fruits := array{"apple", "mango", "orange"}
-    sprint("fruits: ", jsonStringify(fruits))
+    fruits := []interface{}{"apple", "mango", "orange"}
+	consoleLog(stringInterpolation("fruits: ", []interface{}{fruits}))
 
-    sprint("fruits, length: ", array{len(fruits)})
+    consoleLog(stringInterpolation("fruits, length: ", []interface{}{len(fruits)}))
     // fruits, length: 3
 
-    sprint("fruits, get mango: ", fruits[1])
-    // fruits, get mango: mango
+    consoleLog(stringInterpolation("fruits, get mango: ", []interface{}{fruits[1]}))
+    // fruits, get mango: "mango"
 
-    sprint("fruits, first element: ", fruits[0])
-    // fruits, first element: apple
+    consoleLog(stringInterpolation("fruits, get mango: ", []interface{}{optionalChaining(fruits, 1)}))
+    // fruits, get mango: "mango"
 
-    sprint("fruits, last element: ", fruits[len(fruits)-1])
-    // fruits, last element: orange
+    consoleLog(stringInterpolation("fruits, first element: ", []interface{}{fruits[0]}))
+    // fruits, first element: "apple"
 
+    consoleLog(stringInterpolation("fruits, first element: ", []interface{}{optionalChaining(fruits, 0)}))
+    // fruits, first element: "apple"
+
+    consoleLog(stringInterpolation("fruits, last element: ", []interface{}{fruits[(len(fruits) - 1)]}))
+    // fruits, last element: "orange"
+
+    consoleLog(stringInterpolation("fruits, last element: ", []interface{}{optionalChaining(fruits, (len(fruits) - 1))}))
+    // fruits, last element: "orange"
+
+	// iterate over and print each item and index
     for arrayItemIndex, arrayItem := range fruits {
-        sprint("fruits, for loop, index: ", array{arrayItemIndex}, ", value: ", arrayItem)
+        consoleLog(stringInterpolation("fruits, for loop, index: ", []interface{}{arrayItemIndex}, ", item: ", []interface{}{arrayItem}))
     }
-    // fruits, for loop, index: 0, value: apple
-    // fruits, for loop, index: 1, value: mango
-    // fruits, for loop, index: 2, value: orange
+    // fruits, for loop, index: 0, item: "apple"
+    // fruits, for loop, index: 1, item: "mango"
+    // fruits, for loop, index: 2, item: "orange"
 
-    // in Go, JavaScript-like Array of Objects is called Slice of maps
-
-    products := array{
-        object{
-            "id": "P1",
-            "name": "bubble gum",
-        },
-        object{
-            "id": "P2",
-            "name": "potato chips",
-        },
-    }
-    sprint("products: ", jsonStringify(products, object{"pretty": true}))
-
-    for arrayItemIndex, arrayItem := range products {
-        objectIterationIndex := 0
-        for objectKey, objectValue := range arrayItem.(object) {
-            sprint("products, for loop, array item index: ", array{arrayItemIndex}, ", object iteration/entry index: ", array{objectIterationIndex}, ", key: ", objectKey, ", value: ", objectValue)
-            objectIterationIndex += 1
-        }
-    }
-    // products, for loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
-    // products, for loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
-    // products, for loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
-    // products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
+	fruits = append(fruits, "banana")
+	consoleLog(stringInterpolation("fruits: ", []interface{}{fruits}))
+	// fruits: ["apple", "mango", "orange", "banana"]
 }

@@ -1,4 +1,26 @@
 =============================changelog==========================================
+(2024/09[Sep]/19[Thu]|02:18[AM]/02:18)
+1.0.71
+New:
+finish string_interpolation.go
+finish function_variadic_rest_arguments.go
+finish console_log.go
+finish 006_arrays.go
+finish function_optional_argument_default_argument_value.go
+finish json_stringify.go
+finish get_type.go
+finish 005_objects.go
+finish function_iife.go
+finish 004_loops.go
+finish generate_number_sequence.go
+finish variables_and_scopes.go
+finish object_from_entries.go
+some update in js, py, php
+TODO:
+finish *.go
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/18[Wed]|12:11[PM]/12:11)
 1.0.70
 New:

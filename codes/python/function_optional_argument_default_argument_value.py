@@ -19,14 +19,11 @@ json_stringify = lambda anything, **optional_argument: (json.dumps(anything, ind
 print("# Function Optional Argument and Function Default Argument Value in Python")
 
 
-def function_v1_optional_argument_default_argument_value(anything, **optional_argument):
+def function_optional_argument_default_argument_value(anything, **optional_argument):
     pretty = nullish_coalescing(optional_chaining(optional_argument, "pretty"), False)
-    print(f'optional argument default value function v1 optional argument pretty: {json_stringify(pretty)}')
+    print(f'main function argument: {json_stringify(anything)}')
+    print(f'optional function argument default value "pretty": {json_stringify(pretty)}')
 
 
-function_v1_optional_argument_default_argument_value(["apple", "banana", "cherry"], pretty=True)
-function_v1_optional_argument_default_argument_value(["apple", "banana", "cherry"])
-
-function_v2_optional_argument_default_argument_value = lambda anything, **optional_argument: print(f'optional argument default value function v2 optional argument pretty: {json_stringify(nullish_coalescing(optional_chaining(optional_argument, "pretty"), False))}')
-function_v2_optional_argument_default_argument_value(["apple", "banana", "cherry"], pretty=True)
-function_v2_optional_argument_default_argument_value(["apple", "banana", "cherry"])
+function_optional_argument_default_argument_value(["apple", "banana", "cherry"], pretty=True)
+function_optional_argument_default_argument_value(["apple", "banana", "cherry"])

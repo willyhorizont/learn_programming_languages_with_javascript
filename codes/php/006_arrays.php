@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -64,22 +64,22 @@ console_log(string_interpolation("fruits, length: ", [count($fruits)]));
 // fruits, length: 3
 
 console_log(string_interpolation("fruits, get mango: ", [$fruits[1]]));
-// fruits, get mango: mango
+// fruits, get mango: "mango"
 
 console_log(string_interpolation("fruits, get mango: ", [@$fruits[1]]));
-// fruits, get mango: mango
+// fruits, get mango: "mango"
 
 console_log(string_interpolation("fruits, first element: ", [$fruits[0]]));
-// fruits, first element: apple
+// fruits, first element: "apple"
 
 console_log(string_interpolation("fruits, first element: ", [@$fruits[0]]));
-// fruits, first element: apple
+// fruits, first element: "apple"
 
 // console_log(string_interpolation("fruits, last element: ", [end($fruits)])); // don't use this, this will throw error when array is empty
-// fruits, last element: orange
+// fruits, last element: "orange"
 
 console_log(string_interpolation("fruits, last element: ", [@$fruits[(count($fruits) - 1)]]));
-// fruits, last element: orange
+// fruits, last element: "orange"
 
 // iterate over and print each item and index
 (function () use ($fruits) {
@@ -88,17 +88,17 @@ console_log(string_interpolation("fruits, last element: ", [@$fruits[(count($fru
         console_log(string_interpolation("fruits, for loop, index: ", [$array_item_index], ", item: ", [$array_item]));
     }
 })();
-// fruits, for loop, index: 0, item: apple
-// fruits, for loop, index: 1, item: mango
-// fruits, for loop, index: 2, item: orange
+// fruits, for loop, index: 0, item: "apple"
+// fruits, for loop, index: 1, item: "mango"
+// fruits, for loop, index: 2, item: "orange"
 
 // iterate over and print each item and index
 foreach ($fruits as $array_item_index => $array_item) {
     console_log(string_interpolation("fruits, for each loop, index: ", [$array_item_index], ", item: ", [$array_item]));
 }
-// fruits, for each loop, index: 0, item: apple
-// fruits, for each loop, index: 1, item: mango
-// fruits, for each loop, index: 2, item: orange
+// fruits, for each loop, index: 0, item: "apple"
+// fruits, for each loop, index: 1, item: "mango"
+// fruits, for each loop, index: 2, item: "orange"
 
 array_push($fruits, "banana");
 console_log(string_interpolation("fruits: ", [$fruits]));

@@ -31,18 +31,18 @@ print(f"friend, get total object keys: {len(friend)}")
 print(f'friend, get total object keys: {json_stringify(len(list(friend.keys())))}')
 # friend, get total object keys: 3
 
-print(f"friend, get country: {friend['country']}")
-# friend, get country: Finland
+print(f"friend, get country: {json_stringify(friend['country'])}")
+# friend, get country: "Finland"
 
-print(f'friend, get country: {optional_chaining(friend, "country")}')
-# friend, get country: Finland
+print(f'friend, get country: {json_stringify(optional_chaining(friend, "country"))}')
+# friend, get country: "Finland"
 
 # iterate over and print each key-value pair and object entry index
 for object_entry_index, (object_key, object_value) in enumerate(friend.items()):
-    print(f"friend, for loop, object entry index: {object_entry_index}, key: {object_key}, value: {object_value}")
-# friend, for loop, object entry index: 0, key: name, value: Alisa
-# friend, for loop, object entry index: 1, key: country, value: Finland
-# friend, for loop, object entry index: 2, key: age, value: 25
+    print(f"friend, for loop, object entry index: {object_entry_index}, key: {json_stringify(object_key)}, value: {json_stringify(object_value)}")
+# friend, for loop, object entry index: 0, key: "name", value: "Alisa"
+# friend, for loop, object entry index: 1, key: "country", value: "Finland"
+# friend, for loop, object entry index: 2, key: "age", value: 25
 
 friend["age"] = 27
 print(f"friend: {json_stringify(friend, pretty=True)}")

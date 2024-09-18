@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -71,13 +71,13 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.reduce() function "array_reduce_v2"');
 
-$numbers_total = array_reduce_v2(fn($current_result, $current_number) => ($current_result + $current_number), $numbers, 0);
+$numbers_total = array_reduce_v2((fn($current_result, $current_number) => ($current_result + $current_number)), $numbers, 0);
 console_log(string_interpolation("total number: ", [$numbers_total]));
 // total number: 41.2
 
 console_log('// using PHP Array.reduce() built-in function "array_reduce"');
 
-$numbers_total = array_reduce($numbers,  fn($current_result, $current_number) => ($current_result + $current_number), 0);
+$numbers_total = array_reduce($numbers, (fn($current_result, $current_number) => ($current_result + $current_number)), 0);
 console_log(string_interpolation("total number: ", [$numbers_total]));
 // total number: 41.2
 
@@ -105,7 +105,7 @@ console_log(string_interpolation("products: ", json_stringify($products, ["prett
 
 console_log('// using JavaScript-like Array.reduce() function "array_reduce_v2"');
 
-$products_grouped = array_reduce_v2(fn($current_result, $current_product) => ((@$current_product["price"] > 100) ? [...$current_result, "expensive" => [...@$current_result["expensive"], $current_product]] : [...$current_result, "cheap" => [...@$current_result["cheap"], $current_product]]), $products, ["expensive" => [], "cheap" => []]);
+$products_grouped = array_reduce_v2((fn($current_result, $current_product) => ((@$current_product["price"] > 100) ? ([...$current_result, "expensive" => [...@$current_result["expensive"], $current_product]]) : ([...$current_result, "cheap" => [...@$current_result["cheap"], $current_product]]))), $products, ["expensive" => [], "cheap" => []]);
 console_log(string_interpolation("grouped products: ", json_stringify($products_grouped, ["pretty" => true])));
 // grouped products: {
 //     "expensive": [
@@ -132,7 +132,7 @@ console_log(string_interpolation("grouped products: ", json_stringify($products_
 
 console_log('// using PHP Array.reduce() built-in function "array_reduce"');
 
-$products_grouped = array_reduce($products,  fn($current_result, $current_product) => ((@$current_product["price"] > 100) ? [...$current_result, "expensive" => [...@$current_result["expensive"], $current_product]] : [...$current_result, "cheap" => [...@$current_result["cheap"], $current_product]]), ["expensive" => [], "cheap" => []]);
+$products_grouped = array_reduce($products, (fn($current_result, $current_product) => ((@$current_product["price"] > 100) ? ([...$current_result, "expensive" => [...@$current_result["expensive"], $current_product]]) : ([...$current_result, "cheap" => [...@$current_result["cheap"], $current_product]]))), ["expensive" => [], "cheap" => []]);
 console_log(string_interpolation("grouped products: ", json_stringify($products_grouped, ["pretty" => true])));
 // grouped products: {
 //     "expensive": [

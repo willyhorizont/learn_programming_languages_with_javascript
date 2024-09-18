@@ -219,4 +219,8 @@ func main() {
 
     var mixedSlice = array{1, 2, 3, "a", "b", "c", true, false, nil}
     fmt.Println(mixedSlice) // Output: [nil nil nil]
+
+	/*
+any|array|object
+	*/
 }

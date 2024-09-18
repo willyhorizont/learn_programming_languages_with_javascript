@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -59,24 +59,24 @@ console_log("// get type of something in in PHP");
 
 $any_string = "foo";
 console_log(string_interpolation("any_string: ", [$any_string]));
-console_log(string_interpolation("type of any_string is ", get_type($any_string)));
+console_log(string_interpolation("type of any_string: ", [get_type($any_string)]));
 
 $any_numeric = 123;
 console_log(string_interpolation("any_numeric: ", [$any_numeric]));
-console_log(string_interpolation("type of any_numeric is ", get_type($any_numeric)));
+console_log(string_interpolation("type of any_numeric: ", [get_type($any_numeric)]));
 
 $any_boolean = true;
 console_log(string_interpolation("any_boolean: ", [$any_boolean]));
-console_log(string_interpolation("type of any_boolean is ", get_type($any_boolean)));
+console_log(string_interpolation("type of any_boolean: ", [get_type($any_boolean)]));
 
 $any_null = null;
 console_log(string_interpolation("any_null: ", [$any_null]));
-console_log(string_interpolation("type of any_null is ", get_type($any_null)));
+console_log(string_interpolation("type of any_null: ", [get_type($any_null)]));
 
 $any_array = [1, 2, 3];
 console_log(string_interpolation("any_array: ", [$any_array]));
-console_log(string_interpolation("type of any_array is ", get_type($any_array)));
+console_log(string_interpolation("type of any_array: ", [get_type($any_array)]));
 
 $any_object = ["foo" => "bar"];
 console_log(string_interpolation("any_object: ", [$any_object]));
-console_log(string_interpolation("type of any_object is ", get_type($any_object)));
+console_log(string_interpolation("type of any_object: ", [get_type($any_object)]));

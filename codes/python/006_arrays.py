@@ -25,29 +25,29 @@ print(f"fruits, length: {len(fruits)}")
 # fruits, length: 3
 
 print(f"fruits, get mango: {fruits[1]}")
-# fruits, get mango: mango
+# fruits, get mango: "mango"
 
 print(f"fruits, get mango: {optional_chaining(fruits, 1)}")
-# fruits, get mango: mango
+# fruits, get mango: "mango"
 
 print(f"fruits, first element: {fruits[0]}")
-# fruits, first element: apple
+# fruits, first element: "apple"
 
 print(f"fruits, first element: {optional_chaining(fruits, 0)}")
-# fruits, first element: apple
+# fruits, first element: "apple"
 
 print(f"fruits, last element: {fruits[-1]}")
-# fruits, last element: orange
+# fruits, last element: "orange"
 
 print(f"fruits, last element: {optional_chaining(fruits, -1)}")
-# fruits, last element: orange
+# fruits, last element: "orange"
 
 # iterate over and print each item and index
 for (array_item_index, array_item) in enumerate(fruits):
     print(f"fruits, for loop, index: {array_item_index}, item: {array_item}")
-# fruits, for loop, index: 0, item: apple
-# fruits, for loop, index: 1, item: mango
-# fruits, for loop, index: 2, item: orange
+# fruits, for loop, index: 0, item: "apple"
+# fruits, for loop, index: 1, item: "mango"
+# fruits, for loop, index: 2, item: "orange"
 
 fruits.append("banana")
 print(f'fruits: {json_stringify(fruits)}')

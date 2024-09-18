@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -326,57 +326,57 @@ function fizzbuzz_v12($stop_number) {
 function fizzbuzz_v13($stop_number) {
     if (get_type($stop_number) !== "Numeric") throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
-    return array_reduce(range(1, $stop_number), fn($current_result, $current_number) => (($current_result === "") ? string_interpolation([$current_number]) : (((($current_number % 3) === 0) && (($current_number % 5) === 0)) ? string_interpolation($current_result, ", FizzBuzz") : ((($current_number % 3) === 0) ? string_interpolation($current_result, ", Fizz") : ((($current_number % 5) === 0) ? string_interpolation($current_result, ", Buzz") : string_interpolation($current_result, ", ", [$current_number]))))), "");
+    return array_reduce(range(1, $stop_number), (fn($current_result, $current_number) => (($current_result === "") ? string_interpolation([$current_number]) : (((($current_number % 3) === 0) && (($current_number % 5) === 0)) ? string_interpolation($current_result, ", FizzBuzz") : ((($current_number % 3) === 0) ? string_interpolation($current_result, ", Fizz") : ((($current_number % 5) === 0) ? string_interpolation($current_result, ", Buzz") : string_interpolation($current_result, ", ", [$current_number])))))), "");
 };
 
 console_log('// using fizzbuzz function "fizzbuzz_v1"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v1(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v1(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v2"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v2(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v2(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v3"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v3(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v3(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v4"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v4(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v4(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v5"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v5(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v5(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v6"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v6(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v6(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v7"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v7(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v7(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v8"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v8(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v8(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v9"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v9(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v9(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v10"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v10(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v10(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v11"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v11(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v11(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v12"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v12(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v12(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v13"');
-console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v13(36)]));
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v13(36)));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

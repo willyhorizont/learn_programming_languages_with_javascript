@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -77,10 +77,10 @@ console_log(string_interpolation("friend, get total object keys: ", [count($frie
 // friend, get total object keys: 3
 
 console_log(string_interpolation("friend, get country: ", [$friend["country"]]));
-// friend, get country: Finland
+// friend, get country: "Finland"
 
 console_log(string_interpolation("friend, get country: ", [@$friend["country"]]));
-// friend, get country: Finland
+// friend, get country: "Finland"
 
 // iterate over and print each key-value pair and object entry index
 (function () use ($friend) {
@@ -90,9 +90,9 @@ console_log(string_interpolation("friend, get country: ", [@$friend["country"]])
         $object_entry_index += 1;
     }
 })();
-// friend, for each loop, object entry index: 0, key: name, value: Alisa
-// friend, for each loop, object entry index: 1, key: country, value: Finland
-// friend, for each loop, object entry index: 2, key: age, value: 25
+// friend, for each loop, object entry index: 0, key: "name", value: "Alisa"
+// friend, for each loop, object entry index: 1, key: "country", value: "Finland"
+// friend, for each loop, object entry index: 2, key: "age", value: 25
 
 $friend["age"] = 27;
 console_log(string_interpolation("friend: ", json_stringify($friend, ["pretty" => true])));

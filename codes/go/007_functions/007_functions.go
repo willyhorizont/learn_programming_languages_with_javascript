@@ -119,6 +119,11 @@ func getRectangleAreaV1(rectangleWidth int, rectangleLength int) int {
 }
 // call the function example: getRectangleAreaV1(7, 5)
 
+var getRectangleAreaV2 = func(rectangleWidth int, rectangleLength int) int {
+	return (rectangleWidth * rectangleLength)
+}
+// call the function example: getRectangleAreaV2(7, 5)
+
 // ? function statement or function declaration />
 
 
@@ -166,10 +171,10 @@ func multiplyV2(a int) func(b int) int {
 func main() {
     // ? function expression
 
-    getRectangleAreaV2 := func(rectangleWidth int, rectangleLength int) int {
+    getRectangleAreaV3 := func(rectangleWidth int, rectangleLength int) int {
         return (rectangleWidth * rectangleLength)
     }
-    // call the function example: getRectangleAreaV2(7, 5)
+    // call the function example: getRectangleAreaV3(7, 5)
 
     // ? anonymous function
 
@@ -242,6 +247,7 @@ func main() {
     multiplyBy4Result := multiplyBy4(10) // 40
 
     sprint("getRectangleAreaV2(7, 5): ", array{getRectangleAreaV2(7, 5)})
+    sprint("getRectangleAreaV3(7, 5): ", array{getRectangleAreaV3(7, 5)})
     sprint("getRectangleAreaV2Copy(7, 5): ", array{getRectangleAreaV2Copy(7, 5)})
     sprint("getRectangleAreaFunctionResult1: ", array{getRectangleAreaFunctionResult1})
     sprint("getRectangleAreaFunctionResult2: ", array{getRectangleAreaFunctionResult2})

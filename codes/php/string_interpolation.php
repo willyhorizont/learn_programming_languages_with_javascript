@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,35 +48,37 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
     echo string_interpolation(...$rest_arguments) . "\n";
 };
 
-console_log("JavaScript-like Template literals / Template strings (String Interpolation) in PHP (none 🤮)");
+console_log("// JavaScript-like Template literals / Template strings (String Interpolation) in PHP (none 🤮)");
 
 // PHP can only interpolate variables for string interpolation 🤮
 
 $my_name = "Alisa";
 $my_age = 25;
-echo "my name is $my_name and I am $my_age.\n";
-echo "my name is {$my_name} and I am {$my_age}.\n";
-// echo "my name is ${my_name} and I am ${my_age}.\n"; // this is not working and throw warning
-echo "my name is ", $my_name, " and I am ", $my_age, ".\n";
-echo "my name is " . $my_name . " and I am " . $my_age . ".\n";
+console_log("my name is $my_name and I am $my_age.");
+console_log("my name is {$my_name} and I am {$my_age}.");
+// console_log("my name is ${my_name} and I am ${my_age}."); // this is not working and throw warning
+console_log("my name is " . $my_name . " and I am " . $my_age . ".");
+console_log(string_interpolation("my name is ", $my_name, " and I am ", $my_age, "."));
 console_log(string_interpolation("my name is ", [$my_name], " and I am ", [$my_age], "."));
 
-echo "1 + 2 + 3 + 4 = {1 + 2 + 3 + 4}\n"; // this is not working
-// echo "1 + 2 + 3 + 4 = ${1 + 2 + 3 + 4}\n"; // this is not working and throw warning
+console_log("1 + 2 + 3 + 4 = {1 + 2 + 3 + 4}"); // this is not working
+// console_log("1 + 2 + 3 + 4 = ${1 + 2 + 3 + 4}"); // this is not working and throw warning
+console_log(string_interpolation("1 + 2 + 3 + 4 = ", 1 + 2 + 3 + 4));
 console_log(string_interpolation("1 + 2 + 3 + 4 = ", [1 + 2 + 3 + 4]));
 
 function get_rectangle_area($rectangle_width, $rectangle_length) {
     return ($rectangle_width * $rectangle_length);
 };
-echo "get_rectangle_area(7, 5): {get_rectangle_area(7, 5)}\n"; // this is not working
-// echo "get_rectangle_area(7, 5): ${get_rectangle_area(7, 5)}\n"; // this is not working and throw warning
+console_log("get_rectangle_area(7, 5): {get_rectangle_area(7, 5)}"); // this is not working
+// console_log("get_rectangle_area(7, 5): ${get_rectangle_area(7, 5)}"); // this is not working and throw warning
+console_log(string_interpolation("get_rectangle_area(7, 5): ", get_rectangle_area(7, 5)));
 console_log(string_interpolation("get_rectangle_area(7, 5): ", [get_rectangle_area(7, 5)]));
 
 $any_string = "foo";

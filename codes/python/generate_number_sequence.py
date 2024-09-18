@@ -26,7 +26,7 @@ def generate_number_sequence_v1(start_number, stop_number):
     return [0]
 
 
-generate_number_sequence_v2 = lambda start_number, stop_number: list(range(start_number, (stop_number + 1), 1)) if (stop_number > start_number) else list(range(start_number, (stop_number - 1), -1)) if (start_number > stop_number) else [0]  # generate_number_sequence_v2
+generate_number_sequence_v2 = lambda start_number, stop_number: ((list(range(start_number, (stop_number + 1), 1))) if (stop_number > start_number) else ((list(range(start_number, (stop_number - 1), -1))) if (start_number > stop_number) else [0]))  # generate_number_sequence_v2
 
 print(f"generate_number_sequence_v1(0, 9): {json_stringify(generate_number_sequence_v1(0, 9))}");
 # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]

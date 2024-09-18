@@ -34,7 +34,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every(fn($array_item) => (is_like_js_string($array_item) === true), array_keys($anything));
+    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
 };
 
 function get_type($anything) {
@@ -48,7 +48,7 @@ function get_type($anything) {
 };
 
 function string_interpolation(...$rest_arguments) {
-    return array_reduce($rest_arguments,  (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
+    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === "String") ? ($current_argument) : (((get_type($current_argument) === "Array") && (count($current_argument) === 1)) ? (json_stringify(@$current_argument[0])) : (json_stringify($current_argument)))))), "");
 };
 
 function console_log(...$rest_arguments) {
@@ -102,41 +102,41 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.some() function "array_some_v1"');
 
-$is_any_number_less_than_500 = array_some_v1(fn($number) => ($number < 500), $numbers);
+$is_any_number_less_than_500 = array_some_v1((fn($number) => ($number < 500)), $numbers);
 console_log(string_interpolation("is any number < 500: ", [$is_any_number_less_than_500]));
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v1(fn($number) => ($number > 500), $numbers);
+$is_any_number_more_than_500 = array_some_v1((fn($number) => ($number > 500)), $numbers);
 console_log(string_interpolation("is any number > 500: ", [$is_any_number_more_than_500]));
 // is any number > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v2"');
 
-$is_any_number_less_than_500 = array_some_v2(fn($number) => ($number < 500), $numbers);
+$is_any_number_less_than_500 = array_some_v2((fn($number) => ($number < 500)), $numbers);
 console_log(string_interpolation("is any number < 500: ", [$is_any_number_less_than_500]));
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v2(fn($number) => ($number > 500), $numbers);
+$is_any_number_more_than_500 = array_some_v2((fn($number) => ($number > 500)), $numbers);
 console_log(string_interpolation("is any number > 500: ", [$is_any_number_more_than_500]));
 // is any number > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v3"');
 
-$is_any_number_less_than_500 = array_some_v3(fn($number) => ($number < 500), $numbers);
+$is_any_number_less_than_500 = array_some_v3((fn($number) => ($number < 500)), $numbers);
 console_log(string_interpolation("is any number < 500: ", [$is_any_number_less_than_500]));
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v3(fn($number) => ($number > 500), $numbers);
+$is_any_number_more_than_500 = array_some_v3((fn($number) => ($number > 500)), $numbers);
 console_log(string_interpolation("is any number > 500: ", [$is_any_number_more_than_500]));
 // is any number > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v4"');
 
-$is_any_number_less_than_500 = array_some_v4(fn($number) => ($number < 500), $numbers);
+$is_any_number_less_than_500 = array_some_v4((fn($number) => ($number < 500)), $numbers);
 console_log(string_interpolation("is any number < 500: ", [$is_any_number_less_than_500]));
 // is any number < 500: true
 
-$is_any_number_more_than_500 = array_some_v4(fn($number) => ($number > 500), $numbers);
+$is_any_number_more_than_500 = array_some_v4((fn($number) => ($number > 500)), $numbers);
 console_log(string_interpolation("is any number > 500: ", [$is_any_number_more_than_500]));
 // is any number > 500: false
 
@@ -164,40 +164,40 @@ console_log(string_interpolation("products: ", json_stringify($products, ["prett
 
 console_log('// using JavaScript-like Array.some() function "array_some_v1"');
 
-$is_any_product_price_less_than_500 = array_some_v1(fn($product) => (@$product["price"] < 500), $products);
+$is_any_product_price_less_than_500 = array_some_v1((fn($product) => (@$product["price"] < 500)), $products);
 console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v1(fn($product) => (@$product["price"] > 500), $products);
+$is_any_product_price_more_than_500 = array_some_v1((fn($product) => (@$product["price"] > 500)), $products);
 console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
 // is any product price > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v2"');
 
-$is_any_product_price_less_than_500 = array_some_v2(fn($product) => (@$product["price"] < 500), $products);
+$is_any_product_price_less_than_500 = array_some_v2((fn($product) => (@$product["price"] < 500)), $products);
 console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v2(fn($product) => (@$product["price"] > 500), $products);
+$is_any_product_price_more_than_500 = array_some_v2((fn($product) => (@$product["price"] > 500)), $products);
 console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
 // is any product price > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v3"');
 
-$is_any_product_price_less_than_500 = array_some_v3(fn($product) => (@$product["price"] < 500), $products);
+$is_any_product_price_less_than_500 = array_some_v3((fn($product) => (@$product["price"] < 500)), $products);
 console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v3(fn($product) => (@$product["price"] > 500), $products);
+$is_any_product_price_more_than_500 = array_some_v3((fn($product) => (@$product["price"] > 500)), $products);
 console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
 // is any product price > 500: false
 
 console_log('// using JavaScript-like Array.some() function "array_some_v4"');
 
-$is_any_product_price_less_than_500 = array_some_v4(fn($product) => (@$product["price"] < 500), $products);
+$is_any_product_price_less_than_500 = array_some_v4((fn($product) => (@$product["price"] < 500)), $products);
 console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
 // is any product price < 500: true
 
-$is_any_product_price_more_than_500 = array_some_v4(fn($product) => (@$product["price"] > 500), $products);
+$is_any_product_price_more_than_500 = array_some_v4((fn($product) => (@$product["price"] > 500)), $products);
 console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
 // is any product price > 500: false

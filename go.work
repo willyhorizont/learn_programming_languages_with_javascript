@@ -24,11 +24,18 @@ use (
     ./codes/go/custom_error_and_error_handling
     ./codes/go/factorial
     ./codes/go/fizzbuzz
+    ./codes/go/function_iife
+    ./codes/go/function_optional_argument_default_argument_value
+    ./codes/go/function_variadic_rest_arguments
+    ./codes/go/generate_number_sequence
+    ./codes/go/get_type
+    ./codes/go/json_stringify
     ./codes/go/object_entries
     ./codes/go/object_from_entries
     ./codes/go/object_keys
     ./codes/go/object_values
     ./codes/go/string_interpolation
+    ./codes/go/variables_and_scopes
     ./codes/go/www_001_abbreviate_name
     ./codes/go/www_002_count_vowels
     ./codes/go/xxx_chaos

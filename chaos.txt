@@ -80,6 +80,7 @@ simultaneously {
 array_entries, array_keys, array_values, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
 string, number, json_parse, string interpolation
+create spread_object and spread_array function using object_entries and object_from_entries, especially in *.go
 isAnagram
 generateAnagram
 hello world waterfall
