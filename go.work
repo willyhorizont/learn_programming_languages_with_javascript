@@ -20,6 +20,7 @@ use (
     ./codes/go/array_map
     ./codes/go/array_reduce
     ./codes/go/array_some
+    ./codes/go/console_log
     ./codes/go/custom_error_and_error_handling
     ./codes/go/factorial
     ./codes/go/fizzbuzz
@@ -27,6 +28,7 @@ use (
     ./codes/go/object_from_entries
     ./codes/go/object_keys
     ./codes/go/object_values
+    ./codes/go/string_interpolation
     ./codes/go/www_001_abbreviate_name
     ./codes/go/www_002_count_vowels
     ./codes/go/xxx_chaos

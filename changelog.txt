@@ -1,4 +1,12 @@
 =============================changelog==========================================
+(2024/09[Sep]/18[Wed]|12:11[PM]/12:11)
+1.0.70
+New:
+update string_interpolation and console_log in *.php
+TODO:
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/18[Wed]|02:22[AM]/02:22)
 1.0.69
 New:
