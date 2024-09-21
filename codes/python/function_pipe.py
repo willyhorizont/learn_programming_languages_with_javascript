@@ -111,14 +111,14 @@ def json_stringify(anything, **optional_argument):
     return json_stringify_inner(anything)
 
 
-print("\n# JavaScript-like Object.keys() in Python dictionary")
+print("# Pipe Function in Python")
 
-friend = {
-    "name": "Alisa",
-    "country": "Finland",
-    "age": 25
-}
-print(f"friend: {json_stringify(friend, pretty=True)}")
+plus25 = lambda a_number: (a_number + 25)
 
-print(f'friend keys: {json_stringify(list(friend.keys()))}')
-# friend keys: ["name", "country", "age"]
+multiply_by10 = lambda a_number: (a_number * 10)
+
+print(multiply_by10(plus25(17)))  # read from inside to outside
+
+pipe(17, plus25, multiply_by10, print)  # read from left to right
+
+print(pipe(17, plus25, multiply_by10))  # read from left to right

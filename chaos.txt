@@ -60,8 +60,13 @@ function_iife.*
 generate_number_sequence.*
 variables_and_scopes.*
 object_from_entries.*
+function_pipe.*
 
 todo in js flavour langs repo:
+add jsLikeType to getType
+update optional_chaining handle function call
+rename objectPropertiesArray to arrayIndexOrObjectKeyArray
+refactor Go files and folder structures
 simultaneously {
     create string_interpolation.*
     create function_variadic_rest_arguments.*, rename arguments to rest arguments
@@ -76,7 +81,9 @@ simultaneously {
     create generate_number_sequence.*
     create variables_and_scopes.*
     create object_from_entries.*
+    create function_pipe.*
 }
+deep_clone
 array_entries, array_keys, array_values, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
 string, number, json_parse, string interpolation

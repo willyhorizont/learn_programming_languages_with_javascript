@@ -1,3 +1,5 @@
+console.log("// deep clone in JavaScript");
+
 const jsType = {
     "Null": "Null",
     "Boolean": "Boolean",
@@ -33,6 +35,34 @@ const getType = (anything) => {
     return Object.prototype.toString.call(anything);
 };
 
+const deepClone = (anything) => {
+    if ((anything === undefined) || (getType(anything) === jsType.Null) || (getType(anything) === jsType.String) || (getType(anything) === jsType.Numeric) || (getType(anything) === jsType.Boolean)) return anything;
+    if (getType(anything) === jsType.Object) {
+        const objectEntry = Object.entries(anything);
+        const newObject = {};
+        for (let arrayItemIndex = 0; (arrayItemIndex < objectEntry.length); arrayItemIndex += 1) {
+            const [objectKey, objectValue] = objectEntry[arrayItemIndex];
+            const newObjectValue = deepClone(objectValue);
+            if (newObjectValue !== "unknown") {
+                newObject[objectKey] = newObjectValue;
+            }
+        }
+        return newObject;
+    }
+    if (getType(anything) === jsType.Array) {
+        const newArray = [];
+        for (let arrayItemIndex = 0; (arrayItemIndex < anything.length); arrayItemIndex += 1) {
+            const arrayItem = anything[arrayItemIndex];
+            const newArrayItem = deepClone(arrayItem);
+            if (newArrayItem !== "unknown") {
+                newArray.push(newArrayItem);
+            }
+        }
+        return newArray;
+    }
+    return "unknown";
+};
+
 const jsonStringify = (anything, { pretty = false } = {}) => {
     // custom JSON.stringify() function jsonStringifyV3
     const indent = " ".repeat(4);
@@ -44,7 +74,7 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
         if (getType(anythingInner) === jsType.Object) {
             if (Object.keys(anythingInner).length === 0) return "{}";
             indentLevel += 1;
-            let result = ((pretty === true) ? (`{\n${indent.repeat(indentLevel)}`) : "{ ");
+            let result = ((pretty === true) ? (`{\n${indent.repeat(indentLevel)}`) : "{");
             Object.entries(anythingInner).forEach(([objectKey, objectValue], objectEntryIndex) => {
                 result = `${result}"${objectKey}": ${jsonStringifyInner(objectValue)}`;
                 if ((objectEntryIndex + 1) !== Object.keys(anythingInner).length) {
@@ -52,7 +82,7 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
                 }
             });
             indentLevel -= 1;
-            result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}}`) : " }")}`;
+            result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}}`) : "}")}`;
             return result;
         }
         if (getType(anythingInner) === jsType.Array) {
@@ -70,35 +100,34 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
             return result;
         }
         if (getType(anythingInner) === jsType.Function) return '"[object Function]"';
-        return `"${getType(anything)}"`;
+        return getType(anything);
     };
     return jsonStringifyInner(anything);
 };
 
-console.log("\n// Array.includes() in JavaScript");
-
-const myFriends = ["Alisa", "Trivia"];
-console.log(`my friends: ${jsonStringify(myFriends)}`);
-
-let aName;
-let isMyFriend;
-
-aName = "Alisa";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Alisa": true
-
-aName = "Trivia";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Trivia": true
-
-aName = "Tony";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Tony": false
-
-aName = "Ezekiel";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Ezekiel": false
+const myArray = [
+    function (a, b) {
+        return (a * b);
+    },
+    "foo",
+    123,
+    true,
+    null,
+    [1, 2, 3],
+    { "foo": "bar" }
+];
+console.log(`jsonStringify(deepClone(myArray)): ${jsonStringify(deepClone(myArray))}`);
+const myObject = {
+    "my_function": function (a, b) {
+        return (a * b);
+    },
+    "my_string": "foo",
+    "my_number": 123,
+    "my_bool": true,
+    "my_null": null,
+    "my_array": [1, 2, 3],
+    "my_object": {
+        "foo": "bar"
+    }
+};
+console.log(`jsonStringify(deepClone(myObject)): ${jsonStringify(deepClone(myObject))}`);

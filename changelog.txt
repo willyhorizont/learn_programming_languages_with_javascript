@@ -1,4 +1,19 @@
 =============================changelog==========================================
+(2024/09[Sep]/22[Sun]|01:11[AM]/01:11)
+1.0.72
+New:
+update 009_operator_optional_chaining.js,py,php
+update 010_operator_nullish_coalescing.js,py,php
+update 007_functions.js,py,php
+create function_pipe.js,py,php
+update json_stringify.js,py,php
+update get_type.js,py,php
+update yyy_required_features.js,py,php
+TODO:
+finish *.go
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/19[Thu]|02:18[AM]/02:18)
 1.0.71
 New:

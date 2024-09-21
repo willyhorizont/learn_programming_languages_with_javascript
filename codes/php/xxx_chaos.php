@@ -13,6 +13,7 @@ console_log\((?!.*string_interpolation)
 "$
 [^\(]+fn\(\$
 [^ ]  [^ ]
+@$
 */
 
 $item1 = "something";

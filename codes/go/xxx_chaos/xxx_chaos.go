@@ -222,5 +222,9 @@ func main() {
 
 	/*
 any|array|object
+map\[string\](?!interface\{)
+\[\](?!interface\{\})
+:"
+change \" to " and change " to `
 	*/
 }
