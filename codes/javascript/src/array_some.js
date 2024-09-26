@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -80,11 +80,11 @@ console.log("\n// Array.some() in JavaScript Array");
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${jsonStringify(numbers)}`);
 
-const isAnyNumberLessThan500 = numbers.some((number) => (number < 500));
+const isAnyNumberLessThan500 = numbers.some((anyNumber) => (anyNumber < 500));
 console.log(`is any number < 500: ${isAnyNumberLessThan500}`);
 // is any number < 500: true
 
-const isAnyNumberMoreThan500 = numbers.some((number) => (number > 500));
+const isAnyNumberMoreThan500 = numbers.some((anyNumber) => (anyNumber > 500));
 console.log(`is any number > 500: ${isAnyNumberMoreThan500}`);
 // is any number > 500: false
 
@@ -110,10 +110,10 @@ const products = [
 ];
 console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 
-const isAnyProductPriceLessThan500 = products.some((product) => (product?.price < 500));
+const isAnyProductPriceLessThan500 = products.some((anyProduct) => (anyProduct?.price < 500));
 console.log(`is any product price < 500: ${isAnyProductPriceLessThan500}`);
 // is any product price < 500: true
 
-const isAnyProductPriceMoreThan500 = products.some((product) => (product?.price > 500));
+const isAnyProductPriceMoreThan500 = products.some((anyProduct) => (anyProduct?.price > 500));
 console.log(`is any product price > 500: ${isAnyProductPriceMoreThan500}`);
 // is any product price > 500: false

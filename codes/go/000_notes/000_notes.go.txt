@@ -30,3 +30,21 @@ Float32
 Float64
 Complex64
 Complex128
+
+isLikeJsError := func(restArguments ...interface{}) interface{} {
+    anything := restArguments[0]
+    switch anything.(type) {
+    case error:
+        return true
+    default:
+        return false
+    }
+}
+isLikeJsError2 := func(restArguments ...interface{}) interface{} {
+    anything := restArguments[0]
+    if _, ok := anything.(error); ok {
+        return true
+    } else {
+        return false
+    }
+}

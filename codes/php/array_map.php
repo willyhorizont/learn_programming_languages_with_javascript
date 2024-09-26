@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -180,7 +180,7 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.map() function "array_map_v1"');
 
-$numbers_labeled = array_map_v1((fn($number) => ([$number => ((($number % 2) === 0) ? "even" : "odd")])), $numbers);
+$numbers_labeled = array_map_v1((fn($any_number) => ([$any_number => ((($any_number % 2) === 0) ? "even" : "odd")])), $numbers);
 console_log(string_interpolation("labeled numbers: ", json_stringify($numbers_labeled, ["pretty" => true])));
 // labeled numbers: [
 //     {
@@ -217,7 +217,7 @@ console_log(string_interpolation("labeled numbers: ", json_stringify($numbers_la
 
 console_log('// using JavaScript-like Array.map() function "array_map_v2"');
 
-$numbers_labeled = array_map_v2((fn($number) => ([$number => ((($number % 2) === 0) ? "even" : "odd")])), $numbers);
+$numbers_labeled = array_map_v2((fn($any_number) => ([$any_number => ((($any_number % 2) === 0) ? "even" : "odd")])), $numbers);
 console_log(string_interpolation("labeled numbers: ", json_stringify($numbers_labeled, ["pretty" => true])));
 // labeled numbers: [
 //     {
@@ -254,7 +254,7 @@ console_log(string_interpolation("labeled numbers: ", json_stringify($numbers_la
 
 console_log('// using PHP Array.map() built-in function "array_map"');
 
-$numbers_labeled = array_map((fn($number) => ([$number => ((($number % 2) === 0) ? "even" : "odd")])), $numbers);
+$numbers_labeled = array_map((fn($any_number) => ([$any_number => ((($any_number % 2) === 0) ? "even" : "odd")])), $numbers);
 console_log(string_interpolation("labeled numbers: ", json_stringify($numbers_labeled, ["pretty" => true])));
 // labeled numbers: [
 //     {
@@ -313,7 +313,7 @@ console_log(string_interpolation("products: ", json_stringify($products, ["prett
 
 console_log('// using JavaScript-like Array.map() function "array_map_v1"');
 
-$products_labeled = array_map_v1((fn($product) => ([...$product, "label" => ((optional_chaining($product, "price") > 100) ? "expensive" : "cheap")])), $products);
+$products_labeled = array_map_v1((fn($any_product) => ([...$any_product, "label" => ((optional_chaining($any_product, "price") > 100) ? "expensive" : "cheap")])), $products);
 console_log(string_interpolation("labeled products: ", json_stringify($products_labeled, ["pretty" => true])));
 // labeled products: [
 //     {
@@ -340,7 +340,7 @@ console_log(string_interpolation("labeled products: ", json_stringify($products_
 
 console_log('// using JavaScript-like Array.map() function "array_map_v2"');
 
-$products_labeled = array_map_v2((fn($product) => ([...$product, "label" => ((optional_chaining($product, "price") > 100) ? "expensive" : "cheap")])), $products);
+$products_labeled = array_map_v2((fn($any_product) => ([...$any_product, "label" => ((optional_chaining($any_product, "price") > 100) ? "expensive" : "cheap")])), $products);
 console_log(string_interpolation("labeled products: ", json_stringify($products_labeled, ["pretty" => true])));
 // labeled products: [
 //     {
@@ -367,7 +367,7 @@ console_log(string_interpolation("labeled products: ", json_stringify($products_
 
 console_log('// using PHP Array.map() built-in function "array_map"');
 
-$products_labeled = array_map((fn($product) => ([...$product, "label" => ((optional_chaining($product, "price") > 100) ? "expensive" : "cheap")])), $products);
+$products_labeled = array_map((fn($any_product) => ([...$any_product, "label" => ((optional_chaining($any_product, "price") > 100) ? "expensive" : "cheap")])), $products);
 console_log(string_interpolation("labeled products: ", json_stringify($products_labeled, ["pretty" => true])));
 // labeled products: [
 //     {

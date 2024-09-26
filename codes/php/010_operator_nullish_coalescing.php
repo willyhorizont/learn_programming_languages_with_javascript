@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -183,10 +183,10 @@ console_log(string_interpolation('(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "n
 // (JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): 35
 
 console_log(string_interpolation('(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): ', [(optional_chaining(optional_chaining($JSON_OBJECT, "get_circle_area"), 7) ?? "not found")]));
-// (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): 35
+// (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): "not found"
 
 console_log(string_interpolation('(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): ', [(pipe(optional_chaining($JSON_OBJECT, "get_rectangle_area"), (fn($_) => (optional_chaining($_, 7, 5)))) ?? "not found")]));
 // (JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): 35
 
 console_log(string_interpolation('(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): ', [(pipe(optional_chaining($JSON_OBJECT, "get_circle_area"), (fn($_) => (optional_chaining($_, 7)))) ?? "not found")]));
-// (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): 35
+// (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): "not found"

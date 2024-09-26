@@ -117,8 +117,10 @@ func main() {
 	jsonStringify := func(restArguments ...interface{}) string {
 		prettyDefault := false
 		indentDefault := "    "
-		jsonStringifyInner := func(anythingInner interface{}, prettyInner bool) string {
-			if (prettyInner == true) {
+		var anything interface{} = restArguments[0]
+		var pretty interface{} = nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
+		jsonStringifyInner := func(anythingInner interface{}) string {
+			if (pretty == true) {
 				jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentDefault)
 				if (err == nil) {
 					return string(jsonStringifyInnerResult)
@@ -127,13 +129,11 @@ func main() {
 			}
 			jsonStringifyInnerResult, err := json.Marshal(anythingInner)
 			if (err == nil) {
-				return strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(jsonStringifyInnerResult), "{", "{ ")), "}", " }")), ":", ": ")), ",", ", ")
+				return (strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(strings.ReplaceAll(string(jsonStringifyInnerResult), "{", "{ ")), "}", " }")), ":", ": ")), ",", ", "))
 			}
 			return "null"
 		}
-		var anything interface{} = restArguments[0]
-		var pretty interface{} = nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
-		return jsonStringifyInner(anything, pretty.(bool))
+		return jsonStringifyInner(anything)
 	}
 	stringInterpolation := func(restArguments ...interface{}) string {
         return (arrayReduce(func(currentResult interface{}, currentArgument interface{}, _ int, _ []interface{}) interface{} {

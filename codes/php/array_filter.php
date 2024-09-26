@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -180,31 +180,31 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.filter() function "array_filter_v1"');
 
-$numbers_even = array_filter_v1((fn($number) => (($number % 2) === 0)), $numbers);
+$numbers_even = array_filter_v1((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
-$numbers_odd = array_filter_v1((fn($number) => (($number % 2) !== 0)), $numbers);
+$numbers_odd = array_filter_v1((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
 console_log('// using JavaScript-like Array.filter() function "array_filter_v2"');
 
-$numbers_even = array_filter_v2((fn($number) => (($number % 2) === 0)), $numbers);
+$numbers_even = array_filter_v2((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
-$numbers_odd = array_filter_v2((fn($number) => (($number % 2) !== 0)), $numbers);
+$numbers_odd = array_filter_v2((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
 console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
 
-$numbers_even = array_values(array_filter($numbers, (fn($number) => (($number % 2) === 0))));
+$numbers_even = array_values(array_filter($numbers, (fn($any_number) => (($any_number % 2) === 0))));
 console_log(string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
-$numbers_odd = array_values(array_filter($numbers, (fn($number) => (($number % 2) !== 0))));
+$numbers_odd = array_values(array_filter($numbers, (fn($any_number) => (($any_number % 2) !== 0))));
 console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
@@ -232,7 +232,7 @@ console_log(string_interpolation("products: ", json_stringify($products, ["prett
 
 console_log('// using JavaScript-like Array.filter() function "array_filter_v1"');
 
-$products_below_100 = array_filter_v1((fn($product) => (optional_chaining($product, "price") <= 100)), $products);
+$products_below_100 = array_filter_v1((fn($any_product) => (optional_chaining($any_product, "price") <= 100)), $products);
 console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
 // products with price <= 100 only: [
 //     {
@@ -241,7 +241,7 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_filter_v1((fn($product) => (optional_chaining($product, "price") > 100)), $products);
+$products_above_100 = array_filter_v1((fn($any_product) => (optional_chaining($any_product, "price") > 100)), $products);
 console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
 // products with price > 100 only: [
 //     {
@@ -260,7 +260,7 @@ console_log(string_interpolation("products with price > 100 only: ", json_string
 
 console_log('// using JavaScript-like Array.filter() function "array_filter_v2"');
 
-$products_below_100 = array_filter_v2((fn($product) => (optional_chaining($product, "price") <= 100)), $products);
+$products_below_100 = array_filter_v2((fn($any_product) => (optional_chaining($any_product, "price") <= 100)), $products);
 console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
 // products with price <= 100 only: [
 //     {
@@ -269,7 +269,7 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_filter_v2((fn($product) => (optional_chaining($product, "price") > 100)), $products);
+$products_above_100 = array_filter_v2((fn($any_product) => (optional_chaining($any_product, "price") > 100)), $products);
 console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
 // products with price > 100 only: [
 //     {
@@ -288,7 +288,7 @@ console_log(string_interpolation("products with price > 100 only: ", json_string
 
 console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
 
-$products_below_100 = array_values(array_filter($products, (fn($product) => (optional_chaining($product, "price") <= 100))));
+$products_below_100 = array_values(array_filter($products, (fn($any_product) => (optional_chaining($any_product, "price") <= 100))));
 console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
 // products with price <= 100 only: [
 //     {
@@ -297,7 +297,7 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_values(array_filter($products, (fn($product) => (optional_chaining($product, "price") > 100))));
+$products_above_100 = array_values(array_filter($products, (fn($any_product) => (optional_chaining($any_product, "price") > 100))));
 console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
 // products with price > 100 only: [
 //     {

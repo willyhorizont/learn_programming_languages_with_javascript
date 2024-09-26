@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -201,41 +201,41 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.every() function "array_every_v1"');
 
-$is_all_number_less_than_500 = array_every_v1((fn($number) => ($number < 500)), $numbers);
+$is_all_number_less_than_500 = array_every_v1((fn($any_number) => ($any_number < 500)), $numbers);
 console_log(string_interpolation("is all number < 500: ", [$is_all_number_less_than_500]));
 // is all number < 500: true
 
-$is_all_number_more_than_500 = array_every_v1((fn($number) => ($number > 500)), $numbers);
+$is_all_number_more_than_500 = array_every_v1((fn($any_number) => ($any_number > 500)), $numbers);
 console_log(string_interpolation("is all number > 500: ", [$is_all_number_more_than_500]));
 // is all number > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v2"');
 
-$is_all_number_less_than_500 = array_every_v2((fn($number) => ($number < 500)), $numbers);
+$is_all_number_less_than_500 = array_every_v2((fn($any_number) => ($any_number < 500)), $numbers);
 console_log(string_interpolation("is all number < 500: ", [$is_all_number_less_than_500]));
 // is all number < 500: true
 
-$is_all_number_more_than_500 = array_every_v2((fn($number) => ($number > 500)), $numbers);
+$is_all_number_more_than_500 = array_every_v2((fn($any_number) => ($any_number > 500)), $numbers);
 console_log(string_interpolation("is all number > 500: ", [$is_all_number_more_than_500]));
 // is all number > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v3"');
 
-$is_all_number_less_than_500 = array_every_v3((fn($number) => ($number < 500)), $numbers);
+$is_all_number_less_than_500 = array_every_v3((fn($any_number) => ($any_number < 500)), $numbers);
 console_log(string_interpolation("is all number < 500: ", [$is_all_number_less_than_500]));
 // is all number < 500: true
 
-$is_all_number_more_than_500 = array_every_v3((fn($number) => ($number > 500)), $numbers);
+$is_all_number_more_than_500 = array_every_v3((fn($any_number) => ($any_number > 500)), $numbers);
 console_log(string_interpolation("is all number > 500: ", [$is_all_number_more_than_500]));
 // is all number > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v4"');
 
-$is_all_number_less_than_500 = array_every_v4((fn($number) => ($number < 500)), $numbers);
+$is_all_number_less_than_500 = array_every_v4((fn($any_number) => ($any_number < 500)), $numbers);
 console_log(string_interpolation("is all number < 500: ", [$is_all_number_less_than_500]));
 // is all number < 500: true
 
-$is_all_number_more_than_500 = array_every_v4((fn($number) => ($number > 500)), $numbers);
+$is_all_number_more_than_500 = array_every_v4((fn($any_number) => ($any_number > 500)), $numbers);
 console_log(string_interpolation("is all number > 500: ", [$is_all_number_more_than_500]));
 // is all number > 500: false
 
@@ -263,40 +263,40 @@ console_log(string_interpolation("products: ", json_stringify($products, ["prett
 
 console_log('// using JavaScript-like Array.every() function "array_every_v1"');
 
-$is_all_product_price_less_than_500 = array_every_v1((fn($product) => (optional_chaining($product, "price") < 500)), $products);
+$is_all_product_price_less_than_500 = array_every_v1((fn($any_product) => (optional_chaining($any_product, "price") < 500)), $products);
 console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
 // is all product price < 500: true
 
-$is_all_product_price_more_than_500 = array_every_v1((fn($product) => (optional_chaining($product, "price") > 500)), $products);
+$is_all_product_price_more_than_500 = array_every_v1((fn($any_product) => (optional_chaining($any_product, "price") > 500)), $products);
 console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
 // is all product price > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v2"');
 
-$is_all_product_price_less_than_500 = array_every_v2((fn($product) => (optional_chaining($product, "price") < 500)), $products);
+$is_all_product_price_less_than_500 = array_every_v2((fn($any_product) => (optional_chaining($any_product, "price") < 500)), $products);
 console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
 // is all product price < 500: true
 
-$is_all_product_price_more_than_500 = array_every_v2((fn($product) => (optional_chaining($product, "price") > 500)), $products);
+$is_all_product_price_more_than_500 = array_every_v2((fn($any_product) => (optional_chaining($any_product, "price") > 500)), $products);
 console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
 // is all product price > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v3"');
 
-$is_all_product_price_less_than_500 = array_every_v3((fn($product) => (optional_chaining($product, "price") < 500)), $products);
+$is_all_product_price_less_than_500 = array_every_v3((fn($any_product) => (optional_chaining($any_product, "price") < 500)), $products);
 console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
 // is all product price < 500: true
 
-$is_all_product_price_more_than_500 = array_every_v3((fn($product) => (optional_chaining($product, "price") > 500)), $products);
+$is_all_product_price_more_than_500 = array_every_v3((fn($any_product) => (optional_chaining($any_product, "price") > 500)), $products);
 console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
 // is all product price > 500: false
 
 console_log('// using JavaScript-like Array.every() function "array_every_v4"');
 
-$is_all_product_price_less_than_500 = array_every_v4((fn($product) => (optional_chaining($product, "price") < 500)), $products);
+$is_all_product_price_less_than_500 = array_every_v4((fn($any_product) => (optional_chaining($any_product, "price") < 500)), $products);
 console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
 // is all product price < 500: true
 
-$is_all_product_price_more_than_500 = array_every_v4((fn($product) => (optional_chaining($product, "price") > 500)), $products);
+$is_all_product_price_more_than_500 = array_every_v4((fn($any_product) => (optional_chaining($any_product, "price") > 500)), $products);
 console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
 // is all product price > 500: false

@@ -26,6 +26,7 @@ use (
     ./codes/go/fizzbuzz
     ./codes/go/function_iife
     ./codes/go/function_optional_argument_default_argument_value
+    ./codes/go/function_pipe
     ./codes/go/function_variadic_rest_arguments
     ./codes/go/generate_number_sequence
     ./codes/go/get_type

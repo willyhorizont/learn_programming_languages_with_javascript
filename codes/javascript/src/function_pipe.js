@@ -22,7 +22,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -58,3 +58,17 @@ console.log(multiplyBy10(plus25(17))); // read from inside to outside
 pipe(17, plus25, multiplyBy10, console.log); // read from left to right
 
 console.log(pipe(17, plus25, multiplyBy10)); // read from left to right
+
+const makeNumbersEasyToSay = (aNumber) => (`${Math.trunc(aNumber)}.something`);
+
+const getCircleAreaInSquareCm = (radiusInCm) => (3.14 * (radiusInCm ** 2));
+
+const getCylinderVolumeInMlOrCubicCm = (circleAreaInSquareCm, heightInCm) => (circleAreaInSquareCm * heightInCm);
+
+const getMassInMlOrCubicCm = (volumeInMlOrCubicCm, densityInGramPerMlOrCubicCm) => (volumeInMlOrCubicCm * densityInGramPerMlOrCubicCm);
+
+console.log(makeNumbersEasyToSay(getMassInMlOrCubicCm(getCylinderVolumeInMlOrCubicCm(getCircleAreaInSquareCm(7), 10), 0.72587))); // read from inside to outside
+
+pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumbersEasyToSay, console.log); // read from left to right
+
+console.log(pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumbersEasyToSay)); // read from left to right

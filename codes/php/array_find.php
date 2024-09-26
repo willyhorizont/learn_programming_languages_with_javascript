@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -210,41 +210,41 @@ console_log(string_interpolation("numbers: ", [$numbers]));
 
 console_log('// using JavaScript-like Array.find() function "array_find_v1"');
 
-$even_number_found = array_find_v1((fn($number) => (($number % 2) === 0)), $numbers);
+$even_number_found = array_find_v1((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even number found: ", [$even_number_found]));
 // even number found: 12
 
-$odd_number_found = array_find_v1((fn($number) => (($number % 2) !== 0)), $numbers);
+$odd_number_found = array_find_v1((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd number found: ", [$odd_number_found]));
 // odd number found: 27
 
 console_log('// using JavaScript-like Array.find() function "array_find_v2"');
 
-$even_number_found = array_find_v2((fn($number) => (($number % 2) === 0)), $numbers);
+$even_number_found = array_find_v2((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even number found: ", [$even_number_found]));
 // even number found: 12
 
-$odd_number_found = array_find_v2((fn($number) => (($number % 2) !== 0)), $numbers);
+$odd_number_found = array_find_v2((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd number found: ", [$odd_number_found]));
 // odd number found: 27
 
 console_log('// using JavaScript-like Array.find() function "array_find_v3"');
 
-$even_number_found = array_find_v3((fn($number) => (($number % 2) === 0)), $numbers);
+$even_number_found = array_find_v3((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even number found: ", [$even_number_found]));
 // even number found: 12
 
-$odd_number_found = array_find_v3((fn($number) => (($number % 2) !== 0)), $numbers);
+$odd_number_found = array_find_v3((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd number found: ", [$odd_number_found]));
 // odd number found: 27
 
 console_log('// using JavaScript-like Array.find() function "array_find_v4"');
 
-$even_number_found = array_find_v4((fn($number) => (($number % 2) === 0)), $numbers);
+$even_number_found = array_find_v4((fn($any_number) => (($any_number % 2) === 0)), $numbers);
 console_log(string_interpolation("even number found: ", [$even_number_found]));
 // even number found: 12
 
-$odd_number_found = array_find_v4((fn($number) => (($number % 2) !== 0)), $numbers);
+$odd_number_found = array_find_v4((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
 console_log(string_interpolation("odd number found: ", [$odd_number_found]));
 // odd number found: 27
 
@@ -275,7 +275,7 @@ console_log(string_interpolation("product to find: ", [$product_to_find]));
 
 console_log('// using JavaScript-like Array.find() function "array_find_v1"');
 
-$product_found = array_find_v1((fn($product) => (optional_chaining($product, "code") === $product_to_find)), $products);
+$product_found = array_find_v1((fn($any_product) => (optional_chaining($any_product, "code") === $product_to_find)), $products);
 console_log(string_interpolation("product found: ", json_stringify($product_found, ["pretty" => true])));
 // product found: {
 //     "code": "bubble_gum",
@@ -284,7 +284,7 @@ console_log(string_interpolation("product found: ", json_stringify($product_foun
 
 console_log('// using JavaScript-like Array.find() function "array_find_v2"');
 
-$product_found = array_find_v2((fn($product) => (optional_chaining($product, "code") === $product_to_find)), $products);
+$product_found = array_find_v2((fn($any_product) => (optional_chaining($any_product, "code") === $product_to_find)), $products);
 console_log(string_interpolation("product found: ", json_stringify($product_found, ["pretty" => true])));
 // product found: {
 //     "code": "bubble_gum",
@@ -293,7 +293,7 @@ console_log(string_interpolation("product found: ", json_stringify($product_foun
 
 console_log('// using JavaScript-like Array.find() function "array_find_v3"');
 
-$product_found = array_find_v3((fn($product) => (optional_chaining($product, "code") === $product_to_find)), $products);
+$product_found = array_find_v3((fn($any_product) => (optional_chaining($any_product, "code") === $product_to_find)), $products);
 console_log(string_interpolation("product found: ", json_stringify($product_found, ["pretty" => true])));
 // product found: {
 //     "code": "bubble_gum",
@@ -302,7 +302,7 @@ console_log(string_interpolation("product found: ", json_stringify($product_foun
 
 console_log('// using JavaScript-like Array.find() function "array_find_v4"');
 
-$product_found = array_find_v4((fn($product) => (optional_chaining($product, "code") === $product_to_find)), $products);
+$product_found = array_find_v4((fn($any_product) => (optional_chaining($any_product, "code") === $product_to_find)), $products);
 console_log(string_interpolation("product found: ", json_stringify($product_found, ["pretty" => true])));
 // product found: {
 //     "code": "bubble_gum",

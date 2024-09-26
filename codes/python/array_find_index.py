@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *array_index_or_object_key_or_function_argument_array: ((anything(*array_index_or_object_key_or_function_argument_array)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(array_index_or_object_key_or_function_argument_array) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, array_index_or_object_key_or_function_argument_array, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -163,25 +163,25 @@ print(f"number to find: {number_to_find}")
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v1"')
 
-number_found_index = array_find_index_v1(lambda number, *_: (number == number_to_find), numbers)
+number_found_index = array_find_index_v1(lambda any_number, *_: (any_number == number_to_find), numbers)
 print(f"number found index: {number_found_index}")
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v2"')
 
-number_found_index = array_find_index_v2(lambda number, *_: (number == number_to_find), numbers)
+number_found_index = array_find_index_v2(lambda any_number, *_: (any_number == number_to_find), numbers)
 print(f"number found index: {number_found_index}")
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v3"')
 
-number_found_index = array_find_index_v3(lambda number, *_: (number == number_to_find), numbers)
+number_found_index = array_find_index_v3(lambda any_number, *_: (any_number == number_to_find), numbers)
 print(f"number found index: {number_found_index}")
 # number found index: 2
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v4"')
 
-number_found_index = array_find_index_v4(lambda number, *_: (number == number_to_find), numbers)
+number_found_index = array_find_index_v4(lambda any_number, *_: (any_number == number_to_find), numbers)
 print(f"number found index: {number_found_index}")
 # number found index: 2
 
@@ -212,24 +212,24 @@ print(f"product to find: {product_to_find}")
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v1"')
 
-product_found_index = array_find_index_v1(lambda product, *_: (product['code'] == product_to_find), products)
+product_found_index = array_find_index_v1(lambda any_product, *_: (any_product['code'] == product_to_find), products)
 print(f"product found index: {product_found_index}")
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v2"')
 
-product_found_index = array_find_index_v2(lambda product, *_: (product['code'] == product_to_find), products)
+product_found_index = array_find_index_v2(lambda any_product, *_: (any_product['code'] == product_to_find), products)
 print(f"product found index: {product_found_index}")
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v3"')
 
-product_found_index = array_find_index_v3(lambda product, *_: (product['code'] == product_to_find), products)
+product_found_index = array_find_index_v3(lambda any_product, *_: (any_product['code'] == product_to_find), products)
 print(f"product found index: {product_found_index}")
 # product found index: 0
 
 print('# using JavaScript-like Array.findIndex() function "array_find_index_v4"')
 
-product_found_index = array_find_index_v4(lambda product, *_: (product['code'] == product_to_find), products)
+product_found_index = array_find_index_v4(lambda any_product, *_: (any_product['code'] == product_to_find), products)
 print(f"product found index: {product_found_index}")
 # product found index: 0

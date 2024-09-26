@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *array_index_or_object_key_or_function_argument_array: ((anything(*array_index_or_object_key_or_function_argument_array)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(array_index_or_object_key_or_function_argument_array) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, array_index_or_object_key_or_function_argument_array, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -122,3 +122,17 @@ print(multiply_by10(plus25(17)))  # read from inside to outside
 pipe(17, plus25, multiply_by10, print)  # read from left to right
 
 print(pipe(17, plus25, multiply_by10))  # read from left to right
+
+make_numbers_easy_to_say = lambda a_number: f"{int(a_number)}.something"
+
+get_circle_area_in_square_cm = lambda radius_in_cm: (3.14 * (radius_in_cm ** 2))
+
+get_cylinder_volume_in_ml_or_cubic_cm = lambda circle_area_in_square_cm, height_in_cm: (circle_area_in_square_cm * height_in_cm)
+
+get_mass_in_ml_or_cubic_cm = lambda volume_in_ml_or_cubic_cm, density_in_gram_per_ml_or_cubic_cm: (volume_in_ml_or_cubic_cm * density_in_gram_per_ml_or_cubic_cm)
+
+print(make_numbers_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587)))  # read from inside to outside
+
+pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_numbers_easy_to_say, print)  # read from left to right
+
+print(pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_numbers_easy_to_say))  # read from left to right

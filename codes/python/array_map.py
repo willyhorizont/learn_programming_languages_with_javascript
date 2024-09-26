@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *array_index_or_object_key_or_function_argument_array: ((anything(*array_index_or_object_key_or_function_argument_array)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(array_index_or_object_key_or_function_argument_array) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, array_index_or_object_key_or_function_argument_array, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -159,7 +159,7 @@ print(f'numbers: {json_stringify(numbers)}')
 
 print('# using JavaScript-like Array.map() function "array_map_v1"')
 
-numbers_labeled = array_map_v1(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v1(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -196,7 +196,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v2"')
 
-numbers_labeled = array_map_v2(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v2(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -233,7 +233,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v3"')
 
-numbers_labeled = array_map_v3(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v3(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -270,7 +270,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v4"')
 
-numbers_labeled = array_map_v4(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v4(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -307,7 +307,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v5"')
 
-numbers_labeled = array_map_v5(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v5(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -344,7 +344,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v6"')
 
-numbers_labeled = array_map_v6(lambda number, *_: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers)
+numbers_labeled = array_map_v6(lambda any_number, *_: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers)
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -381,7 +381,7 @@ print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 
 print('# using Python Array.map() built-in function "map", the "pythonic" way')
 
-numbers_labeled = list(map(lambda number: {number: 'even' if ((number % 2) == 0) else 'odd'}, numbers))
+numbers_labeled = list(map(lambda any_number: {any_number: 'even' if ((any_number % 2) == 0) else 'odd'}, numbers))
 print(f"labeled numbers: {json_stringify(numbers_labeled, pretty=True)}")
 # labeled numbers: [
 #     {
@@ -440,7 +440,7 @@ print(f"products: {json_stringify(products, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v1"')
 
-products_labeled = array_map_v1(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v1(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -467,7 +467,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v2"')
 
-products_labeled = array_map_v2(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v2(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -494,7 +494,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v3"')
 
-products_labeled = array_map_v3(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v3(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -521,7 +521,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v4"')
 
-products_labeled = array_map_v4(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v4(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -548,7 +548,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v5"')
 
-products_labeled = array_map_v5(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v5(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -575,7 +575,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v6"')
 
-products_labeled = array_map_v6(lambda product, *_: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v6(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -602,7 +602,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using Python Array.map() built-in function "map", the "pythonic" way')
 
-products_labeled = list(map(lambda product: {**product, 'label': 'expensive' if (product['price'] > 100) else 'cheap'}, products))
+products_labeled = list(map(lambda any_product: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products))
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {

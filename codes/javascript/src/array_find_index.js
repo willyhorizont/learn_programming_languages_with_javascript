@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -83,7 +83,7 @@ console.log(`numbers: ${jsonStringify(numbers)}`);
 const numberToFind = 27;
 console.log(`number to find: ${numberToFind}`);
 
-const numberFoundIndex = numbers.findIndex((number) => (number === numberToFind));
+const numberFoundIndex = numbers.findIndex((anyNumber) => (anyNumber === numberToFind));
 console.log(`number found index: ${numberFoundIndex}`);
 // number found index: 2
 
@@ -112,6 +112,6 @@ console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 const productToFind = "pasta";
 console.log(`product to find: ${productToFind}`);
 
-const productFoundIndex = products.findIndex((product) => (product?.code === productToFind));
+const productFoundIndex = products.findIndex((anyProduct) => (anyProduct?.code === productToFind));
 console.log(`product found index: ${productFoundIndex}`);
 // product found index: 0

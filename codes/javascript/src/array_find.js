@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -80,11 +80,11 @@ console.log("\n// Array.find() in JavaScript Array");
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${jsonStringify(numbers)}`);
 
-const evenNumberFound = numbers.find((number) => ((number % 2) === 0));
+const evenNumberFound = numbers.find((anyNumber) => ((anyNumber % 2) === 0));
 console.log(`even number found: ${evenNumberFound}`);
 // even number found: 12
 
-const oddNumberFound = numbers.find((number) => ((number % 2) !== 0));
+const oddNumberFound = numbers.find((anyNumber) => ((anyNumber % 2) !== 0));
 console.log(`odd number found: ${oddNumberFound}`);
 // odd number found: 27
 
@@ -113,7 +113,7 @@ console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 const productToFind = "bubble_gum";
 console.log(`product to find: "${productToFind}"`);
 
-const productFound = products.find((product) => (product?.code === productToFind));
+const productFound = products.find((anyProduct) => (anyProduct?.code === productToFind));
 console.log(`product found: ${jsonStringify(productFound, { pretty: true })}`);
 // product found: {
 //     "code": "bubble_gum",

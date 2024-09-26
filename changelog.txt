@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/09[Sep]/27[Fri]|04:14[AM]/04:14)
+1.0.73
+New:
+change all functions to variadic function in *.go and many more
+also update in *.js, *.py, *.php
+TODO:
+finish *.go
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/22[Sun]|01:11[AM]/01:11)
 1.0.72
 New:

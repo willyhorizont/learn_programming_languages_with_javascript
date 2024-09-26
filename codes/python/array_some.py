@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *array_index_or_object_key_or_function_argument_array: ((anything(*array_index_or_object_key_or_function_argument_array)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(array_index_or_object_key_or_function_argument_array) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, array_index_or_object_key_or_function_argument_array, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -155,41 +155,41 @@ print(f'numbers: {json_stringify(numbers)}')
 
 print('# using JavaScript-like Array.some() function "array_some_v1"')
 
-is_any_numbers_less_than500 = array_some_v1(lambda number, *_: (number < 500), numbers)
+is_any_numbers_less_than500 = array_some_v1(lambda any_number, *_: (any_number < 500), numbers)
 print(f"is any number < 500: {is_any_numbers_less_than500}")
 # is any number < 500: True
 
-is_any_numbers_more_than500 = array_some_v1(lambda number, *_: (number > 500), numbers)
+is_any_numbers_more_than500 = array_some_v1(lambda any_number, *_: (any_number > 500), numbers)
 print(f"is any number > 500: {is_any_numbers_more_than500}")
 # is any number > 500: False
 
 print('# using JavaScript-like Array.some() function "array_some_v2"')
 
-is_any_numbers_less_than500 = array_some_v2(lambda number, *_: (number < 500), numbers)
+is_any_numbers_less_than500 = array_some_v2(lambda any_number, *_: (any_number < 500), numbers)
 print(f"is any number < 500: {is_any_numbers_less_than500}")
 # is any number < 500: True
 
-is_any_numbers_more_than500 = array_some_v2(lambda number, *_: (number > 500), numbers)
+is_any_numbers_more_than500 = array_some_v2(lambda any_number, *_: (any_number > 500), numbers)
 print(f"is any number > 500: {is_any_numbers_more_than500}")
 # is any number > 500: False
 
 print('# using JavaScript-like Array.some() function "array_some_v3"')
 
-is_any_numbers_less_than500 = array_some_v3(lambda number, *_: (number < 500), numbers)
+is_any_numbers_less_than500 = array_some_v3(lambda any_number, *_: (any_number < 500), numbers)
 print(f"is any number < 500: {is_any_numbers_less_than500}")
 # is any number < 500: True
 
-is_any_numbers_more_than500 = array_some_v3(lambda number, *_: (number > 500), numbers)
+is_any_numbers_more_than500 = array_some_v3(lambda any_number, *_: (any_number > 500), numbers)
 print(f"is any number > 500: {is_any_numbers_more_than500}")
 # is any number > 500: False
 
 print('# using Python Array.some() built-in function "any", the "pythonic" way')
 
-is_any_numbers_less_than500 = any([(number < 500) for number in numbers])
+is_any_numbers_less_than500 = any([(any_number < 500) for any_number in numbers])
 print(f"is any number < 500: {is_any_numbers_less_than500}")
 # is any number < 500: True
 
-is_any_numbers_more_than500 = any([(number > 500) for number in numbers])
+is_any_numbers_more_than500 = any([(any_number > 500) for any_number in numbers])
 print(f"is any number > 500: {is_any_numbers_more_than500}")
 # is any number > 500: False
 
@@ -217,50 +217,50 @@ print(f"products: {json_stringify(products, pretty=True)}")
 
 print('# using JavaScript-like Array.every() function "array_some_v1"')
 
-is_any_product_price_less_than_500 = array_some_v1(lambda product, *_: (product['price'] < 500), products)
+is_any_product_price_less_than_500 = array_some_v1(lambda any_product, *_: (any_product['price'] < 500), products)
 print(f"is any product price < 500: {is_any_product_price_less_than_500}")
 # is any product price < 500: True
 
-is_any_product_price_more_than_500 = array_some_v1(lambda product, *_: (product['price'] > 500), products)
+is_any_product_price_more_than_500 = array_some_v1(lambda any_product, *_: (any_product['price'] > 500), products)
 print(f"is any product price > 500: {is_any_product_price_more_than_500}")
 # is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v2"')
 
-is_any_product_price_less_than_500 = array_some_v2(lambda product, *_: (product['price'] < 500), products)
+is_any_product_price_less_than_500 = array_some_v2(lambda any_product, *_: (any_product['price'] < 500), products)
 print(f"is any product price < 500: {is_any_product_price_less_than_500}")
 # is any product price < 500: True
 
-is_any_product_price_more_than_500 = array_some_v2(lambda product, *_: (product['price'] > 500), products)
+is_any_product_price_more_than_500 = array_some_v2(lambda any_product, *_: (any_product['price'] > 500), products)
 print(f"is any product price > 500: {is_any_product_price_more_than_500}")
 # is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v3"')
 
-is_any_product_price_less_than_500 = array_some_v3(lambda product, *_: (product['price'] < 500), products)
+is_any_product_price_less_than_500 = array_some_v3(lambda any_product, *_: (any_product['price'] < 500), products)
 print(f"is any product price < 500: {is_any_product_price_less_than_500}")
 # is any product price < 500: True
 
-is_any_product_price_more_than_500 = array_some_v3(lambda product, *_: (product['price'] > 500), products)
+is_any_product_price_more_than_500 = array_some_v3(lambda any_product, *_: (any_product['price'] > 500), products)
 print(f"is any product price > 500: {is_any_product_price_more_than_500}")
 # is any product price > 500: False
 
 print('# using JavaScript-like Array.every() function "array_some_v4"')
 
-is_any_product_price_less_than_500 = array_some_v4(lambda product, *_: (product['price'] < 500), products)
+is_any_product_price_less_than_500 = array_some_v4(lambda any_product, *_: (any_product['price'] < 500), products)
 print(f"is any product price < 500: {is_any_product_price_less_than_500}")
 # is any product price < 500: True
 
-is_any_product_price_more_than_500 = array_some_v4(lambda product, *_: (product['price'] > 500), products)
+is_any_product_price_more_than_500 = array_some_v4(lambda any_product, *_: (any_product['price'] > 500), products)
 print(f"is any product price > 500: {is_any_product_price_more_than_500}")
 # is any product price > 500: False
 
 print('# using Python Array.some() built-in function "any", the "pythonic" way')
 
-is_any_product_price_less_than_500 = any([(product['price'] < 500) for product in products])
+is_any_product_price_less_than_500 = any([(any_product['price'] < 500) for any_product in products])
 print(f"is any product price < 500: {is_any_product_price_less_than_500}")
 # is any product price < 500: True
 
-is_any_product_price_more_than_500 = any([(product['price'] > 500) for product in products])
+is_any_product_price_more_than_500 = any([(any_product['price'] > 500) for any_product in products])
 print(f"is any product price > 500: {is_any_product_price_more_than_500}")
 # is any product price > 500: False

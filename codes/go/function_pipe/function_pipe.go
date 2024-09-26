@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"math"
 	"reflect"
 	"strings"
 )
@@ -354,141 +355,113 @@ func main() {
 		return pipeResult
     }
 
-    // ? function statement or function declaration
+	consoleLog("// Pipe Function in PHP")
 
-    getRectangleArea := func(restArguments ...interface{}) interface{} {
-		rectangleWidth := getFloat64(restArguments[0]).(float64)
-		rectangleLength := getFloat64(restArguments[1]).(float64)
-        return (int(rectangleWidth * rectangleLength))
+	plus25 := func(restArguments ...interface{}) interface{} {
+		aNumber := int(getFloat64(restArguments[0]).(float64))
+        return (aNumber + 25)
     }
-	consoleLog(stringInterpolation("getRectangleArea(7, 5): ", []interface{}{getRectangleArea(7, 5)}))
 
-    // ? anonymous function
+	multiplyBy10 := func(restArguments ...interface{}) interface{} {
+		aNumber := int(getFloat64(restArguments[0]).(float64))
+        return (aNumber * 10)
+    }
 
-    // func(restArguments ...interface{}) interface{} {
-	// 	rectangleWidth := getFloat64(restArguments[0]).(float64)
-	// 	rectangleLength := getFloat64(restArguments[1]).(float64)
-    //     return (int(rectangleWidth * rectangleLength))
-    // }
+	consoleLog(multiplyBy10(plus25(17))) // read from inside to outside
 
-    // ? Passing functions as arguments to other functions
-
-    sayHelllo := func(restArguments ...interface{}) interface{} {
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-        consoleLog("hello")
-        callbackFunction()
+	pipe(17, plus25, multiplyBy10, func(restArguments ...interface{}) interface{} {
+		x := restArguments[0]
+		consoleLog(x)
 		return nil
-    }
-    
-    sayHowAreYou := func(restArguments ...interface{}) interface{} {
-        consoleLog("how are you?")
-		return nil
-    }
+	}) // read from left to right
 
-    sayHelllo(sayHowAreYou)
-
-    sayHelllo(func(restArguments ...interface{}) interface{} {
-        consoleLog("how are you?")
-		return nil
-    })
-
-    // ? Assigning functions to variables or storing them in data structures
-
-    getRectangleAreaCopy := func(restArguments ...interface{}) interface{} {
-		rectangleWidth := getFloat64(restArguments[0]).(float64)
-		rectangleLength := getFloat64(restArguments[1]).(float64)
-        return (int(rectangleWidth * rectangleLength))
-    }
-	consoleLog(stringInterpolation("getRectangleAreaCopy(7, 5): ", []interface{}{getRectangleAreaCopy(7, 5)}))
-
-    myArrayOfGetRectangleAreaFunctions := []interface{}{
-        getRectangleArea,
-        func(restArguments ...interface{}) interface{} {
-			rectangleWidth := getFloat64(restArguments[0]).(float64)
-			rectangleLength := getFloat64(restArguments[1]).(float64)
-			return (int(rectangleWidth * rectangleLength))
+	pipe(
+		17,
+		plus25,
+		multiplyBy10,
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			consoleLog(x)
+			return nil
 		},
-    }
-	consoleLog(stringInterpolation("myArrayOfGetRectangleAreaFunctions[0].(func(...interface{}) interface{})(7, 5): ", []interface{}{myArrayOfGetRectangleAreaFunctions[0].(func(...interface{}) interface{})(7, 5)}))
-	consoleLog(stringInterpolation("myArrayOfGetRectangleAreaFunctions[1].(func(...interface{}) interface{})(7, 5): ", []interface{}{myArrayOfGetRectangleAreaFunctions[1].(func(...interface{}) interface{})(7, 5)}))
-	consoleLog(stringInterpolation("optionalChaining(myArrayOfGetRectangleAreaFunctions, 0).(func(...interface{}) interface{})(7, 5): ", []interface{}{optionalChaining(myArrayOfGetRectangleAreaFunctions, 0).(func(...interface{}) interface{})(7, 5)}))
-	consoleLog(stringInterpolation("optionalChaining(myArrayOfGetRectangleAreaFunctions, 1).(func(...interface{}) interface{})(7, 5): ", []interface{}{optionalChaining(myArrayOfGetRectangleAreaFunctions, 1).(func(...interface{}) interface{})(7, 5)}))
-	consoleLog(stringInterpolation("optionalChaining(optionalChaining(myArrayOfGetRectangleAreaFunctions, 0), 7, 5): ", []interface{}{optionalChaining(optionalChaining(myArrayOfGetRectangleAreaFunctions, 0), 7, 5)}))
-	consoleLog(stringInterpolation("optionalChaining(optionalChaining(myArrayOfGetRectangleAreaFunctions, 1), 7, 5): ", []interface{}{optionalChaining(optionalChaining(myArrayOfGetRectangleAreaFunctions, 1), 7, 5)}))
-	consoleLog(stringInterpolation(`pipe(optionalChaining(myArrayOfGetRectangleAreaFunctions, 0), func(restArguments ...interface{}) interface{} {
-	x := restArguments[0]
-	return optionalChaining(x, 7, 5)	
-}): `, []interface{}{pipe(optionalChaining(myArrayOfGetRectangleAreaFunctions, 0), func(restArguments ...interface{}) interface{} {
-		x := restArguments[0]
-		return optionalChaining(x, 7, 5)	
-	})}))
-	consoleLog(stringInterpolation(`pipe(optionalChaining(myArrayOfGetRectangleAreaFunctions, 1), func(restArguments ...interface{}) interface{} {
-	x := restArguments[0]
-	return optionalChaining(x, 7, 5)
-}): `, []interface{}{pipe(optionalChaining(myArrayOfGetRectangleAreaFunctions, 1), func(restArguments ...interface{}) interface{} {
-		x := restArguments[0]
-		return optionalChaining(x, 7, 5)
-	})}))
+	) // read from left to right
 
-	addition := func(restArguments ...interface{}) interface{} {
-		a := getFloat64(restArguments[0]).(float64)
-		b := getFloat64(restArguments[1]).(float64)
-        return (int(a + b))
+	consoleLog(pipe(17, plus25, multiplyBy10)) // read from left to right
+
+	makeNumbersEasyToSay := func(restArguments ...interface{}) interface{} {
+		aNumber := int(getFloat64(restArguments[0]).(float64))
+        return (stringInterpolation(aNumber, ".something"))
     }
 
-    simpleCalculator := map[string]interface{}{
-        "addition": addition,
-        "subtraction": func(restArguments ...interface{}) interface{} {
-			a := getFloat64(restArguments[0]).(float64)
-			b := getFloat64(restArguments[1]).(float64)
-			return (int(a - b))
+	getCircleAreaInSquareCm := func(restArguments ...interface{}) interface{} {
+		radiusInCm := getFloat64(restArguments[0]).(float64)
+        return (3.14 * (math.Pow(radiusInCm, 2)))
+    }
+
+	getCylinderVolumeInMlOrCubicCm := func(restArguments ...interface{}) interface{} {
+		circleAreaInSquareCm := getFloat64(restArguments[0]).(float64)
+		heightInCm := getFloat64(restArguments[1]).(float64)
+        return (circleAreaInSquareCm * heightInCm)
+    }
+
+	getMassInMlOrCubicCm := func(restArguments ...interface{}) interface{} {
+		volumeInMlOrCubicCm := getFloat64(restArguments[0]).(float64)
+		densityInGramPerMlOrCubicCm := getFloat64(restArguments[1]).(float64)
+        return (volumeInMlOrCubicCm * densityInGramPerMlOrCubicCm)
+    }
+
+	consoleLog(makeNumbersEasyToSay(getMassInMlOrCubicCm(getCylinderVolumeInMlOrCubicCm(getCircleAreaInSquareCm(7), 10), 0.72587))) // read from inside to outside
+
+	pipe(7, getCircleAreaInSquareCm, func(restArguments ...interface{}) interface{} {
+		x := restArguments[0]
+		return getCylinderVolumeInMlOrCubicCm(x, 10)
+	}, func(restArguments ...interface{}) interface{} {
+		x := restArguments[0]
+		return getMassInMlOrCubicCm(x, 0.72587)
+	}, makeNumbersEasyToSay, func(restArguments ...interface{}) interface{} {
+		x := restArguments[0]
+		consoleLog(x)
+		return nil
+	}) // read from left to right
+
+	pipe(
+		7,
+		getCircleAreaInSquareCm,
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			return getCylinderVolumeInMlOrCubicCm(x, 10)
 		},
-    }
-	consoleLog(stringInterpolation(`simpleCalculator["addition"].(func(...interface{}) interface{})(9, 3): `, []interface{}{simpleCalculator["addition"].(func(...interface{}) interface{})(9, 3)}))
-	consoleLog(stringInterpolation(`simpleCalculator["subtraction"].(func(...interface{}) interface{})(35, 8): `, []interface{}{simpleCalculator["subtraction"].(func(...interface{}) interface{})(35, 8)}))
-	consoleLog(stringInterpolation(`optionalChaining(simpleCalculator, "addition").(func(...interface{}) interface{})(9, 3): `, []interface{}{optionalChaining(simpleCalculator, "addition").(func(...interface{}) interface{})(9, 3)}))
-	consoleLog(stringInterpolation(`optionalChaining(simpleCalculator, "subtraction").(func(...interface{}) interface{})(35, 8): `, []interface{}{optionalChaining(simpleCalculator, "subtraction").(func(...interface{}) interface{})(35, 8)}))
-	consoleLog(stringInterpolation(`optionalChaining(optionalChaining(simpleCalculator, "addition"), 9, 3): `, []interface{}{optionalChaining(optionalChaining(simpleCalculator, "addition"), 9, 3)}))
-	consoleLog(stringInterpolation(`optionalChaining(optionalChaining(simpleCalculator, "subtraction"), 35, 8): `, []interface{}{optionalChaining(optionalChaining(simpleCalculator, "subtraction"), 35, 8)}))
-	consoleLog(stringInterpolation(`pipe(optionalChaining(simpleCalculator, "addition"), func(restArguments ...interface{}) interface{} {
-	x := restArguments[0]
-	return optionalChaining(x, 9, 3)
-}): `, []interface{}{pipe(optionalChaining(simpleCalculator, "addition"), func(restArguments ...interface{}) interface{} {
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			return getMassInMlOrCubicCm(x, 0.72587)
+		},
+		makeNumbersEasyToSay,
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			consoleLog(x)
+			return nil
+		},
+	) // read from left to right
+
+	consoleLog(pipe(7, getCircleAreaInSquareCm, func(restArguments ...interface{}) interface{} {
 		x := restArguments[0]
-		return optionalChaining(x, 9, 3)
-	})}))
-	consoleLog(stringInterpolation(`pipe(optionalChaining(simpleCalculator, "subtraction"), func(restArguments ...interface{}) interface{} {
-	x := restArguments[0]
-	return optionalChaining(x, 35, 8)
-}): `, []interface{}{pipe(optionalChaining(simpleCalculator, "subtraction"), func(restArguments ...interface{}) interface{} {
+		return getCylinderVolumeInMlOrCubicCm(x, 10)
+	}, func(restArguments ...interface{}) interface{} {
 		x := restArguments[0]
-		return optionalChaining(x, 35, 8)
-	})}))
+		return getMassInMlOrCubicCm(x, 0.72587)
+	}, makeNumbersEasyToSay)) // read from left to right
 
-    // ? Returning functions as values from other functions
-
-	multiplyV1 := func(restArguments ...interface{}) interface{} {
-		a := getFloat64(restArguments[0]).(float64)
-		multiplyBy := func(restArguments ...interface{}) interface{} {
-			b := getFloat64(restArguments[0]).(float64)
-			return (int(a * b))
-		}
-		return multiplyBy
-	}
-	
-	multiplyV2 := func(restArguments ...interface{}) interface{} {
-		a := getFloat64(restArguments[0]).(float64)
-		return func(restArguments ...interface{}) interface{} {
-			b := getFloat64(restArguments[0]).(float64)
-			return (int(a * b))
-		}
-	}
-
-    multiplyBy2 := multiplyV1(2).(func(...interface{}) interface{})
-    multiplyBy2Result := multiplyBy2(10)
-	consoleLog(stringInterpolation("multiplyBy2(10): ", []interface{}{multiplyBy2Result}))
-
-    multiplyBy3 := multiplyV2(3).(func(...interface{}) interface{})
-    multiplyBy3Result := multiplyBy3(10)
-	consoleLog(stringInterpolation("multiplyBy3(10): ", []interface{}{multiplyBy3Result}))
+	consoleLog(pipe(
+		7,
+		getCircleAreaInSquareCm,
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			return getCylinderVolumeInMlOrCubicCm(x, 10)
+		},
+		func(restArguments ...interface{}) interface{} {
+			x := restArguments[0]
+			return getMassInMlOrCubicCm(x, 0.72587)
+		},
+		makeNumbersEasyToSay,
+	)) // read from left to right
 }

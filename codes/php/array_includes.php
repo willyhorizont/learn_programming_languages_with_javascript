@@ -147,7 +147,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
 
 function string_interpolation(...$rest_arguments) {
     global $js_like_type;
-    return array_reduce($rest_arguments, (fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), "");
+    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
 };
 
 function console_log(...$rest_arguments) {
@@ -159,22 +159,22 @@ console_log("\n// JavaScript-like Array.includes() in PHP");
 $my_friends = ["Alisa", "Trivia"];
 console_log(string_interpolation("my friends: ", [$my_friends]));
 
-$a_name = "Alisa";
-$is_my_friend = in_array($a_name, $my_friends);
-console_log(string_interpolation("is my friends includes ", [$a_name], ': ', [$is_my_friend]));
+$any_name = "Alisa";
+$is_my_friend = in_array($any_name, $my_friends);
+console_log(string_interpolation("is my friends includes ", [$any_name], ': ', [$is_my_friend]));
 // is my friends includes "Alisa": true
 
-$a_name = "Trivia";
-$is_my_friend = in_array($a_name, $my_friends);
-console_log(string_interpolation("is my friends includes ", [$a_name], ': ', [$is_my_friend]));
+$any_name = "Trivia";
+$is_my_friend = in_array($any_name, $my_friends);
+console_log(string_interpolation("is my friends includes ", [$any_name], ': ', [$is_my_friend]));
 // is my friends includes "Trivia": true
 
-$a_name = "Tony";
-$is_my_friend = in_array($a_name, $my_friends);
-console_log(string_interpolation("is my friends includes ", [$a_name], ': ', [$is_my_friend]));
+$any_name = "Tony";
+$is_my_friend = in_array($any_name, $my_friends);
+console_log(string_interpolation("is my friends includes ", [$any_name], ': ', [$is_my_friend]));
 // is my friends includes "Tony": false
 
-$a_name = "Ezekiel";
-$is_my_friend = in_array($a_name, $my_friends);
-console_log(string_interpolation("is my friends includes ", [$a_name], ': ', [$is_my_friend]));
+$any_name = "Ezekiel";
+$is_my_friend = in_array($any_name, $my_friends);
+console_log(string_interpolation("is my friends includes ", [$any_name], ': ', [$is_my_friend]));
 // is my friends includes "Ezekiel": false

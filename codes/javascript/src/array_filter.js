@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -80,11 +80,11 @@ console.log("\n// Array.filter() in JavaScript Array");
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${jsonStringify(numbers)}`);
 
-const numbersEven = numbers.filter((number) => ((number % 2) === 0));
+const numbersEven = numbers.filter((anyNumber) => ((anyNumber % 2) === 0));
 console.log(`even numbers only: ${jsonStringify(numbersEven)}`);
 // even numbers only: [12, 34, 36, 4, 254]
 
-const numbersOdd = numbers.filter((number) => ((number % 2) !== 0));
+const numbersOdd = numbers.filter((anyNumber) => ((anyNumber % 2) !== 0));
 console.log(`odd numbers only: ${jsonStringify(numbersOdd)}`);
 // odd numbers only: [27, 23, 65, 93, 87]
 
@@ -110,7 +110,7 @@ const products = [
 ];
 console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 
-const productsBelow100 = products.filter((product) => (product?.price <= 100));
+const productsBelow100 = products.filter((anyProduct) => (anyProduct?.price <= 100));
 console.log(`products with price <= 100 only: ${jsonStringify(productsBelow100, { pretty: true })}`);
 // products with price <= 100 only: [
 //     {
@@ -119,7 +119,7 @@ console.log(`products with price <= 100 only: ${jsonStringify(productsBelow100, 
 //     }
 // ]
 
-const productsAbove100 = products.filter((product) => (product?.price > 100));
+const productsAbove100 = products.filter((anyProduct) => (anyProduct?.price > 100));
 console.log(`products with price > 100 only: ${jsonStringify(productsAbove100, { pretty: true })}`);
 // products with price > 100 only: [
 //     {

@@ -1,263 +1,502 @@
 package main
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 )
 
-// type any interface{}
-type array []any
-type object map[string]any
-
-func arrayReduce(callbackFunction func(any, any, int, array) any, anArray array, initialValue any) any {
-    // JavaScript-like Array.reduce() function
-    result := initialValue
-    for arrayItemIndex, arrayItem := range anArray {
-        result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
-    }
-    return result
-}
-
-func optionalChaining(anything any, objectPropertiesArray ...any) any {
-    anythingType := reflect.TypeOf(anything).Kind()
-    if (((anythingType != reflect.Map) && (anythingType != reflect.Slice)) || (len(objectPropertiesArray) == 0)) {
-        return anything
-    }
-    return arrayReduce(func(currentResult any, currentItem any, _ int, _ array) any {
-        if (currentResult == nil && (anythingType == reflect.Map) && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
-            return anything.(object)[currentItem.(string)]
-        }
-        if (currentResult == nil && (anythingType == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.(array)) > currentItem.(int))) {
-            return anything.(array)[currentItem.(int)]
-        }
-        if (reflect.TypeOf(currentResult).Kind() == reflect.Map && (reflect.TypeOf(currentItem).Kind() == reflect.String)) {
-            return currentResult.(object)[currentItem.(string)]
-        }
-        if ((reflect.TypeOf(currentResult).Kind() == reflect.Slice) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.(array)) > currentItem.(int))) {
-            return currentResult.(array)[currentItem.(int)]
-        }
-        return nil
-    }, objectPropertiesArray, nil)
-}
-
-func ternary(trueCondition bool, callbackFunctionIfConditionTrue func() any, callbackFunctionIfConditionFalse func() any) any {
-    if (trueCondition == true) {
-        return callbackFunctionIfConditionTrue()
-    }
-    return callbackFunctionIfConditionFalse()
-}
-
-func jsonStringify(restArguments ...any) string {
-	jsonStringifyInner := func(anythingInner any, prettyInner bool, indentInner string) string {
-		if (prettyInner == true) {
-			jsonStringifyInnerResult, err := json.MarshalIndent(anythingInner, "", indentInner)
-			if (err == nil) {
-				return string(jsonStringifyInnerResult)
-			}
-			return "null"
-		}
-        jsonStringifyInnerResult, err := json.Marshal(anythingInner)
-		if (err == nil) {
-			return strings.ReplaceAll(string(jsonStringifyInnerResult), ",", ", ")
-		}
-		return "null"
-    }
-    var anything any = restArguments[0]
-	prettyDefault := false
-	indentDefault := "    "
-	var pretty any = prettyDefault
-	var indent any = indentDefault
-	if (len(restArguments) == 1) {
-		return jsonStringifyInner(anything, prettyDefault, indentDefault)
-	}
-	var optionalArgument any = restArguments[1]
-	if (optionalArgument == false) {
-		return jsonStringifyInner(anything, prettyDefault, indentDefault)
-	}
-	if (reflect.TypeOf(optionalArgument).Kind() == reflect.Map) {
-		pretty = optionalChaining(optionalArgument, "pretty")
-		indent = optionalChaining(optionalArgument, "indent")
-		pretty = ternary((pretty == nil), func() any { return prettyDefault }, func() any { return pretty })
-		indent = ternary((indent == nil), func() any { return indentDefault }, func() any { return indent })
-		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
-	}
-	if (optionalArgument == true) {
-		if (len(restArguments) >= 3) {
-			var additionalArgument2 any = restArguments[2]
-			if (reflect.TypeOf(additionalArgument2).Kind() == reflect.String) {
-				indent = additionalArgument2
-			}
-		}
-		pretty = optionalArgument
-		return jsonStringifyInner(anything, pretty.(bool), indent.(string))
-	}
-	return jsonStringifyInner(anything, prettyDefault, indentDefault)
-}
-
-func sprint(restArguments ...any) {
-    var newArray = []string{}
-    for _, argument := range restArguments {
-        argumentType := reflect.TypeOf(argument).Kind()
-        if (argumentType == reflect.Slice && (len(argument.(array)) == 1)) {
-            newArray = append(newArray, jsonStringify(argument.(array)[0]))
-            continue
-        }
-        if (argumentType == reflect.String) {
-			newArray = append(newArray, argument.(string))
-            continue
-        }
-    }
-    fmt.Println(strings.Join(newArray, ""))
-}
-
-func arrayFilterV1(callbackFunction func(any, int, array) bool, anArray array) array {
-    // JavaScript-like Array.filter() function
-    dataFiltered := array{}
-    for arrayItemIndex, arrayItem := range anArray {
-        isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
-        if (isConditionMatch == true) {
-            dataFiltered = append(dataFiltered, arrayItem)
-        }
-    }
-    return dataFiltered
-}
-
-func arrayFilterV2(callbackFunction func(any, int, array) bool, anArray array) array {
-    // JavaScript-like Array.filter() function
-    dataFiltered := array{}
-    for arrayItemIndex, arrayItem := range anArray {
-        if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
-            dataFiltered = append(dataFiltered, arrayItem)
-        }
-    }
-    return dataFiltered
-}
-
 func main() {
-    fmt.Println("\n// JavaScript-like Array.filter() in Go Slice")
+	jsLikeType := struct {
+		Null string
+		Boolean string
+		String string
+		Numeric string
+		Object string
+		Array string
+		Function string
+	}{
+		Null: "Null",
+		Boolean: "Boolean",
+		String: "String",
+		Numeric: "Numeric",
+		Object: "Object",
+		Array: "Array",
+		Function: "Function",
+	}
+	ternary := func(restArguments ...interface{}) interface{} {
+		trueCondition := restArguments[0].(bool)
+		callbackFunctionIfConditionTrue := restArguments[1].(func(...interface{}) interface{})
+		callbackFunctionIfConditionFalse := restArguments[2].(func(...interface{}) interface{})
+		if (trueCondition == true) {
+			return callbackFunctionIfConditionTrue()
+		}
+		return callbackFunctionIfConditionFalse()
+	}
+	arraySome := func(restArguments ...interface{}) interface{} {
+		// JavaScript-like Array.some() function arraySomeV4
+		callbackFunction := restArguments[0].(func(...interface{}) interface{})
+		anArray := restArguments[1].([]interface{})
+		for arrayItemIndex, arrayItem := range anArray {
+			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+				return true
+			}
+		}
+		return false
+	}
+	isLikeJsNull := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		return (anything == nil)
+	}
+	isLikeJsBoolean := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		return ((reflect.TypeOf(anything).Kind() == reflect.Bool) && ((anything == true) || (anything == false)))
+	}
+	isLikeJsString := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		return (reflect.TypeOf(anything).Kind() == reflect.String)
+	}
+	isLikeJsNumeric := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		anythingJsLikeType := reflect.TypeOf(anything)
+		return (arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			numericType := restArgumentsArraySomeCallback[0]
+			return (anythingJsLikeType.Kind() == numericType)
+		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128}))
+	}
+	isLikeJsObject := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		anythingJsLikeType := reflect.TypeOf(anything)
+		return ((anythingJsLikeType.Kind() == reflect.Map) || ((anythingJsLikeType.Kind() == reflect.Map) && (anythingJsLikeType.Key().Kind() == reflect.String) && (anythingJsLikeType.Elem().Kind() == reflect.Interface)) || (anythingJsLikeType == reflect.TypeOf(map[string]interface{}{})) || (anythingJsLikeType.String() == "map[string]interface {}") || (anythingJsLikeType.String() == "map[string]interface {  }"))
+	}
+	isLikeJsArray := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		anythingJsLikeType := reflect.TypeOf(anything)
+		return ((anythingJsLikeType.Kind() == reflect.Slice) || (anythingJsLikeType == reflect.TypeOf([]interface{}{})) || (anythingJsLikeType.String() == "[]interface {}") || (anythingJsLikeType.String() == "[]interface {  }"))
+	}
+	isLikeJsFunction := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		return (reflect.TypeOf(anything).Kind() == reflect.Func)
+	}
+	getType := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		if (isLikeJsNull(anything) == true) {
+			return jsLikeType.Null
+		}
+		if (isLikeJsBoolean(anything) == true) {
+			return jsLikeType.Boolean
+		}
+		if (isLikeJsString(anything) == true) {
+			return jsLikeType.String
+		}
+		if (isLikeJsNumeric(anything) == true) {
+			return jsLikeType.Numeric
+		}
+		if (isLikeJsObject(anything) == true) {
+			return jsLikeType.Object
+		}
+		if (isLikeJsArray(anything) == true) {
+			return jsLikeType.Array
+		}
+		if (isLikeJsFunction(anything) == true) {
+			return jsLikeType.Function
+		}
+		return reflect.TypeOf(anything).String()
+	}
+	anyToString := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		anythingGoValue := reflect.ValueOf(anything)
+		if (anythingGoValue.Kind() == reflect.String) {
+			return anythingGoValue.String()
+		}
+		if (anythingGoValue.Kind() == reflect.Bool) {
+			return fmt.Sprintf("%t", anythingGoValue.Bool())
+		}
+		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			numericIntType := restArgumentsArraySomeCallback[0]
+			return (anythingGoValue.Kind() == numericIntType)
+		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64})).(bool) == true) {
+			return fmt.Sprintf("%d", anythingGoValue.Int())
+		}
+		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			numericUintType := restArgumentsArraySomeCallback[0]
+			return (anythingGoValue.Kind() == numericUintType)
+		}, []interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64})).(bool) == true) {
+			return fmt.Sprintf("%d", anythingGoValue.Uint())
+		}
+		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			numericFloatType := restArgumentsArraySomeCallback[0]
+			return (anythingGoValue.Kind() == numericFloatType)
+		}, []interface{}{reflect.Float32, reflect.Float64})).(bool) == true) {
+			return fmt.Sprintf("%f", anythingGoValue.Float())
+		}
+		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			numericComplexType := restArgumentsArraySomeCallback[0]
+			return (anythingGoValue.Kind() == numericComplexType)
+		}, []interface{}{reflect.Complex64, reflect.Complex128})).(bool) == true) {
+			return fmt.Sprintf("%g", anythingGoValue.Complex())
+		}
+		return `"` + anythingGoValue.String() + `"`
+	}
+	arrayReduce := func(restArguments ...interface{}) interface{} {
+		// JavaScript-like Array.reduce() function
+		callbackFunction := restArguments[0].(func(...interface{}) interface{})
+		anArray := restArguments[1].([]interface{})
+		initialValue := restArguments[2]
+		result := initialValue
+		for arrayItemIndex, arrayItem := range anArray {
+			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+		}
+		return result
+	}
+	optionalChaining := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		restArgumentsNew := restArguments[1:]
+		anythingJsLikeType := getType(anything)
+		if (anythingJsLikeType == jsLikeType.Function) {
+			return anything.(func(...interface{}) interface{})(restArgumentsNew...)
+		}
+		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len(restArgumentsNew) == 0)) {
+			return anything
+		}
+		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			currentResult := restArgumentsArrayReduceCallback[0]
+			currentItem := restArgumentsArrayReduceCallback[1]
+			currentResultJsLikeType := getType(currentResult)
+			currentItemJsLikeType := getType(currentItem)
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
+				return anything.(map[string]interface{})[currentItem.(string)]
+			}
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.([]interface{})) > currentItem.(int))) {
+				return anything.([]interface{})[currentItem.(int)]
+			}
+			if ((currentResultJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
+				return currentResult.(map[string]interface{})[currentItem.(string)]
+			}
+			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.([]interface{})) > currentItem.(int))) {
+				return currentResult.([]interface{})[currentItem.(int)]
+			}
+			return nil
+		}, restArgumentsNew, nil))
+	}
+	nullishCoalescing := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		defaultValue := restArguments[1]
+		if (anything == nil) {
+			return defaultValue
+		} else {
+			return anything
+		}
+	}
+	jsonStringify := func(restArguments ...interface{}) interface{} {
+		prettyDefault := false
+		indentDefault := "    "
+		anything := restArguments[0]
+		pretty := nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
+		indentLevel := 0
+		var jsonStringifyInner func(...interface{}) interface{}
+		jsonStringifyInner = func(restArgumentsJsonStringifyInner ...interface{}) interface{} {
+			anythingInner := restArgumentsJsonStringifyInner[0]
+			anythingInnerJsLikeType := getType(anythingInner).(string)
+			if (anythingInnerJsLikeType == jsLikeType.Null) {
+				return "null"
+			}
+			if (anythingInnerJsLikeType == jsLikeType.String) {
+				return `"` + anythingInner.(string) + `"`
+			}
+			if ((anythingInnerJsLikeType == jsLikeType.Numeric) || (anythingInnerJsLikeType == jsLikeType.Boolean)) {
+				return anyToString(anythingInner)
+			}
+			if (anythingInnerJsLikeType == jsLikeType.Object) {
+				if (len(anythingInner.(map[string]interface{})) == 0) {
+					return "{}"
+				}
+				indentLevel += 1
+				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
+					return "{\n" + strings.Repeat(indentDefault, indentLevel)
+				}, func(_ ...interface{}) interface{} {
+					return "{ "
+				}).(string))
+				objectEntryIndex := 0
+				for objectKey, objectValue := range anythingInner.(map[string]interface{}) {
+					result += `"` + objectKey + `": ` + jsonStringifyInner(objectValue).(string)
+					if ((objectEntryIndex + 1) != len(anythingInner.(map[string]interface{}))) {
+						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat(indentDefault, indentLevel)
+						}, func(_ ...interface{}) interface{} {
+							return ", "
+						}).(string))
+					}
+					objectEntryIndex += 1
+				}
+				indentLevel -= 1
+				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat(indentDefault, indentLevel) + "}"
+				}, func(_ ...interface{}) interface{} {
+					return " }"
+				}).(string))
+				return result
+			}
+			if (anythingInnerJsLikeType == jsLikeType.Array) {
+				if (len(anythingInner.([]interface{})) == 0) {
+					return "[]"
+				}
+				indentLevel += 1
+				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
+					return "[\n" + strings.Repeat(indentDefault, indentLevel)
+				}, func(_ ...interface{}) interface{} {
+					return "["
+				}).(string))
+				for arrayItemIndex, arrayItem := range anythingInner.([]interface{}) {
+					result += jsonStringifyInner(arrayItem).(string)
+					if ((arrayItemIndex + 1) != len(anythingInner.([]interface{}))) {
+						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat(indentDefault, indentLevel)
+						}, func(_ ...interface{}) interface{} {
+							return ", "
+						}).(string))
+					}
+				}
+				indentLevel -= 1
+				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat(indentDefault, indentLevel) + "]"
+				}, func(_ ...interface{}) interface{} {
+					return "]"
+				}).(string))
+				return result
+			}
+			if (anythingInnerJsLikeType == jsLikeType.Function) {
+				return `"[object Function]"`
+			}
+			return `"` + anythingInnerJsLikeType + `"`
+		}
+		return jsonStringifyInner(anything)
+	}
+	stringInterpolation := func(restArguments ...interface{}) interface{} {
+		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			currentResult := restArgumentsArrayReduceCallback[0]
+			currentArgument := restArgumentsArrayReduceCallback[1]
+			currentArgumentJsLikeType := getType(currentArgument)
+			return (currentResult.(string) + ternary(
+				(currentArgumentJsLikeType == jsLikeType.String),
+				(func(_ ...interface{}) interface{} {
+					return currentArgument.(string)
+				}),
+				(func(_ ...interface{}) interface{} {
+					return (ternary(
+						((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1)),
+						(func(_ ...interface{}) interface{} {
+							return jsonStringify(currentArgument.([]interface{})[0])
+						}),
+						(func(_ ...interface{}) interface{} {
+							return jsonStringify(currentArgument)
+						}),
+					).(string))
+				}),
+			).(string))
+		}, restArguments, "").(string))
+	}
+	consoleLog := func(restArguments ...interface{}) interface{} {
+		fmt.Println(stringInterpolation(restArguments...).(string))
+		return nil
+	}
 
-    numbers := array{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
-    sprint("numbers: ", jsonStringify(numbers))
+	getFloat64 := func(restArguments ...interface{}) interface{} {
+		anything := restArguments[0]
+		switch anythingNew := anything.(type) {
+		case float64:
+			return anythingNew
+		case float32:
+			return float64(anythingNew)
+		case int64:
+			return float64(anythingNew)
+		case int32: // rune
+			return float64(anythingNew)
+		case int16:
+			return float64(anythingNew)
+		case int8:
+			return float64(anythingNew)
+		case int:
+			return float64(anythingNew)
+		case uint64:
+			return float64(anythingNew)
+		case uint32:
+			return float64(anythingNew)
+		case uint16:
+			return float64(anythingNew)
+		case uint8: // byte
+			return float64(anythingNew)
+		case uint:
+			return float64(anythingNew)
+		default:
+			return errors.New("excpected float64-convertible value")
+		}
+	}
 
-    var numbersEven array
-    var numbersOdd array
+	arrayFilterV1 := func(restArguments ...interface{}) []interface{} {
+		// JavaScript-like Array.filter() function
+		callbackFunction := restArguments[0].(func(...interface{}) interface{})
+		anArray := restArguments[1].([]interface{})
+		dataFiltered := []interface{}{}
+		for arrayItemIndex, arrayItem := range anArray {
+			isConditionMatch := callbackFunction(arrayItem, arrayItemIndex, anArray)
+			if (isConditionMatch == true) {
+				dataFiltered = append(dataFiltered, arrayItem)
+			}
+		}
+		return dataFiltered
+	}
+	
+	arrayFilterV2 := func(restArguments ...interface{}) []interface{} {
+		// JavaScript-like Array.filter() function
+		callbackFunction := restArguments[0].(func(...interface{}) interface{})
+		anArray := restArguments[1].([]interface{})
+		dataFiltered := []interface{}{}
+		for arrayItemIndex, arrayItem := range anArray {
+			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+				dataFiltered = append(dataFiltered, arrayItem)
+			}
+		}
+		return dataFiltered
+	}
 
-    fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
+    consoleLog("\n// JavaScript-like Array.filter() in Go Slice")
 
-    numbersEven = arrayFilterV1(func(number any, _ int, _ array) bool {
-        return ((number.(int) % 2) == 0)
-    }, numbers)
-    sprint("even numbers only: ", jsonStringify(numbersEven))
-    // even numbers only: [12, 34, 36, 4, 254]
+    numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
+    consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    numbersOdd = arrayFilterV1(func(number any, _ int, _ array) bool {
-        return ((number.(int) % 2) != 0)
-    }, numbers)
-    sprint("odd numbers only: ", jsonStringify(numbersOdd))
-    // odd numbers only: [27, 23, 65, 93, 87]
+    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
 
-    fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
+    {
+		numbersEven := arrayFilterV1(func(restArguments ...interface{}) interface{} {
+			anyNumber := int((getFloat64(restArguments[0]).(float64)))
+			return ((anyNumber % 2) == 0)
+		}, numbers)
+		consoleLog(stringInterpolation("even numbers only: ", jsonStringify(numbersEven)))
+		// even numbers only: [12, 34, 36, 4, 254]
+	
+		numbersOdd := arrayFilterV1(func(restArguments ...interface{}) interface{} {
+			anyNumber := int((getFloat64(restArguments[0]).(float64)))
+			return ((anyNumber % 2) != 0)
+		}, numbers)
+		consoleLog(stringInterpolation("odd numbers only: ", jsonStringify(numbersOdd)))
+		// odd numbers only: [27, 23, 65, 93, 87]
+	}
 
-    numbersEven = arrayFilterV2(func(number any, _ int, _ array) bool {
-        return ((number.(int) % 2) == 0)
-    }, numbers)
-    sprint("even numbers only: ", jsonStringify(numbersEven))
-    // even numbers only: [12, 34, 36, 4, 254]
+    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
 
-    numbersOdd = arrayFilterV2(func(number any, _ int, _ array) bool {
-        return ((number.(int) % 2) != 0)
-    }, numbers)
-    sprint("odd numbers only: ", jsonStringify(numbersOdd))
-    // odd numbers only: [27, 23, 65, 93, 87]
+    {
+		numbersEven := arrayFilterV2(func(restArguments ...interface{}) interface{} {
+			anyNumber := int((getFloat64(restArguments[0]).(float64)))
+			return ((anyNumber % 2) == 0)
+		}, numbers)
+		consoleLog(stringInterpolation("even numbers only: ", jsonStringify(numbersEven)))
+		// even numbers only: [12, 34, 36, 4, 254]
+	
+		numbersOdd := arrayFilterV2(func(restArguments ...interface{}) interface{} {
+			anyNumber := int((getFloat64(restArguments[0]).(float64)))
+			return ((anyNumber % 2) != 0)
+		}, numbers)
+		consoleLog(stringInterpolation("odd numbers only: ", jsonStringify(numbersOdd)))
+		// odd numbers only: [27, 23, 65, 93, 87]
+	}
 
-    fmt.Println("\n// JavaScript-like Array.filter() in Go Slice of maps")
+    consoleLog("\n// JavaScript-like Array.filter() in Go Slice of maps")
 
-    products := array{
-        object{
+    products := []interface{}{
+        map[string]interface{}{
             "code": "pasta",
             "price": 321,
         },
-        object{
+        map[string]interface{}{
             "code": "bubble_gum",
             "price": 233,
         },
-        object{
+        map[string]interface{}{
             "code": "potato_chips",
             "price": 5,
         },
-        object{
+        map[string]interface{}{
             "code": "towel",
             "price": 499,
         },
     }
-    sprint("products: ", jsonStringify(products, object{"pretty": true}))
+    consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-    var productsBelow100 array
-    var productsAbove100 array
+    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
 
-    fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
+    {
+		productsBelow100 := arrayFilterV1(func(restArguments ...interface{}) interface{} {
+			anyProduct := restArguments[0]
+			productPrice := int((getFloat64(optionalChaining(anyProduct, "price")).(float64)))
+			return (productPrice <= 100)
+		}, products)
+		consoleLog(stringInterpolation("products with price <= 100 only: ", jsonStringify(productsBelow100, map[string]interface{}{"pretty": true})))
+		// products with price <= 100 only: [
+		//     {
+		//         "code": "potato_chips",
+		//         "price": 5
+		//     }
+		// ]
+	
+		productsAbove100 := arrayFilterV1(func(restArguments ...interface{}) interface{} {
+			anyProduct := restArguments[0]
+			productPrice := int((getFloat64(optionalChaining(anyProduct, "price")).(float64)))
+			return (productPrice > 100)
+		}, products)
+		consoleLog(stringInterpolation("products with price > 100 only: ", jsonStringify(productsAbove100, map[string]interface{}{"pretty": true})))
+		// products with price > 100 only: [
+		//     {
+		//         "code": "pasta",
+		//         "price": 321
+		//     },
+		//     {
+		//         "code": "bubble_gum",
+		//         "price": 233
+		//     },
+		//     {
+		//         "code": "towel",
+		//         "price": 499
+		//     }
+		// ]
+	}
 
-    productsBelow100 = arrayFilterV1(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) <= 100)
-    }, products)
-    sprint("products with price <= 100 only: ", jsonStringify(productsBelow100, object{"pretty": true}))
-    // products with price <= 100 only: [
-    //     {
-    //         "code": "potato_chips",
-    //         "price": 5
-    //     }
-    // ]
+    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
 
-    productsAbove100 = arrayFilterV1(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) > 100)
-    }, products)
-    sprint("products with price > 100 only: ", jsonStringify(productsAbove100, object{"pretty": true}))
-    // products with price > 100 only: [
-    //     {
-    //         "code": "pasta",
-    //         "price": 321
-    //     },
-    //     {
-    //         "code": "bubble_gum",
-    //         "price": 233
-    //     },
-    //     {
-    //         "code": "towel",
-    //         "price": 499
-    //     }
-    // ]
-
-    fmt.Println("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
-
-    productsBelow100 = arrayFilterV2(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) <= 100)
-    }, products)
-    sprint("products with price <= 100 only: ", jsonStringify(productsBelow100, object{"pretty": true}))
-    // products with price <= 100 only: [
-    //     {
-    //         "code": "potato_chips",
-    //         "price": 5
-    //     }
-    // ]
-
-    productsAbove100 = arrayFilterV2(func(product any, _ int, _ array) bool {
-        return (product.(object)["price"].(int) > 100)
-    }, products)
-    sprint("products with price > 100 only: ", jsonStringify(productsAbove100, object{"pretty": true}))
-    // products with price > 100 only: [
-    //     {
-    //         "code": "pasta",
-    //         "price": 321
-    //     },
-    //     {
-    //         "code": "bubble_gum",
-    //         "price": 233
-    //     },
-    //     {
-    //         "code": "towel",
-    //         "price": 499
-    //     }
-    // ]
+    {
+		productsBelow100 := arrayFilterV2(func(restArguments ...interface{}) interface{} {
+			anyProduct := restArguments[0]
+			productPrice := int((getFloat64(optionalChaining(anyProduct, "price")).(float64)))
+			return (productPrice <= 100)
+		}, products)
+		consoleLog(stringInterpolation("products with price <= 100 only: ", jsonStringify(productsBelow100, map[string]interface{}{"pretty": true})))
+		// products with price <= 100 only: [
+		//     {
+		//         "code": "potato_chips",
+		//         "price": 5
+		//     }
+		// ]
+	
+		productsAbove100 := arrayFilterV2(func(restArguments ...interface{}) interface{} {
+			anyProduct := restArguments[0]
+			productPrice := int((getFloat64(optionalChaining(anyProduct, "price")).(float64)))
+			return (productPrice > 100)
+		}, products)
+		consoleLog(stringInterpolation("products with price > 100 only: ", jsonStringify(productsAbove100, map[string]interface{}{"pretty": true})))
+		// products with price > 100 only: [
+		//     {
+		//         "code": "pasta",
+		//         "price": 321
+		//     },
+		//     {
+		//         "code": "bubble_gum",
+		//         "price": 233
+		//     },
+		//     {
+		//         "code": "towel",
+		//         "price": 499
+		//     }
+		// ]
+	}
 }

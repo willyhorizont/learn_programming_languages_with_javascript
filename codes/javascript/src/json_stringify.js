@@ -24,7 +24,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -84,7 +84,7 @@ const jsonStringifyV1 = (anything, { pretty = false } = {}) => ((pretty === true
 const jsonStringifyV2 = (anything, { pretty = false } = {}) => {
     // custom JSON.stringify() function jsonStringifyV2
     const jsonStringifyInner = (anythingInner) => {
-        if ((anythingInner === undefined) || (getType(anythingInner) === jsType.Null) || (getType(anythingInner) === jsType.String) || (getType(anythingInner) === jsType.Numeric) || (getType(anythingInner) === jsType.Boolean)) return anythingInner;
+        if ((getType(anythingInner) === jsType.Null) || (getType(anythingInner) === jsType.String) || (getType(anythingInner) === jsType.Numeric) || (getType(anythingInner) === jsType.Boolean)) return anythingInner;
         if (getType(anythingInner) === jsType.Object) {
             const objectEntry = Object.entries(anythingInner);
             const newObject = {};

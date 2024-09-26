@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -80,25 +80,30 @@ console.log("\n// Array.includes() in JavaScript");
 const myFriends = ["Alisa", "Trivia"];
 console.log(`my friends: ${jsonStringify(myFriends)}`);
 
-let aName;
-let isMyFriend;
+{
+    const anyName = "Alisa";
+    const isMyFriend = myFriends.includes(anyName);
+    console.log(`is my friends includes "${anyName}": ${isMyFriend}`);
+    // is my friends includes "Alisa": true
+}
 
-aName = "Alisa";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Alisa": true
+{
+    const anyName = "Trivia";
+    const isMyFriend = myFriends.includes(anyName);
+    console.log(`is my friends includes "${anyName}": ${isMyFriend}`);
+    // is my friends includes "Trivia": true
+}
 
-aName = "Trivia";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Trivia": true
+{
+    const anyName = "Tony";
+    const isMyFriend = myFriends.includes(anyName);
+    console.log(`is my friends includes "${anyName}": ${isMyFriend}`);
+    // is my friends includes "Tony": false
+}
 
-aName = "Tony";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Tony": false
-
-aName = "Ezekiel";
-isMyFriend = myFriends.includes(aName);
-console.log(`is my friends includes "${aName}": ${isMyFriend}`);
-// is my friends includes "Ezekiel": false
+{
+    const anyName = "Ezekiel";
+    const isMyFriend = myFriends.includes(anyName);
+    console.log(`is my friends includes "${anyName}": ${isMyFriend}`);
+    // is my friends includes "Ezekiel": false
+}

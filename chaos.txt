@@ -83,6 +83,7 @@ simultaneously {
     create object_from_entries.*
     create function_pipe.*
 }
+truncate the decimal part in .* function_pipe.*
 deep_clone
 array_entries, array_keys, array_values, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
 array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,

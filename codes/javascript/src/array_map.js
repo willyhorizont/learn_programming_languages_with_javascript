@@ -20,7 +20,7 @@ const isObject = (anything) => (Object.prototype.toString.call(anything) === "[o
 
 const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[object Array]") && (Array.isArray(anything) === true));
 
-const isFunction = (anything) => (Object.prototype.toString.call(anything) === '[object Function]');
+const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
 const getType = (anything) => {
     if (isNull(anything) === true) return jsType.Null;
@@ -80,7 +80,7 @@ console.log("\n// Array.map() in JavaScript Array");
 const numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
 console.log(`numbers: ${jsonStringify(numbers)}`);
 
-const numbersLabeled = numbers.map((number) => ({ [number]: (((number % 2) === 0) ? "even" : "odd") }));
+const numbersLabeled = numbers.map((anyNumber) => ({ [anyNumber]: (((anyNumber % 2) === 0) ? "even" : "odd") }));
 console.log(`labeled numbers: ${jsonStringify(numbersLabeled, { pretty: true })}`);
 // labeled numbers: [
 //     {
@@ -137,7 +137,7 @@ const products = [
 ];
 console.log(`products: ${jsonStringify(products, { pretty: true })}`);
 
-const productsLabeled = products.map((product) => ({ ...product, label: ((product?.price > 100) ? "expensive" : "cheap") }));
+const productsLabeled = products.map((anyProduct) => ({ ...anyProduct, label: ((anyProduct?.price > 100) ? "expensive" : "cheap") }));
 console.log(`labeled products: ${jsonStringify(productsLabeled, { pretty: true })}`);
 // labeled products: [
 //     {
