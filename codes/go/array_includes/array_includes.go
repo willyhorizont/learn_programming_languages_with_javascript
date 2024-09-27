@@ -332,7 +332,7 @@ func main() {
     myFriends := []interface{}{"Alisa", "Trivia"}
 	consoleLog(stringInterpolation("my friends: ", []interface{}{myFriends}))
 
-    consoleLog("// using JavaScript-like Array.includes() function \"arrayIncludesV1\"")
+    consoleLog(`// using JavaScript-like Array.includes() function "arrayIncludesV1"`)
 
     {
 		anyName := "Alisa"
@@ -362,7 +362,7 @@ func main() {
 		// is my friends includes "Ezekiel": false
 	}
 
-    consoleLog("// using JavaScript-like Array.includes() function \"arrayIncludesV2\"")
+    consoleLog(`// using JavaScript-like Array.includes() function "arrayIncludesV2"`)
 
     {
 		anyName := "Alisa"

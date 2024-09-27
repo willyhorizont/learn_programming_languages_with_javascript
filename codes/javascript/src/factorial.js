@@ -45,18 +45,18 @@ const factorialV4 = (number) => {
     return (number * factorialV4(number - 1));
 };
 
-console.log("// using factorial function \"factorialV1\"");
+console.log(`// using factorial function "factorialV1"`);
 console.log(`Factorial(5): ${factorialV1(5)}`);
 // Factorial(5): 120
 
-console.log("// using factorial function \"factorialV2\"");
+console.log(`// using factorial function "factorialV2"`);
 console.log(`Factorial(5): ${factorialV2(5)}`);
 // Factorial(5): 120
 
-console.log("// using factorial function \"factorialV3\"");
+console.log(`// using factorial function "factorialV3"`);
 console.log(`Factorial(5): ${factorialV3(5)}`);
 // Factorial(5): 120
 
-console.log("// using factorial function \"factorialV4\"");
+console.log(`// using factorial function "factorialV4"`);
 console.log(`Factorial(5): ${factorialV4(5)}`);
 // Factorial(5): 120

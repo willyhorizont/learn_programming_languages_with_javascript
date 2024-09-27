@@ -373,7 +373,7 @@ func main() {
 
     // ? Passing functions as arguments to other functions
 
-    sayHelllo := func(restArguments ...interface{}) interface{} {
+    sayHello := func(restArguments ...interface{}) interface{} {
 		callbackFunction := restArguments[0].(func(...interface{}) interface{})
         consoleLog("hello")
         callbackFunction()
@@ -385,9 +385,9 @@ func main() {
 		return nil
     }
 
-    sayHelllo(sayHowAreYou)
+    sayHello(sayHowAreYou)
 
-    sayHelllo(func(restArguments ...interface{}) interface{} {
+    sayHello(func(restArguments ...interface{}) interface{} {
         consoleLog("how are you?")
 		return nil
     })

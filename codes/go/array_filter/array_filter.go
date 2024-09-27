@@ -366,7 +366,7 @@ func main() {
     numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
+    consoleLog(`// using JavaScript-like Array.filter() function "arrayFilterV1"`)
 
     {
 		numbersEven := arrayFilterV1(func(restArguments ...interface{}) interface{} {
@@ -384,7 +384,7 @@ func main() {
 		// odd numbers only: [27, 23, 65, 93, 87]
 	}
 
-    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
+    consoleLog(`// using JavaScript-like Array.filter() function "arrayFilterV2"`)
 
     {
 		numbersEven := arrayFilterV2(func(restArguments ...interface{}) interface{} {
@@ -424,7 +424,7 @@ func main() {
     }
     consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV1\"")
+    consoleLog(`// using JavaScript-like Array.filter() function "arrayFilterV1"`)
 
     {
 		productsBelow100 := arrayFilterV1(func(restArguments ...interface{}) interface{} {
@@ -462,7 +462,7 @@ func main() {
 		// ]
 	}
 
-    consoleLog("// using JavaScript-like Array.filter() function \"arrayFilterV2\"")
+    consoleLog(`// using JavaScript-like Array.filter() function "arrayFilterV2"`)
 
     {
 		productsBelow100 := arrayFilterV2(func(restArguments ...interface{}) interface{} {

@@ -382,7 +382,7 @@ func main() {
     numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    consoleLog("// using JavaScript-like Array.map() function \"arrayMapV1\"")
+    consoleLog(`// using JavaScript-like Array.map() function "arrayMapV1"`)
 
     {
 		numbersLabeled := arrayMapV1(func(restArguments ...interface{}) interface{} {
@@ -428,7 +428,7 @@ func main() {
 		// ]
 	}
 
-    consoleLog("// using JavaScript-like Array.map() function \"arrayMapV2\"")
+    consoleLog(`// using JavaScript-like Array.map() function "arrayMapV2"`)
 
     {
 		numbersLabeled := arrayMapV2(func(restArguments ...interface{}) interface{} {
@@ -496,7 +496,7 @@ func main() {
     }
     consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-    consoleLog("// using JavaScript-like Array.map() function \"arrayMapV1\"")
+    consoleLog(`// using JavaScript-like Array.map() function "arrayMapV1"`)
 
     {
 		productsLabeled := arrayMapV1(func(restArguments ...interface{}) interface{} {
@@ -533,7 +533,7 @@ func main() {
 		// ]
 	}
 
-    consoleLog("// using JavaScript-like Array.map() function \"arrayMapV2\"")
+    consoleLog(`// using JavaScript-like Array.map() function "arrayMapV2"`)
 
     {
 		productsLabeled := arrayMapV2(func(restArguments ...interface{}) interface{} {

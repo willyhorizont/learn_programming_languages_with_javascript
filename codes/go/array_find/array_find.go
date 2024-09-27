@@ -393,7 +393,7 @@ func main() {
     numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV1\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV1"`)
 
     {
 		evenNumberFound := arrayFindV1(func(restArguments ...interface{}) interface{} {
@@ -411,7 +411,7 @@ func main() {
 		// odd number found: 27
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV2\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV2"`)
 
     {
 		evenNumberFound := arrayFindV2(func(restArguments ...interface{}) interface{} {
@@ -429,7 +429,7 @@ func main() {
 		// odd number found: 27
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV3\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV3"`)
 
     {
 		evenNumberFound := arrayFindV3(func(restArguments ...interface{}) interface{} {
@@ -447,7 +447,7 @@ func main() {
 		// odd number found: 27
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV4\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV4"`)
 
     {
 		evenNumberFound := arrayFindV4(func(restArguments ...interface{}) interface{} {
@@ -490,7 +490,7 @@ func main() {
     productToFind := "bubble_gum"
     consoleLog(stringInterpolation("product to find: ", productToFind))
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV1\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV1"`)
 
     {
 		productFound := arrayFindV1(func(restArguments ...interface{}) interface{} {
@@ -505,7 +505,7 @@ func main() {
 		// }
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV2\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV2"`)
 
     {
 		productFound := arrayFindV2(func(restArguments ...interface{}) interface{} {
@@ -520,7 +520,7 @@ func main() {
 		// }
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV3\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV3"`)
 
     {
 		productFound := arrayFindV3(func(restArguments ...interface{}) interface{} {
@@ -535,7 +535,7 @@ func main() {
 		// }
 	}
 
-    consoleLog("// using JavaScript-like Array.find() function \"arrayFindV4\"")
+    consoleLog(`// using JavaScript-like Array.find() function "arrayFindV4"`)
 
     {
 		productFound := arrayFindV4(func(restArguments ...interface{}) interface{} {

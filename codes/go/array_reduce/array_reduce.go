@@ -381,7 +381,7 @@ func main() {
     numbers := []interface{}{36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    consoleLog("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
+    consoleLog(`// using JavaScript-like Array.reduce() function "arrayReduce"`)
 
     numbersTotal := arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
 		currentResult := getFloat64(restArgumentsArrayReduceCallback[0]).(float64)
@@ -413,7 +413,7 @@ func main() {
     }
     consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-    consoleLog("// using JavaScript-like Array.reduce() function \"arrayReduce\"")
+    consoleLog(`// using JavaScript-like Array.reduce() function "arrayReduce"`)
 
     productsGrouped := arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
 		currentResult := restArgumentsArrayReduceCallback[0]

@@ -324,6 +324,7 @@ func main() {
 	giveMeRespect := func(restArguments ...interface{}) interface{} {
 		argument := restArguments[0]
 		if (argument != "respect") {
+			// Custom Error
 			return errors.New(`Error: You should give me "respect"!`)
 		}
 		return `Thank you for giving me "respect"!`

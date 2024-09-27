@@ -396,7 +396,7 @@ func main() {
     numberToFind := 27
     consoleLog(stringInterpolation("number to find: ", []interface{}{numberToFind}))
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV1"`)
 
     {
 		numberFoundIndex := arrayFindIndexV1(func(restArguments ...interface{}) interface{} {
@@ -407,7 +407,7 @@ func main() {
 		// number found index: 2
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV2"`)
 
     {
 		numberFoundIndex := arrayFindIndexV2(func(restArguments ...interface{}) interface{} {
@@ -418,7 +418,7 @@ func main() {
 		// number found index: 2
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV3"`)
 
     {
 		numberFoundIndex := arrayFindIndexV3(func(restArguments ...interface{}) interface{} {
@@ -429,7 +429,7 @@ func main() {
 		// number found index: 2
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV4"`)
 
     {
 		numberFoundIndex := arrayFindIndexV4(func(restArguments ...interface{}) interface{} {
@@ -465,7 +465,7 @@ func main() {
 	productToFind := "pasta"
 	consoleLog(stringInterpolation("product to find: ", productToFind))
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV1\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV1"`)
 
     {
 		productFoundIndex := arrayFindIndexV1(func(restArguments ...interface{}) interface{} {
@@ -477,7 +477,7 @@ func main() {
 		// product found index: 0
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV2\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV2"`)
 
     {
 		productFoundIndex := arrayFindIndexV2(func(restArguments ...interface{}) interface{} {
@@ -489,7 +489,7 @@ func main() {
 		// product found index: 0
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV3\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV3"`)
 
     {
 		productFoundIndex := arrayFindIndexV3(func(restArguments ...interface{}) interface{} {
@@ -501,7 +501,7 @@ func main() {
 		// product found index: 0
 	}
 
-    consoleLog("// using JavaScript-like Array.findIndex() function \"arrayFindIndexV4\"")
+    consoleLog(`// using JavaScript-like Array.findIndex() function "arrayFindIndexV4"`)
 
     {
 		productFoundIndex := arrayFindIndexV4(func(restArguments ...interface{}) interface{} {

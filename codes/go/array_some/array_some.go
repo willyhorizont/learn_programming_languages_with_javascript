@@ -392,7 +392,7 @@ func main() {
     numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV1\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV1"`)
 
     {
 		isAnyNumberLessThan500 := arraySomeV1(func(restArguments ...interface{}) interface{} {
@@ -410,7 +410,7 @@ func main() {
 		// is interface{} number > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV2\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV2"`)
 
     {
 		isAnyNumberLessThan500 := arraySomeV2(func(restArguments ...interface{}) interface{} {
@@ -428,7 +428,7 @@ func main() {
 		// is interface{} number > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV3\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV3"`)
 
     {
 		isAnyNumberLessThan500 := arraySomeV3(func(restArguments ...interface{}) interface{} {
@@ -446,7 +446,7 @@ func main() {
 		// is interface{} number > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV4\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV4"`)
 
     {
 		isAnyNumberLessThan500 := arraySomeV4(func(restArguments ...interface{}) interface{} {
@@ -486,7 +486,7 @@ func main() {
     }
     consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV1\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV1"`)
 
     {
 		isAnyProductPriceLessThan500 := arraySomeV1(func(restArguments ...interface{}) interface{} {
@@ -506,7 +506,7 @@ func main() {
 		// is interface{} product price > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV2\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV2"`)
 
     {
 		isAnyProductPriceLessThan500 := arraySomeV2(func(restArguments ...interface{}) interface{} {
@@ -526,7 +526,7 @@ func main() {
 		// is interface{} product price > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV3\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV3"`)
 
     {
 		isAnyProductPriceLessThan500 := arraySomeV3(func(restArguments ...interface{}) interface{} {
@@ -546,7 +546,7 @@ func main() {
 		// is interface{} product price > 500: false
 	}
 
-    consoleLog("// using JavaScript-like Array.some() function \"arraySomeV4\"")
+    consoleLog(`// using JavaScript-like Array.some() function "arraySomeV4"`)
 
     {
 		isAnyProductPriceLessThan500 := arraySomeV4(func(restArguments ...interface{}) interface{} {

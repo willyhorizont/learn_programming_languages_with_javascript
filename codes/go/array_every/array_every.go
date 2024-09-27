@@ -392,7 +392,7 @@ func main() {
     numbers := []interface{}{12, 34, 27, 23, 65, 93, 36, 87, 4, 254}
     consoleLog(stringInterpolation("numbers: ", []interface{}{numbers}))
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV1\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV1"`)
 
 	{
 		isAllNumberLessThan500 := arrayEveryV1(func(restArguments ...interface{}) interface{} {
@@ -410,7 +410,7 @@ func main() {
 		// is all number > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV2\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV2"`)
 
     {
 		isAllNumberLessThan500 := arrayEveryV2(func(restArguments ...interface{}) interface{} {
@@ -428,7 +428,7 @@ func main() {
 		// is all number > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV3\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV3"`)
 
     {
 		isAllNumberLessThan500 := arrayEveryV3(func(restArguments ...interface{}) interface{} {
@@ -446,7 +446,7 @@ func main() {
 		// is all number > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV4\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV4"`)
 
     {
 		isAllNumberLessThan500 := arrayEveryV4(func(restArguments ...interface{}) interface{} {
@@ -486,7 +486,7 @@ func main() {
     }
     consoleLog(stringInterpolation("products: ", jsonStringify(products, map[string]interface{}{"pretty": true})))
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV1\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV1"`)
 
     {
 		isAllProductPriceLessThan500 := arrayEveryV1(func(restArguments ...interface{}) interface{} {
@@ -506,7 +506,7 @@ func main() {
 		// is all anyProduct price > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV2\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV2"`)
 
     {
 		isAllProductPriceLessThan500 := arrayEveryV2(func(restArguments ...interface{}) interface{} {
@@ -526,7 +526,7 @@ func main() {
 		// is all anyProduct price > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV3\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV3"`)
 
     {
 		isAllProductPriceLessThan500 := arrayEveryV3(func(restArguments ...interface{}) interface{} {
@@ -546,7 +546,7 @@ func main() {
 		// is all anyProduct price > 500: false
 	}
 
-	consoleLog("// using JavaScript-like Array.every() function \"arrayEveryV4\"")
+	consoleLog(`// using JavaScript-like Array.every() function "arrayEveryV4"`)
 
     {
 		isAllProductPriceLessThan500 := arrayEveryV4(func(restArguments ...interface{}) interface{} {
