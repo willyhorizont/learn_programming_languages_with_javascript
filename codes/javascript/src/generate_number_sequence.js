@@ -76,6 +76,9 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
 };
 
 const generateNumberSequence = (startNumber, stopNumber) => {
+    if (stopNumber === undefined) throw new Error("expected (start_number, stop_number)");
+    if ((getType(startNumber) !== jsType.Numeric) && (getType(stopNumber) !== jsType.Numeric)) throw new Error("expected (numeric_value, numeric_value)");
+    if (stopNumber === startNumber) throw new Error("expected (stop_number > start_number) or (start_number > stop_number)");
     if (stopNumber > startNumber) {
         const numberSequenceArrayAscending = [];
         for (let aNumber = startNumber; (aNumber <= stopNumber); aNumber += 1) {
@@ -90,7 +93,7 @@ const generateNumberSequence = (startNumber, stopNumber) => {
         }
         return numberSequenceArrayDescending;
     }
-    return [0];
+    throw new Error("something weird happened in generateNumberSequence");
 };
 
 console.log(`generateNumberSequence(0, 9): ${jsonStringify(generateNumberSequence(0, 9))}`);
@@ -101,3 +104,6 @@ console.log(`generateNumberSequence(10, 1): ${jsonStringify(generateNumberSequen
 // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 console.log(`generateNumberSequence(9, 0): ${jsonStringify(generateNumberSequence(9, 0))}`);
 // [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+// console.log(`generateNumberSequence(10): ${jsonStringify(generateNumberSequence(10))}`); // error
+// console.log(`generateNumberSequence(1, "bg"): ${jsonStringify(generateNumberSequence(1, "bg"))}`); // error
+// console.log(`generateNumberSequence(5, 5): ${jsonStringify(generateNumberSequence(5, 5))}`); // error

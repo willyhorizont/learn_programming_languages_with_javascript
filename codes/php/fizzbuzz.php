@@ -13,16 +13,20 @@ $js_like_type = [
 function array_reduce_v2($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.reduce() function array_reduce_v2
     $result = $initial_value;
-    foreach ($an_array as $array_item_index => $array_item) {
-        $result = $callback_function($result, $array_item, $array_item_index, $an_array);
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+        $array_item_index += 1;
     }
     return $result;
 };
 
 function array_every($callback_function, $an_array) {
     // JavaScript-like Array.every() function array_every_v4
-    foreach ($an_array as $array_item_index => $array_item) {
-        if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+        $array_item_index += 1;
     }
     return true;
 };
@@ -49,7 +53,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
+    return array_every((fn($object_value) => (is_like_js_string($object_value) === true)), array_keys($anything));
 };
 
 function is_like_js_function($anything) {
@@ -91,9 +95,7 @@ function pipe(...$rest_arguments) {
         if (get_type($current_argument) === $js_like_type["Function"]) return $current_argument($current_result);
         return null;
     }), $rest_arguments, null);
-    if (get_type($pipe_result) === $js_like_type["Function"]) {
-        return $pipe_result($pipe_last_result);
-    }
+    if (get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
     return $pipe_result;
 };
 
@@ -129,11 +131,13 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
             if (count($anything_inner) === 0) return "[]";
             $indent_level += 1;
             $result = (($pretty === true) ? ("[\n" . str_repeat($indent, $indent_level)) : "[");
-            foreach ($anything_inner as $array_item_index => $array_item) {
-                $result .= $json_stringify_inner($array_item);
+            $array_item_index = 0;
+            foreach ($anything_inner as $object_key => $object_value) {
+                $result .= $json_stringify_inner($object_value);
                 if (($array_item_index + 1) !== count($anything_inner)) {
                     $result .= (($pretty === true) ? (",\n" . str_repeat($indent, $indent_level)) : ", ");
                 }
+                $array_item_index += 1;
             }
             $indent_level -= 1;
             $result .= (($pretty === true) ? ("\n" . str_repeat($indent, $indent_level) . "]") : "]");
@@ -161,35 +165,35 @@ function fizzbuzz_v1($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
+    $any_number = 1;
     while (true) {
         if ($result === "") {
-            $result = string_interpolation([$number]);
-            if ($number >= $stop_number) break;
-            $number += 1;
+            $result = string_interpolation([$any_number]);
+            if ($any_number >= $stop_number) break;
+            $any_number += 1;
             continue;
         }
-        if ((($number % 3) === 0) && (($number % 5) === 0)) {
+        if ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
-            if ($number >= $stop_number) break;
-            $number += 1;
+            if ($any_number >= $stop_number) break;
+            $any_number += 1;
             continue;
         }
-        if (($number % 3) === 0) {
+        if (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
-            if ($number >= $stop_number) break;
-            $number += 1;
+            if ($any_number >= $stop_number) break;
+            $any_number += 1;
             continue;
         }
-        if (($number % 5) === 0) {
+        if (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
-            if ($number >= $stop_number) break;
-            $number += 1;
+            if ($any_number >= $stop_number) break;
+            $any_number += 1;
             continue;
         }
-        $result = string_interpolation($result, ", ", [$number]);
-        if ($number >= $stop_number) break;
-        $number += 1;
+        $result = string_interpolation($result, ", ", [$any_number]);
+        if ($any_number >= $stop_number) break;
+        $any_number += 1;
     }
     return $result;
 };
@@ -199,30 +203,30 @@ function fizzbuzz_v2($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
-    while ($number <= $stop_number) {
+    $any_number = 1;
+    while ($any_number <= $stop_number) {
         if ($result === "") {
-            $result = string_interpolation([$number]);
-            $number += 1;
+            $result = string_interpolation([$any_number]);
+            $any_number += 1;
             continue;
         }
-        if ((($number % 3) === 0) && (($number % 5) === 0)) {
+        if ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
-            $number += 1;
+            $any_number += 1;
             continue;
         }
-        if (($number % 3) === 0) {
+        if (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
-            $number += 1;
+            $any_number += 1;
             continue;
         }
-        if (($number % 5) === 0) {
+        if (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
-            $number += 1;
+            $any_number += 1;
             continue;
         }
-        $result = string_interpolation($result, ", ", [$number]);
-        $number += 1;
+        $result = string_interpolation($result, ", ", [$any_number]);
+        $any_number += 1;
     }
     return $result;
 };
@@ -232,21 +236,21 @@ function fizzbuzz_v3($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
+    $any_number = 1;
     while (true) {
         if ($result === "") {
-            $result = string_interpolation([$number]);
-        } elseif ((($number % 3) === 0) && (($number % 5) === 0)) {
+            $result = string_interpolation([$any_number]);
+        } elseif ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
-        } elseif (($number % 3) === 0) {
+        } elseif (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
-        } elseif (($number % 5) === 0) {
+        } elseif (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
         } else {
-            $result = string_interpolation($result, ", ", [$number]);
+            $result = string_interpolation($result, ", ", [$any_number]);
         }
-        if ($number >= $stop_number) break;
-        $number += 1;
+        if ($any_number >= $stop_number) break;
+        $any_number += 1;
     }
     return $result;
 };
@@ -256,20 +260,20 @@ function fizzbuzz_v4($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
-    while ($number <= $stop_number) {
+    $any_number = 1;
+    while ($any_number <= $stop_number) {
         if ($result === "") {
-            $result = string_interpolation([$number]);
-        } elseif ((($number % 3) === 0) && (($number % 5) === 0)) {
+            $result = string_interpolation([$any_number]);
+        } elseif ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
-        } elseif (($number % 3) === 0) {
+        } elseif (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
-        } elseif (($number % 5) === 0) {
+        } elseif (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
         } else {
-            $result = string_interpolation($result, ", ", [$number]);
+            $result = string_interpolation($result, ", ", [$any_number]);
         }
-        $number += 1;
+        $any_number += 1;
     }
     return $result;
 };
@@ -279,23 +283,23 @@ function fizzbuzz_v5($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
+    $any_number = 1;
     while (true) {
         $result = (($result === "")
-            ? string_interpolation([$number])
-            : (((($number % 3) === 0) && (($number % 5) === 0))
+            ? string_interpolation([$any_number])
+            : (((($any_number % 3) === 0) && (($any_number % 5) === 0))
                 ? string_interpolation($result, ", FizzBuzz")
-                : ((($number % 3) === 0)
+                : ((($any_number % 3) === 0)
                     ? string_interpolation($result, ", Fizz")
-                    : ((($number % 5) === 0)
+                    : ((($any_number % 5) === 0)
                         ? string_interpolation($result, ", Buzz")
-                        : string_interpolation($result, ", ", [$number])
+                        : string_interpolation($result, ", ", [$any_number])
                     )
                 )
             )
         );
-        if ($number >= $stop_number) break;
-        $number += 1;
+        if ($any_number >= $stop_number) break;
+        $any_number += 1;
     }
     return $result;
 };
@@ -305,22 +309,22 @@ function fizzbuzz_v6($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
-    while ($number <= $stop_number) {
+    $any_number = 1;
+    while ($any_number <= $stop_number) {
         $result = (($result === "")
-            ? string_interpolation([$number])
-            : (((($number % 3) === 0) && (($number % 5) === 0))
+            ? string_interpolation([$any_number])
+            : (((($any_number % 3) === 0) && (($any_number % 5) === 0))
                 ? string_interpolation($result, ", FizzBuzz")
-                : ((($number % 3) === 0)
+                : ((($any_number % 3) === 0)
                     ? string_interpolation($result, ", Fizz")
-                    : ((($number % 5) === 0)
+                    : ((($any_number % 5) === 0)
                         ? string_interpolation($result, ", Buzz")
-                        : string_interpolation($result, ", ", [$number])
+                        : string_interpolation($result, ", ", [$any_number])
                     )
                 )
             )
         );
-        $number += 1;
+        $any_number += 1;
     }
     return $result;
 };
@@ -330,11 +334,11 @@ function fizzbuzz_v7 ($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
+    $any_number = 1;
     while (true) {
-        $result = (($result === "") ? string_interpolation([$number]) : (((($number % 3) === 0) && (($number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$number])))));
-        if ($number >= $stop_number) break;
-        $number += 1;
+        $result = (($result === "") ? string_interpolation([$any_number]) : (((($any_number % 3) === 0) && (($any_number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$any_number])))));
+        if ($any_number >= $stop_number) break;
+        $any_number += 1;
     }
     return $result;
 };
@@ -344,10 +348,10 @@ function fizzbuzz_v8($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    $number = 1;
-    while ($number <= $stop_number) {
-        $result = (($result === "") ? string_interpolation([$number]) : (((($number % 3) === 0) && (($number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$number])))));
-        $number += 1;
+    $any_number = 1;
+    while ($any_number <= $stop_number) {
+        $result = (($result === "") ? string_interpolation([$any_number]) : (((($any_number % 3) === 0) && (($any_number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$any_number])))));
+        $any_number += 1;
     }
     return $result;
 };
@@ -357,24 +361,24 @@ function fizzbuzz_v9($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
+    foreach (range(1, $stop_number, 1) as $any_number) { // (start, stop, step)
         if ($result === "") {
-            $result = string_interpolation([$number]);
+            $result = string_interpolation([$any_number]);
             continue;
         }
-        if ((($number % 3) === 0) && (($number % 5) === 0)) {
+        if ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
             continue;
         }
-        if (($number % 3) === 0) {
+        if (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
             continue;
         }
-        if (($number % 5) === 0) {
+        if (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
             continue;
         }
-        $result = string_interpolation($result, ", ", [$number]);
+        $result = string_interpolation($result, ", ", [$any_number]);
     }
     return $result;
 };
@@ -384,17 +388,17 @@ function fizzbuzz_v10($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
+    foreach (range(1, $stop_number, 1) as $any_number) { // (start, stop, step)
         if ($result === "") {
-            $result = string_interpolation([$number]);
-        } elseif ((($number % 3) === 0) && (($number % 5) === 0)) {
+            $result = string_interpolation([$any_number]);
+        } elseif ((($any_number % 3) === 0) && (($any_number % 5) === 0)) {
             $result = string_interpolation($result, ", FizzBuzz");
-        } elseif (($number % 3) === 0) {
+        } elseif (($any_number % 3) === 0) {
             $result = string_interpolation($result, ", Fizz");
-        } elseif (($number % 5) === 0) {
+        } elseif (($any_number % 5) === 0) {
             $result = string_interpolation($result, ", Buzz");
         } else {
-            $result = string_interpolation($result, ", ", [$number]);
+            $result = string_interpolation($result, ", ", [$any_number]);
         }
     }
     return $result;
@@ -405,16 +409,16 @@ function fizzbuzz_v11($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
+    foreach (range(1, $stop_number, 1) as $any_number) { // (start, stop, step)
         $result = (($result === "")
-            ? string_interpolation([$number])
-            : (((($number % 3) === 0) && (($number % 5) === 0))
+            ? string_interpolation([$any_number])
+            : (((($any_number % 3) === 0) && (($any_number % 5) === 0))
                 ? string_interpolation($result, ", FizzBuzz")
-                : ((($number % 3) === 0)
+                : ((($any_number % 3) === 0)
                     ? string_interpolation($result, ", Fizz")
-                    : ((($number % 5) === 0)
+                    : ((($any_number % 5) === 0)
                         ? string_interpolation($result, ", Buzz")
-                        : string_interpolation($result, ", ", [$number])
+                        : string_interpolation($result, ", ", [$any_number])
                     )
                 )
             )
@@ -428,8 +432,8 @@ function fizzbuzz_v12($stop_number) {
     if (get_type($stop_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
     if ($stop_number < 1) throw new Exception("Argument should be > 0");
     $result = "";
-    foreach (range(1, $stop_number, 1) as $number) { // (start, stop, step)
-        $result = (($result === "") ? string_interpolation([$number]) : (((($number % 3) === 0) && (($number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$number])))));
+    foreach (range(1, $stop_number, 1) as $any_number) { // (start, stop, step)
+        $result = (($result === "") ? string_interpolation([$any_number]) : (((($any_number % 3) === 0) && (($any_number % 5) === 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) === 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) === 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", [$any_number])))));
     }
     return $result;
 };
@@ -442,53 +446,53 @@ function fizzbuzz_v13($stop_number) {
 };
 
 console_log('// using fizzbuzz function "fizzbuzz_v1"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v1(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v1(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v2"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v2(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v2(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v3"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v3(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v3(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v4"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v4(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v4(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v5"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v5(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v5(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v6"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v6(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v6(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v7"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v7(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v7(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v8"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v8(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v8(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v9"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v9(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v9(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v10"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v10(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v10(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v11"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v11(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v11(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v12"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v12(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v12(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
 console_log('// using fizzbuzz function "fizzbuzz_v13"');
-console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v13(36)));
+console_log(string_interpolation("FizzBuzz(36): ", [fizzbuzz_v13(36)]));
 // FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

@@ -301,7 +301,7 @@ func main() {
 		return nil
 	}
 
-	consoleLog("// Immediately Invoked Function Expression (IIFE) in JavaScript")
+	consoleLog("// Immediately Invoked Function Expression (IIFE) in Go")
 	consoleLog("// a Self-Executing Anonymous Function that runs as soon as it is defined")
 	consoleLog("// https://developer.mozilla.org/en-US/docs/Glossary/IIFE")
 

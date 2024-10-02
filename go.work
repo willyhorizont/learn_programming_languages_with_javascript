@@ -12,6 +12,7 @@ use (
     ./codes/go/009_operator_optional_chaining
     ./codes/go/010_operator_nullish_coalescing
     ./codes/go/011_operator_spread
+    ./codes/go/array_entries
     ./codes/go/array_every
     ./codes/go/array_filter
     ./codes/go/array_find

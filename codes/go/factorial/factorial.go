@@ -335,15 +335,19 @@ func main() {
 	}
 
 	factorialV1 := func(restArguments ...interface{}) interface{} {
-		anyNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (anyNumber < 0) {
+		anyNumber := restArguments[0]
+		if (getType(anyNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		anyNumber = (getFloat64(restArguments[0]).(float64))
+		if (anyNumber.(float64) < 0) {
 			return errors.New("Argument should be >= 0")
 		}
-		if (anyNumber == 0) {
+		if (anyNumber.(float64) == 0) {
 			return 1
 		}
-		result := 1
-		i := anyNumber
+		var result float64 = 1
+		i := anyNumber.(float64)
 		for (true) {
 			result *= i
 			if (i <= 1) {
@@ -355,15 +359,19 @@ func main() {
 	}
 	
 	factorialV2 := func(restArguments ...interface{}) interface{} {
-		anyNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (anyNumber < 0) {
+		anyNumber := restArguments[0]
+		if (getType(anyNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		anyNumber = (getFloat64(restArguments[0]).(float64))
+		if (anyNumber.(float64) < 0) {
 			return errors.New("Argument should be >= 0")
 		}
-		if (anyNumber == 0) {
+		if (anyNumber.(float64) == 0) {
 			return 1
 		}
-		result := 1
-		i := anyNumber
+		var result float64 = 1
+		i := anyNumber.(float64)
 		for (i >= 1) {
 			result *= i
 			i -= 1
@@ -372,15 +380,19 @@ func main() {
 	}
 	
 	factorialV3 := func(restArguments ...interface{}) interface{} {
-		anyNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (anyNumber < 0) {
+		anyNumber := restArguments[0]
+		if (getType(anyNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		anyNumber = (getFloat64(restArguments[0]).(float64))
+		if (anyNumber.(float64) < 0) {
 			return errors.New("Argument should be >= 0")
 		}
-		if (anyNumber == 0) {
+		if (anyNumber.(float64) == 0) {
 			return 1
 		}
-		result := 1
-		for i := anyNumber; i >= 1; i -= 1 {
+		var result float64 = 1
+		for i := anyNumber.(float64); i >= 1; i -= 1 {
 			result *= i
 		}
 		return result
@@ -388,35 +400,39 @@ func main() {
 	
 	var factorialV4 interface{}
 	factorialV4 = func(restArguments ...interface{}) interface{} {
-		anyNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (anyNumber < 0) {
+		anyNumber := restArguments[0]
+		if (getType(anyNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		anyNumber = (getFloat64(restArguments[0]).(float64))
+		if (anyNumber.(float64) < 0) {
 			return errors.New("Argument should be >= 0")
 		}
-		if (anyNumber == 0) {
+		if (anyNumber.(float64) == 0) {
 			return 1
 		}
-		return (anyNumber * (factorialV4.(func(...interface{}) interface{})(anyNumber - 1).(int)))
+		return (anyNumber.(float64) * (getFloat64(factorialV4.(func(...interface{}) interface{})(anyNumber.(float64) - 1)).(float64)))
 	}
 
     consoleLog("\n// Factorial(n) in Go")
 
     consoleLog(`// using factorial function "factorialV1"`)
     
-	consoleLog("Factorial(5): ", factorialV1(5))
+	consoleLog(stringInterpolation("Factorial(5): ", []interface{}{factorialV1(5)}))
 	// Factorial(5): 120
 
     consoleLog(`// using factorial function "factorialV2"`)
     
-	consoleLog("Factorial(5): ", factorialV2(5))
+	consoleLog(stringInterpolation("Factorial(5): ", []interface{}{factorialV2(5)}))
 	// Factorial(5): 120
 
     consoleLog(`// using factorial function "factorialV3"`)
     
-	consoleLog("Factorial(5): ", factorialV3(5))
+	consoleLog(stringInterpolation("Factorial(5): ", []interface{}{factorialV3(5)}))
 	// Factorial(5): 120
 
     consoleLog(`// using factorial function "factorialV4"`)
     
-	consoleLog("Factorial(5): ", factorialV4.(func(...interface{}) interface{})(5))
+	consoleLog(stringInterpolation("Factorial(5): ", []interface{}{factorialV4.(func(...interface{}) interface{})(5)}))
 	// Factorial(5): 120
 }

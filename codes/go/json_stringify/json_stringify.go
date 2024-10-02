@@ -513,12 +513,12 @@ func main() {
 	consoleLog(stringInterpolation("jsonStringifyV3(myArray): ", jsonStringifyV3(myArray)))
 	// ⭐⭐⭐⭐⭐
 	consoleLog(stringInterpolation("jsonStringify(myArray): ", jsonStringify(myArray)))
-	consoleLog(stringInterpolation("jsonStringifyV1(myArray): ", jsonStringifyV1(myArray, map[string]interface{}{"pretty": true}))) // return an error if array contains any functions
-	consoleLog(stringInterpolation("jsonStringifyV2(myArray): ", jsonStringifyV2(myArray, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringifyV1(myArray, map[string]interface{}{"pretty": true}): `, jsonStringifyV1(myArray, map[string]interface{}{"pretty": true}))) // return an error if array contains any functions
+	consoleLog(stringInterpolation(`jsonStringifyV2(myArray, map[string]interface{}{"pretty": true}): `, jsonStringifyV2(myArray, map[string]interface{}{"pretty": true})))
 	// ⭐⭐⭐⭐⭐
-	consoleLog(stringInterpolation("jsonStringifyV3(myArray): ", jsonStringifyV3(myArray, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringifyV3(myArray, map[string]interface{}{"pretty": true}): `, jsonStringifyV3(myArray, map[string]interface{}{"pretty": true})))
 	// ⭐⭐⭐⭐⭐
-	consoleLog(stringInterpolation("jsonStringify(myArray): ", jsonStringify(myArray, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringify(myArray, map[string]interface{}{"pretty": true}): `, jsonStringify(myArray, map[string]interface{}{"pretty": true})))
 
 	myObject := map[string]interface{}{
         "my_function": func(restArguments ...interface{}) interface{} {
@@ -541,10 +541,10 @@ func main() {
 	consoleLog(stringInterpolation("jsonStringifyV3(myObject): ", jsonStringifyV3(myObject)))
 	// ⭐⭐⭐⭐⭐
 	consoleLog(stringInterpolation("jsonStringify(myObject): ", jsonStringify(myObject)))
-	consoleLog(stringInterpolation("jsonStringifyV1(myObject): ", jsonStringifyV1(myObject, map[string]interface{}{"pretty": true}))) // return an error if array contains any functions
-	consoleLog(stringInterpolation("jsonStringifyV2(myObject): ", jsonStringifyV2(myObject, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringifyV1(myObject, map[string]interface{}{"pretty": true})`, jsonStringifyV1(myObject, map[string]interface{}{"pretty": true}))) // return an error if array contains any functions
+	consoleLog(stringInterpolation(`jsonStringifyV2(myObject, map[string]interface{}{"pretty": true})`, jsonStringifyV2(myObject, map[string]interface{}{"pretty": true})))
 	// ⭐⭐⭐⭐⭐
-	consoleLog(stringInterpolation("jsonStringifyV3(myObject): ", jsonStringifyV3(myObject, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringifyV3(myObject, map[string]interface{}{"pretty": true})`, jsonStringifyV3(myObject, map[string]interface{}{"pretty": true})))
 	// ⭐⭐⭐⭐⭐
-	consoleLog(stringInterpolation("jsonStringify(myObject): ", jsonStringify(myObject, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation(`jsonStringify(myObject, map[string]interface{}{"pretty": true})`, jsonStringify(myObject, map[string]interface{}{"pretty": true})))
 }

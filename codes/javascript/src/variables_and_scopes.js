@@ -10,7 +10,7 @@
 /* eslint-disable wrap-iife */
 /* eslint-disable func-names */
 
-console.log("Variables and Scopes in JavaScript");
+console.log("// Variables and Scopes in JavaScript");
 
 // global scope
 
@@ -37,8 +37,10 @@ var xxx = "global_scope, 1"; // doesn't throw error when redefined !
     console.log(`zzz: ${zzz}`); // zzz: local_scope_block_scope {}, 30
     console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope {}, 40
 }
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope {}, 10
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
 // local scope block scope if{}
@@ -53,8 +55,10 @@ if (true) {
     console.log(`zzz: ${zzz}`); // zzz: local_scope_block_scope if{}, 30
     console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope if{}, 40
 }
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope if{}, 10
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
 // local scope block scope for{}
@@ -69,8 +73,10 @@ for (let i = 0; (i < 1); i += 1) {
     console.log(`zzz: ${zzz}`); // zzz: local_scope_block_scope for{}, 30
     console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope for{}, 40
 }
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope for{}, 10
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
 // local scope block scope while{}
@@ -86,8 +92,10 @@ while (true) {
     console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope while{}, 40
     break;
 }
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope while{}, 10
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
 // local scope function scope function () {}
@@ -102,8 +110,10 @@ var xxx = "global_scope, 1"; // doesn't throw error when redefined !
     console.log(`zzz: ${zzz}`); // zzz: local_scope_function_scope function () {}, 300
     console.log(`aaa: ${aaa}`); // aaa: local_scope_function_scope function () {}, 400
 })();
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: global_scope, 1
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
 // local scope function scope () => {}
@@ -118,8 +128,10 @@ var xxx = "global_scope, 1"; // doesn't throw error when redefined !
     console.log(`zzz: ${zzz}`); // zzz: local_scope_function_scope () => {}, 300
     console.log(`aaa: ${aaa}`); // aaa: local_scope_function_scope () => {}, 400
 })();
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: global_scope, 1
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 // local scope function scope (function () {}, () => {}) inside local scope block scope ({}, if{}, for{}, while{})
 
@@ -149,14 +161,15 @@ var xxx = "global_scope, 1"; // doesn't throw error when redefined !
         console.log(`zzz: ${zzz}`); // zzz: local_scope_function_scope function () {}, 300
         console.log(`aaa: ${aaa}`); // aaa: local_scope_function_scope function () {}, 400
     })();
-    // console.log(`aaa: ${aaa}`); // "aaa" is not defined
     console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope {}, 1
     console.log(`yyy: ${yyy}`); // yyy: local_scope_block_scope {}, 20
     console.log(`zzz: ${zzz}`); // zzz: local_scope_block_scope {}, 30
     console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope {}, 40
 }
-// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope {}, 1
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
+// console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 // local scope block scope ({}, if{}, for{}, while{}) inside local scope function scope (function () {}, () => {})
 
@@ -186,8 +199,12 @@ var xxx = "global_scope, 1"; // doesn't throw error when redefined !
         console.log(`zzz: ${zzz}`); // zzz: local_scope_block_scope {}, 30
         console.log(`aaa: ${aaa}`); // aaa: local_scope_block_scope {}, 40
     }
-    // console.log(`aaa: ${aaa}`); // "aaa" is not defined
     console.log(`xxx: ${xxx}`); // xxx: local_scope_block_scope {}, 10
+    console.log(`yyy: ${yyy}`); // yyy: local_scope_function_scope, 200
+    console.log(`zzz: ${zzz}`); // zzz: local_scope_function_scope, 300
+    console.log(`aaa: ${aaa}`); // aaa: local_scope_function_scope, 400
 })();
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 console.log(`xxx: ${xxx}`); // xxx: global_scope, 1
+console.log(`yyy: ${yyy}`); // yyy: global_scope, 2
+console.log(`zzz: ${zzz}`); // zzz: global_scope, 3

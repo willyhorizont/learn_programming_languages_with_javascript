@@ -206,7 +206,7 @@ function multiply(a) {
 }
 const multiplyBy2 = multiply(2);
 const multiplyBy2Result = multiplyBy2(10);
-console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
+console.log(`multiplyBy2(10): ${multiplyBy2Result}`);
 ```
     */
     fun multiply(a: Int): (Int) -> Int {

@@ -431,7 +431,7 @@ playGame();
     playGame()
 
     /*
-3. map[string]interface{}/dictionary/associative-[]interface{}/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
 ```javascript
 const myObject = {
     "my_string": "foo",
@@ -459,7 +459,7 @@ console.log(`myObject: ${myObject}`);
     consoleLog(stringInterpolation("myObject: ", jsonStringify(myObject, map[string]interface{}{"pretty": true})))
 
     /*
-4. []interface{}/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
 ```javascript
 const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
 console.log(`myArray: ${myArray}`);
@@ -510,7 +510,7 @@ function multiply(a) {
 }
 const multiplyBy2 = multiply(2);
 const multiplyBy2Result = multiplyBy2(10);
-console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
+console.log(`multiplyBy2(10): ${multiplyBy2Result}`);
 ```
     */
     multiply := func(restArguments ...interface{}) interface{} {
@@ -547,7 +547,7 @@ console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
     consoleLog(stringInterpolation("getRectangleArea(7, 5): ", []interface{}{getRectangleArea(7, 5)}))
 
     /*
-8. support storing functions in data structures like []interface{}/list/slice/ordered-list-data-structure or map[string]interface{}/dictionary/associative-[]interface{}/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
 ```javascript
 const myArray2 = [
     function (a, b) {

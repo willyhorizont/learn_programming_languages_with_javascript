@@ -1,47 +1,220 @@
-use Scalar::Util qw(looks_like_number);
+use strict;
+# use warnings;
+
+my $js_like_type = {
+    "Null" => "Null",
+    "Boolean" => "Boolean",
+    "String" => "String",
+    "Numeric" => "Numeric",
+    "Object" => "Object",
+    "Array" => "Array",
+    "Function" => "Function"
+};
+
+sub boolean {
+    my ($anything_ref) = @_;
+    return ($anything_ref ? "true" : "false");
+}
+
+sub string {
+    my ($anything_ref) = @_;
+    return ($anything_ref . "");
+}
+
+sub object {
+    my ($an_object_ref) = @_;
+    return \%{$an_object_ref};
+}
+
+sub is_like_js_null {
+    my ($anything_ref) = @_;
+    return ((defined $anything_ref) ? "false" : "true");
+}
+
+sub is_like_js_boolean {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref eq "true") || ($anything_ref eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_string {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref ne (string($anything_ref) + 0)) && (is_like_js_boolean($anything_ref) eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_numeric {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref + 0) eq $anything_ref) ? "true" : "false");
+}
+
+sub is_like_js_object {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "HASH") ? "true" : "false");
+}
+
+sub is_like_js_array {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "ARRAY") ? "true" : "false");
+}
+
+sub is_like_js_function {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "CODE") ? "true" : "false");
+}
+
+sub get_type {
+    my ($anything_ref) = @_;
+    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    my $anything_ref_unknown_type = (ref $anything_ref);
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+}
+
+sub throw_error_if_null {
+    my ($anything_ref) = @_;
+    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
+    return $anything_ref;
+}
+
+sub negate {
+    my ($anything_ref) = @_;
+    return "false" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "true"));
+    return "true" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "false"));
+    die 'expected string ("true"/"false")';
+}
 
 sub json_stringify {
-    my ($anything_ref, %optionalar_gument) = @_;
-    my $pretty = $optionalar_gument{"pretty"} // 0;
-    my $indent = $optionalar_gument{"indent"} // "    ";
+    my ($anything_ref, %keyword_argument) = @_;
+    my $optional_argument = {%keyword_argument};
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
-        my ($anything_inner_ref, $indent_inner) = @_;
-        return "null" if (!defined($anything_inner_ref));
-        return "$anything_inner_ref" if looks_like_number($anything_inner_ref);
-        return "\"" . $anything_inner_ref . "\"" if (ref($anything_inner_ref) eq "");
-        if (ref($anything_inner_ref) eq "ARRAY") {
-            return "[]" if (scalar(@{$anything_inner_ref}) == 0);
+        my ($anything_inner_ref) = @_;
+        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
+        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+            my $object_keys_ref = [keys(%{$anything_inner_ref})];
+            return "{}" if (scalar(@{$object_keys_ref}) == 0);
             $indent_level += 1;
-            my $result = (!$pretty ? "[" : ("[\n" . ($indent_inner x $indent_level)));
-            for my $array_item_index (0..(scalar(@{$anything_inner_ref}) - 1)) {
-                my $array_item = $anything_inner_ref->[$array_item_index];
-                $result .= $json_stringify_inner->($array_item, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($array_item_index + 1) != scalar(@{$anything_inner_ref}));
-            }
-            $indent_level -= 1;
-            $result .= (!$pretty ? "]" : ("\n" . ($indent_inner x $indent_level) . "]"));
-            return $result;
-        }
-        if (ref($anything_inner_ref) eq "HASH") {
-            return "{}" if (scalar(keys(%{$anything_inner_ref})) == 0);
-            $indent_level += 1;
-            my $result = (!$pretty ? "{" : ("{\n" . ($indent_inner x $indent_level)));
+            my $result = (($pretty eq "true") ? ("{\n" . ($indent_default x $indent_level)) : "{ ");
             my $object_entry_index = 0;
-            foreach my $object_key (keys(%{$anything_inner_ref})) {
-                my $object_value = $anything_inner_ref->{$object_key};
-                $result .= "\"" . $object_key . "\": " . $json_stringify_inner->($object_value, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($object_entry_index + 1) != scalar(keys(%{$anything_inner_ref})));
+            while (my ($object_key, $object_value) = each(%{$anything_inner_ref})) {
+                $result .= '"' . $object_key . '": ' . $json_stringify_inner->($object_value);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($object_entry_index + 1) != scalar(@{$object_keys_ref}));
                 $object_entry_index += 1;
             }
             $indent_level -= 1;
-            $result .= (!$pretty ? "}" : ("\n" . ($indent_inner x $indent_level) . "}"));
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
             return $result;
         }
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+            my $array_length = scalar(@{$anything_inner_ref});
+            return "[]" if ($array_length == 0);
+            $indent_level += 1;
+            my $result = (($pretty eq "true") ? ("[\n" . ($indent_default x $indent_level)) : "[");
+            for (my $array_item_index = 0; ($array_item_index < scalar(@{$anything_inner_ref})); $array_item_index += 1) {
+                my $array_item = $anything_inner_ref->[$array_item_index];
+                $result .= $json_stringify_inner->($array_item);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($array_item_index + 1) != $array_length);
+            }
+            $indent_level -= 1;
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
+            return $result;
+        }
+        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
+        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
         return "null";
     };
-    return $json_stringify_inner->($anything_ref, $indent);
+    return $json_stringify_inner->($anything_ref);
+}
+
+sub array_reduce {
+    # JavaScript-like Array.reduce() function
+    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
+    my $result = $initial_value;
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+    }
+    return $result;
+}
+
+sub string_interpolation {
+    return (array_reduce((sub {
+        my ($current_result, $current_argument) = @_;
+        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
+        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
+        return ($current_result . (json_stringify($current_argument)));
+    }), \@_, ""));
+}
+
+sub console_log {
+    print(string_interpolation(@_) . "\n");
+}
+
+sub optional_chaining {
+    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
+    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
+    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    return array_reduce((sub {
+        my ($current_result, $current_item) = @_;
+        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
+        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        return undef;
+    }), \@array_index_or_object_key_or_function_argument_array, undef);
+}
+
+sub object_from_entries {
+    # JavaScript-like Object.fromEntries() function
+    my ($an_object_entries_ref) = @_;
+    my $new_object_ref = {};
+    while (my ($object_entry_index, $object_entry_ref) = each(@{$an_object_entries_ref})) {
+        my $object_key = $object_entry_ref->[0];
+        my $object_value = $object_entry_ref->[1];
+        $new_object_ref->{string($object_key)} = $object_value;
+    }
+    return $new_object_ref;
+}
+
+sub array_entries {
+    # JavaScript-like Array.entries() function
+    my ($an_array_ref) = @_;
+    my $new_object_entries_ref = [];
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        push(@{$new_object_entries_ref}, [$array_item_index, $array_item]);
+    }
+    return $new_object_entries_ref;
+}
+
+sub pipe_v2 {
+    my $pipe_last_result = undef;
+    my $pipe_result = array_reduce((sub {
+        my ($current_result, $current_argument) = @_;
+        $pipe_last_result = $current_result;
+        return $current_argument if (get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"}));
+        return $current_argument->($current_result) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"Function"}));
+        return undef;
+    }), \@_, undef);
+    return $pipe_result->($pipe_last_result) if (get_type($pipe_result) eq throw_error_if_null($js_like_type->{"Function"}));
+    return $pipe_result;
 }
 
 =begin
@@ -65,17 +238,17 @@ type Any interface{}
 ```
 =cut
 my $something = "foo";
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
 $something = 123;
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
-$something = 1;
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
+$something = "true";
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
 $something = undef;
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
 $something = [1, 2, 3];
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
 $something = {"foo" => "bar"};
-print("something: ", json_stringify($something, "pretty" => 1), "\n");
+console_log(string_interpolation('something: ', json_stringify($something, "pretty" => "true")));
 
 =begin
 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
@@ -118,18 +291,18 @@ sub get_modified_indent_level {
     };
     return $change_indent_level->();
 }
-print("get_modified_indent_level(): ", get_modified_indent_level(), "\n");
+console_log(string_interpolation("get_modified_indent_level(): ", [get_modified_indent_level()]));
 sub create_new_game {
     my ($initial_credit) = @_;
     my $current_credit = $initial_credit;
-    print("initial credit: ", $initial_credit, "\n");
+    console_log(string_interpolation("initial credit: ", [$initial_credit]));
     return sub {
         $current_credit -= 1;
         if ($current_credit == 0) {
-            print("not enough credits", "\n");
+            console_log("not enough credits");
             return;
         }
-        print("playing game, ", $current_credit, " credit(s) remaining", "\n");
+        console_log(string_interpolation("playing game, ", [$current_credit], " credit(s) remaining"));
     };
 }
 
@@ -157,25 +330,27 @@ console.log(`myObject: ${myObject}`);
 my %my_object = (
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => 1,
+    "my_bool" => "true",
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
     }
 );
-print("my_object: ", json_stringify(\%my_object, "pretty" => 1), "\n");
+console_log(string_interpolation("my_object: ", json_stringify(\%my_object, "pretty" => "true")));
+console_log(string_interpolation("my_object: ", json_stringify({%my_object}, "pretty" => "true")));
 my $my_object_ref = {
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => 1,
+    "my_bool" => "true",
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
     }
 };
-print("my_object_ref: ", json_stringify($my_object_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("my_object_ref: ", json_stringify(\%{$my_object_ref}, "pretty" => "true")));
+console_log(string_interpolation("my_object_ref: ", json_stringify($my_object_ref, "pretty" => "true")));
 
 =begin
 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -184,10 +359,12 @@ const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
 console.log(`myArray: ${myArray}`);
 ```
 =cut
-my @my_array = ("foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"});
-print("my_array: ", json_stringify(\@my_array, "pretty" => 1), "\n");
-my $my_array_ref = ["foo", 123, 1, undef, [1, 2, 3], {"foo" => "bar"}];
-print("my_array_ref: ", json_stringify($my_array_ref, "pretty" => 1), "\n");
+my @my_array = ("foo", 123, "true", undef, [1, 2, 3], {"foo" => "bar"});
+console_log(string_interpolation("my_array: ", json_stringify(\@my_array, "pretty" => "true")));
+console_log(string_interpolation("my_array: ", json_stringify([@my_array], "pretty" => "true")));
+my $my_array_ref = ["foo", 123, "true", undef, [1, 2, 3], {"foo" => "bar"}];
+console_log(string_interpolation("my_array_ref: ", json_stringify(\@{$my_array_ref}, "pretty" => "true")));
+console_log(string_interpolation("my_array_ref: ", json_stringify($my_array_ref, "pretty" => "true")));
 
 =begin
 5. support passing functions as arguments to other functions
@@ -207,15 +384,17 @@ sayHello(function () {
 =cut
 sub say_hello {
     my ($callback_function_ref) = @_;
-    print("hello", "\n");
-    $callback_function_ref -> (); # or &$callback_function_ref();
+    console_log("hello");
+    $callback_function_ref->();
+    # # or
+    # &$callback_function_ref();
 }
 sub say_how_are_you {
-    print("how are you?", "\n");
+    console_log("how are you?");
 }
 say_hello(\&say_how_are_you);
 say_hello(sub {
-    print("how are you?", "\n");
+    console_log("how are you?");
 });
 
 =begin
@@ -228,7 +407,7 @@ function multiply(a) {
 }
 const multiplyBy2 = multiply(2);
 const multiplyBy2Result = multiplyBy2(10);
-console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
+console.log(`multiplyBy2(10): ${multiplyBy2Result}`);
 ```
 =cut
 sub multiply {
@@ -240,7 +419,7 @@ sub multiply {
 }
 my $multiply_by2 = multiply(2);
 my $multiply_by2_result = $multiply_by2->(10);
-print("multiply_by2_result: ", $multiply_by2_result, "\n");
+console_log(string_interpolation('$multiply_by2->(10): ', $multiply_by2_result));
 
 =begin
 7. support assigning functions to variables
@@ -261,7 +440,7 @@ my $get_rectangle_area = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return ($rectangle_width * $rectangle_length);
 };
-print("get_rectangle_area(7, 5): ", $get_rectangle_area->(7, 5), "\n");
+console_log(string_interpolation('$get_rectangle_area->(7, 5): ', $get_rectangle_area->(7, 5)));
 
 =begin
 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -301,12 +480,13 @@ my @my_array2 = (
     },
     "foo",
     123,
-    1,
+    "true",
     undef,
     [1, 2, 3],
     {"foo" => "bar"}
 );
-print("myArray2[0](7, 5): ", $my_array2[0]->(7, 5), "\n");
+console_log(string_interpolation("myArray2[0](7, 5): ", optional_chaining(optional_chaining([@my_array2], 0), 7, 5)));
+console_log(string_interpolation("myArray2[0](7, 5): ", pipe_v2(optional_chaining([@my_array2], 0), (sub { optional_chaining([@_]->[0], 7, 5) }))));
 my $my_array2_ref = [
     sub {
         my ($a, $b) = @_;
@@ -314,12 +494,13 @@ my $my_array2_ref = [
     },
     "foo",
     123,
-    1,
+    "true",
     undef,
     [1, 2, 3],
     {"foo" => "bar"}
 ];
-print("myArray2[0](7, 5): ", $my_array2_ref->[0]->(7, 5), "\n");
+console_log(string_interpolation("myArray2[0](7, 5): ", optional_chaining(optional_chaining($my_array2_ref, 0), 7, 5)));
+console_log(string_interpolation("myArray2[0](7, 5): ", pipe_v2(optional_chaining($my_array2_ref, 0), (sub { optional_chaining([@_]->[0], 7, 5) }))));
 my %my_object2 = (
     "my_function" => sub {
         my ($a, $b) = @_;
@@ -327,14 +508,15 @@ my %my_object2 = (
     },
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => 1,
+    "my_bool" => "true",
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
     }
 );
-print("myObject2[\"my_function\"](7, 5): ", $my_object2{"my_function"}->(7, 5), "\n");
+console_log(string_interpolation('myObject2["my_function"](7, 5): ', optional_chaining(optional_chaining({%my_object2}, "my_function"), 7, 5)));
+console_log(string_interpolation('myObject2["my_function"](7, 5): ', pipe_v2(optional_chaining({%my_object2}, "my_function"), (sub { optional_chaining([@_]->[0], 7, 5) }))));
 my $my_object2_ref = {
     "my_function" => sub {
         my ($a, $b) = @_;
@@ -342,11 +524,12 @@ my $my_object2_ref = {
     },
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => 1,
+    "my_bool" => "true",
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {
         "foo" => "bar"
     }
 };
-print("myObject2[\"my_function\"](7, 5): ", $my_object2_ref->{"my_function"}->(7, 5), "\n");
+console_log(string_interpolation('myObject2["my_function"](7, 5): ', optional_chaining(optional_chaining($my_object2_ref, "my_function"), 7, 5)));
+console_log(string_interpolation('myObject2["my_function"](7, 5): ', pipe_v2(optional_chaining($my_object2_ref, "my_function"), (sub { optional_chaining([@_]->[0], 7, 5) }))));

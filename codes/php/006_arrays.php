@@ -13,16 +13,20 @@ $js_like_type = [
 function array_reduce_v2($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.reduce() function array_reduce_v2
     $result = $initial_value;
-    foreach ($an_array as $array_item_index => $array_item) {
-        $result = $callback_function($result, $array_item, $array_item_index, $an_array);
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+        $array_item_index += 1;
     }
     return $result;
 };
 
 function array_every($callback_function, $an_array) {
     // JavaScript-like Array.every() function array_every_v4
-    foreach ($an_array as $array_item_index => $array_item) {
-        if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+        $array_item_index += 1;
     }
     return true;
 };
@@ -49,7 +53,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
+    return array_every((fn($object_value) => (is_like_js_string($object_value) === true)), array_keys($anything));
 };
 
 function is_like_js_function($anything) {
@@ -91,9 +95,7 @@ function pipe(...$rest_arguments) {
         if (get_type($current_argument) === $js_like_type["Function"]) return $current_argument($current_result);
         return null;
     }), $rest_arguments, null);
-    if (get_type($pipe_result) === $js_like_type["Function"]) {
-        return $pipe_result($pipe_last_result);
-    }
+    if (get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
     return $pipe_result;
 };
 
@@ -129,11 +131,13 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
             if (count($anything_inner) === 0) return "[]";
             $indent_level += 1;
             $result = (($pretty === true) ? ("[\n" . str_repeat($indent, $indent_level)) : "[");
-            foreach ($anything_inner as $array_item_index => $array_item) {
-                $result .= $json_stringify_inner($array_item);
+            $array_item_index = 0;
+            foreach ($anything_inner as $object_key => $object_value) {
+                $result .= $json_stringify_inner($object_value);
                 if (($array_item_index + 1) !== count($anything_inner)) {
                     $result .= (($pretty === true) ? (",\n" . str_repeat($indent, $indent_level)) : ", ");
                 }
+                $array_item_index += 1;
             }
             $indent_level -= 1;
             $result .= (($pretty === true) ? ("\n" . str_repeat($indent, $indent_level) . "]") : "]");
@@ -184,20 +188,24 @@ console_log(string_interpolation("fruits, last element: ", [optional_chaining($f
 (function () use ($fruits) {
     for ($array_item_index = 0; ($array_item_index < count($fruits)); $array_item_index += 1) {
         $array_item = $fruits[$array_item_index];
-        console_log(string_interpolation("fruits, for loop, index: ", [$array_item_index], ", item: ", [$array_item]));
+        console_log(string_interpolation("fruits, index: ", [$array_item_index], ", item: ", [$array_item], ", for loop"));
     }
 })();
-// fruits, for loop, index: 0, item: "apple"
-// fruits, for loop, index: 1, item: "mango"
-// fruits, for loop, index: 2, item: "orange"
+// fruits, index: 0, item: "apple", for loop
+// fruits, index: 1, item: "mango", for loop
+// fruits, index: 2, item: "orange", for loop
 
 // iterate over and print each item and index
-foreach ($fruits as $array_item_index => $array_item) {
-    console_log(string_interpolation("fruits, for each loop, index: ", [$array_item_index], ", item: ", [$array_item]));
-}
-// fruits, for each loop, index: 0, item: "apple"
-// fruits, for each loop, index: 1, item: "mango"
-// fruits, for each loop, index: 2, item: "orange"
+(function () use ($fruits) {
+    $array_item_index = 0;
+    foreach ($fruits as $object_key => $object_value) {
+        console_log(string_interpolation("fruits, index: ", [$array_item_index], ", item: ", [$object_value], ", for each loop"));
+        $array_item_index += 1;
+    }
+})();
+// fruits, index: 0, item: "apple", for each loop
+// fruits, index: 1, item: "mango", for each loop
+// fruits, index: 2, item: "orange", for each loop
 
 array_push($fruits, "banana");
 console_log(string_interpolation("fruits: ", [$fruits]));

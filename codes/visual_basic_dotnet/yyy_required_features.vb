@@ -199,7 +199,7 @@ Module Program
 ' }
 ' const multiplyBy2 = multiply(2);
 ' const multiplyBy2Result = multiplyBy2(10);
-' console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
+' console.log(`multiplyBy2(10): ${multiplyBy2Result}`);
 ' ```
         Dim Multiply As Func(Of Integer, Func(Of Integer, Integer)) = Function(ByVal A)
             Return Function(ByVal B)

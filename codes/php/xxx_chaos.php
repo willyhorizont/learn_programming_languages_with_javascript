@@ -14,6 +14,10 @@ console_log\((?!.*string_interpolation)
 [^\(]+fn\(\$
 [^ ]  [^ ]
 @$
+{
+            return
+if.*\{[ \n]+return
+$array_item_index => $array_item
 */
 
 $item1 = "something";

@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -111,31 +111,26 @@ def json_stringify(anything, **optional_argument):
     return json_stringify_inner(anything)
 
 
-def generate_number_sequence_v1(start_number, stop_number):
-    # generate_number_sequence_v1
+def generate_number_sequence(start_number, stop_number):
+    if ((get_type(start_number) != js_like_type["Numeric"]) and (get_type(stop_number) != js_like_type["Numeric"])):
+        raise Exception("expected (numeric_value, numeric_value)")
+    if (start_number == stop_number):
+        raise Exception("expected (stop_number > start_number) or (start_number > stop_number)")
     if (stop_number > start_number):
         return list(range(start_number, (stop_number + 1), 1))
     if (start_number > stop_number):
         return list(range(start_number, (stop_number - 1), -1))
-    return [0]
+    raise Exception("something weird happened in generate_number_sequence")
 
 
-generate_number_sequence_v2 = lambda start_number, stop_number: ((list(range(start_number, (stop_number + 1), 1))) if (stop_number > start_number) else ((list(range(start_number, (stop_number - 1), -1))) if (start_number > stop_number) else [0]))  # generate_number_sequence_v2
-
-print(f"generate_number_sequence_v1(0, 9): {json_stringify(generate_number_sequence_v1(0, 9))}");
+print(f"generate_number_sequence(0, 9): {json_stringify(generate_number_sequence(0, 9))}")
 # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-print(f"generate_number_sequence_v1(1, 10): {json_stringify(generate_number_sequence_v1(1, 10))}");
+print(f"generate_number_sequence(1, 10): {json_stringify(generate_number_sequence(1, 10))}")
 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-print(f"generate_number_sequence_v1(10, 1): {json_stringify(generate_number_sequence_v1(10, 1))}");
+print(f"generate_number_sequence(10, 1): {json_stringify(generate_number_sequence(10, 1))}")
 # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-print(f"generate_number_sequence_v1(9, 0): {json_stringify(generate_number_sequence_v1(9, 0))}");
+print(f"generate_number_sequence(9, 0): {json_stringify(generate_number_sequence(9, 0))}")
 # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-
-print(f"generate_number_sequence_v2(0, 9): {json_stringify(generate_number_sequence_v2(0, 9))}");
-# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-print(f"generate_number_sequence_v2(1, 10): {json_stringify(generate_number_sequence_v2(1, 10))}");
-# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-print(f"generate_number_sequence_v2(10, 1): {json_stringify(generate_number_sequence_v2(10, 1))}");
-# [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-print(f"generate_number_sequence_v2(9, 0): {json_stringify(generate_number_sequence_v2(9, 0))}");
-# [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+# print(f"generate_number_sequence(10): {json_stringify(generate_number_sequence(10))}")  # error
+# print(f'generate_number_sequence(1, "bg"): {json_stringify(generate_number_sequence(1, "bg"))}')  # error
+# print(f'generate_number_sequence(5, 5): {json_stringify(generate_number_sequence(5, 5))}')  # error

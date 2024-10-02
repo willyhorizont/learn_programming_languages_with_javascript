@@ -329,11 +329,11 @@ func main() {
 
 	// iterate over and print each item and index
     for arrayItemIndex, arrayItem := range fruits {
-        consoleLog(stringInterpolation("fruits, for loop, index: ", []interface{}{arrayItemIndex}, ", item: ", []interface{}{arrayItem}))
+        consoleLog(stringInterpolation("fruits, index: ", []interface{}{arrayItemIndex}, ", item: ", []interface{}{arrayItem}, ", for loop"))
     }
-    // fruits, for loop, index: 0, item: "apple"
-    // fruits, for loop, index: 1, item: "mango"
-    // fruits, for loop, index: 2, item: "orange"
+    // fruits, index: 0, item: "apple", for loop
+    // fruits, index: 1, item: "mango", for loop
+    // fruits, index: 2, item: "orange", for loop
 
 	fruits = append(fruits, "banana")
 	consoleLog(stringInterpolation("fruits: ", []interface{}{fruits}))

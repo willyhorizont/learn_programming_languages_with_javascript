@@ -35,7 +35,7 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else f'"{(str(type(anything)))}"')  # '''get_type_v2'''
 
-optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and (int(current_item) >= 0) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
+optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if (get_type(anything) == js_like_type["Function"]) else (anything if (((get_type(anything) != js_like_type["Object"]) and (get_type(anything) != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((get_type(current_result) == js_like_type["Null"]) and (get_type(anything) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((get_type(current_result) == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((get_type(current_result) == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
@@ -119,30 +119,30 @@ print(f'fruits: {json_stringify(fruits)}')
 print(f"fruits, length: {len(fruits)}")
 # fruits, length: 3
 
-print(f"fruits, get mango: {fruits[1]}")
+print(f"fruits, get mango: {json_stringify(fruits[1])}")
 # fruits, get mango: "mango"
 
-print(f"fruits, get mango: {optional_chaining(fruits, 1)}")
+print(f"fruits, get mango: {json_stringify(optional_chaining(fruits, 1))}")
 # fruits, get mango: "mango"
 
-print(f"fruits, first element: {fruits[0]}")
+print(f"fruits, first element: {json_stringify(fruits[0])}")
 # fruits, first element: "apple"
 
-print(f"fruits, first element: {optional_chaining(fruits, 0)}")
+print(f"fruits, first element: {json_stringify(optional_chaining(fruits, 0))}")
 # fruits, first element: "apple"
 
-print(f"fruits, last element: {fruits[-1]}")
+print(f"fruits, last element: {json_stringify(fruits[-1])}")
 # fruits, last element: "orange"
 
-print(f"fruits, last element: {optional_chaining(fruits, -1)}")
+print(f"fruits, last element: {json_stringify(optional_chaining(fruits, -1))}")
 # fruits, last element: "orange"
 
 # iterate over and print each item and index
 for (array_item_index, array_item) in enumerate(fruits):
-    print(f"fruits, for loop, index: {array_item_index}, item: {array_item}")
-# fruits, for loop, index: 0, item: "apple"
-# fruits, for loop, index: 1, item: "mango"
-# fruits, for loop, index: 2, item: "orange"
+    print(f"fruits, index: {array_item_index}, item: {json_stringify(array_item)}, for loop")
+# fruits, index: 0, item: "apple", for loop
+# fruits, index: 1, item: "mango", for loop
+# fruits, index: 2, item: "orange", for loop
 
 fruits.append("banana")
 print(f'fruits: {json_stringify(fruits)}')

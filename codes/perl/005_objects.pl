@@ -1,52 +1,210 @@
 use strict;
-use warnings;
-use Scalar::Util qw(looks_like_number);
+# use warnings;
+
+my $js_like_type = {
+    "Null" => "Null",
+    "Boolean" => "Boolean",
+    "String" => "String",
+    "Numeric" => "Numeric",
+    "Object" => "Object",
+    "Array" => "Array",
+    "Function" => "Function"
+};
+
+sub boolean {
+    my ($anything_ref) = @_;
+    return ($anything_ref ? "true" : "false");
+}
+
+sub string {
+    my ($anything_ref) = @_;
+    return ($anything_ref . "");
+}
+
+sub object {
+    my ($an_object_ref) = @_;
+    return \%{$an_object_ref};
+}
+
+sub is_like_js_null {
+    my ($anything_ref) = @_;
+    return ((defined $anything_ref) ? "false" : "true");
+}
+
+sub is_like_js_boolean {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref eq "true") || ($anything_ref eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_string {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref ne (string($anything_ref) + 0)) && (is_like_js_boolean($anything_ref) eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_numeric {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref + 0) eq $anything_ref) ? "true" : "false");
+}
+
+sub is_like_js_object {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "HASH") ? "true" : "false");
+}
+
+sub is_like_js_array {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "ARRAY") ? "true" : "false");
+}
+
+sub is_like_js_function {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "CODE") ? "true" : "false");
+}
+
+sub get_type {
+    my ($anything_ref) = @_;
+    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    my $anything_ref_unknown_type = (ref $anything_ref);
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+}
+
+sub throw_error_if_null {
+    my ($anything_ref) = @_;
+    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
+    return $anything_ref;
+}
+
+sub negate {
+    my ($anything_ref) = @_;
+    return "false" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "true"));
+    return "true" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "false"));
+    die 'expected string ("true"/"false")';
+}
 
 sub json_stringify {
-    my ($anything_ref, %optionalar_gument) = @_;
-    my $pretty = $optionalar_gument{"pretty"} // 0;
-    my $indent = $optionalar_gument{"indent"} // "    ";
+    my ($anything_ref, %keyword_argument) = @_;
+    my $optional_argument = {%keyword_argument};
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
-        my ($anything_inner_ref, $indent_inner) = @_;
-        return "null" if (!defined($anything_inner_ref));
-        return "$anything_inner_ref" if looks_like_number($anything_inner_ref);
-        return "\"" . $anything_inner_ref . "\"" if (ref($anything_inner_ref) eq "");
-        if (ref($anything_inner_ref) eq "ARRAY") {
-            return "[]" if (scalar(@{$anything_inner_ref}) == 0);
+        my ($anything_inner_ref) = @_;
+        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
+        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+            my $object_keys_ref = [keys(%{$anything_inner_ref})];
+            return "{}" if (scalar(@{$object_keys_ref}) == 0);
             $indent_level += 1;
-            my $result = (!$pretty ? "[" : ("[\n" . ($indent_inner x $indent_level)));
-            for my $array_item_index (0..(scalar(@{$anything_inner_ref}) - 1)) {
-                my $array_item = $anything_inner_ref->[$array_item_index];
-                $result .= $json_stringify_inner->($array_item, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($array_item_index + 1) != scalar(@{$anything_inner_ref}));
-            }
-            $indent_level -= 1;
-            $result .= (!$pretty ? "]" : ("\n" . ($indent_inner x $indent_level) . "]"));
-            return $result;
-        }
-        if (ref($anything_inner_ref) eq "HASH") {
-            return "{}" if (scalar(keys(%{$anything_inner_ref})) == 0);
-            $indent_level += 1;
-            my $result = (!$pretty ? "{" : ("{\n" . ($indent_inner x $indent_level)));
+            my $result = (($pretty eq "true") ? ("{\n" . ($indent_default x $indent_level)) : "{ ");
             my $object_entry_index = 0;
-            foreach my $object_key (keys(%{$anything_inner_ref})) {
-                my $object_value = $anything_inner_ref->{$object_key};
-                $result .= "\"" . $object_key . "\": " . $json_stringify_inner->($object_value, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($object_entry_index + 1) != scalar(keys(%{$anything_inner_ref})));
+            while (my ($object_key, $object_value) = each(%{$anything_inner_ref})) {
+                $result .= '"' . $object_key . '": ' . $json_stringify_inner->($object_value);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($object_entry_index + 1) != scalar(@{$object_keys_ref}));
                 $object_entry_index += 1;
             }
             $indent_level -= 1;
-            $result .= (!$pretty ? "}" : ("\n" . ($indent_inner x $indent_level) . "}"));
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
             return $result;
         }
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+            my $array_length = scalar(@{$anything_inner_ref});
+            return "[]" if ($array_length == 0);
+            $indent_level += 1;
+            my $result = (($pretty eq "true") ? ("[\n" . ($indent_default x $indent_level)) : "[");
+            for (my $array_item_index = 0; ($array_item_index < scalar(@{$anything_inner_ref})); $array_item_index += 1) {
+                my $array_item = $anything_inner_ref->[$array_item_index];
+                $result .= $json_stringify_inner->($array_item);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($array_item_index + 1) != $array_length);
+            }
+            $indent_level -= 1;
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
+            return $result;
+        }
+        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
+        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
         return "null";
     };
-    return $json_stringify_inner->($anything_ref, $indent);
+    return $json_stringify_inner->($anything_ref);
 }
 
-# in Perl, JavaScript-like Object is called Hash
+sub array_reduce {
+    # JavaScript-like Array.reduce() function
+    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
+    my $result = $initial_value;
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+    }
+    return $result;
+}
+
+sub string_interpolation {
+    return (array_reduce((sub {
+        my ($current_result, $current_argument) = @_;
+        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
+        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
+        return ($current_result . (json_stringify($current_argument)));
+    }), \@_, ""));
+}
+
+sub console_log {
+    print(string_interpolation(@_) . "\n");
+}
+
+sub optional_chaining {
+    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
+    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
+    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    return array_reduce((sub {
+        my ($current_result, $current_item) = @_;
+        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
+        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        return undef;
+    }), \@array_index_or_object_key_or_function_argument_array, undef);
+}
+
+sub object_from_entries {
+    # JavaScript-like Object.fromEntries() function
+    my ($an_object_entries_ref) = @_;
+    my $new_object_ref = {};
+    while (my ($object_entry_index, $object_entry_ref) = each(@{$an_object_entries_ref})) {
+        my $object_key = $object_entry_ref->[0];
+        my $object_value = $object_entry_ref->[1];
+        $new_object_ref->{string($object_key)} = $object_value;
+    }
+    return $new_object_ref;
+}
+
+sub array_entries {
+    # JavaScript-like Array.entries() function
+    my ($an_array_ref) = @_;
+    my $new_object_entries_ref = [];
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        push(@{$new_object_entries_ref}, [$array_item_index, $array_item]);
+    }
+    return $new_object_entries_ref;
+}
+
+console_log("# JavaScript-like Object in Perl (Hash)");
 
 # initialization v1
 my %friend = (
@@ -54,99 +212,59 @@ my %friend = (
     "country" => "Finland",
     "age" => 25
 );
-print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
-print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
+console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => "true")));
+console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => "true")));
 
-print("friend, get total object keys: ", scalar(keys(%friend)), "\n");
+console_log(string_interpolation("friend, get total object keys: ", [scalar(keys(%friend))]));
 # friend, get total object keys: 3
 
-print("friend, get country: ", $friend{"country"}, "\n");
-# friend, get country: Finland
+console_log(string_interpolation("friend, get country: ", [$friend{"country"}]));
+# friend, get country: "Finland"
 
-# iterate over and get each key-value pair
-my @friend1_entries1 = %friend;
-for (my $friend1_entries1 = 0; ($friend1_entries1 < scalar(@friend1_entries1)); $friend1_entries1 += 2) {
-    my $object_key = $friend1_entries1[$friend1_entries1];
-    my $object_value = $friend1_entries1[$friend1_entries1 + 1];
-    print("friend, for loop, key: $object_key, value: $object_value", "\n");
-}
-# friend, for loop, key: name, value: Alisa
-# friend, for loop, key: country, value: Finland
-# friend, for loop, key: age, value: 25
+console_log(string_interpolation("friend, get country: ", [${\%friend}{"country"}]));
+# friend, get country: "Finland"
 
-# iterate over and get each key-value pair
-foreach my $object_key (keys(%friend)) {
-    my $object_value = $friend{$object_key};
-    print("friend, forEach loop, key: $object_key, value: $object_value", "\n");
-}
-# friend, forEach loop, key: name, value: Alisa
-# friend, forEach loop, key: country, value: Finland
-# friend, forEach loop, key: age, value: 25
+console_log(string_interpolation("friend, get country: ", [{%friend}->{"country"}]));
+# friend, get country: "Finland"
 
-# iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each(%friend)) {
-    print("friend, while loop, key: $object_key, value: $object_value", "\n");
-}
-# friend, forEach loop, key: name, value: Alisa
-# friend, forEach loop, key: country, value: Finland
-# friend, forEach loop, key: age, value: 25
+console_log(string_interpolation("friend, get country: ", [optional_chaining({%friend}, "country")]));
+# friend, get country: "Finland"
 
-# iterate over and get each key-value pair and object iteration/entry index
-my @friend1_entries2 = %friend;
-for (my $object_entries_index = 0; ($object_entries_index < scalar(@friend1_entries2)); $object_entries_index += 2) {
-    my $object_entry_index = ($object_entries_index / 2);
-    my $object_key = $friend1_entries2[$object_entry_index];
-    my $object_value = $friend1_entries2[$object_entry_index + 1];
-    print("friend, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
+# iterate over and print each key-value pair and object entry index
+{
+    my $object_entry_index = 0;
+    while (my ($object_key, $object_value) = each(%friend)) {
+        console_log(string_interpolation("friend, object entry index: ", [$object_entry_index], ", key: ", [$object_key], ", value: ", [$object_value], ", while each loop"));
+        $object_entry_index += 1;
+    }
 }
-# friend, for loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend, for loop, object iteration/entry index: 1, key: country, value: Finland
-# friend, for loop, object iteration/entry index: 2, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index
-my $iteration_index2 = 0;
-while (my ($object_key, $object_value) = each(%friend)) {
-    print("friend, while loop, object iteration/entry index: $iteration_index2, key: $object_key, value: $object_value", "\n");
-    $iteration_index2 += 1;
-}
-# friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index (the best way)
-my $iteration_index1 = 0;
-foreach my $object_key (keys(%friend)) {
-    my $object_value = $friend{$object_key};
-    print("friend, forEach loop, object iteration/entry index: $iteration_index1, key: $object_key, value: $object_value", "\n");
-    $iteration_index1 += 1;
-}
-# friend, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend, object entry index: 0, key: "name", value: "Alisa", while each loop
+# friend, object entry index: 1, key: "country", value: "Finland", while each loop
+# friend, object entry index: 2, key: "age", value: 25, while each loop
 
 $friend{"age"} = 27;
-print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
-print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
+console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => "true")));
+console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => "true")));
 
 $friend{"gender"} = "Female";
-print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
-print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
+console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => "true")));
+console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => "true")));
 
 delete $friend{"country"};
-print("friend: ", json_stringify({%friend}, "pretty" => 1), "\n");
-print("friend: ", json_stringify(\%friend, "pretty" => 1), "\n");
+console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => "true")));
+console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => "true")));
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 my $delivery_response_key_message = "message";
 my %delivery_response = (
     $delivery_response_key_message => "ok"
 );
-print("delivery_response: ", json_stringify({%delivery_response}, "pretty" => 1), "\n");
-print("delivery_response: ", json_stringify(\%delivery_response, "pretty" => 1), "\n");
+console_log(string_interpolation("delivery_response: ", json_stringify(\%delivery_response, "pretty" => "true")));
+console_log(string_interpolation("delivery_response: ", json_stringify({%delivery_response}, "pretty" => "true")));
 my $delivery_response_key_status = "status";
 $delivery_response{$delivery_response_key_status} = 200;
-print("delivery_response: ", json_stringify({%delivery_response}, "pretty" => 1), "\n");
-print("delivery_response: ", json_stringify(\%delivery_response, "pretty" => 1), "\n");
+console_log(string_interpolation("delivery_response: ", json_stringify(\%delivery_response, "pretty" => "true")));
+console_log(string_interpolation("delivery_response: ", json_stringify({%delivery_response}, "pretty" => "true")));
 
 # initialization v2
 my $friend_ref = {
@@ -154,132 +272,56 @@ my $friend_ref = {
     "country" => "Finland",
     "age" => 25
 };
-print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
-print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => "true")));
+console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => "true")));
 
-print("friend_ref, get total object keys: ", scalar(keys(%{$friend_ref})), "\n");
+console_log(string_interpolation("friend_ref, get total object keys: ", [scalar(keys(%{$friend_ref}))]));
 # friend_ref, get total object keys: 3
 
-print("friend_ref, get country: ", $$friend_ref{"country"}, "\n");
-# friend_ref, get country: Finland
+console_log(string_interpolation("friend_ref, get country: ", [$$friend_ref{"country"}]));
+# friend_ref, get country: "Finland"
 
-print("friend_ref, get country: ", ${$friend_ref}{"country"}, "\n");
-# friend_ref, get country: Finland
+console_log(string_interpolation("friend_ref, get country: ", [${$friend_ref}{"country"}]));
+# friend_ref, get country: "Finland"
 
-# (the best way)
-print("friend_ref, get country: ", $friend_ref->{"country"}, "\n");
-# friend_ref, get country: Finland
+console_log(string_interpolation("friend_ref, get country: ", [$friend_ref->{"country"}]));
+# friend_ref, get country: "Finland"
 
-# iterate over and get each key-value pair
-my @friend2_entries1 = %{$friend_ref};
-for (my $friend2_entries1_index = 0; ($friend2_entries1_index < scalar(@friend2_entries1)); $friend2_entries1_index += 2) {
-    my $object_key = $friend2_entries1[$friend2_entries1_index];
-    my $object_value = $friend2_entries1[$friend2_entries1_index + 1];
-    print("friend_ref, for loop, key: $object_key, value: $object_value", "\n");
+console_log(string_interpolation("friend_ref, get country: ", [optional_chaining($friend_ref, "country")]));
+# friend_ref, get country: "Finland"
+
+# iterate over and print each key-value pair and object entry index
+{
+    my $object_entry_index = 0;
+    while (my ($object_key, $object_value) = each(%{$friend_ref})) {
+        console_log(string_interpolation("friend_ref, object entry index: ", [$object_entry_index], ", key: ", [$object_key], ", value: ", [$object_value], ", while each loop"));
+        $object_entry_index += 1;
+    }
 }
-# friend_ref, for loop, key: name, value: Alisa
-# friend_ref, for loop, key: country, value: Finland
-# friend_ref, for loop, key: age, value: 25
-
-# iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend_ref})) {
-    my $object_value = %$friend_ref{$object_key};
-    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
-}
-# friend_ref, forEach loop, key: name, value: Alisa
-# friend_ref, forEach loop, key: country, value: Finland
-# friend_ref, forEach loop, key: age, value: 25
-
-# iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend_ref})) {
-    my $object_value = %{$friend_ref}{$object_key};
-    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
-}
-# friend_ref, forEach loop, key: name, value: Alisa
-# friend_ref, forEach loop, key: country, value: Finland
-# friend_ref, forEach loop, key: age, value: 25
-
-# iterate over and get each key-value pair
-foreach my $object_key (keys(%{$friend_ref})) {
-    my $object_value = $friend_ref->{$object_key};
-    print("friend_ref, forEach loop, key: $object_key, value: $object_value", "\n");
-}
-# friend_ref, forEach loop, key: name, value: Alisa
-# friend_ref, forEach loop, key: country, value: Finland
-# friend_ref, forEach loop, key: age, value: 25
-
-# iterate over and get each key-value pair
-while (my ($object_key, $object_value) = each(%{$friend_ref})) {
-    print("friend_ref, while loop, key: $object_key, value: $object_value", "\n");
-}
-# friend_ref, forEach loop, key: name, value: Alisa
-# friend_ref, forEach loop, key: country, value: Finland
-# friend_ref, forEach loop, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index
-my @friend2_entries2 = %{$friend_ref};
-for (my $object_entries_index = 0; ($object_entries_index < scalar(@friend2_entries2)); $object_entries_index += 2) {
-    my $object_entry_index = ($object_entries_index / 2);
-    my $object_key = $friend2_entries2[$object_entry_index];
-    my $object_value = $friend2_entries2[$object_entry_index + 1];
-    print("friend_ref, for loop, object iteration/entry index: $object_entry_index, key: $object_key, value: $object_value", "\n");
-}
-# friend_ref, for loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend_ref, for loop, object iteration/entry index: 1, key: country, value: Finland
-# friend_ref, for loop, object iteration/entry index: 2, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index
-my $iteration_index5 = 0;
-while (my ($object_key, $object_value) = each(%{$friend_ref})) {
-    print("friend_ref, while loop, object iteration/entry index: $iteration_index5, key: $object_key, value: $object_value", "\n");
-    $iteration_index5 += 1;
-}
-# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index (the best way)
-my $iteration_index3 = 0;
-foreach my $object_key (keys(%{$friend_ref})) {
-    my $object_value = %{$friend_ref}{$object_key};
-    print("friend_ref, forEach loop, object iteration/entry index: $iteration_index3, key: $object_key, value: $object_value", "\n");
-    $iteration_index3 += 1;
-}
-# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
-
-# iterate over and get each key-value pair and object iteration/entry index (the best way)
-my $iteration_index4 = 0;
-foreach my $object_key (keys(%{$friend_ref})) {
-    my $object_value = $friend_ref->{$object_key};
-    print("friend_ref, forEach loop, object iteration/entry index: $iteration_index4, key: $object_key, value: $object_value", "\n");
-    $iteration_index4 += 1;
-}
-# friend_ref, forEach loop, object iteration/entry index: 0, key: name, value: Alisa
-# friend_ref, forEach loop, object iteration/entry index: 1, key: country, value: Finland
-# friend_ref, forEach loop, object iteration/entry index: 2, key: age, value: 25
+# friend_ref, object entry index: 0, key: "name", value: "Alisa", while each loop
+# friend_ref, object entry index: 1, key: "country", value: "Finland", while each loop
+# friend_ref, object entry index: 2, key: "age", value: 25, while each loop
 
 $friend_ref->{"age"} = 27;
-print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
-print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => "true")));
+console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => "true")));
 
 $friend_ref->{"gender"} = "Female";
-print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
-print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => "true")));
+console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => "true")));
 
 delete $friend_ref->{"country"};
-print("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => 1), "\n");
-print("friend_ref: ", json_stringify($friend_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => "true")));
+console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => "true")));
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 my $delivery_response_ref_key_message = "message";
 my $delivery_response_ref = {
     $delivery_response_ref_key_message => "ok"
 };
-print("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => 1), "\n");
-print("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => "true")));
+console_log(string_interpolation("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => "true")));
 my $delivery_response_ref_key_status = "status";
 $delivery_response_ref->{$delivery_response_ref_key_status} = 200;
-print("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => 1), "\n");
-print("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => 1), "\n");
+console_log(string_interpolation("delivery_response_ref: ", json_stringify(\%{$delivery_response_ref}, "pretty" => "true")));
+console_log(string_interpolation("delivery_response_ref: ", json_stringify($delivery_response_ref, "pretty" => "true")));

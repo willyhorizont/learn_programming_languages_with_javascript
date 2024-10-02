@@ -84,3 +84,32 @@ ref:
 "REGEXP"
 
 cpanm Try::Tiny
+
+.. (Range Operator)
+... (Flip-Flop Operator)
+
+json_stringify([@fruits]); # creating a reference to @List using [@fruits] and then pass it
+json_stringify(\@fruits); # pass reference of @fruits using \@fruits
+&{$any_subroutine} is to create reference to sub
+[@any_array] is to create reference to List
+{%any_object} is to create reference to Hash
+
+$_[0] == [@_]->[0]
+
+use List::Util qw(all any);
+use List::Util qw(
+    all
+    any
+);
+sub { +{ "foo" => "bar" } }  # This will return a hash reference
+When using curly braces ({}) for constructing a hash reference,
+Perl interprets them as a block unless explicitly defined as a reference.
+Without this distinction, Perl will treat {} as a block and not as a hash reference, which may not behave as expected.
+The + ensures that Perl treats the braces as a reference constructor instead of a block.
+
+"Alisa says \"Hello\""
+'Alisa says "Hello"'
+qq(Alisa says "Hello")
+qq{Alisa says "Hello"}
+qq[Alisa says "Hello"]
+qq<Alisa says "Hello">

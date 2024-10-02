@@ -310,10 +310,7 @@ func main() {
 		for _, objectEntry := range anObjectEntries {
 			objectKey := objectEntry.([]interface{})[0]
 			objectValue := objectEntry.([]interface{})[1]
-			if (getType(objectKey) != jsLikeType.String) {
-				continue
-			}
-			newObject[objectKey.(string)] = objectValue
+			newObject[anyToString(objectKey).(string)] = objectValue
 		}
 		return newObject
 	}

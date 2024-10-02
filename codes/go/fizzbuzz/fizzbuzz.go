@@ -335,184 +335,208 @@ func main() {
 	}
 
 	fizzbuzzV1 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		number := 1
+		anyNumber := 1
 		for (true) {
 			if (result == "") {
-				result = (anyToString(number).(string))
-				if (number >= stopNumber) {
+				result = (anyToString(anyNumber).(string))
+				if (anyNumber >= stopNumber.(int)) {
 					break
 				}
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			if (((number % 3) == 0) && ((number % 5) == 0)) {
+			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
-				if (number >= stopNumber) {
+				if (anyNumber >= stopNumber.(int)) {
 					break
 				}
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			if ((number % 3) == 0) {
+			if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
-				if (number >= stopNumber) {
+				if (anyNumber >= stopNumber.(int)) {
 					break
 				}
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			if ((number % 5) == 0) {
+			if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
-				if (number >= stopNumber) {
+				if (anyNumber >= stopNumber.(int)) {
 					break
 				}
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			result = (result + ", " + (anyToString(number).(string)))
-			if (number >= stopNumber) {
+			result = (result + ", " + (anyToString(anyNumber).(string)))
+			if (anyNumber >= stopNumber.(int)) {
 				break
 			}
-			number += 1
+			anyNumber += 1
 		}
 		return result
 	}
 	
 	fizzbuzzV2 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		number := 1
-		for (number <= stopNumber) {
+		anyNumber := 1
+		for (anyNumber <= stopNumber.(int)) {
 			if (result == "") {
-				result = (anyToString(number).(string))
-				number += 1
+				result = (anyToString(anyNumber).(string))
+				anyNumber += 1
 				continue
 			}
-			if (((number % 3) == 0) && ((number % 5) == 0)) {
+			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			if ((number % 3) == 0) {
+			if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			if ((number % 5) == 0) {
+			if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
-				number += 1
+				anyNumber += 1
 				continue
 			}
-			result = (result + ", " + (anyToString(number).(string)))
-			number += 1
+			result = (result + ", " + (anyToString(anyNumber).(string)))
+			anyNumber += 1
 		}
 		return result
 	}
 	
 	fizzbuzzV3 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		number := 1
+		anyNumber := 1
 		for (true) {
 			if (result == "") {
-				result = (anyToString(number).(string))
-			} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+				result = (anyToString(anyNumber).(string))
+			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
-			} else if ((number % 3) == 0) {
+			} else if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
-			} else if ((number % 5) == 0) {
+			} else if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
 			} else {
-				result = (result + ", " + (anyToString(number).(string)))
+				result = (result + ", " + (anyToString(anyNumber).(string)))
 			}
-			if (number >= stopNumber) {
+			if (anyNumber >= stopNumber.(int)) {
 				break
 			}
-			number += 1
+			anyNumber += 1
 		}
 		return result
 	}
 	
 	fizzbuzzV4 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		number := 1
-		for (number <= stopNumber) {
+		anyNumber := 1
+		for (anyNumber <= stopNumber.(int)) {
 			if (result == "") {
-				result = (anyToString(number).(string))
-			} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+				result = (anyToString(anyNumber).(string))
+			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
-			} else if ((number % 3) == 0) {
+			} else if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
-			} else if ((number % 5) == 0) {
+			} else if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
 			} else {
-				result = (result + ", " + (anyToString(number).(string)))
+				result = (result + ", " + (anyToString(anyNumber).(string)))
 			}
-			number += 1
+			anyNumber += 1
 		}
 		return result
 	}
 	
 	fizzbuzzV5 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		for number := 1; (number <= stopNumber); number += 1 {
+		for anyNumber := 1; (anyNumber <= stopNumber.(int)); anyNumber += 1 {
 			if (result == "") {
-				result = (anyToString(number).(string))
+				result = (anyToString(anyNumber).(string))
 				continue
 			}
-			if (((number % 3) == 0) && ((number % 5) == 0)) {
+			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
 				continue
 			}
-			if ((number % 3) == 0) {
+			if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
 				continue
 			}
-			if ((number % 5) == 0) {
+			if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
 				continue
 			}
-			result = (result + ", " + (anyToString(number).(string)))
+			result = (result + ", " + (anyToString(anyNumber).(string)))
 		}
 		return result
 	}
 	
 	fizzbuzzV6 := func(restArguments ...interface{}) interface{} {
-		stopNumber := int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber < 1) {
+		stopNumber := restArguments[0]
+		if (getType(stopNumber) != jsLikeType.Numeric) {
+			return errors.New("Argument should be a number")
+		}
+		stopNumber = int((getFloat64(restArguments[0]).(float64)))
+		if (stopNumber.(int) < 1) {
 			return errors.New("Argument should be > 0")
 		}
 		result := ""
-		for number := 1; (number <= stopNumber); number += 1 {
+		for anyNumber := 1; (anyNumber <= stopNumber.(int)); anyNumber += 1 {
 			if (result == "") {
-				result = (anyToString(number).(string))
-			} else if (((number % 3) == 0) && ((number % 5) == 0)) {
+				result = (anyToString(anyNumber).(string))
+			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
 				result = (result + ", FizzBuzz")
-			} else if ((number % 3) == 0) {
+			} else if ((anyNumber % 3) == 0) {
 				result = (result + ", Fizz")
-			} else if ((number % 5) == 0) {
+			} else if ((anyNumber % 5) == 0) {
 				result = (result + ", Buzz")
 			} else {
-				result = (result + ", " + (anyToString(number).(string)))
+				result = (result + ", " + (anyToString(anyNumber).(string)))
 			}
 		}
 		return result

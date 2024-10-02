@@ -1,7 +1,7 @@
 print("\n# Custom Error and Error Handling in Python")
 
 
-def give_me_respect(argument: int) -> int:
+def give_me_respect(argument):
     if (argument != "respect"):
         # Custom Error
         raise Exception('Exception: You should give me "respect"!')

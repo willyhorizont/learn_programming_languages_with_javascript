@@ -336,7 +336,16 @@ func main() {
 
 	generateNumberSequence := func(restArguments ...interface{}) interface{} {
 		startNumber := int((getFloat64(restArguments[0]).(float64)))
+		if ((len(restArguments) == 1)) {
+			return errors.New("expected (start_number, stop_number)")
+		}
 		stopNumber := int((getFloat64(restArguments[1]).(float64)))
+		if ((getType(startNumber) != jsLikeType.Numeric) && (getType(stopNumber) != jsLikeType.Numeric)) {
+			return errors.New("expected (numeric_value, numeric_value)")
+		}
+		if (startNumber == stopNumber) {
+			return errors.New("expected (stop_number > start_number) or (start_number > stop_number)")
+		}
         if (stopNumber > startNumber) {
 			numberSequenceArrayAscending := []interface{}{}
 			for aNumber := startNumber; (aNumber <= stopNumber); aNumber += 1 {
@@ -351,7 +360,7 @@ func main() {
 			}
 			return numberSequenceArrayDescending
 		}
-		return []interface{}{0}
+		return errors.New("something weird happened in generateNumberSequence")
     }
 
 	consoleLog(stringInterpolation("generateNumberSequence(0, 9): ", jsonStringify(generateNumberSequence(0, 9))));
@@ -362,4 +371,7 @@ func main() {
 	// [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	consoleLog(stringInterpolation("generateNumberSequence(9, 0): ", jsonStringify(generateNumberSequence(9, 0))));
 	// [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+	// consoleLog(stringInterpolation("generateNumberSequence(10): ", jsonStringify(generateNumberSequence(10)))); // error
+	// consoleLog(stringInterpolation("generateNumberSequence(1, "bg"): ", jsonStringify(generateNumberSequence(1, "bg")))); // error
+	// consoleLog(stringInterpolation("generateNumberSequence(5, 5): ", jsonStringify(generateNumberSequence(5, 5)))); // error
 }

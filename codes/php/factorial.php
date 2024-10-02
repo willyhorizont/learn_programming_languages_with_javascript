@@ -13,16 +13,20 @@ $js_like_type = [
 function array_reduce_v2($callback_function, $an_array, $initial_value) {
     // JavaScript-like Array.reduce() function array_reduce_v2
     $result = $initial_value;
-    foreach ($an_array as $array_item_index => $array_item) {
-        $result = $callback_function($result, $array_item, $array_item_index, $an_array);
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+        $array_item_index += 1;
     }
     return $result;
 };
 
 function array_every($callback_function, $an_array) {
     // JavaScript-like Array.every() function array_every_v4
-    foreach ($an_array as $array_item_index => $array_item) {
-        if ($callback_function($array_item, $array_item_index, $an_array) === false) return false;
+    $array_item_index = 0;
+    foreach ($an_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+        $array_item_index += 1;
     }
     return true;
 };
@@ -49,7 +53,7 @@ function is_like_js_array($anything) {
 
 function is_like_js_object($anything) {
     if (is_like_js_array($anything) === false) return false;
-    return array_every((fn($array_item) => (is_like_js_string($array_item) === true)), array_keys($anything));
+    return array_every((fn($object_value) => (is_like_js_string($object_value) === true)), array_keys($anything));
 };
 
 function is_like_js_function($anything) {
@@ -91,9 +95,7 @@ function pipe(...$rest_arguments) {
         if (get_type($current_argument) === $js_like_type["Function"]) return $current_argument($current_result);
         return null;
     }), $rest_arguments, null);
-    if (get_type($pipe_result) === $js_like_type["Function"]) {
-        return $pipe_result($pipe_last_result);
-    }
+    if (get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
     return $pipe_result;
 };
 
@@ -129,11 +131,13 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
             if (count($anything_inner) === 0) return "[]";
             $indent_level += 1;
             $result = (($pretty === true) ? ("[\n" . str_repeat($indent, $indent_level)) : "[");
-            foreach ($anything_inner as $array_item_index => $array_item) {
-                $result .= $json_stringify_inner($array_item);
+            $array_item_index = 0;
+            foreach ($anything_inner as $object_key => $object_value) {
+                $result .= $json_stringify_inner($object_value);
                 if (($array_item_index + 1) !== count($anything_inner)) {
                     $result .= (($pretty === true) ? (",\n" . str_repeat($indent, $indent_level)) : ", ");
                 }
+                $array_item_index += 1;
             }
             $indent_level -= 1;
             $result .= (($pretty === true) ? ("\n" . str_repeat($indent, $indent_level) . "]") : "]");
@@ -156,12 +160,13 @@ function console_log(...$rest_arguments) {
 
 console_log("\n// Factorial(n) in PHP");
 
-function factorial_v1($number) {
-    if (is_numeric($number) === false) throw new Exception("Argument should be a number");
-    if ($number < 0) throw new Exception("Argument should be >= 0");
-    if ($number === 0) return 1;
+function factorial_v1($any_number) {
+    global $js_like_type;
+    if (get_type($any_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
+    if ($any_number < 0) throw new Exception("Argument should be >= 0");
+    if ($any_number === 0) return 1;
     $result = 1;
-    $i = $number;
+    $i = $any_number;
     while (true) {
         $result *= $i;
         if ($i <= 1) break;
@@ -170,12 +175,13 @@ function factorial_v1($number) {
     return $result;
 };
 
-function factorial_v2($number) {
-    if (is_numeric($number) === false) throw new Exception("Argument should be a number");
-    if ($number < 0) throw new Exception("Argument should be >= 0");
-    if ($number === 0) return 1;
+function factorial_v2($any_number) {
+    global $js_like_type;
+    if (get_type($any_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
+    if ($any_number < 0) throw new Exception("Argument should be >= 0");
+    if ($any_number === 0) return 1;
     $result = 1;
-    $i = $number;
+    $i = $any_number;
     while ($i >= 1) {
         $result *= $i;
         $i -= 1;
@@ -183,22 +189,24 @@ function factorial_v2($number) {
     return $result;
 };
 
-function factorial_v3($number) {
-    if (is_numeric($number) === false) throw new Exception("Argument should be a number");
-    if ($number < 0) throw new Exception("Argument should be >= 0");
-    if ($number === 0) return 1;
+function factorial_v3($any_number) {
+    global $js_like_type;
+    if (get_type($any_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
+    if ($any_number < 0) throw new Exception("Argument should be >= 0");
+    if ($any_number === 0) return 1;
     $result = 1;
-    for ($i = $number; ($i >= 1); $i -= 1) {
+    for ($i = $any_number; ($i >= 1); $i -= 1) {
         $result *= $i;
     }
     return $result;
 };
 
-function factorial_v4($number) {
-    if (is_numeric($number) === false) throw new Exception("Argument should be a number");
-    if ($number < 0) throw new Exception("Argument should be >= 0");
-    if ($number === 0) return 1;
-    return ($number * factorial_v4($number - 1));
+function factorial_v4($any_number) {
+    global $js_like_type;
+    if (get_type($any_number) !== $js_like_type["Numeric"]) throw new Exception("Argument should be a number");
+    if ($any_number < 0) throw new Exception("Argument should be >= 0");
+    if ($any_number === 0) return 1;
+    return ($any_number * factorial_v4($any_number - 1));
 };
 
 console_log('// using factorial function "factorial_v1"');

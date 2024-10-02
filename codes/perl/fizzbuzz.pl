@@ -1,429 +1,533 @@
 use strict;
-use warnings;
-use Scalar::Util qw(looks_like_number);
+# use warnings;
 
-print("\n# FizzBuzz(n) in Perl", "\n");
+my $js_like_type = {
+    "Null" => "Null",
+    "Boolean" => "Boolean",
+    "String" => "String",
+    "Numeric" => "Numeric",
+    "Object" => "Object",
+    "Array" => "Array",
+    "Function" => "Function"
+};
+
+sub boolean {
+    my ($anything_ref) = @_;
+    return ($anything_ref ? "true" : "false");
+}
+
+sub string {
+    my ($anything_ref) = @_;
+    return ($anything_ref . "");
+}
+
+sub object {
+    my ($an_object_ref) = @_;
+    return \%{$an_object_ref};
+}
+
+sub is_like_js_null {
+    my ($anything_ref) = @_;
+    return ((defined $anything_ref) ? "false" : "true");
+}
+
+sub is_like_js_boolean {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref eq "true") || ($anything_ref eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_string {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref ne (string($anything_ref) + 0)) && (is_like_js_boolean($anything_ref) eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_numeric {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref + 0) eq $anything_ref) ? "true" : "false");
+}
+
+sub is_like_js_object {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "HASH") ? "true" : "false");
+}
+
+sub is_like_js_array {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "ARRAY") ? "true" : "false");
+}
+
+sub is_like_js_function {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "CODE") ? "true" : "false");
+}
+
+sub get_type {
+    my ($anything_ref) = @_;
+    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    my $anything_ref_unknown_type = (ref $anything_ref);
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+}
+
+sub throw_error_if_null {
+    my ($anything_ref) = @_;
+    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
+    return $anything_ref;
+}
+
+sub negate {
+    my ($anything_ref) = @_;
+    return "false" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "true"));
+    return "true" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "false"));
+    die 'expected string ("true"/"false")';
+}
+
+sub json_stringify {
+    my ($anything_ref, %keyword_argument) = @_;
+    my $optional_argument = {%keyword_argument};
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $indent_default = (" " x 4);
+    my $indent_level = 0;
+    my $json_stringify_inner;
+    $json_stringify_inner = sub {
+        my ($anything_inner_ref) = @_;
+        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
+        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+            my $object_keys_ref = [keys(%{$anything_inner_ref})];
+            return "{}" if (scalar(@{$object_keys_ref}) == 0);
+            $indent_level += 1;
+            my $result = (($pretty eq "true") ? ("{\n" . ($indent_default x $indent_level)) : "{ ");
+            my $object_entry_index = 0;
+            while (my ($object_key, $object_value) = each(%{$anything_inner_ref})) {
+                $result .= '"' . $object_key . '": ' . $json_stringify_inner->($object_value);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($object_entry_index + 1) != scalar(@{$object_keys_ref}));
+                $object_entry_index += 1;
+            }
+            $indent_level -= 1;
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
+            return $result;
+        }
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+            my $array_length = scalar(@{$anything_inner_ref});
+            return "[]" if ($array_length == 0);
+            $indent_level += 1;
+            my $result = (($pretty eq "true") ? ("[\n" . ($indent_default x $indent_level)) : "[");
+            for (my $array_item_index = 0; ($array_item_index < scalar(@{$anything_inner_ref})); $array_item_index += 1) {
+                my $array_item = $anything_inner_ref->[$array_item_index];
+                $result .= $json_stringify_inner->($array_item);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($array_item_index + 1) != $array_length);
+            }
+            $indent_level -= 1;
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
+            return $result;
+        }
+        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
+        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
+        return "null";
+    };
+    return $json_stringify_inner->($anything_ref);
+}
+
+sub array_reduce {
+    # JavaScript-like Array.reduce() function
+    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
+    my $result = $initial_value;
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+    }
+    return $result;
+}
+
+sub string_interpolation {
+    return (array_reduce((sub {
+        my ($current_result, $current_argument) = @_;
+        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
+        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
+        return ($current_result . (json_stringify($current_argument)));
+    }), \@_, ""));
+}
+
+sub console_log {
+    print(string_interpolation(@_) . "\n");
+}
+
+sub optional_chaining {
+    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
+    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
+    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    return array_reduce((sub {
+        my ($current_result, $current_item) = @_;
+        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
+        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        return undef;
+    }), \@array_index_or_object_key_or_function_argument_array, undef);
+}
+
+sub object_from_entries {
+    # JavaScript-like Object.fromEntries() function
+    my ($an_object_entries_ref) = @_;
+    my $new_object_ref = {};
+    while (my ($object_entry_index, $object_entry_ref) = each(@{$an_object_entries_ref})) {
+        my $object_key = $object_entry_ref->[0];
+        my $object_value = $object_entry_ref->[1];
+        $new_object_ref->{string($object_key)} = $object_value;
+    }
+    return $new_object_ref;
+}
+
+sub array_entries {
+    # JavaScript-like Array.entries() function
+    my ($an_array_ref) = @_;
+    my $new_object_entries_ref = [];
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        push(@{$new_object_entries_ref}, [$array_item_index, $array_item]);
+    }
+    return $new_object_entries_ref;
+}
+
+console_log("\n# FizzBuzz(n) in Perl");
 
 sub fizzbuzz_v1 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while (1) {
+    my $any_number = 1;
+    while ("true") {
         if ($result eq "") {
-            $result = "$number";
-            last if ($number >= $stop_number);
-            $number += 1;
+            $result = string($any_number);
+            last if ($any_number >= $stop_number);
+            $any_number += 1;
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-            last if ($number >= $stop_number);
-            $number += 1;
+        if ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
+            last if ($any_number >= $stop_number);
+            $any_number += 1;
             next;
         }
-        if (($number % 3) == 0) {
-            $result = "$result, Fizz";
-            last if ($number >= $stop_number);
-            $number += 1;
+        if (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
+            last if ($any_number >= $stop_number);
+            $any_number += 1;
             next;
         }
-        if (($number % 5) == 0) {
-            $result = "$result, Buzz";
-            last if ($number >= $stop_number);
-            $number += 1;
+        if (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
+            last if ($any_number >= $stop_number);
+            $any_number += 1;
             next;
         }
-        $result = "$result, $number";
-        last if ($number >= $stop_number);
-        $number += 1;
+        $result = string_interpolation($result, ", ", $any_number);
+        last if ($any_number >= $stop_number);
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v2 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while ($number <= $stop_number) {
+    my $any_number = 1;
+    while ($any_number <= $stop_number) {
         if ($result eq "") {
-            $result = "$number";
-            $number += 1;
+            $result = string($any_number);
+            $any_number += 1;
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-            $number += 1;
+        if ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
+            $any_number += 1;
             next;
         }
-        if (($number % 3) == 0) {
-            $result = "$result, Fizz";
-            $number += 1;
+        if (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
+            $any_number += 1;
             next;
         }
-        if (($number % 5) == 0) {
-            $result = "$result, Buzz";
-            $number += 1;
+        if (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
+            $any_number += 1;
             next;
         }
-        $result = "$result, $number";
-        $number += 1;
+        $result = string_interpolation($result, ", ", $any_number);
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v3 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while (1) {
+    my $any_number = 1;
+    while ("true") {
         if ($result eq "") {
-            $result = "$number";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-        } elsif (($number % 3) == 0) {
-            $result = "$result, Fizz";
-        } elsif (($number % 5) == 0) {
-            $result = "$result, Buzz";
+            $result = string($any_number);
+        } elsif ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
+        } elsif (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
+        } elsif (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
         } else {
-            $result = "$result, $number";
+            $result = string_interpolation($result, ", ", $any_number);
         }
-        last if ($number >= $stop_number);
-        $number += 1;
+        last if ($any_number >= $stop_number);
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v4 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while ($number <= $stop_number) {
+    my $any_number = 1;
+    while ($any_number <= $stop_number) {
         if ($result eq "") {
-            $result = "$number";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-        } elsif (($number % 3) == 0) {
-            $result = "$result, Fizz";
-        } elsif (($number % 5) == 0) {
-            $result = "$result, Buzz";
+            $result = string($any_number);
+        } elsif ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
+        } elsif (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
+        } elsif (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
         } else {
-            $result = "$result, $number";
+            $result = string_interpolation($result, ", ", $any_number);
         }
-        $number += 1;
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v5 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while (1) {
+    my $any_number = 1;
+    while ("true") {
         $result = (($result eq "")
-            ? "$number"
-            : (((($number % 3) == 0) && (($number % 5) == 0))
-                ? "$result, FizzBuzz"
-                : ((($number % 3) == 0)
-                    ? "$result, Fizz"
-                    : ((($number % 5) == 0)
-                        ? "$result, Buzz"
-                        : "$result, $number"
+            ? string($any_number)
+            : (((($any_number % 3) == 0) && (($any_number % 5) == 0))
+                ? string_interpolation($result, ", FizzBuzz")
+                : ((($any_number % 3) == 0)
+                    ? string_interpolation($result, ", Fizz")
+                    : ((($any_number % 5) == 0)
+                        ? string_interpolation($result, ", Buzz")
+                        : string_interpolation($result, ", ", $any_number)
                     )
                 )
             )
         );
-        last if ($number >= $stop_number);
-        $number += 1;
+        last if ($any_number >= $stop_number);
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v6 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while ($number <= $stop_number) {
+    my $any_number = 1;
+    while ($any_number <= $stop_number) {
         $result = (($result eq "")
-            ? "$number"
-            : (((($number % 3) == 0) && (($number % 5) == 0))
-                ? "$result, FizzBuzz"
-                : ((($number % 3) == 0)
-                    ? "$result, Fizz"
-                    : ((($number % 5) == 0)
-                        ? "$result, Buzz"
-                        : "$result, $number"
+            ? string($any_number)
+            : (((($any_number % 3) == 0) && (($any_number % 5) == 0))
+                ? string_interpolation($result, ", FizzBuzz")
+                : ((($any_number % 3) == 0)
+                    ? string_interpolation($result, ", Fizz")
+                    : ((($any_number % 5) == 0)
+                        ? string_interpolation($result, ", Buzz")
+                        : string_interpolation($result, ", ", $any_number)
                     )
                 )
             )
         );
-        $number += 1;
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v7 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while (1) {
-        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
-        last if ($number >= $stop_number);
-        $number += 1;
+    my $any_number = 1;
+    while ("true") {
+        $result = (($result eq "") ? string($any_number) : (((($any_number % 3) == 0) && (($any_number % 5) == 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) == 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) == 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", $any_number)))));
+        last if ($any_number >= $stop_number);
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v8 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    my $number = 1;
-    while ($number <= $stop_number) {
-        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
-        $number += 1;
+    my $any_number = 1;
+    while ($any_number <= $stop_number) {
+        $result = (($result eq "") ? string($any_number) : (((($any_number % 3) == 0) && (($any_number % 5) == 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) == 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) == 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", $any_number)))));
+        $any_number += 1;
     }
     return $result;
 }
 
 sub fizzbuzz_v9 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    for (my $number = 1; $number <= $stop_number; $number += 1) {
+    for (my $any_number = 1; ($any_number <= $stop_number); $any_number += 1) {
         if ($result eq "") {
-            $result = "$number";
+            $result = string($any_number);
             next;
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
+        if ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
             next;
         }
-        if (($number % 3) == 0) {
-            $result = "$result, Fizz";
+        if (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
             next;
         }
-        if (($number % 5) == 0) {
-            $result = "$result, Buzz";
+        if (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
             next;
         }
-        $result = "$result, $number";
+        $result = string_interpolation($result, ", ", $any_number);
     }
     return $result;
 }
 
 sub fizzbuzz_v10 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    for my $number (1..$stop_number) {
+    for (my $any_number = 1; ($any_number <= $stop_number); $any_number += 1) {
         if ($result eq "") {
-            $result = "$number";
-            next;
+            $result = string($any_number);
+        } elsif ((($any_number % 3) == 0) && (($any_number % 5) == 0)) {
+            $result = string_interpolation($result, ", FizzBuzz");
+        } elsif (($any_number % 3) == 0) {
+            $result = string_interpolation($result, ", Fizz");
+        } elsif (($any_number % 5) == 0) {
+            $result = string_interpolation($result, ", Buzz");
+        } else {
+            $result = string_interpolation($result, ", ", $any_number);
         }
-        if ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-            next;
-        }
-        if (($number % 3) == 0) {
-            $result = "$result, Fizz";
-            next;
-        }
-        if (($number % 5) == 0) {
-            $result = "$result, Buzz";
-            next;
-        }
-        $result = "$result, $number";
     }
     return $result;
 }
 
 sub fizzbuzz_v11 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    for (my $number = 1; $number <= $stop_number; $number +=1) {
-        if ($result eq "") {
-            $result = "$number";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-        } elsif (($number % 3) == 0) {
-            $result = "$result, Fizz";
-        } elsif (($number % 5) == 0) {
-            $result = "$result, Buzz";
-        } else {
-            $result = "$result, $number";
-        }
+    for (my $any_number = 1; ($any_number <= $stop_number); $any_number += 1) {
+        $result = (($result eq "")
+            ? string($any_number)
+            : (((($any_number % 3) == 0) && (($any_number % 5) == 0))
+                ? string_interpolation($result, ", FizzBuzz")
+                : ((($any_number % 3) == 0)
+                    ? string_interpolation($result, ", Fizz")
+                    : ((($any_number % 5) == 0)
+                        ? string_interpolation($result, ", Buzz")
+                        : string_interpolation($result, ", ", $any_number)
+                    )
+                )
+            )
+        );
     }
     return $result;
 }
 
 sub fizzbuzz_v12 {
     my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
+    die("Argument should be a number") if (get_type($stop_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
     die("Argument should be > 0") if ($stop_number < 1);
     my $result = "";
-    for my $number (1..$stop_number) {
-        if ($result eq "") {
-            $result = "$number";
-        } elsif ((($number % 3) == 0) && (($number % 5) == 0)) {
-            $result = "$result, FizzBuzz";
-        } elsif (($number % 3) == 0) {
-            $result = "$result, Fizz";
-        } elsif (($number % 5) == 0) {
-            $result = "$result, Buzz";
-        } else {
-            $result = "$result, $number";
-        }
+    for (my $any_number = 1; ($any_number <= $stop_number); $any_number += 1) {
+        $result = (($result eq "") ? string($any_number) : (((($any_number % 3) == 0) && (($any_number % 5) == 0)) ? string_interpolation($result, ", FizzBuzz") : ((($any_number % 3) == 0) ? string_interpolation($result, ", Fizz") : ((($any_number % 5) == 0) ? string_interpolation($result, ", Buzz") : string_interpolation($result, ", ", $any_number)))));
     }
     return $result;
 }
 
-sub fizzbuzz_v13 {
-    my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
-    die("Argument should be > 0") if ($stop_number < 1);
-    my $result = "";
-    for (my $number = 1; $number <= $stop_number; $number +=1) {
-        $result = (($result eq "")
-            ? "$number"
-            : (((($number % 3) == 0) && (($number % 5) == 0))
-                ? "$result, FizzBuzz"
-                : ((($number % 3) == 0)
-                    ? "$result, Fizz"
-                    : ((($number % 5) == 0)
-                        ? "$result, Buzz"
-                        : "$result, $number"
-                    )
-                )
-            )
-        );
-    }
-    return $result;
-}
-
-sub fizzbuzz_v14 {
-    my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
-    die("Argument should be > 0") if ($stop_number < 1);
-    my $result = "";
-    for my $number (1..$stop_number) {
-        $result = (($result eq "")
-            ? "$number"
-            : (((($number % 3) == 0) && (($number % 5) == 0))
-                ? "$result, FizzBuzz"
-                : ((($number % 3) == 0)
-                    ? "$result, Fizz"
-                    : ((($number % 5) == 0)
-                        ? "$result, Buzz"
-                        : "$result, $number"
-                    )
-                )
-            )
-        );
-    }
-    return $result;
-}
-
-sub fizzbuzz_v15 {
-    my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
-    die("Argument should be > 0") if ($stop_number < 1);
-    my $result = "";
-    for (my $number = 1; $number <= $stop_number; $number +=1) {
-        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
-    }
-    return $result;
-}
-
-sub fizzbuzz_v16 {
-    my ($stop_number) = @_;
-    die("Argument should be a number") if !(looks_like_number($stop_number));
-    die("Argument should be > 0") if ($stop_number < 1);
-    my $result = "";
-    for my $number (1..$stop_number) {
-        $result = (($result eq "") ? "$number" : (((($number % 3) == 0) && (($number % 5) == 0)) ? "$result, FizzBuzz" : ((($number % 3) == 0) ? "$result, Fizz" : ((($number % 5) == 0) ? "$result, Buzz" : "$result, $number"))));
-    }
-    return $result;
-}
-
-print("# using fizzbuzz function \"fizzbuzz_v1\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v1(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v1"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v1(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v2\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v2(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v2"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v2(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v3\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v3(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v3"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v3(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v4\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v4(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v4"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v4(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v5\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v5(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v5"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v5(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v6\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v6(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v6"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v6(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v7\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v7(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v7"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v7(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v8\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v8(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v8"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v8(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v9\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v9(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v9"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v9(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v10\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v10(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v10"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v10(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v11\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v11(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v11"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v11(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-print("# using fizzbuzz function \"fizzbuzz_v12\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v12(36), "\n");
-# FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-print("# using fizzbuzz function \"fizzbuzz_v13\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v13(36), "\n");
-# FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-print("# using fizzbuzz function \"fizzbuzz_v14\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v14(36), "\n");
-# FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-print("# using fizzbuzz function \"fizzbuzz_v15\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v15(36), "\n");
-# FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
-
-print("# using fizzbuzz function \"fizzbuzz_v16\"\n");
-print("FizzBuzz(36): ", fizzbuzz_v16(36), "\n");
+console_log('# using fizzbuzz function "fizzbuzz_v12"');
+console_log(string_interpolation("FizzBuzz(36): ", fizzbuzz_v12(36)));
 # FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz

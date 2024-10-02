@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/10[Oct]/03[Thu]|03:00[AM]/03:00)
+1.0.75
+New:
+finish *.pl
+update so many things
+TODO:
+change "false" to 00000 and "true" to "truthy" in *.pl
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/09[Sep]/27[Fri]|11:50[PM]/23:50)
 1.0.74
 New:

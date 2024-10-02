@@ -4,35 +4,35 @@ const fizzbuzzV1 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
+    let anyNumber = 1;
     while (true) {
         if (result === "") {
-            result = `${number}`;
-            if (number >= stopNumber) break;
-            number += 1;
+            result = `${anyNumber}`;
+            if (anyNumber >= stopNumber) break;
+            anyNumber += 1;
             continue;
         }
-        if (((number % 3) === 0) && ((number % 5) === 0)) {
+        if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
-            if (number >= stopNumber) break;
-            number += 1;
+            if (anyNumber >= stopNumber) break;
+            anyNumber += 1;
             continue;
         }
-        if ((number % 3) === 0) {
+        if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
-            if (number >= stopNumber) break;
-            number += 1;
+            if (anyNumber >= stopNumber) break;
+            anyNumber += 1;
             continue;
         }
-        if ((number % 5) === 0) {
+        if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
-            if (number >= stopNumber) break;
-            number += 1;
+            if (anyNumber >= stopNumber) break;
+            anyNumber += 1;
             continue;
         }
-        result = `${result}, ${number}`;
-        if (number >= stopNumber) break;
-        number += 1;
+        result = `${result}, ${anyNumber}`;
+        if (anyNumber >= stopNumber) break;
+        anyNumber += 1;
     }
     return result;
 };
@@ -41,30 +41,30 @@ const fizzbuzzV2 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
-    while (number <= stopNumber) {
+    let anyNumber = 1;
+    while (anyNumber <= stopNumber) {
         if (result === "") {
-            result = `${number}`;
-            number += 1;
+            result = `${anyNumber}`;
+            anyNumber += 1;
             continue;
         }
-        if (((number % 3) === 0) && ((number % 5) === 0)) {
+        if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
-            number += 1;
+            anyNumber += 1;
             continue;
         }
-        if ((number % 3) === 0) {
+        if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
-            number += 1;
+            anyNumber += 1;
             continue;
         }
-        if ((number % 5) === 0) {
+        if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
-            number += 1;
+            anyNumber += 1;
             continue;
         }
-        result = `${result}, ${number}`;
-        number += 1;
+        result = `${result}, ${anyNumber}`;
+        anyNumber += 1;
     }
     return result;
 };
@@ -73,21 +73,21 @@ const fizzbuzzV3 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
+    let anyNumber = 1;
     while (true) {
         if (result === "") {
-            result = `${number}`;
-        } else if (((number % 3) === 0) && ((number % 5) === 0)) {
+            result = `${anyNumber}`;
+        } else if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
-        } else if ((number % 3) === 0) {
+        } else if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
-        } else if ((number % 5) === 0) {
+        } else if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
         } else {
-            result = `${result}, ${number}`;
+            result = `${result}, ${anyNumber}`;
         }
-        if (number >= stopNumber) break;
-        number += 1;
+        if (anyNumber >= stopNumber) break;
+        anyNumber += 1;
     }
     return result;
 };
@@ -96,20 +96,20 @@ const fizzbuzzV4 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
-    while (number <= stopNumber) {
+    let anyNumber = 1;
+    while (anyNumber <= stopNumber) {
         if (result === "") {
-            result = `${number}`;
-        } else if (((number % 3) === 0) && ((number % 5) === 0)) {
+            result = `${anyNumber}`;
+        } else if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
-        } else if ((number % 3) === 0) {
+        } else if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
-        } else if ((number % 5) === 0) {
+        } else if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
         } else {
-            result = `${result}, ${number}`;
+            result = `${result}, ${anyNumber}`;
         }
-        number += 1;
+        anyNumber += 1;
     }
     return result;
 };
@@ -118,23 +118,23 @@ const fizzbuzzV5 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
+    let anyNumber = 1;
     while (true) {
         result = ((result === "")
-            ? `${number}`
-            : ((((number % 3) === 0) && ((number % 5) === 0))
+            ? `${anyNumber}`
+            : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0))
                 ? `${result}, FizzBuzz`
-                : (((number % 3) === 0)
+                : (((anyNumber % 3) === 0)
                     ? `${result}, Fizz`
-                    : (((number % 5) === 0)
+                    : (((anyNumber % 5) === 0)
                         ? `${result}, Buzz`
-                        : `${result}, ${number}`
+                        : `${result}, ${anyNumber}`
                     )
                 )
             )
         );
-        if (number >= stopNumber) break;
-        number += 1;
+        if (anyNumber >= stopNumber) break;
+        anyNumber += 1;
     }
     return result;
 };
@@ -143,22 +143,22 @@ const fizzbuzzV6 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
-    while (number <= stopNumber) {
+    let anyNumber = 1;
+    while (anyNumber <= stopNumber) {
         result = ((result === "")
-            ? `${number}`
-            : ((((number % 3) === 0) && ((number % 5) === 0))
+            ? `${anyNumber}`
+            : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0))
                 ? `${result}, FizzBuzz`
-                : (((number % 3) === 0)
+                : (((anyNumber % 3) === 0)
                     ? `${result}, Fizz`
-                    : (((number % 5) === 0)
+                    : (((anyNumber % 5) === 0)
                         ? `${result}, Buzz`
-                        : `${result}, ${number}`
+                        : `${result}, ${anyNumber}`
                     )
                 )
             )
         );
-        number += 1;
+        anyNumber += 1;
     }
     return result;
 };
@@ -167,11 +167,11 @@ const fizzbuzzV7 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
+    let anyNumber = 1;
     while (true) {
-        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
-        if (number >= stopNumber) break;
-        number += 1;
+        result = ((result === "") ? `${anyNumber}` : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) ? `${result}, FizzBuzz` : (((anyNumber % 3) === 0) ? `${result}, Fizz` : (((anyNumber % 5) === 0) ? `${result}, Buzz` : `${result}, ${anyNumber}`))));
+        if (anyNumber >= stopNumber) break;
+        anyNumber += 1;
     }
     return result;
 };
@@ -180,10 +180,10 @@ const fizzbuzzV8 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    let number = 1;
-    while (number <= stopNumber) {
-        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
-        number += 1;
+    let anyNumber = 1;
+    while (anyNumber <= stopNumber) {
+        result = ((result === "") ? `${anyNumber}` : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) ? `${result}, FizzBuzz` : (((anyNumber % 3) === 0) ? `${result}, Fizz` : (((anyNumber % 5) === 0) ? `${result}, Buzz` : `${result}, ${anyNumber}`))));
+        anyNumber += 1;
     }
     return result;
 };
@@ -192,24 +192,24 @@ const fizzbuzzV9 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    for (let number = 1; number <= stopNumber; number += 1) {
+    for (let anyNumber = 1; anyNumber <= stopNumber; anyNumber += 1) {
         if (result === "") {
-            result = `${number}`;
+            result = `${anyNumber}`;
             continue;
         }
-        if (((number % 3) === 0) && ((number % 5) === 0)) {
+        if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
             continue;
         }
-        if ((number % 3) === 0) {
+        if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
             continue;
         }
-        if ((number % 5) === 0) {
+        if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
             continue;
         }
-        result = `${result}, ${number}`;
+        result = `${result}, ${anyNumber}`;
     }
     return result;
 };
@@ -218,17 +218,17 @@ const fizzbuzzV10 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    for (let number = 1; number <= stopNumber; number += 1) {
+    for (let anyNumber = 1; anyNumber <= stopNumber; anyNumber += 1) {
         if (result === "") {
-            result = `${number}`;
-        } else if (((number % 3) === 0) && ((number % 5) === 0)) {
+            result = `${anyNumber}`;
+        } else if (((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) {
             result = `${result}, FizzBuzz`;
-        } else if ((number % 3) === 0) {
+        } else if ((anyNumber % 3) === 0) {
             result = `${result}, Fizz`;
-        } else if ((number % 5) === 0) {
+        } else if ((anyNumber % 5) === 0) {
             result = `${result}, Buzz`;
         } else {
-            result = `${result}, ${number}`;
+            result = `${result}, ${anyNumber}`;
         }
     }
     return result;
@@ -238,16 +238,16 @@ const fizzbuzzV11 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    for (let number = 1; number <= stopNumber; number += 1) {
+    for (let anyNumber = 1; anyNumber <= stopNumber; anyNumber += 1) {
         result = ((result === "")
-            ? `${number}`
-            : ((((number % 3) === 0) && ((number % 5) === 0))
+            ? `${anyNumber}`
+            : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0))
                 ? `${result}, FizzBuzz`
-                : (((number % 3) === 0)
+                : (((anyNumber % 3) === 0)
                     ? `${result}, Fizz`
-                    : (((number % 5) === 0)
+                    : (((anyNumber % 5) === 0)
                         ? `${result}, Buzz`
-                        : `${result}, ${number}`
+                        : `${result}, ${anyNumber}`
                     )
                 )
             )
@@ -260,8 +260,8 @@ const fizzbuzzV12 = (stopNumber) => {
     if (typeof stopNumber !== "number") throw new Error("Argument should be a number");
     if (stopNumber < 1) throw new Error("Argument should be > 0");
     let result = "";
-    for (let number = 1; number <= stopNumber; number += 1) {
-        result = ((result === "") ? `${number}` : ((((number % 3) === 0) && ((number % 5) === 0)) ? `${result}, FizzBuzz` : (((number % 3) === 0) ? `${result}, Fizz` : (((number % 5) === 0) ? `${result}, Buzz` : `${result}, ${number}`))));
+    for (let anyNumber = 1; anyNumber <= stopNumber; anyNumber += 1) {
+        result = ((result === "") ? `${anyNumber}` : ((((anyNumber % 3) === 0) && ((anyNumber % 5) === 0)) ? `${result}, FizzBuzz` : (((anyNumber % 3) === 0) ? `${result}, Fizz` : (((anyNumber % 5) === 0) ? `${result}, Buzz` : `${result}, ${anyNumber}`))));
     }
     return result;
 };

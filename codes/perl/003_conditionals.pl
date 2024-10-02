@@ -1,59 +1,207 @@
 use strict;
-use warnings;
-use Scalar::Util qw(looks_like_number);
+# use warnings;
+
+my $js_like_type = {
+    "Null" => "Null",
+    "Boolean" => "Boolean",
+    "String" => "String",
+    "Numeric" => "Numeric",
+    "Object" => "Object",
+    "Array" => "Array",
+    "Function" => "Function"
+};
+
+sub boolean {
+    my ($anything_ref) = @_;
+    return ($anything_ref ? "true" : "false");
+}
+
+sub string {
+    my ($anything_ref) = @_;
+    return ($anything_ref . "");
+}
+
+sub object {
+    my ($an_object_ref) = @_;
+    return \%{$an_object_ref};
+}
+
+sub is_like_js_null {
+    my ($anything_ref) = @_;
+    return ((defined $anything_ref) ? "false" : "true");
+}
+
+sub is_like_js_boolean {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref eq "true") || ($anything_ref eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_string {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref ne (string($anything_ref) + 0)) && (is_like_js_boolean($anything_ref) eq "false")) ? "true" : "false");
+}
+
+sub is_like_js_numeric {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return ((($anything_ref + 0) eq $anything_ref) ? "true" : "false");
+}
+
+sub is_like_js_object {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "HASH") ? "true" : "false");
+}
+
+sub is_like_js_array {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "ARRAY") ? "true" : "false");
+}
+
+sub is_like_js_function {
+    my ($anything_ref) = @_;
+    return "false" if (is_like_js_null($anything_ref) eq "true");
+    return (((ref $anything_ref) eq "CODE") ? "true" : "false");
+}
+
+sub get_type {
+    my ($anything_ref) = @_;
+    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    my $anything_ref_unknown_type = (ref $anything_ref);
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+}
+
+sub throw_error_if_null {
+    my ($anything_ref) = @_;
+    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
+    return $anything_ref;
+}
+
+sub negate {
+    my ($anything_ref) = @_;
+    return "false" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "true"));
+    return "true" if ((is_like_js_boolean($anything_ref) eq "true") && ($anything_ref eq "false"));
+    die 'expected string ("true"/"false")';
+}
 
 sub json_stringify {
-    my ($anything_ref, %optionalar_gument) = @_;
-    my $pretty = $optionalar_gument{"pretty"} // 0;
-    my $indent = $optionalar_gument{"indent"} // "    ";
+    my ($anything_ref, %keyword_argument) = @_;
+    my $optional_argument = {%keyword_argument};
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
-        my ($anything_inner_ref, $indent_inner) = @_;
-        return "null" if (!defined($anything_inner_ref));
-        return "$anything_inner_ref" if looks_like_number($anything_inner_ref);
-        return "\"" . $anything_inner_ref . "\"" if (ref($anything_inner_ref) eq "");
-        if (ref($anything_inner_ref) eq "ARRAY") {
-            return "[]" if (scalar(@{$anything_inner_ref}) == 0);
+        my ($anything_inner_ref) = @_;
+        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
+        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+            my $object_keys_ref = [keys(%{$anything_inner_ref})];
+            return "{}" if (scalar(@{$object_keys_ref}) == 0);
             $indent_level += 1;
-            my $result = (!$pretty ? "[" : ("[\n" . ($indent_inner x $indent_level)));
-            for my $array_item_index (0..(scalar(@{$anything_inner_ref}) - 1)) {
-                my $array_item = $anything_inner_ref->[$array_item_index];
-                $result .= $json_stringify_inner->($array_item, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($array_item_index + 1) != scalar(@{$anything_inner_ref}));
-            }
-            $indent_level -= 1;
-            $result .= (!$pretty ? "]" : ("\n" . ($indent_inner x $indent_level) . "]"));
-            return $result;
-        }
-        if (ref($anything_inner_ref) eq "HASH") {
-            return "{}" if (scalar(keys(%{$anything_inner_ref})) == 0);
-            $indent_level += 1;
-            my $result = (!$pretty ? "{" : ("{\n" . ($indent_inner x $indent_level)));
+            my $result = (($pretty eq "true") ? ("{\n" . ($indent_default x $indent_level)) : "{ ");
             my $object_entry_index = 0;
-            foreach my $object_key (keys(%{$anything_inner_ref})) {
-                my $object_value = $anything_inner_ref->{$object_key};
-                $result .= "\"" . $object_key . "\": " . $json_stringify_inner->($object_value, $indent_inner);
-                $result .= (!$pretty ? ", " : (",\n" . ($indent_inner x $indent_level))) if (($object_entry_index + 1) != scalar(keys(%{$anything_inner_ref})));
+            while (my ($object_key, $object_value) = each(%{$anything_inner_ref})) {
+                $result .= '"' . $object_key . '": ' . $json_stringify_inner->($object_value);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($object_entry_index + 1) != scalar(@{$object_keys_ref}));
                 $object_entry_index += 1;
             }
             $indent_level -= 1;
-            $result .= (!$pretty ? "}" : ("\n" . ($indent_inner x $indent_level) . "}"));
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
             return $result;
         }
+        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+            my $array_length = scalar(@{$anything_inner_ref});
+            return "[]" if ($array_length == 0);
+            $indent_level += 1;
+            my $result = (($pretty eq "true") ? ("[\n" . ($indent_default x $indent_level)) : "[");
+            for (my $array_item_index = 0; ($array_item_index < scalar(@{$anything_inner_ref})); $array_item_index += 1) {
+                my $array_item = $anything_inner_ref->[$array_item_index];
+                $result .= $json_stringify_inner->($array_item);
+                $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($array_item_index + 1) != $array_length);
+            }
+            $indent_level -= 1;
+            $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
+            return $result;
+        }
+        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
+        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
         return "null";
     };
-    return $json_stringify_inner->($anything_ref, $indent);
+    return $json_stringify_inner->($anything_ref);
 }
 
-sub is_false {
-    my ($anything) = @_;
-    return (($anything == 0) || ($anything eq "0") || !defined($anything) || ($anything eq "") || (ref($anything) eq "ARRAY" && scalar(@{$anything}) == 0));
+sub array_reduce {
+    # JavaScript-like Array.reduce() function
+    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
+    my $result = $initial_value;
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+    }
+    return $result;
 }
 
-sub bool_to_string {
-    my ($anything) = @_;
-    return (is_false($anything) ? "false" : "true");
+sub string_interpolation {
+    return (array_reduce((sub {
+        my ($current_result, $current_argument) = @_;
+        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
+        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
+        return ($current_result . (json_stringify($current_argument)));
+    }), \@_, ""));
+}
+
+sub console_log {
+    print(string_interpolation(@_) . "\n");
+}
+
+sub optional_chaining {
+    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
+    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
+    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    return array_reduce((sub {
+        my ($current_result, $current_item) = @_;
+        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
+        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
+        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        return undef;
+    }), \@array_index_or_object_key_or_function_argument_array, undef);
+}
+
+sub object_from_entries {
+    # JavaScript-like Object.fromEntries() function
+    my ($an_object_entries_ref) = @_;
+    my $new_object_ref = {};
+    while (my ($object_entry_index, $object_entry_ref) = each(@{$an_object_entries_ref})) {
+        my $object_key = $object_entry_ref->[0];
+        my $object_value = $object_entry_ref->[1];
+        $new_object_ref->{string($object_key)} = $object_value;
+    }
+    return $new_object_ref;
+}
+
+sub array_entries {
+    # JavaScript-like Array.entries() function
+    my ($an_array_ref) = @_;
+    my $new_object_entries_ref = [];
+    for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
+        my $array_item = $an_array_ref->[$array_item_index];
+        push(@{$new_object_entries_ref}, [$array_item_index, $array_item]);
+    }
+    return $new_object_entries_ref;
 }
 
 =begin
@@ -68,283 +216,275 @@ sub bool_to_string {
     Logical Operators:
     Logical AND [&&, and]
     Logical OR [||, or]
-    Logical NOT [!, not]
+    Logical NOT [!, not] (use negate() instead if You use string ("true"/"false")) for boolean value
 =cut
 
-# in Perl, There's no true or false 🤮
+# Perl doesn't have explicit built-in boolean type (true/false) 🤮, the truthy and the falsy values are also confusing. so I use string ("true"/"false") instead.
 
-my $correct_answer;
+my $CORRECT_ANSWER;
 my $my_age;
 my $my_answer;
 my $has_driving_license;
 my $can_drive;
 
-print("\n# basic conditional control flow\n", "\n");
+console_log("\n# basic conditional control flow\n");
 
 $my_age = 10;
-print("\$my_age: ", json_stringify($my_age), "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 if ($my_age > 24) {
-    print("you are old", "\n");
+    console_log("you are old");
 } elsif ($my_age > 17) {
-    print("you are young", "\n");
+    console_log("you are young");
 } else {
-    print("you are under age", "\n");
+    console_log("you are under age");
 }
 
 $my_age = 10;
-print("\$my_age: ", json_stringify($my_age), "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
 unless ($my_age <= 24) {
-    print("you are old", "\n");
+    console_log("you are old");
 } else {
-    print("you are young", "\n");
+    console_log("you are young");
 }
 
-print("\n# equal to [==, eq]\n", "\n");
+console_log("\n# equal to [==, eq]\n");
 
 $my_answer = "100";
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer == \$correct_answer):", "\n");
-if ($my_answer == $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer == $CORRECT_ANSWER):');
+if ($my_answer == $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = "100";
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer eq \$correct_answer):", "\n");
-if ($my_answer eq $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer eq $CORRECT_ANSWER):');
+if ($my_answer eq $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = 100;
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer == \$correct_answer):", "\n");
-if ($my_answer == $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer == $CORRECT_ANSWER):');
+if ($my_answer == $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = 100;
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer eq \$correct_answer):", "\n");
-if ($my_answer eq $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer eq $CORRECT_ANSWER):');
+if ($my_answer eq $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
-print("\n# not equal to [!=, ne]\n", "\n");
+console_log("\n# not equal to [!=, ne]\n");
 
 $my_answer = "25";
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer != \$correct_answer):", "\n");
-if ($my_answer != $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer != $CORRECT_ANSWER):');
+if ($my_answer != $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = "25";
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer ne \$correct_answer):", "\n");
-if ($my_answer ne $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer ne $CORRECT_ANSWER):');
+if ($my_answer ne $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = 25;
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer != \$correct_answer):", "\n");
-if ($my_answer != $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer != $CORRECT_ANSWER):');
+if ($my_answer != $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
 $my_answer = 25;
-print("\$my_answer: ", json_stringify($my_answer), "\n");
-$correct_answer = 100;
-print("\$correct_answer: ", json_stringify($correct_answer), "\n");
-print("(\$my_answer ne \$correct_answer):", "\n");
-if ($my_answer ne $correct_answer) {
-    print("Your answer is correct", "\n");
+console_log(string_interpolation('$my_answer: ', [$my_answer]));
+$CORRECT_ANSWER = 100;
+console_log('$CORRECT_ANSWER: ', [$CORRECT_ANSWER]);
+console_log('($my_answer ne $CORRECT_ANSWER):');
+if ($my_answer ne $CORRECT_ANSWER) {
+    console_log("Your answer is correct");
 } else {
-    print("Your answer is wrong", "\n");
+    console_log("Your answer is wrong");
 }
 
-print("\n# greater than [>, gt]\n", "\n");
+console_log("\n# greater than [>, gt]\n");
 
 $my_age = "70";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " > 50):", "\n");
-print("You are old", "\n") if ($my_age > 50);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " > 50):"));
+console_log("You are old") if ($my_age > 50);
 
 $my_age = "70";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " gt 50):", "\n");
-print("You are old", "\n") if ($my_age gt 50);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " gt 50):"));
+console_log("You are old") if ($my_age gt 50);
 
 $my_age = 70;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " > 50):", "\n");
-print("You are old", "\n") if ($my_age > 50);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " > 50):"));
+console_log("You are old") if ($my_age > 50);
 
 $my_age = 70;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " gt 50):", "\n");
-print("You are old", "\n") if ($my_age gt 50);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " gt 50):"));
+console_log("You are old") if ($my_age gt 50);
 
-print("\n# less than [<, lt]\n", "\n");
-
-$my_age = "16";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " < 20):", "\n");
-print("You are young", "\n") if ($my_age < 20);
+console_log("\n# less than [<, lt]\n");
 
 $my_age = "16";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " lt 20):", "\n");
-print("You are young", "\n") if ($my_age lt 20);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " < 20):"));
+console_log("You are young") if ($my_age < 20);
+
+$my_age = "16";
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " lt 20):"));
+console_log("You are young") if ($my_age lt 20);
 
 $my_age = 16;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " < 20):", "\n");
-print("You are young", "\n") if ($my_age < 20);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " < 20):"));
+console_log("You are young") if ($my_age < 20);
 
 $my_age = 16;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " lt 20):", "\n");
-print("You are young", "\n") if ($my_age lt 20);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " lt 20):"));
+console_log("You are young") if ($my_age lt 20);
 
-print("\n# greater than or equal to [>=, ge]\n", "\n");
-
-$my_age = "73";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " >= 65):", "\n");
-print("You are allowed to retire", "\n") if ($my_age >= 65);
+console_log("\n# greater than or equal to [>=, ge]\n");
 
 $my_age = "73";
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " ge 65):", "\n");
-print("You are allowed to retire", "\n") if ($my_age ge 65);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " >= 65):"));
+console_log("You are allowed to retire") if ($my_age >= 65);
+
+$my_age = "73";
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " ge 65):"));
+console_log("You are allowed to retire") if ($my_age ge 65);
 
 $my_age = 73;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " >= 65):", "\n");
-print("You are allowed to retire", "\n") if ($my_age >= 65);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " >= 65):"));
+console_log("You are allowed to retire") if ($my_age >= 65);
 
 $my_age = 73;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " ge 65):", "\n");
-print("You are allowed to retire", "\n") if ($my_age ge 65);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " ge 65):"));
+console_log("You are allowed to retire") if ($my_age ge 65);
 
-print("\n# less than or equal to [<=, le]\n", "\n");
-
-$my_age = "14"; 
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " <= 16):", "\n");
-print("You are not allowed to drive", "\n") if ($my_age <= 16);
+console_log("\n# less than or equal to [<=, le]\n");
 
 $my_age = "14"; 
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " le 16):", "\n");
-print("You are not allowed to drive", "\n") if ($my_age le 16);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " <= 16):"));
+console_log("You are not allowed to drive") if ($my_age <= 16);
+
+$my_age = "14"; 
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " le 16):"));
+console_log("You are not allowed to drive") if ($my_age le 16);
 
 $my_age = 14; 
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " <= 16):", "\n");
-print("You are not allowed to drive", "\n") if ($my_age <= 16);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " <= 16):"));
+console_log("You are not allowed to drive") if ($my_age <= 16);
 
 $my_age = 14; 
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("(", json_stringify($my_age), " le 16):", "\n");
-print("You are not allowed to drive", "\n") if ($my_age le 16);
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log(string_interpolation("(", [$my_age], " le 16):"));
+console_log("You are not allowed to drive") if ($my_age le 16);
 
-print("\n# Logical AND [&&, and]\n", "\n");
-
-$my_age = 17;
-print("\$my_age: ", json_stringify($my_age), "\n");
-$has_driving_license = 0;
-print("\$has_driving_license: ", bool_to_string($has_driving_license), "\n");
-print("((\$my_age >= 17) && \$has_driving_license):", "\n");
-print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"), "\n");
+console_log("\n# Logical AND [&&, and]\n");
 
 $my_age = 17;
-print("\$my_age: ", json_stringify($my_age), "\n");
-$has_driving_license = 1;
-print("\$has_driving_license: ", bool_to_string($has_driving_license), "\n");
-print("((\$my_age >= 17) && \$has_driving_license):", "\n");
-print(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"), "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+$has_driving_license = "false";
+console_log('$has_driving_license: ', [$has_driving_license]);
+console_log('(($my_age >= 17) && $has_driving_license):');
+console_log(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 $my_age = 17;
-print("\$my_age: ", json_stringify($my_age), "\n");
-$has_driving_license = 0;
-print("\$has_driving_license: ", bool_to_string($has_driving_license), "\n");
-print("((\$my_age >= 17) and \$has_driving_license):", "\n");
-print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"), "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+$has_driving_license = "true";
+console_log('$has_driving_license: ', [$has_driving_license]);
+console_log('(($my_age >= 17) && $has_driving_license):');
+console_log(((($my_age >= 17) && $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"));
 
 $my_age = 17;
-print("\$my_age: ", json_stringify($my_age), "\n");
-$has_driving_license = 1;
-print("\$has_driving_license: ", bool_to_string($has_driving_license), "\n");
-print("((\$my_age >= 17) and \$has_driving_license):", "\n");
-print(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"), "\n");
+console_log(string_interpolation('$my_age: ', [$my_age]));
+$has_driving_license = "false";
+console_log('$has_driving_license: ', [$has_driving_license]);
+console_log('(($my_age >= 17) and $has_driving_license):');
+console_log(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"));
 
-print("\n# Logical OR [||, or]\n", "\n");
+$my_age = 17;
+console_log(string_interpolation('$my_age: ', [$my_age]));
+$has_driving_license = "true";
+console_log('$has_driving_license: ', [$has_driving_license]);
+console_log('(($my_age >= 17) and $has_driving_license):');
+console_log(((($my_age >= 17) and $has_driving_license) ? "You are allowed to drive" : "You are not allowed to drive"));
+
+console_log("\n# Logical OR [||, or]\n");
 
 $my_age = 2;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("((\$my_age <= 3) || (\$my_age >= 65)):", "\n");
-print("You should stay home", "\n") if (($my_age <= 3) || ($my_age >= 65));
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) || ($my_age > 65)):');
+console_log("You should stay home") if (($my_age <= 3) || ($my_age >= 65));
 
 $my_age = 89;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("((\$my_age <= 3) || (\$my_age >= 65)):", "\n");
-print("You should stay home", "\n") if (($my_age <= 3) || ($my_age >= 65));
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) || ($my_age > 65)):');
+console_log("You should stay home") if (($my_age <= 3) || ($my_age >= 65));
 
 $my_age = 2;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("((\$my_age <= 3) or (\$my_age >= 65)):", "\n");
-print("You should stay home", "\n") if (($my_age <= 3) or ($my_age >= 65));
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) or ($my_age > 65)):');
+console_log("You should stay home") if (($my_age <= 3) or ($my_age >= 65));
 
 $my_age = 89;
-print("\$my_age: ", json_stringify($my_age), "\n");
-print("((\$my_age <= 3) or (\$my_age >= 65)):", "\n");
-print("You should stay home", "\n") if (($my_age <= 3) or ($my_age >= 65));
+console_log(string_interpolation('$my_age: ', [$my_age]));
+console_log('(($my_age <= 3) or ($my_age > 65)):');
+console_log("You should stay home") if (($my_age <= 3) or ($my_age >= 65));
 
-print("\n# Logical NOT [!, not]\n", "\n");
+console_log(qq(\n# Logical NOT [!, not] (use negate() instead if You use string ("true"/"false")) for boolean value\n));
 
-$can_drive = 0;
-print("\$can_drive: ", bool_to_string($can_drive), "\n");
-print("!\$can_drive: ", bool_to_string(!$can_drive), "\n");
+$can_drive = "false";
+console_log(string_interpolation('$can_drive: ', [$can_drive]));
+console_log(string_interpolation('negate($can_drive): ', [negate($can_drive)]));
 
-$can_drive = 1;
-print("\$can_drive: ", bool_to_string($can_drive), "\n");
-print("!\$can_drive: ", bool_to_string(!$can_drive), "\n");
-
-$can_drive = 0;
-print("\$can_drive: ", bool_to_string($can_drive), "\n");
-print("not \$can_drive: ", bool_to_string(not $can_drive), "\n");
-
-$can_drive = 1;
-print("\$can_drive: ", bool_to_string($can_drive), "\n");
-print("not \$can_drive: ", bool_to_string(not $can_drive), "\n");
+$can_drive = "true";
+console_log(string_interpolation('$can_drive: ', [$can_drive]));
+console_log(string_interpolation('negate($can_drive): ', [negate($can_drive)]));

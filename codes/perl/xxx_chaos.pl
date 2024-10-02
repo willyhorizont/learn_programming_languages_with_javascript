@@ -66,3 +66,28 @@ sub json_stringify_v2 {
     };
     return $json_stringify_inner->($anything_ref, $indent);
 }
+
+=begin
+sub {
+(?<!throw_error_if_null\()(\$js_like_type)
+(?<!\()(\$js_like_type)
+%{{
+@{[
+"pretty" => 1
+};
+my $array_item_index = 0;
+$array_item_index += 1;
+, "\n"
+"$
+= 0
+= 1
+ = 0;
+ = 1;
+!
+\"\n"
+(1)
+%{$friend_ref}
+@{$fruits_ref}
+"false" to 00000
+"true" to "truthy"
+=cut

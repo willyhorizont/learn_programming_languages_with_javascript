@@ -1,4 +1,5 @@
 const generateNumberSequence = (startNumber, stopNumber) => {
+    if (stopNumber === undefined) return [0];
     if (stopNumber > startNumber) {
         const numberSequenceArrayAscending = [];
         for (let aNumber = startNumber; (aNumber <= stopNumber); aNumber += 1) {
