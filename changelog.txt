@@ -1,4 +1,15 @@
 =============================changelog==========================================
+(2024/10[Oct]/04[Fri]|06:00[PM]/18:00)
+1.0.76
+New:
+add cool hello world in js, py
+add pipe in hello world in jl, raku, r
+try change "false" to 00000 and "true" to "truthy" in *.pl and undo it
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/03[Thu]|03:00[AM]/03:00)
 1.0.75
 New:

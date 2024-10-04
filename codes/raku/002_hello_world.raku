@@ -1,32 +1,29 @@
+put "Hello, World!";
+
 print "Hello, World!\n";
 
 say "Hello, World!";
 
-put "Hello, World!";
-
-note "Hello, World!";
-
-print("Hello, World!\n");
-
-say("Hello, World!");
-
-put("Hello, World!");
-
-note("Hello, World!");
-
+"Hello, World!".put;
 
 "Hello, World!\n".print;
 
 "Hello, World!".say;
 
-"Hello, World!".put;
-
-"Hello, World!".note;
+"Hello, World!".put();
 
 "Hello, World!\n".print();
 
 "Hello, World!".say();
 
-"Hello, World!".put();
+put("Hello, World!");
 
-"Hello, World!".note();
+print("Hello, World!\n");
+
+say("Hello, World!");
+
+"Hello, World!" ==> put();
+
+"Hello, World!\n" ==> print();
+
+"Hello, World!" ==> say();

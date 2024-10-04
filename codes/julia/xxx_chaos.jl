@@ -1,5 +1,16 @@
 using JSON
 
+get_type::Any = (anything::Any) -> begin
+    if (is_like_js_null(anything) === true) return js_like_type.Null end
+    if (is_like_js_boolean(anything) === true) return js_like_type.Boolean end
+    if (is_like_js_string(anything) === true) return js_like_type.String end
+    if (is_like_js_numeric(anything) === true) return js_like_type.Numeric end
+    if (is_like_js_object(anything) === true) return js_like_type.Object end
+    if (is_like_js_array(anything) === true) return js_like_type.Array end
+    if (is_like_js_function(anything) === true) return js_like_type.Function end
+    return '"' * typeof(anything) * '"'
+end
+
 function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
     indent_level::Any = 0
     function json_stringify_inner(anything_inner, indent_inner::String)::String

@@ -10,13 +10,13 @@ import (
 
 func main() {
 	jsLikeType := struct {
-		Null string
-		Boolean string
-		String string
-		Numeric string
-		Object string
-		Array string
-		Function string
+		Null interface{}
+		Boolean interface{}
+		String interface{}
+		Numeric interface{}
+		Object interface{}
+		Array interface{}
+		Function interface{}
 	}{
 		Null: "Null",
 		Boolean: "Boolean",

@@ -208,6 +208,8 @@
 
         "editorUnnecessaryCode.background": "#00000019",
         "editorUnnecessaryCode.border": "#b50000fb",
+        // "terminal.foreground" : "#00FD61",
+        // "terminal.background" : "#000000"
     },
     "Lua.diagnostics.disable": [
         "lowercase-global",

@@ -196,3 +196,8 @@ regex to find `\n` without `;` before it:
 (?<!::Any) = 
 ::[a-z_]+::[a-zA-Z_]+
 \b[a-z0-9_]+(?= = )(?!::Any)
+
+Safe Navigation Operator
+In Ruby 2.3 and later, the safe navigation operator &.
+user = nil
+puts user&.name  # Output: nil (no error is raised)

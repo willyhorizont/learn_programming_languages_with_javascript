@@ -1,59 +1,59 @@
 # ? function statement or function declaration
 
-function get_rectangle_area_v1(rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
+function get_rectangle_area_v1(rectangle_width::Any, rectangle_length::Any)::Any
+    return (rectangle_width * rectangle_length)::Any
 end
 # call the function example: get_rectangle_area_v1(7, 5)
 
-get_rectangle_area_v2(rectangle_width, rectangle_length) = (rectangle_width * rectangle_length)
+get_rectangle_area_v2(rectangle_width::Any, rectangle_length::Any)::Any = (rectangle_width * rectangle_length)::Any
 # call the function example: get_rectangle_area_v2(7, 5)
 
 # ? function expression
 
-get_rectangle_area_v3::Any = function (rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
+get_rectangle_area_v3::Any = function (rectangle_width::Any, rectangle_length::Any)
+    return (rectangle_width * rectangle_length)::Any
 end
 # call the function example: get_rectangle_area_v3(7, 5)
 
 # ? anonymous function
 
-function (rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
+function (rectangle_width::Any, rectangle_length::Any)
+    return (rectangle_width * rectangle_length)::Any
 end
 
 # ? named function expression 🤮
 
-get_rectangle_area_v4::Any = function do_something(rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
+get_rectangle_area_v4::Any = function do_something(rectangle_width::Any, rectangle_length::Any)::Any
+    return (rectangle_width * rectangle_length)::Any
 end
 # call the function example: get_rectangle_area_v4(7, 5)
 
 # ? function expression with arrow function or named arrow function
 
-get_rectangle_area_v5::Any = (rectangle_width, rectangle_length) -> begin
-    return (rectangle_width * rectangle_length)
+get_rectangle_area_v5::Any = (rectangle_width::Any, rectangle_length::Any) -> begin
+    return (rectangle_width * rectangle_length)::Any
 end
 # call the function example: get_rectangle_area_v5(7, 5)
 
-get_rectangle_area_v6::Any = (rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
+get_rectangle_area_v6::Any = (rectangle_width::Any, rectangle_length::Any) -> (rectangle_width * rectangle_length)::Any
 # call the function example: get_rectangle_area_v6(7, 5)
 
 # ? anonymous arrow function
 
-(rectangle_width, rectangle_length) -> begin
-    return (rectangle_width * rectangle_length)
+(rectangle_width::Any, rectangle_length::Any) -> begin
+    return (rectangle_width * rectangle_length)::Any
 end
 
-(rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
+(rectangle_width::Any, rectangle_length::Any) -> (rectangle_width * rectangle_length)::Any
 
 # ? Passing functions as arguments to other functions
 
-function say_hello(callback_function)
+function say_hello(callback_function::Any)::Any
     println("hello")
     callback_function()
 end
 
-function say_how_are_you()
+function say_how_are_you()::Any
     println("how are you ?")
 end
 
@@ -67,22 +67,22 @@ say_hello(() -> println("how are you ?"))
 
 # ? Assigning functions to variables or storing them in data structures
 
-get_rectangle_area_v3::Any = function (rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
+get_rectangle_area_v3::Any = function (rectangle_width::Any, rectangle_length::Any)
+    return (rectangle_width * rectangle_length)::Any
 end
 
-get_rectangle_area_v5::Any = (rectangle_width, rectangle_length) -> begin
-    return (rectangle_width * rectangle_length)
+get_rectangle_area_v5::Any = (rectangle_width::Any, rectangle_length::Any) -> begin
+    return (rectangle_width * rectangle_length)::Any
 end
 
-get_rectangle_area_v6::Any = (rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
+get_rectangle_area_v6::Any = (rectangle_width::Any, rectangle_length::Any) -> (rectangle_width * rectangle_length)::Any
 
 my_array_of_get_rectangle_area_functions::Any = Any[
     get_rectangle_area_v1,
-    function (rectangle_width, rectangle_length)
-        return (rectangle_width * rectangle_length)
+    function (rectangle_width::Any, rectangle_length::Any)
+        return (rectangle_width * rectangle_length)::Any
     end,
-    (rectangle_width, rectangle_length) -> (rectangle_width * rectangle_length)
+    (rectangle_width::Any, rectangle_length::Any) -> (rectangle_width * rectangle_length)::Any
 ]
 get_rectangle_area_function_result1::Any = my_array_of_get_rectangle_area_functions[1](7, 5)
 get_rectangle_area_function_result2::Any = my_array_of_get_rectangle_area_functions[2](7, 5)

@@ -232,240 +232,264 @@ print('("true" eq "True") 1: ' . (("true" eq "True") ? "true" : "false") . "\n")
 
 {
     my $something = undef;
-    print("undef: " . (($something) ? "true" : "false") . "\n")
+    print("undef: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0;
-    print("0: " . (($something) ? "true" : "false") . "\n")
+    print("0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 00;
-    print("00: " . (($something) ? "true" : "false") . "\n")
+    print("00: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 000;
-    print("000: " . (($something) ? "true" : "false") . "\n")
+    print("000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0000;
-    print("0000: " . (($something) ? "true" : "false") . "\n")
+    print("0000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 00000;
-    print("00000: " . (($something) ? "true" : "false") . "\n")
+    print("00000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0.0;
-    print("0.0: " . (($something) ? "true" : "false") . "\n")
+    print("0.0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0.00;
-    print("0.00: " . (($something) ? "true" : "false") . "\n")
+    print("0.00: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0.000;
-    print("0.000: " . (($something) ? "true" : "false") . "\n")
+    print("0.000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0.0000;
-    print("0.0000: " . (($something) ? "true" : "false") . "\n")
+    print("0.0000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0.00000;
-    print("0.00000: " . (($something) ? "true" : "false") . "\n")
+    print("0.00000: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 00.0;
-    print("00.0: " . (($something) ? "true" : "false") . "\n")
+    print("00.0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 000.0;
-    print("000.0: " . (($something) ? "true" : "false") . "\n")
+    print("000.0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 0000.0;
-    print("0000.0: " . (($something) ? "true" : "false") . "\n")
+    print("0000.0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 00000.0;
-    print("00000.0: " . (($something) ? "true" : "false") . "\n")
+    print("00000.0: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '';
-    print("'': " . (($something) ? "true" : "false") . "\n")
+    print("'': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0';
-    print("'0': " . (($something) ? "true" : "false") . "\n")
+    print("'0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = 2;
-    print("2: " . (($something) ? "true" : "false") . "\n")
+    print("2: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = -1;
-    print("-1: " . (($something) ? "true" : "false") . "\n")
+    print("-1: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = -1.5;
-    print("-1.5: " . (($something) ? "true" : "false") . "\n")
+    print("-1.5: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = -2;
-    print("-2: " . (($something) ? "true" : "false") . "\n")
+    print("-2: " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = ' ';
-    print("' ': " . (($something) ? "true" : "false") . "\n")
+    print("' ': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '    ';
-    print("'    ': " . (($something) ? "true" : "false") . "\n")
+    print("'    ': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '00';
-    print("'00': " . (($something) ? "true" : "false") . "\n")
+    print("'00': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '000';
-    print("'000': " . (($something) ? "true" : "false") . "\n")
+    print("'000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0000';
-    print("'0000': " . (($something) ? "true" : "false") . "\n")
+    print("'0000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '00000';
-    print("'00000': " . (($something) ? "true" : "false") . "\n")
+    print("'00000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0.0';
-    print("'0.0': " . (($something) ? "true" : "false") . "\n")
+    print("'0.0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0.00';
-    print("'0.00': " . (($something) ? "true" : "false") . "\n")
+    print("'0.00': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0.000';
-    print("'0.000': " . (($something) ? "true" : "false") . "\n")
+    print("'0.000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0.0000';
-    print("'0.0000': " . (($something) ? "true" : "false") . "\n")
+    print("'0.0000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0.00000';
-    print("'0.00000': " . (($something) ? "true" : "false") . "\n")
+    print("'0.00000': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '00.0';
-    print("'00.0': " . (($something) ? "true" : "false") . "\n")
+    print("'00.0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '000.0';
-    print("'000.0': " . (($something) ? "true" : "false") . "\n")
+    print("'000.0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '0000.0';
-    print("'0000.0': " . (($something) ? "true" : "false") . "\n")
+    print("'0000.0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = '00000.0';
-    print("'00000.0': " . (($something) ? "true" : "false") . "\n")
+    print("'00000.0': " . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "0\n";
-    print('"0\n": ' . (($something) ? "true" : "false") . "\n")
+    print('"0\n": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "00\n";
-    print('"00\n": ' . (($something) ? "true" : "false") . "\n")
+    print('"00\n": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "000\n";
-    print('"000\n": ' . (($something) ? "true" : "false") . "\n")
+    print('"000\n": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "0000\n";
-    print('"0000\n": ' . (($something) ? "true" : "false") . "\n")
+    print('"0000\n": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "00000\n";
-    print('"00000\n": ' . (($something) ? "true" : "false") . "\n")
+    print('"00000\n": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "false";
-    print('"false": ' . (($something) ? "true" : "false") . "\n")
+    print('"false": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = "true";
-    print('"true": ' . (($something) ? "true" : "false") . "\n")
+    print('"true": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my $something = !"true";
-    print('!"true": ' . (($something) ? "true" : "false") . "\n")
+    print('!"true": ' . (($something) ? "true" : "false") . "\n");
 }
 
 {
     my @any_array = ();
-    print('"()": ' . ((@any_array) ? "true" : "false") . "\n")
+    print('"()": ' . ((@any_array) ? "true" : "false") . "\n");
 }
 
 {
     my $any_array_ref = [];
-    print('"[]": ' . ((@{$any_array_ref}) ? "true" : "false") . "\n")
+    print('"[]": ' . ((@{$any_array_ref}) ? "true" : "false") . "\n");
 }
 
 {
     my %any_object = ();
-    print('"()": ' . ((%any_object) ? "true" : "false") . "\n")
+    print('"()": ' . ((%any_object) ? "true" : "false") . "\n");
 }
 
 {
     my $any_object_ref = {};
-    print('"{}": ' . ((%{$any_object_ref}) ? "true" : "false") . "\n")
+    print('"{}": ' . ((%{$any_object_ref}) ? "true" : "false") . "\n");
+}
+
+sub true {
+    return "true";
+}
+
+sub false {
+    return "false";
+}
+
+console_log(string_interpolation("console_log(string_interpolation(true)): ", [true]));
+console_log(string_interpolation("console_log(string_interpolation(false)): ", [false]));
+
+print('print(true): ' . true . "\n");
+print('print(false): ' . false . "\n");
+
+{
+    my $something = true;
+    print('$something = true: ' . (($something) ? "true" : "false") . "\n");
+}
+
+{
+    my $something = false;
+    print('$something = false: ' . (($something) ? "true" : "false") . "\n");
 }

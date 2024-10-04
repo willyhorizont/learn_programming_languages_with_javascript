@@ -218,6 +218,9 @@ console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" 
 console_log(string_interpolation("friend, get total object keys: ", [scalar(keys(%friend))]));
 # friend, get total object keys: 3
 
+console_log(string_interpolation("friend, get total object keys: ", [scalar(@{[keys(%friend)]})]));
+# friend, get total object keys: 3
+
 console_log(string_interpolation("friend, get country: ", [$friend{"country"}]));
 # friend, get country: "Finland"
 
@@ -276,6 +279,9 @@ console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref},
 console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => "true")));
 
 console_log(string_interpolation("friend_ref, get total object keys: ", [scalar(keys(%{$friend_ref}))]));
+# friend_ref, get total object keys: 3
+
+console_log(string_interpolation("friend_ref, get total object keys: ", [scalar(@{[keys(%{$friend_ref})]})]));
 # friend_ref, get total object keys: 3
 
 console_log(string_interpolation("friend_ref, get country: ", [$$friend_ref{"country"}]));
