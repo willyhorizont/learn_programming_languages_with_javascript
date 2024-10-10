@@ -24,87 +24,89 @@ func main() {
 		Array: "Array",
 		Function: "Function",
 	}
-	ternary := func(restArguments ...interface{}) interface{} {
-		trueCondition := restArguments[0].(bool)
-		callbackFunctionIfConditionTrue := restArguments[1].(func(...interface{}) interface{})
-		callbackFunctionIfConditionFalse := restArguments[2].(func(...interface{}) interface{})
+	var ternary interface{} = func(restArguments ...interface{}) interface{} {
+		var trueCondition interface{} = restArguments[0]
+		var callbackFunctionIfConditionTrue interface{} = restArguments[1]
+		var callbackFunctionIfConditionFalse interface{} = restArguments[2]
 		if (trueCondition == true) {
-			return callbackFunctionIfConditionTrue()
+			return (callbackFunctionIfConditionTrue.(func(...interface{}) interface{}))()
 		}
-		return callbackFunctionIfConditionFalse()
+		return (callbackFunctionIfConditionFalse.(func(...interface{}) interface{}))()
 	}
-	arraySome := func(restArguments ...interface{}) interface{} {
+	var arraySome interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.some() function arraySomeV4
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		for arrayItemIndex, arrayItem := range anArray {
-			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			if (((callbackFunction.(func(...interface{}) interface{}))(arrayItem, arrayItemIndex, anArray)) == true) {
 				return true
 			}
 		}
 		return false
 	}
-	isLikeJsNull := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsNull interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (anything == nil)
 	}
-	isLikeJsBoolean := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsBoolean interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return ((reflect.TypeOf(anything).Kind() == reflect.Bool) && ((anything == true) || (anything == false)))
 	}
-	isLikeJsString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.String)
 	}
-	isLikeJsNumeric := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return (arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericType := restArgumentsArraySomeCallback[0]
-			return (anythingJsLikeType.Kind() == numericType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128}))
+	var isLikeJsNumeric interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var anythingGoTypeKind interface{} = reflect.TypeOf(anything).Kind()
+		return ((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericGoTypeKind interface{} = restArgumentsArraySomeCallback[0]
+			return (anythingGoTypeKind == numericGoTypeKind)
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128})))
 	}
-	isLikeJsObject := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Map) || ((anythingJsLikeType.Kind() == reflect.Map) && (anythingJsLikeType.Key().Kind() == reflect.String) && (anythingJsLikeType.Elem().Kind() == reflect.Interface)) || (anythingJsLikeType == reflect.TypeOf(map[string]interface{}{})) || (anythingJsLikeType.String() == "map[string]interface {}") || (anythingJsLikeType.String() == "map[string]interface {  }"))
+	var isLikeJsObject interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Map) || ((anythingGoType.Kind() == reflect.Map) && (anythingGoType.Key().Kind() == reflect.String) && (anythingGoType.Elem().Kind() == reflect.Interface)) || (anythingGoType == reflect.TypeOf(map[string]interface{}{})) || (anythingGoType.String() == "map[string]interface {}") || (anythingGoType.String() == "map[string]interface {  }"))
 	}
-	isLikeJsArray := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Slice) || (anythingJsLikeType == reflect.TypeOf([]interface{}{})) || (anythingJsLikeType.String() == "[]interface {}") || (anythingJsLikeType.String() == "[]interface {  }"))
+	var isLikeJsArray interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Slice) || (anythingGoType == reflect.TypeOf([]interface{}{})) || (anythingGoType.String() == "[]interface {}") || (anythingGoType.String() == "[]interface {  }"))
 	}
-	isLikeJsFunction := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsFunction interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.Func)
 	}
-	getType := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		if (isLikeJsNull(anything) == true) {
+	var getType interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		if (((isLikeJsNull.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Null
 		}
-		if (isLikeJsBoolean(anything) == true) {
+		if (((isLikeJsBoolean.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Boolean
 		}
-		if (isLikeJsString(anything) == true) {
+		if (((isLikeJsString.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.String
 		}
-		if (isLikeJsNumeric(anything) == true) {
+		if (((isLikeJsNumeric.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Numeric
 		}
-		if (isLikeJsObject(anything) == true) {
+		if (((isLikeJsObject.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Object
 		}
-		if (isLikeJsArray(anything) == true) {
+		if (((isLikeJsArray.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Array
 		}
-		if (isLikeJsFunction(anything) == true) {
+		if (((isLikeJsFunction.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Function
 		}
 		return reflect.TypeOf(anything).String()
 	}
-	anyToString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var anyToString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		anythingGoValue := reflect.ValueOf(anything)
 		if (anythingGoValue.Kind() == reflect.String) {
 			return anythingGoValue.String()
@@ -112,262 +114,273 @@ func main() {
 		if (anythingGoValue.Kind() == reflect.Bool) {
 			return fmt.Sprintf("%t", anythingGoValue.Bool())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericIntType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericIntType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericIntType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64})).(bool) == true) {
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Int())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericUintType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericUintType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericUintType)
-		}, []interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64})).(bool) == true) {
+		})), ([]interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Uint())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericFloatType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericFloatType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericFloatType)
-		}, []interface{}{reflect.Float32, reflect.Float64})).(bool) == true) {
+		})), ([]interface{}{reflect.Float32, reflect.Float64}))) == true) {
 			return fmt.Sprintf("%f", anythingGoValue.Float())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericComplexType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericComplexType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericComplexType)
-		}, []interface{}{reflect.Complex64, reflect.Complex128})).(bool) == true) {
+		})), ([]interface{}{reflect.Complex64, reflect.Complex128}))) == true) {
 			return fmt.Sprintf("%g", anythingGoValue.Complex())
 		}
 		return `"` + anythingGoValue.String() + `"`
 	}
-	arrayReduce := func(restArguments ...interface{}) interface{} {
+	var arrayReduce interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.reduce() function
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		initialValue := restArguments[2]
-		result := initialValue
-		for arrayItemIndex, arrayItem := range anArray {
-			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var initialValue interface{} = restArguments[2]
+		var result interface{} = initialValue
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			result = (callbackFunction.(func(...interface{}) interface{}))(result, arrayItem, arrayItemIndex, anArray)
 		}
 		return result
 	}
-	optionalChaining := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		restArgumentsNew := restArguments[1:]
-		anythingJsLikeType := getType(anything)
+	var optionalChaining interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var restArgumentsNew interface{} = restArguments[1:]
+		var anythingJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anything))
 		if (anythingJsLikeType == jsLikeType.Function) {
-			return anything.(func(...interface{}) interface{})(restArgumentsNew...)
+			return ((anything.(func(...interface{}) interface{}))((restArgumentsNew.([]interface{}))...))
 		}
-		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len(restArgumentsNew) == 0)) {
+		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len((restArgumentsNew.([]interface{}))) == 0)) {
 			return anything
 		}
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentItem := restArgumentsArrayReduceCallback[1]
-			currentResultJsLikeType := getType(currentResult)
-			currentItemJsLikeType := getType(currentItem)
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentItem interface{} = restArgumentsArrayReduceCallback[1]
+			var currentResultJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentResult))
+			var currentItemJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentItem))
 			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return anything.(map[string]interface{})[currentItem.(string)]
+				return (anything.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.([]interface{})) > currentItem.(int))) {
-				return anything.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(anything.([]interface{})) > (currentItem.(int)))) {
+				return (anything.([]interface{}))[(currentItem.(int))]
 			}
 			if ((currentResultJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return currentResult.(map[string]interface{})[currentItem.(string)]
+				return (currentResult.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.([]interface{})) > currentItem.(int))) {
-				return currentResult.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(currentResult.([]interface{})) > (currentItem.(int)))) {
+				return (currentResult.([]interface{}))[(currentItem.(int))]
 			}
 			return nil
-		}, restArgumentsNew, nil))
+		})), (restArgumentsNew.([]interface{})), nil))
 	}
-	nullishCoalescing := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		defaultValue := restArguments[1]
+	var nullishCoalescing interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var defaultValue interface{} = restArguments[1]
 		if (anything == nil) {
 			return defaultValue
 		} else {
 			return anything
 		}
 	}
-	jsonStringify := func(restArguments ...interface{}) interface{} {
-		prettyDefault := false
-		indentDefault := "    "
-		anything := restArguments[0]
-		pretty := nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
-		indentLevel := 0
-		var jsonStringifyInner func(...interface{}) interface{}
+	var jsonStringify interface{} = func(restArguments ...interface{}) interface{} {
+		var prettyDefault interface{} = false
+		var anything interface{} = restArguments[0]
+		var pretty interface{} = (nullishCoalescing.(func(...interface{}) interface{}))((optionalChaining.(func(...interface{}) interface{}))(((optionalChaining.(func(...interface{}) interface{}))(restArguments, 1)), "pretty"), prettyDefault)
+		var indentDefault interface{} = strings.Repeat(" ", 4)
+		var indentLevel interface{} = 0
+		var jsonStringifyInner interface{}
 		jsonStringifyInner = func(restArgumentsJsonStringifyInner ...interface{}) interface{} {
-			anythingInner := restArgumentsJsonStringifyInner[0]
-			anythingInnerJsLikeType := getType(anythingInner).(string)
+			var anythingInner interface{} = restArgumentsJsonStringifyInner[0]
+			var anythingInnerJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anythingInner).(string))
 			if (anythingInnerJsLikeType == jsLikeType.Null) {
 				return "null"
 			}
 			if (anythingInnerJsLikeType == jsLikeType.String) {
-				return `"` + anythingInner.(string) + `"`
+				return `"` + (anythingInner.(string)) + `"`
 			}
 			if ((anythingInnerJsLikeType == jsLikeType.Numeric) || (anythingInnerJsLikeType == jsLikeType.Boolean)) {
-				return anyToString(anythingInner)
+				return ((anyToString.(func(...interface{}) interface{}))(anythingInner))
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Object) {
 				if (len(anythingInner.(map[string]interface{})) == 0) {
 					return "{}"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "{\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("{\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "{ "
-				}).(string))
-				objectEntryIndex := 0
-				for objectKey, objectValue := range anythingInner.(map[string]interface{}) {
-					result += `"` + objectKey + `": ` + jsonStringifyInner(objectValue).(string)
-					if ((objectEntryIndex + 1) != len(anythingInner.(map[string]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var objectEntryIndex interface{} = 0
+				var objectKey interface{}
+				var objectValue interface{}
+				for objectKey, objectValue = range (anythingInner.(map[string]interface{})) {
+					result = ((result.(string)) + (`"` + (objectKey.(string)) + `": ` + ((jsonStringifyInner.(func(...interface{}) interface{}))(objectValue).(string))))
+					if (((objectEntryIndex.(int)) + 1) != len(anythingInner.(map[string]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
-					objectEntryIndex += 1
+					objectEntryIndex = (objectEntryIndex.(int)) + 1
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "}"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "}"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return " }"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Array) {
 				if (len(anythingInner.([]interface{})) == 0) {
 					return "[]"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "[\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("[\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "["
-				}).(string))
-				for arrayItemIndex, arrayItem := range anythingInner.([]interface{}) {
-					result += jsonStringifyInner(arrayItem).(string)
-					if ((arrayItemIndex + 1) != len(anythingInner.([]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var arrayItemIndex interface{}
+				var arrayItem interface{}
+				for arrayItemIndex, arrayItem = range (anythingInner.([]interface{})) {
+					result = ((result.(string)) + ((jsonStringifyInner.(func(...interface{}) interface{}))(arrayItem).(string)))
+					if (((arrayItemIndex.(int)) + 1) != len(anythingInner.([]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "]"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "]"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "]"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Function) {
 				return `"[object Function]"`
 			}
-			return `"` + anythingInnerJsLikeType + `"`
+			return (`"` + (anythingInnerJsLikeType.(string)) + `"`)
 		}
-		return jsonStringifyInner(anything)
+		return ((jsonStringifyInner.(func(...interface{}) interface{}))(anything))
 	}
-	stringInterpolation := func(restArguments ...interface{}) interface{} {
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentArgument := restArgumentsArrayReduceCallback[1]
-			currentArgumentJsLikeType := getType(currentArgument)
-			return (currentResult.(string) + ternary(
-				(currentArgumentJsLikeType == jsLikeType.String),
-				(func(_ ...interface{}) interface{} {
-					return currentArgument.(string)
-				}),
-				(func(_ ...interface{}) interface{} {
-					return (ternary(
-						((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1)),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument.([]interface{})[0])
-						}),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument)
-						}),
+	var stringInterpolation interface{} = func(restArguments ...interface{}) interface{} {
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentArgument interface{} = restArgumentsArrayReduceCallback[1]
+			var currentArgumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(currentArgument)
+			return (currentResult.(string) + (ternary.(func(...interface{}) interface{}))(
+				(interface{}(currentArgumentJsLikeType == jsLikeType.String)),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return (currentArgument.(string))
+				})),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return ((ternary.(func(...interface{}) interface{}))(
+						(interface{}((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1))),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument.([]interface{})[0]))
+						})),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument))
+						})),
 					).(string))
-				}),
+				})),
 			).(string))
-		}, restArguments, "").(string))
+		})), restArguments, "").(string))
 	}
-	consoleLog := func(restArguments ...interface{}) interface{} {
-		fmt.Println(stringInterpolation(restArguments...).(string))
+	var consoleLog interface{} = func(restArguments ...interface{}) interface{} {
+		fmt.Println((((stringInterpolation.(func(...interface{}) interface{}))(restArguments...)).(string)))
 		return nil
 	}
-
-	spreadObject := func(restArguments ...interface{}) interface{} {
-		var newObject = map[string]interface{}{}
-		for _, argument := range restArguments {
-			argumentJsLikeType := getType(argument)
+	var spreadObject interface{} = func(restArguments ...interface{}) interface{} {
+		var newObject interface{} = map[string]interface{}{}
+		var argument interface{}
+		for _, argument = range restArguments {
+			var argumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(argument)
 			if (argumentJsLikeType == jsLikeType.Object) {
-				for objectKey, objectValue := range argument.(map[string]interface{}) {
-					newObject[objectKey] = objectValue
+				var objectKey interface{}
+				var objectValue interface{}
+				for objectKey, objectValue = range argument.(map[string]interface{}) {
+					(newObject.(map[string]interface{}))[(objectKey.(string))] = objectValue
 				}
 				continue
 			}
 			if (argumentJsLikeType == jsLikeType.Array) {
-				for arrayItemIndex, arrayItem := range argument.([]interface{}) {
-					newObject[jsonStringify(arrayItemIndex).(string)] = arrayItem
+				var arrayItemIndex interface{}
+				var arrayItem interface{}
+				for arrayItemIndex, arrayItem = range argument.([]interface{}) {
+					(newObject.(map[string]interface{}))[(jsonStringify.(func(...interface{}) interface{}))(arrayItemIndex).(string)] = arrayItem
 				}
 				continue
 			}
 		}
 		return newObject
 	}
-	
-	spreadArray := func(restArguments ...interface{}) interface{} {
-		var newArray = []interface{}{}
-		for _, argument := range restArguments {
-			argumentJsLikeType := getType(argument)
+	var spreadArray interface{} = func(restArguments ...interface{}) interface{} {
+		var newArray interface{} = []interface{}{}
+		var argument interface{}
+		for _, argument = range restArguments {
+			var argumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(argument)
 			if (argumentJsLikeType == jsLikeType.Object) {
 				if (len(argument.(map[string]interface{})) == 1) {
-					for _, objectValue := range argument.(map[string]interface{}) {
-						newArray = append(newArray, objectValue)
+					var objectValue interface{}
+					for _, objectValue = range argument.(map[string]interface{}) {
+						newArray = append((newArray.([]interface{})), objectValue)
 					}
 					continue
 				}
-				newArray = append(newArray, argument)
+				newArray = append((newArray.([]interface{})), argument)
 				continue
 			}
 			if (argumentJsLikeType == jsLikeType.Array) {
-				newArray = append(newArray, argument.([]interface{})...)
+				newArray = append((newArray.([]interface{})), argument.([]interface{})...)
 				continue
 			}
 		}
 		return newArray
 	}
 
-    consoleLog("\n// JavaScript-like Spread Syntax (...) in Go")
+    (consoleLog.(func(...interface{}) interface{}))("\n// JavaScript-like Spread Syntax (...) in Go")
 
-    fruits := []interface{}{"Mango", "Melon", "Banana"}
-    consoleLog(stringInterpolation("fruits: ", jsonStringify(fruits)))
+    var fruits interface{} = []interface{}{"Mango", "Melon", "Banana"}
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("fruits: ", (jsonStringify.(func(...interface{}) interface{}))(fruits)))
 
-    vegetables := []interface{}{"Carrot", "Tomato"}
-    consoleLog(stringInterpolation("vegetables: ", jsonStringify(vegetables)))
+    var vegetables interface{} = []interface{}{"Carrot", "Tomato"}
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("vegetables: ", (jsonStringify.(func(...interface{}) interface{}))(vegetables)))
 
-    countryCapitalsInAsia := map[string]interface{}{
+    var countryCapitalsInAsia interface{} = map[string]interface{}{
         "Thailand": "Bangkok",
         "China": "Beijing",
         "Japan": "Tokyo",
     }
-    consoleLog(stringInterpolation("countryCapitalsInAsia: ", jsonStringify(countryCapitalsInAsia, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("countryCapitalsInAsia: ", (jsonStringify.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"pretty": true})))
 
-    countryCapitalsInEurope := map[string]interface{}{
+    var countryCapitalsInEurope interface{} = map[string]interface{}{
         "France": "Paris",
         "England": "London",
     }
-    consoleLog(stringInterpolation("countryCapitalsInEurope: ", jsonStringify(countryCapitalsInEurope, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("countryCapitalsInEurope: ", (jsonStringify.(func(...interface{}) interface{}))(countryCapitalsInEurope, map[string]interface{}{"pretty": true})))
 
-    consoleLog("// [...array1, ...array2]:")
+    (consoleLog.(func(...interface{}) interface{}))("// [...array1, ...array2]:")
 
-    combination1 := spreadArray(fruits, vegetables)
-    consoleLog(stringInterpolation("combination1: ", jsonStringify(combination1, map[string]interface{}{"pretty": true})))
+    var combination1 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, vegetables)
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination1: ", (jsonStringify.(func(...interface{}) interface{}))(combination1, map[string]interface{}{"pretty": true})))
     // combination1: [
     //     "Mango",
     //     "Melon",
@@ -376,8 +389,8 @@ func main() {
     //     "Tomato"
     // ]
 
-    combination2 := spreadArray(fruits, []interface{}{"Cucumber", "Cabbage"})
-    consoleLog(stringInterpolation("combination2: ", jsonStringify(combination2, map[string]interface{}{"pretty": true})))
+    var combination2 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, []interface{}{"Cucumber", "Cabbage"})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination2: ", (jsonStringify.(func(...interface{}) interface{}))(combination2, map[string]interface{}{"pretty": true})))
     // combination2: [
     //     "Mango",
     //     "Melon",
@@ -386,10 +399,10 @@ func main() {
     //     "Cabbage"
     // ]
 
-    consoleLog("// { ...object1, ...object2 }:")
+    (consoleLog.(func(...interface{}) interface{}))("// { ...object1, ...object2 }:")
 
-    combination3 := spreadObject(countryCapitalsInAsia, countryCapitalsInEurope)
-    consoleLog(stringInterpolation("combination3: ", jsonStringify(combination3, map[string]interface{}{"pretty": true})))
+    var combination3 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, countryCapitalsInEurope)
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination3: ", (jsonStringify.(func(...interface{}) interface{}))(combination3, map[string]interface{}{"pretty": true})))
     // combination3: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -398,8 +411,8 @@ func main() {
     //     "England": "London"
     // }
 
-    combination4 := spreadObject(countryCapitalsInAsia, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
-    consoleLog(stringInterpolation("combination4: ", jsonStringify(combination4, map[string]interface{}{"pretty": true})))
+    var combination4 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination4: ", (jsonStringify.(func(...interface{}) interface{}))(combination4, map[string]interface{}{"pretty": true})))
     // combination4: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -408,10 +421,10 @@ func main() {
     //     "Italy": "Rome"
     // }
 
-    consoleLog("// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:")
+    (consoleLog.(func(...interface{}) interface{}))("// [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:")
 
-    combination5 := spreadArray(fruits, map[string]interface{}{"vegetables": vegetables})
-    consoleLog(stringInterpolation("combination5: ", jsonStringify(combination5, map[string]interface{}{"pretty": true})))
+    var combination5 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, map[string]interface{}{"vegetables": vegetables})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination5: ", (jsonStringify.(func(...interface{}) interface{}))(combination5, map[string]interface{}{"pretty": true})))
     // combination5: [
     //     "Mango",
     //     "Melon",
@@ -422,8 +435,8 @@ func main() {
     //     ]
     // ]
 
-    combination6 := spreadArray(fruits, map[string]interface{}{"vegetables": []interface{}{"Cucumber", "Cabbage"}})
-    consoleLog(stringInterpolation("combination6: ", jsonStringify(combination6, map[string]interface{}{"pretty": true})))
+    var combination6 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, map[string]interface{}{"vegetables": []interface{}{"Cucumber", "Cabbage"}})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination6: ", (jsonStringify.(func(...interface{}) interface{}))(combination6, map[string]interface{}{"pretty": true})))
     // combination6: [
     //     "Mango",
     //     "Melon",
@@ -434,10 +447,10 @@ func main() {
     //     ]
     // ]
 
-    consoleLog("// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:")
+    (consoleLog.(func(...interface{}) interface{}))("// [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:")
 
-    combination7 := spreadArray(fruits, map[string]interface{}{"countryCapitalsInAsia": countryCapitalsInAsia})
-    consoleLog(stringInterpolation("combination7: ", jsonStringify(combination7, map[string]interface{}{"pretty": true})))
+    var combination7 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, map[string]interface{}{"countryCapitalsInAsia": countryCapitalsInAsia})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination7: ", (jsonStringify.(func(...interface{}) interface{}))(combination7, map[string]interface{}{"pretty": true})))
     // combination7: [
     //     "Mango",
     //     "Melon",
@@ -449,8 +462,8 @@ func main() {
     //     }
     // ]
 
-    combination8 := spreadArray(fruits, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
-    consoleLog(stringInterpolation("combination8: ", jsonStringify(combination8, map[string]interface{}{"pretty": true})))
+    var combination8 interface{} = (spreadArray.(func(...interface{}) interface{}))(fruits, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination8: ", (jsonStringify.(func(...interface{}) interface{}))(combination8, map[string]interface{}{"pretty": true})))
     // combination8: [
     //     "Mango",
     //     "Melon",
@@ -461,10 +474,10 @@ func main() {
     //     }
     // ]
 
-    consoleLog("// { ...object1, object2 } || { ...object1, objectKey: objectValue }:")
+    (consoleLog.(func(...interface{}) interface{}))("// { ...object1, object2 } || { ...object1, objectKey: objectValue }:")
 
-    combination9 := spreadObject(countryCapitalsInAsia, map[string]interface{}{"countryCapitalsInEurope": countryCapitalsInEurope})
-    consoleLog(stringInterpolation("combination9: ", jsonStringify(combination9, map[string]interface{}{"pretty": true})))
+    var combination9 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"countryCapitalsInEurope": countryCapitalsInEurope})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination9: ", (jsonStringify.(func(...interface{}) interface{}))(combination9, map[string]interface{}{"pretty": true})))
     // combination9: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -475,8 +488,8 @@ func main() {
     //    }
     // }
 
-    combination10 := spreadObject(countryCapitalsInAsia, map[string]interface{}{"countryCapitalsInEurope": map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"}})
-    consoleLog(stringInterpolation("combination10: ", jsonStringify(combination10, map[string]interface{}{"pretty": true})))
+    var combination10 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"countryCapitalsInEurope": map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"}})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination10: ", (jsonStringify.(func(...interface{}) interface{}))(combination10, map[string]interface{}{"pretty": true})))
     //combination10: {
     //    "Thailand": "Bangkok",
     //    "China": "Beijing",
@@ -487,10 +500,10 @@ func main() {
     //    }
     //}
 
-    consoleLog("// { ...object1, array2 } || { ...object1, objectKey: objectValue }:")
+    (consoleLog.(func(...interface{}) interface{}))("// { ...object1, array2 } || { ...object1, objectKey: objectValue }:")
 
-    combination11 := spreadObject(countryCapitalsInAsia, map[string]interface{}{"vegetables": vegetables})
-    consoleLog(stringInterpolation("combination11: ", jsonStringify(combination11, map[string]interface{}{"pretty": true})))
+    var combination11 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"vegetables": vegetables})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination11: ", (jsonStringify.(func(...interface{}) interface{}))(combination11, map[string]interface{}{"pretty": true})))
     // combination11: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -501,8 +514,8 @@ func main() {
     //     ]
     // }
 
-    combination12 := spreadObject(countryCapitalsInAsia, map[string]interface{}{"vegetables": []interface{}{"Cucumber", "Cabbage"}})
-    consoleLog(stringInterpolation("combination12: ", jsonStringify(combination12, map[string]interface{}{"pretty": true})))
+    var combination12 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, map[string]interface{}{"vegetables": []interface{}{"Cucumber", "Cabbage"}})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination12: ", (jsonStringify.(func(...interface{}) interface{}))(combination12, map[string]interface{}{"pretty": true})))
     // combination12: {
     //     "Thailand": "Bangkok",
     //     "China": "Beijing",
@@ -513,10 +526,10 @@ func main() {
     //     ]
     // }
 
-    consoleLog("// { ...object1, ...array2 }:")
+    (consoleLog.(func(...interface{}) interface{}))("// { ...object1, ...array2 }:")
 
-    combination13 := spreadObject(countryCapitalsInAsia, vegetables)
-    consoleLog(stringInterpolation("combination13: ", jsonStringify(combination13, map[string]interface{}{"pretty": true})))
+    var combination13 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, vegetables)
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination13: ", (jsonStringify.(func(...interface{}) interface{}))(combination13, map[string]interface{}{"pretty": true})))
     // combination13: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -525,8 +538,8 @@ func main() {
     //    "1" : "Tomato"
     // }
 
-    combination14 := spreadObject(countryCapitalsInAsia, []interface{}{"Cucumber", "Cabbage"})
-    consoleLog(stringInterpolation("combination14: ", jsonStringify(combination14, map[string]interface{}{"pretty": true})))
+    var combination14 interface{} = (spreadObject.(func(...interface{}) interface{}))(countryCapitalsInAsia, []interface{}{"Cucumber", "Cabbage"})
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combination14: ", (jsonStringify.(func(...interface{}) interface{}))(combination14, map[string]interface{}{"pretty": true})))
     // combination14: {
     //    "Thailand" : "Bangkok",
     //    "China" : "Beijing",
@@ -535,13 +548,13 @@ func main() {
     //    "1" : "Cabbage"
     // }
 
-    // consoleLog("// [...array1, ...object1]: // this combination throw an error in JavaScript")
+    // (consoleLog.(func(...interface{}) interface{}))("// [...array1, ...object1]: // this combination throw an error in JavaScript")
 
     // this combination throw an error in JavaScript
-    // combinationErrorInJavaScript1 := spreadObject(fruits, countryCapitalsInAsia)
-    // consoleLog(stringInterpolation("combinationErrorInJavaScript1: ", jsonStringify(combinationErrorInJavaScript1, map[string]interface{}{"pretty": true})))
+    // var combinationErrorInJavaScript1 interface{} = (spreadObject.(func(...interface{}) interface{}))(fruits, countryCapitalsInAsia)
+    // (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combinationErrorInJavaScript1: ", (jsonStringify.(func(...interface{}) interface{}))(combinationErrorInJavaScript1, map[string]interface{}{"pretty": true})))
 
     // this combination throw an error in JavaScript
-    // combinationErrorInJavaScript2 := spreadObject(fruits, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
-    // consoleLog(stringInterpolation("combinationErrorInJavaScript2: ", jsonStringify(combinationErrorInJavaScript2, map[string]interface{}{"pretty": true})))
+    // var combinationErrorInJavaScript2 interface{} = (spreadObject.(func(...interface{}) interface{}))(fruits, map[string]interface{}{"Germany": "Berlin", "Italy": "Rome"})
+    // (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("combinationErrorInJavaScript2: ", (jsonStringify.(func(...interface{}) interface{}))(combinationErrorInJavaScript2, map[string]interface{}{"pretty": true})))
 }

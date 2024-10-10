@@ -302,7 +302,7 @@ def multiply(a):
 
 multiply_by2 = multiply(2)
 multiply_by2_result = multiply_by2(10)
-print(f"multiply_by2_result: {multiply_by2_result}")
+print(f"multiplyBy2(10): {multiply_by2_result}")
 
 """
 7. support assigning functions to variables

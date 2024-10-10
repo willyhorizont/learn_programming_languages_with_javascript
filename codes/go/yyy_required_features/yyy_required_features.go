@@ -25,87 +25,89 @@ func main() {
 		Array: "Array",
 		Function: "Function",
 	}
-	ternary := func(restArguments ...interface{}) interface{} {
-		trueCondition := restArguments[0].(bool)
-		callbackFunctionIfConditionTrue := restArguments[1].(func(...interface{}) interface{})
-		callbackFunctionIfConditionFalse := restArguments[2].(func(...interface{}) interface{})
+	var ternary interface{} = func(restArguments ...interface{}) interface{} {
+		var trueCondition interface{} = restArguments[0]
+		var callbackFunctionIfConditionTrue interface{} = restArguments[1]
+		var callbackFunctionIfConditionFalse interface{} = restArguments[2]
 		if (trueCondition == true) {
-			return callbackFunctionIfConditionTrue()
+			return (callbackFunctionIfConditionTrue.(func(...interface{}) interface{}))()
 		}
-		return callbackFunctionIfConditionFalse()
+		return (callbackFunctionIfConditionFalse.(func(...interface{}) interface{}))()
 	}
-	arraySome := func(restArguments ...interface{}) interface{} {
+	var arraySome interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.some() function arraySomeV4
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		for arrayItemIndex, arrayItem := range anArray {
-			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			if (((callbackFunction.(func(...interface{}) interface{}))(arrayItem, arrayItemIndex, anArray)) == true) {
 				return true
 			}
 		}
 		return false
 	}
-	isLikeJsNull := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsNull interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (anything == nil)
 	}
-	isLikeJsBoolean := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsBoolean interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return ((reflect.TypeOf(anything).Kind() == reflect.Bool) && ((anything == true) || (anything == false)))
 	}
-	isLikeJsString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.String)
 	}
-	isLikeJsNumeric := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return (arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericType := restArgumentsArraySomeCallback[0]
-			return (anythingJsLikeType.Kind() == numericType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128}))
+	var isLikeJsNumeric interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var anythingGoTypeKind interface{} = reflect.TypeOf(anything).Kind()
+		return ((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericGoTypeKind interface{} = restArgumentsArraySomeCallback[0]
+			return (anythingGoTypeKind == numericGoTypeKind)
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128})))
 	}
-	isLikeJsObject := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Map) || ((anythingJsLikeType.Kind() == reflect.Map) && (anythingJsLikeType.Key().Kind() == reflect.String) && (anythingJsLikeType.Elem().Kind() == reflect.Interface)) || (anythingJsLikeType == reflect.TypeOf(map[string]interface{}{})) || (anythingJsLikeType.String() == "map[string]interface {}") || (anythingJsLikeType.String() == "map[string]interface {  }"))
+	var isLikeJsObject interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Map) || ((anythingGoType.Kind() == reflect.Map) && (anythingGoType.Key().Kind() == reflect.String) && (anythingGoType.Elem().Kind() == reflect.Interface)) || (anythingGoType == reflect.TypeOf(map[string]interface{}{})) || (anythingGoType.String() == "map[string]interface {}") || (anythingGoType.String() == "map[string]interface {  }"))
 	}
-	isLikeJsArray := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Slice) || (anythingJsLikeType == reflect.TypeOf([]interface{}{})) || (anythingJsLikeType.String() == "[]interface {}") || (anythingJsLikeType.String() == "[]interface {  }"))
+	var isLikeJsArray interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Slice) || (anythingGoType == reflect.TypeOf([]interface{}{})) || (anythingGoType.String() == "[]interface {}") || (anythingGoType.String() == "[]interface {  }"))
 	}
-	isLikeJsFunction := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsFunction interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.Func)
 	}
-	getType := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		if (isLikeJsNull(anything) == true) {
+	var getType interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		if (((isLikeJsNull.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Null
 		}
-		if (isLikeJsBoolean(anything) == true) {
+		if (((isLikeJsBoolean.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Boolean
 		}
-		if (isLikeJsString(anything) == true) {
+		if (((isLikeJsString.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.String
 		}
-		if (isLikeJsNumeric(anything) == true) {
+		if (((isLikeJsNumeric.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Numeric
 		}
-		if (isLikeJsObject(anything) == true) {
+		if (((isLikeJsObject.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Object
 		}
-		if (isLikeJsArray(anything) == true) {
+		if (((isLikeJsArray.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Array
 		}
-		if (isLikeJsFunction(anything) == true) {
+		if (((isLikeJsFunction.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Function
 		}
 		return reflect.TypeOf(anything).String()
 	}
-	anyToString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var anyToString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		anythingGoValue := reflect.ValueOf(anything)
 		if (anythingGoValue.Kind() == reflect.String) {
 			return anythingGoValue.String()
@@ -113,197 +115,202 @@ func main() {
 		if (anythingGoValue.Kind() == reflect.Bool) {
 			return fmt.Sprintf("%t", anythingGoValue.Bool())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericIntType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericIntType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericIntType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64})).(bool) == true) {
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Int())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericUintType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericUintType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericUintType)
-		}, []interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64})).(bool) == true) {
+		})), ([]interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Uint())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericFloatType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericFloatType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericFloatType)
-		}, []interface{}{reflect.Float32, reflect.Float64})).(bool) == true) {
+		})), ([]interface{}{reflect.Float32, reflect.Float64}))) == true) {
 			return fmt.Sprintf("%f", anythingGoValue.Float())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericComplexType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericComplexType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericComplexType)
-		}, []interface{}{reflect.Complex64, reflect.Complex128})).(bool) == true) {
+		})), ([]interface{}{reflect.Complex64, reflect.Complex128}))) == true) {
 			return fmt.Sprintf("%g", anythingGoValue.Complex())
 		}
 		return `"` + anythingGoValue.String() + `"`
 	}
-	arrayReduce := func(restArguments ...interface{}) interface{} {
+	var arrayReduce interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.reduce() function
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		initialValue := restArguments[2]
-		result := initialValue
-		for arrayItemIndex, arrayItem := range anArray {
-			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var initialValue interface{} = restArguments[2]
+		var result interface{} = initialValue
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			result = (callbackFunction.(func(...interface{}) interface{}))(result, arrayItem, arrayItemIndex, anArray)
 		}
 		return result
 	}
-	optionalChaining := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		restArgumentsNew := restArguments[1:]
-		anythingJsLikeType := getType(anything)
+	var optionalChaining interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var restArgumentsNew interface{} = restArguments[1:]
+		var anythingJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anything))
 		if (anythingJsLikeType == jsLikeType.Function) {
-			return anything.(func(...interface{}) interface{})(restArgumentsNew...)
+			return ((anything.(func(...interface{}) interface{}))((restArgumentsNew.([]interface{}))...))
 		}
-		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len(restArgumentsNew) == 0)) {
+		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len((restArgumentsNew.([]interface{}))) == 0)) {
 			return anything
 		}
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentItem := restArgumentsArrayReduceCallback[1]
-			currentResultJsLikeType := getType(currentResult)
-			currentItemJsLikeType := getType(currentItem)
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentItem interface{} = restArgumentsArrayReduceCallback[1]
+			var currentResultJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentResult))
+			var currentItemJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentItem))
 			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return anything.(map[string]interface{})[currentItem.(string)]
+				return (anything.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.([]interface{})) > currentItem.(int))) {
-				return anything.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(anything.([]interface{})) > (currentItem.(int)))) {
+				return (anything.([]interface{}))[(currentItem.(int))]
 			}
 			if ((currentResultJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return currentResult.(map[string]interface{})[currentItem.(string)]
+				return (currentResult.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.([]interface{})) > currentItem.(int))) {
-				return currentResult.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(currentResult.([]interface{})) > (currentItem.(int)))) {
+				return (currentResult.([]interface{}))[(currentItem.(int))]
 			}
 			return nil
-		}, restArgumentsNew, nil))
+		})), (restArgumentsNew.([]interface{})), nil))
 	}
-	nullishCoalescing := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		defaultValue := restArguments[1]
+	var nullishCoalescing interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var defaultValue interface{} = restArguments[1]
 		if (anything == nil) {
 			return defaultValue
 		} else {
 			return anything
 		}
 	}
-	jsonStringify := func(restArguments ...interface{}) interface{} {
-		prettyDefault := false
-		indentDefault := "    "
-		anything := restArguments[0]
-		pretty := nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
-		indentLevel := 0
-		var jsonStringifyInner func(...interface{}) interface{}
+	var jsonStringify interface{} = func(restArguments ...interface{}) interface{} {
+		var prettyDefault interface{} = false
+		var anything interface{} = restArguments[0]
+		var pretty interface{} = (nullishCoalescing.(func(...interface{}) interface{}))((optionalChaining.(func(...interface{}) interface{}))(((optionalChaining.(func(...interface{}) interface{}))(restArguments, 1)), "pretty"), prettyDefault)
+		var indentDefault interface{} = strings.Repeat(" ", 4)
+		var indentLevel interface{} = 0
+		var jsonStringifyInner interface{}
 		jsonStringifyInner = func(restArgumentsJsonStringifyInner ...interface{}) interface{} {
-			anythingInner := restArgumentsJsonStringifyInner[0]
-			anythingInnerJsLikeType := getType(anythingInner).(string)
+			var anythingInner interface{} = restArgumentsJsonStringifyInner[0]
+			var anythingInnerJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anythingInner).(string))
 			if (anythingInnerJsLikeType == jsLikeType.Null) {
 				return "null"
 			}
 			if (anythingInnerJsLikeType == jsLikeType.String) {
-				return `"` + anythingInner.(string) + `"`
+				return `"` + (anythingInner.(string)) + `"`
 			}
 			if ((anythingInnerJsLikeType == jsLikeType.Numeric) || (anythingInnerJsLikeType == jsLikeType.Boolean)) {
-				return anyToString(anythingInner)
+				return ((anyToString.(func(...interface{}) interface{}))(anythingInner))
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Object) {
 				if (len(anythingInner.(map[string]interface{})) == 0) {
 					return "{}"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "{\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("{\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "{ "
-				}).(string))
-				objectEntryIndex := 0
-				for objectKey, objectValue := range anythingInner.(map[string]interface{}) {
-					result += `"` + objectKey + `": ` + jsonStringifyInner(objectValue).(string)
-					if ((objectEntryIndex + 1) != len(anythingInner.(map[string]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var objectEntryIndex interface{} = 0
+				var objectKey interface{}
+				var objectValue interface{}
+				for objectKey, objectValue = range (anythingInner.(map[string]interface{})) {
+					result = ((result.(string)) + (`"` + (objectKey.(string)) + `": ` + ((jsonStringifyInner.(func(...interface{}) interface{}))(objectValue).(string))))
+					if (((objectEntryIndex.(int)) + 1) != len(anythingInner.(map[string]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
-					objectEntryIndex += 1
+					objectEntryIndex = (objectEntryIndex.(int)) + 1
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "}"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "}"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return " }"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Array) {
 				if (len(anythingInner.([]interface{})) == 0) {
 					return "[]"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "[\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("[\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "["
-				}).(string))
-				for arrayItemIndex, arrayItem := range anythingInner.([]interface{}) {
-					result += jsonStringifyInner(arrayItem).(string)
-					if ((arrayItemIndex + 1) != len(anythingInner.([]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var arrayItemIndex interface{}
+				var arrayItem interface{}
+				for arrayItemIndex, arrayItem = range (anythingInner.([]interface{})) {
+					result = ((result.(string)) + ((jsonStringifyInner.(func(...interface{}) interface{}))(arrayItem).(string)))
+					if (((arrayItemIndex.(int)) + 1) != len(anythingInner.([]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "]"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "]"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "]"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Function) {
 				return `"[object Function]"`
 			}
-			return `"` + anythingInnerJsLikeType + `"`
+			return (`"` + (anythingInnerJsLikeType.(string)) + `"`)
 		}
-		return jsonStringifyInner(anything)
+		return ((jsonStringifyInner.(func(...interface{}) interface{}))(anything))
 	}
-	stringInterpolation := func(restArguments ...interface{}) interface{} {
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentArgument := restArgumentsArrayReduceCallback[1]
-			currentArgumentJsLikeType := getType(currentArgument)
-			return (currentResult.(string) + ternary(
-				(currentArgumentJsLikeType == jsLikeType.String),
-				(func(_ ...interface{}) interface{} {
-					return currentArgument.(string)
-				}),
-				(func(_ ...interface{}) interface{} {
-					return (ternary(
-						((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1)),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument.([]interface{})[0])
-						}),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument)
-						}),
+	var stringInterpolation interface{} = func(restArguments ...interface{}) interface{} {
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentArgument interface{} = restArgumentsArrayReduceCallback[1]
+			var currentArgumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(currentArgument)
+			return (currentResult.(string) + (ternary.(func(...interface{}) interface{}))(
+				(interface{}(currentArgumentJsLikeType == jsLikeType.String)),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return (currentArgument.(string))
+				})),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return ((ternary.(func(...interface{}) interface{}))(
+						(interface{}((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1))),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument.([]interface{})[0]))
+						})),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument))
+						})),
 					).(string))
-				}),
+				})),
 			).(string))
-		}, restArguments, "").(string))
+		})), restArguments, "").(string))
 	}
-	consoleLog := func(restArguments ...interface{}) interface{} {
-		fmt.Println(stringInterpolation(restArguments...).(string))
+	var consoleLog interface{} = func(restArguments ...interface{}) interface{} {
+		fmt.Println((((stringInterpolation.(func(...interface{}) interface{}))(restArguments...)).(string)))
 		return nil
 	}
-
-	getFloat64 := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var getFloat64 interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		switch anythingNew := anything.(type) {
 		case float64:
 			return anythingNew
@@ -355,22 +362,22 @@ type Any interface{}
 ```
     */
     var something interface{} = "foo"
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
     something = 123
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
     something = true
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
     something = nil
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
     something = []interface{}{1, 2, 3}
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
     something = map[string]interface{}{"foo": "bar"}
-    consoleLog(stringInterpolation("something: ", jsonStringify(something, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("something: ", (jsonStringify.(func(...interface{}) interface{}))(something, map[string]interface{}{"pretty": true})))
 
     /*
 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
 ```javascript
-function getModifiedIndentLevel() {
+function (getModifiedIndentLevel.(func(...interface{}) interface{}))() {
     let indentLevel = 0;
     function changeIndentLevel() {
         indentLevel += 1;
@@ -379,7 +386,7 @@ function getModifiedIndentLevel() {
     }
     return changeIndentLevel();
 }
-console.log(`getModifiedIndentLevel(): ${getModifiedIndentLevel()}`);
+console.log(`(getModifiedIndentLevel.(func(...interface{}) interface{}))(): ${(getModifiedIndentLevel.(func(...interface{}) interface{}))()}`);
 function createNewGame(initialCredit) {
     let currentCredit = initialCredit;
     console.log(`initial credit: ${initialCredit}`);
@@ -398,37 +405,37 @@ playGame();
 playGame();
 ```
     */
-    getModifiedIndentLevel := func(_ ...interface{}) interface{} {
-        indentLevel := 0
-        var changeIndentLevel func(...interface{}) interface{}
+    var getModifiedIndentLevel interface{} = func(_ ...interface{}) interface{} {
+        var indentLevel interface{} = 0
+        var changeIndentLevel interface{}
         changeIndentLevel = func(_ ...interface{}) interface{} {
-            indentLevel += 1
-            if (indentLevel < 5) {
-                changeIndentLevel()
+            indentLevel = ((indentLevel.(int)) + 1)
+            if ((indentLevel.(int)) < 5) {
+                (changeIndentLevel.(func(...interface{}) interface{}))()
             }
             return indentLevel
         }
-        return changeIndentLevel()
+        return (changeIndentLevel.(func(...interface{}) interface{}))()
     }
-    consoleLog(stringInterpolation("getModifiedIndentLevel(): ", []interface{}{getModifiedIndentLevel()}))
-    createNewGame := func(restArguments ...interface{}) interface{} {
-		initialCredit := int((getFloat64(restArguments[0]).(float64)))
-        currentCredit := initialCredit
-        consoleLog(stringInterpolation("initial credit: ", []interface{}{initialCredit}))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("(getModifiedIndentLevel.(func(...interface{}) interface{}))(): ", []interface{}{(getModifiedIndentLevel.(func(...interface{}) interface{}))()}))
+    var createNewGame interface{} = func(restArguments ...interface{}) interface{} {
+		var initialCredit interface{} = restArguments[0]
+        var currentCredit interface{} = int(((getFloat64.(func(...interface{}) interface{}))(initialCredit).(float64)))
+        (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("initial credit: ", []interface{}{initialCredit}))
         return func(restArguments ...interface{}) interface{} {
-            currentCredit -= 1
-            if (currentCredit == 0) {
-                consoleLog("not enough credits")
+            currentCredit = ((currentCredit.(int)) - 1)
+            if ((currentCredit.(int)) == 0) {
+                (consoleLog.(func(...interface{}) interface{}))("not enough credits")
                 return nil
             }
-            consoleLog(stringInterpolation("playing game, ", currentCredit, " credit(s) remaining"))
+            (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("playing game, ", currentCredit, " credit(s) remaining"))
 			return nil
         }
     }
-    playGame := createNewGame(3).(func(...interface{}) interface{})
-    playGame()
-    playGame()
-    playGame()
+    var playGame interface{} = (createNewGame.(func(...interface{}) interface{}))(3)
+    (playGame.(func(...interface{}) interface{}))()
+    (playGame.(func(...interface{}) interface{}))()
+    (playGame.(func(...interface{}) interface{}))()
 
     /*
 3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
@@ -446,7 +453,7 @@ const myObject = {
 console.log(`myObject: ${myObject}`);
 ```
     */
-    myObject := map[string]interface{}{
+    var myObject interface{} = map[string]interface{}{
         "my_string": "foo",
         "my_number": 123,
         "my_bool": true,
@@ -456,7 +463,7 @@ console.log(`myObject: ${myObject}`);
             "foo": "bar",
         },
     }
-    consoleLog(stringInterpolation("myObject: ", jsonStringify(myObject, map[string]interface{}{"pretty": true})))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("myObject: ", (jsonStringify.(func(...interface{}) interface{}))(myObject, map[string]interface{}{"pretty": true})))
 
     /*
 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
@@ -465,8 +472,8 @@ const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
 console.log(`myArray: ${myArray}`);
 ```
     */
-    myArray := []interface{}{"foo", 123, true, nil, []interface{}{1, 2, 3}, map[string]interface{}{"foo": "bar"}}
-    consoleLog(stringInterpolation("myArray: ", jsonStringify(myArray, map[string]interface{}{"pretty": true})))
+    var myArray interface{} = []interface{}{"foo", 123, true, nil, []interface{}{1, 2, 3}, map[string]interface{}{"foo": "bar"}}
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("myArray: ", (jsonStringify.(func(...interface{}) interface{}))(myArray, map[string]interface{}{"pretty": true})))
 
     /*
 5. support passing functions as arguments to other functions
@@ -484,19 +491,19 @@ sayHello(function () {
 });
 ```
     */
-    sayHello := func(restArguments ...interface{}) interface{} {
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-        consoleLog("hello")
-        callbackFunction()
+    var sayHello interface{} = func(restArguments ...interface{}) interface{} {
+		var callbackFunction interface{} = restArguments[0]
+        (consoleLog.(func(...interface{}) interface{}))("hello")
+        (callbackFunction.(func(...interface{}) interface{}))()
 		return nil
     }
-    sayHowAreYou := func(restArguments ...interface{}) interface{} {
-        consoleLog("how are you?")
+    var sayHowAreYou interface{} = func(restArguments ...interface{}) interface{} {
+        (consoleLog.(func(...interface{}) interface{}))("how are you?")
 		return nil
     }
-    sayHello(sayHowAreYou)
-    sayHello(func(restArguments ...interface{}) interface{} {
-        consoleLog("how are you?")
+    (sayHello.(func(...interface{}) interface{}))(sayHowAreYou)
+    (sayHello.(func(...interface{}) interface{}))(func(restArguments ...interface{}) interface{} {
+        (consoleLog.(func(...interface{}) interface{}))("how are you?")
 		return nil
     })
 
@@ -513,16 +520,17 @@ const multiplyBy2Result = multiplyBy2(10);
 console.log(`multiplyBy2(10): ${multiplyBy2Result}`);
 ```
     */
-    multiply := func(restArguments ...interface{}) interface{} {
-		a := getFloat64(restArguments[0]).(float64)
-		return func(restArguments ...interface{}) interface{} {
-			b := getFloat64(restArguments[0]).(float64)
-			return (int(a * b))
+    var multiply interface{} = func(restArguments ...interface{}) interface{} {
+		var a interface{} = restArguments[0]
+		var multiplyBy interface{} = func(restArgumentsInner ...interface{}) interface{} {
+			var b interface{} = restArgumentsInner[0]
+			return (int((((getFloat64.(func(...interface{}) interface{}))(a)).(float64)) * (((getFloat64.(func(...interface{}) interface{}))(b)).(float64))))
 		}
+		return multiplyBy
 	}
-    multiplyBy2 := multiply(2).(func(...interface{}) interface{})
-    multiplyBy2Result := multiplyBy2(10)
-    consoleLog(stringInterpolation("multiplyBy2Result: ", []interface{}{multiplyBy2Result}))
+	var multiplyBy2 interface{} = (multiply.(func(...interface{}) interface{}))(2)
+    var multiplyBy2Result interface{} = (multiplyBy2.(func(...interface{}) interface{}))(10)
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("multiplyBy2(10): ", []interface{}{multiplyBy2Result}))
 
     /*
 7. support assigning functions to variables
@@ -539,12 +547,12 @@ const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth 
 console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
 ```
     */
-    getRectangleArea := func(restArguments ...interface{}) interface{} {
-		rectangleWidth := getFloat64(restArguments[0]).(float64)
-		rectangleLength := getFloat64(restArguments[1]).(float64)
-        return (int(rectangleWidth * rectangleLength))
+    var getRectangleArea interface{} = func(restArguments ...interface{}) interface{} {
+		var rectangleWidth interface{} = restArguments[0]
+		var rectangleLength interface{} = restArguments[1]
+        return (int((((getFloat64.(func(...interface{}) interface{}))(rectangleWidth)).(float64)) * (((getFloat64.(func(...interface{}) interface{}))(rectangleLength)).(float64))))
     }
-    consoleLog(stringInterpolation("getRectangleArea(7, 5): ", []interface{}{getRectangleArea(7, 5)}))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("(getRectangleArea.(func(...interface{}) interface{}))(7, 5): ", []interface{}{(getRectangleArea.(func(...interface{}) interface{}))(7, 5)}))
 
     /*
 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
@@ -577,11 +585,11 @@ const myObject2 = {
 console.log(`myObject2["my_function"](7, 5): ${myObject2["my_function"](7, 5)}`);
 ```
     */
-    myArray2 := []interface{}{
+    var myArray2 interface{} = []interface{}{
         func(restArguments ...interface{}) interface{} {
-			a := getFloat64(restArguments[0]).(float64)
-			b := getFloat64(restArguments[1]).(float64)
-			return (int(a * b))
+			var a interface{} = restArguments[0]
+			var b interface{} = restArguments[1]
+			return (int((((getFloat64.(func(...interface{}) interface{}))(a)).(float64)) * (((getFloat64.(func(...interface{}) interface{}))(b)).(float64))))
 		},
         "foo",
         123,
@@ -590,12 +598,12 @@ console.log(`myObject2["my_function"](7, 5): ${myObject2["my_function"](7, 5)}`)
         []interface{}{1, 2, 3},
         map[string]interface{}{"foo": "bar"},
     }
-    consoleLog(stringInterpolation("myArray2[0](7, 5): ", []interface{}{myArray2[0].(func(...interface{}) interface{})(7, 5)}))
-    myObject2 := map[string]interface{}{
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("(myArray2.([]interface{}))[0](7, 5): ", []interface{}{(myArray2.([]interface{}))[0].(func(...interface{}) interface{})(7, 5)}))
+    var myObject2 interface{} = map[string]interface{}{
         "my_function": func(restArguments ...interface{}) interface{} {
-			a := getFloat64(restArguments[0]).(float64)
-			b := getFloat64(restArguments[1]).(float64)
-			return (int(a * b))
+			var a interface{} = restArguments[0]
+			var b interface{} = restArguments[1]
+			return (int((((getFloat64.(func(...interface{}) interface{}))(a)).(float64)) * (((getFloat64.(func(...interface{}) interface{}))(b)).(float64))))
 		},
         "my_string": "foo",
         "my_number": 123,
@@ -606,5 +614,5 @@ console.log(`myObject2["my_function"](7, 5): ${myObject2["my_function"](7, 5)}`)
             "foo": "bar",
         },
     }
-    consoleLog(stringInterpolation(`myObject2["my_function"](7, 5): `, []interface{}{myObject2["my_function"].(func(...interface{}) interface{})(7, 5)}))
+    (consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))(`myObject2["my_function"](7, 5): `, []interface{}{(myObject2.(map[string]interface{}))["my_function"].(func(...interface{}) interface{})(7, 5)}))
 }

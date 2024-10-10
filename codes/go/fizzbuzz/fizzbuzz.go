@@ -25,87 +25,89 @@ func main() {
 		Array: "Array",
 		Function: "Function",
 	}
-	ternary := func(restArguments ...interface{}) interface{} {
-		trueCondition := restArguments[0].(bool)
-		callbackFunctionIfConditionTrue := restArguments[1].(func(...interface{}) interface{})
-		callbackFunctionIfConditionFalse := restArguments[2].(func(...interface{}) interface{})
+	var ternary interface{} = func(restArguments ...interface{}) interface{} {
+		var trueCondition interface{} = restArguments[0]
+		var callbackFunctionIfConditionTrue interface{} = restArguments[1]
+		var callbackFunctionIfConditionFalse interface{} = restArguments[2]
 		if (trueCondition == true) {
-			return callbackFunctionIfConditionTrue()
+			return (callbackFunctionIfConditionTrue.(func(...interface{}) interface{}))()
 		}
-		return callbackFunctionIfConditionFalse()
+		return (callbackFunctionIfConditionFalse.(func(...interface{}) interface{}))()
 	}
-	arraySome := func(restArguments ...interface{}) interface{} {
+	var arraySome interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.some() function arraySomeV4
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		for arrayItemIndex, arrayItem := range anArray {
-			if (callbackFunction(arrayItem, arrayItemIndex, anArray) == true) {
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			if (((callbackFunction.(func(...interface{}) interface{}))(arrayItem, arrayItemIndex, anArray)) == true) {
 				return true
 			}
 		}
 		return false
 	}
-	isLikeJsNull := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsNull interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (anything == nil)
 	}
-	isLikeJsBoolean := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsBoolean interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return ((reflect.TypeOf(anything).Kind() == reflect.Bool) && ((anything == true) || (anything == false)))
 	}
-	isLikeJsString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.String)
 	}
-	isLikeJsNumeric := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return (arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericType := restArgumentsArraySomeCallback[0]
-			return (anythingJsLikeType.Kind() == numericType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128}))
+	var isLikeJsNumeric interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var anythingGoTypeKind interface{} = reflect.TypeOf(anything).Kind()
+		return ((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericGoTypeKind interface{} = restArgumentsArraySomeCallback[0]
+			return (anythingGoTypeKind == numericGoTypeKind)
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128})))
 	}
-	isLikeJsObject := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Map) || ((anythingJsLikeType.Kind() == reflect.Map) && (anythingJsLikeType.Key().Kind() == reflect.String) && (anythingJsLikeType.Elem().Kind() == reflect.Interface)) || (anythingJsLikeType == reflect.TypeOf(map[string]interface{}{})) || (anythingJsLikeType.String() == "map[string]interface {}") || (anythingJsLikeType.String() == "map[string]interface {  }"))
+	var isLikeJsObject interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Map) || ((anythingGoType.Kind() == reflect.Map) && (anythingGoType.Key().Kind() == reflect.String) && (anythingGoType.Elem().Kind() == reflect.Interface)) || (anythingGoType == reflect.TypeOf(map[string]interface{}{})) || (anythingGoType.String() == "map[string]interface {}") || (anythingGoType.String() == "map[string]interface {  }"))
 	}
-	isLikeJsArray := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		anythingJsLikeType := reflect.TypeOf(anything)
-		return ((anythingJsLikeType.Kind() == reflect.Slice) || (anythingJsLikeType == reflect.TypeOf([]interface{}{})) || (anythingJsLikeType.String() == "[]interface {}") || (anythingJsLikeType.String() == "[]interface {  }"))
+	var isLikeJsArray interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		anythingGoType := reflect.TypeOf(anything)
+		return ((anythingGoType.Kind() == reflect.Slice) || (anythingGoType == reflect.TypeOf([]interface{}{})) || (anythingGoType.String() == "[]interface {}") || (anythingGoType.String() == "[]interface {  }"))
 	}
-	isLikeJsFunction := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var isLikeJsFunction interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		return (reflect.TypeOf(anything).Kind() == reflect.Func)
 	}
-	getType := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		if (isLikeJsNull(anything) == true) {
+	var getType interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		if (((isLikeJsNull.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Null
 		}
-		if (isLikeJsBoolean(anything) == true) {
+		if (((isLikeJsBoolean.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Boolean
 		}
-		if (isLikeJsString(anything) == true) {
+		if (((isLikeJsString.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.String
 		}
-		if (isLikeJsNumeric(anything) == true) {
+		if (((isLikeJsNumeric.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Numeric
 		}
-		if (isLikeJsObject(anything) == true) {
+		if (((isLikeJsObject.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Object
 		}
-		if (isLikeJsArray(anything) == true) {
+		if (((isLikeJsArray.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Array
 		}
-		if (isLikeJsFunction(anything) == true) {
+		if (((isLikeJsFunction.(func(...interface{}) interface{}))(anything)) == true) {
 			return jsLikeType.Function
 		}
 		return reflect.TypeOf(anything).String()
 	}
-	anyToString := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var anyToString interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		anythingGoValue := reflect.ValueOf(anything)
 		if (anythingGoValue.Kind() == reflect.String) {
 			return anythingGoValue.String()
@@ -113,197 +115,202 @@ func main() {
 		if (anythingGoValue.Kind() == reflect.Bool) {
 			return fmt.Sprintf("%t", anythingGoValue.Bool())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericIntType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericIntType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericIntType)
-		}, []interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64})).(bool) == true) {
+		})), ([]interface{}{reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Int())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericUintType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericUintType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericUintType)
-		}, []interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64})).(bool) == true) {
+		})), ([]interface{}{reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64}))) == true) {
 			return fmt.Sprintf("%d", anythingGoValue.Uint())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericFloatType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericFloatType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericFloatType)
-		}, []interface{}{reflect.Float32, reflect.Float64})).(bool) == true) {
+		})), ([]interface{}{reflect.Float32, reflect.Float64}))) == true) {
 			return fmt.Sprintf("%f", anythingGoValue.Float())
 		}
-		if ((arraySome(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
-			numericComplexType := restArgumentsArraySomeCallback[0]
+		if (((arraySome.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArraySomeCallback ...interface{}) interface{} {
+			var numericComplexType interface{} = restArgumentsArraySomeCallback[0]
 			return (anythingGoValue.Kind() == numericComplexType)
-		}, []interface{}{reflect.Complex64, reflect.Complex128})).(bool) == true) {
+		})), ([]interface{}{reflect.Complex64, reflect.Complex128}))) == true) {
 			return fmt.Sprintf("%g", anythingGoValue.Complex())
 		}
 		return `"` + anythingGoValue.String() + `"`
 	}
-	arrayReduce := func(restArguments ...interface{}) interface{} {
+	var arrayReduce interface{} = func(restArguments ...interface{}) interface{} {
 		// JavaScript-like Array.reduce() function
-		callbackFunction := restArguments[0].(func(...interface{}) interface{})
-		anArray := restArguments[1].([]interface{})
-		initialValue := restArguments[2]
-		result := initialValue
-		for arrayItemIndex, arrayItem := range anArray {
-			result = callbackFunction(result, arrayItem, arrayItemIndex, anArray)
+		var callbackFunction interface{} = restArguments[0]
+		var anArray interface{} = restArguments[1]
+		var initialValue interface{} = restArguments[2]
+		var result interface{} = initialValue
+		var arrayItemIndex interface{}
+		var arrayItem interface{}
+		for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+			result = (callbackFunction.(func(...interface{}) interface{}))(result, arrayItem, arrayItemIndex, anArray)
 		}
 		return result
 	}
-	optionalChaining := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		restArgumentsNew := restArguments[1:]
-		anythingJsLikeType := getType(anything)
+	var optionalChaining interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var restArgumentsNew interface{} = restArguments[1:]
+		var anythingJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anything))
 		if (anythingJsLikeType == jsLikeType.Function) {
-			return anything.(func(...interface{}) interface{})(restArgumentsNew...)
+			return ((anything.(func(...interface{}) interface{}))((restArgumentsNew.([]interface{}))...))
 		}
-		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len(restArgumentsNew) == 0)) {
+		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len((restArgumentsNew.([]interface{}))) == 0)) {
 			return anything
 		}
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentItem := restArgumentsArrayReduceCallback[1]
-			currentResultJsLikeType := getType(currentResult)
-			currentItemJsLikeType := getType(currentItem)
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentItem interface{} = restArgumentsArrayReduceCallback[1]
+			var currentResultJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentResult))
+			var currentItemJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentItem))
 			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return anything.(map[string]interface{})[currentItem.(string)]
+				return (anything.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(anything.([]interface{})) > currentItem.(int))) {
-				return anything.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(anything.([]interface{})) > (currentItem.(int)))) {
+				return (anything.([]interface{}))[(currentItem.(int))]
 			}
 			if ((currentResultJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
-				return currentResult.(map[string]interface{})[currentItem.(string)]
+				return (currentResult.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && (currentItem.(int) >= 0) && (len(currentResult.([]interface{})) > currentItem.(int))) {
-				return currentResult.([]interface{})[currentItem.(int)]
+			if ((currentResultJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(currentResult.([]interface{})) > (currentItem.(int)))) {
+				return (currentResult.([]interface{}))[(currentItem.(int))]
 			}
 			return nil
-		}, restArgumentsNew, nil))
+		})), (restArgumentsNew.([]interface{})), nil))
 	}
-	nullishCoalescing := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
-		defaultValue := restArguments[1]
+	var nullishCoalescing interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
+		var defaultValue interface{} = restArguments[1]
 		if (anything == nil) {
 			return defaultValue
 		} else {
 			return anything
 		}
 	}
-	jsonStringify := func(restArguments ...interface{}) interface{} {
-		prettyDefault := false
-		indentDefault := "    "
-		anything := restArguments[0]
-		pretty := nullishCoalescing(optionalChaining((optionalChaining(restArguments, 1)), "pretty"), prettyDefault)
-		indentLevel := 0
-		var jsonStringifyInner func(...interface{}) interface{}
+	var jsonStringify interface{} = func(restArguments ...interface{}) interface{} {
+		var prettyDefault interface{} = false
+		var anything interface{} = restArguments[0]
+		var pretty interface{} = (nullishCoalescing.(func(...interface{}) interface{}))((optionalChaining.(func(...interface{}) interface{}))(((optionalChaining.(func(...interface{}) interface{}))(restArguments, 1)), "pretty"), prettyDefault)
+		var indentDefault interface{} = strings.Repeat(" ", 4)
+		var indentLevel interface{} = 0
+		var jsonStringifyInner interface{}
 		jsonStringifyInner = func(restArgumentsJsonStringifyInner ...interface{}) interface{} {
-			anythingInner := restArgumentsJsonStringifyInner[0]
-			anythingInnerJsLikeType := getType(anythingInner).(string)
+			var anythingInner interface{} = restArgumentsJsonStringifyInner[0]
+			var anythingInnerJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anythingInner).(string))
 			if (anythingInnerJsLikeType == jsLikeType.Null) {
 				return "null"
 			}
 			if (anythingInnerJsLikeType == jsLikeType.String) {
-				return `"` + anythingInner.(string) + `"`
+				return `"` + (anythingInner.(string)) + `"`
 			}
 			if ((anythingInnerJsLikeType == jsLikeType.Numeric) || (anythingInnerJsLikeType == jsLikeType.Boolean)) {
-				return anyToString(anythingInner)
+				return ((anyToString.(func(...interface{}) interface{}))(anythingInner))
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Object) {
 				if (len(anythingInner.(map[string]interface{})) == 0) {
 					return "{}"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "{\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("{\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "{ "
-				}).(string))
-				objectEntryIndex := 0
-				for objectKey, objectValue := range anythingInner.(map[string]interface{}) {
-					result += `"` + objectKey + `": ` + jsonStringifyInner(objectValue).(string)
-					if ((objectEntryIndex + 1) != len(anythingInner.(map[string]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var objectEntryIndex interface{} = 0
+				var objectKey interface{}
+				var objectValue interface{}
+				for objectKey, objectValue = range (anythingInner.(map[string]interface{})) {
+					result = ((result.(string)) + (`"` + (objectKey.(string)) + `": ` + ((jsonStringifyInner.(func(...interface{}) interface{}))(objectValue).(string))))
+					if (((objectEntryIndex.(int)) + 1) != len(anythingInner.(map[string]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
-					objectEntryIndex += 1
+					objectEntryIndex = (objectEntryIndex.(int)) + 1
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "}"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "}"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return " }"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Array) {
 				if (len(anythingInner.([]interface{})) == 0) {
 					return "[]"
 				}
-				indentLevel += 1
-				result := (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "[\n" + strings.Repeat(indentDefault, indentLevel)
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) + 1
+				var result interface{} = ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return ("[\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))))
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "["
-				}).(string))
-				for arrayItemIndex, arrayItem := range anythingInner.([]interface{}) {
-					result += jsonStringifyInner(arrayItem).(string)
-					if ((arrayItemIndex + 1) != len(anythingInner.([]interface{}))) {
-						result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-							return ",\n" + strings.Repeat(indentDefault, indentLevel)
-						}, func(_ ...interface{}) interface{} {
+				}))).(string))
+				var arrayItemIndex interface{}
+				var arrayItem interface{}
+				for arrayItemIndex, arrayItem = range (anythingInner.([]interface{})) {
+					result = ((result.(string)) + ((jsonStringifyInner.(func(...interface{}) interface{}))(arrayItem).(string)))
+					if (((arrayItemIndex.(int)) + 1) != len(anythingInner.([]interface{}))) {
+						result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+							return ",\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int)))
+						})), (interface{}(func(_ ...interface{}) interface{} {
 							return ", "
-						}).(string))
+						}))).(string)))
 					}
 				}
-				indentLevel -= 1
-				result += (ternary((pretty == true), func(_ ...interface{}) interface{} {
-					return "\n" + strings.Repeat(indentDefault, indentLevel) + "]"
-				}, func(_ ...interface{}) interface{} {
+				indentLevel = (indentLevel.(int)) - 1
+				result = ((result.(string)) + ((ternary.(func(...interface{}) interface{}))((interface{}(pretty == true)), (interface{}(func(_ ...interface{}) interface{} {
+					return "\n" + strings.Repeat((indentDefault.(string)), (indentLevel.(int))) + "]"
+				})), (interface{}(func(_ ...interface{}) interface{} {
 					return "]"
-				}).(string))
+				}))).(string)))
 				return result
 			}
 			if (anythingInnerJsLikeType == jsLikeType.Function) {
 				return `"[object Function]"`
 			}
-			return `"` + anythingInnerJsLikeType + `"`
+			return (`"` + (anythingInnerJsLikeType.(string)) + `"`)
 		}
-		return jsonStringifyInner(anything)
+		return ((jsonStringifyInner.(func(...interface{}) interface{}))(anything))
 	}
-	stringInterpolation := func(restArguments ...interface{}) interface{} {
-		return (arrayReduce(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
-			currentResult := restArgumentsArrayReduceCallback[0]
-			currentArgument := restArgumentsArrayReduceCallback[1]
-			currentArgumentJsLikeType := getType(currentArgument)
-			return (currentResult.(string) + ternary(
-				(currentArgumentJsLikeType == jsLikeType.String),
-				(func(_ ...interface{}) interface{} {
-					return currentArgument.(string)
-				}),
-				(func(_ ...interface{}) interface{} {
-					return (ternary(
-						((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1)),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument.([]interface{})[0])
-						}),
-						(func(_ ...interface{}) interface{} {
-							return jsonStringify(currentArgument)
-						}),
+	var stringInterpolation interface{} = func(restArguments ...interface{}) interface{} {
+		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
+			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
+			var currentArgument interface{} = restArgumentsArrayReduceCallback[1]
+			var currentArgumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(currentArgument)
+			return (currentResult.(string) + (ternary.(func(...interface{}) interface{}))(
+				(interface{}(currentArgumentJsLikeType == jsLikeType.String)),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return (currentArgument.(string))
+				})),
+				(interface{}(func(_ ...interface{}) interface{} {
+					return ((ternary.(func(...interface{}) interface{}))(
+						(interface{}((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1))),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument.([]interface{})[0]))
+						})),
+						(interface{}(func(_ ...interface{}) interface{} {
+							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument))
+						})),
 					).(string))
-				}),
+				})),
 			).(string))
-		}, restArguments, "").(string))
+		})), restArguments, "").(string))
 	}
-	consoleLog := func(restArguments ...interface{}) interface{} {
-		fmt.Println(stringInterpolation(restArguments...).(string))
+	var consoleLog interface{} = func(restArguments ...interface{}) interface{} {
+		fmt.Println((((stringInterpolation.(func(...interface{}) interface{}))(restArguments...)).(string)))
 		return nil
 	}
-
-	getFloat64 := func(restArguments ...interface{}) interface{} {
-		anything := restArguments[0]
+	var getFloat64 interface{} = func(restArguments ...interface{}) interface{} {
+		var anything interface{} = restArguments[0]
 		switch anythingNew := anything.(type) {
 		case float64:
 			return anythingNew
@@ -334,243 +341,245 @@ func main() {
 		}
 	}
 
-	fizzbuzzV1 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV1 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		anyNumber := 1
+		var result interface{} = ""
+		var anyNumber interface{} = 1
 		for (true) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
-				if (anyNumber >= stopNumber.(int)) {
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
+				if ((anyNumber.(int)) >= (stopNumber.(int))) {
 					break
 				}
-				anyNumber += 1
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
-				if (anyNumber >= stopNumber.(int)) {
+			if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
+				if ((anyNumber.(int)) >= (stopNumber.(int))) {
 					break
 				}
-				anyNumber += 1
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
-				if (anyNumber >= stopNumber.(int)) {
+			if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
+				if ((anyNumber.(int)) >= (stopNumber.(int))) {
 					break
 				}
-				anyNumber += 1
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
-				if (anyNumber >= stopNumber.(int)) {
+			if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
+				if ((anyNumber.(int)) >= (stopNumber.(int))) {
 					break
 				}
-				anyNumber += 1
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			result = (result + ", " + (anyToString(anyNumber).(string)))
-			if (anyNumber >= stopNumber.(int)) {
+			result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
+			if ((anyNumber.(int)) >= (stopNumber.(int))) {
 				break
 			}
-			anyNumber += 1
+			anyNumber = ((anyNumber.(int)) + 1)
 		}
 		return result
 	}
 	
-	fizzbuzzV2 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV2 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		anyNumber := 1
-		for (anyNumber <= stopNumber.(int)) {
+		var result interface{} = ""
+		var anyNumber interface{} = 1
+		for ((anyNumber.(int)) <= (stopNumber.(int))) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
-				anyNumber += 1
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
-				anyNumber += 1
+			if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
-				anyNumber += 1
+			if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
-				anyNumber += 1
+			if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
+				anyNumber = ((anyNumber.(int)) + 1)
 				continue
 			}
-			result = (result + ", " + (anyToString(anyNumber).(string)))
-			anyNumber += 1
+			result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
+			anyNumber = ((anyNumber.(int)) + 1)
 		}
 		return result
 	}
 	
-	fizzbuzzV3 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV3 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		anyNumber := 1
+		var result interface{} = ""
+		var anyNumber interface{} = 1
 		for (true) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
-			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
-			} else if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
-			} else if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
+			} else if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
+			} else if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
+			} else if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
 			} else {
-				result = (result + ", " + (anyToString(anyNumber).(string)))
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
 			}
-			if (anyNumber >= stopNumber.(int)) {
+			if ((anyNumber.(int)) >= (stopNumber.(int))) {
 				break
 			}
-			anyNumber += 1
+			anyNumber = ((anyNumber.(int)) + 1)
 		}
 		return result
 	}
 	
-	fizzbuzzV4 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV4 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		anyNumber := 1
-		for (anyNumber <= stopNumber.(int)) {
+		var result interface{} = ""
+		var anyNumber interface{} = 1
+		for ((anyNumber.(int)) <= (stopNumber.(int))) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
-			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
-			} else if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
-			} else if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
+			} else if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
+			} else if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
+			} else if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
 			} else {
-				result = (result + ", " + (anyToString(anyNumber).(string)))
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
 			}
-			anyNumber += 1
+			anyNumber = ((anyNumber.(int)) + 1)
 		}
 		return result
 	}
 	
-	fizzbuzzV5 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV5 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		for anyNumber := 1; (anyNumber <= stopNumber.(int)); anyNumber += 1 {
+		var result interface{} = ""
+		var anyNumber interface{}
+		for anyNumber = 1; ((anyNumber.(int)) <= (stopNumber.(int))); anyNumber = ((anyNumber.(int)) + 1) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
 				continue
 			}
-			if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
+			if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
 				continue
 			}
-			if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
+			if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
 				continue
 			}
-			if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
+			if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
 				continue
 			}
-			result = (result + ", " + (anyToString(anyNumber).(string)))
+			result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
 		}
 		return result
 	}
 	
-	fizzbuzzV6 := func(restArguments ...interface{}) interface{} {
-		stopNumber := restArguments[0]
-		if (getType(stopNumber) != jsLikeType.Numeric) {
+	var fizzbuzzV6 interface{} = func(restArguments ...interface{}) interface{} {
+		var stopNumber interface{} = restArguments[0]
+		if ((getType.(func(...interface{}) interface{}))(stopNumber) != jsLikeType.Numeric) {
 			return errors.New("Argument should be a number")
 		}
-		stopNumber = int((getFloat64(restArguments[0]).(float64)))
-		if (stopNumber.(int) < 1) {
+		stopNumber = int(((getFloat64.(func(...interface{}) interface{}))(restArguments[0]).(float64)))
+		if ((stopNumber.(int)) < 1) {
 			return errors.New("Argument should be > 0")
 		}
-		result := ""
-		for anyNumber := 1; (anyNumber <= stopNumber.(int)); anyNumber += 1 {
+		var result interface{} = ""
+		var anyNumber interface{}
+		for anyNumber = 1; ((anyNumber.(int)) <= (stopNumber.(int))); anyNumber = ((anyNumber.(int)) + 1) {
 			if (result == "") {
-				result = (anyToString(anyNumber).(string))
-			} else if (((anyNumber % 3) == 0) && ((anyNumber % 5) == 0)) {
-				result = (result + ", FizzBuzz")
-			} else if ((anyNumber % 3) == 0) {
-				result = (result + ", Fizz")
-			} else if ((anyNumber % 5) == 0) {
-				result = (result + ", Buzz")
+				result = ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))
+			} else if ((((anyNumber.(int)) % 3) == 0) && (((anyNumber.(int)) % 5) == 0)) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", FizzBuzz"))
+			} else if (((anyNumber.(int)) % 3) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Fizz"))
+			} else if (((anyNumber.(int)) % 5) == 0) {
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", Buzz"))
 			} else {
-				result = (result + ", " + (anyToString(anyNumber).(string)))
+				result = (stringInterpolation.(func(...interface{}) interface{})(result, ", ", ((anyToString.(func(...interface{}) interface{}))(anyNumber).(string))))
 			}
 		}
 		return result
 	}
 
-    consoleLog("\n// FizzBuzz(n) in Go")
+    (consoleLog.(func(...interface{}) interface{}))("\n// FizzBuzz(n) in Go")
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV1"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV1"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV1(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV1.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV2"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV2"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV2(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV2.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV3"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV3"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV3(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV3.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV4"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV4"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV4(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV4.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV5"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV5"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV5(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV5.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 
-    consoleLog(`// using fizzbuzz function "fizzbuzzV6"`)
+    (consoleLog.(func(...interface{}) interface{}))(`// using fizzbuzz function "fizzbuzzV6"`)
     
-	consoleLog(stringInterpolation("FizzBuzz(36): ", fizzbuzzV6(36)))
+	(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("FizzBuzz(36): ", (fizzbuzzV6.(func(...interface{}) interface{}))(36)))
 	// FizzBuzz(36): 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz, 31, 32, Fizz, 34, Buzz, Fizz
 }

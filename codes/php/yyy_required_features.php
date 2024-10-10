@@ -337,7 +337,7 @@ function multiply($a) {
 };
 $multiply_by2 = multiply(2);
 $multiply_by2_result = $multiply_by2(10);
-console_log(string_interpolation("multiply_by2_result: ", $multiply_by2_result));
+console_log(string_interpolation("multiplyBy2(10): ", $multiply_by2_result));
 
 /*
 7. support assigning functions to variables

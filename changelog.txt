@@ -1,4 +1,13 @@
 =============================changelog==========================================
+(2024/10[Oct]/11[Fri]|02:50[AM]/02:50)
+1.0.77
+New:
+add explicit any type in *.go
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/04[Fri]|06:00[PM]/18:00)
 1.0.76
 New:

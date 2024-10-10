@@ -226,5 +226,22 @@ map\[string\](?!interface\{)
 \[\](?!interface\{\})
 :"
 change \" to " and change " to `
+\.\(func\(\.\.\.interface\{\}\) interface\{\}\)(?!\))
+restArguments\[[0-9]+\]\.
+\[[0-9]+\]
+
+.(func(...interface{}) interface{})
+
+interface{}
+
+var callbackFunction interface{} = restArguments[0]
+var anArray interface{} = restArguments[1]
+
+var arrayItemIndex interface{}
+var arrayItem interface{}
+for arrayItemIndex, arrayItem = range (anArray.([]interface{})) {
+
+(?<!interface\{\}) = 
+var.*(?<!interface\{\}) = 
 	*/
 }
