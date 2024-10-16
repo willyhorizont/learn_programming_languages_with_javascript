@@ -96,3 +96,13 @@ def MyObjectV1(anObject: Any): Map[String, Any] = if (anObject.asInstanceOf[Map[
 def MyObjectV2(objectEntry: (String, Any)*): Map[String, Any] = (if (objectEntry.isEmpty) Map.empty[String, Any] else objectEntry.toMap[String, Any])
 
 def MyObjectV3(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+
+import scala.collection.immutable.ArraySeq
+
+// def createObject(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+
+val createObject = new Function1[Array[(String, Any)], mutable.Map[String, Any]] {
+    def apply(objectEntry: Array[(String, Any)]): mutable.Map[String, Any] = {
+        return (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(ArraySeq.unsafeWrapArray(objectEntry.toArray): _*)): mutable.Map[String, Any]
+    }
+}

@@ -14,7 +14,7 @@ js_like_type = {
 def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
     result = initial_value
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         result = callback_function(result, array_item, array_item_index, an_array)
     return result
 
@@ -62,7 +62,7 @@ def pipe(*rest_arguments):
 
 def json_stringify(anything, **optional_argument):
     '''custom JSON.stringify() function json_stringify_v2'''
-    indent = " " * 4
+    indent = (" " * 4)
     indent_level = 0
     pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
@@ -84,7 +84,7 @@ def json_stringify(anything, **optional_argument):
                 return "{" + "}"
             indent_level += 1
             result = (("{\n" + (indent * indent_level)) if (pretty == True) else "{ ")
-            for object_entry_index, (object_key, object_value) in enumerate(anything_inner.items()):
+            for (object_entry_index, (object_key, object_value)) in enumerate(anything_inner.items()):
                 result += f'"{object_key}": {json_stringify_inner(object_value)}'
                 if ((object_entry_index + 1) != len(anything_inner)):
                     result += ((f",\n{(indent * indent_level)}") if (pretty == True) else ", ")
@@ -123,7 +123,7 @@ pipe(17, plus25, multiply_by10, print)  # read from left to right
 
 print(pipe(17, plus25, multiply_by10))  # read from left to right
 
-make_numbers_easy_to_say = lambda a_number: f"{int(a_number)}.something"
+make_number_easy_to_say = lambda a_number: (f"{int(a_number)}.something")
 
 get_circle_area_in_square_cm = lambda radius_in_cm: (3.14 * (radius_in_cm ** 2))
 
@@ -131,8 +131,8 @@ get_cylinder_volume_in_ml_or_cubic_cm = lambda circle_area_in_square_cm, height_
 
 get_mass_in_ml_or_cubic_cm = lambda volume_in_ml_or_cubic_cm, density_in_gram_per_ml_or_cubic_cm: (volume_in_ml_or_cubic_cm * density_in_gram_per_ml_or_cubic_cm)
 
-print(make_numbers_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587)))  # read from inside to outside
+print(make_number_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587)))  # read from inside to outside
 
-pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_numbers_easy_to_say, print)  # read from left to right
+pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_number_easy_to_say, print)  # read from left to right
 
-print(pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_numbers_easy_to_say))  # read from left to right
+print(pipe(7, get_circle_area_in_square_cm, lambda _: get_cylinder_volume_in_ml_or_cubic_cm(_, 10), lambda _: get_mass_in_ml_or_cubic_cm(_, 0.72587), make_number_easy_to_say))  # read from left to right

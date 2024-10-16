@@ -222,13 +222,13 @@ console_log(string_interpolation('JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSO
 // JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
 
 console_log(string_interpolation('JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): ', [optional_chaining_v1(optional_chaining_v1($JSON_OBJECT, "get_circle_area"), 7)]));
-// JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): 35
+// JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
 
 console_log(string_interpolation('JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): ', [pipe(optional_chaining_v1($JSON_OBJECT, "get_rectangle_area"), (fn($_) => (optional_chaining_v1($_, 7, 5))))]));
 // JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
 
 console_log(string_interpolation('JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): ', [pipe(optional_chaining_v1($JSON_OBJECT, "get_circle_area"), (fn($_) => (optional_chaining_v1($_, 7))))]));
-// JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): 35
+// JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
 
 console_log('// using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v2"');
 

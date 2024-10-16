@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/10[Oct]/17[Thu]|03:27[AM]/03:27)
+1.0.78
+New:
+finish *.jl
+update so many things
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/11[Fri]|02:50[AM]/02:50)
 1.0.77
 New:

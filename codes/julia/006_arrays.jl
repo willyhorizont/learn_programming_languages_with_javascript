@@ -1,82 +1,132 @@
-function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
-    indent_level::Any = 0
-    function json_stringify_inner(anything_inner, indent_inner::String)::String
-        if (anything_inner === nothing) return "null" end
-        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
-        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
-        if (isa(anything_inner, Array) === true)
-            if (length(anything_inner) == 0) return "[]" end
-            indent_level += 1
-            result_array::Any = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
-            for (array_item_index, array_item) in enumerate(anything_inner)
-                result_array *= json_stringify_inner(array_item, indent_inner)
-                if (array_item_index !== length(anything_inner)) result_array *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_array *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
-            return result_array
-        end
-        if (isa(anything_inner, Dict) === true)
-            if (length(anything_inner) == 0) return "{}" end
-            indent_level += 1
-            result_object::Any = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
-            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
-                result_object *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
-                if (object_entry_index !== length(anything_inner)) result_object *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_object *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
-            return result_object
-        end
-        return "null"
-    end
-    return json_stringify_inner(anything, indent)
+struct js_like_type_struct
+    Null::Any
+    Boolean::Any
+    String::Any
+    Numeric::Any
+    Object::Any
+    Array::Any
+    Function::Any
 end
 
-# in Julia, JavaScript-like Array is called Array
+js_like_type::Any = js_like_type_struct(
+    "Null",
+    "Boolean",
+    "String",
+    "Numeric",
+    "Object",
+    "Array",
+    "Function"
+)
 
-fruits::Any = Any["apple", "mango", "orange"]
-println("fruits: ", json_stringify(fruits))
+is_like_js_null::Any = (anything::Any) -> ((anything === nothing) && (isnothing(anything) === true))::Any
 
-println("fruits, length: ", length(fruits))
+is_like_js_boolean::Any = (anything::Any) -> ((isa(anything, Bool) === true) && ((anything === true) || (anything === false)))::Any
+
+is_like_js_string::Any = (anything::Any) -> (isa(anything, AbstractString) === true)::Any
+
+is_like_js_numeric::Any = (anything::Any) -> (isa(anything, Number) === true)::Any
+
+is_like_js_object::Any = (anything::Any) -> (isa(anything, Dict{String, Any}) === true)::Any
+
+is_like_js_array::Any = (anything::Any) -> ((isa(anything, Array{Any, 1}) === true) && (isa(anything, Vector{Any}) === true))::Any
+
+is_like_js_function::Any = (anything::Any) -> (isa(anything, Function) === true)::Any
+
+get_type::Any = (anything::Any) -> (begin
+    if (is_like_js_null(anything) === true) return (js_like_type.Null)::Any end
+    if (is_like_js_boolean(anything) === true) return (js_like_type.Boolean)::Any end
+    if (is_like_js_string(anything) === true) return (js_like_type.String)::Any end
+    if (is_like_js_numeric(anything) === true) return (js_like_type.Numeric)::Any end
+    if (is_like_js_object(anything) === true) return (js_like_type.Object)::Any end
+    if (is_like_js_array(anything) === true) return (js_like_type.Array)::Any end
+    if (is_like_js_function(anything) === true) return (js_like_type.Function)::Any end
+    return ("\"$(typeof(anything))\"")::Any
+end)::Any
+
+json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
+    # custom JSON.stringify() function
+    local indent::Any = repeat(" ", 4)
+    local indent_level::Any = 0
+    local json_stringify_inner::Any = (anything_inner::Any) -> (begin
+        if (get_type(anything_inner) === js_like_type.Null) return ("null")::Any end
+        if (get_type(anything_inner) === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
+        if ((get_type(anything_inner) === js_like_type.Numeric) || (get_type(anything_inner) === js_like_type.Boolean)) return ("$(anything_inner)")::Any end
+        if (get_type(anything_inner) === js_like_type.Array)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("[]")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "[\n$(repeat(indent, indent_level))" : "[")
+                for (array_item_index, array_item) in enumerate(anything_inner)
+                    result *= json_stringify_inner(array_item)
+                    if (array_item_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))]" : "]")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Object)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("{}")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "{\n$(repeat(indent, indent_level))" : "{ ")
+                for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                    result *= "\"$(object_key)\": $(json_stringify_inner(object_value))"
+                    if (object_entry_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))}" : " }")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Function) return ("\"[object Function]\"")::Any end
+        return ("\"$(typeof(anything))\"")::Any
+    end)::Any
+    return (json_stringify_inner(anything))::Any
+end)::Any
+
+println("# JavaScript-like Array in Julia (Vector)")
+
+# Create using Any[item_1, item_2, item_3, item_4, ...]
+# fruits::Any = Any["apple", "mango", "orange"]
+
+# Create using Vector{Any}([item_1, item_2, item_3, item_4, ...]) (the best way)
+fruits::Any = Vector{Any}(["apple", "mango", "orange"])
+println("fruits: $(json_stringify(fruits))")
+
+println("fruits, length: $(length(fruits))")
 # fruits, length: 3
 
-println("fruits, get mango: ", fruits[2])
+println("fruits, get mango: $(json_stringify(fruits[2]))")
 # fruits, get mango: mango
 
-println("fruits, first element: ", fruits[1])
+println("fruits, get mango: $(json_stringify(try fruits[2] catch (e) nothing end))")
+# fruits, get mango: mango
+
+println("fruits, first element: $(json_stringify(fruits[1]))")
 # fruits, first element: apple
 
-println("fruits, last element: ", fruits[end])
+println("fruits, first element: $(json_stringify(try fruits[1] catch (e) nothing end))")
+# fruits, first element: apple
+
+println("fruits, last element: $(json_stringify(fruits[end]))")
 # fruits, last element: orange
 
+println("fruits, last element: $(json_stringify(try fruits[end] catch (e) nothing end))")
+# fruits, last element: orange
+
+# iterate over and print each item and index
 for (array_item_index, array_item) in enumerate(fruits)
-    println("fruits, for loop, index: ", array_item_index, ", value: ", array_item)
+    println("fruits, index: $(array_item_index), value: $(json_stringify(array_item)), for loop")
 end
-# fruits, for loop, index: 1, value: apple
-# fruits, for loop, index: 2, value: mango
-# fruits, for loop, index: 3, value: orange
+# fruits, index: 1, value: "apple", for loop
+# fruits, index: 2, value: "mango", for loop
+# fruits, index: 3, value: "orange", for loop
 
-# in Julia, JavaScript-like Array of Objects is called Array of Dictionaries
-
-products::Any = Any[
-    Dict{String, Any}(
-        "id" => "P1",
-        "name" => "bubble gum"
-    ),
-    Dict{String, Any}(
-        "id" => "P2",
-        "name" => "potato chips"
-    )
-]
-println("products: ", json_stringify(products, pretty=true))
-
-for (array_item_index, array_item) in enumerate(products)
-    for (object_entry_index, (object_key, object_value)) in enumerate(pairs(array_item))
-        println("products, for loop, array item index: ", array_item_index, ", object iteration/entry index: ", object_entry_index, ", key: ", object_key, ", value: ", object_value)
-    end
-end
-# products, for loop, array item index: 1, object iteration/entry index: 1, key: name, value: bubble gum
-# products, for loop, array item index: 1, object iteration/entry index: 2, key: id, value: P1
-# products, for loop, array item index: 2, object iteration/entry index: 1, key: name, value: potato chips
-# products, for loop, array item index: 2, object iteration/entry index: 2, key: id, value: P2
+push!(fruits, "banana")
+println("fruits: $(json_stringify(fruits))")
+# fruits: ["apple", "mango", "orange", "banana"]

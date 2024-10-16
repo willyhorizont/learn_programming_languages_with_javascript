@@ -14,7 +14,7 @@ js_like_type = {
 def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
     result = initial_value
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         result = callback_function(result, array_item, array_item_index, an_array)
     return result
 
@@ -62,7 +62,7 @@ def pipe(*rest_arguments):
 
 def json_stringify(anything, **optional_argument):
     '''custom JSON.stringify() function json_stringify_v2'''
-    indent = " " * 4
+    indent = (" " * 4)
     indent_level = 0
     pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
@@ -84,7 +84,7 @@ def json_stringify(anything, **optional_argument):
                 return "{" + "}"
             indent_level += 1
             result = (("{\n" + (indent * indent_level)) if (pretty == True) else "{ ")
-            for object_entry_index, (object_key, object_value) in enumerate(anything_inner.items()):
+            for (object_entry_index, (object_key, object_value)) in enumerate(anything_inner.items()):
                 result += f'"{object_key}": {json_stringify_inner(object_value)}'
                 if ((object_entry_index + 1) != len(anything_inner)):
                     result += ((f",\n{(indent * indent_level)}") if (pretty == True) else ", ")
@@ -111,80 +111,29 @@ def json_stringify(anything, **optional_argument):
     return json_stringify_inner(anything)
 
 
-def array_includes_v1(search_element, an_array):
-    '''JavaScript-like Array.includes() function array_includes_v1'''
-    return search_element in an_array
-
-
-array_includes_v2 = lambda search_element, an_array: search_element in an_array  # '''JavaScript-like Array.includes() function array_includes_v2'''
-
 print("\n# JavaScript-like Array.includes() in Python")
 
 my_friends = ['Alisa', 'Trivia']
 print(f'my friends: {json_stringify(my_friends)}')
 
-print('# using JavaScript-like Array.includes() function "array_includes_v1"')
+print('# using Python Array.includes() built-in operator "in", the "pythonic" way')
 
 any_name = 'Alisa'
-is_my_friend = array_includes_v1(any_name, my_friends)
+is_my_friend = (any_name in my_friends)
 print(f'is my friends includes "{any_name}": {is_my_friend}')
 # is my friends includes "Alisa": True
 
 any_name = 'Trivia'
-is_my_friend = array_includes_v1(any_name, my_friends)
+is_my_friend = (any_name in my_friends)
 print(f'is my friends includes "{any_name}": {is_my_friend}')
 # is my friends includes "Trivia": True
 
 any_name = 'Tony'
-is_my_friend = array_includes_v1(any_name, my_friends)
+is_my_friend = (any_name in my_friends)
 print(f'is my friends includes "{any_name}": {is_my_friend}')
 # is my friends includes "Tony": False
 
 any_name = 'Ezekiel'
-is_my_friend = array_includes_v1(any_name, my_friends)
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Ezekiel": False
-
-print('# using JavaScript-like Array.includes() function "array_includes_v2"')
-
-any_name = 'Alisa'
-is_my_friend = array_includes_v2(any_name, my_friends)
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Alisa": True
-
-any_name = 'Trivia'
-is_my_friend = array_includes_v2(any_name, my_friends)
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Trivia": True
-
-any_name = 'Tony'
-is_my_friend = array_includes_v2(any_name, my_friends)
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Tony": False
-
-any_name = 'Ezekiel'
-is_my_friend = array_includes_v2(any_name, my_friends)
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Ezekiel": False
-
-print('# using the "pythonic" way of Array.includes()')
-
-any_name = 'Alisa'
-is_my_friend = any_name in my_friends
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Alisa": True
-
-any_name = 'Trivia'
-is_my_friend = any_name in my_friends
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Trivia": True
-
-any_name = 'Tony'
-is_my_friend = any_name in my_friends
-print(f'is my friends includes "{any_name}": {is_my_friend}')
-# is my friends includes "Tony": False
-
-any_name = 'Ezekiel'
-is_my_friend = any_name in my_friends
+is_my_friend = (any_name in my_friends)
 print(f'is my friends includes "{any_name}": {is_my_friend}')
 # is my friends includes "Ezekiel": False

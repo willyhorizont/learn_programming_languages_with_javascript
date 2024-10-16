@@ -1,71 +1,121 @@
-function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
-    indent_level::Any = 0
-    function json_stringify_inner(anything_inner, indent_inner::String)::String
-        if (anything_inner === nothing) return "null" end
-        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
-        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
-        if (isa(anything_inner, Array) === true)
-            if (length(anything_inner) == 0) return "[]" end
-            indent_level += 1
-            result_array::Any = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
-            for (array_item_index, array_item) in enumerate(anything_inner)
-                result_array *= json_stringify_inner(array_item, indent_inner)
-                if (array_item_index !== length(anything_inner)) result_array *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_array *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
-            return result_array
-        end
-        if (isa(anything_inner, Dict) === true)
-            if (length(anything_inner) == 0) return "{}" end
-            indent_level += 1
-            result_object::Any = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
-            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
-                result_object *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
-                if (object_entry_index !== length(anything_inner)) result_object *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_object *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
-            return result_object
-        end
-        return "null"
-    end
-    return json_stringify_inner(anything, indent)
+struct js_like_type_struct
+    Null::Any
+    Boolean::Any
+    String::Any
+    Numeric::Any
+    Object::Any
+    Array::Any
+    Function::Any
 end
 
-function array_to_object(an_array)
-    new_object::Any = Dict{String, Any}()
-    for (array_item_index, array_item) in enumerate(an_array)
-        new_object[string(array_item_index)] = array_item
-    end
-    return new_object
-end
+js_like_type::Any = js_like_type_struct(
+    "Null",
+    "Boolean",
+    "String",
+    "Numeric",
+    "Object",
+    "Array",
+    "Function"
+)
 
-println("\n# JavaScript-like Spread Syntax (...) in Julia")
+is_like_js_null::Any = (anything::Any) -> ((anything === nothing) && (isnothing(anything) === true))::Any
 
-fruits::Any = Any["Mango", "Melon", "Banana"]
-println("fruits: ", json_stringify(fruits))
+is_like_js_boolean::Any = (anything::Any) -> ((isa(anything, Bool) === true) && ((anything === true) || (anything === false)))::Any
 
-vegetables::Any = Any["Carrot", "Tomato"]
-println("vegetables: ", json_stringify(vegetables))
+is_like_js_string::Any = (anything::Any) -> (isa(anything, AbstractString) === true)::Any
+
+is_like_js_numeric::Any = (anything::Any) -> (isa(anything, Number) === true)::Any
+
+is_like_js_object::Any = (anything::Any) -> (isa(anything, Dict{String, Any}) === true)::Any
+
+is_like_js_array::Any = (anything::Any) -> ((isa(anything, Array{Any, 1}) === true) && (isa(anything, Vector{Any}) === true))::Any
+
+is_like_js_function::Any = (anything::Any) -> (isa(anything, Function) === true)::Any
+
+get_type::Any = (anything::Any) -> (begin
+    if (is_like_js_null(anything) === true) return (js_like_type.Null)::Any end
+    if (is_like_js_boolean(anything) === true) return (js_like_type.Boolean)::Any end
+    if (is_like_js_string(anything) === true) return (js_like_type.String)::Any end
+    if (is_like_js_numeric(anything) === true) return (js_like_type.Numeric)::Any end
+    if (is_like_js_object(anything) === true) return (js_like_type.Object)::Any end
+    if (is_like_js_array(anything) === true) return (js_like_type.Array)::Any end
+    if (is_like_js_function(anything) === true) return (js_like_type.Function)::Any end
+    return ("\"$(typeof(anything))\"")::Any
+end)::Any
+
+json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
+    # custom JSON.stringify() function
+    local indent::Any = repeat(" ", 4)
+    local indent_level::Any = 0
+    local json_stringify_inner::Any = (anything_inner::Any) -> (begin
+        if (get_type(anything_inner) === js_like_type.Null) return ("null")::Any end
+        if (get_type(anything_inner) === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
+        if ((get_type(anything_inner) === js_like_type.Numeric) || (get_type(anything_inner) === js_like_type.Boolean)) return ("$(anything_inner)")::Any end
+        if (get_type(anything_inner) === js_like_type.Array)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("[]")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "[\n$(repeat(indent, indent_level))" : "[")
+                for (array_item_index, array_item) in enumerate(anything_inner)
+                    result *= json_stringify_inner(array_item)
+                    if (array_item_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))]" : "]")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Object)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("{}")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "{\n$(repeat(indent, indent_level))" : "{ ")
+                for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                    result *= "\"$(object_key)\": $(json_stringify_inner(object_value))"
+                    if (object_entry_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))}" : " }")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Function) return ("\"[object Function]\"")::Any end
+        return ("\"$(typeof(anything))\"")::Any
+    end)::Any
+    return (json_stringify_inner(anything))::Any
+end)::Any
+
+array_entries::Any = (an_array::Any) -> (Dict{String, Any}("$(array_item_index)" => array_item for (array_item_index, array_item) in enumerate(an_array)))::Any
+
+println("\n# JavaScript-like Spread Syntax (...) in Julia (Splat Operator)")
+
+fruits::Any = Vector{Any}(["Mango", "Melon", "Banana"])
+println("fruits: $(json_stringify(fruits))")
+
+vegetables::Any = Vector{Any}(["Carrot", "Tomato"])
+println("vegetables: $(json_stringify(vegetables))")
 
 country_capitals_in_asia::Any = Dict{String, Any}(
     "Thailand" => "Bangkok",
     "China" => "Beijing",
     "Japan" => "Tokyo"
 )
-println("country_capitals_in_asia: ", json_stringify(country_capitals_in_asia, pretty=true))
+println("country_capitals_in_asia: $(json_stringify(country_capitals_in_asia, pretty=true))")
 
 country_capitals_in_europe::Any = Dict{String, Any}(
     "France" => "Paris",
     "England" => "London"
 )
-println("country_capitals_in_europe: ", json_stringify(country_capitals_in_europe, pretty=true))
+println("country_capitals_in_europe: $(json_stringify(country_capitals_in_europe, pretty=true))")
 
-println("# [...array1, ...array2]:\n")
+println("\n# [...array1, ...array2]:\n")
 
-combination1::Any = Any[fruits..., vegetables...]
-println("combination1: ", json_stringify(combination1, pretty=true))
+combination1::Any = Vector{Any}([fruits..., vegetables...])
+println("combination1: $(json_stringify(combination1, pretty=true))")
 # combination1: [
 #     "Mango",
 #     "Melon",
@@ -74,8 +124,8 @@ println("combination1: ", json_stringify(combination1, pretty=true))
 #     "Tomato"
 # ]
 
-combination2::Any = Any[fruits..., Any["Cucumber", "Cabbage"]...]
-println("combination2: ", json_stringify(combination2, pretty=true))
+combination2::Any = Vector{Any}([fruits..., Vector{Any}(["Cucumber", "Cabbage"])...])
+println("combination2: $(json_stringify(combination2, pretty=true))")
 # combination2: [
 #     "Mango",
 #     "Melon",
@@ -84,10 +134,10 @@ println("combination2: ", json_stringify(combination2, pretty=true))
 #     "Cabbage"
 # ]
 
-println("# { ...object1, ...object2 }:\n")
+println("\n# { ...object1, ...object2 }:\n")
 
 combination3::Any = Dict{String, Any}(country_capitals_in_asia..., country_capitals_in_europe...)
-println("combination3: ", json_stringify(combination3, pretty=true))
+println("combination3: $(json_stringify(combination3, pretty=true))")
 # combination3: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -97,7 +147,7 @@ println("combination3: ", json_stringify(combination3, pretty=true))
 # }
 
 combination4::Any = Dict{String, Any}(country_capitals_in_asia..., Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome")...)
-println("combination4: ", json_stringify(combination4, pretty=true))
+println("combination4: $(json_stringify(combination4, pretty=true))")
 # combination4: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -106,10 +156,10 @@ println("combination4: ", json_stringify(combination4, pretty=true))
 #     "Italy": "Rome"
 # }
 
-println("# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
+println("\n# [...array1, array2] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-combination5::Any = Any[fruits..., vegetables]
-println("combination5: ", json_stringify(combination5, pretty=true))
+combination5::Any = Vector{Any}([fruits..., vegetables])
+println("combination5: $(json_stringify(combination5, pretty=true))")
 # combination5: [
 #     "Mango",
 #     "Melon",
@@ -120,8 +170,8 @@ println("combination5: ", json_stringify(combination5, pretty=true))
 #     ]
 # ]
 
-combination6::Any = Any[fruits..., Any["Cucumber", "Cabbage"]]
-println("combination6: ", json_stringify(combination6, pretty=true))
+combination6::Any = Vector{Any}([fruits..., Vector{Any}(["Cucumber", "Cabbage"])])
+println("combination6: $(json_stringify(combination6, pretty=true))")
 # combination6: [
 #     "Mango",
 #     "Melon",
@@ -132,10 +182,10 @@ println("combination6: ", json_stringify(combination6, pretty=true))
 #     ]
 # ]
 
-println("# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
+println("\n# [...array1, object1] || [...array1, newArrayItem1, newArrayItem2]:\n")
 
-combination7::Any = Any[fruits..., country_capitals_in_asia]
-println("combination7: ", json_stringify(combination7, pretty=true))
+combination7::Any = Vector{Any}([fruits..., country_capitals_in_asia])
+println("combination7: $(json_stringify(combination7, pretty=true))")
 # combination7: [
 #     "Mango",
 #     "Melon",
@@ -147,8 +197,8 @@ println("combination7: ", json_stringify(combination7, pretty=true))
 #     }
 # ]
 
-combination8::Any = Any[fruits..., Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome")]
-println("combination8: ", json_stringify(combination8, pretty=true))
+combination8::Any = Vector{Any}([fruits..., Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome")])
+println("combination8: $(json_stringify(combination8, pretty=true))")
 # combination8: [
 #     "Mango",
 #     "Melon",
@@ -159,10 +209,10 @@ println("combination8: ", json_stringify(combination8, pretty=true))
 #     }
 # ]
 
-println("# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
+println("\n# { ...object1, object2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination9::Any = Dict{String, Any}(country_capitals_in_asia..., "country_capitals_in_europe" => country_capitals_in_europe)
-println("combination9: ", json_stringify(combination9, pretty=true))
+println("combination9: $(json_stringify(combination9, pretty=true))")
 # combination9: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -174,7 +224,7 @@ println("combination9: ", json_stringify(combination9, pretty=true))
 # }
 
 combination10::Any = Dict{String, Any}(country_capitals_in_asia..., "country_capitals_in_europe" => Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome"))
-println("combination10: ", json_stringify(combination10, pretty=true))
+println("combination10: $(json_stringify(combination10, pretty=true))")
 # combination10: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -185,10 +235,10 @@ println("combination10: ", json_stringify(combination10, pretty=true))
 #     }
 # }
 
-println("# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
+println("\n# { ...object1, array2 } || { ...object1, objectKey: objectValue }:\n")
 
 combination11::Any = Dict{String, Any}(country_capitals_in_asia..., "vegetables" => vegetables)
-println("combination11: ", json_stringify(combination11, pretty=true))
+println("combination11: $(json_stringify(combination11, pretty=true))")
 # combination11: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -199,8 +249,8 @@ println("combination11: ", json_stringify(combination11, pretty=true))
 #     ]
 # }
 
-combination12::Any = Dict{String, Any}(country_capitals_in_asia..., "vegetables" => Any["Cucumber", "Cabbage"])
-println("combination12: ", json_stringify(combination12, pretty=true))
+combination12::Any = Dict{String, Any}(country_capitals_in_asia..., "vegetables" => Vector{Any}(["Cucumber", "Cabbage"]))
+println("combination12: $(json_stringify(combination12, pretty=true))")
 # combination12: {
 #     "Thailand": "Bangkok",
 #     "China": "Beijing",
@@ -211,10 +261,10 @@ println("combination12: ", json_stringify(combination12, pretty=true))
 #     ]
 # }
 
-println("# { ...object1, ...array2 }:\n")
+println("\n# { ...object1, ...array2 }:\n")
 
-combination13::Any = Dict{String, Any}(country_capitals_in_asia..., array_to_object(vegetables)...)
-println("combination13: ", json_stringify(combination13, pretty=true))
+combination13::Any = Dict{String, Any}(country_capitals_in_asia..., array_entries(vegetables)...)
+println("combination13: $(json_stringify(combination13, pretty=true))")
 # combination13: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -223,8 +273,8 @@ println("combination13: ", json_stringify(combination13, pretty=true))
 #    "2" : "Tomato"
 # }
 
-combination14::Any = Dict{String, Any}(country_capitals_in_asia..., array_to_object(["Cucumber", "Cabbage"])...)
-println("combination14: ", json_stringify(combination14, pretty=true))
+combination14::Any = Dict{String, Any}(country_capitals_in_asia..., array_entries(["Cucumber", "Cabbage"])...)
+println("combination14: $(json_stringify(combination14, pretty=true))")
 # combination14: {
 #    "Thailand" : "Bangkok",
 #    "China" : "Beijing",
@@ -233,12 +283,12 @@ println("combination14: ", json_stringify(combination14, pretty=true))
 #    "2" : "Cabbage"
 # }
 
-# println("# [...array1, ...object1]: // this combination throw an error in JavaScript\n")
+# println("\n# [...array1, ...object1]: // this combination throw an error in JavaScript\n")
 
 # this combination throw an error in JavaScript
-# combination_error_in_javascript1::Any = Any[fruits..., country_capitals_in_asia...]
-# println("combination_error_in_javascript1: ", json_stringify(combination_error_in_javascript1, pretty=true))
+# combination_error_in_javascript1::Any = Vector{Any}([fruits..., country_capitals_in_asia...])
+# println("combination_error_in_javascript1: $(json_stringify(combination_error_in_javascript1, pretty=true))")
 
 # this combination throw an error in JavaScript
-# combination_error_in_javascript2::Any = Any[fruits..., Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome")...]
-# println("combination_error_in_javascript2: ", json_stringify(combination_error_in_javascript2, pretty=true))
+# combination_error_in_javascript2::Any = Vector{Any}([fruits..., Dict{String, Any}("Germany" => "Berlin", "Italy" => "Rome")...])
+# println("combination_error_in_javascript2: $(json_stringify(combination_error_in_javascript2, pretty=true))")

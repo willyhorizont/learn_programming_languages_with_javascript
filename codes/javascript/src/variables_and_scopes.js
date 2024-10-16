@@ -25,7 +25,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // local scope: function scope, block scope ({}, if{}, for{}, while{})
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope block scope {}
+
 {
     var xxx = "local_scope_block_scope {}, 00"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_block_scope {}, 10"; // doesn't throw error when redefined !
@@ -43,7 +45,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope block scope if{}
+
 if (true) {
     var xxx = "local_scope_block_scope if{}, 00"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_block_scope if{}, 10"; // doesn't throw error when redefined !
@@ -61,7 +65,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope block scope for{}
+
 for (let i = 0; (i < 1); i += 1) {
     var xxx = "local_scope_block_scope for{}, 00"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_block_scope for{}, 10"; // doesn't throw error when redefined !
@@ -79,7 +85,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope block scope while{}
+
 while (true) {
     var xxx = "local_scope_block_scope while{}, 00"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_block_scope while{}, 10"; // doesn't throw error when redefined !
@@ -98,7 +106,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope function scope function () {}
+
 (function () {
     var xxx = "local_scope_function_scope function () {}, 000"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_function_scope function () {}, 100"; // doesn't throw error when redefined !
@@ -116,7 +126,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // console.log(`aaa: ${aaa}`); // "aaa" is not defined
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope function scope () => {}
+
 (() => {
     var xxx = "local_scope_function_scope () => {}, 000"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_function_scope () => {}, 100"; // doesn't throw error when redefined !
@@ -136,7 +148,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // local scope function scope (function () {}, () => {}) inside local scope block scope ({}, if{}, for{}, while{})
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope block scope {}
+
 {
     var xxx = "local_scope_block_scope {}, 00"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_block_scope {}, 10"; // doesn't throw error when redefined !
@@ -174,7 +188,9 @@ console.log(`zzz: ${zzz}`); // zzz: global_scope, 3
 // local scope block scope ({}, if{}, for{}, while{}) inside local scope function scope (function () {}, () => {})
 
 var xxx = "global_scope, 1"; // doesn't throw error when redefined !
+
 // local scope function scope
+
 (function () {
     var xxx = "local_scope_function_scope, 000"; // "var" instantiate function scope!, allow redefinement and allow reassignment !, don't ever use this !, this used in legacy code before ECMAScript 6 (ES6) 2015 !
     var xxx = "local_scope_function_scope, 100"; // doesn't throw error when redefined !

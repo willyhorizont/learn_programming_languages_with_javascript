@@ -59,7 +59,7 @@ pipe(17, plus25, multiplyBy10, console.log); // read from left to right
 
 console.log(pipe(17, plus25, multiplyBy10)); // read from left to right
 
-const makeNumbersEasyToSay = (aNumber) => (`${Math.trunc(aNumber)}.something`);
+const makeNumberEasyToSay = (aNumber) => (`${Math.trunc(aNumber)}.something`);
 
 const getCircleAreaInSquareCm = (radiusInCm) => (3.14 * (radiusInCm ** 2));
 
@@ -67,8 +67,8 @@ const getCylinderVolumeInMlOrCubicCm = (circleAreaInSquareCm, heightInCm) => (ci
 
 const getMassInMlOrCubicCm = (volumeInMlOrCubicCm, densityInGramPerMlOrCubicCm) => (volumeInMlOrCubicCm * densityInGramPerMlOrCubicCm);
 
-console.log(makeNumbersEasyToSay(getMassInMlOrCubicCm(getCylinderVolumeInMlOrCubicCm(getCircleAreaInSquareCm(7), 10), 0.72587))); // read from inside to outside
+console.log(makeNumberEasyToSay(getMassInMlOrCubicCm(getCylinderVolumeInMlOrCubicCm(getCircleAreaInSquareCm(7), 10), 0.72587))); // read from inside to outside
 
-pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumbersEasyToSay, console.log); // read from left to right
+pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumberEasyToSay, console.log); // read from left to right
 
-console.log(pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumbersEasyToSay)); // read from left to right
+console.log(pipe(7, getCircleAreaInSquareCm, (x) => getCylinderVolumeInMlOrCubicCm(x, 10), (x) => getMassInMlOrCubicCm(x, 0.72587), makeNumberEasyToSay)); // read from left to right

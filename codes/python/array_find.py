@@ -14,7 +14,7 @@ js_like_type = {
 def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
     result = initial_value
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         result = callback_function(result, array_item, array_item_index, an_array)
     return result
 
@@ -62,7 +62,7 @@ def pipe(*rest_arguments):
 
 def json_stringify(anything, **optional_argument):
     '''custom JSON.stringify() function json_stringify_v2'''
-    indent = " " * 4
+    indent = (" " * 4)
     indent_level = 0
     pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
@@ -84,7 +84,7 @@ def json_stringify(anything, **optional_argument):
                 return "{" + "}"
             indent_level += 1
             result = (("{\n" + (indent * indent_level)) if (pretty == True) else "{ ")
-            for object_entry_index, (object_key, object_value) in enumerate(anything_inner.items()):
+            for (object_entry_index, (object_key, object_value)) in enumerate(anything_inner.items()):
                 result += f'"{object_key}": {json_stringify_inner(object_value)}'
                 if ((object_entry_index + 1) != len(anything_inner)):
                     result += ((f",\n{(indent * indent_level)}") if (pretty == True) else ", ")
@@ -118,7 +118,7 @@ def json_stringify(anything, **optional_argument):
 def array_find_v1(callback_function, an_array):
     '''JavaScript-like Array.find() function array_find_v1'''
     data_found = None
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
             data_found = array_item
@@ -129,7 +129,7 @@ def array_find_v1(callback_function, an_array):
 def array_find_v2(callback_function, an_array):
     '''JavaScript-like Array.find() function array_find_v2'''
     data_found = None
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
             data_found = array_item
             break
@@ -138,7 +138,7 @@ def array_find_v2(callback_function, an_array):
 
 def array_find_v3(callback_function, an_array):
     '''JavaScript-like Array.find() function array_find_v3'''
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         is_condition_match = callback_function(array_item, array_item_index, an_array)
         if (is_condition_match == True):
             return array_item
@@ -147,7 +147,7 @@ def array_find_v3(callback_function, an_array):
 
 def array_find_v4(callback_function, an_array):
     '''JavaScript-like Array.find() function array_find_v4'''
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         if (callback_function(array_item, array_item_index, an_array) == True):
             return array_item
     return None

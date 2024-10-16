@@ -309,16 +309,16 @@ func main() {
 		return nil
 	}
 
-	(consoleLog.(func(...interface{}) interface{}))("// Function Optional Argument and Function Default Argument Value in Go")
+	(consoleLog.(func(...interface{}) interface{}))("// Function Optional Keyword Argument and Function Default Argument Value in Go")
 
-	var functionOptionalArgumentDefaultArgumentValue interface{} = func(restArguments ...interface{}) interface{} {
+	var functionOptionalKeywordArgumentDefaultArgumentValue interface{} = func(restArguments ...interface{}) interface{} {
 		var prettyDefault interface{} = false
         var anything interface{} = restArguments[0]
 		var pretty interface{} = (nullishCoalescing.(func(...interface{}) interface{}))((optionalChaining.(func(...interface{}) interface{}))(((optionalChaining.(func(...interface{}) interface{}))(restArguments, 1)), "pretty"), prettyDefault)
 		(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("main function argument: ", []interface{}{anything}))
-		(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))(`optional function argument default value "pretty": `, []interface{}{pretty}))
+		(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))(`optional function keyword argument default value "pretty": `, []interface{}{pretty}))
 		return nil
     }
-	(functionOptionalArgumentDefaultArgumentValue.(func(...interface{}) interface{}))([]interface{}{"apple", "banana", "cherry"}, map[string]interface{}{"pretty": true})
-	(functionOptionalArgumentDefaultArgumentValue.(func(...interface{}) interface{}))([]interface{}{"apple", "banana", "cherry"})
+	(functionOptionalKeywordArgumentDefaultArgumentValue.(func(...interface{}) interface{}))([]interface{}{"apple", "banana", "cherry"}, map[string]interface{}{"pretty": true})
+	(functionOptionalKeywordArgumentDefaultArgumentValue.(func(...interface{}) interface{}))([]interface{}{"apple", "banana", "cherry"})
 }

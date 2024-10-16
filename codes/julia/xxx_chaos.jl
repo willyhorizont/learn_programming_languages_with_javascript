@@ -11,14 +11,14 @@ get_type::Any = (anything::Any) -> begin
     return '"' * typeof(anything) * '"'
 end
 
-function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
+function json_stringify(anything::Any; pretty::Bool = false, indent::String = "    ")::String
     indent_level::Any = 0
     function json_stringify_inner(anything_inner, indent_inner::String)::String
         if (anything_inner === nothing) return "null" end
         if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
         if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
         if (isa(anything_inner, Array) === true)
-            if (length(anything_inner) == 0) return "[]" end
+            if (length(anything_inner) === 0) return "[]" end
             indent_level += 1
             result_array::Any = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
             for (array_item_index, array_item) in enumerate(anything_inner)
@@ -30,7 +30,7 @@ function json_stringify(anything; pretty::Bool = false, indent::String = "    ")
             return result_array
         end
         if (isa(anything_inner, Dict) === true)
-            if (length(anything_inner) == 0) return "{}" end
+            if (length(anything_inner) === 0) return "{}" end
             indent_level += 1
             result_object::Any = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
             for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
@@ -64,3 +64,18 @@ country_capitals_in_europe::Any = Dict{String, Any}(
     "England" => "London"
 )
 println("country_capitals_in_europe: ", chomp(JSON.json(country_capitals_in_europe, 4)))
+
+#= 
+ == 
+Array
+change Any[] to Vector{Any}([])
+", json_stringify
+", [a-z_]+
+catch([^e]
+println.*,
+[ ]+[a-z]+ = 
+((() -> begin
+end)())::Any
+-> begin
+\$[a-z_]+
+=#

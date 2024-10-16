@@ -204,14 +204,14 @@ sub array_entries {
     return $new_object_entries_ref;
 }
 
-console_log("# Function Optional Argument and Function Default Argument Value in Perl");
+console_log("# Function Optional Keyword Argument and Function Default Argument Value in Perl");
 
-sub function_optional_argument_default_argument_value {
+sub function_optional_keyword_argument_default_argument_value {
     my ($anything_ref, %keyword_argument) = @_;
     my $optional_argument = {%keyword_argument};
     my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
     console_log(string_interpolation("main function argument: ", [$anything_ref]));
-    console_log(string_interpolation('optional function argument default value "pretty": ', [$pretty]));
+    console_log(string_interpolation('optional function keyword argument default value "pretty": ', [$pretty]));
 }
-function_optional_argument_default_argument_value(["apple", "banana", "cherry"], "pretty" => "true");
-function_optional_argument_default_argument_value(["apple", "banana", "cherry"]);
+function_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"], "pretty" => "true");
+function_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"]);

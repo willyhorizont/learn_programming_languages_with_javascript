@@ -14,7 +14,7 @@ js_like_type = {
 def array_reduce(callback_function, an_array, initial_value):
     '''JavaScript-like Array.reduce() function'''
     result = initial_value
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         result = callback_function(result, array_item, array_item_index, an_array)
     return result
 
@@ -62,7 +62,7 @@ def pipe(*rest_arguments):
 
 def json_stringify(anything, **optional_argument):
     '''custom JSON.stringify() function json_stringify_v2'''
-    indent = " " * 4
+    indent = (" " * 4)
     indent_level = 0
     pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
@@ -84,7 +84,7 @@ def json_stringify(anything, **optional_argument):
                 return "{" + "}"
             indent_level += 1
             result = (("{\n" + (indent * indent_level)) if (pretty == True) else "{ ")
-            for object_entry_index, (object_key, object_value) in enumerate(anything_inner.items()):
+            for (object_entry_index, (object_key, object_value)) in enumerate(anything_inner.items()):
                 result += f'"{object_key}": {json_stringify_inner(object_value)}'
                 if ((object_entry_index + 1) != len(anything_inner)):
                     result += ((f",\n{(indent * indent_level)}") if (pretty == True) else ", ")
@@ -114,7 +114,7 @@ def json_stringify(anything, **optional_argument):
 def array_map_v1(callback_function, an_array):
     '''JavaScript-like Array.map() function array_map_v1'''
     new_array = []
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         new_array_item = callback_function(array_item, array_item_index, an_array)
         new_array.append(new_array_item)
     return new_array
@@ -123,7 +123,7 @@ def array_map_v1(callback_function, an_array):
 def array_map_v2(callback_function, an_array):
     '''JavaScript-like Array.map() function array_map_v2'''
     new_array = []
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         new_array_item = callback_function(array_item, array_item_index, an_array)
         new_array = [*new_array, new_array_item]
     return new_array
@@ -132,7 +132,7 @@ def array_map_v2(callback_function, an_array):
 def array_map_v3(callback_function, an_array):
     '''JavaScript-like Array.map() function array_map_v3'''
     new_array = []
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         new_array.append(callback_function(array_item, array_item_index, an_array))
     return new_array
 
@@ -140,17 +140,17 @@ def array_map_v3(callback_function, an_array):
 def array_map_v4(callback_function, an_array):
     '''JavaScript-like Array.map() function array_map_v4'''
     new_array = []
-    for array_item_index, array_item in enumerate(an_array):
+    for (array_item_index, array_item) in enumerate(an_array):
         new_array = [*new_array, callback_function(array_item, array_item_index, an_array)]
     return new_array
 
 
 def array_map_v5(callback_function, an_array):
     '''JavaScript-like Array.map() function array_map_v5'''
-    return [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]
+    return [callback_function(array_item, array_item_index, an_array) for (array_item_index, array_item) in enumerate(an_array)]
 
 
-array_map_v6 = lambda callback_function, an_array: [callback_function(array_item, array_item_index, an_array) for array_item_index, array_item in enumerate(an_array)]  # '''JavaScript-like Array.map() function array_map_v6'''
+array_map_v6 = lambda callback_function, an_array: [callback_function(array_item, array_item_index, an_array) for (array_item_index, array_item) in enumerate(an_array)]  # '''JavaScript-like Array.map() function array_map_v6'''
 
 print("\n# JavaScript-like Array.map() in Python list")
 

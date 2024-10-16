@@ -102,10 +102,10 @@ console.log(`friend1, get country: ${jsonStringify(friend1?.country)}`);
 // friend1, get country: "Finland"
 
 // iterate over and print each key-value pair and object entry index
-Object.entries(friend1).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`friend1, for each loop, object entry index: ${objectEntryIndex}, key: ${jsonStringify(objectKey)}, value: ${jsonStringify(objectValue)}`));
-// friend1, for each loop, object entry index: 0, key: "name", value: "Alisa"
-// friend1, for each loop, object entry index: 1, key: "country", value: "Finland"
-// friend1, for each loop, object entry index: 2, key: "age", value: 25
+Object.entries(friend1).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`friend1, object entry index: ${objectEntryIndex}, key: ${jsonStringify(objectKey)}, value: ${jsonStringify(objectValue)}, for each loop`));
+// friend1, object entry index: 0, key: "name", value: "Alisa", for each loop
+// friend1, object entry index: 1, key: "country", value: "Finland", for each loop
+// friend1, object entry index: 2, key: "age", value: 25, for each loop
 
 friend1["age"] = 27;
 console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
@@ -158,10 +158,10 @@ console.log(`friend2, get country: ${jsonStringify(friend2?.get?.("country"))}`)
 // friend2, get country: "Finland"
 
 // iterate over and print each key-value pair and object entry index
-Object.entries(Object.fromEntries([...friend2])).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`friend2, for each loop, object entry index: ${objectEntryIndex}, key: ${jsonStringify(objectKey)}, value: ${jsonStringify(objectValue)}`));
-// friend2, for each loop, object entry index: 0, key: "name", value: "Alisa"
-// friend2, for each loop, object entry index: 1, key: "country", value: "Finland"
-// friend2, for each loop, object entry index: 2, key: "age", value: 25
+Object.entries(Object.fromEntries([...friend2])).forEach(([objectKey, objectValue], objectEntryIndex) => console.log(`friend2, object entry index: ${objectEntryIndex}, key: ${jsonStringify(objectKey)}, value: ${jsonStringify(objectValue)}, for each loop`));
+// friend2, object entry index: 0, key: "name", value: "Alisa", for each loop
+// friend2, object entry index: 1, key: "country", value: "Finland", for each loop
+// friend2, object entry index: 2, key: "age", value: 25, for each loop
 
 friend2.set("age", 27);
 console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);

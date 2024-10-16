@@ -158,20 +158,20 @@ function console_log(...$rest_arguments) {
     echo string_interpolation(...$rest_arguments) . "\n";
 };
 
-console_log("// Function Optional Argument and Function Default Argument Value in PHP");
+console_log("// Function Optional Keyword Argument and Function Default Argument Value in PHP");
 
-function function_v1_optional_argument_default_argument_value($anything, $optional_argument = ["pretty" => false]) {
+function function_v1_optional_keyword_argument_default_argument_value($anything, $optional_argument = ["pretty" => false]) {
     $pretty = (optional_chaining($optional_argument, "pretty") ?? false);
     console_log(string_interpolation("main function argument: ", [$anything]));
-    console_log(string_interpolation('optional function argument default value "pretty": ', [$pretty]));
+    console_log(string_interpolation('optional function keyword argument default value "pretty": ', [$pretty]));
 };
-function_v1_optional_argument_default_argument_value(["apple", "banana", "cherry"], ["pretty" => true]);
-function_v1_optional_argument_default_argument_value(["apple", "banana", "cherry"]);
+function_v1_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"], ["pretty" => true]);
+function_v1_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"]);
 
-$function_v2_optional_argument_default_argument_value = function ($anything, $optional_argument = ["pretty" => false]) {
+$function_v2_optional_keyword_argument_default_argument_value = function ($anything, $optional_argument = ["pretty" => false]) {
     $pretty = (optional_chaining($optional_argument, "pretty") ?? false);
     console_log(string_interpolation("main function argument: ", [$anything]));
-    console_log(string_interpolation('optional function argument default value "pretty": ', [$pretty]));
+    console_log(string_interpolation('optional function keyword argument default value "pretty": ', [$pretty]));
 };
-$function_v2_optional_argument_default_argument_value(["apple", "banana", "cherry"], ["pretty" => true]);
-$function_v2_optional_argument_default_argument_value(["apple", "banana", "cherry"]);
+$function_v2_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"], ["pretty" => true]);
+$function_v2_optional_keyword_argument_default_argument_value(["apple", "banana", "cherry"]);

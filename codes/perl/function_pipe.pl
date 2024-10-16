@@ -235,7 +235,7 @@ pipe_v2(17, \&plus25, \&multiply_by10, \&console_log); # read from left to right
 
 console_log(pipe_v2(17, \&plus25, \&multiply_by10)); # read from left to right
 
-sub make_numbers_easy_to_say {
+sub make_number_easy_to_say {
     my ($a_number) = @_;
     return (string_interpolation(int($a_number), ".something"));
 }
@@ -255,8 +255,8 @@ sub get_mass_in_ml_or_cubic_cm {
     return ($volume_in_ml_or_cubic_cm * $density_in_gram_per_ml_or_cubic_cm);
 }
 
-console_log(make_numbers_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587))); # read from inside to outside
+console_log(make_number_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587))); # read from inside to outside
 
-pipe_v2(7, \&get_circle_area_in_square_cm, sub { get_cylinder_volume_in_ml_or_cubic_cm([@_]->[0], 10) }, sub { get_mass_in_ml_or_cubic_cm([@_]->[0], 0.72587) }, \&make_numbers_easy_to_say, \&console_log); # read from left to right
+pipe_v2(7, \&get_circle_area_in_square_cm, sub { get_cylinder_volume_in_ml_or_cubic_cm([@_]->[0], 10) }, sub { get_mass_in_ml_or_cubic_cm([@_]->[0], 0.72587) }, \&make_number_easy_to_say, \&console_log); # read from left to right
 
-console_log(pipe_v2(7, \&get_circle_area_in_square_cm, sub { get_cylinder_volume_in_ml_or_cubic_cm([@_]->[0], 10) }, sub { get_mass_in_ml_or_cubic_cm([@_]->[0], 0.72587) }, \&make_numbers_easy_to_say)); # read from left to right
+console_log(pipe_v2(7, \&get_circle_area_in_square_cm, sub { get_cylinder_volume_in_ml_or_cubic_cm([@_]->[0], 10) }, sub { get_mass_in_ml_or_cubic_cm([@_]->[0], 0.72587) }, \&make_number_easy_to_say)); # read from left to right

@@ -1,22 +1,26 @@
 println("\n# Custom Error and Error Handling in Julia")
 
-function give_me_respect(argument::String)
+give_me_respect::Any = (argument::Any) -> (begin
     # Custom Error
-    if (argument != "respect") throw(ErrorException("Exception: You should give me \"respect\"!")) end
+    if (argument !== "respect") throw(ErrorException("Exception: You should give me \"respect\"!")) end
     return "Thank you for giving me \"respect\"!"
-end
+end)::Any
 
-# Error Handling
-try
-    response_1::Any = give_me_respect("boo!")
-    println(response_1)
-catch an_exception
-    println(an_exception.msg)
-end
-println("I'm so sorry!")
+(() -> begin
+    # Error Handling
+    try
+        local response::Any = give_me_respect("boo!")
+        println(response)
+    catch (error_exception)
+        println(error_exception.msg)
+    end
+    println("I'm so sorry!")
+end)()
 
-# Without Error Handling
-response_2::Any = give_me_respect("boo!")
-# this will never executed
-println(response_2)
-println("I'm so sorry!")
+(() -> begin
+    # Without Error Handling
+    local response::Any = give_me_respect("boo!")
+    # this will never executed
+    println(response)
+    println("I'm so sorry!")
+end)()

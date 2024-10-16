@@ -394,7 +394,7 @@ func main() {
 
 	(consoleLog.(func(...interface{}) interface{}))((pipe.(func(...interface{}) interface{}))(17, plus25, multiplyBy10)) // read from left to right
 
-	var makeNumbersEasyToSay interface{} = func(restArguments ...interface{}) interface{} {
+	var makeNumberEasyToSay interface{} = func(restArguments ...interface{}) interface{} {
 		var aNumber interface{} = restArguments[0]
         return ((stringInterpolation.(func(...interface{}) interface{}))(int((getFloat64.(func(...interface{}) interface{}))(aNumber).(float64)), ".something"))
     }
@@ -416,7 +416,7 @@ func main() {
         return ((getFloat64.(func(...interface{}) interface{}))(volumeInMlOrCubicCm).(float64) * (getFloat64.(func(...interface{}) interface{}))(densityInGramPerMlOrCubicCm).(float64))
     }
 
-	(consoleLog.(func(...interface{}) interface{}))((makeNumbersEasyToSay.(func(...interface{}) interface{}))((getMassInMlOrCubicCm.(func(...interface{}) interface{}))((getCylinderVolumeInMlOrCubicCm.(func(...interface{}) interface{}))((getCircleAreaInSquareCm.(func(...interface{}) interface{}))(7), 10), 0.72587))) // read from inside to outside
+	(consoleLog.(func(...interface{}) interface{}))((makeNumberEasyToSay.(func(...interface{}) interface{}))((getMassInMlOrCubicCm.(func(...interface{}) interface{}))((getCylinderVolumeInMlOrCubicCm.(func(...interface{}) interface{}))((getCircleAreaInSquareCm.(func(...interface{}) interface{}))(7), 10), 0.72587))) // read from inside to outside
 
 	(pipe.(func(...interface{}) interface{}))(7, getCircleAreaInSquareCm, func(restArguments ...interface{}) interface{} {
 		var x interface{} = restArguments[0]
@@ -424,7 +424,7 @@ func main() {
 	}, func(restArguments ...interface{}) interface{} {
 		var x interface{} = restArguments[0]
 		return (getMassInMlOrCubicCm.(func(...interface{}) interface{}))(x, 0.72587)
-	}, makeNumbersEasyToSay, func(restArguments ...interface{}) interface{} {
+	}, makeNumberEasyToSay, func(restArguments ...interface{}) interface{} {
 		var x interface{} = restArguments[0]
 		(consoleLog.(func(...interface{}) interface{}))(x)
 		return nil
@@ -441,7 +441,7 @@ func main() {
 			var x interface{} = restArguments[0]
 			return (getMassInMlOrCubicCm.(func(...interface{}) interface{}))(x, 0.72587)
 		},
-		makeNumbersEasyToSay,
+		makeNumberEasyToSay,
 		func(restArguments ...interface{}) interface{} {
 			var x interface{} = restArguments[0]
 			(consoleLog.(func(...interface{}) interface{}))(x)
@@ -455,7 +455,7 @@ func main() {
 	}, func(restArguments ...interface{}) interface{} {
 		var x interface{} = restArguments[0]
 		return (getMassInMlOrCubicCm.(func(...interface{}) interface{}))(x, 0.72587)
-	}, makeNumbersEasyToSay)) // read from left to right
+	}, makeNumberEasyToSay)) // read from left to right
 
 	(consoleLog.(func(...interface{}) interface{}))((pipe.(func(...interface{}) interface{}))(
 		7,
@@ -468,6 +468,6 @@ func main() {
 			var x interface{} = restArguments[0]
 			return (getMassInMlOrCubicCm.(func(...interface{}) interface{}))(x, 0.72587)
 		},
-		makeNumbersEasyToSay,
+		makeNumberEasyToSay,
 	)) // read from left to right
 }

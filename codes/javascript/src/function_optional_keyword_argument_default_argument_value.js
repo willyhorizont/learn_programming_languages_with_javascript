@@ -77,25 +77,25 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
     return jsonStringifyInner(anything);
 };
 
-console.log("// Function Optional Argument and Function Default Argument Value in JavaScript");
+console.log("// Function Optional Keyword Argument and Function Default Argument Value in JavaScript");
 
-function functionV1OptionalArgumentDefaultArgumentValue(anything, { pretty = false } = {}) {
+function functionV1OptionalKeywordArgumentDefaultArgumentValue(anything, { pretty = false } = {}) {
     console.log(`main function argument: ${jsonStringify(anything)}`);
-    console.log(`optional function argument default value "pretty": ${jsonStringify(pretty)}`);
+    console.log(`optional function keyword argument default value "pretty": ${jsonStringify(pretty)}`);
 }
-functionV1OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
-functionV1OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);
+functionV1OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
+functionV1OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);
 
-const functionV2OptionalArgumentDefaultArgumentValue = function (anything, { pretty = false } = {}) {
+const functionV2OptionalKeywordArgumentDefaultArgumentValue = function (anything, { pretty = false } = {}) {
     console.log(`main function argument: ${jsonStringify(anything)}`);
-    console.log(`optional function argument default value "pretty": ${jsonStringify(pretty)}`);
+    console.log(`optional function keyword argument default value "pretty": ${jsonStringify(pretty)}`);
 };
-functionV2OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
-functionV2OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);
+functionV2OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
+functionV2OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);
 
-const functionV3OptionalArgumentDefaultArgumentValue = (anything, { pretty = false } = {}) => {
+const functionV3OptionalKeywordArgumentDefaultArgumentValue = (anything, { pretty = false } = {}) => {
     console.log(`main function argument: ${jsonStringify(anything)}`);
-    console.log(`optional function argument default value "pretty": ${jsonStringify(pretty)}`);
+    console.log(`optional function keyword argument default value "pretty": ${jsonStringify(pretty)}`);
 };
-functionV3OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
-functionV3OptionalArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);
+functionV3OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"], { pretty: true });
+functionV3OptionalKeywordArgumentDefaultArgumentValue(["apple", "banana", "cherry"]);

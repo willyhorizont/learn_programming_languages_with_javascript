@@ -184,10 +184,10 @@ pipe(17, $plus25, $multiply_by10, $console_log); // read from left to right
 
 console_log(pipe(17, $plus25, $multiply_by10)); // read from left to right
 
-function make_numbers_easy_to_say($a_number) {
+function make_number_easy_to_say($a_number) {
     return (string_interpolation(intval($a_number), ".something"));
 };
-$make_numbers_easy_to_say = fn(...$_) => make_numbers_easy_to_say(...$_);
+$make_number_easy_to_say = fn(...$_) => make_number_easy_to_say(...$_);
 
 function get_circle_area_in_square_cm($radius_in_cm) {
     return (3.14 * ($radius_in_cm ** 2));
@@ -204,12 +204,12 @@ function get_mass_in_ml_or_cubic_cm($volume_in_ml_or_cubic_cm, $density_in_gram_
 }
 $get_mass_in_ml_or_cubic_cm = fn(...$_) => get_mass_in_ml_or_cubic_cm(...$_);
 
-console_log(make_numbers_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587))); // read from inside to outside
+console_log(make_number_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587))); // read from inside to outside
 
-pipe(7, (fn($_) => get_circle_area_in_square_cm($_)), (fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10)), (fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587)), (fn($_) => make_numbers_easy_to_say($_)), (fn($_) => console_log($_))); // read from left to right
+pipe(7, (fn($_) => get_circle_area_in_square_cm($_)), (fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10)), (fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587)), (fn($_) => make_number_easy_to_say($_)), (fn($_) => console_log($_))); // read from left to right
 
-console_log(pipe(7, (fn($_) => get_circle_area_in_square_cm($_)), (fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10)), (fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587)), (fn($_) => make_numbers_easy_to_say($_)))); // read from left to right
+console_log(pipe(7, (fn($_) => get_circle_area_in_square_cm($_)), (fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10)), (fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587)), (fn($_) => make_number_easy_to_say($_)))); // read from left to right
 
-pipe(7, $get_circle_area_in_square_cm, fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10), fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587), $make_numbers_easy_to_say, $console_log); // read from left to right
+pipe(7, $get_circle_area_in_square_cm, fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10), fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587), $make_number_easy_to_say, $console_log); // read from left to right
 
-console_log(pipe(7, $get_circle_area_in_square_cm, fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10), fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587), $make_numbers_easy_to_say)); // read from left to right
+console_log(pipe(7, $get_circle_area_in_square_cm, fn($_) => get_cylinder_volume_in_ml_or_cubic_cm($_, 10), fn($_) => get_mass_in_ml_or_cubic_cm($_, 0.72587), $make_number_easy_to_say)); // read from left to right

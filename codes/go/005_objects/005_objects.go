@@ -333,12 +333,12 @@ func main() {
 		var objectKey interface{} = 0
 		var objectValue interface{} = 0
 		for objectKey, objectValue = range (friend.(map[string]interface{})) {
-			(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("friend, for loop, object entry index: ", []interface{}{objectEntryIndex}, ", key: ", []interface{}{objectKey}, ", item: ", []interface{}{objectValue}))
+			(consoleLog.(func(...interface{}) interface{}))((stringInterpolation.(func(...interface{}) interface{}))("friend, object entry index: ", []interface{}{objectEntryIndex}, ", key: ", []interface{}{objectKey}, ", item: ", []interface{}{objectValue}, ", for loop"))
 			objectEntryIndex = ((objectEntryIndex.(int)) + 1)
 		}
-		// friend, for loop, object entry index: 0 ,key: "name", item: "Alisa"
-		// friend, for loop, object entry index: 1 ,key: "country", item: "Finland"
-		// friend, for loop, object entry index: 2 ,key: "age", item: 25
+		// friend, object entry index: 0 ,key: "name", item: "Alisa", for loop
+		// friend, object entry index: 1 ,key: "country", item: "Finland", for loop
+		// friend, object entry index: 2 ,key: "age", item: 25, for loop
 	}
 
 	(friend.(map[string]interface{}))["age"] = 27

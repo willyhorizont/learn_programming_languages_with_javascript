@@ -1,73 +1,129 @@
-function json_stringify(anything; pretty::Bool = false, indent::String = "    ")::String
-    indent_level::Any = 0
-    function json_stringify_inner(anything_inner, indent_inner::String)::String
-        if (anything_inner === nothing) return "null" end
-        if (isa(anything_inner, AbstractString) === true) return "\"$(anything_inner)\"" end
-        if ((isa(anything_inner, Number) === true) || (isa(anything_inner, Bool) === true)) return "$(anything_inner)" end
-        if (isa(anything_inner, Array) === true)
-            if (length(anything_inner) == 0) return "[]" end
-            indent_level += 1
-            result_array::Any = ((pretty === true) ? "[\n$(repeat(indent_inner, indent_level))" : "[")
-            for (array_item_index, array_item) in enumerate(anything_inner)
-                result_array *= json_stringify_inner(array_item, indent_inner)
-                if (array_item_index !== length(anything_inner)) result_array *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_array *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))]" : "]")
-            return result_array
-        end
-        if (isa(anything_inner, Dict) === true)
-            if (length(anything_inner) == 0) return "{}" end
-            indent_level += 1
-            result_object::Any = ((pretty === true) ? "{\n$(repeat(indent_inner, indent_level))" : "{")
-            for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
-                result_object *= "\"$(object_key)\": $(json_stringify_inner(object_value, indent_inner))"
-                if (object_entry_index !== length(anything_inner)) result_object *= ((pretty === true) ? ",\n$(repeat(indent_inner, indent_level))" : ", ") end
-            end
-            indent_level -= 1
-            result_object *= ((pretty === true) ? "\n$(repeat(indent_inner, indent_level))}" : "}")
-            return result_object
-        end
-        return "null"
-    end
-    return json_stringify_inner(anything, indent)
+struct js_like_type_struct
+    Null::Any
+    Boolean::Any
+    String::Any
+    Numeric::Any
+    Object::Any
+    Array::Any
+    Function::Any
 end
 
-function array_reduce(callback_function, an_array, initial_value)
+js_like_type::Any = js_like_type_struct(
+    "Null",
+    "Boolean",
+    "String",
+    "Numeric",
+    "Object",
+    "Array",
+    "Function"
+)
+
+is_like_js_null::Any = (anything::Any) -> ((anything === nothing) && (isnothing(anything) === true))::Any
+
+is_like_js_boolean::Any = (anything::Any) -> ((isa(anything, Bool) === true) && ((anything === true) || (anything === false)))::Any
+
+is_like_js_string::Any = (anything::Any) -> (isa(anything, AbstractString) === true)::Any
+
+is_like_js_numeric::Any = (anything::Any) -> (isa(anything, Number) === true)::Any
+
+is_like_js_object::Any = (anything::Any) -> (isa(anything, Dict{String, Any}) === true)::Any
+
+is_like_js_array::Any = (anything::Any) -> ((isa(anything, Array{Any, 1}) === true) && (isa(anything, Vector{Any}) === true))::Any
+
+is_like_js_function::Any = (anything::Any) -> (isa(anything, Function) === true)::Any
+
+get_type::Any = (anything::Any) -> (begin
+    if (is_like_js_null(anything) === true) return (js_like_type.Null)::Any end
+    if (is_like_js_boolean(anything) === true) return (js_like_type.Boolean)::Any end
+    if (is_like_js_string(anything) === true) return (js_like_type.String)::Any end
+    if (is_like_js_numeric(anything) === true) return (js_like_type.Numeric)::Any end
+    if (is_like_js_object(anything) === true) return (js_like_type.Object)::Any end
+    if (is_like_js_array(anything) === true) return (js_like_type.Array)::Any end
+    if (is_like_js_function(anything) === true) return (js_like_type.Function)::Any end
+    return ("\"$(typeof(anything))\"")::Any
+end)::Any
+
+json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
+    # custom JSON.stringify() function
+    local indent::Any = repeat(" ", 4)
+    local indent_level::Any = 0
+    local json_stringify_inner::Any = (anything_inner::Any) -> (begin
+        if (get_type(anything_inner) === js_like_type.Null) return ("null")::Any end
+        if (get_type(anything_inner) === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
+        if ((get_type(anything_inner) === js_like_type.Numeric) || (get_type(anything_inner) === js_like_type.Boolean)) return ("$(anything_inner)")::Any end
+        if (get_type(anything_inner) === js_like_type.Array)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("[]")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "[\n$(repeat(indent, indent_level))" : "[")
+                for (array_item_index, array_item) in enumerate(anything_inner)
+                    result *= json_stringify_inner(array_item)
+                    if (array_item_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))]" : "]")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Object)
+            return ((() -> begin
+                if (length(anything_inner) === 0) return ("{}")::Any end
+                indent_level += 1
+                local result::Any = ((pretty === true) ? "{\n$(repeat(indent, indent_level))" : "{ ")
+                for (object_entry_index, (object_key, object_value)) in enumerate(pairs(anything_inner))
+                    result *= "\"$(object_key)\": $(json_stringify_inner(object_value))"
+                    if (object_entry_index !== length(anything_inner))
+                        result *= ((pretty === true) ? ",\n$(repeat(indent, indent_level))" : ", ")
+                    end
+                end
+                indent_level -= 1
+                result *= ((pretty === true) ? "\n$(repeat(indent, indent_level))}" : " }")
+                return (result)::Any
+            end)())::Any
+        end
+        if (get_type(anything_inner) === js_like_type.Function) return ("\"[object Function]\"")::Any end
+        return ("\"$(typeof(anything))\"")::Any
+    end)::Any
+    return (json_stringify_inner(anything))::Any
+end)::Any
+
+array_reduce::Any = (callback_function::Any, an_array::Any, initial_value::Any) -> (begin
     # JavaScript-like Array.reduce() function
-    result::Any = initial_value
+    local result::Any = initial_value
     for (array_item_index, array_item) in enumerate(an_array)
         result = callback_function(result, array_item, array_item_index, an_array)
     end
-    return result
-end
+    return (result)::Any
+end)::Any
 
-println("\n# JavaScript-like Array.reduce() in Julia Array")
+println("\n# JavaScript-like Array.reduce() in Julia Vector")
 
-numbers::Any = Any[36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3]
-println("numbers: ", json_stringify(numbers))
+numbers::Any = Vector{Any}([36, 57, 2.7, 2.3, -12, -34, -6.5, -4.3])
+println("numbers: $(json_stringify(numbers))")
 
 println("# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
-numbers_total::Any = array_reduce((current_result, current_number, _, _) -> (current_result + current_number), numbers, 0)
-println("total number: ", numbers_total)
+numbers_total::Any = array_reduce(((current_result::Any, current_number::Any, _, _) -> (current_result + current_number)::Any), numbers, 0)
+println("total number: $(numbers_total)")
 # total number: 41.2
 
 println("# using Julia Array.reduce() built-in function \"reduce\"")
 
-numbers_total::Any = reduce((current_result, current_number) -> (current_result + current_number), numbers; init=0)
-println("total number: ", numbers_total)
+numbers_total::Any = reduce(((current_result::Any, current_number::Any) -> (current_result + current_number)::Any), numbers; init=0)
+println("total number: $(numbers_total)")
 # total number: 41.2
 
 println("# using Julia Array.reduce() built-in function \"foldl\"")
 
-numbers_total::Any = foldl((current_result, current_number) -> (current_result + current_number), numbers; init=0)
-println("total number: ", numbers_total)
+numbers_total::Any = foldl(((current_result::Any, current_number::Any) -> (current_result + current_number)::Any), numbers; init=0)
+println("total number: $(numbers_total)")
 # total number: 41.2
 
-println("\n# JavaScript-like Array.reduce() in Julia Array of Dictionaries")
+println("\n# JavaScript-like Array.reduce() in Julia Vector of Dictionaries")
 
-products::Any = Any[
+products::Any = Vector{Any}([
     Dict{String, Any}(
         "code" => "pasta",
         "price" => 321
@@ -84,13 +140,13 @@ products::Any = Any[
         "code" => "towel",
         "price" => 499
     )
-]
-println("products: ", json_stringify(products, pretty=true))
+])
+println("products: $(json_stringify(products, pretty=true))")
 
 println("# using JavaScript-like Array.reduce() function \"array_reduce\"")
 
-products_grouped::Any = array_reduce((current_result, current_product, _, _) -> ((current_product["price"] > 100) ? Dict{String, Any}(current_result..., "expensive" => Any[current_result["expensive"]..., current_product]) : Dict{String, Any}(current_result..., "cheap" => Any[current_result["cheap"]..., current_product])), products, Dict{String, Any}("expensive" => Any[], "cheap" => Any[]))
-println("grouped products: ", json_stringify(products_grouped, pretty=true))
+products_grouped::Any = array_reduce(((current_result::Any, current_product::Any, _, _) -> (((try current_product["price"] catch (e) nothing end) > 100) ? (Dict{String, Any}(current_result..., "expensive" => Vector{Any}([(try current_result["expensive"] catch (e) Vector{Any}([]) end)..., current_product]))) : (Dict{String, Any}(current_result..., "cheap" => Vector{Any}([(try current_result["cheap"] catch (e) Vector{Any}([]) end)..., current_product]))))::Any), products, Dict{String, Any}("expensive" => Vector{Any}([]), "cheap" => Vector{Any}([])))
+println("grouped products: $(json_stringify(products_grouped, pretty=true))")
 # grouped products: {
 #     "expensive": [
 #         {
@@ -116,8 +172,8 @@ println("grouped products: ", json_stringify(products_grouped, pretty=true))
 
 println("# using Julia Array.reduce() built-in function \"reduce\"")
 
-products_grouped::Any = reduce((current_result, current_product) -> ((current_product["price"] > 100) ? Dict{String, Any}(current_result..., "expensive" => Any[current_result["expensive"]..., current_product]) : Dict{String, Any}(current_result..., "cheap" => Any[current_result["cheap"]..., current_product])), products; init=Dict{String, Any}("expensive" => Any[], "cheap" => Any[]))
-println("grouped products: ", json_stringify(products_grouped, pretty=true))
+products_grouped::Any = reduce(((current_result::Any, current_product::Any) -> (((try current_product["price"] catch (e) nothing end) > 100) ? (Dict{String, Any}(current_result..., "expensive" => Vector{Any}([(try current_result["expensive"] catch (e) Vector{Any}([]) end)..., current_product]))) : (Dict{String, Any}(current_result..., "cheap" => Vector{Any}([(try current_result["cheap"] catch (e) Vector{Any}([]) end)..., current_product]))))::Any), products; init=Dict{String, Any}("expensive" => Vector{Any}([]), "cheap" => Vector{Any}([])))
+println("grouped products: $(json_stringify(products_grouped, pretty=true))")
 # grouped products: {
 #     "expensive": [
 #         {
@@ -143,8 +199,8 @@ println("grouped products: ", json_stringify(products_grouped, pretty=true))
 
 println("# using Julia Array.reduce() built-in function \"foldl\"")
 
-products_grouped::Any = foldl((current_result, current_product) -> ((current_product["price"] > 100) ? Dict{String, Any}(current_result..., "expensive" => Any[current_result["expensive"]..., current_product]) : Dict{String, Any}(current_result..., "cheap" => Any[current_result["cheap"]..., current_product])), products; init=Dict{String, Any}("expensive" => Any[], "cheap" => Any[]))
-println("grouped products: ", json_stringify(products_grouped, pretty=true))
+products_grouped::Any = foldl(((current_result::Any, current_product::Any) -> (((try current_product["price"] catch (e) nothing end) > 100) ? (Dict{String, Any}(current_result..., "expensive" => Vector{Any}([(try current_result["expensive"] catch (e) Vector{Any}([]) end)..., current_product]))) : (Dict{String, Any}(current_result..., "cheap" => Vector{Any}([(try current_result["cheap"] catch (e) Vector{Any}([]) end)..., current_product]))))::Any), products; init=Dict{String, Any}("expensive" => Vector{Any}([]), "cheap" => Vector{Any}([])))
+println("grouped products: $(json_stringify(products_grouped, pretty=true))")
 # grouped products: {
 #     "expensive": [
 #         {
