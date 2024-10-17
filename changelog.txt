@@ -1,4 +1,13 @@
 =============================changelog==========================================
+(2024/10[Oct]/18[Fri]|12:13[AM]/00:13)
+1.0.79
+New:
+fix and improve json_stringify and Function Optional Keyword Argument and Function Default Argument Value in many .py
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/17[Thu]|03:27[AM]/03:27)
 1.0.78
 New:

@@ -40,31 +40,10 @@ optional_chaining = lambda anything, *rest_arguments: ((anything(*rest_arguments
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
 
-def pipe(*rest_arguments):
-    pipe_last_result = None
-
-
-    def pipe_array_reduce_callback(current_result, current_argument, *_):
-        nonlocal pipe_last_result
-        pipe_last_result = current_result
-        if (get_type(current_result) == js_like_type["Null"]):
-            return current_argument
-        if (get_type(current_argument) == js_like_type["Function"]):
-            return current_argument(current_result)
-        return None
-
-
-    pipe_result = array_reduce(pipe_array_reduce_callback, rest_arguments, None)
-    if (get_type(pipe_result) == js_like_type["Function"]):
-        return pipe_result(pipe_last_result)
-    return pipe_result
-
-
-def json_stringify(anything, **optional_argument):
+def json_stringify(anything, pretty=False):
     '''custom JSON.stringify() function json_stringify_v2'''
     indent = (" " * 4)
     indent_level = 0
-    pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
 
     def json_stringify_inner(anything_inner):
@@ -114,8 +93,7 @@ def json_stringify(anything, **optional_argument):
 print("# Function Optional Keyword Argument and Function Default Argument Value in Python")
 
 
-def function_optional_keyword_argument_default_argument_value(anything, **optional_argument):
-    pretty = nullish_coalescing(optional_chaining(optional_argument, "pretty"), False)
+def function_optional_keyword_argument_default_argument_value(anything, pretty=False):
     print(f'main function argument: {json_stringify(anything)}')
     print(f'optional function keyword argument default value "pretty": {json_stringify(pretty)}')
 

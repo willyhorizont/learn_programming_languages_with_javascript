@@ -60,11 +60,10 @@ def pipe(*rest_arguments):
     return pipe_result
 
 
-def json_stringify(anything, **optional_argument):
+def json_stringify(anything, pretty=False):
     '''custom JSON.stringify() function json_stringify_v2'''
     indent = (" " * 4)
     indent_level = 0
-    pretty = pipe(optional_chaining(optional_argument, "pretty"), lambda _: nullish_coalescing(_, False))
 
 
     def json_stringify_inner(anything_inner):
