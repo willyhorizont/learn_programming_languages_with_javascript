@@ -1,17 +1,9 @@
 <?php
 
-$js_like_type = [
-    "Null" => "Null",
-    "Boolean" => "Boolean",
-    "String" => "String",
-    "Numeric" => "Numeric",
-    "Object" => "Object",
-    "Array" => "Array",
-    "Function" => "Function"
-];
+$js_like_type = ["Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"];
 
-function array_reduce_v2($callback_function, $an_array, $initial_value) {
-    // JavaScript-like Array.reduce() function array_reduce_v2
+$array_reduce_v2 = function ($callback_function, $an_array, $initial_value) {
+    // JavaScript-like Array.reduce() function $array_reduce_v2
     $result = $initial_value;
     $array_item_index = 0;
     foreach ($an_array as $object_key => $object_value) {
@@ -21,8 +13,8 @@ function array_reduce_v2($callback_function, $an_array, $initial_value) {
     return $result;
 };
 
-function array_every($callback_function, $an_array) {
-    // JavaScript-like Array.every() function array_every_v4
+$array_every = function ($callback_function, $an_array) {
+    // JavaScript-like Array.every() function $array_every_v4
     $array_item_index = 0;
     foreach ($an_array as $object_key => $object_value) {
         if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
@@ -31,87 +23,45 @@ function array_every($callback_function, $an_array) {
     return true;
 };
 
-function is_like_js_null($anything) {
-    return (((gettype($anything) === "null") || (gettype($anything) === "NULL")) && (is_null($anything) === true) && (isset($anything) === false));
-};
+$is_like_js_null = fn($anything) => (((gettype($anything) === "null") || (gettype($anything) === "NULL")) && (is_null($anything) === true) && (isset($anything) === false));
 
-function is_like_js_boolean($anything) {
-    return (((gettype($anything) === "boolean") || (gettype($anything) === "bool")) && (is_bool($anything) === true) && (($anything === true) || ($anything === false)));
-};
+$is_like_js_boolean = fn($anything) => (((gettype($anything) === "boolean") || (gettype($anything) === "bool")) && (is_bool($anything) === true) && (($anything === true) || ($anything === false)));
 
-function is_like_js_string($anything) {
-    return ((gettype($anything) === "string") && (is_string($anything) === true));
-};
+$is_like_js_string = fn($anything) => ((gettype($anything) === "string") && (is_string($anything) === true));
 
-function is_like_js_numeric($anything) {
-    return (((gettype($anything) === "integer") || (gettype($anything) === "int") || (gettype($anything) === "float") || (gettype($anything) === "double")) && ((is_int($anything) === true) || (is_integer($anything) === true) || (is_float($anything) === true) || (is_double($anything) === true)) && (is_numeric($anything) === true));
-};
+$is_like_js_numeric = fn($anything) => (((gettype($anything) === "integer") || (gettype($anything) === "int") || (gettype($anything) === "float") || (gettype($anything) === "double")) && ((is_int($anything) === true) || (is_integer($anything) === true) || (is_float($anything) === true) || (is_double($anything) === true)) && (is_numeric($anything) === true));
 
-function is_like_js_array($anything) {
-    return ((gettype($anything) === "array") && (is_array($anything) === true));
-};
+$is_like_js_array = fn($anything) => ((gettype($anything) === "array") && (is_array($anything) === true));
 
-function is_like_js_object($anything) {
-    if (is_like_js_array($anything) === false) return false;
-    return array_every((fn($object_value) => (is_like_js_string($object_value) === true)), array_keys($anything));
-};
+$is_like_js_object = fn($anything) => (($is_like_js_array($anything) === false) ? false : ($array_every((fn($object_value) => ($is_like_js_string($object_value) === true)), array_keys($anything))));
 
-function is_like_js_function($anything) {
-    return (is_callable($anything) === true);
-};
+$is_like_js_function = fn($anything) => (is_callable($anything) === true);
 
-function get_type($anything) {
-    global $js_like_type;
-    if (is_like_js_null($anything) === true) return $js_like_type["Null"];
-    if (is_like_js_boolean($anything) === true) return $js_like_type["Boolean"];
-    if (is_like_js_string($anything) === true) return $js_like_type["String"];
-    if (is_like_js_numeric($anything) === true) return $js_like_type["Numeric"];
-    if (is_like_js_object($anything) === true) return $js_like_type["Object"];
-    if (is_like_js_array($anything) === true) return $js_like_type["Array"];
-    if (is_like_js_function($anything) === true) return $js_like_type["Function"];
-    return ('"' . gettype($anything) . '"');
-};
+$get_type = fn($anything) => (($is_like_js_null($anything) === true) ? ($js_like_type["Null"]) : (($is_like_js_boolean($anything) === true) ? ($js_like_type["Boolean"]) : ((($is_like_js_string($anything) === true) ? ($js_like_type["String"]) : (($is_like_js_numeric($anything) === true) ? ($js_like_type["Numeric"]) : ((($is_like_js_object($anything) === true) ? ($js_like_type["Object"]) : (($is_like_js_array($anything) === true) ? ($js_like_type["Array"]) : (($is_like_js_function($anything) === true) ? ($js_like_type["Function"]) : ('"' . gettype($anything) . '"'))))))))));
 
-function optional_chaining($anything, ...$array_index_or_object_key_or_function_argument_array) {
-    // JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v2
-    global $js_like_type;
-    if (get_type($anything) === $js_like_type["Function"]) return $anything(...$array_index_or_object_key_or_function_argument_array);
-    if (((get_type($anything) !== $js_like_type["Object"]) && (get_type($anything) !== $js_like_type["Array"])) || (count($array_index_or_object_key_or_function_argument_array) === 0)) return $anything;
-    return array_reduce_v2((function ($current_result, $current_item) use ($anything, $js_like_type) {
-        if ((get_type($current_result) === $js_like_type["Null"]) && (get_type($anything) === $js_like_type["Object"]) && (get_type($current_item) === $js_like_type["String"])) return @$anything[((string) $current_item)];
-        if ((get_type($current_result) === $js_like_type["Null"]) && (get_type($anything) === $js_like_type["Array"]) && (get_type($current_item) === $js_like_type["Numeric"]) && (((int) $current_item) >= 0) && (count($anything) > ((int) $current_item))) return @$anything[((int) $current_item)];
-        if ((get_type($current_result) === $js_like_type["Object"]) && (get_type($current_item) === $js_like_type["String"])) return @$current_result[((string) $current_item)];
-        if ((get_type($current_result) === $js_like_type["Array"]) && (get_type($current_item) === $js_like_type["Numeric"]) && (((int) $current_item) >= 0) && (count($current_result) > ((int) $current_item))) return @$current_result[((int) $current_item)];
-        return null;
-    }), $array_index_or_object_key_or_function_argument_array, null);
-};
+$optional_chaining = fn($anything, ...$array_index_or_object_key_or_function_argument_array) => (($get_type($anything) === $js_like_type["Function"]) ? ($anything(...$array_index_or_object_key_or_function_argument_array)) : (((($get_type($anything) !== $js_like_type["Object"]) && ($get_type($anything) !== $js_like_type["Array"])) || (count($array_index_or_object_key_or_function_argument_array) === 0)) ? ($anything) : ($array_reduce_v2((fn($current_result, $current_item) => ((($get_type($current_result) === $js_like_type["Null"]) && ($get_type($anything) === $js_like_type["Object"]) && ($get_type($current_item) === $js_like_type["String"])) ? (@$anything[((string) $current_item)]) : ((($get_type($current_result) === $js_like_type["Null"]) && ($get_type($anything) === $js_like_type["Array"]) && ($get_type($current_item) === $js_like_type["Numeric"]) && (((int) $current_item) >= 0) && (count($anything) > ((int) $current_item))) ? (@$anything[((int) $current_item)]) : ((($get_type($current_result) === $js_like_type["Object"]) && ($get_type($current_item) === $js_like_type["String"])) ? (@$current_result[((string) $current_item)]) : ((($get_type($current_result) === $js_like_type["Array"]) && ($get_type($current_item) === $js_like_type["Numeric"]) && (((int) $current_item) >= 0) && (count($current_result) > ((int) $current_item))) ? (@$current_result[((int) $current_item)]) : null))))), $array_index_or_object_key_or_function_argument_array, null))));
 
-function pipe(...$rest_arguments) {
-    global $js_like_type;
+$pipe = function (...$rest_arguments) use ($js_like_type, $get_type, $array_reduce_v2) {
     $pipe_last_result = null;
-    $pipe_result = array_reduce_v2((function ($current_result, $current_argument) use (&$pipe_last_result, $js_like_type) {
+    $pipe_result = $array_reduce_v2((function ($current_result, $current_argument) use (&$pipe_last_result, $js_like_type, $get_type) {
         $pipe_last_result = $current_result;
-        if (get_type($current_result) === $js_like_type["Null"]) return $current_argument;
-        if (get_type($current_argument) === $js_like_type["Function"]) return $current_argument($current_result);
-        return null;
+        return (($get_type($current_result) === $js_like_type["Null"]) ? ($current_argument) : (($get_type($current_argument) === $js_like_type["Function"]) ? ($current_argument($current_result)) : (null)));
     }), $rest_arguments, null);
-    if (get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
+    if ($get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
     return $pipe_result;
 };
 
-function json_stringify($anything, $optional_argument = ["pretty" => false]) {
-    // json_stringify_v4
-    $pretty = (optional_chaining($optional_argument, "pretty") ?? false);
+$json_stringify = function ($anything, $pretty = false) use ($js_like_type, $get_type) {
+    // $json_stringify_v4
     $indent = str_repeat(" ", 4);
     $indent_level = 0;
-    $json_stringify_inner = function ($anything_inner) use ($pretty, $indent, &$indent_level, &$json_stringify_inner) {
-        global $js_like_type;
-        if (get_type($anything_inner) === $js_like_type["Null"]) return "null";
-        if (get_type($anything_inner) === $js_like_type["String"]) return '"' . $anything_inner . '"';
-        if (get_type($anything_inner) === $js_like_type["Numeric"]) return ((string) $anything_inner);
-        if ((get_type($anything_inner) === $js_like_type["Boolean"]) || ($anything_inner === true)) return "true";
-        if ((get_type($anything_inner) === $js_like_type["Boolean"]) || ($anything_inner === false)) return "false";
-        if (get_type($anything_inner) === $js_like_type["Object"]) {
+    $json_stringify_inner = function ($anything_inner) use ($js_like_type, $get_type, $pretty, $indent, &$indent_level, &$json_stringify_inner) {
+        if ($get_type($anything_inner) === $js_like_type["Null"]) return "null";
+        if ($get_type($anything_inner) === $js_like_type["String"]) return '"' . $anything_inner . '"';
+        if ($get_type($anything_inner) === $js_like_type["Numeric"]) return ((string) $anything_inner);
+        if (($get_type($anything_inner) === $js_like_type["Boolean"]) && ($anything_inner === true)) return "true";
+        if (($get_type($anything_inner) === $js_like_type["Boolean"]) && ($anything_inner === false)) return "false";
+        if ($get_type($anything_inner) === $js_like_type["Object"]) {
             if (count($anything_inner) === 0) return "{}";
             $indent_level += 1;
             $result = (($pretty === true) ? ("{\n" . str_repeat($indent, $indent_level)) : "{ ");
@@ -127,7 +77,7 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
             $result .= (($pretty === true) ? ("\n" . str_repeat($indent, $indent_level) . "}") : " }");
             return $result;
         }
-        if (get_type($anything_inner) === $js_like_type["Array"]) {
+        if ($get_type($anything_inner) === $js_like_type["Array"]) {
             if (count($anything_inner) === 0) return "[]";
             $indent_level += 1;
             $result = (($pretty === true) ? ("[\n" . str_repeat($indent, $indent_level)) : "[");
@@ -143,80 +93,77 @@ function json_stringify($anything, $optional_argument = ["pretty" => false]) {
             $result .= (($pretty === true) ? ("\n" . str_repeat($indent, $indent_level) . "]") : "]");
             return $result;
         }
-        if (get_type($anything_inner) === $js_like_type["Function"]) return '"[object Function]"';
-        return '"' . get_type($anything_inner) . '"';
+        if ($get_type($anything_inner) === $js_like_type["Function"]) return '"[object Function]"';
+        return '"' . $get_type($anything_inner) . '"';
     };
     return $json_stringify_inner($anything);
 };
 
-function string_interpolation(...$rest_arguments) {
-    global $js_like_type;
-    return array_reduce_v2((fn($current_result, $current_argument) => ($current_result . ((get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : (((get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? (json_stringify(optional_chaining($current_argument, 0))) : (json_stringify($current_argument)))))), $rest_arguments, "");
+$string_interpolation = fn(...$rest_arguments) => $array_reduce_v2((fn($current_result, $current_argument) => ($current_result . (($get_type($current_argument) === $js_like_type["String"]) ? ($current_argument) : ((($get_type($current_argument) === $js_like_type["Array"]) && (count($current_argument) === 1)) ? ($json_stringify($optional_chaining($current_argument, 0))) : ($json_stringify($current_argument)))))), $rest_arguments, "");
+
+$console_log = function (...$rest_arguments) use ($string_interpolation) {
+    echo $string_interpolation(...$rest_arguments) . "\n";
 };
 
-function console_log(...$rest_arguments) {
-    echo string_interpolation(...$rest_arguments) . "\n";
-};
-
-function array_filter_v1($callback_function, $an_array) {
-    // JavaScript-like Array.filter() function array_filter_v1
+$array_filter_v1 = function ($callback_function, $an_array) {
+    // JavaScript-like Array.filter() function $array_filter_v1
     $data_filtered = [];
     $array_item_index = 0;
     foreach ($an_array as $object_key => $object_value) {
         $is_condition_match = $callback_function($object_value, $array_item_index, $an_array);
-        if ($is_condition_match) $data_filtered = [...$data_filtered, $object_value];
+        if ($is_condition_match) array_push($data_filtered, $object_value);
         $array_item_index += 1;
     }
     return $data_filtered;
 };
 
-function array_filter_v2($callback_function, $an_array) {
-    // JavaScript-like Array.filter() function array_filter_v2
+$array_filter_v2 = function ($callback_function, $an_array) {
+    // JavaScript-like Array.filter() function $array_filter_v2
     $data_filtered = [];
     $array_item_index = 0;
     foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === true) $data_filtered = [...$data_filtered, $object_value];
+        if ($callback_function($object_value, $array_item_index, $an_array) === true) array_push($data_filtered, $object_value);
         $array_item_index += 1;
     }
     return $data_filtered;
 };
 
-console_log("\n// JavaScript-like Array.filter() in PHP array");
+$console_log("\n// JavaScript-like Array.filter() in PHP array");
 
 $numbers = [12, 34, 27, 23, 65, 93, 36, 87, 4, 254];
-console_log(string_interpolation("numbers: ", [$numbers]));
+$console_log($string_interpolation("numbers: ", [$numbers]));
 
-console_log('// using JavaScript-like Array.filter() function "array_filter_v1"');
+$console_log('// using JavaScript-like Array.filter() function "$array_filter_v1"');
 
-$numbers_even = array_filter_v1((fn($any_number) => (($any_number % 2) === 0)), $numbers);
-console_log(string_interpolation("even numbers only: ", [$numbers_even]));
+$numbers_even = $array_filter_v1((fn($any_number) => (($any_number % 2) === 0)), $numbers);
+$console_log($string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
-$numbers_odd = array_filter_v1((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
-console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
+$numbers_odd = $array_filter_v1((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
+$console_log($string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
-console_log('// using JavaScript-like Array.filter() function "array_filter_v2"');
+$console_log('// using JavaScript-like Array.filter() function "$array_filter_v2"');
 
-$numbers_even = array_filter_v2((fn($any_number) => (($any_number % 2) === 0)), $numbers);
-console_log(string_interpolation("even numbers only: ", [$numbers_even]));
+$numbers_even = $array_filter_v2((fn($any_number) => (($any_number % 2) === 0)), $numbers);
+$console_log($string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
-$numbers_odd = array_filter_v2((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
-console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
+$numbers_odd = $array_filter_v2((fn($any_number) => (($any_number % 2) !== 0)), $numbers);
+$console_log($string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
-console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
+$console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
 
 $numbers_even = array_values(array_filter($numbers, (fn($any_number) => (($any_number % 2) === 0))));
-console_log(string_interpolation("even numbers only: ", [$numbers_even]));
+$console_log($string_interpolation("even numbers only: ", [$numbers_even]));
 // even numbers only: [12, 34, 36, 4, 254]
 
 $numbers_odd = array_values(array_filter($numbers, (fn($any_number) => (($any_number % 2) !== 0))));
-console_log(string_interpolation("odd numbers only: ", [$numbers_odd]));
+$console_log($string_interpolation("odd numbers only: ", [$numbers_odd]));
 // odd numbers only: [27, 23, 65, 93, 87]
 
-console_log("\n// JavaScript-like Array.filter() in PHP array of associative-arrays");
+$console_log("\n// JavaScript-like Array.filter() in PHP array of associative-arrays");
 
 $products = [
     [
@@ -236,12 +183,12 @@ $products = [
         "price" => 499
     ]
 ];
-console_log(string_interpolation("products: ", json_stringify($products, ["pretty" => true])));
+$console_log($string_interpolation("products: ", $json_stringify($products, pretty: true)));
 
-console_log('// using JavaScript-like Array.filter() function "array_filter_v1"');
+$console_log('// using JavaScript-like Array.filter() function "$array_filter_v1"');
 
-$products_below_100 = array_filter_v1((fn($any_product) => (optional_chaining($any_product, "price") <= 100)), $products);
-console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
+$products_below_100 = $array_filter_v1((fn($any_product) => ($optional_chaining($any_product, "price") <= 100)), $products);
+$console_log($string_interpolation("products with price <= 100 only: ", $json_stringify($products_below_100, pretty: true)));
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -249,8 +196,8 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_filter_v1((fn($any_product) => (optional_chaining($any_product, "price") > 100)), $products);
-console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
+$products_above_100 = $array_filter_v1((fn($any_product) => ($optional_chaining($any_product, "price") > 100)), $products);
+$console_log($string_interpolation("products with price > 100 only: ", $json_stringify($products_above_100, pretty: true)));
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -266,10 +213,10 @@ console_log(string_interpolation("products with price > 100 only: ", json_string
 //     }
 // ]
 
-console_log('// using JavaScript-like Array.filter() function "array_filter_v2"');
+$console_log('// using JavaScript-like Array.filter() function "$array_filter_v2"');
 
-$products_below_100 = array_filter_v2((fn($any_product) => (optional_chaining($any_product, "price") <= 100)), $products);
-console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
+$products_below_100 = $array_filter_v2((fn($any_product) => ($optional_chaining($any_product, "price") <= 100)), $products);
+$console_log($string_interpolation("products with price <= 100 only: ", $json_stringify($products_below_100, pretty: true)));
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -277,8 +224,8 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_filter_v2((fn($any_product) => (optional_chaining($any_product, "price") > 100)), $products);
-console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
+$products_above_100 = $array_filter_v2((fn($any_product) => ($optional_chaining($any_product, "price") > 100)), $products);
+$console_log($string_interpolation("products with price > 100 only: ", $json_stringify($products_above_100, pretty: true)));
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",
@@ -294,10 +241,10 @@ console_log(string_interpolation("products with price > 100 only: ", json_string
 //     }
 // ]
 
-console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
+$console_log('// using PHP Array.filter() built-in function "array_values(array_filter)"');
 
-$products_below_100 = array_values(array_filter($products, (fn($any_product) => (optional_chaining($any_product, "price") <= 100))));
-console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100, ["pretty" => true])));
+$products_below_100 = array_values(array_filter($products, (fn($any_product) => ($optional_chaining($any_product, "price") <= 100))));
+$console_log($string_interpolation("products with price <= 100 only: ", $json_stringify($products_below_100, pretty: true)));
 // products with price <= 100 only: [
 //     {
 //         "code": "potato_chips",
@@ -305,8 +252,8 @@ console_log(string_interpolation("products with price <= 100 only: ", json_strin
 //     }
 // ]
 
-$products_above_100 = array_values(array_filter($products, (fn($any_product) => (optional_chaining($any_product, "price") > 100))));
-console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100, ["pretty" => true])));
+$products_above_100 = array_values(array_filter($products, (fn($any_product) => ($optional_chaining($any_product, "price") > 100))));
+$console_log($string_interpolation("products with price > 100 only: ", $json_stringify($products_above_100, pretty: true)));
 // products with price > 100 only: [
 //     {
 //         "code": "pasta",

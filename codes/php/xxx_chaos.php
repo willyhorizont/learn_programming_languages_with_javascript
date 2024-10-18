@@ -18,6 +18,15 @@ console_log\((?!.*string_interpolation)
             return
 if.*\{[ \n]+return
 $array_item_index => $array_item
+
+function [a-z0-9_]+[a-z0-9_]?\(
+(?<!\$)get_type
+(?<!\$)[a-z]+_?
+["pretty" => true]
+'$
+('
+'.*\$.*'
+[...
 */
 
 $item1 = "something";
