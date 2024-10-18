@@ -1,7 +1,7 @@
 use strict;
 # use warnings;
 
-my $js_like_type = {
+my $js_like_type_ref = {
     "Null" => "Null",
     "Boolean" => "Boolean",
     "String" => "String",
@@ -69,15 +69,15 @@ sub is_like_js_function {
 
 sub get_type {
     my ($anything_ref) = @_;
-    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
     my $anything_ref_unknown_type = (ref $anything_ref);
-    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : $anything_ref_unknown_type);
 }
 
 sub throw_error_if_null {
@@ -96,15 +96,16 @@ sub negate {
 sub json_stringify {
     my ($anything_ref, %keyword_argument) = @_;
     my $optional_argument = {%keyword_argument};
-    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type_ref->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
     my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
         my ($anything_inner_ref) = @_;
-        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
-        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
-        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+        my $anything_inner_ref_type = get_type($anything_inner_ref);
+        return "null" if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"}));
+        return "[object Function]" if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Function"}));
+        if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) {
             my $object_keys_ref = [keys(%{$anything_inner_ref})];
             return "{}" if (scalar(@{$object_keys_ref}) == 0);
             $indent_level += 1;
@@ -119,7 +120,7 @@ sub json_stringify {
             $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
             return $result;
         }
-        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+        if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) {
             my $array_length = scalar(@{$anything_inner_ref});
             return "[]" if ($array_length == 0);
             $indent_level += 1;
@@ -133,32 +134,33 @@ sub json_stringify {
             $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
             return $result;
         }
-        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
-        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
-        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
-        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
-        return "null";
+        return "true" if (($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if (($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"String"}));
+        return string($anything_inner_ref) if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"}));
+        return $anything_inner_ref_type;
     };
     return $json_stringify_inner->($anything_ref);
 }
 
 sub array_reduce {
     # JavaScript-like Array.reduce() function
-    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
-    my $result = $initial_value;
+    my ($callback_function_ref, $an_array_ref, $initial_value_ref) = @_;
+    my $result_ref = $initial_value_ref;
     for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
-        my $array_item = $an_array_ref->[$array_item_index];
-        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+        my $array_item_ref = $an_array_ref->[$array_item_index];
+        $result_ref = $callback_function_ref->($result_ref, $array_item_ref, $array_item_index, $an_array_ref);
     }
-    return $result;
+    return $result_ref;
 }
 
 sub string_interpolation {
     return (array_reduce((sub {
-        my ($current_result, $current_argument) = @_;
-        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
-        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
-        return ($current_result . (json_stringify($current_argument)));
+        my ($current_result_ref, $current_argument_ref) = @_;
+        my $current_argument_type = get_type($current_argument_ref);
+        return ($current_result_ref . $current_argument_ref) if ($current_argument_type eq throw_error_if_null($js_like_type_ref->{"String"}));
+        return ($current_result_ref . (json_stringify($current_argument_ref->[0]))) if (($current_argument_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && (scalar(@{$current_argument_ref}) == 1));
+        return ($current_result_ref . (json_stringify($current_argument_ref)));
     }), \@_, ""));
 }
 
@@ -167,16 +169,19 @@ sub console_log {
 }
 
 sub optional_chaining {
-    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    my ($anything_ref, @array_index_or_object_key_or_function_argument_array) = @_;
     # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
-    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
-    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    my $anything_ref_type = get_type($anything_ref);
+    return $anything_ref->(@array_index_or_object_key_or_function_argument_array) if ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Function"}));
+    return $anything_ref if ((($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Object"})) && ($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
     return array_reduce((sub {
-        my ($current_result, $current_item) = @_;
-        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
-        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
-        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
-        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        my ($current_result_ref, $current_item_ref) = @_;
+        my $current_result_ref_type = get_type($current_result_ref);
+        my $current_item_ref_type = get_type($current_item_ref);
+        return $anything_ref->{(string($current_item_ref))} if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"})) && ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"String"})));
+        return $anything_ref->[(int($current_item_ref))] if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"})) && ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"})) && (((int($current_item_ref)) >= 0) || ((int($current_item_ref)) == -1)) && (scalar(@{$anything_ref}) > (int($current_item_ref))));
+        return $current_result_ref->{(string($current_item_ref))} if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"String"})));
+        return $current_result_ref->[(int($current_item_ref))] if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"})) && (((int($current_item_ref)) >= 0) || ((int($current_item_ref)) == -1)) && (scalar(@{$current_result_ref}) > (int($current_item_ref))));
         return undef;
     }), \@array_index_or_object_key_or_function_argument_array, undef);
 }
@@ -208,7 +213,7 @@ console_log("\n# Factorial(n) in Perl");
 
 sub factorial_v1 {
     my ($any_number) = @_;
-    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
+    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type_ref->{"Numeric"}));
     die("Argument should be >= 0") if ($any_number < 0);
     return 1 if ($any_number == 0);
     my $result = 1;
@@ -223,7 +228,7 @@ sub factorial_v1 {
 
 sub factorial_v2 {
     my ($any_number) = @_;
-    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
+    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type_ref->{"Numeric"}));
     die("Argument should be >= 0") if ($any_number < 0);
     return 1 if ($any_number == 0);
     my $result = 1;
@@ -237,7 +242,7 @@ sub factorial_v2 {
 
 sub factorial_v3 {
     my ($any_number) = @_;
-    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
+    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type_ref->{"Numeric"}));
     die("Argument should be >= 0") if ($any_number < 0);
     return 1 if ($any_number == 0);
     my $result = 1;
@@ -249,7 +254,7 @@ sub factorial_v3 {
 
 sub factorial_v4 {
     my ($any_number) = @_;
-    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type->{"Numeric"}));
+    die("Argument should be a number") if (get_type($any_number) ne throw_error_if_null($js_like_type_ref->{"Numeric"}));
     die("Argument should be >= 0") if ($any_number < 0);
     return 1 if ($any_number == 0);
     return ($any_number * factorial_v4($any_number - 1));

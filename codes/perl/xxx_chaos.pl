@@ -90,4 +90,6 @@ $array_item_index += 1;
 @{$fruits_ref}
 "false" to 00000
 "true" to "truthy"
+
+\(\$[a-z0-9_]+[a-z0-9_]?(?<!_ref)\)
 =cut

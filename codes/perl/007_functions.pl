@@ -1,7 +1,7 @@
 use strict;
 # use warnings;
 
-my $js_like_type = {
+my $js_like_type_ref = {
     "Null" => "Null",
     "Boolean" => "Boolean",
     "String" => "String",
@@ -69,15 +69,15 @@ sub is_like_js_function {
 
 sub get_type {
     my ($anything_ref) = @_;
-    return throw_error_if_null($js_like_type->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"String"}) if (is_like_js_string($anything_ref) eq "true");
-    return throw_error_if_null($js_like_type->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Function"}) if (is_like_js_function($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Object"}) if (is_like_js_object($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Array"}) if (is_like_js_array($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Boolean"}) if (is_like_js_boolean($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"String"}) if (is_like_js_string($anything_ref) eq "true");
+    return throw_error_if_null($js_like_type_ref->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
     my $anything_ref_unknown_type = (ref $anything_ref);
-    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : '"' . $anything_ref_unknown_type . '"');
+    return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : $anything_ref_unknown_type);
 }
 
 sub throw_error_if_null {
@@ -96,15 +96,16 @@ sub negate {
 sub json_stringify {
     my ($anything_ref, %keyword_argument) = @_;
     my $optional_argument = {%keyword_argument};
-    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type_ref->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
     my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
     $json_stringify_inner = sub {
         my ($anything_inner_ref) = @_;
-        return "null" if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Null"}));
-        return '"[object Function]"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Function"}));
-        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Object"})) {
+        my $anything_inner_ref_type = get_type($anything_inner_ref);
+        return "null" if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"}));
+        return "[object Function]" if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Function"}));
+        if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) {
             my $object_keys_ref = [keys(%{$anything_inner_ref})];
             return "{}" if (scalar(@{$object_keys_ref}) == 0);
             $indent_level += 1;
@@ -119,7 +120,7 @@ sub json_stringify {
             $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "}") : " }");
             return $result;
         }
-        if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Array"})) {
+        if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) {
             my $array_length = scalar(@{$anything_inner_ref});
             return "[]" if ($array_length == 0);
             $indent_level += 1;
@@ -133,32 +134,33 @@ sub json_stringify {
             $result .= (($pretty eq "true") ? ("\n" . ($indent_default x $indent_level) . "]") : "]");
             return $result;
         }
-        return "true" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "true"));
-        return "false" if ((get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Boolean"})) && ($anything_inner_ref eq "false"));
-        return '"' . $anything_inner_ref . '"' if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"String"}));
-        return string($anything_inner_ref) if (get_type($anything_inner_ref) eq throw_error_if_null($js_like_type->{"Numeric"}));
-        return "null";
+        return "true" if (($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Boolean"})) && ($anything_inner_ref eq "true"));
+        return "false" if (($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Boolean"})) && ($anything_inner_ref eq "false"));
+        return '"' . $anything_inner_ref . '"' if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"String"}));
+        return string($anything_inner_ref) if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"}));
+        return $anything_inner_ref_type;
     };
     return $json_stringify_inner->($anything_ref);
 }
 
 sub array_reduce {
     # JavaScript-like Array.reduce() function
-    my ($callback_function_ref, $an_array_ref, $initial_value) = @_;
-    my $result = $initial_value;
+    my ($callback_function_ref, $an_array_ref, $initial_value_ref) = @_;
+    my $result_ref = $initial_value_ref;
     for (my $array_item_index = 0; ($array_item_index < scalar(@{$an_array_ref})); $array_item_index += 1) {
-        my $array_item = $an_array_ref->[$array_item_index];
-        $result = $callback_function_ref->($result, $array_item, $array_item_index, $an_array_ref);
+        my $array_item_ref = $an_array_ref->[$array_item_index];
+        $result_ref = $callback_function_ref->($result_ref, $array_item_ref, $array_item_index, $an_array_ref);
     }
-    return $result;
+    return $result_ref;
 }
 
 sub string_interpolation {
     return (array_reduce((sub {
-        my ($current_result, $current_argument) = @_;
-        return ($current_result . $current_argument) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"String"}));
-        return ($current_result . (json_stringify($current_argument->[0]))) if ((get_type($current_argument) eq throw_error_if_null($js_like_type->{"Array"})) && (scalar(@{$current_argument}) == 1));
-        return ($current_result . (json_stringify($current_argument)));
+        my ($current_result_ref, $current_argument_ref) = @_;
+        my $current_argument_type = get_type($current_argument_ref);
+        return ($current_result_ref . $current_argument_ref) if ($current_argument_type eq throw_error_if_null($js_like_type_ref->{"String"}));
+        return ($current_result_ref . (json_stringify($current_argument_ref->[0]))) if (($current_argument_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && (scalar(@{$current_argument_ref}) == 1));
+        return ($current_result_ref . (json_stringify($current_argument_ref)));
     }), \@_, ""));
 }
 
@@ -167,16 +169,19 @@ sub console_log {
 }
 
 sub optional_chaining {
-    my ($anything, @array_index_or_object_key_or_function_argument_array) = @_;
+    my ($anything_ref, @array_index_or_object_key_or_function_argument_array) = @_;
     # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
-    return $anything->(@array_index_or_object_key_or_function_argument_array) if (get_type($anything) eq throw_error_if_null($js_like_type->{"Function"}));
-    return $anything if (((get_type($anything) ne throw_error_if_null($js_like_type->{"Object"})) && (get_type($anything) ne throw_error_if_null($js_like_type->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
+    my $anything_ref_type = get_type($anything_ref);
+    return $anything_ref->(@array_index_or_object_key_or_function_argument_array) if ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Function"}));
+    return $anything_ref if ((($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Object"})) && ($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));
     return array_reduce((sub {
-        my ($current_result, $current_item) = @_;
-        return $anything->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
-        return $anything->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"})) && (get_type($anything) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$anything}) > (int($current_item))));
-        return $current_result->{(string($current_item))} if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Object"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"String"})));
-        return $current_result->[(int($current_item))] if ((get_type($current_result) eq throw_error_if_null($js_like_type->{"Array"})) && (get_type($current_item) eq throw_error_if_null($js_like_type->{"Numeric"})) && (((int($current_item)) >= 0) || ((int($current_item)) == -1)) && (scalar(@{$current_result}) > (int($current_item))));
+        my ($current_result_ref, $current_item_ref) = @_;
+        my $current_result_ref_type = get_type($current_result_ref);
+        my $current_item_ref_type = get_type($current_item_ref);
+        return $anything_ref->{(string($current_item_ref))} if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"})) && ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"String"})));
+        return $anything_ref->[(int($current_item_ref))] if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"})) && ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"})) && (((int($current_item_ref)) >= 0) || ((int($current_item_ref)) == -1)) && (scalar(@{$anything_ref}) > (int($current_item_ref))));
+        return $current_result_ref->{(string($current_item_ref))} if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Object"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"String"})));
+        return $current_result_ref->[(int($current_item_ref))] if (($current_result_ref_type eq throw_error_if_null($js_like_type_ref->{"Array"})) && ($current_item_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"})) && (((int($current_item_ref)) >= 0) || ((int($current_item_ref)) == -1)) && (scalar(@{$current_result_ref}) > (int($current_item_ref))));
         return undef;
     }), \@array_index_or_object_key_or_function_argument_array, undef);
 }
@@ -205,16 +210,16 @@ sub array_entries {
 }
 
 sub pipe_v2 {
-    my $pipe_last_result = undef;
-    my $pipe_result = array_reduce((sub {
-        my ($current_result, $current_argument) = @_;
-        $pipe_last_result = $current_result;
-        return $current_argument if (get_type($current_result) eq throw_error_if_null($js_like_type->{"Null"}));
-        return $current_argument->($current_result) if (get_type($current_argument) eq throw_error_if_null($js_like_type->{"Function"}));
+    my $pipe_last_result_ref = undef;
+    my $pipe_result_ref = array_reduce((sub {
+        my ($current_result_ref, $current_argument_ref) = @_;
+        $pipe_last_result_ref = $current_result_ref;
+        return $current_argument_ref if (get_type($current_result_ref) eq throw_error_if_null($js_like_type_ref->{"Null"}));
+        return $current_argument_ref->($current_result_ref) if (get_type($current_argument_ref) eq throw_error_if_null($js_like_type_ref->{"Function"}));
         return undef;
     }), \@_, undef);
-    return $pipe_result->($pipe_last_result) if (get_type($pipe_result) eq throw_error_if_null($js_like_type->{"Function"}));
-    return $pipe_result;
+    return $pipe_result_ref->($pipe_last_result_ref) if (get_type($pipe_result_ref) eq throw_error_if_null($js_like_type_ref->{"Function"}));
+    return $pipe_result_ref;
 }
 
 # ? function statement or function declaration
@@ -225,31 +230,25 @@ sub get_rectangle_area_v1 {
 }
 console_log(string_interpolation('get_rectangle_area_v1(7, 5): ', [get_rectangle_area_v1(7, 5)]));
 
-sub get_rectangle_area_v2 { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); }
+sub get_rectangle_area_v2 { ($_[0] * $_[1]) }
 console_log(string_interpolation('get_rectangle_area_v2(7, 5): ', [get_rectangle_area_v2(7, 5)]));
 
-sub get_rectangle_area_v3 { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) }
+sub get_rectangle_area_v3 { ([@_]->[0] * [@_]->[1]) }
 console_log(string_interpolation('get_rectangle_area_v3(7, 5): ', [get_rectangle_area_v3(7, 5)]));
-
-sub get_rectangle_area_v4 { ([@_]->[0] * [@_]->[1]) }
-console_log(string_interpolation('get_rectangle_area_v4(7, 5): ', [get_rectangle_area_v4(7, 5)]));
 
 # ? function expression
 
-my $get_rectangle_area_v5 = sub {
+my $get_rectangle_area_v4_ref = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return ($rectangle_width * $rectangle_length);
 };
-console_log(string_interpolation('$get_rectangle_area_v5->(7, 5): ', [$get_rectangle_area_v5->(7, 5)]));
+console_log(string_interpolation('$get_rectangle_area_v4_ref->(7, 5): ', [$get_rectangle_area_v4_ref->(7, 5)]));
 
-my $get_rectangle_area_v6 = sub { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); };
-console_log(string_interpolation('$get_rectangle_area_v6->(7, 5): ', [$get_rectangle_area_v6->(7, 5)]));
+my $get_rectangle_area_v5_ref = sub { ($_[0] * $_[1]) };
+console_log(string_interpolation('$get_rectangle_area_v5_ref->(7, 5): ', [$get_rectangle_area_v5_ref->(7, 5)]));
 
-my $get_rectangle_area_v7 = sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) };
-console_log(string_interpolation('$get_rectangle_area_v7->(7, 5): ', [$get_rectangle_area_v7->(7, 5)]));
-
-my $get_rectangle_area_v8 = sub { ([@_]->[0] * [@_]->[1]) };
-console_log(string_interpolation('$get_rectangle_area_v8->(7, 5): ', [$get_rectangle_area_v8->(7, 5)]));
+my $get_rectangle_area_v6_ref = sub { ([@_]->[0] * [@_]->[1]) };
+console_log(string_interpolation('$get_rectangle_area_v6_ref->(7, 5): ', [$get_rectangle_area_v6_ref->(7, 5)]));
 
 # ? anonymous function
 
@@ -258,9 +257,7 @@ console_log(string_interpolation('$get_rectangle_area_v8->(7, 5): ', [$get_recta
 #     return ($rectangle_width * $rectangle_length);
 # }
 
-# sub { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); }
-
-# sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) }
+# sub { ($_[0] * $_[1]) };
 
 # sub { ([@_]->[0] * [@_]->[1]) }
 
@@ -278,7 +275,13 @@ sub say_how_are_you {
     console_log("how are you?");
 }
 
+my $say_how_are_you_ref = sub {
+    console_log("how are you?");
+};
+
 say_hello(\&say_how_are_you);
+
+say_hello($say_how_are_you_ref);
 
 say_hello(sub {
     console_log("how are you?");
@@ -286,20 +289,17 @@ say_hello(sub {
 
 # ? Assigning functions to variables or storing them in data structures
 
-my $get_rectangle_area_v5_copy = sub {
+my $get_rectangle_area_v3_ref_copy = sub {
     my ($rectangle_width, $rectangle_length) = @_;
     return ($rectangle_width * $rectangle_length);
 };
-console_log(string_interpolation('$get_rectangle_area_v5->(7, 5): ', [$get_rectangle_area_v5->(7, 5)]));
+console_log(string_interpolation('$get_rectangle_area_v3_ref_copy->(7, 5): ', [$get_rectangle_area_v3_ref_copy->(7, 5)]));
 
-my $get_rectangle_area_v6_copy = sub { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); };
-console_log(string_interpolation('$get_rectangle_area_v6->(7, 5): ', [$get_rectangle_area_v6->(7, 5)]));
+my $get_rectangle_area_v4_ref_copy = sub { ($_[0] * $_[1]) };
+console_log(string_interpolation('$get_rectangle_area_v4_ref_copy->(7, 5): ', [$get_rectangle_area_v4_ref_copy->(7, 5)]));
 
-my $get_rectangle_area_v7_copy = sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) };
-console_log(string_interpolation('$get_rectangle_area_v7->(7, 5): ', [$get_rectangle_area_v7->(7, 5)]));
-
-my $get_rectangle_area_v8_copy = sub { ([@_]->[0] * [@_]->[1]) };
-console_log(string_interpolation('$get_rectangle_area_v8->(7, 5): ', [$get_rectangle_area_v8->(7, 5)]));
+my $get_rectangle_area_v5_ref_copy = sub { ([@_]->[0] * [@_]->[1]) };
+console_log(string_interpolation('$get_rectangle_area_v5_ref_copy->(7, 5): ', [$get_rectangle_area_v5_ref_copy->(7, 5)]));
 
 my @my_array_of_get_rectangle_area_functions = (
     \&get_rectangle_area_v1,
@@ -307,25 +307,21 @@ my @my_array_of_get_rectangle_area_functions = (
         my ($rectangle_width, $rectangle_length) = @_;
         return ($rectangle_width * $rectangle_length);
     },
-    sub { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); },
-    sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) },
+    sub { ($_[0] * $_[1]) },
     sub { ([@_]->[0] * [@_]->[1]) }
 );
 console_log(string_interpolation('[@my_array_of_get_rectangle_area_functions]->[0](7, 5): ', [[@my_array_of_get_rectangle_area_functions]->[0]->(7, 5)]));
 console_log(string_interpolation('[@my_array_of_get_rectangle_area_functions]->[1](7, 5): ', [[@my_array_of_get_rectangle_area_functions]->[1]->(7, 5)]));
 console_log(string_interpolation('[@my_array_of_get_rectangle_area_functions]->[2](7, 5): ', [[@my_array_of_get_rectangle_area_functions]->[2]->(7, 5)]));
 console_log(string_interpolation('[@my_array_of_get_rectangle_area_functions]->[3](7, 5): ', [[@my_array_of_get_rectangle_area_functions]->[3]->(7, 5)]));
-console_log(string_interpolation('[@my_array_of_get_rectangle_area_functions]->[4](7, 5): ', [[@my_array_of_get_rectangle_area_functions]->[4]->(7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 0), 7, 5): ', [optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 0), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 1), 7, 5): ', [optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 1), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 2), 7, 5): ', [optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 2), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 3), 7, 5): ', [optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 3), 7, 5)]));
-console_log(string_interpolation('optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 4), 7, 5): ', [optional_chaining(optional_chaining([@my_array_of_get_rectangle_area_functions], 4), 7, 5)]));
 console_log(string_interpolation('pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 0), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 0), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 1), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 1), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 2), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 2), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 3), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 3), sub { optional_chaining([@_]->[0], 7, 5) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 4), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining([@my_array_of_get_rectangle_area_functions], 4), sub { optional_chaining([@_]->[0], 7, 5) })]));
 
 my $my_array_of_get_rectangle_area_functions_ref = [
     \&get_rectangle_area_v1,
@@ -333,25 +329,21 @@ my $my_array_of_get_rectangle_area_functions_ref = [
         my ($rectangle_width, $rectangle_length) = @_;
         return ($rectangle_width * $rectangle_length);
     },
-    sub { my ($rectangle_width, $rectangle_length) = @_; return ($rectangle_width * $rectangle_length); },
-    sub { my ($rectangle_width, $rectangle_length) = @_; ($rectangle_width * $rectangle_length) },
+    sub { ($_[0] * $_[1]) },
     sub { ([@_]->[0] * [@_]->[1]) }
 ];
 console_log(string_interpolation('$my_array_of_get_rectangle_area_functions_ref->[0](7, 5): ', [$my_array_of_get_rectangle_area_functions_ref->[0]->(7, 5)]));
 console_log(string_interpolation('$my_array_of_get_rectangle_area_functions_ref->[1](7, 5): ', [$my_array_of_get_rectangle_area_functions_ref->[1]->(7, 5)]));
 console_log(string_interpolation('$my_array_of_get_rectangle_area_functions_ref->[2](7, 5): ', [$my_array_of_get_rectangle_area_functions_ref->[2]->(7, 5)]));
 console_log(string_interpolation('$my_array_of_get_rectangle_area_functions_ref->[3](7, 5): ', [$my_array_of_get_rectangle_area_functions_ref->[3]->(7, 5)]));
-console_log(string_interpolation('$my_array_of_get_rectangle_area_functions_ref->[4](7, 5): ', [$my_array_of_get_rectangle_area_functions_ref->[4]->(7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 0), 7, 5): ', [optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 0), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 1), 7, 5): ', [optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 1), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 2), 7, 5): ', [optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 2), 7, 5)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 3), 7, 5): ', [optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 3), 7, 5)]));
-console_log(string_interpolation('optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 4), 7, 5): ', [optional_chaining(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 4), 7, 5)]));
 console_log(string_interpolation('pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 0), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 0), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 1), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 1), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 2), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 2), sub { optional_chaining([@_]->[0], 7, 5) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 3), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 3), sub { optional_chaining([@_]->[0], 7, 5) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 4), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($my_array_of_get_rectangle_area_functions_ref, 4), sub { optional_chaining([@_]->[0], 7, 5) })]));
 
 sub exponentiation {
     my ($a, $b) = @_;
@@ -364,25 +356,21 @@ my %simple_calculator = (
         my ($a, $b) = @_;
         return ($a + $b);
     },
-    "subtraction" => sub { my ($a, $b) = @_; return ($a - $b); },
-    "multiplication" => sub { my ($a, $b) = @_; ($a - $b) },
-    "division" => sub { ([@_]->[0] / [@_]->[1]) }
+    "subtraction" => sub { ($_[0] - $_[1]) },
+    "multiplication" => sub { ([@_]->[0] * [@_]->[1]) }
 );
 console_log(string_interpolation('{%simple_calculator}->{"exponentiation"}->(2, 4): ', [{%simple_calculator}->{"exponentiation"}->(2, 4)]));
 console_log(string_interpolation('{%simple_calculator}->{"addition"}->(9, 3): ', [{%simple_calculator}->{"addition"}->(9, 3)]));
 console_log(string_interpolation('{%simple_calculator}->{"subtraction"}->(35, 8): ', [{%simple_calculator}->{"subtraction"}->(35, 8)]));
 console_log(string_interpolation('{%simple_calculator}->{"multiplication"}->(7, 5): ', [{%simple_calculator}->{"multiplication"}->(7, 5)]));
-console_log(string_interpolation('{%simple_calculator}->{"division"}->(81, 9): ', [{%simple_calculator}->{"division"}->(81, 9)]));
 console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "exponentiation"), 2, 4): ', [optional_chaining(optional_chaining({%simple_calculator}, "exponentiation"), 2, 4)]));
 console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "addition"), 9, 3): ', [optional_chaining(optional_chaining({%simple_calculator}, "addition"), 9, 3)]));
 console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "subtraction"), 35, 8)): ', [optional_chaining(optional_chaining({%simple_calculator}, "subtraction"), 35, 8)]));
-console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "multiplication"), 7, 5): ', [optional_chaining(optional_chaining({%simple_calculator}, "multiplication"), 7, 5)]));
-console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "division"), 81, 9)): ', [optional_chaining(optional_chaining({%simple_calculator}, "division"), 81, 9)]));
+console_log(string_interpolation('optional_chaining(optional_chaining({%simple_calculator}, "multiplication"), 7, 5)): ', [optional_chaining(optional_chaining({%simple_calculator}, "multiplication"), 7, 5)]));
 console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "exponentiation"), sub { optional_chaining([@_]->[0], 2, 4) }): ', [pipe_v2(optional_chaining({%simple_calculator}, "exponentiation"), sub { optional_chaining([@_]->[0], 2, 4) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "addition"), sub { optional_chaining([@_]->[0], 9, 3) }): ', [pipe_v2(optional_chaining({%simple_calculator}, "addition"), sub { optional_chaining([@_]->[0], 9, 3) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "subtraction"), sub { optional_chaining([@_]->[0], 35, 8) })): ', [pipe_v2(optional_chaining({%simple_calculator}, "subtraction"), sub { optional_chaining([@_]->[0], 35, 8) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining({%simple_calculator}, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "division"), sub { optional_chaining([@_]->[0], 81, 9) })): ', [pipe_v2(optional_chaining({%simple_calculator}, "division"), sub { optional_chaining([@_]->[0], 81, 9) })]));
+console_log(string_interpolation('pipe_v2(optional_chaining({%simple_calculator}, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })): ', [pipe_v2(optional_chaining({%simple_calculator}, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })]));
 
 my $simple_calculator_ref = {
     "exponentiation" => \&exponentiation,
@@ -390,25 +378,21 @@ my $simple_calculator_ref = {
         my ($a, $b) = @_;
         return ($a + $b);
     },
-    "subtraction" => sub { my ($a, $b) = @_; return ($a - $b); },
-    "multiplication" => sub { my ($a, $b) = @_; ($a - $b) },
-    "division" => sub { ([@_]->[0] / [@_]->[1]) }
+    "subtraction" => sub { ($_[0] - $_[1]) },
+    "multiplication" => sub { ([@_]->[0] * [@_]->[1]) }
 };
 console_log(string_interpolation('$simple_calculator_ref->{"exponentiation"}->(2, 4): ', [$simple_calculator_ref->{"exponentiation"}->(2, 4)]));
 console_log(string_interpolation('$simple_calculator_ref->{"addition"}->(9, 3): ', [$simple_calculator_ref->{"addition"}->(9, 3)]));
 console_log(string_interpolation('$simple_calculator_ref->{"subtraction"}->(35, 8): ', [$simple_calculator_ref->{"subtraction"}->(35, 8)]));
 console_log(string_interpolation('$simple_calculator_ref->{"multiplication"}->(7, 5): ', [$simple_calculator_ref->{"multiplication"}->(7, 5)]));
-console_log(string_interpolation('$simple_calculator_ref->{"division"}->(81, 9): ', [$simple_calculator_ref->{"division"}->(81, 9)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "exponentiation"), 2, 4): ', [optional_chaining(optional_chaining($simple_calculator_ref, "exponentiation"), 2, 4)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "addition"), 9, 3): ', [optional_chaining(optional_chaining($simple_calculator_ref, "addition"), 9, 3)]));
 console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "subtraction"), 35, 8)): ', [optional_chaining(optional_chaining($simple_calculator_ref, "subtraction"), 35, 8)]));
-console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "multiplication"), 7, 5): ', [optional_chaining(optional_chaining($simple_calculator_ref, "multiplication"), 7, 5)]));
-console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "division"), 81, 9)): ', [optional_chaining(optional_chaining($simple_calculator_ref, "division"), 81, 9)]));
+console_log(string_interpolation('optional_chaining(optional_chaining($simple_calculator_ref, "multiplication"), 7, 5)): ', [optional_chaining(optional_chaining($simple_calculator_ref, "multiplication"), 7, 5)]));
 console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "exponentiation"), sub { optional_chaining([@_]->[0], 2, 4) }): ', [pipe_v2(optional_chaining($simple_calculator_ref, "exponentiation"), sub { optional_chaining([@_]->[0], 2, 4) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "addition"), sub { optional_chaining([@_]->[0], 9, 3) }): ', [pipe_v2(optional_chaining($simple_calculator_ref, "addition"), sub { optional_chaining([@_]->[0], 9, 3) })]));
 console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "subtraction"), sub { optional_chaining([@_]->[0], 35, 8) })): ', [pipe_v2(optional_chaining($simple_calculator_ref, "subtraction"), sub { optional_chaining([@_]->[0], 35, 8) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) }): ', [pipe_v2(optional_chaining($simple_calculator_ref, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })]));
-console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "division"), sub { optional_chaining([@_]->[0], 81, 9) })): ', [pipe_v2(optional_chaining($simple_calculator_ref, "division"), sub { optional_chaining([@_]->[0], 81, 9) })]));
+console_log(string_interpolation('pipe_v2(optional_chaining($simple_calculator_ref, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })): ', [pipe_v2(optional_chaining($simple_calculator_ref, "multiplication"), sub { optional_chaining([@_]->[0], 7, 5) })]));
 
 # ? Returning functions as values from other functions
 
@@ -457,8 +441,3 @@ my $multiply_v4 = sub {
 my $multiply_by5 = $multiply_v4->(5);
 my $multiply_by5_result = $multiply_by5->(10);
 console_log(string_interpolation('$multiply_by5->(10): ', [$multiply_by5_result]));
-
-my $multiply_v5 = sub { my ($a) = @_; sub { my ($b) = @_; ($a * $b) } };
-my $multiply_by6 = $multiply_v5->(6);
-my $multiply_by6_result = $multiply_by6->(10);
-console_log(string_interpolation('$multiply_by6->(10): ', [$multiply_by6_result]));

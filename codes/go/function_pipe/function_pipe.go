@@ -158,11 +158,11 @@ func main() {
 	var optionalChaining interface{} = func(restArguments ...interface{}) interface{} {
 		var anything interface{} = restArguments[0]
 		var restArgumentsNew interface{} = restArguments[1:]
-		var anythingJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anything))
-		if (anythingJsLikeType == jsLikeType.Function) {
+		var anythingType interface{} = ((getType.(func(...interface{}) interface{}))(anything))
+		if (anythingType == jsLikeType.Function) {
 			return ((anything.(func(...interface{}) interface{}))((restArgumentsNew.([]interface{}))...))
 		}
-		if (((anythingJsLikeType != jsLikeType.Object) && (anythingJsLikeType != jsLikeType.Array)) || (len((restArgumentsNew.([]interface{}))) == 0)) {
+		if (((anythingType != jsLikeType.Object) && (anythingType != jsLikeType.Array)) || (len((restArgumentsNew.([]interface{}))) == 0)) {
 			return anything
 		}
 		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
@@ -170,10 +170,10 @@ func main() {
 			var currentItem interface{} = restArgumentsArrayReduceCallback[1]
 			var currentResultJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentResult))
 			var currentItemJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(currentItem))
-			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
 				return (anything.(map[string]interface{}))[(currentItem.(string))]
 			}
-			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingJsLikeType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(anything.([]interface{})) > (currentItem.(int)))) {
+			if ((currentResultJsLikeType == jsLikeType.Null) && (anythingType == jsLikeType.Array) && (reflect.TypeOf(currentItem).Kind() == reflect.Int) && ((currentItem.(int)) >= 0) && (len(anything.([]interface{})) > (currentItem.(int)))) {
 				return (anything.([]interface{}))[(currentItem.(int))]
 			}
 			if ((currentResultJsLikeType == jsLikeType.Object) && (currentItemJsLikeType == jsLikeType.String)) {
@@ -203,17 +203,17 @@ func main() {
 		var jsonStringifyInner interface{}
 		jsonStringifyInner = func(restArgumentsJsonStringifyInner ...interface{}) interface{} {
 			var anythingInner interface{} = restArgumentsJsonStringifyInner[0]
-			var anythingInnerJsLikeType interface{} = ((getType.(func(...interface{}) interface{}))(anythingInner).(string))
-			if (anythingInnerJsLikeType == jsLikeType.Null) {
+			var anythingInnerType interface{} = ((getType.(func(...interface{}) interface{}))(anythingInner).(string))
+			if (anythingInnerType == jsLikeType.Null) {
 				return "null"
 			}
-			if (anythingInnerJsLikeType == jsLikeType.String) {
+			if (anythingInnerType == jsLikeType.String) {
 				return `"` + (anythingInner.(string)) + `"`
 			}
-			if ((anythingInnerJsLikeType == jsLikeType.Numeric) || (anythingInnerJsLikeType == jsLikeType.Boolean)) {
+			if ((anythingInnerType == jsLikeType.Numeric) || (anythingInnerType == jsLikeType.Boolean)) {
 				return ((anyToString.(func(...interface{}) interface{}))(anythingInner))
 			}
-			if (anythingInnerJsLikeType == jsLikeType.Object) {
+			if (anythingInnerType == jsLikeType.Object) {
 				if (len(anythingInner.(map[string]interface{})) == 0) {
 					return "{}"
 				}
@@ -245,7 +245,7 @@ func main() {
 				}))).(string)))
 				return result
 			}
-			if (anythingInnerJsLikeType == jsLikeType.Array) {
+			if (anythingInnerType == jsLikeType.Array) {
 				if (len(anythingInner.([]interface{})) == 0) {
 					return "[]"
 				}
@@ -275,10 +275,10 @@ func main() {
 				}))).(string)))
 				return result
 			}
-			if (anythingInnerJsLikeType == jsLikeType.Function) {
-				return `"[object Function]"`
+			if (anythingInnerType == jsLikeType.Function) {
+				return "[object Function]"
 			}
-			return (`"` + (anythingInnerJsLikeType.(string)) + `"`)
+			return anythingInnerType
 		}
 		return ((jsonStringifyInner.(func(...interface{}) interface{}))(anything))
 	}
@@ -286,15 +286,15 @@ func main() {
 		return ((arrayReduce.(func(...interface{}) interface{}))((interface{}(func(restArgumentsArrayReduceCallback ...interface{}) interface{} {
 			var currentResult interface{} = restArgumentsArrayReduceCallback[0]
 			var currentArgument interface{} = restArgumentsArrayReduceCallback[1]
-			var currentArgumentJsLikeType interface{} = (getType.(func(...interface{}) interface{}))(currentArgument)
+			var currentArgumentType interface{} = (getType.(func(...interface{}) interface{}))(currentArgument)
 			return (currentResult.(string) + (ternary.(func(...interface{}) interface{}))(
-				(interface{}(currentArgumentJsLikeType == jsLikeType.String)),
+				(interface{}(currentArgumentType == jsLikeType.String)),
 				(interface{}(func(_ ...interface{}) interface{} {
 					return (currentArgument.(string))
 				})),
 				(interface{}(func(_ ...interface{}) interface{} {
 					return ((ternary.(func(...interface{}) interface{}))(
-						(interface{}((currentArgumentJsLikeType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1))),
+						(interface{}((currentArgumentType == jsLikeType.Array) && (len(currentArgument.([]interface{})) == 1))),
 						(interface{}(func(_ ...interface{}) interface{} {
 							return ((jsonStringify.(func(...interface{}) interface{}))(currentArgument.([]interface{})[0]))
 						})),

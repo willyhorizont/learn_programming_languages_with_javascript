@@ -1,14 +1,6 @@
 /* eslint-disable no-undef-init */
 
-const jsType = {
-    "Null": "Null",
-    "Boolean": "Boolean",
-    "String": "String",
-    "Numeric": "Numeric",
-    "Object": "Object",
-    "Array": "Array",
-    "Function": "Function"
-};
+const jsType = { "Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function" };
 
 const isNull = (anything) => (((Object.prototype.toString.call(anything) === "[object Null]") && (anything === null)) || ((Object.prototype.toString.call(anything) === "[object Undefined]") && (anything === undefined)));
 
@@ -24,16 +16,7 @@ const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[o
 
 const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
-const getType = (anything) => {
-    if (isNull(anything) === true) return jsType.Null;
-    if (isBoolean(anything) === true) return jsType.Boolean;
-    if (isString(anything) === true) return jsType.String;
-    if (isNumeric(anything) === true) return jsType.Numeric;
-    if (isObject(anything) === true) return jsType.Object;
-    if (isArray(anything) === true) return jsType.Array;
-    if (isFunction(anything) === true) return jsType.Function;
-    return Object.prototype.toString.call(anything);
-};
+const getType = (anything) => ((isNull(anything) === true) ? jsType.Null : ((isBoolean(anything) === true) ? jsType.Boolean : ((isString(anything) === true) ? jsType.String : ((isNumeric(anything) === true) ? jsType.Numeric : ((isObject(anything) === true) ? jsType.Object : ((isArray(anything) === true) ? jsType.Array : ((isFunction(anything) === true) ? jsType.Function : Object.prototype.toString.call(anything))))))));
 
 console.log("// Pipe Function in JavaScript");
 

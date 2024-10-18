@@ -32,26 +32,18 @@ is_like_js_array::Any = (anything::Any) -> ((isa(anything, Array{Any, 1}) === tr
 
 is_like_js_function::Any = (anything::Any) -> (isa(anything, Function) === true)::Any
 
-get_type::Any = (anything::Any) -> (begin
-    if (is_like_js_null(anything) === true) return (js_like_type.Null)::Any end
-    if (is_like_js_boolean(anything) === true) return (js_like_type.Boolean)::Any end
-    if (is_like_js_string(anything) === true) return (js_like_type.String)::Any end
-    if (is_like_js_numeric(anything) === true) return (js_like_type.Numeric)::Any end
-    if (is_like_js_object(anything) === true) return (js_like_type.Object)::Any end
-    if (is_like_js_array(anything) === true) return (js_like_type.Array)::Any end
-    if (is_like_js_function(anything) === true) return (js_like_type.Function)::Any end
-    return ("\"$(typeof(anything))\"")::Any
-end)::Any
+get_type::Any = (anything::Any) -> (((is_like_js_null(anything) === true) ? ((js_like_type.Null)::Any) : ((is_like_js_boolean(anything) === true) ? ((js_like_type.Boolean)::Any) : ((is_like_js_string(anything) === true) ? ((js_like_type.String)::Any) : ((is_like_js_numeric(anything) === true) ? ((js_like_type.Numeric)::Any) : ((is_like_js_object(anything) === true) ? ((js_like_type.Object)::Any) : ((is_like_js_array(anything) === true) ? ((js_like_type.Array)::Any) : ((is_like_js_function(anything) === true) ? ((js_like_type.Function)::Any) : (("$(supertype(typeof(anything)))")::Any)))))))))::Any
 
 json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     # custom JSON.stringify() function
     local indent::Any = repeat(" ", 4)
     local indent_level::Any = 0
     local json_stringify_inner::Any = (anything_inner::Any) -> (begin
-        if (get_type(anything_inner) === js_like_type.Null) return ("null")::Any end
-        if (get_type(anything_inner) === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
-        if ((get_type(anything_inner) === js_like_type.Numeric) || (get_type(anything_inner) === js_like_type.Boolean)) return ("$(anything_inner)")::Any end
-        if (get_type(anything_inner) === js_like_type.Array)
+        local anything_inner_type::Any = get_type(anything_inner)
+        if (anything_inner_type === js_like_type.Null) return ("null")::Any end
+        if (anything_inner_type === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
+        if ((anything_inner_type === js_like_type.Numeric) || (anything_inner_type === js_like_type.Boolean)) return ("$(anything_inner)")::Any end
+        if (anything_inner_type === js_like_type.Array)
             return ((() -> begin
                 if (length(anything_inner) === 0) return ("[]")::Any end
                 indent_level += 1
@@ -67,7 +59,7 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
                 return (result)::Any
             end)())::Any
         end
-        if (get_type(anything_inner) === js_like_type.Object)
+        if (anything_inner_type === js_like_type.Object)
             return ((() -> begin
                 if (length(anything_inner) === 0) return ("{}")::Any end
                 indent_level += 1
@@ -83,8 +75,8 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
                 return (result)::Any
             end)())::Any
         end
-        if (get_type(anything_inner) === js_like_type.Function) return ("\"[object Function]\"")::Any end
-        return ("\"$(typeof(anything))\"")::Any
+        if (anything_inner_type === js_like_type.Function) return ("[object Function]")::Any end
+        return (anything_inner_type)::Any
     end)::Any
     return (json_stringify_inner(anything))::Any
 end)::Any

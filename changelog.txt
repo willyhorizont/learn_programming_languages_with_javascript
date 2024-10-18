@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/10[Oct]/19[Sat]|03:03[AM]/03:03)
+1.0.81
+New:
+update json_stringify in *.js, *.py, *.php, *.go, *.pl, *.jl
+do other little update
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/18[Fri]|08:46[PM]/20:46)
 1.0.80
 New:

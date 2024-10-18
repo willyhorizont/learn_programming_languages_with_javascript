@@ -2,15 +2,7 @@
 
 console.log("// JSON.stringify() in JavaScript");
 
-const jsType = {
-    "Null": "Null",
-    "Boolean": "Boolean",
-    "String": "String",
-    "Numeric": "Numeric",
-    "Object": "Object",
-    "Array": "Array",
-    "Function": "Function"
-};
+const jsType = { "Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function" };
 
 const isNull = (anything) => (((Object.prototype.toString.call(anything) === "[object Null]") && (anything === null)) || ((Object.prototype.toString.call(anything) === "[object Undefined]") && (anything === undefined)));
 
@@ -26,26 +18,18 @@ const isArray = (anything) => ((Object.prototype.toString.call(anything) === "[o
 
 const isFunction = (anything) => (Object.prototype.toString.call(anything) === "[object Function]");
 
-const getType = (anything) => {
-    if (isNull(anything) === true) return jsType.Null;
-    if (isBoolean(anything) === true) return jsType.Boolean;
-    if (isString(anything) === true) return jsType.String;
-    if (isNumeric(anything) === true) return jsType.Numeric;
-    if (isObject(anything) === true) return jsType.Object;
-    if (isArray(anything) === true) return jsType.Array;
-    if (isFunction(anything) === true) return jsType.Function;
-    return Object.prototype.toString.call(anything);
-};
+const getType = (anything) => ((isNull(anything) === true) ? jsType.Null : ((isBoolean(anything) === true) ? jsType.Boolean : ((isString(anything) === true) ? jsType.String : ((isNumeric(anything) === true) ? jsType.Numeric : ((isObject(anything) === true) ? jsType.Object : ((isArray(anything) === true) ? jsType.Array : ((isFunction(anything) === true) ? jsType.Function : Object.prototype.toString.call(anything))))))));
 
 const jsonStringify = (anything, { pretty = false } = {}) => {
     // custom JSON.stringify() function jsonStringifyV3
     const indent = " ".repeat(4);
     let indentLevel = 0;
     const jsonStringifyInner = (anythingInner) => {
-        if (getType(anythingInner) === jsType.Null) return "null";
-        if (getType(anythingInner) === jsType.String) return `"${anythingInner}"`;
-        if ((getType(anythingInner) === jsType.Numeric) || (getType(anythingInner) === jsType.Boolean)) return `${anythingInner}`;
-        if (getType(anythingInner) === jsType.Object) {
+        const anythingInnerType = getType(anythingInner);
+        if (anythingInnerType === jsType.Null) return "null";
+        if (anythingInnerType === jsType.String) return `"${anythingInner}"`;
+        if ((anythingInnerType === jsType.Numeric) || (anythingInnerType === jsType.Boolean)) return `${anythingInner}`;
+        if (anythingInnerType === jsType.Object) {
             if (Object.keys(anythingInner).length === 0) return "{}";
             indentLevel += 1;
             let result = ((pretty === true) ? (`{\n${indent.repeat(indentLevel)}`) : "{ ");
@@ -59,7 +43,7 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
             result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}}`) : " }")}`;
             return result;
         }
-        if (getType(anythingInner) === jsType.Array) {
+        if (anythingInnerType === jsType.Array) {
             if (anythingInner.length === 0) return "[]";
             indentLevel += 1;
             let result = ((pretty === true) ? (`[\n${indent.repeat(indentLevel)}`) : "[");
@@ -73,8 +57,8 @@ const jsonStringify = (anything, { pretty = false } = {}) => {
             result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}]`) : "]")}`;
             return result;
         }
-        if (getType(anythingInner) === jsType.Function) return '"[object Function]"';
-        return `"${getType(anything)}"`;
+        if (anythingInnerType === jsType.Function) return "[object Function]";
+        return anythingInnerType;
     };
     return jsonStringifyInner(anything);
 };
@@ -83,28 +67,29 @@ const jsonStringifyV1 = (anything, { pretty = false } = {}) => ((pretty === true
 
 const jsonStringifyV2 = (anything, { pretty = false } = {}) => {
     // custom JSON.stringify() function jsonStringifyV2
+    const indent = " ".repeat(4);
     const jsonStringifyInner = (anythingInner) => {
-        if ((getType(anythingInner) === jsType.Null) || (getType(anythingInner) === jsType.String) || (getType(anythingInner) === jsType.Numeric) || (getType(anythingInner) === jsType.Boolean)) return anythingInner;
-        if (getType(anythingInner) === jsType.Object) {
-            const objectEntry = Object.entries(anythingInner);
+        const anythingInnerType = getType(anythingInner);
+        if ((anythingInnerType === jsType.Null) || (anythingInnerType === jsType.String) || (anythingInnerType === jsType.Numeric) || (anythingInnerType === jsType.Boolean)) return anythingInner;
+        if (anythingInnerType === jsType.Object) {
             const newObject = {};
-            Object.entries(objectEntry).forEach(([objectKey, objectValue]) => {
+            Object.entries(anythingInner).forEach(([objectKey, objectValue]) => {
                 newObject[objectKey] = jsonStringifyInner(objectValue);
             });
             return newObject;
         }
-        if (getType(anythingInner) === jsType.Array) {
+        if (anythingInnerType === jsType.Array) {
             const newArray = [];
             anythingInner.forEach((arrayItem) => {
                 newArray.push(jsonStringifyInner(arrayItem));
             });
             return newArray;
         }
-        if (getType(anythingInner) === jsType.Function) return "[object Function]";
-        return getType(anythingInner);
+        if (anythingInnerType === jsType.Function) return "[object Function]";
+        return anythingInnerType;
     };
     const jsonStringifyInnerResult = jsonStringifyInner(anything);
-    return ((pretty === true) ? (JSON.stringify(jsonStringifyInnerResult, null, " ".repeat(4))) : (JSON.stringify(jsonStringifyInnerResult)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")));
+    return ((pretty === true) ? (JSON.stringify(jsonStringifyInnerResult, null, indent)) : (JSON.stringify(jsonStringifyInnerResult)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")))?.split?.('"[object Function]"')?.join?.("[object Function]")?.split?.('"[object "')?.join?.("[object ")?.split?.(']"')?.join?.("]");
 };
 
 const jsonStringifyV3 = (anything, { pretty = false } = {}) => {
@@ -112,10 +97,11 @@ const jsonStringifyV3 = (anything, { pretty = false } = {}) => {
     const indent = " ".repeat(4);
     let indentLevel = 0;
     const jsonStringifyInner = (anythingInner) => {
-        if (getType(anythingInner) === jsType.Null) return "null";
-        if (getType(anythingInner) === jsType.String) return `"${anythingInner}"`;
-        if ((getType(anythingInner) === jsType.Numeric) || (getType(anythingInner) === jsType.Boolean)) return `${anythingInner}`;
-        if (getType(anythingInner) === jsType.Object) {
+        const anythingInnerType = getType(anythingInner);
+        if (anythingInnerType === jsType.Null) return "null";
+        if (anythingInnerType === jsType.String) return `"${anythingInner}"`;
+        if ((anythingInnerType === jsType.Numeric) || (anythingInnerType === jsType.Boolean)) return `${anythingInner}`;
+        if (anythingInnerType === jsType.Object) {
             if (Object.keys(anythingInner).length === 0) return "{}";
             indentLevel += 1;
             let result = ((pretty === true) ? (`{\n${indent.repeat(indentLevel)}`) : "{ ");
@@ -129,7 +115,7 @@ const jsonStringifyV3 = (anything, { pretty = false } = {}) => {
             result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}}`) : " }")}`;
             return result;
         }
-        if (getType(anythingInner) === jsType.Array) {
+        if (anythingInnerType === jsType.Array) {
             if (anythingInner.length === 0) return "[]";
             indentLevel += 1;
             let result = ((pretty === true) ? (`[\n${indent.repeat(indentLevel)}`) : "[");
@@ -143,8 +129,8 @@ const jsonStringifyV3 = (anything, { pretty = false } = {}) => {
             result = `${result}${((pretty === true) ? (`\n${indent.repeat(indentLevel)}]`) : "]")}`;
             return result;
         }
-        if (getType(anythingInner) === jsType.Function) return '"[object Function]"';
-        return `"${getType(anything)}"`;
+        if (anythingInnerType === jsType.Function) return "[object Function]";
+        return anythingInnerType;
     };
     return jsonStringifyInner(anything);
 };
@@ -186,11 +172,11 @@ const myObject = {
 };
 console.log(`JSON.stringify(myObject)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }"): ${JSON.stringify(myObject)?.split?.(",")?.join?.(", ")?.split?.(":")?.join?.(": ")?.split?.("{")?.join?.("{ ")?.split?.("}")?.join?.(" }")}`);
 console.log(`jsonStringifyV1(myObject): ${jsonStringifyV1(myObject)}`); // completely remove function
-console.log(`jsonStringifyV2(myObject): ${jsonStringifyV2(myObject)}`); // completely remove function
+console.log(`jsonStringifyV2(myObject): ${jsonStringifyV2(myObject)}`);
 console.log(`jsonStringifyV3(myObject): ${jsonStringifyV3(myObject)}`);
 console.log(`jsonStringify(myObject): ${jsonStringify(myObject)}`);
 console.log(`JSON.stringify(myObject, null, " ".repeat(4)): ${JSON.stringify(myObject, null, " ".repeat(4))}`); // completely remove function
-console.log(`jsonStringifyV1(myObject, { pretty: true }): ${jsonStringifyV1(myObject, { pretty: true })}`); // completely remove function
+console.log(`jsonStringifyV1(myObject, { pretty: true }): ${jsonStringifyV1(myObject, { pretty: true })}`);
 console.log(`jsonStringifyV2(myObject, { pretty: true }): ${jsonStringifyV2(myObject, { pretty: true })}`);
 console.log(`jsonStringifyV3(myObject, { pretty: true }): ${jsonStringifyV3(myObject, { pretty: true })}`);
 console.log(`jsonStringify(myObject, { pretty: true }): ${jsonStringify(myObject, { pretty: true })}`);
