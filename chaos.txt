@@ -38,6 +38,9 @@ gleam
 unison
 
 TODO:
+check custom optional_chaining function, replace it with error handling if possible
+change function declaration to function expression if possible
+change function declaration to function expression if possible (Perl)
 check everything in each language
 replace ".." to " .. " in *.pl
 create IIFE.*
@@ -201,3 +204,36 @@ Safe Navigation Operator
 In Ruby 2.3 and later, the safe navigation operator &.
 user = nil
 puts user&.name  # Output: nil (no error is raised)
+
+Binary Tree
+Binary Search Tree
+Heap
+Trie
+Priority Queue
+Deque
+Matrix
+Sparse Matrix
+Skip List
+Segment Tree
+Fenwick Tree (Binary Indexed Tree)
+Red-Black Tree
+AVL Tree
+B-Tree
+B+ Tree
+Bloom Filter
+Suffix Tree
+Disjoint Set (Union-Find)
+Circular Buffer
+XOR Linked List
+Ternary Search Tree
+Patricia Tree (Radix Tree)
+
+ArrayList/Slice
+Hash Table/Dictionary/Map
+Array
+Set
+Linked List
+Stack
+Queue
+Graph
+Tree

@@ -84,7 +84,8 @@ JSON_OBJECT = {
     foo = {
         bar = "baz",
     },
-    fruits = {"apple", "mango", "banana"}
+    fruits = {"apple", "mango", "banana"},
+    get_rectangle_area = function(rectangle_width, rectangle_length) return (rectangle_width * rectangle_length) end
 }
 sprint("JSON_OBJECT: ", json_stringify(JSON_OBJECT, { pretty = true }))
 
@@ -99,3 +100,12 @@ sprint("JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.['fruits']?.[2]: ", json_string
 
 sprint("JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: ", json_stringify(JSON_OBJECT["fruits"][5]))
 -- JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.['fruits']?.[5]: null
+
+optional_chaining = function (callback_function)
+    local is_not_error, result = xpcall(callback_function, function (an_error_message) return nil end)
+    return result
+end
+
+print("fruits[2]:", optional_chaining(function () return JSON_OBJECT["fruits"][2] end))
+print("fruits[5]:", optional_chaining(function () return JSON_OBJECT["fruits"][5] end))
+print("get_circle_area:", optional_chaining(function () return JSON_OBJECT["get_circle_area"](7) end))

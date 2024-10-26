@@ -1,4 +1,15 @@
 =============================changelog==========================================
+(2024/10[Oct]/27[Sun]|06:35[AM]/06:35)
+1.0.82
+New:
+add and update something
+finish *.lua
+TODO:
+change function declaration to function expression in *.pl, also change the function call
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/19[Sat]|03:03[AM]/03:03)
 1.0.81
 New:

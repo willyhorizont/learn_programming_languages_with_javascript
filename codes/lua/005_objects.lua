@@ -82,6 +82,12 @@ friend = {
     country = "Finland",
     age = 25
 }
+
+friend = {
+    ["name"] = "Alisa",
+    ["country"] = "Finland",
+    ["age"] = 25
+}
 sprint("friend: ", json_stringify(friend, { pretty = true }))
 
 sprint("friend, get total object keys: ", #object_keys(friend))

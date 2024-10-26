@@ -1,15 +1,7 @@
 from numbers import Number
 from functools import reduce
 
-js_like_type = {
-    "Null": "Null",
-    "Boolean": "Boolean",
-    "String": "String",
-    "Numeric": "Numeric",
-    "Object": "Object",
-    "Array": "Array",
-    "Function": "Function"
-}
+js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
 
 def array_reduce(callback_function, an_array, initial_value):
@@ -37,49 +29,14 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else str(type(anything)))  # '''get_type_v2'''
 
 
-def optional_chaining(anything, *rest_arguments):
-    '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v2'''
-    anything_type = get_type(anything)
-    if (anything_type == js_like_type["Function"]):
-        return anything(*rest_arguments)
-    if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)):
-        return anything
-
-
-    def array_reduce_callback(current_result, current_item, *_):
-        current_result_type = get_type(current_result)
-        current_item_type = get_type(current_item)
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return anything.get(str(current_item))
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))):
-            return anything[int(current_item)]
-        if ((current_result_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return current_result.get(str(current_item))
-        if ((current_result_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))):
-            return current_result[int(current_item)]
+def optional_chaining(callback_function):
+    try:
+        return callback_function()
+    except Exception as an_exception:
         return None
-    
-
-    return array_reduce(array_reduce_callback, rest_arguments, None)
 
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
-
-
-def pipe(*rest_arguments):
-    pipe_last_result = None
-
-
-    def pipe_array_reduce_callback(current_result, current_argument, *_):
-        nonlocal pipe_last_result
-        pipe_last_result = current_result
-        return current_argument if (get_type(current_result) == js_like_type["Null"]) else current_argument(current_result) if (get_type(current_argument) == js_like_type["Function"]) else None
-
-
-    pipe_result = array_reduce(pipe_array_reduce_callback, rest_arguments, None)
-    if (get_type(pipe_result) == js_like_type["Function"]):
-        return pipe_result(pipe_last_result)
-    return pipe_result
 
 
 def json_stringify(anything, pretty=False):
@@ -138,63 +95,6 @@ print("\n# JavaScript-like Optional Chaining Operator (?.) in Python")
 # There's no JavaScript-like Optional Chaining Operator (?.) in Python.
 # But, we can create our own function to mimic it in Python.
 
-
-def optional_chaining_v1(anything, *rest_arguments):
-    '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1'''
-    anything_type = get_type(anything)
-    if (anything_type == js_like_type["Function"]):
-        return anything(*rest_arguments)
-    if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)):
-        return anything
-
-
-    def array_reduce_callback(current_result, current_item):
-        current_result_type = get_type(current_result)
-        current_item_type = get_type(current_item)
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return anything.get(str(current_item))
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))):
-            return anything[int(current_item)]
-        if ((current_result_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return current_result.get(str(current_item))
-        if ((current_result_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))):
-            return current_result[int(current_item)]
-        return None
-
-
-    return reduce(array_reduce_callback, rest_arguments, None)
-
-
-def optional_chaining_v2(anything, *rest_arguments):
-    '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v2'''
-    anything_type = get_type(anything)
-    if (anything_type == js_like_type["Function"]):
-        return anything(*rest_arguments)
-    if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)):
-        return anything
-
-
-    def array_reduce_callback(current_result, current_item, *_):
-        current_result_type = get_type(current_result)
-        current_item_type = get_type(current_item)
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return anything.get(str(current_item))
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))):
-            return anything[int(current_item)]
-        if ((current_result_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return current_result.get(str(current_item))
-        if ((current_result_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))):
-            return current_result[int(current_item)]
-        return None
-    
-
-    return array_reduce(array_reduce_callback, rest_arguments, None)
-
-
-optional_chaining_v3 = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if ((anything_type := get_type(anything)) == js_like_type["Function"]) else (anything if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (reduce(lambda current_result, current_item: anything.get(str(current_item)) if (((current_result_type := get_type(current_result)) == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((current_result_type == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((current_result_type == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v3'''
-
-optional_chaining_v4 = lambda anything, *rest_arguments: ((anything(*rest_arguments)) if ((anything_type := get_type(anything)) == js_like_type["Function"]) else (anything if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)) else (array_reduce(lambda current_result, current_item, *_: anything.get(str(current_item)) if (((current_result_type := get_type(current_result)) == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else anything[int(current_item)] if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))) else current_result.get(str(current_item)) if ((current_result_type == js_like_type["Object"]) and (get_type(current_item) == js_like_type["String"])) else current_result[int(current_item)] if ((current_result_type == js_like_type["Array"]) and (get_type(current_item) == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))) else None, rest_arguments, None))))  # '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v4'''
-
 JSON_OBJECT = {
     "foo": {
         "bar": "baz",
@@ -204,106 +104,22 @@ JSON_OBJECT = {
 }
 print(f'JSON_OBJECT: {json_stringify(JSON_OBJECT, pretty=True)}')
 
-print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v1"')
+print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining"')
 
-print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining_v1(JSON_OBJECT, "foo", "bar"))}')
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["foo"]["bar"]))}')
 # JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: "baz"
 
-print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining_v1(JSON_OBJECT, "foo", "baz"))}')
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["foo"]["baz"]))}')
 # JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: null
 
-print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining_v1(JSON_OBJECT, "fruits", 2))}')
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["fruits"][2]))}')
 # JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: "banana"
 
-print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining_v1(JSON_OBJECT, "fruits", 5))}')
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["fruits"][5]))}')
 # JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: null
 
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining_v1(optional_chaining_v1(JSON_OBJECT, "get_rectangle_area"), 7, 5))}')
+print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining(lambda: JSON_OBJECT["get_rectangle_area"](7, 5)))}')
 # JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
 
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining_v1(optional_chaining_v1(JSON_OBJECT, "get_circle_area"), 7))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(pipe(optional_chaining_v1(JSON_OBJECT, "get_rectangle_area"), (lambda _: optional_chaining_v1(_, 7, 5))))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(pipe(optional_chaining_v1(JSON_OBJECT, "get_circle_area"), (lambda _: optional_chaining_v1(_, 7))))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v2"')
-
-print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining_v2(JSON_OBJECT, "foo", "bar"))}')
-# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: "baz"
-
-print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining_v2(JSON_OBJECT, "foo", "baz"))}')
-# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: null
-
-print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining_v2(JSON_OBJECT, "fruits", 2))}')
-# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: "banana"
-
-print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining_v2(JSON_OBJECT, "fruits", 5))}')
-# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining_v2(optional_chaining_v2(JSON_OBJECT, "get_rectangle_area"), 7, 5))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining_v2(optional_chaining_v2(JSON_OBJECT, "get_circle_area"), 7))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(pipe(optional_chaining_v2(JSON_OBJECT, "get_rectangle_area"), (lambda _: optional_chaining_v2(_, 7, 5))))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(pipe(optional_chaining_v2(JSON_OBJECT, "get_circle_area"), (lambda _: optional_chaining_v2(_, 7))))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v3"')
-
-print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining_v3(JSON_OBJECT, "foo", "bar"))}')
-# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: "baz"
-
-print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining_v3(JSON_OBJECT, "foo", "baz"))}')
-# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: null
-
-print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining_v3(JSON_OBJECT, "fruits", 2))}')
-# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: "banana"
-
-print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining_v3(JSON_OBJECT, "fruits", 5))}')
-# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining_v3(optional_chaining_v3(JSON_OBJECT, "get_rectangle_area"), 7, 5))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining_v3(optional_chaining_v3(JSON_OBJECT, "get_circle_area"), 7))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(pipe(optional_chaining_v3(JSON_OBJECT, "get_rectangle_area"), (lambda _: optional_chaining_v3(_, 7, 5))))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(pipe(optional_chaining_v3(JSON_OBJECT, "get_circle_area"), (lambda _: optional_chaining_v3(_, 7))))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining_v4"')
-
-print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining_v4(JSON_OBJECT, "foo", "bar"))}')
-# JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: "baz"
-
-print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining_v4(JSON_OBJECT, "foo", "baz"))}')
-# JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: null
-
-print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining_v4(JSON_OBJECT, "fruits", 2))}')
-# JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: "banana"
-
-print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining_v4(JSON_OBJECT, "fruits", 5))}')
-# JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining_v4(optional_chaining_v4(JSON_OBJECT, "get_rectangle_area"), 7, 5))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining_v4(optional_chaining_v4(JSON_OBJECT, "get_circle_area"), 7))}')
-# JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
-
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(pipe(optional_chaining_v4(JSON_OBJECT, "get_rectangle_area"), (lambda _: optional_chaining_v4(_, 7, 5))))}')
-# JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
-
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(pipe(optional_chaining_v4(JSON_OBJECT, "get_circle_area"), (lambda _: optional_chaining_v4(_, 7))))}')
+print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining(lambda: JSON_OBJECT["get_circle_area"](7)))}')
 # JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null

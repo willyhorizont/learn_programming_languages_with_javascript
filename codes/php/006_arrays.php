@@ -48,16 +48,6 @@ $optional_chaining = function ($anything, ...$array_index_or_object_key_or_funct
     }), $array_index_or_object_key_or_function_argument_array, null))));
 };
 
-$pipe = function (...$rest_arguments) use ($js_like_type, $get_type, $array_reduce_v2) {
-    $pipe_last_result = null;
-    $pipe_result = $array_reduce_v2((function ($current_result, $current_argument) use (&$pipe_last_result, $js_like_type, $get_type) {
-        $pipe_last_result = $current_result;
-        return (($get_type($current_result) === $js_like_type["Null"]) ? ($current_argument) : (($get_type($current_argument) === $js_like_type["Function"]) ? ($current_argument($current_result)) : (null)));
-    }), $rest_arguments, null);
-    if ($get_type($pipe_result) === $js_like_type["Function"]) return $pipe_result($pipe_last_result);
-    return $pipe_result;
-};
-
 $json_stringify = function ($anything, $pretty = false) use ($js_like_type, $get_type) {
     // custom JSON.stringify() function $json_stringify_v4
     $indent = str_repeat(" ", 4);

@@ -15,15 +15,7 @@ func main() {
 		Object interface{}
 		Array interface{}
 		Function interface{}
-	}{
-		Null: "Null",
-		Boolean: "Boolean",
-		String: "String",
-		Numeric: "Numeric",
-		Object: "Object",
-		Array: "Array",
-		Function: "Function",
-	}
+	}{ Null: "Null", Boolean: "Boolean", String: "String", Numeric: "Numeric", Object: "Object", Array: "Array", Function: "Function" }
 	var ternary interface{} = func(restArguments ...interface{}) interface{} {
 		var trueCondition interface{} = restArguments[0]
 		var callbackFunctionIfConditionTrue interface{} = restArguments[1]

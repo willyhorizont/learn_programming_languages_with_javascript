@@ -13,3 +13,7 @@ print(f"range(10, 1): {list(range(10, 1))}")  # range(10, 1): []
 print(f"range(10, 1, -2): {list(range(10, 1, -2))}")  # range(10, 1, -2): [10, 8, 6, 4, 2]
 
 # for [a-z_]+
+
+"""
+(?<!def )optional_chaining\((?!lambda)
+"""

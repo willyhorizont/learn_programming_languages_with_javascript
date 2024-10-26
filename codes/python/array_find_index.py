@@ -1,14 +1,6 @@
 from numbers import Number
 
-js_like_type = {
-    "Null": "Null",
-    "Boolean": "Boolean",
-    "String": "String",
-    "Numeric": "Numeric",
-    "Object": "Object",
-    "Array": "Array",
-    "Function": "Function"
-}
+js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
 
 def array_reduce(callback_function, an_array, initial_value):

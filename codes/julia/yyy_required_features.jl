@@ -8,15 +8,7 @@ struct js_like_type_struct
     Function::Any
 end
 
-js_like_type::Any = js_like_type_struct(
-    "Null",
-    "Boolean",
-    "String",
-    "Numeric",
-    "Object",
-    "Array",
-    "Function"
-)
+js_like_type::Any = js_like_type_struct("Null", "Boolean", "String", "Numeric", "Object", "Array", "Function")
 
 is_like_js_null::Any = (anything::Any) -> ((anything === nothing) && (isnothing(anything) === true))::Any
 

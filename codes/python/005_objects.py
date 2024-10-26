@@ -1,14 +1,6 @@
 from numbers import Number
 
-js_like_type = {
-    "Null": "Null",
-    "Boolean": "Boolean",
-    "String": "String",
-    "Numeric": "Numeric",
-    "Object": "Object",
-    "Array": "Array",
-    "Function": "Function"
-}
+js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
 
 def array_reduce(callback_function, an_array, initial_value):
@@ -36,30 +28,11 @@ is_like_js_function = lambda anything: (callable(anything) == True)
 get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) == True) else js_like_type["Boolean"] if (is_like_js_boolean(anything) == True) else js_like_type["String"] if (is_like_js_string(anything) == True) else js_like_type["Numeric"] if (is_like_js_numeric(anything) == True) else js_like_type["Object"] if (is_like_js_object(anything) == True) else js_like_type["Array"] if (is_like_js_array(anything) == True) else js_like_type["Function"] if (is_like_js_function(anything) == True) else str(type(anything)))  # '''get_type_v2'''
 
 
-def optional_chaining(anything, *rest_arguments):
-    '''JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v2'''
-    anything_type = get_type(anything)
-    if (anything_type == js_like_type["Function"]):
-        return anything(*rest_arguments)
-    if (((anything_type != js_like_type["Object"]) and (anything_type != js_like_type["Array"])) or (len(rest_arguments) == 0)):
-        return anything
-
-
-    def array_reduce_callback(current_result, current_item, *_):
-        current_result_type = get_type(current_result)
-        current_item_type = get_type(current_item)
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return anything.get(str(current_item))
-        if ((current_result_type == js_like_type["Null"]) and (anything_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(anything) > int(current_item))):
-            return anything[int(current_item)]
-        if ((current_result_type == js_like_type["Object"]) and (current_item_type == js_like_type["String"])):
-            return current_result.get(str(current_item))
-        if ((current_result_type == js_like_type["Array"]) and (current_item_type == js_like_type["Numeric"]) and ((int(current_item) >= 0) or (int(current_item) == -1)) and (len(current_result) > int(current_item))):
-            return current_result[int(current_item)]
+def optional_chaining(callback_function):
+    try:
+        return callback_function()
+    except Exception as an_exception:
         return None
-    
-
-    return array_reduce(array_reduce_callback, rest_arguments, None)
 
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
@@ -134,7 +107,7 @@ print(f'friend, get total object keys: {json_stringify(len(list(friend.keys())))
 print(f"friend, get country: {json_stringify(friend['country'])}")
 # friend, get country: "Finland"
 
-print(f'friend, get country: {json_stringify(optional_chaining(friend, "country"))}')
+print(f'friend, get country: {json_stringify(optional_chaining(lambda: friend["country"]))}')
 # friend, get country: "Finland"
 
 # iterate over and print each key-value pair and object entry index

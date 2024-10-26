@@ -27,6 +27,8 @@ function [a-z0-9_]+[a-z0-9_]?\(
 ('
 '.*\$.*'
 [...
+
+\$optional_chaining\((?!fn\(\) => )
 */
 
 $item1 = "something";

@@ -2,15 +2,7 @@ use strict;
 # use warnings;
 use List::Util qw(any);
 
-my $js_like_type_ref = {
-    "Null" => "Null",
-    "Boolean" => "Boolean",
-    "String" => "String",
-    "Numeric" => "Numeric",
-    "Object" => "Object",
-    "Array" => "Array",
-    "Function" => "Function"
-};
+my $js_like_type_ref = {"Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"};
 
 sub boolean {
     my ($anything_ref) = @_;
@@ -95,9 +87,9 @@ sub negate {
 }
 
 sub json_stringify {
-    my ($anything_ref, %keyword_argument) = @_;
-    my $optional_argument = {%keyword_argument};
-    my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type_ref->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
+    my ($anything_ref, %optional_keyword_argument_object) = @_;
+    my $optional_keyword_argument_object_ref = {%optional_keyword_argument_object};
+    my $pretty = ((get_type($optional_keyword_argument_object_ref->{"pretty"}) eq throw_error_if_null($js_like_type_ref->{"Boolean"})) ? ($optional_keyword_argument_object_ref->{"pretty"}) : "false");
     my $indent_default = (" " x 4);
     my $indent_level = 0;
     my $json_stringify_inner;
@@ -171,7 +163,6 @@ sub console_log {
 
 sub optional_chaining {
     my ($anything_ref, @array_index_or_object_key_or_function_argument_array) = @_;
-    # JavaScript-like Optional Chaining Operator (?.) function optional_chaining_v1
     my $anything_ref_type = get_type($anything_ref);
     return $anything_ref->(@array_index_or_object_key_or_function_argument_array) if ($anything_ref_type eq throw_error_if_null($js_like_type_ref->{"Function"}));
     return $anything_ref if ((($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Object"})) && ($anything_ref_type ne throw_error_if_null($js_like_type_ref->{"Array"}))) || (scalar(@array_index_or_object_key_or_function_argument_array) == 0));

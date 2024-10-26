@@ -94,8 +94,8 @@ sub negate {
 }
 
 sub json_stringify {
-    my ($anything_ref, %keyword_argument) = @_;
-    my $optional_argument = {%keyword_argument};
+    my ($anything_ref, %optional_keyword_argument_object) = @_;
+    my $optional_argument = {%optional_keyword_argument_object};
     my $pretty = ((get_type($optional_argument->{"pretty"}) eq throw_error_if_null($js_like_type->{"Boolean"})) ? ($optional_argument->{"pretty"}) : "false");
     my $indent_default = (" " x 4);
     my $indent_level = 0;
