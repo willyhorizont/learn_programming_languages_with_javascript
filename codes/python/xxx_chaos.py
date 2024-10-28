@@ -16,4 +16,5 @@ print(f"range(10, 1, -2): {list(range(10, 1, -2))}")  # range(10, 1, -2): [10, 8
 
 """
 (?<!def )optional_chaining\((?!lambda)
+(?<!def )optional_chaining\(lambda: (?!\()
 """

@@ -118,8 +118,8 @@ print(f"any null: {json_stringify(any_null)}")
 
 any_array = [1, 2, 3]
 print(f'any array: {json_stringify(any_array)}')
-print(f'any array first element: {json_stringify(optional_chaining(lambda: any_array[0]))}')
+print(f'any array first element: {json_stringify(optional_chaining(lambda: (any_array[0])))}')
 
 any_object = {"foo": "bar"}
 print(f'any object: {json_stringify(any_object)}')
-print(f'any object foo value: {json_stringify(optional_chaining(lambda: any_object["foo"]))}')
+print(f'any object foo value: {json_stringify(optional_chaining(lambda: (any_object["foo"])))}')

@@ -104,7 +104,7 @@ end
 
 json_stringify = function (anything, optional_keyword_argument_object)
     optional_keyword_argument_object = nullish_coalescing(optional_keyword_argument_object, {})
-    local pretty = optional_chaining(function () return optional_keyword_argument_object["pretty"] end)
+    local pretty = optional_chaining(function () return (optional_keyword_argument_object["pretty"]) end)
     pretty = ternary((get_type(pretty) == js_like_type["Null"]), (function () return false end), (function () return pretty end))
     local indent_default = string_repeat(" ", 4)
     local indent_level = 0
@@ -155,7 +155,7 @@ string_interpolation = function (...)
     local rest_arguments = {...}
     return (array_reduce(function (current_result, current_argument)
         local current_argument_type = get_type(current_argument)
-        return (current_result .. (ternary((current_argument_type == js_like_type["String"]), (function () return current_argument end), (function () return (ternary(((current_argument_type == js_like_type["Array"]) and (#current_argument == 1)), (function () return json_stringify(optional_chaining(function () return current_argument[1] end)) end), (function () return json_stringify(current_argument) end))) end))))
+        return (current_result .. (ternary((current_argument_type == js_like_type["String"]), (function () return current_argument end), (function () return (ternary(((current_argument_type == js_like_type["Array"]) and (#current_argument == 1)), (function () return json_stringify(optional_chaining(function () return (current_argument[1]) end)) end), (function () return json_stringify(current_argument) end))) end))))
     end, rest_arguments, ""))
 end
 

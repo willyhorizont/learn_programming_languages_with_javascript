@@ -100,19 +100,19 @@ print(f"fruits, length: {len(fruits)}")
 print(f"fruits, get mango: {json_stringify(fruits[1])}")
 # fruits, get mango: "mango"
 
-print(f"fruits, get mango: {json_stringify(optional_chaining(lambda: fruits[1]))}")
+print(f"fruits, get mango: {json_stringify(optional_chaining(lambda: (fruits[1])))}")
 # fruits, get mango: "mango"
 
 print(f"fruits, first element: {json_stringify(fruits[0])}")
 # fruits, first element: "apple"
 
-print(f"fruits, first element: {json_stringify(optional_chaining(lambda: fruits[0]))}")
+print(f"fruits, first element: {json_stringify(optional_chaining(lambda: (fruits[0])))}")
 # fruits, first element: "apple"
 
 print(f"fruits, last element: {json_stringify(fruits[-1])}")
 # fruits, last element: "orange"
 
-print(f"fruits, last element: {json_stringify(optional_chaining(lambda: fruits[-1]))}")
+print(f"fruits, last element: {json_stringify(optional_chaining(lambda: (fruits[-1])))}")
 # fruits, last element: "orange"
 
 # iterate over and print each item and index

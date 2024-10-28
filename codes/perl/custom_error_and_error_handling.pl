@@ -60,6 +60,12 @@ sub is_like_js_function {
     return (((ref $anything_ref) eq "CODE") ? "true" : "false");
 }
 
+sub throw_error_if_null {
+    my ($anything_ref) = @_;
+    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
+    return $anything_ref;
+}
+
 sub get_type {
     my ($anything_ref) = @_;
     return throw_error_if_null($js_like_type_ref->{"Null"}) if (is_like_js_null($anything_ref) eq "true");
@@ -71,12 +77,6 @@ sub get_type {
     return throw_error_if_null($js_like_type_ref->{"Numeric"}) if (is_like_js_numeric($anything_ref) eq "true");
     my $anything_ref_unknown_type = (ref $anything_ref);
     return (($anything_ref_unknown_type eq "") ? '"UNKNOWN"' : $anything_ref_unknown_type);
-}
-
-sub throw_error_if_null {
-    my ($anything_ref) = @_;
-    die "object key not found in the object" if (is_like_js_null($anything_ref) eq "true");
-    return $anything_ref;
 }
 
 sub negate {
@@ -92,8 +92,8 @@ sub json_stringify {
     my $pretty = ((get_type($optional_keyword_argument_object_ref->{"pretty"}) eq throw_error_if_null($js_like_type_ref->{"Boolean"})) ? ($optional_keyword_argument_object_ref->{"pretty"}) : "false");
     my $indent_default = (" " x 4);
     my $indent_level = 0;
-    my $json_stringify_inner;
-    $json_stringify_inner = sub {
+    my $json_stringify_inner_ref;
+    $json_stringify_inner_ref = sub {
         my ($anything_inner_ref) = @_;
         my $anything_inner_ref_type = get_type($anything_inner_ref);
         return "null" if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Null"}));
@@ -105,7 +105,7 @@ sub json_stringify {
             my $result = (($pretty eq "true") ? ("{\n" . ($indent_default x $indent_level)) : "{ ");
             my $object_entry_index = 0;
             while (my ($object_key, $object_value) = each(%{$anything_inner_ref})) {
-                $result .= '"' . $object_key . '": ' . $json_stringify_inner->($object_value);
+                $result .= '"' . $object_key . '": ' . $json_stringify_inner_ref->($object_value);
                 $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($object_entry_index + 1) != scalar(@{$object_keys_ref}));
                 $object_entry_index += 1;
             }
@@ -120,7 +120,7 @@ sub json_stringify {
             my $result = (($pretty eq "true") ? ("[\n" . ($indent_default x $indent_level)) : "[");
             for (my $array_item_index = 0; ($array_item_index < scalar(@{$anything_inner_ref})); $array_item_index += 1) {
                 my $array_item = $anything_inner_ref->[$array_item_index];
-                $result .= $json_stringify_inner->($array_item);
+                $result .= $json_stringify_inner_ref->($array_item);
                 $result .= (($pretty eq "true") ? (",\n" . ($indent_default x $indent_level)) : ", ") if (($array_item_index + 1) != $array_length);
             }
             $indent_level -= 1;
@@ -133,7 +133,7 @@ sub json_stringify {
         return string($anything_inner_ref) if ($anything_inner_ref_type eq throw_error_if_null($js_like_type_ref->{"Numeric"}));
         return $anything_inner_ref_type;
     };
-    return $json_stringify_inner->($anything_ref);
+    return $json_stringify_inner_ref->($anything_ref);
 }
 
 sub array_reduce {

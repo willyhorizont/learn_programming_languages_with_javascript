@@ -107,7 +107,7 @@ print(f'friend, get total object keys: {json_stringify(len(list(friend.keys())))
 print(f"friend, get country: {json_stringify(friend['country'])}")
 # friend, get country: "Finland"
 
-print(f'friend, get country: {json_stringify(optional_chaining(lambda: friend["country"]))}')
+print(f'friend, get country: {json_stringify(optional_chaining(lambda: (friend["country"])))}')
 # friend, get country: "Finland"
 
 # iterate over and print each key-value pair and object entry index

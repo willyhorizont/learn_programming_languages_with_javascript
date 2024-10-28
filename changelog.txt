@@ -1,4 +1,14 @@
 =============================changelog==========================================
+(2024/10[Oct]/28[Mon]|10:04[AM]/10:04)
+1.0.83
+New:
+update something in *.pl and *.py
+cancel change function declaration to function expression in *.pl, also change the function call
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/27[Sun]|06:35[AM]/06:35)
 1.0.82
 New:

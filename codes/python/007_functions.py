@@ -132,8 +132,8 @@ my_array_of_get_rectangle_area_functions = [
 ]
 print(f"my_array_of_get_rectangle_area_functions[0](7, 5): {my_array_of_get_rectangle_area_functions[0](7, 5)}")
 print(f"my_array_of_get_rectangle_area_functions[1](7, 5): {my_array_of_get_rectangle_area_functions[1](7, 5)}")
-print(f"optional_chaining(lambda: my_array_of_get_rectangle_area_functions[0](7, 5)): {optional_chaining(lambda: my_array_of_get_rectangle_area_functions[0](7, 5))}")
-print(f"optional_chaining(lambda: my_array_of_get_rectangle_area_functions[1](7, 5)): {optional_chaining(lambda: my_array_of_get_rectangle_area_functions[1](7, 5))}")
+print(f"optional_chaining(lambda: (my_array_of_get_rectangle_area_functions[0](7, 5))): {optional_chaining(lambda: (my_array_of_get_rectangle_area_functions[0](7, 5)))}")
+print(f"optional_chaining(lambda: (my_array_of_get_rectangle_area_functions[1](7, 5))): {optional_chaining(lambda: (my_array_of_get_rectangle_area_functions[1](7, 5)))}")
 
 
 def exponentiation(a, b):
@@ -146,8 +146,8 @@ simple_calculator = {
 }
 print(f'simple_calculator["exponentiation"](2, 4): {simple_calculator["exponentiation"](2, 4)}')
 print(f'simple_calculator["addition"](9, 3): {simple_calculator["addition"](9, 3)}')
-print(f'optional_chaining(lambda: simple_calculator["exponentiation"](2, 4)): {optional_chaining(lambda: simple_calculator["exponentiation"](2, 4))}')
-print(f'optional_chaining(lambda: simple_calculator["addition"](9, 3)): {optional_chaining(lambda: simple_calculator["addition"](9, 3))}')
+print(f'optional_chaining(lambda: (simple_calculator["exponentiation"](2, 4))): {optional_chaining(lambda: (simple_calculator["exponentiation"](2, 4)))}')
+print(f'optional_chaining(lambda: (simple_calculator["addition"](9, 3))): {optional_chaining(lambda: (simple_calculator["addition"](9, 3)))}')
 
 # ? Returning functions as values from other functions
 

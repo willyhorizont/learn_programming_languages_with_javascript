@@ -113,40 +113,40 @@ print(f'JSON_OBJECT: {json_stringify(JSON_OBJECT, pretty=True)}')
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v1"')
 
-print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["foo"]["bar"]), "not found"))}')
+print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["foo"]["bar"])), "not found"))}')
 # (JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): "baz"
 
-print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["foo"]["baz"]), "not found"))}')
+print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["foo"]["baz"])), "not found"))}')
 # (JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): "not found"
 
-print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["fruits"][2]), "not found"))}')
+print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["fruits"][2])), "not found"))}')
 # (JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): "banana"
 
-print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["fruits"][5]), "not found"))}')
+print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["fruits"][5])), "not found"))}')
 # (JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): "not found"
 
-print(f'(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["get_rectangle_area"](7, 5)), "not found"))}')
+print(f'(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["get_rectangle_area"](7, 5))), "not found"))}')
 # (JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): 35
 
-print(f'(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: JSON_OBJECT["get_circle_area"](7)), "not found"))}')
+print(f'(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): {json_stringify(nullish_coalescing_v1(optional_chaining(lambda: (JSON_OBJECT["get_circle_area"](7))), "not found"))}')
 # (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): "not found"
 
 print('# using JavaScript-like Nullish Coalescing Operator (??) function "nullish_coalescing_v2"')
 
-print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["foo"]["bar"]), "not found"))}')
+print(f'(JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["foo"]["bar"])), "not found"))}')
 # (JSON_OBJECT?.foo?.bar ?? "not found") or (JSON_OBJECT?.["foo"]?.["bar"] ?? "not found"): "baz"
 
-print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["foo"]["baz"]), "not found"))}')
+print(f'(JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["foo"]["baz"])), "not found"))}')
 # (JSON_OBJECT?.foo?.baz ?? "not found") or (JSON_OBJECT?.["foo"]?.["baz"] ?? "not found"): "not found"
 
-print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["fruits"][2]), "not found"))}')
+print(f'(JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["fruits"][2])), "not found"))}')
 # (JSON_OBJECT?.fruits?.[2] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[2] ?? "not found"): "banana"
 
-print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["fruits"][5]), "not found"))}')
+print(f'(JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["fruits"][5])), "not found"))}')
 # (JSON_OBJECT?.fruits?.[5] ?? "not found") or (JSON_OBJECT?.["fruits"]?.[5] ?? "not found"): "not found"
 
-print(f'(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["get_rectangle_area"](7, 5)), "not found"))}')
+print(f'(JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["get_rectangle_area"](7, 5))), "not found"))}')
 # (JSON_OBJECT?.get_rectangle_area?.(7, 5) ?? "not found") or (JSON_OBJECT?.["get_rectangle_area"]?.(7, 5) ?? "not found"): 35
 
-print(f'(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: JSON_OBJECT["get_circle_area"](7)), "not found"))}')
+print(f'(JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): {json_stringify(nullish_coalescing_v2(optional_chaining(lambda: (JSON_OBJECT["get_circle_area"](7))), "not found"))}')
 # (JSON_OBJECT?.get_circle_area?.(7) ?? "not found") or (JSON_OBJECT?.["get_circle_area"]?.(7) ?? "not found"): "not found"

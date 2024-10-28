@@ -106,20 +106,20 @@ print(f'JSON_OBJECT: {json_stringify(JSON_OBJECT, pretty=True)}')
 
 print('# using JavaScript-like Optional Chaining Operator (?.) function "optional_chaining"')
 
-print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["foo"]["bar"]))}')
+print(f'JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: {json_stringify(optional_chaining(lambda: (JSON_OBJECT["foo"]["bar"])))}')
 # JSON_OBJECT?.foo?.bar or JSON_OBJECT?.["foo"]?.["bar"]: "baz"
 
-print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["foo"]["baz"]))}')
+print(f'JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: {json_stringify(optional_chaining(lambda: (JSON_OBJECT["foo"]["baz"])))}')
 # JSON_OBJECT?.foo?.baz or JSON_OBJECT?.["foo"]?.["baz"]: null
 
-print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["fruits"][2]))}')
+print(f'JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: {json_stringify(optional_chaining(lambda: (JSON_OBJECT["fruits"][2])))}')
 # JSON_OBJECT?.fruits?.[2] or JSON_OBJECT?.["fruits"]?.[2]: "banana"
 
-print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining(lambda: JSON_OBJECT["fruits"][5]))}')
+print(f'JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: {json_stringify(optional_chaining(lambda: (JSON_OBJECT["fruits"][5])))}')
 # JSON_OBJECT?.fruits?.[5] or JSON_OBJECT?.["fruits"]?.[5]: null
 
-print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining(lambda: JSON_OBJECT["get_rectangle_area"](7, 5)))}')
+print(f'JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): {json_stringify(optional_chaining(lambda: (JSON_OBJECT["get_rectangle_area"](7, 5))))}')
 # JSON_OBJECT?.get_rectangle_area?.(7, 5) or JSON_OBJECT?.["get_rectangle_area"]?.(7, 5): 35
 
-print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining(lambda: JSON_OBJECT["get_circle_area"](7)))}')
+print(f'JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): {json_stringify(optional_chaining(lambda: (JSON_OBJECT["get_circle_area"](7))))}')
 # JSON_OBJECT?.get_circle_area?.(7) or JSON_OBJECT?.["get_circle_area"]?.(7): null
