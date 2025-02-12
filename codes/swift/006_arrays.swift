@@ -57,7 +57,7 @@ func jsonStringify(_ anything: Any? = nil, pretty: Bool = false, indent: String 
 
 // in Swift, JavaScript-like Array is called Array
 
-let fruits: MyArray = ["apple", "mango", "orange"]
+let fruits: Any? = ["apple", "mango", "orange"]
 print("fruits: \(jsonStringify(fruits))")
 
 print("fruits, length:", fruits.count)

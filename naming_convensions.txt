@@ -1,0 +1,20 @@
+naming convensions
+JAVASCRIPT          : camelCase
+PYTHON              : snake_case
+PHP                 : snake_case
+GO                  : camelCase
+PERL                : snake_case
+JULIA               : snake_case
+LUA                 : snake_case
+RUBY                : snake_case
+R                   : snake_case
+KOTLIN              : camelCase
+SWIFT               : camelCase
+DART                : camelCase
+VISUAL_BASIC_DOTNET : PascalCase
+C#                  : PascalCase
+MATLAB              : flatcase
+GNU_OCTAVE          : flatcase
+WOLFRAM             : PascalCase
+RAKU                : kebab-case
+SCALA               : camelCase

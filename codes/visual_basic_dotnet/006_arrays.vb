@@ -48,7 +48,7 @@ Module Program
 
         ' in Visual Basic (.NET), JavaScript-like Array is called List
 
-        Dim Fruits As List(Of Object) = New List(Of Object) From {"apple", "mango", "orange"}
+        Dim Fruits As Object = New List(Of Object) From {"apple", "mango", "orange"}
         Console.WriteLine("Fruits: " & JsonStringify(Fruits))
 
         Console.WriteLine("Fruits, length: " & Fruits.Count)
@@ -74,32 +74,32 @@ Module Program
 
         ' in Visual Basic (.NET), JavaScript-like Array of Objects is called List of Dictionaries
 
-        Dim Products As List(Of Object) = New List(Of Object) From {
-            New Dictionary(Of String, Object) From {
-                {"id", "P1"},
-                {"name", "bubble gum"}
-            },
-            New Dictionary(Of String, Object) From {
-                {"id", "P2"},
-                {"name", "potato chips"}
-            }
-        }
-        Console.WriteLine("Products: " & JsonStringify(Products, Pretty:=True))
+        ' Dim Products As List(Of Object) = New List(Of Object) From {
+        '     New Dictionary(Of String, Object) From {
+        '         {"id", "P1"},
+        '         {"name", "bubble gum"}
+        '     },
+        '     New Dictionary(Of String, Object) From {
+        '         {"id", "P2"},
+        '         {"name", "potato chips"}
+        '     }
+        ' }
+        ' Console.WriteLine("Products: " & JsonStringify(Products, Pretty:=True))
 
-        ArrayItemIndex = 0
-        For Each ArrayItem As Object In Products
-            Dim ObjectIterationIndex As Integer = 0
-            For Each ObjectEntry As KeyValuePair(Of String, Object) In ArrayItem
-                Dim ObjectKey = ObjectEntry.Key
-                Dim ObjectValue = ObjectEntry.Value
-                Console.WriteLine($"Products, forEach loop, array item index: {ArrayItemIndex}, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
-                ObjectIterationIndex += 1
-            Next
-            ArrayItemIndex += 1
-        Next
-        ' Products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
-        ' Products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
-        ' Products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
-        ' Products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
+        ' ArrayItemIndex = 0
+        ' For Each ArrayItem As Object In Products
+        '     Dim ObjectIterationIndex As Integer = 0
+        '     For Each ObjectEntry As KeyValuePair(Of String, Object) In ArrayItem
+        '         Dim ObjectKey = ObjectEntry.Key
+        '         Dim ObjectValue = ObjectEntry.Value
+        '         Console.WriteLine($"Products, forEach loop, array item index: {ArrayItemIndex}, object iteration/entry index: {ObjectIterationIndex}, key: {ObjectKey}, value: {ObjectValue}")
+        '         ObjectIterationIndex += 1
+        '     Next
+        '     ArrayItemIndex += 1
+        ' Next
+        ' ' Products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
+        ' ' Products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
+        ' ' Products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
+        ' ' Products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
     End Sub
 End Module

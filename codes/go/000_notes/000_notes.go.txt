@@ -48,3 +48,16 @@ isLikeJsError2 := func(restArguments ...interface{}) interface{} {
         return false
     }
 }
+
+interface{}(
+.(func(...interface{}) interface{}))
+) == 
+(ternary
+ = ((
+= (
+result.(string))
+
+.(func(...interface{}) interface{}))
+var x interface{} = restArguments[0]
+x interface{}
+range (anyArray.([]interface{}))

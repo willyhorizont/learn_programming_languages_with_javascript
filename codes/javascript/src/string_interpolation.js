@@ -67,9 +67,7 @@ console.log(`my name is ${myName} and I am ${myAge}.`);
 
 console.log(`1 + 2 + 3 + 4 = ${1 + 2 + 3 + 4}`);
 
-function getRectangleArea(rectangleWidth, rectangleLength) {
-    return (rectangleWidth * rectangleLength);
-}
+const getRectangleArea = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
 console.log(`getRectangleArea(7, 5): ${getRectangleArea(7, 5)}`);
 
 const anyString = "foo";

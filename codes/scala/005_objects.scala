@@ -1,6 +1,16 @@
 import scala.collection.mutable
 
-def MyObject(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+def createNewObject(objectEntry: (String, Any)*): Any = (if (objectEntry.isEmpty == true) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+
+def isLikeJsArray(anything: Any): Any = {
+    if (anything.isInstanceOf[mutable.ArrayBuffer[_]] == true) return true
+    return false
+}
+
+def getType(anything: Any): Any = {
+    // if (isLikeJsArray(anything) == true) return "Array"
+    return anything.getClass.getName
+}
 
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
 
@@ -10,13 +20,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
         if (anythingInner == null) return "null"
         if (anythingInner.isInstanceOf[String]) return s"\"${anythingInner}\""
         if (isNumeric(anythingInner) || anythingInner.isInstanceOf[Boolean]) return s"${anythingInner}"
-        if (anythingInner.isInstanceOf[Array[_]]) {
-            if (anythingInner.asInstanceOf[Array[Any]].length == 0) return "[]"
+        if (anythingInner.isInstanceOf[mutable.ArrayBuffer[_]]) {
+            if (anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length == 0) return "[]"
             indentLevel += 1
             var result: String = (if (pretty == true) s"[\n${indentInner * indentLevel}" else "[")
-            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[Array[Any]].zipWithIndex) {
+            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex) {
                 result += jsonStringifyInner(arrayItem, indentInner)
-                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[Array[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
@@ -41,7 +51,7 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
 
 // in Scala, JavaScript-like Object is called mutable Map
 
-val friend = MyObject(
+val friend: Any = mutable.Map[String, Any](
     "name" -> "Alisa",
     "country" -> "Finland",
     "age" -> 25
@@ -102,30 +112,30 @@ for (((objectKey, objectValue), objectEntryIndex) <- friend.asInstanceOf[mutable
 // friend, forEach loop, object iteration/entry index: 1, key: country, value: Finland
 // friend, forEach loop, object iteration/entry index: 2, key: age, value: 25
 
-friend("age") = 27
+friend.asInstanceOf[mutable.Map[String, Any]]("age") = 27
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-friend("gender") = "Female"
+friend.asInstanceOf[mutable.Map[String, Any]]("gender") = "Female"
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-friend.update("job", "Streamer")
+friend.asInstanceOf[mutable.Map[String, Any]].update("job", "Streamer")
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-friend += ("address" -> "123 Main Street, Anytown, Finland")
+friend.asInstanceOf[mutable.Map[String, Any]] += ("address" -> "123 Main Street, Anytown, Finland")
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-friend -= "name"
+friend.asInstanceOf[mutable.Map[String, Any]] -= "name"
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
-friend.remove("country")
+friend.asInstanceOf[mutable.Map[String, Any]].remove("country")
 println(s"friend: ${jsonStringify(friend, pretty = true)}")
 
 // Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-val deliveryResponseKeyMessage = "message"
-val deliveryResponse = MyObject(
-  deliveryResponseKeyMessage -> "ok"
+val deliveryResponseKeyMessage: Any = "message"
+val deliveryResponse: Any = mutable.Map[String, Any](
+    deliveryResponseKeyMessage.asInstanceOf[String] -> "ok".asInstanceOf[Any]
 )
 println(s"deliveryResponse: ${jsonStringify(deliveryResponse, pretty = true)}")
-val deliveryResponseKeyStatus = "status"
-deliveryResponse(deliveryResponseKeyStatus) = 200
+val deliveryResponseKeyStatus: Any = "status"
+deliveryResponse.asInstanceOf[mutable.Map[String, Any]](deliveryResponseKeyStatus.asInstanceOf[String]) = 200
 println(s"deliveryResponse: ${jsonStringify(deliveryResponse, pretty = true)}")

@@ -1,5 +1,16 @@
 \n\n$ regex to find multiple line whitepace at the end of the file
 
+todo asap check:
+generate_number_sequence.go
+006_arrays.kt
+console_log.lua, string_interpolation.lua
+005_objects.r
+005_objects.scala, 006_arrays.scala, yyy_required_features.scala
+006_arrays.swift
+006_arrays.vb
+string_interpolation.java
+string_interpolation.rs
+
 done:
 array.length
 get object by key
@@ -11,36 +22,36 @@ object_values
 object_entries
 
 langs not review want try:
-groovy
-f#
-crystal
-java
-c3
-elixir
-clojure
-onyx
-lobster
-alpaca
-red
-pony
-reason
-haskell
-elm
-commom lisp
-scheme
-erlang
-lisp
-clojure
-racket
-ocaml
-roc
-gleam
-unison
+Groovy
+F#
+Crystal
+Elixir
+Clojure
+Java
+Rust
+
+C3
+Onyx
+Lobster
+Alpaca
+Red
+Pony
+Reason
+Haskell
+Elm
+Commom Lisp
+Scheme
+Erlang
+Lisp
+Racket
+Ocaml
+Roc
+Gleam
+Unison
 
 TODO:
 check custom optional_chaining function, replace it with error handling if possible
 change function declaration to function expression if possible
-change function declaration to function expression if possible (Perl)
 check everything in each language
 replace ".." to " .. " in *.pl
 create IIFE.*
@@ -237,3 +248,701 @@ Stack
 Queue
 Graph
 Tree
+
+Want to Learn Programming Languages
+
+learn x in y minutes
+x by example
+
+downstream / right bit shift operator (>>)
+
+curl 'https://airflow.apache.org/docs/apache-airflow/2.10.2/docker-compose.yaml' -o 'docker-compose.yaml'
+
+docker-compose up airflow-init
+docker-compose up -d
+docker ps
+docker ps -a
+http://localhost:8080
+docker-compose down
+docker-compose down --volumes --remove-orphans
+
+docker-compose run airflow-worker airflow users create --role Admin --username airflow --password airflow --email airflowadmin@example.com --firstname Airflow --lastname Admin
+airflow users create --role Admin --username airflow --password airflow --email airflowadmin@example.com --firstname Airflow --lastname Admin
+docker-compose run airflow dags list
+
+mkdir -p ./logs ./plugins ./config
+
+how many programming languages that have pipe operator (|>) like elixir?
+elixir, f#, ocaml, elm, reasonML/rescript, clojure ->, julia, raku ==>, livescript, R
+
+canceled:
+coffescript, ruby
+
+ocaml, elm, reasonML, rescript/bucklescript, purescript can't do dynamic typing
+
+elixir:
+"Hello, World!" |> IO.puts()
+
+f#:
+"Hello, World!" |> System.Console.WriteLine
+
+clojure, threading macro/operator thread-first macro/operator (->):
+(-> "Hello, World!" println)
+
+julia:
+"Hello, World!" |> println
+
+raku, feed operator (==>):
+"Hello, World!" ==> say();
+
+livescript:
+"Hello, World!" |> console.log;
+
+R >= 4.1.0:
+"Hello, World!" |> cat("\n")
+
+In JavaScript, the ** operator is called the exponentiation operator. It is used to raise a number to the power of another number. For example, 2 ** 3 evaluates to 2^3, which is 8.
+** === Math.pow
+
+sub json_stringify {
+    my ($anything) = @_;
+    use JSON;
+    return JSON->new->allow_nonref->encode($anything);
+}
+
+object is just array of pair/tuple[string, any]
+
+prompt:
+is there anything similar to JavaScript Array.every() in Perl?
+use this data if you provide examples:
+
+@id:hkh12.pitch-black
+
+TODO:
+remove get type
+update spread syntax array
+update spread syntax object, add initial result to null
+add empty object and empty array to pretty json stringify
+update spread syntax array, spread syntax object for Perl
+update 007_function perl
+search }() if let guard let in *.swift
+check "undefined" in *.swift
+add check if function return string "function" in prettyJsonStringify
+change dynamic to object in C#
+check print \n
+add array_foreach, object_keys, object_values, object_entries, array_push
+add function can explicitly return, can do break continue in loop, can do variadic function
+add Array & Array of Objects name in each langs
+update prettyJsonStringify, add pretty argument to toggle newline, remove prettyArrayOfPrimitives
+create pretty_json_stringify in lua, julia
+add fibonacci.*
+add prime_number.*
+add composite_number.*
+add yyy.requirements.*
+add string_interpolation.*
+add string_split.*
+add string.* (first character, last character, length, find, includes, substring)
+add Object.*
+finish vb & c#
+create custom pretty_json_stringify for perl
+
+Agda
+BF
+C
+CFML
+Clojure
+COBOL
+CoffeeScript
+CommonLisp
+Coq
+C++
+Crystal
+C#
+D
+Dart
+Elixir
+Elm
+Erlang
+Factor
+Forth
+Fortran
+F#
+Go
+Groovy
+Haskell
+Haxe
+Idris
+Java
+JavaScript
+Julia
+Kotlin
+λ Calculus
+Lean
+Lua
+NASM
+Nim
+Objective-C
+OCaml
+Pascal
+Perl
+PHP
+PowerShell
+Prolog
+PureScript
+Python
+R
+Racket
+Raku
+Reason
+RISC-V
+Ruby
+Rust
+Scala
+Shell
+Solidity
+SQL
+Swift
+TypeScript
+VB
+
+TODO:
+add unpacking in 005.Objects.* and 006.Arrays.* if possible
+
+create Closure.* or add closure to 007.Functions.*
+add fibonacci.*
+add Function with Default Arguments in 007.Functions.*
+add Variadic Functions in 007.Functions.*
+add Returning Multiple Values (As an array) in 007.Functions.*
+add Returning Multiple Values (As an object) in 007.Functions.*
+add Recursive Functions in 007.Functions.*
+add immediately invoked function expression (IIFE) in 007.Functions.*
+add switch case in 003.Conditionals.*
+add string interpolation
+
+create string case converter: Title Case, PascalCase, camelCase snake_case, kebab-case, SCREAMING_SNAKE_CASE/MACRO_CASE /CONSTANT_CASE, Train-Case, COBOL-CASE, Pascal_Snake_Case, camel_Snake_Case, flatcase, UPPERFLATCASE
+create github-repository-languages-chart-editor
+create github gist
+create game "Pas Papat"
+
+wes:
+rename function to method if method or remove it
+print data in 005.Objects.* and 006.Arrays.*
+check important import for each language
+update parentheses in *.go files
+change JSON->new->allow_nonref->pretty->encode to pretty_json_stringify in *.pl
+update operator_nullish_coalescing.*
+update optional chaining add array example too
+update Array.reduce.*
+PHP array_push, perl push, Julia push!, append!, [;], vcat()
+update pretty_array_of_primitives, prettyArrayOfPrimitives, getType
+test 1.Loops.*
+update pretty_array_of_primitives in *.pl
+add get element, get first element, get last element in 1.Arrays.*
+add get element in 1.Objects.*
+add iterate over and get each key-value pair and iteration index in 1.Objects.*
+change MutableList<*> to MutableList<Any?>
+change MutableMap<*, *> to MutableMap<String, Any?>
+change for (0..$# to traditional for loop < scalar(@an_array) in *.pl
+change Associative Array to Array of Associative Arrays in *.php
+create 1.Loops, 1.Objects, 1.Arrays
+Relational Operators / Comparison Operators
+Logical Operators
+Spread Operator Syntax
+Array.reduce.pl
+Hello, World!
+unless
+Closure
+add algorithm
+bubble sort
+binary tree
+general tree
+depthfirst
+breadth first search
+dijkstra
+sorting algorithm
+binary search
+binary search tree
+[gasido] add factorial using reduce
+[gasido ]add type check on Array.includes.* if not privitives return false
+[gasido] add typealias Array = MutableList<Any?> in *.kt files
+[gasido] update Array.findIndex, array[result]
+
+----------------------------------------
+
+learned & loved:
+JavaScript/Typescript
+Python
+PHP
+Go
+Perl (Perl 5)
+Julia
+Lua
+Ruby
+R
+Kotlin
+Swift
+Dart
+VB
+C#
+Matlab
+Octave
+Wolfram
+Raku
+Scala
+
+to learn:
+Groovy
+F#
+Crystal
+Java
+
+todo in js flav langs repo:
+object_values, object_entries, object_from_entries, 006_arrays, typeof
+array_entries, array_keys, array_values, array_for_each, array_join, array_slice, array_push, array_splice, array_reverse, array_sort, array_fill,
+array_to_reversed, array_to_sorted, array_to_spliced, array_from, array_shift, array_unshift, array_toString,
+string, number, JSON.stringify, JSON.parse, IIFE, string interpolation
+isAnagram
+generateAnagram
+hello world waterfall
+rectangle
+triangle
+pyramid
+palindrome
+spread string
+climbing_stairs
+
+not review want try:
+groovy
+f#
+crystal
+java
+c3
+onyx
+lobster
+alpaca
+red
+pony
+reason
+haskell
+elm
+scheme
+erlang
+elixir
+lisp
+clojure
+racket
+ocaml
+roc
+gleam
+unison
+
+----------------------------------------
+
+reviewed, want to learn:
+GDScript
+Raku (Perl 6)
+Racket
+Clojure
+
+----------------------------------------
+
+reviewed, want to learn, but curently It's not working:
+Crystal (Ruby related, currently only support linux and macOS, lack of resource in internet and the documentation)
+Mojo (currently doesn't have array and dictionary 0.5.0)
+Hare (I can't setup)
+
+----------------------------------------
+
+reviewed, learned but dissapointing
+D (it has auto type but doesn't mean the type can be dynamic)
+TCL (it can't passing functions as arguments to other functions, returning functions as values from other functions (closure), assigning functions to variables or storing them in data structures)
+Nim (once variable created it can't be reassign to other type)
+MATLAB (can't create closure)
+Odin (can't create closure)
+V (function can't have parameter with `any` type)
+Rust (can manage JSON with serde_json, but can't have dynamic function stored inside object and array of objects)
+GDScript (can't do nested recursive function call)
+
+----------------------------------------
+
+been heard, kinda interesting, still tryna figure it out:
+Erlang (FP language)
+Elixir (FP language, +- like Erlang)
+Groovy
+Scala
+Clojure
+Java
+Haxe
+
+----------------------------------------
+
+red flag programming languages:
+
+	1. functions are not first class citizen/doesn't support first-class functions
+	2. not multi-paradigm/pure OOP language/pure FP language
+	3. strongly strictly staticly typed language and doesn't have dynamic type and no workaround to create dynamic type
+
+reviewed, big NO NO
+redflag programming languages list:
+
+Java (Pure OOP language)
+Objective-C (need Mac to compile code?, obsolete, deprecated, dreaded)
+C# (Microsoft version of Java)
+Groovy (Java related, Pure OOP language)
+LISP (pure FP language)
+C
+C++
+ALGOL 60
+ALGOL 68
+Ada
+Oberon
+Delphi
+Pascal
+Fortran
+COBOL
+APL
+Carbon (Still experimental, +- like C++)
+Any Microsoft programming language
+Io (pure OOP)
+Zig (+- like C)
+Smalltalk
+Haskell (pure FP language)
+OCaml (pure FP language)
+ML (Meta Language) (pure FP language)
+F# (pure FP language, Microsoft .NET related which usually have confusing documentation)
+Clojure (pure FP language, LISP related, Java related, need JVM)
+Scheme (pure FP language, LISP related)
+Racket (pure FP language, LISP related)
+Scala (Java related)
+Elm (FP language to create webapps, codes are compiled to JavaScript)
+Rust (too staticly typed)
+Pharo (pure OOP)
+Hack (once variable declared with type, its can't be change again)
+Guile (pure FP)
+Elm (pure FP)
+Idris (pure FP)
+Mercury (pure FP, Prolog related, Haskell related)
+Nix (pure FP)
+SaC Single Assignment C (Array language)
+----------------------------------------
+
+need more review
+programming languages with first-class functions support list but still not sure :
+
+batch script .bat
+powershell .ps1
+bash .sh
+shell .sh
+cmd
+Rust
+Ruby
+Erlang (FP language)
+Haskell (pure FP language)
+LISP (pure FP language)
+Scheme (pure FP language, LISP related, LISP dialect)
+Clojure (pure FP language, LISP related, LISP dialect, Java related, need JVM)
+Scala (Java related)
+Java (Pure OOP language) (Java 8+ with lambdas and functional interfaces)
+C# (with delegates and lambda expressions, Microsoft version of Java)
+ClojureScript
+F#
+OCaml (pure FP language)
+Groovy (Java related, Pure OOP language)
+R
+MATLAB
+Elixir (FP language, +- like Erlang)
+Smalltalk
+Fortran
+Dart
+mojo (python related, not released yet)
+
+----------------------------------------
+
+reviewed, tried, tested, love it
+programming languages with first-class functions support list for sure:
+
+JavaScript/Typescript
+Python
+PHP
+Go
+Perl (Perl 5)
+Julia
+Lua
+Ruby
+R
+Raku (Perl 6)
+MATLAB
+Dart
+Kotlin
+Erlang (FP language)
+Elixir (FP language, +- like Erlang)
+
+----------------------------------------
+
+other programming related that needs to be learned:
+Bash/shell
+Markdown
+YAML
+TOML
+INI
+XML
+
+----------------------------------------
+
+programming related info:
+
+a programming language is said to have
+first-class functions if it treats functions as first-class citizens. This means the language supports:
+	• passing functions as arguments to other functions
+	• returning functions as values from other functions
+	• assigning functions to variables or storing them in data structures
+
+Rust, Carbon is more like C++
+GO, Zig is more like C
+
+Javascript Runtime Environtment:
+Node, Deno, Bun
+
+Framework:
+ElectronJS = NodeJS + Javascript
+FullJS (Cross Platform) = NodeJS, ElectronJS, React Native, React Dom
+Flutter (Cross Platform) = Dart
+Tauri (Desktop) = Rust + Javascript
+
+Declarative > Imperative
+
+{
+    "JDK" : {
+        "abbr" : "Java Development Kit",
+        "desc": "developer tools",
+        "JRE" : {
+            "abbr" : "Java Runtime Environment",
+            "desc": "libraries & toolkit",
+            "JVM" : {
+                "acronym" : "Java Virtual Machine",
+                "desc" : "run Java programs"
+    }
+}
+
+JSON value:
+object
+array
+string
+number
+true
+false
+null
+
+const JSON = {
+    "object": { "key": "value" },
+    "array": ["a", "r", "r", "a", "y"],
+    "string": "string",
+    "number": 123,
+    "true": true,
+    "false": false,
+    "null": null
+};
+
+string interpolation / js template literal / python f string
+
+declaring vs instantiating vs initializing vs assigning array example in JavaScript:
+declaring:
+let myArray;
+instantiating:
+let myArray = [];
+initializing:
+let myArray = [1, 2, 3, 4];
+assigning:
+let myArray = [];
+myArray[0] = 1;
+
+Conditional operator / Ternary Operator (?:) : result = conditon_is_true ? value_if_condition_true : value_if_condition_false
+Elvis Operator (?:) == JavaScript Nullish Coalescing Operator (??) :
+result = primary_value ?: backup_value_in_case_primary_value_is_null_or_undefined
+
+programming language criteria that I like:
+
+1. variable can store dynamic type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type
+```javascript
+let something = 123
+something = "foo"
+something = true
+something = [1, 2, 3]
+something = { "foo": "bar" }
+```
+
+2. has option to make variable can store dynamic type and dynamic value
+```go
+type Any interface{}
+type Array []Any
+type Object map[string]Any
+```
+
+3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic type and dynamic value
+```javascript
+const myObject = { "my_string": "foo", "my_number": 17, "my_bool": true, "my_obj": { "foo": "bar" }, "my_array": [1, 2, 3] }
+```
+
+4. array/list/slice/ordered-list-data-structure can store dynamic type and dynamic value
+```javascript
+const myArray = ["foo", 17, true, [1, 2, 3], { "foo": "bar" }]
+```
+
+5. support passing functions as arguments to other functions
+```javascript
+function sayHello(callbackFunction) {
+    console.log("hello");
+    callbackFunction();
+}
+sayHello(function () {
+    console.log("how are you?");
+});
+```
+
+6. support returning functions as values from other functions (closure)
+```javascript
+function multiply(a) {
+    return function multiplyBy(b) {
+        return a * b;
+    };
+}
+const multiplyBy2 = multiply(2);
+const result = multiplyBy2(10); // 20
+```
+
+7. support assigning functions to variables
+```javascript
+const getRectangleArea = function (rectangleWidth, rectangleLength) {
+    return rectangleWidth * rectangleLength;
+};
+getRectangleArea(3, 4);
+```
+
+8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+```javascript
+const myArray = [
+    function (rectangleWidth, rectangleLength) {
+        return rectangleWidth * rectangleLength;
+    },
+    "foo",
+    123
+];
+myArray[0](3, 4);
+
+const myObject = {
+    "multiplication": function (a, b) {
+        return a * b;
+    },
+    "foo": "bar",
+    "age": 17
+};
+myObject.multiplication(7, 5);
+```
+
+nice to have:
+9. have ability to encode to JSON and decode JSON
+
+----------------------------------------
+
+give me a list of every programming languages that you know have abillity to passing functions as arguments to other functions
+Python
+JavaScript
+Java
+C#
+C++
+Ruby
+Swift
+Kotlin
+R
+Scala
+Haskell
+Go
+Perl
+PHP
+Clojure
+TypeScript
+Rust
+MATLAB
+Lua
+Groovy
+
+give me a list of every programming languages that you know have abillity to returning functions as values from other functions (closure)
+Python
+
+JavaScript
+Ruby
+Swift
+Kotlin
+R
+Scala
+Haskell
+Go
+Clojure
+Lua
+Groovy
+Rust
+Scheme
+Common Lisp
+F#
+Elixir
+Perl
+Java (with anonymous classes or lambdas)
+C# (with delegates or lambdas)
+
+give me a list of every programming languages that you know have abillity to assigning functions to variables or storing them in data structures
+Python
+
+JavaScript
+Java
+C#
+C++
+Ruby
+Swift
+Kotlin
+R
+Scala
+Haskell
+Go
+Perl
+PHP
+Clojure
+TypeScript
+Rust
+MATLAB
+Lua
+Groovy
+
+cool resource:
+https://frontendmasters.com/courses/algorithms
+https://www.atatus.com/blog/pretty-print-json-in-ruby-python-java-nodejs-golang-dotnet-and-php/
+https://briankung.dev/2022/03/27/ruby-has-economy-class-functions/
+https://blog.appsignal.com/2018/09/04/ruby-magic-closures-in-ruby-blocks-procs-and-lambdas.html
+https://scoutapm.com/blog/how-to-use-lambdas-in-ruby
+https://www.guru99.com/r-apply-sapply-tapply.html
+Computed property names https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
+
+Nadeshiko, なでしこ — a Japanese programming language. It is a development environment tool that allows you to create programs that are easy to understand and use in Japanese.
+
+leetcode
+codewars
+adventofcode
+
+arrays
+linked list
+stacks
+queues
+hashmap
+binary trees
+priority queues
+graphs
+
+binary search
+greedy
+recursion
+dynamic programming
+DFS
+BFS
+
+most popular programming languages surveys:
+pypl index - https://pypl.github.io/PYPL.html
+tiobe index - https://www.tiobe.com/tiobe-index/

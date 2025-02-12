@@ -46,9 +46,9 @@ json_stringify <- function(anything, pretty = FALSE, indent = strrep(" ", 4)) {
 # in R, JavaScript-like Object is called Associative-list
 
 friend <- list(
-    name = "Alisa",
-    country = "Finland",
-    age = 25
+    "name" = "Alisa",
+    "country" = "Finland",
+    "age" = 25
 )
 cat(paste(sep = "", "friend: ", json_stringify(friend, pretty = TRUE), "\n"))
 

@@ -66,15 +66,3 @@ generateNumberSequence(10, 1).forEach((i) => {
     if (i === 9) return;
     console.log(`forEach loop v1 descending, i is ${i}`);
 });
-
-generateNumberSequence(1, 10).forEach((i) => {
-    if (i > 5) return;
-    if (i === 2) return;
-    console.log(`forEach loop v2 ascending, i is ${i}`);
-});
-
-generateNumberSequence(10, 1).forEach((i) => {
-    if (i <= 5) return;
-    if (i === 9) return;
-    console.log(`forEach loop v2 descending, i is ${i}`);
-});

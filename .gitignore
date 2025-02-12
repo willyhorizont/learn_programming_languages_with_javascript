@@ -10,3 +10,4 @@ temp.*
 *.class
 *.tasty
 Program.scala
+Program.java

@@ -4,6 +4,18 @@ def MyObject(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objec
 
 def MyArray(arrayItem: Any*): Array[Any] = (if (arrayItem.isEmpty) Array.empty[Any] else arrayItem.toArray[Any])
 
+def createNewObject(objectEntry: (String, Any)*): Any = (if (objectEntry.isEmpty == true) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+
+def isLikeJsArray(anything: Any): Any = {
+    if (anything.isInstanceOf[mutable.ArrayBuffer[_]] == true) return true
+    return false
+}
+
+def getType(anything: Any): Any = {
+    // if (isLikeJsArray(anything) == true) return "Array"
+    return anything.getClass.getName
+}
+
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
 
 def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String = "    "): String = {
@@ -12,13 +24,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
         if (anythingInner == null) return "null"
         if (anythingInner.isInstanceOf[String]) return s"\"${anythingInner}\""
         if (isNumeric(anythingInner) || anythingInner.isInstanceOf[Boolean]) return s"${anythingInner}"
-        if (anythingInner.isInstanceOf[Array[_]]) {
-            if (anythingInner.asInstanceOf[Array[Any]].length == 0) return "[]"
+        if (anythingInner.isInstanceOf[mutable.ArrayBuffer[_]]) {
+            if (anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length == 0) return "[]"
             indentLevel += 1
             var result: String = (if (pretty == true) s"[\n${indentInner * indentLevel}" else "[")
-            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[Array[Any]].zipWithIndex) {
+            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex) {
                 result += jsonStringifyInner(arrayItem, indentInner)
-                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[Array[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
@@ -68,9 +80,9 @@ something = true
 println("something: " + jsonStringify(something, pretty = true))
 something = null
 println("something: " + jsonStringify(something, pretty = true))
-something = MyArray(1, 2, 3)
+something = mutable.ArrayBuffer[Any](1, 2, 3)
 println("something: " + jsonStringify(something, pretty = true))
-something = MyObject("foo" -> "bar")
+something = mutable.Map[String, Any]("foo".asInstanceOf[String] -> "bar".asInstanceOf[Any])
 println("something: " + jsonStringify(something, pretty = true))
 
 /*

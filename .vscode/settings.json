@@ -115,9 +115,10 @@
         "scala": "cd \"$dir..\\..\\utils\" && python compile_and_run_scala_file.py $dir$fileName", // compile .scala file to .class and run the .class
         "scala2": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"", // compile .scala file to .class and run the .class
         "scala3": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"  && del \"$dir*.tasty\"", // compile .scala file to .class and run the .class
+        // "java": "cd $dir && javac $fileName && java $fileNameWithoutExt && del \"$dir*.class\"",
+        "java": "cd \"$dir..\\..\\utils\" && python compile_and_run_java_file.py $dir$fileName", // compile .java file to .class and run the .class
         "gdscript": "cd $dir && godot --script --headless $fileName",
         "elixir": "cd $dir && elixir $fileName",
-        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt && del \"$dir*.class\"",
         "perl6": "cd $dir && perl6 $fileName",
         "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt.exe && del \"$dir$fileNameWithoutExt.exe\"",
         "crystal": "cd $dir && crystal $fileName",
@@ -158,6 +159,20 @@
         "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "sml": "cd $dir && sml $fileName"
     },
+    "java.project.resourceFilters": [
+        "node_modules",
+        ".git",
+        "codes",
+        "codes_trial"
+    ],
+    // "java.import.exclusions": [
+    //     "**/node_modules/**",
+    //     "**/codes/**",
+    //     "**/codes_trial/**"
+    // ],
+    "java.project.sourcePaths": [
+        "output\\java"
+    ],
     "rubyLsp.rubyVersionManager": {
         "identifier": "none"
     },
@@ -216,10 +231,11 @@
         "assign-type-mismatch"
     ],
     "editor.multiCursorLimit": 100000,
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": true,
     "workbench.sideBar.location": "right",
     "workbench.editor.pinnedTabsOnSeparateRow": true,
     "workbench.editor.tabSizing": "fit",
     "workbench.editor.titleScrollbarSizing": "large",
     "workbench.editor.wrapTabs": true,
+    "java.project.referencedLibraries": [],
 }

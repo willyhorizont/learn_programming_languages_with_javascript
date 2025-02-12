@@ -128,36 +128,21 @@ console_log = function (...)
     print(string_interpolation(...))
 end
 
-console_log("-- JavaScript-like Template literals / Template strings (String Interpolation) in Lua (none 🤮)")
-
-my_name = "Alisa"
-my_age = 25
-console_log(string_interpolation("my name is ", my_name, " and I am ", my_age, "."))
-
-console_log(string_interpolation("1 + 2 + 3 + 4 = ", (1 + 2 + 3 + 4)))
-
-get_rectangle_area = function (rectangle_width, rectangle_length)
-    return (rectangle_width * rectangle_length)
-end
-
-console_log(string_interpolation("get_rectangle_area(7, 5): ", get_rectangle_area(7, 5)))
+-- console_log("-- JavaScript-like console.log() in Lua")
 
 any_string = "foo"
-console_log(string_interpolation("any string: ", json_stringify(any_string)))
-
 any_numeric = 123
-console_log(string_interpolation("any numeric: ", json_stringify(any_numeric)))
-
 any_boolean = true
-console_log(string_interpolation("any boolean: ", json_stringify(any_boolean)))
-
 any_null = nil
-console_log(string_interpolation("any null: ", json_stringify(any_null)))
-
 any_array = {1, 2, 3}
-console_log(string_interpolation("any array: ", json_stringify(any_array)))
-console_log(string_interpolation("any array first element: ", json_stringify(optional_chaining(function () return (any_array[0]) end))))
-
 any_object = { ["foo"] = "bar" }
-console_log(string_interpolation("any object: ", json_stringify(any_object)))
-console_log(string_interpolation("any object foo value: ", json_stringify(optional_chaining(function () return (any_object["foo"]) end))))
+
+-- its add whitespaces as separator by default
+print("any string: ", any_string, ", any numeric: ", any_numeric, ", any boolean: ", any_boolean, ", any null: ", any_null, ", any array: ", any_array, ", any object: ", any_object)
+
+print("any string: ", json_stringify(any_string), ", any numeric: ", json_stringify(any_numeric), ", any boolean: ", json_stringify(any_boolean), ", any null: ", json_stringify(any_null), ", any array: ", json_stringify(any_array), ", any object: ", json_stringify(any_object))
+
+print("any string: " .. json_stringify(any_string) .. ", any numeric: " .. json_stringify(any_numeric) .. ", any boolean: " .. json_stringify(any_boolean) .. ", any null: " .. json_stringify(any_null) .. ", any array: " .. json_stringify(any_array) .. ", any object: " .. json_stringify(any_object))
+
+-- ⭐⭐⭐⭐⭐
+console_log(string_interpolation("any string: ", {any_string}, ", any numeric: ", {any_numeric}, ", any boolean: ", {any_boolean}, ", any null: ", {any_null}, ", any array: ", {any_array}, ", any object: ", {any_object}))

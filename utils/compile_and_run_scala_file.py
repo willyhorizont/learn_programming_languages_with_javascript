@@ -13,7 +13,7 @@ def compile_and_run_scala_file():
     path_file_scala = path_file_scala.replace("\"", "\\")
     file_name_scala = path_file_scala.split("codes\\scala\\")[1]
 
-    indentation = " " * 4
+    indentation = (" " * 4)
     scala_object_head = "object Program {"
     scala_object_tail = "}"
     scala_main_method_head = "def main(args: Array[String]): Unit = {"

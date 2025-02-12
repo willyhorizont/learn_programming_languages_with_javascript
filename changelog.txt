@@ -1,4 +1,13 @@
 =============================changelog==========================================
+(2025/02[Feb]/13[Thu]|04:19[AM]/04:19)
+1.0.84
+New:
+update *.go
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2024/10[Oct]/28[Mon]|10:04[AM]/10:04)
 1.0.83
 New:

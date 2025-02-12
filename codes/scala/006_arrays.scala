@@ -1,8 +1,16 @@
 import scala.collection.mutable
 
-def MyObject(objectEntry: (String, Any)*): mutable.Map[String, Any] = (if (objectEntry.isEmpty) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
+def createNewObject(objectEntry: (String, Any)*): Any = (if (objectEntry.isEmpty == true) mutable.Map.empty[String, Any] else mutable.Map(objectEntry: _*))
 
-def MyArray(arrayItem: Any*): Array[Any] = (if (arrayItem.isEmpty) Array.empty[Any] else arrayItem.toArray[Any])
+def isLikeJsArray(anything: Any): Any = {
+    if (anything.isInstanceOf[mutable.ArrayBuffer[_]] == true) return true
+    return false
+}
+
+def getType(anything: Any): Any = {
+    // if (isLikeJsArray(anything) == true) return "Array"
+    return anything.getClass.getName
+}
 
 val isNumeric = ((anything: Any) => (if (anything.isInstanceOf[Byte] || anything.isInstanceOf[Int] || anything.isInstanceOf[Long] || anything.isInstanceOf[Short] || anything.isInstanceOf[Double] || anything.isInstanceOf[Float] || anything.isInstanceOf[BigInt] || anything.isInstanceOf[BigDecimal]) true else false): Boolean)
 
@@ -12,13 +20,13 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
         if (anythingInner == null) return "null"
         if (anythingInner.isInstanceOf[String]) return s"\"${anythingInner}\""
         if (isNumeric(anythingInner) || anythingInner.isInstanceOf[Boolean]) return s"${anythingInner}"
-        if (anythingInner.isInstanceOf[Array[_]]) {
-            if (anythingInner.asInstanceOf[Array[Any]].length == 0) return "[]"
+        if (anythingInner.isInstanceOf[mutable.ArrayBuffer[_]]) {
+            if (anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length == 0) return "[]"
             indentLevel += 1
             var result: String = (if (pretty == true) s"[\n${indentInner * indentLevel}" else "[")
-            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[Array[Any]].zipWithIndex) {
+            for ((arrayItem, arrayItemIndex) <- anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex) {
                 result += jsonStringifyInner(arrayItem, indentInner)
-                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[Array[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
+                if ((arrayItemIndex + 1) != anythingInner.asInstanceOf[mutable.ArrayBuffer[Any]].length) result += (if (pretty == true) s",\n${indentInner * indentLevel}" else ", ")
             }
             indentLevel -= 1
             result += (if (pretty == true) s"\n${indentInner * indentLevel}]" else "]")
@@ -41,35 +49,43 @@ def jsonStringify(anything: Any = null, pretty: Boolean = false, indent: String 
     return jsonStringifyInner(anything, indent)
 }
 
-// in Scala, JavaScript-like Array is called Array
+// in Scala, JavaScript-like Array is called ArrayBuffer
 
-val fruits = MyArray("apple", "mango", "orange")
+val fruits: Any = mutable.ArrayBuffer[Any]("apple", "mango", "orange")
 println("fruits: " + jsonStringify(fruits))
 
-println(s"fruits, length: ${fruits.asInstanceOf[Array[Any]].length}")
+println(s"isLikeJsArray(fruits): ${isLikeJsArray(fruits)}")
+
+println(s"getType(fruits): ${getType(fruits)}")
+
+println(s"fruits, length: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]].length}")
 // fruits, length: 3
 
-println(s"fruits, get mango: ${fruits.asInstanceOf[Array[Any]](2)}")
+println(s"fruits, get mango: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]](2)}")
 // fruits, get mango: mango
 
-println(s"fruits, first element: ${fruits.asInstanceOf[Array[Any]](0)}")
+println(s"fruits, first element: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]](0)}")
 // fruits, first element: apple
 
-println(s"fruits, first element: ${fruits.asInstanceOf[Array[Any]].head}")
+println(s"fruits, first element: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]].head}")
 // fruits, first element: apple
 
-println(s"fruits, last element: ${fruits.asInstanceOf[Array[Any]](fruits.asInstanceOf[Array[Any]].length - 1)}")
+println(s"fruits, last element: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]](fruits.asInstanceOf[mutable.ArrayBuffer[Any]].length - 1)}")
 // fruits, last element: orange
 
-println(s"fruits, last element: ${fruits.asInstanceOf[Array[Any]].last}")
+println(s"fruits, last element: ${fruits.asInstanceOf[mutable.ArrayBuffer[Any]].last}")
 // fruits, last element: orange
 
-fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach((objectEntry: Tuple2[Any, Int]) => { println(s"fruits, for loop, index: ${objectEntry._2}, value: ${objectEntry._1}") })
+fruits.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex.foreach((objectEntry: Any) => {
+    val arrayItem: Any = objectEntry.asInstanceOf[Tuple2[Any, Int]]._1
+    val arrayItemIndex: Any = objectEntry.asInstanceOf[Tuple2[Any, Int]]._2
+    println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}")
+})
 // fruits, forEach loop, index: 0, value: apple
 // fruits, forEach loop, index: 1, value: mango
 // fruits, forEach loop, index: 2, value: orange
 
-fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach((objectEntry: Tuple2[Any, Int]) => {
+fruits.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex.foreach((objectEntry: Tuple2[Any, Int]) => {
     val (arrayItem, arrayItemIndex): (Any, Int) = (objectEntry._1, objectEntry._2)
     println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}")
 })
@@ -77,12 +93,12 @@ fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach((objectEntry: Tuple2[Any, I
 // fruits, forEach loop, index: 1, value: mango
 // fruits, forEach loop, index: 2, value: orange
 
-fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach { case (arrayItem, arrayItemIndex) => println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}") }
+fruits.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex.foreach { case (arrayItem, arrayItemIndex) => println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}") }
 // fruits, forEach loop, index: 0, value: apple
 // fruits, forEach loop, index: 1, value: mango
 // fruits, forEach loop, index: 2, value: orange
 
-fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach(new Function1[Tuple2[Any, Int], Unit] {
+fruits.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex.foreach(new Function1[Tuple2[Any, Int], Unit] {
     def apply(objectEntry: Tuple2[Any, Int]): Unit = {
         val (arrayItem, arrayItemIndex): (Any, Int) = (objectEntry._1, objectEntry._2)
         println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}")
@@ -93,33 +109,9 @@ fruits.asInstanceOf[Array[Any]].zipWithIndex.foreach(new Function1[Tuple2[Any, I
 // fruits, forEach loop, index: 2, value: orange
 
 // (the best way)
-for ((arrayItem, arrayItemIndex) <- fruits.asInstanceOf[Array[Any]].zipWithIndex) {
+for ((arrayItem, arrayItemIndex) <- fruits.asInstanceOf[mutable.ArrayBuffer[Any]].zipWithIndex) {
     println(s"fruits, for loop, index: ${arrayItemIndex}, value: ${arrayItem}")
 }
 // fruits, forEach loop, index: 0, value: apple
 // fruits, forEach loop, index: 1, value: mango
 // fruits, forEach loop, index: 2, value: orange
-
-// in Scala, JavaScript-like Array of Objects is called Array of mutable Maps
-
-val products = MyArray(
-    MyObject(
-        "id" -> "P1",
-        "name" -> "bubble gum"
-    ),
-    MyObject(
-        "id" -> "P2",
-        "name" -> "potato chips"
-    )
-)
-println("products: " + jsonStringify(products, pretty = true))
-
-for ((arrayItem, arrayItemIndex) <- products.asInstanceOf[Array[Any]].zipWithIndex) {
-    for (((objectKey, objectValue), objectEntryIndex) <- arrayItem.asInstanceOf[mutable.Map[String, Any]].toArray[Any].zipWithIndex) {
-        println(s"products, forEach loop, array item index: ${arrayItemIndex}, object iteration/entry index: ${objectEntryIndex}, key: ${objectKey}, value: ${objectValue}")
-    }
-}
-// products, forEach loop, array item index: 0, object iteration/entry index: 0, key: id, value: P1
-// products, forEach loop, array item index: 0, object iteration/entry index: 1, key: name, value: bubble gum
-// products, forEach loop, array item index: 1, object iteration/entry index: 0, key: id, value: P2
-// products, forEach loop, array item index: 1, object iteration/entry index: 1, key: name, value: potato chips
