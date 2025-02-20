@@ -1,4 +1,4 @@
-struct js_like_type_struct
+struct js_like_type_julia_struct
     Null::Any
     Boolean::Any
     String::Any
@@ -8,29 +8,45 @@ struct js_like_type_struct
     Function::Any
 end
 
-js_like_type::Any = js_like_type_struct("Null", "Boolean", "String", "Numeric", "Object", "Array", "Function")
+js_like_type = js_like_type_julia_struct("Null", "Boolean", "String", "Numeric", "Object", "Array", "Function")
 
-is_like_js_null::Any = (anything::Any) -> ((anything === nothing) && (isnothing(anything) === true))::Any
+function is_like_js_null(anything::Any)::Any
+    return ((anything === nothing) && (isnothing(anything) === true))::Any
+end
 
-is_like_js_boolean::Any = (anything::Any) -> ((isa(anything, Bool) === true) && ((anything === true) || (anything === false)))::Any
+function is_like_js_boolean(anything::Any)::Any
+    return ((isa(anything, Bool) === true) && ((anything === true) || (anything === false)))::Any
+end
 
-is_like_js_string::Any = (anything::Any) -> (isa(anything, AbstractString) === true)::Any
+function is_like_js_string(anything::Any)::Any
+    return (isa(anything, AbstractString) === true)::Any
+end
 
-is_like_js_numeric::Any = (anything::Any) -> (isa(anything, Number) === true)::Any
+function is_like_js_numeric(anything::Any)::Any
+    return (isa(anything, Number) === true)::Any
+end
 
-is_like_js_object::Any = (anything::Any) -> (isa(anything, Dict{String, Any}) === true)::Any
+function is_like_js_object(anything::Any)::Any
+    return (isa(anything, Dict{String, Any}) === true)::Any
+end
 
-is_like_js_array::Any = (anything::Any) -> ((isa(anything, Array{Any, 1}) === true) && (isa(anything, Vector{Any}) === true))::Any
+function is_like_js_array(anything::Any)::Any
+    return ((isa(anything, Array{Any, 1}) === true) && (isa(anything, Vector{Any}) === true))::Any
+end
 
-is_like_js_function::Any = (anything::Any) -> (isa(anything, Function) === true)::Any
+function is_like_js_function(anything::Any)::Any
+    return (isa(anything, Function) === true)::Any
+end
 
-get_type::Any = (anything::Any) -> (((is_like_js_null(anything) === true) ? ((js_like_type.Null)::Any) : ((is_like_js_boolean(anything) === true) ? ((js_like_type.Boolean)::Any) : ((is_like_js_string(anything) === true) ? ((js_like_type.String)::Any) : ((is_like_js_numeric(anything) === true) ? ((js_like_type.Numeric)::Any) : ((is_like_js_object(anything) === true) ? ((js_like_type.Object)::Any) : ((is_like_js_array(anything) === true) ? ((js_like_type.Array)::Any) : ((is_like_js_function(anything) === true) ? ((js_like_type.Function)::Any) : (("$(supertype(typeof(anything)))")::Any)))))))))::Any
+function get_type(anything::Any)::Any
+    return (((is_like_js_null(anything) === true) ? ((js_like_type.Null)::Any) : ((is_like_js_boolean(anything) === true) ? ((js_like_type.Boolean)::Any) : ((is_like_js_string(anything) === true) ? ((js_like_type.String)::Any) : ((is_like_js_numeric(anything) === true) ? ((js_like_type.Numeric)::Any) : ((is_like_js_object(anything) === true) ? ((js_like_type.Object)::Any) : ((is_like_js_array(anything) === true) ? ((js_like_type.Array)::Any) : ((is_like_js_function(anything) === true) ? ((js_like_type.Function)::Any) : (("$(supertype(typeof(anything)))")::Any)))))))))::Any
+end
 
-json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
+function json_stringify(anything::Any; pretty::Any=false)::Any
     # custom JSON.stringify() function
     local indent::Any = repeat(" ", 4)
     local indent_level::Any = 0
-    local json_stringify_inner::Any = (anything_inner::Any) -> (begin
+    function json_stringify_inner(anything_inner::Any)::Any
         local anything_inner_type::Any = get_type(anything_inner)
         if (anything_inner_type === js_like_type.Null) return ("null")::Any end
         if (anything_inner_type === js_like_type.String) return ("\"$(anything_inner)\"")::Any end
@@ -69,11 +85,23 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
         end
         if (anything_inner_type === js_like_type.Function) return ("[object Function]")::Any end
         return (anything_inner_type)::Any
-    end)::Any
+    end
     return (json_stringify_inner(anything))::Any
-end)::Any
+end
 
-array_map_v1::Any = (callback_function::Any, any_array::Any) -> (begin
+function array_entries(any_array::Any)::Any
+    return (Dict{String, Any}("$(array_item_index)" => array_item for (array_item_index, array_item) in enumerate(any_array)))::Any
+end
+
+function array_find(callback_function::Any, any_array::Any)::Any
+    # JavaScript-like Array.find() function array_find_v4
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true) return (array_item)::Any end
+    end
+    return (nothing)::Any
+end
+
+function array_map_v1(callback_function::Any, any_array::Any)::Any
     # JavaScript-like Array.map() function array_map_v1
     local new_array::Any = Vector{Any}([])
     for (array_item_index, array_item) in enumerate(any_array)
@@ -81,21 +109,21 @@ array_map_v1::Any = (callback_function::Any, any_array::Any) -> (begin
         push!(new_array, new_array_item)
     end
     return (new_array)::Any
-end)::Any
+end
 
-array_map_v2::Any = (callback_function::Any, any_array::Any) -> (begin
+function array_map_v2(callback_function::Any, any_array::Any)::Any
     # JavaScript-like Array.map() function array_map_v2
     local new_array::Any = Vector{Any}([])
     for (array_item_index, array_item) in enumerate(any_array)
         push!(new_array, callback_function(array_item, array_item_index, any_array))
     end
     return (new_array)::Any
-end)::Any
+end
 
-array_map_v3::Any = (callback_function::Any, any_array::Any) -> (begin
+function array_map_v3(callback_function::Any, any_array::Any)::Any
     # JavaScript-like Array.map() function array_map_v3
     return (Vector{Any}([callback_function(array_item, array_item_index, any_array) for (array_item_index, array_item) in enumerate(any_array)]))::Any
-end)::Any
+end
 
 array_map_v4::Any = (callback_function::Any, any_array::Any) -> (Vector{Any}([callback_function(array_item, array_item_index, any_array) for (array_item_index, array_item) in enumerate(any_array)]))::Any  # JavaScript-like Array.map() function array_map_v4
 
@@ -276,7 +304,7 @@ println("products: $(json_stringify(products, pretty=true))")
 
 println("# using JavaScript-like Array.map() function \"array_map_v1\"")
 
-products_labeled::Any = array_map_v1(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (e) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
+products_labeled::Any = array_map_v1(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (any_error) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
 println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 # labeled products: [
 #     {
@@ -303,7 +331,7 @@ println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 
 println("# using JavaScript-like Array.map() function \"array_map_v2\"")
 
-products_labeled::Any = array_map_v2(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (e) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
+products_labeled::Any = array_map_v2(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (any_error) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
 println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 # labeled products: [
 #     {
@@ -330,7 +358,7 @@ println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 
 println("# using JavaScript-like Array.map() function \"array_map_v3\"")
 
-products_labeled::Any = array_map_v3(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (e) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
+products_labeled::Any = array_map_v3(((product::Any, _, _) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (any_error) nothing end) > 100) ? "expensive" : "cheap")))::Any), products)
 println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 # labeled products: [
 #     {
@@ -357,7 +385,7 @@ println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 
 println("# using Julia Array.map() built-in function \"map\"")
 
-products_labeled::Any = convert(Vector{Any}, map(((product) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (e) nothing end) > 100) ? "expensive" : "cheap")))::Any), products))
+products_labeled::Any = convert(Vector{Any}, map(((product) -> (Dict{String, Any}(product..., "label" => (((try product["price"] catch (any_error) nothing end) > 100) ? "expensive" : "cheap")))::Any), products))
 println("labeled products: $(json_stringify(products_labeled, pretty=true))")
 # labeled products: [
 #     {

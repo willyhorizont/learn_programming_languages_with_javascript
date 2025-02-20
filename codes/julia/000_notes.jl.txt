@@ -5,7 +5,8 @@ to work with JSON in Julia:
 https://github.com/JuliaIO/JSON.jl
 open Julia REPL, Type "] add JSON" and then hit ENTER at the REPL. You should see pkg> add JSON.
 
-\w*_an_\w+
-\w*_a_\w+
-\ban_\w+
+catch (e) to catch (any_error)
+\w+_a_\w+
+\w+_an_\w+
 \ba_\w+
+\ban_\w+

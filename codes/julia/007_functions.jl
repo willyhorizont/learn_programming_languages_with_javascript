@@ -21,7 +21,7 @@ function (rectangle_width::Any, rectangle_length::Any)
     return (rectangle_width * rectangle_length)::Any
 end
 
-# ? named function expression
+# ? named function expression 🤮
 
 get_rectangle_area_v4::Any = function do_something(rectangle_width::Any, rectangle_length::Any)::Any
     return (rectangle_width * rectangle_length)::Any
@@ -91,9 +91,9 @@ my_array_of_get_rectangle_area_functions::Any = Vector{Any}([
 println("my_array_of_get_rectangle_area_functions[1](7, 5): $(my_array_of_get_rectangle_area_functions[1](7, 5))")
 println("my_array_of_get_rectangle_area_functions[2](7, 5): $(my_array_of_get_rectangle_area_functions[2](7, 5))")
 println("my_array_of_get_rectangle_area_functions[3](7, 5): $(my_array_of_get_rectangle_area_functions[3](7, 5))")
-println("try my_array_of_get_rectangle_area_functions[1](7, 5) catch (e) nothing end: $(try my_array_of_get_rectangle_area_functions[1](7, 5) catch (e) nothing end)")
-println("try my_array_of_get_rectangle_area_functions[2](7, 5) catch (e) nothing end: $(try my_array_of_get_rectangle_area_functions[2](7, 5) catch (e) nothing end)")
-println("try my_array_of_get_rectangle_area_functions[3](7, 5) catch (e) nothing end: $(try my_array_of_get_rectangle_area_functions[3](7, 5) catch (e) nothing end)")
+println("try my_array_of_get_rectangle_area_functions[1](7, 5) catch (any_error) nothing end: $(try my_array_of_get_rectangle_area_functions[1](7, 5) catch (any_error) nothing end)")
+println("try my_array_of_get_rectangle_area_functions[2](7, 5) catch (any_error) nothing end: $(try my_array_of_get_rectangle_area_functions[2](7, 5) catch (any_error) nothing end)")
+println("try my_array_of_get_rectangle_area_functions[3](7, 5) catch (any_error) nothing end: $(try my_array_of_get_rectangle_area_functions[3](7, 5) catch (any_error) nothing end)")
 
 function exponentiation(a::Any, b::Any)::Any
     return (a ^ b)::Any
@@ -109,9 +109,9 @@ simple_calculator::Any = Dict{String, Any}(
 println("simple_calculator[\"exponentiation\"](2, 4): $(simple_calculator["exponentiation"](2, 4))")
 println("simple_calculator[\"addition\"](9, 3): $(simple_calculator["addition"](9, 3))")
 println("simple_calculator[\"subtraction\"](35, 8): $(simple_calculator["subtraction"](35, 8))")
-println("try simple_calculator[\"exponentiation\"](2, 4) catch (e) nothing end: $(try simple_calculator["exponentiation"](2, 4) catch (e) nothing end)")
-println("try simple_calculator[\"addition\"](9, 3) catch (e) nothing end: $(try simple_calculator["addition"](9, 3) catch (e) nothing end)")
-println("try simple_calculator[\"subtraction\"](35, 8) catch (e) nothing end: $(try simple_calculator["subtraction"](35, 8) catch (e) nothing end)")
+println("try simple_calculator[\"exponentiation\"](2, 4) catch (any_error) nothing end: $(try simple_calculator["exponentiation"](2, 4) catch (any_error) nothing end)")
+println("try simple_calculator[\"addition\"](9, 3) catch (any_error) nothing end: $(try simple_calculator["addition"](9, 3) catch (any_error) nothing end)")
+println("try simple_calculator[\"subtraction\"](35, 8) catch (any_error) nothing end: $(try simple_calculator["subtraction"](35, 8) catch (any_error) nothing end)")
 
 # ? Returning functions as values from other functions
 

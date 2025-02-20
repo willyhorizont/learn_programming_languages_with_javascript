@@ -1,4 +1,13 @@
 =============================changelog==========================================
+(2025/02[Feb]/21[Fri]|01:42[AM]/01:42)
+1.0.86
+New:
+update *.jl
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2025/02[Feb]/21[Fri]|12:30[AM]/00:30)
 1.0.85
 New:
