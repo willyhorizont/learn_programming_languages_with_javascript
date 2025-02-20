@@ -21,8 +21,8 @@ Description:
 	abbreviateName := func(completeName string) string {
 		names := strings.Split(completeName, " ")
 		namesNew := []string{}
-		for _, aName := range names {
-			namesNew = append(namesNew, strings.ToUpper(string(aName[0])))
+		for _, anyName := range names {
+			namesNew = append(namesNew, strings.ToUpper(string(anyName[0])))
 		}
 		return strings.Join(namesNew, ".")
 	}

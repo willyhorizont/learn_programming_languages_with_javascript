@@ -61,3 +61,7 @@ result.(string))
 var x interface{} = restArguments[0]
 x interface{}
 range (anyArray.([]interface{}))
+
+[a-z0-9]+An[A-Z0-9][a-z0-9]+
+\ba[A-Z]+
+\ban[A-Z]+

@@ -2,22 +2,22 @@
 
 $js_like_type = ["Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"];
 
-$array_reduce_v2 = function ($callback_function, $an_array, $initial_value) {
+$array_reduce_v2 = function ($callback_function, $any_array, $initial_value) {
     // JavaScript-like Array.reduce() function $array_reduce_v2
     $result = $initial_value;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $any_array);
         $array_item_index += 1;
     }
     return $result;
 };
 
-$array_every = function ($callback_function, $an_array) {
+$array_every = function ($callback_function, $any_array) {
     // JavaScript-like Array.every() function $array_every_v4
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === false) return false;
         $array_item_index += 1;
     }
     return true;
@@ -118,9 +118,9 @@ $console_log = function (...$rest_arguments) use ($string_interpolation) {
 
 $console_log("// Pipe Function in PHP");
 
-$plus25 = fn($a_number) => ($a_number + 25);
+$plus25 = fn($any_number) => ($any_number + 25);
 
-$multiply_by10 = fn($a_number) => ($a_number * 10);
+$multiply_by10 = fn($any_number) => ($any_number * 10);
 
 $console_log($multiply_by10($plus25(17))); // read from inside to outside
 
@@ -128,7 +128,7 @@ $pipe(17, $plus25, $multiply_by10, $console_log); // read from left to right
 
 $console_log($pipe(17, $plus25, $multiply_by10)); // read from left to right
 
-$make_number_easy_to_say = fn($a_number) => ($string_interpolation(intval($a_number), ".something"));
+$make_number_easy_to_say = fn($any_number) => ($string_interpolation(intval($any_number), ".something"));
 
 $get_circle_area_in_square_cm = fn($radius_in_cm) => (3.14 * ($radius_in_cm ** 2));
 

@@ -73,31 +73,31 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_map_v1::Any = (callback_function::Any, an_array::Any) -> (begin
+array_map_v1::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.map() function array_map_v1
     local new_array::Any = Vector{Any}([])
-    for (array_item_index, array_item) in enumerate(an_array)
-        local new_array_item::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local new_array_item::Any = callback_function(array_item, array_item_index, any_array)
         push!(new_array, new_array_item)
     end
     return (new_array)::Any
 end)::Any
 
-array_map_v2::Any = (callback_function::Any, an_array::Any) -> (begin
+array_map_v2::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.map() function array_map_v2
     local new_array::Any = Vector{Any}([])
-    for (array_item_index, array_item) in enumerate(an_array)
-        push!(new_array, callback_function(array_item, array_item_index, an_array))
+    for (array_item_index, array_item) in enumerate(any_array)
+        push!(new_array, callback_function(array_item, array_item_index, any_array))
     end
     return (new_array)::Any
 end)::Any
 
-array_map_v3::Any = (callback_function::Any, an_array::Any) -> (begin
+array_map_v3::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.map() function array_map_v3
-    return (Vector{Any}([callback_function(array_item, array_item_index, an_array) for (array_item_index, array_item) in enumerate(an_array)]))::Any
+    return (Vector{Any}([callback_function(array_item, array_item_index, any_array) for (array_item_index, array_item) in enumerate(any_array)]))::Any
 end)::Any
 
-array_map_v4::Any = (callback_function::Any, an_array::Any) -> (Vector{Any}([callback_function(array_item, array_item_index, an_array) for (array_item_index, array_item) in enumerate(an_array)]))::Any  # JavaScript-like Array.map() function array_map_v4
+array_map_v4::Any = (callback_function::Any, any_array::Any) -> (Vector{Any}([callback_function(array_item, array_item_index, any_array) for (array_item_index, array_item) in enumerate(any_array)]))::Any  # JavaScript-like Array.map() function array_map_v4
 
 println("\n# JavaScript-like Array.map() in Julia Vector")
 

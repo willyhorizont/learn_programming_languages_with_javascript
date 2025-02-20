@@ -76,7 +76,7 @@ end)::Any
 # There's no JavaScript-like Object.entries() in Julia.
 # But, we can use Julia Vector comprehension and Julia built-in function "pairs" to mimic it in Julia.
 
-object_entries::Any = (an_object::Any) -> (Vector{Any}([Vector{Any}([object_key, object_value]) for (object_key, object_value) in pairs(an_object)]))::Any  # JavaScript-like Object.entries() function
+object_entries::Any = (any_object::Any) -> (Vector{Any}([Vector{Any}([object_key, object_value]) for (object_key, object_value) in pairs(any_object)]))::Any  # JavaScript-like Object.entries() function
 
 println("\n# JavaScript-like Object.entries() in Julia Dictionary")
 

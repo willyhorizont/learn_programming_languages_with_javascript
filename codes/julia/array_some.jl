@@ -73,39 +73,39 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_some_v1::Any = (callback_function::Any, an_array::Any) -> (begin
+array_some_v1::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.some() function array_some_v1
     local is_condition_match::Any = false
-    for (array_item_index, array_item) in enumerate(an_array)
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        is_condition_match = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) break end
     end
     return (is_condition_match)::Any
 end)::Any
 
-array_some_v2::Any = (callback_function::Any, an_array::Any) -> (begin
+array_some_v2::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.some() function array_some_v2
     local is_condition_match::Any = false
-    for (array_item_index, array_item) in enumerate(an_array)
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        is_condition_match = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) return (is_condition_match)::Any end
     end
     return (is_condition_match)::Any
 end)::Any
 
-array_some_v3::Any = (callback_function::Any, an_array::Any) -> (begin
+array_some_v3::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.some() function array_some_v3
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) return true end
     end
     return false
 end)::Any
 
-array_some_v4::Any = (callback_function::Any, an_array::Any) -> (begin
+array_some_v4::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.some() function array_some_v4
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true) return true end
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true) return true end
     end
     return false
 end)::Any

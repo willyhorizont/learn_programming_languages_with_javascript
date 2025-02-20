@@ -2,22 +2,22 @@
 
 $js_like_type = ["Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"];
 
-$array_reduce_v2 = function ($callback_function, $an_array, $initial_value) {
+$array_reduce_v2 = function ($callback_function, $any_array, $initial_value) {
     // JavaScript-like Array.reduce() function $array_reduce_v2
     $result = $initial_value;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $any_array);
         $array_item_index += 1;
     }
     return $result;
 };
 
-$array_every = function ($callback_function, $an_array) {
+$array_every = function ($callback_function, $any_array) {
     // JavaScript-like Array.every() function $array_every_v4
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === false) return false;
         $array_item_index += 1;
     }
     return true;
@@ -118,10 +118,10 @@ $console_log = function (...$rest_arguments) use ($string_interpolation) {
 
 $create_valid_object_key = fn($object_key) => ("(" . ((string) $object_key) . ")");
 
-$object_from_entries = function ($an_object_entries) use ($js_like_type, $get_type, $create_valid_object_key, $optional_chaining) {
+$object_from_entries = function ($any_object_entries) use ($js_like_type, $get_type, $create_valid_object_key, $optional_chaining) {
     // JavaScript-like Object.fromEntries() function
     $new_object = [];
-    foreach ($an_object_entries as $object_entry_index => $object_entry) {
+    foreach ($any_object_entries as $object_entry_index => $object_entry) {
         if ($get_type($object_entry) !== $js_like_type["Array"]) continue;
         if (count($object_entry) !== 2) continue;
         $object_key = $optional_chaining($object_entry, 0);
@@ -135,11 +135,11 @@ $object_from_entries = function ($an_object_entries) use ($js_like_type, $get_ty
     return $new_object;
 };
 
-$array_entries = function ($an_array) {
+$array_entries = function ($any_array) {
     // JavaScript-like Array.entries() function
     $new_object_entries = [];
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
+    foreach ($any_array as $object_key => $object_value) {
         array_push($new_object_entries, [$array_item_index, $object_value]);
         $array_item_index += 1;
     }

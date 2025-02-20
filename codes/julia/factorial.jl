@@ -1,10 +1,10 @@
 println("\n# Factorial(n) in Julia")
 
-factorial_v1::Any = (a_number::Any) -> (begin
-    if (a_number < 0) throw(ErrorException("Argument should be >= 0")) end
-    if (a_number === 0) return (1)::Any end
+factorial_v1::Any = (any_number::Any) -> (begin
+    if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
+    if (any_number === 0) return (1)::Any end
     local result::Any = 1
-    local i::Any = a_number
+    local i::Any = any_number
     while (true)
         result *= i
         if (i <= 1) break end
@@ -13,11 +13,11 @@ factorial_v1::Any = (a_number::Any) -> (begin
     return (result)::Any
 end)::Any
 
-factorial_v2::Any = (a_number::Any) -> (begin
-    if (a_number < 0) throw(ErrorException("Argument should be >= 0")) end
-    if (a_number === 0) return (1)::Any end
+factorial_v2::Any = (any_number::Any) -> (begin
+    if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
+    if (any_number === 0) return (1)::Any end
     local result::Any = 1
-    local i::Any = a_number
+    local i::Any = any_number
     while (i >= 1)
         result *= i
         i -= 1
@@ -25,20 +25,20 @@ factorial_v2::Any = (a_number::Any) -> (begin
     return (result)::Any
 end)::Any
 
-factorial_v3::Any = (a_number::Any) -> (begin
-    if (a_number < 0) throw(ErrorException("Argument should be >= 0")) end
-    if (a_number === 0) return (1)::Any end
+factorial_v3::Any = (any_number::Any) -> (begin
+    if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
+    if (any_number === 0) return (1)::Any end
     local result::Any = 1
-    for i in (a_number:-1:1) # (start:step:stop)
+    for i in (any_number:-1:1) # (start:step:stop)
         result *= i
     end
     return (result)::Any
 end)::Any
 
-factorial_v4::Any = (a_number::Any) -> (begin
-    if (a_number < 0) throw(ErrorException("Argument should be >= 0")) end
-    if (a_number === 0) return (1)::Any end
-    return (a_number * factorial_v4(a_number - 1))::Any
+factorial_v4::Any = (any_number::Any) -> (begin
+    if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
+    if (any_number === 0) return (1)::Any end
+    return (any_number * factorial_v4(any_number - 1))::Any
 end)::Any
 
 println("# using factorial function \"factorial_v1\"")

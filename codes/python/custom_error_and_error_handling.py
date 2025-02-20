@@ -12,8 +12,8 @@ def give_me_respect(argument):
 try:
     response = give_me_respect("boo!")
     print(response)
-except Exception as an_exception:
-    print(str(an_exception))
+except Exception as any_exception:
+    print(str(any_exception))
 print("I'm sorry!")
 
 # Without Error Handling

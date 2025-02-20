@@ -32,9 +32,9 @@ const pipe = (...restArguments) => {
     return pipeResult;
 };
 
-const plus25 = (aNumber) => (aNumber + 25);
+const plus25 = (anyNumber) => (anyNumber + 25);
 
-const multiplyBy10 = (aNumber) => (aNumber * 10);
+const multiplyBy10 = (anyNumber) => (anyNumber * 10);
 
 console.log(multiplyBy10(plus25(17))); // read from inside to outside
 
@@ -42,7 +42,7 @@ pipe(17, plus25, multiplyBy10, console.log); // read from left to right
 
 console.log(pipe(17, plus25, multiplyBy10)); // read from left to right
 
-const makeNumberEasyToSay = (aNumber) => (`${Math.trunc(aNumber)}.something`);
+const makeNumberEasyToSay = (anyNumber) => (`${Math.trunc(anyNumber)}.something`);
 
 const getCircleAreaInSquareCm = (radiusInCm) => (3.14 * (radiusInCm ** 2));
 

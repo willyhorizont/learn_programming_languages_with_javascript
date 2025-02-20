@@ -2,22 +2,22 @@
 
 $js_like_type = ["Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"];
 
-$array_reduce_v2 = function ($callback_function, $an_array, $initial_value) {
+$array_reduce_v2 = function ($callback_function, $any_array, $initial_value) {
     // JavaScript-like Array.reduce() function $array_reduce_v2
     $result = $initial_value;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $any_array);
         $array_item_index += 1;
     }
     return $result;
 };
 
-$array_every = function ($callback_function, $an_array) {
+$array_every = function ($callback_function, $any_array) {
     // JavaScript-like Array.every() function $array_every_v4
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === false) return false;
         $array_item_index += 1;
     }
     return true;
@@ -119,12 +119,12 @@ $console_log = function (...$rest_arguments) use ($string_interpolation) {
 // There's no JavaScript-like Array.findIndex() in PHP.
 // But, we can create our own function to mimic it in PHP.
 
-$array_find_index_v1 = function ($callback_function, $an_array) {
+$array_find_index_v1 = function ($callback_function, $any_array) {
     // JavaScript-like Array.findIndex() function $array_find_index_v1
     $data_found_index = -1;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $is_condition_match = $callback_function($object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $is_condition_match = $callback_function($object_value, $array_item_index, $any_array);
         if ($is_condition_match === true) {
             $data_found_index = $array_item_index;
             break;
@@ -134,12 +134,12 @@ $array_find_index_v1 = function ($callback_function, $an_array) {
     return $data_found_index;
 };
 
-$array_find_index_v2 = function ($callback_function, $an_array) {
+$array_find_index_v2 = function ($callback_function, $any_array) {
     // JavaScript-like Array.findIndex() function $array_find_index_v2
     $data_found_index = -1;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === true) {
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === true) {
             $data_found_index = $array_item_index;
             break;
         }
@@ -148,22 +148,22 @@ $array_find_index_v2 = function ($callback_function, $an_array) {
     return $data_found_index;
 };
 
-$array_find_index_v3 = function ($callback_function, $an_array) {
+$array_find_index_v3 = function ($callback_function, $any_array) {
     // JavaScript-like Array.findIndex() function $array_find_index_v3
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $is_condition_match = $callback_function($object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $is_condition_match = $callback_function($object_value, $array_item_index, $any_array);
         if ($is_condition_match === true) return $array_item_index;
         $array_item_index += 1;
     }
     return -1;
 };
 
-$array_find_index_v4 = function ($callback_function, $an_array) {
+$array_find_index_v4 = function ($callback_function, $any_array) {
     // JavaScript-like Array.findIndex() function $array_find_index_v4
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === true) return $array_item_index;
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === true) return $array_item_index;
         $array_item_index += 1;
     }
     return -1;

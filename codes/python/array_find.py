@@ -2,14 +2,7 @@ from numbers import Number
 
 js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
-
-def array_reduce(callback_function, an_array, initial_value):
-    '''JavaScript-like Array.reduce() function'''
-    result = initial_value
-    for (array_item_index, array_item) in enumerate(an_array):
-        result = callback_function(result, array_item, array_item_index, an_array)
-    return result
-
+array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce_v2(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
 
 is_like_js_null = lambda anything: (anything is None)
 
@@ -31,102 +24,53 @@ get_type = lambda anything: (js_like_type["Null"] if (is_like_js_null(anything) 
 def optional_chaining(callback_function):
     try:
         return callback_function()
-    except Exception as an_exception:
+    except Exception as any_exception:
         return None
 
 
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
-
-def json_stringify(anything, pretty=False):
-    '''custom JSON.stringify() function json_stringify_v3'''
-    indent = (" " * 4)
-    indent_level = 0
-
-
-    def json_stringify_inner(anything_inner):
-        nonlocal indent_level
-        anything_inner_type = get_type(anything_inner)
-        if (anything_inner_type == js_like_type["Null"]):
-            return "null"
-        if (anything_inner_type == js_like_type["String"]):
-            return f'"{anything_inner}"'
-        if (anything_inner_type == js_like_type["Numeric"]):
-            return f"{anything_inner}"
-        if ((anything_inner_type == js_like_type["Boolean"]) and (anything_inner == True)):
-            return "true"
-        if ((anything_inner_type == js_like_type["Boolean"]) and (anything_inner == False)):
-            return "false"
-        if (anything_inner_type == js_like_type["Object"]):
-            if (len(anything_inner) == 0):
-                return "{" + "}"
-            indent_level += 1
-            result = (("{\n" + (indent * indent_level)) if (pretty == True) else "{ ")
-            for (object_entry_index, (object_key, object_value)) in enumerate(anything_inner.items()):
-                result += f'"{object_key}": {json_stringify_inner(object_value)}'
-                if ((object_entry_index + 1) != len(anything_inner)):
-                    result += ((f",\n{(indent * indent_level)}") if (pretty == True) else ", ")
-            indent_level -= 1
-            result += ((f"\n{(indent * indent_level)}" + "}") if (pretty == True) else " }")
-            return result
-        if (anything_inner_type == js_like_type["Array"]):
-            if (len(anything_inner) == 0):
-                return "[]"
-            indent_level += 1
-            result = ((f"[\n{(indent * indent_level)}") if (pretty == True) else "[")
-            for (array_item_index, array_item) in enumerate(anything_inner):
-                result += json_stringify_inner(array_item)
-                if ((array_item_index + 1) != len(anything_inner)):
-                    result += (f",\n{(indent * indent_level)}" if (pretty == True) else ", ")
-            indent_level -= 1
-            result += (f"\n{(indent * indent_level)}]" if (pretty == True) else "]")
-            return result
-        if (anything_inner_type == js_like_type["Function"]):
-            return "[object Function]"
-        return anything_inner_type
-
-
-    return json_stringify_inner(anything)
+json_stringify = (json_stringify_v10_inner := lambda anything, pretty=False, indent=(" " * 4), indent_level=0: ("null" if ((anything_type := get_type(anything)) == js_like_type["Null"]) else ('"' + str(anything) + '"') if (anything_type == js_like_type["String"]) else str(anything) if (anything_type == js_like_type["Numeric"]) else "true" if ((anything_type == js_like_type["Boolean"]) and (anything == True)) else "false" if ((anything_type == js_like_type["Boolean"]) and (anything == False)) else (("{" + "}") if (len(anything) == 0) else ("".join([(("{\n" + (indent * (indent_level + 1))) if (pretty == True) else "{ "), *[((('"' + str(object_key) + '": ' + json_stringify_v10_inner(object_value, pretty=pretty, indent_level=(indent_level + 1))) + ((",\n" + (indent * (indent_level + 1))) if (pretty == True) else ", ")) if ((object_entry_index + 1) != len(anything)) else ('"' + str(object_key) + '": ' + json_stringify_v10_inner(object_value, pretty=pretty, indent_level=(indent_level + 1)))) for (object_entry_index, (object_key, object_value)) in enumerate(anything.items())], (("\n" + (indent * indent_level) + "}") if (pretty == True) else " }")]))) if (anything_type == js_like_type["Object"]) else ("[]" if (len(anything) == 0) else ("".join([(("[\n" + (indent * (indent_level + 1))) if (pretty == True) else "["), *[((json_stringify_v10_inner(array_item, pretty=pretty, indent_level=(indent_level + 1)) + ((",\n" + (indent * (indent_level + 1))) if (pretty == True) else ", ")) if ((array_item_index + 1) != len(anything)) else json_stringify_v10_inner(array_item, pretty=pretty, indent_level=(indent_level + 1))) for (array_item_index, array_item) in enumerate(anything)], (("\n" + (indent * indent_level) + "]") if (pretty == True) else "]")]))) if (anything_type == js_like_type["Array"]) else "[object Function]" if (anything_type == js_like_type["Function"]) else anything_type))  # '''custom JSON.stringify() function json_stringify_v10'''
 
 
 # There's no JavaScript-like Array.find() in Python.
 # But, we can create our own function to mimic it in Python.
 
 
-def array_find_v1(callback_function, an_array):
+def array_find_v1(callback_function, any_array):
     '''JavaScript-like Array.find() function array_find_v1'''
     data_found = None
-    for (array_item_index, array_item) in enumerate(an_array):
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array):
+        is_condition_match = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match == True):
             data_found = array_item
             break
     return data_found
 
 
-def array_find_v2(callback_function, an_array):
+def array_find_v2(callback_function, any_array):
     '''JavaScript-like Array.find() function array_find_v2'''
     data_found = None
-    for (array_item_index, array_item) in enumerate(an_array):
-        if (callback_function(array_item, array_item_index, an_array) == True):
+    for (array_item_index, array_item) in enumerate(any_array):
+        if (callback_function(array_item, array_item_index, any_array) == True):
             data_found = array_item
             break
     return data_found
 
 
-def array_find_v3(callback_function, an_array):
+def array_find_v3(callback_function, any_array):
     '''JavaScript-like Array.find() function array_find_v3'''
-    for (array_item_index, array_item) in enumerate(an_array):
-        is_condition_match = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array):
+        is_condition_match = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match == True):
             return array_item
     return None
 
 
-def array_find_v4(callback_function, an_array):
+def array_find_v4(callback_function, any_array):
     '''JavaScript-like Array.find() function array_find_v4'''
-    for (array_item_index, array_item) in enumerate(an_array):
-        if (callback_function(array_item, array_item_index, an_array) == True):
+    for (array_item_index, array_item) in enumerate(any_array):
+        if (callback_function(array_item, array_item_index, any_array) == True):
             return array_item
     return None
 

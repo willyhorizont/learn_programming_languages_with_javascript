@@ -16,7 +16,7 @@ Description:
 
 sub abbreviate_name {
     my ($complete_name) = @_;
-    return join(".", map { my $a_name = $_; uc(substr($a_name, 0, 1)) } split(" ", $complete_name));
+    return join(".", map { my $any_name = $_; uc(substr($any_name, 0, 1)) } split(" ", $complete_name));
 }
 print(abbreviate_name("Sam Harris"), "\n");
 # S.H

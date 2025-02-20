@@ -73,11 +73,11 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_reduce::Any = (callback_function::Any, an_array::Any, initial_value::Any) -> (begin
+array_reduce::Any = (callback_function::Any, any_array::Any, initial_value::Any) -> (begin
     # JavaScript-like Array.reduce() function
     local result::Any = initial_value
-    for (array_item_index, array_item) in enumerate(an_array)
-        result = callback_function(result, array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        result = callback_function(result, array_item, array_item_index, any_array)
     end
     return (result)::Any
 end)::Any

@@ -73,31 +73,31 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_filter_v1::Any = (callback_function::Any, an_array::Any) -> (begin
+array_filter_v1::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.filter() function array_filter_v1
     local data_filtered::Any = Vector{Any}([])
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) push!(data_filtered, array_item) end
     end
     return (data_filtered)::Any
 end)::Any
 
-array_filter_v2::Any = (callback_function::Any, an_array::Any) -> (begin
+array_filter_v2::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.filter() function array_filter_v2
     local data_filtered::Any = Vector{Any}([])
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true) push!(data_filtered, array_item) end
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true) push!(data_filtered, array_item) end
     end
     return (data_filtered)::Any
 end)::Any
 
-array_filter_v3::Any = (callback_function::Any, an_array::Any) -> (begin
+array_filter_v3::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.filter() function array_filter_v3
-    return (Vector{Any}([array_item for (array_item_index, array_item) in enumerate(an_array) if (callback_function(array_item, array_item_index, an_array) === true)]))::Any
+    return (Vector{Any}([array_item for (array_item_index, array_item) in enumerate(any_array) if (callback_function(array_item, array_item_index, any_array) === true)]))::Any
 end)::Any
 
-array_filter_v4::Any = (callback_function::Any, an_array::Any) -> (Vector{Any}([array_item for (array_item_index, array_item) in enumerate(an_array) if (callback_function(array_item, array_item_index, an_array) === true)]))::Any  # JavaScript-like Array.filter() function array_filter_v4
+array_filter_v4::Any = (callback_function::Any, any_array::Any) -> (Vector{Any}([array_item for (array_item_index, array_item) in enumerate(any_array) if (callback_function(array_item, array_item_index, any_array) === true)]))::Any  # JavaScript-like Array.filter() function array_filter_v4
 
 println("\n# JavaScript-like Array.filter() in Julia Vector")
 

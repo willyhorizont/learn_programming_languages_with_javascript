@@ -75,9 +75,9 @@ end)::Any
 
 println("\n# Pipe Function in Julia (pipe operator (|>))")
 
-plus25::Any = (a_number::Any) -> (a_number + 25)::Any
+plus25::Any = (any_number::Any) -> (any_number + 25)::Any
 
-multiply_by10::Any = (a_number::Any) -> (a_number * 10)::Any
+multiply_by10::Any = (any_number::Any) -> (any_number * 10)::Any
 
 println(multiply_by10(plus25(17)))  # read from inside to outside
 
@@ -85,7 +85,7 @@ println(multiply_by10(plus25(17)))  # read from inside to outside
 
 println(17 |> plus25 |> multiply_by10)  # read from left to right
 
-make_number_easy_to_say::Any = (a_number::Any) -> ("$(trunc(Int, a_number)).something")::Any
+make_number_easy_to_say::Any = (any_number::Any) -> ("$(trunc(Int, any_number)).something")::Any
 
 get_circle_area_in_square_cm::Any = (radius_in_cm::Any) -> (3.14 * (radius_in_cm ^ 2))::Any
 

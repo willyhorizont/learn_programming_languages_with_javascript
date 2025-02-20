@@ -11,3 +11,6 @@ temp.*
 *.tasty
 Program.scala
 Program.java
+python_lambda_function.mojo
+python_lambda_function_one_liner.mojo
+lambda_function.py

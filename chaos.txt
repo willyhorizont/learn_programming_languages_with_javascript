@@ -1,5 +1,19 @@
 \n\n$ regex to find multiple line whitepace at the end of the file
 
+Groovy
+F#
+Clojure
+Erlang
+Elixir
+Gleam
+Java
+Mojo
+Crystal
+Rust
+Zig
+C
+C++
+
 todo asap check:
 generate_number_sequence.go
 006_arrays.kt
@@ -10,6 +24,8 @@ console_log.lua, string_interpolation.lua
 006_arrays.vb
 string_interpolation.java
 string_interpolation.rs
+change anything_inner to anything_inside string_interpolation in *.*
+add array_reduce recursive function in array_reduce.*
 
 done:
 array.length

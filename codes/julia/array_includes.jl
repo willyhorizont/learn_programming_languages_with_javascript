@@ -80,22 +80,22 @@ println("my friends: $(json_stringify(my_friends))")
 
 println("# using Julia Array.includes() built-in operator \"in\"")
 
-a_name::Any = "Alisa"
-is_my_friend::Any = (a_name in my_friends)
-println("is my friends includes \"$(a_name)\": $(is_my_friend)")
+any_name::Any = "Alisa"
+is_my_friend::Any = (any_name in my_friends)
+println("is my friends includes \"$(any_name)\": $(is_my_friend)")
 # is my friends includes "Alisa": true
 
-a_name::Any = "Trivia"
-is_my_friend::Any = (a_name in my_friends)
-println("is my friends includes \"$(a_name)\": $(is_my_friend)")
+any_name::Any = "Trivia"
+is_my_friend::Any = (any_name in my_friends)
+println("is my friends includes \"$(any_name)\": $(is_my_friend)")
 # is my friends includes "Trivia": true
 
-a_name::Any = "Tony"
-is_my_friend::Any = (a_name in my_friends)
-println("is my friends includes \"$(a_name)\": $(is_my_friend)")
+any_name::Any = "Tony"
+is_my_friend::Any = (any_name in my_friends)
+println("is my friends includes \"$(any_name)\": $(is_my_friend)")
 # is my friends includes "Tony": true
 
-a_name::Any = "Ezekiel"
-is_my_friend::Any = (a_name in my_friends)
-println("is my friends includes \"$(a_name)\": $(is_my_friend)")
+any_name::Any = "Ezekiel"
+is_my_friend::Any = (any_name in my_friends)
+println("is my friends includes \"$(any_name)\": $(is_my_friend)")
 # is my friends includes "Ezekiel": true

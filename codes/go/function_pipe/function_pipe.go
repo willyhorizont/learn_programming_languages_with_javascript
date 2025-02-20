@@ -502,18 +502,18 @@ func objectValues(anyObject interface{}) interface{} {
 }
 
 func plus25(restArguments ...interface{}) interface{} {
-	var aNumber interface{} = restArguments[0]
-	return (int(getGoFloat64(aNumber).(float64)) + 25)
+	var anyNumber interface{} = restArguments[0]
+	return (int(getGoFloat64(anyNumber).(float64)) + 25)
 }
 
 func multiplyBy10(restArguments ...interface{}) interface{} {
-	var aNumber interface{} = restArguments[0]
-	return (int(getGoFloat64(aNumber).(float64)) * 10)
+	var anyNumber interface{} = restArguments[0]
+	return (int(getGoFloat64(anyNumber).(float64)) * 10)
 }
 
 func makeNumberEasyToSay(restArguments ...interface{}) interface{} {
-	var aNumber interface{} = restArguments[0]
-	return stringInterpolation(int(getGoFloat64(aNumber).(float64)), ".something")
+	var anyNumber interface{} = restArguments[0]
+	return stringInterpolation(int(getGoFloat64(anyNumber).(float64)), ".something")
 }
 
 func getCircleAreaInSquareCm(restArguments ...interface{}) interface{} {

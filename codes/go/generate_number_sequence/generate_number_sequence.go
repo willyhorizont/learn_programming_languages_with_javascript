@@ -503,14 +503,14 @@ func objectValues(anyObject interface{}) interface{} {
 func generateNumberSequence(startNumber int, stopNumber int) interface{} {
 	numberSequenceArray := []interface{}{}
 	if (stopNumber > startNumber) {
-		for aNumber := startNumber; (aNumber <= stopNumber); aNumber = (aNumber + 1) {
-			numberSequenceArray = append(numberSequenceArray, aNumber)
+		for anyNumber := startNumber; (anyNumber <= stopNumber); anyNumber = (anyNumber + 1) {
+			numberSequenceArray = append(numberSequenceArray, anyNumber)
 		}
 		return numberSequenceArray
 	}
 	if (startNumber > stopNumber) {
-		for aNumber := startNumber; (aNumber >= stopNumber); aNumber = (aNumber - 1) {
-			numberSequenceArray = append(numberSequenceArray, aNumber)
+		for anyNumber := startNumber; (anyNumber >= stopNumber); anyNumber = (anyNumber - 1) {
+			numberSequenceArray = append(numberSequenceArray, anyNumber)
 		}
 		return numberSequenceArray
 	}

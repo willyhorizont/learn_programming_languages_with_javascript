@@ -3,35 +3,35 @@ println("\n# FizzBuzz(n) in Julia")
 fizzbuzz_v1::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
+    local any_number::Any = 1
     while (true)
         if (result === "")
-            result = "$(a_number)"
-            if (a_number >= stop_number) break end
-            a_number += 1
+            result = "$(any_number)"
+            if (any_number >= stop_number) break end
+            any_number += 1
             continue
         end
-        if (((a_number % 3) === 0) && ((a_number % 5) === 0))
+        if (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
-            if (a_number >= stop_number) break end
-            a_number += 1
+            if (any_number >= stop_number) break end
+            any_number += 1
             continue
         end
-        if ((a_number % 3) === 0)
+        if ((any_number % 3) === 0)
             result = "$(result), Fizz"
-            if (a_number >= stop_number) break end
-            a_number += 1
+            if (any_number >= stop_number) break end
+            any_number += 1
             continue
         end
-        if ((a_number % 5) === 0)
+        if ((any_number % 5) === 0)
             result = "$(result), Buzz"
-            if (a_number >= stop_number) break end
-            a_number += 1
+            if (any_number >= stop_number) break end
+            any_number += 1
             continue
         end
-        result = "$(result), $(a_number)"
-        if (a_number >= stop_number) break end
-        a_number += 1
+        result = "$(result), $(any_number)"
+        if (any_number >= stop_number) break end
+        any_number += 1
     end
     return result
 end)::Any
@@ -39,30 +39,30 @@ end)::Any
 fizzbuzz_v2::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
-    while (a_number <= stop_number)
+    local any_number::Any = 1
+    while (any_number <= stop_number)
         if (result === "")
-            result = "$(a_number)"
-            a_number += 1
+            result = "$(any_number)"
+            any_number += 1
             continue
         end
-        if (((a_number % 3) === 0) && ((a_number % 5) === 0))
+        if (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
-            a_number += 1
+            any_number += 1
             continue
         end
-        if ((a_number % 3) === 0)
+        if ((any_number % 3) === 0)
             result = "$(result), Fizz"
-            a_number += 1
+            any_number += 1
             continue
         end
-        if ((a_number % 5) === 0)
+        if ((any_number % 5) === 0)
             result = "$(result), Buzz"
-            a_number += 1
+            any_number += 1
             continue
         end
-        result = "$(result), $(a_number)"
-        a_number += 1
+        result = "$(result), $(any_number)"
+        any_number += 1
     end
     return result
 end)::Any
@@ -70,21 +70,21 @@ end)::Any
 fizzbuzz_v3::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
+    local any_number::Any = 1
     while (true)
         if (result === "")
-            result = "$(a_number)"
-        elseif (((a_number % 3) === 0) && ((a_number % 5) === 0))
+            result = "$(any_number)"
+        elseif (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
-        elseif ((a_number % 3) === 0)
+        elseif ((any_number % 3) === 0)
             result = "$(result), Fizz"
-        elseif ((a_number % 5) === 0)
+        elseif ((any_number % 5) === 0)
             result = "$(result), Buzz"
         else
-            result = "$(result), $(a_number)"
+            result = "$(result), $(any_number)"
         end
-        if (a_number >= stop_number) break end
-        a_number += 1
+        if (any_number >= stop_number) break end
+        any_number += 1
     end
     return result
 end)::Any
@@ -92,20 +92,20 @@ end)::Any
 fizzbuzz_v4::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
-    while (a_number <= stop_number)
+    local any_number::Any = 1
+    while (any_number <= stop_number)
         if (result === "")
-            result = "$(a_number)"
-        elseif (((a_number % 3) === 0) && ((a_number % 5) === 0))
+            result = "$(any_number)"
+        elseif (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
-        elseif ((a_number % 3) === 0)
+        elseif ((any_number % 3) === 0)
             result = "$(result), Fizz"
-        elseif ((a_number % 5) === 0)
+        elseif ((any_number % 5) === 0)
             result = "$(result), Buzz"
         else
-            result = "$(result), $(a_number)"
+            result = "$(result), $(any_number)"
         end
-        a_number += 1
+        any_number += 1
     end
     return result
 end)::Any
@@ -113,23 +113,23 @@ end)::Any
 fizzbuzz_v5::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
+    local any_number::Any = 1
     while (true)
         result = ((result === "")
-            ? "$(a_number)"
-            : ((((a_number % 3) === 0) && ((a_number % 5) === 0))
+            ? "$(any_number)"
+            : ((((any_number % 3) === 0) && ((any_number % 5) === 0))
                 ? "$(result), FizzBuzz"
-                : (((a_number % 3) === 0)
+                : (((any_number % 3) === 0)
                     ? "$(result), Fizz"
-                    : (((a_number % 5) === 0)
+                    : (((any_number % 5) === 0)
                         ? "$(result), Buzz"
-                        : "$(result), $(a_number)"
+                        : "$(result), $(any_number)"
                     )
                 )   
             )
         )
-        if (a_number >= stop_number) break end
-        a_number += 1
+        if (any_number >= stop_number) break end
+        any_number += 1
     end
     return result
 end)::Any
@@ -137,22 +137,22 @@ end)::Any
 fizzbuzz_v6::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
-    while (a_number <= stop_number)
+    local any_number::Any = 1
+    while (any_number <= stop_number)
         result = ((result === "")
-            ? "$(a_number)"
-            : ((((a_number % 3) === 0) && ((a_number % 5) === 0))
+            ? "$(any_number)"
+            : ((((any_number % 3) === 0) && ((any_number % 5) === 0))
                 ? "$(result), FizzBuzz"
-                : (((a_number % 3) === 0)
+                : (((any_number % 3) === 0)
                     ? "$(result), Fizz"
-                    : (((a_number % 5) === 0)
+                    : (((any_number % 5) === 0)
                         ? "$(result), Buzz"
-                        : "$(result), $(a_number)"
+                        : "$(result), $(any_number)"
                     )
                 )
             )
         )
-        a_number += 1
+        any_number += 1
     end
     return result
 end)::Any
@@ -160,11 +160,11 @@ end)::Any
 fizzbuzz_v7::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
+    local any_number::Any = 1
     while (true)
-        result = ((result === "") ? "$(a_number)" : ((((a_number % 3) === 0) && ((a_number % 5) === 0)) ? "$(result), FizzBuzz" : (((a_number % 3) === 0) ? "$(result), Fizz" : (((a_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(a_number)"))))
-        if (a_number >= stop_number) break end
-        a_number += 1
+        result = ((result === "") ? "$(any_number)" : ((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "$(result), FizzBuzz" : (((any_number % 3) === 0) ? "$(result), Fizz" : (((any_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(any_number)"))))
+        if (any_number >= stop_number) break end
+        any_number += 1
     end
     return result
 end)::Any
@@ -172,10 +172,10 @@ end)::Any
 fizzbuzz_v8::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    local a_number::Any = 1
-    while (a_number <= stop_number)
-        result = ((result === "") ? "$(a_number)" : ((((a_number % 3) === 0) && ((a_number % 5) === 0)) ? "$(result), FizzBuzz" : (((a_number % 3) === 0) ? "$(result), Fizz" : (((a_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(a_number)"))))
-        a_number += 1
+    local any_number::Any = 1
+    while (any_number <= stop_number)
+        result = ((result === "") ? "$(any_number)" : ((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "$(result), FizzBuzz" : (((any_number % 3) === 0) ? "$(result), Fizz" : (((any_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(any_number)"))))
+        any_number += 1
     end
     return result
 end)::Any
@@ -183,24 +183,24 @@ end)::Any
 fizzbuzz_v9::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    for a_number in (1:1:stop_number) # (start:step:stop)
+    for any_number in (1:1:stop_number) # (start:step:stop)
         if (result === "")
-            result = "$(a_number)"
+            result = "$(any_number)"
             continue
         end
-        if (((a_number % 3) === 0) && ((a_number % 5) === 0))
+        if (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
             continue
         end
-        if ((a_number % 3) === 0)
+        if ((any_number % 3) === 0)
             result = "$(result), Fizz"
             continue
         end
-        if ((a_number % 5) === 0)
+        if ((any_number % 5) === 0)
             result = "$(result), Buzz"
             continue
         end
-        result = "$(result), $(a_number)"
+        result = "$(result), $(any_number)"
     end
     return result
 end)::Any
@@ -208,17 +208,17 @@ end)::Any
 fizzbuzz_v10::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    for a_number in (1:1:stop_number) # (start:step:stop)
+    for any_number in (1:1:stop_number) # (start:step:stop)
         if (result === "")
-            result = "$(a_number)"
-        elseif (((a_number % 3) === 0) && ((a_number % 5) === 0))
+            result = "$(any_number)"
+        elseif (((any_number % 3) === 0) && ((any_number % 5) === 0))
             result = "$(result), FizzBuzz"
-        elseif ((a_number % 3) === 0)
+        elseif ((any_number % 3) === 0)
             result = "$(result), Fizz"
-        elseif ((a_number % 5) === 0)
+        elseif ((any_number % 5) === 0)
             result = "$(result), Buzz"
         else
-            result = "$(result), $(a_number)"
+            result = "$(result), $(any_number)"
         end
     end
     return result
@@ -227,16 +227,16 @@ end)::Any
 fizzbuzz_v11::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    for a_number in (1:1:stop_number) # (start:step:stop)
+    for any_number in (1:1:stop_number) # (start:step:stop)
         result = ((result === "")
-            ? "$(a_number)"
-            : ((((a_number % 3) === 0) && ((a_number % 5) === 0))
+            ? "$(any_number)"
+            : ((((any_number % 3) === 0) && ((any_number % 5) === 0))
                 ? "$(result), FizzBuzz"
-                : (((a_number % 3) === 0)
+                : (((any_number % 3) === 0)
                     ? "$(result), Fizz"
-                    : (((a_number % 5) === 0)
+                    : (((any_number % 5) === 0)
                         ? "$(result), Buzz"
-                        : "$(result), $(a_number)"
+                        : "$(result), $(any_number)"
                     )
                 )
             )
@@ -248,15 +248,15 @@ end)::Any
 fizzbuzz_v12::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
-    for a_number in (1:1:stop_number) # (start:step:stop)
-        result = ((result === "") ? "$(a_number)" : ((((a_number % 3) === 0) && ((a_number % 5) === 0)) ? "$(result), FizzBuzz" : (((a_number % 3) === 0) ? "$(result), Fizz" : (((a_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(a_number)"))))
+    for any_number in (1:1:stop_number) # (start:step:stop)
+        result = ((result === "") ? "$(any_number)" : ((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "$(result), FizzBuzz" : (((any_number % 3) === 0) ? "$(result), Fizz" : (((any_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(any_number)"))))
     end
     return result
 end)::Any
 
 fizzbuzz_v13::Any = (stop_number::Any) -> (begin
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
-    return join([((((a_number % 3) === 0) && ((a_number % 5) === 0)) ? "FizzBuzz" : (((a_number % 3) === 0) ? "Fizz" : (((a_number % 5) === 0) ? "Buzz" : a_number))) for a_number in (1:1:stop_number)], ", ")
+    return join([((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "FizzBuzz" : (((any_number % 3) === 0) ? "Fizz" : (((any_number % 5) === 0) ? "Buzz" : any_number))) for any_number in (1:1:stop_number)], ", ")
 end)::Any
 
 println("# using fizzbuzz function \"fizzbuzz_v1\"")

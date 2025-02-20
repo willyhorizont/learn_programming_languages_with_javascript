@@ -73,7 +73,7 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_entries::Any = (an_array::Any) -> (Dict{String, Any}("$(array_item_index)" => array_item for (array_item_index, array_item) in enumerate(an_array)))::Any
+array_entries::Any = (any_array::Any) -> (Dict{String, Any}("$(array_item_index)" => array_item for (array_item_index, array_item) in enumerate(any_array)))::Any
 
 println("\n# JavaScript-like Spread Syntax (...) in Julia (Splat Operator)")
 

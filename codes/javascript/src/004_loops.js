@@ -1,20 +1,18 @@
 const generateNumberSequence = (startNumber, stopNumber) => {
-    if (stopNumber === undefined) return [0];
+    const numberSequenceArray = [];
     if (stopNumber > startNumber) {
-        const numberSequenceArrayAscending = [];
-        for (let aNumber = startNumber; (aNumber <= stopNumber); aNumber += 1) {
-            numberSequenceArrayAscending.push(aNumber);
+        for (let anyNumber = startNumber; (anyNumber <= stopNumber); anyNumber += 1) {
+            numberSequenceArray.push(anyNumber);
         }
-        return numberSequenceArrayAscending;
+        return numberSequenceArray;
     }
     if (startNumber > stopNumber) {
-        const numberSequenceArrayDescending = [];
-        for (let aNumber = startNumber; (aNumber >= stopNumber); aNumber -= 1) {
-            numberSequenceArrayDescending.push(aNumber);
+        for (let anyNumber = startNumber; (anyNumber >= stopNumber); anyNumber -= 1) {
+            numberSequenceArray.push(anyNumber);
         }
-        return numberSequenceArrayDescending;
+        return numberSequenceArray;
     }
-    return [0];
+    return numberSequenceArray;
 };
 
 // while loop

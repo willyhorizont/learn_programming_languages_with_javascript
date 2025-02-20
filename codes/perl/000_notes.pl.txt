@@ -113,3 +113,21 @@ qq(Alisa says "Hello")
 qq{Alisa says "Hello"}
 qq[Alisa says "Hello"]
 qq<Alisa says "Hello">
+
+\w+_a_\w+
+\w+_an_\w+
+\ba_\w+
+\ban_\w+
+
+$an_object_ref
+$an_array_ref
+$an_object_entries_ref
+
+"true" (1 == 1)
+"false" (1 == 0)
+eq is_triple_equal
+ne !is_triple_equal
+throw_error_if_null($js_like_type_ref->{"Boolean"})
+(eq|ne)
+(true|false|"true"|"false"|'true'|'false')
+(true|false|"true"|"false"|'true'|'false'|eq|ne)

@@ -16,10 +16,10 @@ Description:
 	We will consider a, e, i, o, u as vowels for this Kata (but not y).
 	The input string will only consist of lower case letters and/or spaces.
 	*/
-	countVowels := func(aString string) int {
+	countVowels := func(anyString string) int {
         result := 0
-		for _, aCharacter := range strings.Split(aString, "") {
-			if (strings.Contains("aiueoAIUEO", aCharacter) == true) {
+		for _, anyCharacter := range strings.Split(anyString, "") {
+			if (strings.Contains("aiueoAIUEO", anyCharacter) == true) {
 				result += 1
 			}
 		}

@@ -12,8 +12,8 @@ let response;
 try {
     response = giveMeRespect("boo!");
     console.log(response);
-} catch (anError) {
-    console.log(anError.message);
+} catch (anyError) {
+    console.log(anyError.message);
 }
 console.log("I'm sorry!");
 

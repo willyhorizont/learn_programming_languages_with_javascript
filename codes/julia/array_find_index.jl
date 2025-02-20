@@ -73,11 +73,11 @@ json_stringify::Any = (anything::Any; pretty::Any=false) -> (begin
     return (json_stringify_inner(anything))::Any
 end)::Any
 
-array_find_index_v1::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_index_v1::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.findIndex() function array_find_index_v1
     local data_found_index::Any = -1
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true)
             data_found_index = array_item_index
             break
@@ -86,11 +86,11 @@ array_find_index_v1::Any = (callback_function::Any, an_array::Any) -> (begin
     return (data_found_index)::Any
 end)::Any
 
-array_find_index_v2::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_index_v2::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.findIndex() function array_find_index_v2
     local data_found_index::Any = -1
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true)
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true)
             data_found_index = array_item_index
             break
         end
@@ -98,19 +98,19 @@ array_find_index_v2::Any = (callback_function::Any, an_array::Any) -> (begin
     return (data_found_index)::Any
 end)::Any
 
-array_find_index_v3::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_index_v3::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.findIndex() function array_find_index_v3
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) return (array_item_index)::Any end
     end
     return (-1)::Any
 end)::Any
 
-array_find_index_v4::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_index_v4::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.findIndex() function array_find_index_v4
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true) return (array_item_index)::Any end
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true) return (array_item_index)::Any end
     end
     return (-1)::Any
 end)::Any

@@ -2,22 +2,22 @@
 
 $js_like_type = ["Null" => "Null", "Boolean" => "Boolean", "String" => "String", "Numeric" => "Numeric", "Object" => "Object", "Array" => "Array", "Function" => "Function"];
 
-$array_reduce_v2 = function ($callback_function, $an_array, $initial_value) {
+$array_reduce_v2 = function ($callback_function, $any_array, $initial_value) {
     // JavaScript-like Array.reduce() function $array_reduce_v2
     $result = $initial_value;
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $result = $callback_function($result, $object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $result = $callback_function($result, $object_value, $array_item_index, $any_array);
         $array_item_index += 1;
     }
     return $result;
 };
 
-$array_every = function ($callback_function, $an_array) {
+$array_every = function ($callback_function, $any_array) {
     // JavaScript-like Array.every() function $array_every_v4
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === false) return false;
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === false) return false;
         $array_item_index += 1;
     }
     return true;
@@ -116,24 +116,24 @@ $console_log = function (...$rest_arguments) use ($string_interpolation) {
     echo $string_interpolation(...$rest_arguments) . "\n";
 };
 
-$array_filter_v1 = function ($callback_function, $an_array) {
+$array_filter_v1 = function ($callback_function, $any_array) {
     // JavaScript-like Array.filter() function $array_filter_v1
     $data_filtered = [];
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        $is_condition_match = $callback_function($object_value, $array_item_index, $an_array);
+    foreach ($any_array as $object_key => $object_value) {
+        $is_condition_match = $callback_function($object_value, $array_item_index, $any_array);
         if ($is_condition_match) array_push($data_filtered, $object_value);
         $array_item_index += 1;
     }
     return $data_filtered;
 };
 
-$array_filter_v2 = function ($callback_function, $an_array) {
+$array_filter_v2 = function ($callback_function, $any_array) {
     // JavaScript-like Array.filter() function $array_filter_v2
     $data_filtered = [];
     $array_item_index = 0;
-    foreach ($an_array as $object_key => $object_value) {
-        if ($callback_function($object_value, $array_item_index, $an_array) === true) array_push($data_filtered, $object_value);
+    foreach ($any_array as $object_key => $object_value) {
+        if ($callback_function($object_value, $array_item_index, $any_array) === true) array_push($data_filtered, $object_value);
         $array_item_index += 1;
     }
     return $data_filtered;

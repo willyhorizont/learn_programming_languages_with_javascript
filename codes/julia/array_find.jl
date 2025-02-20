@@ -76,11 +76,11 @@ end)::Any
 # There's no JavaScript-like Array.find() in Julia.
 # But, we can create our own function to mimic it in Julia.
 
-array_find_v1::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_v1::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.find() function array_find_v1
     local data_found::Any = nothing
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true)
             data_found = array_item
             break
@@ -89,11 +89,11 @@ array_find_v1::Any = (callback_function::Any, an_array::Any) -> (begin
     return (data_found)::Any
 end)::Any
 
-array_find_v2::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_v2::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.find() function array_find_v2
     local data_found::Any = nothing
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true)
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true)
             data_found = array_item
             break
         end
@@ -101,19 +101,19 @@ array_find_v2::Any = (callback_function::Any, an_array::Any) -> (begin
     return (data_found)::Any
 end)::Any
 
-array_find_v3::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_v3::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.find() function array_find_v3
-    for (array_item_index, array_item) in enumerate(an_array)
-        local is_condition_match::Any = callback_function(array_item, array_item_index, an_array)
+    for (array_item_index, array_item) in enumerate(any_array)
+        local is_condition_match::Any = callback_function(array_item, array_item_index, any_array)
         if (is_condition_match === true) return (array_item)::Any end
     end
     return (nothing)::Any
 end)::Any
 
-array_find_v4::Any = (callback_function::Any, an_array::Any) -> (begin
+array_find_v4::Any = (callback_function::Any, any_array::Any) -> (begin
     # JavaScript-like Array.find() function array_find_v4
-    for (array_item_index, array_item) in enumerate(an_array)
-        if (callback_function(array_item, array_item_index, an_array) === true) return (array_item)::Any end
+    for (array_item_index, array_item) in enumerate(any_array)
+        if (callback_function(array_item, array_item_index, any_array) === true) return (array_item)::Any end
     end
     return (nothing)::Any
 end)::Any
