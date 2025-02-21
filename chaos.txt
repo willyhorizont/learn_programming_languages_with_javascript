@@ -26,6 +26,7 @@ string_interpolation.java
 string_interpolation.rs
 change anything_inner to anything_inside string_interpolation in *.*
 add array_reduce recursive function in array_reduce.*
+object_entries_index
 
 done:
 array.length

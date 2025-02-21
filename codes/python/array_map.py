@@ -2,7 +2,7 @@ from numbers import Number
 
 js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
-array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce_v2(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
+array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
 
 is_like_js_null = lambda anything: (anything is None)
 
@@ -362,7 +362,7 @@ print(f"products: {json_stringify(products, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v1"')
 
-products_labeled = array_map_v1(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v1(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -389,7 +389,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v2"')
 
-products_labeled = array_map_v2(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v2(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -416,7 +416,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v3"')
 
-products_labeled = array_map_v3(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v3(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -443,7 +443,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v4"')
 
-products_labeled = array_map_v4(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v4(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -470,7 +470,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v5"')
 
-products_labeled = array_map_v5(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v5(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -497,7 +497,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using JavaScript-like Array.map() function "array_map_v6"')
 
-products_labeled = array_map_v6(lambda any_product, *_: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products)
+products_labeled = array_map_v6(lambda any_product, *_: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products)
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {
@@ -524,7 +524,7 @@ print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 
 print('# using Python Array.map() built-in function "map", the "pythonic" way')
 
-products_labeled = list(map(lambda any_product: {**any_product, 'label': 'expensive' if (any_product['price'] > 100) else 'cheap'}, products))
+products_labeled = list(map(lambda any_product: {**any_product, 'label': 'expensive' if (optional_chaining(lambda: any_product["price"]) > 100) else 'cheap'}, products))
 print(f"labeled products: {json_stringify(products_labeled, pretty=True)}")
 # labeled products: [
 #     {

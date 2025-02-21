@@ -536,6 +536,5 @@ func main() {
     // fruits, index: 2, item: "orange", for loop
 
 	fruits = append(fruits.([]interface{}), "banana")
-	consoleLog(stringInterpolation("fruits: ", []interface{}{fruits}))
-	// fruits: ["apple", "mango", "orange", "banana"]
+	consoleLog(stringInterpolation("add item to end, fruits: ", []interface{}{fruits}))
 }

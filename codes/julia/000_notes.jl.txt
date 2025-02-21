@@ -10,3 +10,4 @@ catch (e) to catch (any_error)
 \w+_an_\w+
 \ba_\w+
 \ban_\w+
+.*::Any = \(.*\) -> \(begin

@@ -2,7 +2,7 @@ from numbers import Number
 
 js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
-array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce_v2(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
+array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
 
 is_like_js_null = lambda anything: (anything is None)
 
@@ -31,7 +31,6 @@ def optional_chaining(callback_function):
 nullish_coalescing = lambda anything, default_value: (default_value if (is_like_js_null(anything) == True) else anything)  # '''JavaScript-like Nullish Coalescing Operator (??) function nullish_coalescing_v2'''
 
 json_stringify = (json_stringify_v10_inner := lambda anything, pretty=False, indent=(" " * 4), indent_level=0: ("null" if ((anything_type := get_type(anything)) == js_like_type["Null"]) else ('"' + str(anything) + '"') if (anything_type == js_like_type["String"]) else str(anything) if (anything_type == js_like_type["Numeric"]) else "true" if ((anything_type == js_like_type["Boolean"]) and (anything == True)) else "false" if ((anything_type == js_like_type["Boolean"]) and (anything == False)) else (("{" + "}") if (len(anything) == 0) else ("".join([(("{\n" + (indent * (indent_level + 1))) if (pretty == True) else "{ "), *[((('"' + str(object_key) + '": ' + json_stringify_v10_inner(object_value, pretty=pretty, indent_level=(indent_level + 1))) + ((",\n" + (indent * (indent_level + 1))) if (pretty == True) else ", ")) if ((object_entry_index + 1) != len(anything)) else ('"' + str(object_key) + '": ' + json_stringify_v10_inner(object_value, pretty=pretty, indent_level=(indent_level + 1)))) for (object_entry_index, (object_key, object_value)) in enumerate(anything.items())], (("\n" + (indent * indent_level) + "}") if (pretty == True) else " }")]))) if (anything_type == js_like_type["Object"]) else ("[]" if (len(anything) == 0) else ("".join([(("[\n" + (indent * (indent_level + 1))) if (pretty == True) else "["), *[((json_stringify_v10_inner(array_item, pretty=pretty, indent_level=(indent_level + 1)) + ((",\n" + (indent * (indent_level + 1))) if (pretty == True) else ", ")) if ((array_item_index + 1) != len(anything)) else json_stringify_v10_inner(array_item, pretty=pretty, indent_level=(indent_level + 1))) for (array_item_index, array_item) in enumerate(anything)], (("\n" + (indent * indent_level) + "]") if (pretty == True) else "]")]))) if (anything_type == js_like_type["Array"]) else "[object Function]" if (anything_type == js_like_type["Function"]) else anything_type))  # '''custom JSON.stringify() function json_stringify_v10'''
-
 
 # There's no JavaScript-like Array.find() in Python.
 # But, we can create our own function to mimic it in Python.
@@ -147,7 +146,7 @@ print(f"product to find: {product_to_find}")
 
 print('# using JavaScript-like Array.find() function "array_find_v1"')
 
-product_found = array_find_v1(lambda any_product, *_: (any_product['code'] == product_to_find), products)
+product_found = array_find_v1(lambda any_product, *_: (optional_chaining(lambda: any_product["code"]) == product_to_find), products)
 print(f"product found: {json_stringify(product_found, pretty=True)}")
 # product found: {
 #     "code": "bubble_gum",
@@ -156,7 +155,7 @@ print(f"product found: {json_stringify(product_found, pretty=True)}")
 
 print('# using JavaScript-like Array.find() function "array_find_v2"')
 
-product_found = array_find_v2(lambda any_product, *_: (any_product['code'] == product_to_find), products)
+product_found = array_find_v2(lambda any_product, *_: (optional_chaining(lambda: any_product["code"]) == product_to_find), products)
 print(f"product found: {json_stringify(product_found, pretty=True)}")
 # product found: {
 #     "code": "bubble_gum",
@@ -165,7 +164,7 @@ print(f"product found: {json_stringify(product_found, pretty=True)}")
 
 print('# using JavaScript-like Array.find() function "array_find_v3"')
 
-product_found = array_find_v3(lambda any_product, *_: (any_product['code'] == product_to_find), products)
+product_found = array_find_v3(lambda any_product, *_: (optional_chaining(lambda: any_product["code"]) == product_to_find), products)
 print(f"product found: {json_stringify(product_found, pretty=True)}")
 # product found: {
 #     "code": "bubble_gum",
@@ -174,7 +173,7 @@ print(f"product found: {json_stringify(product_found, pretty=True)}")
 
 print('# using JavaScript-like Array.find() function "array_find_v4"')
 
-product_found = array_find_v4(lambda any_product, *_: (any_product['code'] == product_to_find), products)
+product_found = array_find_v4(lambda any_product, *_: (optional_chaining(lambda: any_product["code"]) == product_to_find), products)
 print(f"product found: {json_stringify(product_found, pretty=True)}")
 # product found: {
 #     "code": "bubble_gum",

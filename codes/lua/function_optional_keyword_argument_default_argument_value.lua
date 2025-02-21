@@ -282,60 +282,14 @@ function object_values(any_object)
     return new_array
 end
 
-console_log("# JavaScript-like Object in Lua (hash-table)")
+console_log("// Function Optional Keyword Argument and Function Default Argument Value in Lua")
 
-friend = {
-    name = "Alisa",
-    country = "Finland",
-    age = 25
-}
-
-friend = {
-    ["name"] = "Alisa",
-    ["country"] = "Finland",
-    ["age"] = 25
-}
-console_log(string_interpolation("friend: ", json_stringify(friend, { ["pretty"] = true })))
-
-console_log(string_interpolation("friend, get total object keys: ", {#object_keys(friend)}))
--- friend, get total object keys: 3
-
-console_log(string_interpolation("friend, get country: ", {friend.country}))
--- friend, get country: "Finland"
-
-console_log(string_interpolation("friend, get country: ", {friend["country"]}))
--- friend, get country: "Finland"
-
-console_log(string_interpolation("friend, get country: ", {optional_chaining(function () return (friend["country"]) end)}))
--- friend, get country: "Finland"
-
--- iterate over and print each key-value pair and object entry index
-do
-    object_entries_index = 1
-    for object_key, object_value in pairs(friend) do
-        console_log(string_interpolation("friend, object entries index: ", {object_entries_index}, ", key: ", {object_key}, ", value: ", {object_value}, ", for each loop"))
-        object_entries_index = (object_entries_index + 1)
-    end
+function function_v1_optional_keyword_argument_default_argument_value(anything, optional_keyword_argument_object)
+    optional_keyword_argument_object_new = nullish_coalescing(optional_keyword_argument_object, {})
+    local pretty = optional_chaining(function () return (optional_keyword_argument_object_new["pretty"]) end)
+    pretty = ternary((get_type(pretty) == js_like_type["Null"]), (function () return false end), (function () return pretty end))
+    console_log(string_interpolation("main function argument: ", {anything}))
+    console_log(string_interpolation('optional function keyword argument default value "pretty": ', {pretty}))
 end
--- friend, object entries index: 1, key: "name", value: "Alisa", for each loop
--- friend, object entries index: 2, key: "age", value: 25, for each loop
--- friend, object entries index: 3, key: "country", value: "Finland", for each loop
-
-friend["age"] = 27
-console_log(string_interpolation("update property value, friend: ", json_stringify(friend, { ["pretty"] = true })))
-
-friend["gender"] = "Female"
-console_log(string_interpolation("add property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
-
-friend["country"] = nil
-console_log(string_interpolation("delete property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
-
--- Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-delivery_response_key_message = "message"
-delivery_response = {
-    [delivery_response_key_message] = "ok"
-}
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
-delivery_response_key_status = "status"
-delivery_response[delivery_response_key_status] = 200
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
+function_v1_optional_keyword_argument_default_argument_value({"apple", "banana", "cherry"}, { ["pretty"] = true })
+function_v1_optional_keyword_argument_default_argument_value({"apple", "banana", "cherry"})

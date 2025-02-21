@@ -423,11 +423,11 @@ console_log(string_interpolation("products: ", json_stringify($products_ref, "pr
 console_log('# using JavaScript-like Array.some() function "array_some_v1"');
 
 {
-    my $is_any_product_price_less_than_500 = array_some_v1(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_any_product_price_less_than_500 = array_some_v1(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
     # is any product price < 500: true
 
-    my $is_any_product_price_more_than_500 = array_some_v1(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_any_product_price_more_than_500 = array_some_v1(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
     # is any product price > 500: false
 }
@@ -435,11 +435,11 @@ console_log('# using JavaScript-like Array.some() function "array_some_v1"');
 console_log('# using JavaScript-like Array.some() function "array_some_v2"');
 
 {
-    my $is_any_product_price_less_than_500 = array_some_v2(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_any_product_price_less_than_500 = array_some_v2(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
     # is any product price < 500: true
 
-    my $is_any_product_price_more_than_500 = array_some_v2(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_any_product_price_more_than_500 = array_some_v2(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
     # is any product price > 500: false
 }
@@ -447,11 +447,11 @@ console_log('# using JavaScript-like Array.some() function "array_some_v2"');
 console_log('# using JavaScript-like Array.some() function "array_some_v3"');
 
 {
-    my $is_any_product_price_less_than_500 = array_some_v3(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_any_product_price_less_than_500 = array_some_v3(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
     # is any product price < 500: true
 
-    my $is_any_product_price_more_than_500 = array_some_v3(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_any_product_price_more_than_500 = array_some_v3(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
     # is any product price > 500: false
 }
@@ -459,11 +459,11 @@ console_log('# using JavaScript-like Array.some() function "array_some_v3"');
 console_log('# using JavaScript-like Array.some() function "array_some_v4"');
 
 {
-    my $is_any_product_price_less_than_500 = array_some_v4(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_any_product_price_less_than_500 = array_some_v4(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
     # is any product price < 500: true
 
-    my $is_any_product_price_more_than_500 = array_some_v4(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_any_product_price_more_than_500 = array_some_v4(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
     # is any product price > 500: false
 }
@@ -471,11 +471,11 @@ console_log('# using JavaScript-like Array.some() function "array_some_v4"');
 console_log('# using Perl Array.some() built-in function "List::Util::any"');
 
 {
-    my $is_any_product_price_less_than_500 = boolean(any { ((optional_chaining([@_]->[0], "price")) < 500) } @{$products_ref});
+    my $is_any_product_price_less_than_500 = boolean(any { (optional_chaining([@_]->[0], "price") < 500) } @{$products_ref});
     console_log(string_interpolation("is any product price < 500: ", [$is_any_product_price_less_than_500]));
     # is any product price < 500: true
 
-    my $is_any_product_price_more_than_500 = boolean(any { ((optional_chaining([@_]->[0], "price")) > 500) } @{$products_ref});
+    my $is_any_product_price_more_than_500 = boolean(any { (optional_chaining([@_]->[0], "price") > 500) } @{$products_ref});
     console_log(string_interpolation("is any product price > 500: ", [$is_any_product_price_more_than_500]));
     # is any product price > 500: false
 }

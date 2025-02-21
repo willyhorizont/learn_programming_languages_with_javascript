@@ -1,0 +1,26 @@
+\w+_a_\w+
+\w+_an_\w+
+\ba_\w+
+\ban_\w+
+
+an_ to any_
+a_ to any_
+an_\b
+a_\b
+asd = asd x 1 to asd = (asd x 1)
+[a-z0-9_]+ = [a-z0-9_]+
+[a-z0-9_]+ = [a-z0-9_]+ .* to [a-z0-9_]+ = ([a-z0-9_]+ .*)
+.*_index = 0 to .*_index = 1
+print console_log
+sprint console_log(string_interpolation
+[a-z0-9_]+ = to ["[a-z0-9_]+"] = 
+There's no
+-- 
+: ", [a-z0-9_]+ to : ", {[a-z0-9_]+
+return( to return (
+function() to function ()
+{ pretty = true } to { ["pretty"] = true }
+and .* or to ternary
+ = function to function [a-z0-9_]+
+goto next to goto next_iteration
+::next:: to ::next_iteration::

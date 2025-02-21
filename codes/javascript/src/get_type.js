@@ -67,20 +67,20 @@ console.log(`type of anyString: ${getType(anyString)}`);
 
 const anyNumeric = 123;
 console.log(`anyNumeric: ${jsonStringify(anyNumeric)}`);
-console.log(`type of anyNumeric: "${getType(anyNumeric)}"`);
+console.log(`type of anyNumeric: ${getType(anyNumeric)}`);
 
 const anyBoolean = true;
 console.log(`anyBoolean: ${jsonStringify(anyBoolean)}`);
-console.log(`type of anyBoolean: "${getType(anyBoolean)}"`);
+console.log(`type of anyBoolean: ${getType(anyBoolean)}`);
 
 const anyNull = null;
 console.log(`anyNull: ${jsonStringify(anyNull)}`);
-console.log(`type of anyNull: "${getType(anyNull)}"`);
+console.log(`type of anyNull: ${getType(anyNull)}`);
 
 const anyArray = [1, 2, 3];
 console.log(`anyArray: ${jsonStringify(anyArray)}`);
-console.log(`type of anyArray: "${getType(anyArray)}"`);
+console.log(`type of anyArray: ${getType(anyArray)}`);
 
 const anyObject = { "foo": "bar" };
 console.log(`anyObject: ${jsonStringify(anyObject)}`);
-console.log(`type of anyObject: "${getType(anyObject)}"`);
+console.log(`type of anyObject: ${getType(anyObject)}`);

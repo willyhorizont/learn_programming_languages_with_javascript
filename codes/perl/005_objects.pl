@@ -329,16 +329,16 @@ console_log(string_interpolation("friend, get country: ", [optional_chaining({%f
 # friend, object entry index: 2, key: "age", value: 25, while each loop
 
 $friend{"age"} = 27;
-console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
+console_log(string_interpolation("update property value, friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
+console_log(string_interpolation("update property value, friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
 
 $friend{"gender"} = "Female";
-console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
+console_log(string_interpolation("add property and value, friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
+console_log(string_interpolation("add property and value, friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
 
 delete $friend{"country"};
-console_log(string_interpolation("friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
+console_log(string_interpolation("delete property and value, friend: ", json_stringify(\%friend, "pretty" => (1 == 1))));
+console_log(string_interpolation("delete property and value, friend: ", json_stringify({%friend}, "pretty" => (1 == 1))));
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 my $delivery_response_key_message = "message";
@@ -392,16 +392,16 @@ console_log(string_interpolation("friend_ref, get country: ", [optional_chaining
 # friend_ref, object entry index: 2, key: "age", value: 25, while each loop
 
 $friend_ref->{"age"} = 27;
-console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
+console_log(string_interpolation("update property value, friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
+console_log(string_interpolation("update property value, friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
 
 $friend_ref->{"gender"} = "Female";
-console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
+console_log(string_interpolation("add property and value, friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
+console_log(string_interpolation("add property and value, friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
 
 delete $friend_ref->{"country"};
-console_log(string_interpolation("friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
-console_log(string_interpolation("friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
+console_log(string_interpolation("delete property and value, friend_ref: ", json_stringify(\%{$friend_ref}, "pretty" => (1 == 1))));
+console_log(string_interpolation("delete property and value, friend_ref: ", json_stringify($friend_ref, "pretty" => (1 == 1))));
 
 # Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 my $delivery_response_ref_key_message = "message";

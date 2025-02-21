@@ -2,7 +2,7 @@ from numbers import Number
 
 js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
-array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce_v2(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
+array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
 
 is_like_js_null = lambda anything: (anything is None)
 
@@ -177,7 +177,7 @@ print(f"products: {json_stringify(products, pretty=True)}")
 
 print('# using JavaScript-like Array.filter() function "array_filter_v1"')
 
-products_below_100 = array_filter_v1(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v1(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -186,7 +186,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v1(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v1(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -205,7 +205,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using JavaScript-like Array.filter() function "array_filter_v2"')
 
-products_below_100 = array_filter_v2(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v2(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -214,7 +214,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v2(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v2(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -233,7 +233,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using JavaScript-like Array.filter() function "array_filter_v3"')
 
-products_below_100 = array_filter_v3(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v3(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -242,7 +242,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v3(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v3(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -261,7 +261,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using JavaScript-like Array.filter() function "array_filter_v4"')
 
-products_below_100 = array_filter_v4(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v4(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -270,7 +270,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v4(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v4(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -289,7 +289,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using JavaScript-like Array.filter() function "array_filter_v5"')
 
-products_below_100 = array_filter_v5(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v5(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -298,7 +298,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v5(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v5(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -317,7 +317,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using JavaScript-like Array.filter() function "array_filter_v6"')
 
-products_below_100 = array_filter_v6(lambda any_product, *_: (any_product['price'] <= 100), products)
+products_below_100 = array_filter_v6(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) <= 100), products)
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -326,7 +326,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = array_filter_v6(lambda any_product, *_: (any_product['price'] > 100), products)
+products_above_100 = array_filter_v6(lambda any_product, *_: (optional_chaining(lambda: any_product["price"]) > 100), products)
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {
@@ -345,7 +345,7 @@ print(f"products with price > 100 only: {json_stringify(products_above_100, pret
 
 print('# using Python Array.filter() built-in function "filter", the "pythonic" way')
 
-products_below_100 = list(filter(lambda any_product: (any_product['price'] <= 100), products))
+products_below_100 = list(filter(lambda any_product: (optional_chaining(lambda: any_product["price"]) <= 100), products))
 print(f"products with price <= 100 only: {json_stringify(products_below_100, pretty=True)}")
 # products with price <= 100 only: [
 #     {
@@ -354,7 +354,7 @@ print(f"products with price <= 100 only: {json_stringify(products_below_100, pre
 #     }
 # ]
 
-products_above_100 = list(filter(lambda any_product: (any_product['price'] > 100), products))
+products_above_100 = list(filter(lambda any_product: (optional_chaining(lambda: any_product["price"]) > 100), products))
 print(f"products with price > 100 only: {json_stringify(products_above_100, pretty=True)}")
 # products with price > 100 only: [
 #     {

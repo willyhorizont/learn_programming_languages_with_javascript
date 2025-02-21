@@ -1,6 +1,6 @@
 println("\n# FizzBuzz(n) in Julia")
 
-fizzbuzz_v1::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v1(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -34,9 +34,9 @@ fizzbuzz_v1::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v2::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v2(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -65,9 +65,9 @@ fizzbuzz_v2::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v3::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v3(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -87,9 +87,9 @@ fizzbuzz_v3::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v4::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v4(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -108,9 +108,9 @@ fizzbuzz_v4::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v5::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v5(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -132,9 +132,9 @@ fizzbuzz_v5::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v6::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v6(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -155,9 +155,9 @@ fizzbuzz_v6::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v7::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v7(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -167,9 +167,9 @@ fizzbuzz_v7::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v8::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v8(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     local any_number::Any = 1
@@ -178,9 +178,9 @@ fizzbuzz_v8::Any = (stop_number::Any) -> (begin
         any_number += 1
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v9::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v9(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     for any_number in (1:1:stop_number) # (start:step:stop)
@@ -203,9 +203,9 @@ fizzbuzz_v9::Any = (stop_number::Any) -> (begin
         result = "$(result), $(any_number)"
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v10::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v10(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     for any_number in (1:1:stop_number) # (start:step:stop)
@@ -222,9 +222,9 @@ fizzbuzz_v10::Any = (stop_number::Any) -> (begin
         end
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v11::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v11(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     for any_number in (1:1:stop_number) # (start:step:stop)
@@ -243,21 +243,21 @@ fizzbuzz_v11::Any = (stop_number::Any) -> (begin
         )
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v12::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v12(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     local result::Any = ""
     for any_number in (1:1:stop_number) # (start:step:stop)
         result = ((result === "") ? "$(any_number)" : ((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "$(result), FizzBuzz" : (((any_number % 3) === 0) ? "$(result), Fizz" : (((any_number % 5) === 0) ? "$(result), Buzz" : "$(result), $(any_number)"))))
     end
     return result
-end)::Any
+end
 
-fizzbuzz_v13::Any = (stop_number::Any) -> (begin
+function fizzbuzz_v13(stop_number::Any)::Any
     if (stop_number < 1) throw(ErrorException("Argument should be > 0")) end
     return join([((((any_number % 3) === 0) && ((any_number % 5) === 0)) ? "FizzBuzz" : (((any_number % 3) === 0) ? "Fizz" : (((any_number % 5) === 0) ? "Buzz" : any_number))) for any_number in (1:1:stop_number)], ", ")
-end)::Any
+end
 
 println("# using fizzbuzz function \"fizzbuzz_v1\"")
 println("FizzBuzz(36): $(fizzbuzz_v1(36))")

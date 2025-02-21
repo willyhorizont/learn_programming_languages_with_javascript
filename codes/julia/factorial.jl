@@ -1,6 +1,6 @@
 println("\n# Factorial(n) in Julia")
 
-factorial_v1::Any = (any_number::Any) -> (begin
+function factorial_v1(any_number::Any)::Any
     if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (any_number === 0) return (1)::Any end
     local result::Any = 1
@@ -11,9 +11,9 @@ factorial_v1::Any = (any_number::Any) -> (begin
         i -= 1
     end
     return (result)::Any
-end)::Any
+end
 
-factorial_v2::Any = (any_number::Any) -> (begin
+function factorial_v2(any_number::Any)::Any
     if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (any_number === 0) return (1)::Any end
     local result::Any = 1
@@ -23,9 +23,9 @@ factorial_v2::Any = (any_number::Any) -> (begin
         i -= 1
     end
     return (result)::Any
-end)::Any
+end
 
-factorial_v3::Any = (any_number::Any) -> (begin
+function factorial_v3(any_number::Any)::Any
     if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (any_number === 0) return (1)::Any end
     local result::Any = 1
@@ -33,13 +33,13 @@ factorial_v3::Any = (any_number::Any) -> (begin
         result *= i
     end
     return (result)::Any
-end)::Any
+end
 
-factorial_v4::Any = (any_number::Any) -> (begin
+function factorial_v4(any_number::Any)::Any
     if (any_number < 0) throw(ErrorException("Argument should be >= 0")) end
     if (any_number === 0) return (1)::Any end
     return (any_number * factorial_v4(any_number - 1))::Any
-end)::Any
+end
 
 println("# using factorial function \"factorial_v1\"")
 println("Factorial(5): $(factorial_v1(5))")

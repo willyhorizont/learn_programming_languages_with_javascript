@@ -423,11 +423,11 @@ console_log(string_interpolation("products: ", json_stringify($products_ref, "pr
 console_log('# using JavaScript-like Array.every() function "array_every_v1"');
 
 {
-    my $is_all_product_price_less_than_500 = array_every_v1(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_all_product_price_less_than_500 = array_every_v1(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
     # is all product price < 500: true
 
-    my $is_all_product_price_more_than_500 = array_every_v1(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_all_product_price_more_than_500 = array_every_v1(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
     # is all product price > 500: false
 }
@@ -435,11 +435,11 @@ console_log('# using JavaScript-like Array.every() function "array_every_v1"');
 console_log('# using JavaScript-like Array.every() function "array_every_v2"');
 
 {
-    my $is_all_product_price_less_than_500 = array_every_v2(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_all_product_price_less_than_500 = array_every_v2(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
     # is all product price < 500: true
 
-    my $is_all_product_price_more_than_500 = array_every_v2(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_all_product_price_more_than_500 = array_every_v2(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
     # is all product price > 500: false
 }
@@ -447,11 +447,11 @@ console_log('# using JavaScript-like Array.every() function "array_every_v2"');
 console_log('# using JavaScript-like Array.every() function "array_every_v3"');
 
 {
-    my $is_all_product_price_less_than_500 = array_every_v3(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_all_product_price_less_than_500 = array_every_v3(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
     # is all product price < 500: true
 
-    my $is_all_product_price_more_than_500 = array_every_v3(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_all_product_price_more_than_500 = array_every_v3(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
     # is all product price > 500: false
 }
@@ -459,11 +459,11 @@ console_log('# using JavaScript-like Array.every() function "array_every_v3"');
 console_log('# using JavaScript-like Array.every() function "array_every_v4"');
 
 {
-    my $is_all_product_price_less_than_500 = array_every_v4(sub { ((optional_chaining([@_]->[0], "price")) < 500) }, $products_ref);
+    my $is_all_product_price_less_than_500 = array_every_v4(sub { (optional_chaining([@_]->[0], "price") < 500) }, $products_ref);
     console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
     # is all product price < 500: true
 
-    my $is_all_product_price_more_than_500 = array_every_v4(sub { ((optional_chaining([@_]->[0], "price")) > 500) }, $products_ref);
+    my $is_all_product_price_more_than_500 = array_every_v4(sub { (optional_chaining([@_]->[0], "price") > 500) }, $products_ref);
     console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
     # is all product price > 500: false
 }
@@ -471,11 +471,11 @@ console_log('# using JavaScript-like Array.every() function "array_every_v4"');
 console_log('# using Perl Array.every() built-in function "List::Util::all"');
 
 {
-    my $is_all_product_price_less_than_500 = boolean(all { ((optional_chaining([@_]->[0], "price")) < 500) } @{$products_ref});
+    my $is_all_product_price_less_than_500 = boolean(all { (optional_chaining([@_]->[0], "price") < 500) } @{$products_ref});
     console_log(string_interpolation("is all product price < 500: ", [$is_all_product_price_less_than_500]));
     # is all product price < 500: true
 
-    my $is_all_product_price_more_than_500 = boolean(all { ((optional_chaining([@_]->[0], "price")) > 500) } @{$products_ref});
+    my $is_all_product_price_more_than_500 = boolean(all { (optional_chaining([@_]->[0], "price") > 500) } @{$products_ref});
     console_log(string_interpolation("is all product price > 500: ", [$is_all_product_price_more_than_500]));
     # is all product price > 500: false
 }

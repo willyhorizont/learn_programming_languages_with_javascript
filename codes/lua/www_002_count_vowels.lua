@@ -9,47 +9,47 @@
         The input string will only consist of lower case letters and/or spaces.
 ]]
 
-function split_string(a_string, separator)
+function split_string(any_string, separator)
     if (separator == nil) then
-        return {a_string}
+        return {any_string}
     end
     if (separator == "") then
        local characters = {}
-       for string_index = 1, #a_string do
-           table.insert(characters, string.sub(a_string, string_index, string_index))
+       for string_index = 1, #any_string do
+           table.insert(characters, string.sub(any_string, string_index, string_index))
        end
        return characters
     end
     local splitted_string = {}
-    for separated_string in string.gmatch(a_string, "([^" .. separator .. "]+)") do
+    for separated_string in string.gmatch(any_string, "([^" .. separator .. "]+)") do
        table.insert(splitted_string, separated_string)
     end
     return splitted_string
 end
 
-function array_reduce(callback_function, an_array, initial_value)
+function array_reduce(callback_function, any_array, initial_value)
     -- JavaScript-like Array.reduce() function
     local result = initial_value
-    for array_item_index, array_item in ipairs(an_array) do
-        result = callback_function(result, array_item, array_item_index, an_array)
+    for array_item_index, array_item in ipairs(any_array) do
+        result = callback_function(result, array_item, array_item_index, any_array)
     end
     return result
 end
 
-function array_filter(callback_function, an_array)
+function array_filter(callback_function, any_array)
     -- JavaScript-like Array.filter() function
     local data_filtered = {}
-    for array_item_index, array_item in ipairs(an_array) do
-        if (callback_function(array_item, array_item_index, an_array) == true) then
+    for array_item_index, array_item in ipairs(any_array) do
+        if (callback_function(array_item, array_item_index, any_array) == true) then
             table.insert(data_filtered, array_item)
         end
     end
     return data_filtered
 end
 
-function array_includes(search_element, an_array)
+function array_includes(search_element, any_array)
     -- JavaScript-like Array.includes() function
-    for _, array_item in ipairs(an_array) do
+    for _, array_item in ipairs(any_array) do
         if (array_item == search_element) then
             return true
         end
@@ -62,26 +62,26 @@ function ternary(true_condition, callback_function_if_condition_true, callback_f
     return callback_function_if_condition_false()
 end
 
-count_vowels_v1 = function(a_string) return array_reduce(function(current_result, a_character) return ternary(array_includes(a_character, {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}), (function() return (current_result + 1) end), (function() return current_result end)) end, split_string(a_string, ""), 0) end
+count_vowels_v1 = function (any_string) return array_reduce(function (current_result, any_character) return ternary(array_includes(any_character, {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}), (function () return (current_result + 1) end), (function () return current_result end)) end, split_string(any_string, ""), 0) end
 print(count_vowels_v1("Hello World")) -- 3
 
-count_vowels_v2 = function(a_string) return array_reduce(function(current_result, a_character) return ternary(array_includes(string.upper(a_character), {"A", "I", "U", "E", "O"}), (function() return (current_result + 1) end), (function() return current_result end)) end, split_string(a_string, ""), 0) end
+count_vowels_v2 = function (any_string) return array_reduce(function (current_result, any_character) return ternary(array_includes(string.upper(any_character), {"A", "I", "U", "E", "O"}), (function () return (current_result + 1) end), (function () return current_result end)) end, split_string(any_string, ""), 0) end
 print(count_vowels_v2("Hello World")) -- 3
 
-count_vowels_v3 = function(a_string) return array_reduce(function(current_result, a_character) return ternary((string.find("aiueoAIUEO", a_character) ~= nil), (function() return (current_result + 1) end), (function() return current_result end)) end, split_string(a_string, ""), 0) end
+count_vowels_v3 = function (any_string) return array_reduce(function (current_result, any_character) return ternary((string.find("aiueoAIUEO", any_character) ~= nil), (function () return (current_result + 1) end), (function () return current_result end)) end, split_string(any_string, ""), 0) end
 print(count_vowels_v3("Hello World")) -- 3
 
-count_vowels_v4 = function(a_string) return array_reduce(function(current_result, a_character) return ternary((string.find("AIUEO", string.upper(a_character)) ~= nil), (function() return (current_result + 1) end), (function() return current_result end)) end, split_string(a_string, ""), 0) end
+count_vowels_v4 = function (any_string) return array_reduce(function (current_result, any_character) return ternary((string.find("AIUEO", string.upper(any_character)) ~= nil), (function () return (current_result + 1) end), (function () return current_result end)) end, split_string(any_string, ""), 0) end
 print(count_vowels_v4("Hello World")) -- 3
 
-count_vowels_v5 = function(a_string) return #array_filter(function(a_character) return array_includes(a_character, {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}) end, split_string(a_string, "")) end
+count_vowels_v5 = function (any_string) return #array_filter(function (any_character) return array_includes(any_character, {"a", "i", "u", "e", "o", "A", "I", "U", "E", "O"}) end, split_string(any_string, "")) end
 print(count_vowels_v5("Hello World")) -- 3
 
-count_vowels_v6 = function(a_string) return #array_filter(function(a_character) return array_includes(string.upper(a_character), {"A", "I", "U", "E", "O"}) end, split_string(a_string, "")) end
+count_vowels_v6 = function (any_string) return #array_filter(function (any_character) return array_includes(string.upper(any_character), {"A", "I", "U", "E", "O"}) end, split_string(any_string, "")) end
 print(count_vowels_v6("Hello World")) -- 3
 
-count_vowels_v7 = function(a_string) return #array_filter(function(a_character) return string.find("aiueoAIUEO", a_character) ~= nil end, split_string(a_string, "")) end
+count_vowels_v7 = function (any_string) return #array_filter(function (any_character) return string.find("aiueoAIUEO", any_character) ~= nil end, split_string(any_string, "")) end
 print(count_vowels_v7("Hello World")) -- 3
 
-count_vowels_v8 = function(a_string) return #array_filter(function(a_character) return string.find("AIUEO", string.upper(a_character)) ~= nil end, split_string(a_string, "")) end
+count_vowels_v8 = function (any_string) return #array_filter(function (any_character) return string.find("AIUEO", string.upper(any_character)) ~= nil end, split_string(any_string, "")) end
 print(count_vowels_v8("Hello World")) -- 3

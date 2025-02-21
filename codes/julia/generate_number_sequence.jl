@@ -101,13 +101,11 @@ function array_find(callback_function::Any, any_array::Any)::Any
     return (nothing)::Any
 end
 
-generate_number_sequence::Any = (start_number::Any, stop_number::Any) -> (begin
-    if ((get_type(start_number) !== js_like_type.Numeric) && (get_type(stop_number) !== js_like_type.Numeric)) throw(ErrorException("expected (numeric_value, numeric_value)")) end
-    if (start_number === stop_number) throw(ErrorException("expected (stop_number > start_number) or (start_number > stop_number)")) end
+function generate_number_sequence(start_number::Any, stop_number::Any)::Any
     if (stop_number > start_number) return Vector{Any}([(start_number:1:stop_number)...]) end
     if (start_number > stop_number) return Vector{Any}([(start_number:-1:stop_number)...]) end
-    throw(ErrorException("something weird happened in generate_number_sequence"))
-end)::Any
+    return (Vector{Any}([]))::Any
+end
 
 println("generate_number_sequence(0, 9): $(json_stringify(generate_number_sequence(0, 9)))")
 # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -117,6 +115,3 @@ println("generate_number_sequence(10, 1): $(json_stringify(generate_number_seque
 # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 println("generate_number_sequence(9, 0): $(json_stringify(generate_number_sequence(9, 0)))")
 # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-# println("generate_number_sequence(10): $(json_stringify(generate_number_sequence(10)))")  # error
-# println("generate_number_sequence(1, \"bg\"): $(json_stringify(generate_number_sequence(1, "bg")))")  # error
-# println("generate_number_sequence(5, 5): $(json_stringify(generate_number_sequence(5, 5)))")  # error

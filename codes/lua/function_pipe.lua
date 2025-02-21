@@ -282,60 +282,52 @@ function object_values(any_object)
     return new_array
 end
 
-console_log("# JavaScript-like Object in Lua (hash-table)")
+function pipe(...)
+    local rest_arguments = {...}
+    local pipe_last_result = nil
 
-friend = {
-    name = "Alisa",
-    country = "Finland",
-    age = 25
-}
 
-friend = {
-    ["name"] = "Alisa",
-    ["country"] = "Finland",
-    ["age"] = 25
-}
-console_log(string_interpolation("friend: ", json_stringify(friend, { ["pretty"] = true })))
-
-console_log(string_interpolation("friend, get total object keys: ", {#object_keys(friend)}))
--- friend, get total object keys: 3
-
-console_log(string_interpolation("friend, get country: ", {friend.country}))
--- friend, get country: "Finland"
-
-console_log(string_interpolation("friend, get country: ", {friend["country"]}))
--- friend, get country: "Finland"
-
-console_log(string_interpolation("friend, get country: ", {optional_chaining(function () return (friend["country"]) end)}))
--- friend, get country: "Finland"
-
--- iterate over and print each key-value pair and object entry index
-do
-    object_entries_index = 1
-    for object_key, object_value in pairs(friend) do
-        console_log(string_interpolation("friend, object entries index: ", {object_entries_index}, ", key: ", {object_key}, ", value: ", {object_value}, ", for each loop"))
-        object_entries_index = (object_entries_index + 1)
+    function pipe_array_reduce_callback(current_result, current_argument)
+        pipe_last_result = current_result
+        if (get_type(current_result) == js_like_type["Null"]) then
+            return current_argument
+        end
+        if (get_type(current_argument) == js_like_type["Function"]) then
+            return current_argument(current_result)
+        end
+        return nil
     end
+
+
+    local pipe_result = array_reduce(pipe_array_reduce_callback, rest_arguments, nil)
+    if (get_type(pipe_result) == js_like_type["Function"]) then
+        return pipe_result(pipe_last_result)
+    end
+    return pipe_result
 end
--- friend, object entries index: 1, key: "name", value: "Alisa", for each loop
--- friend, object entries index: 2, key: "age", value: 25, for each loop
--- friend, object entries index: 3, key: "country", value: "Finland", for each loop
 
-friend["age"] = 27
-console_log(string_interpolation("update property value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+console_log("-- Pipe Function in Lua")
 
-friend["gender"] = "Female"
-console_log(string_interpolation("add property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+plus25 = function (any_number) return (any_number + 25) end
 
-friend["country"] = nil
-console_log(string_interpolation("delete property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+multiply_by10 = function (any_number) return (any_number * 10) end
 
--- Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-delivery_response_key_message = "message"
-delivery_response = {
-    [delivery_response_key_message] = "ok"
-}
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
-delivery_response_key_status = "status"
-delivery_response[delivery_response_key_status] = 200
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
+console_log(multiply_by10(plus25(17))) -- read from inside to outside
+
+pipe(17, plus25, multiply_by10, console_log) -- read from left to right
+
+console_log(pipe(17, plus25, multiply_by10)) -- read from left to right
+
+make_number_easy_to_say = function (any_number) return (string_interpolation(math.floor(any_number), ".something")) end
+
+get_circle_area_in_square_cm = function (radius_in_cm) return (3.14 * (radius_in_cm ^ 2)) end
+
+get_cylinder_volume_in_ml_or_cubic_cm = function (circle_area_in_square_cm, height_in_cm) return (circle_area_in_square_cm * height_in_cm) end
+
+get_mass_in_ml_or_cubic_cm = function (volume_in_ml_or_cubic_cm, density_in_gram_per_ml_or_cubic_cm) return (volume_in_ml_or_cubic_cm * density_in_gram_per_ml_or_cubic_cm) end
+
+console_log(make_number_easy_to_say(get_mass_in_ml_or_cubic_cm(get_cylinder_volume_in_ml_or_cubic_cm(get_circle_area_in_square_cm(7), 10), 0.72587))) -- read from inside to outside
+
+pipe(7, get_circle_area_in_square_cm, (function (_) return (get_cylinder_volume_in_ml_or_cubic_cm(_, 10)) end), (function (_) return (get_mass_in_ml_or_cubic_cm(_, 0.72587)) end), make_number_easy_to_say, console_log) -- read from left to right
+
+console_log(pipe(7, get_circle_area_in_square_cm, (function (_) return (get_cylinder_volume_in_ml_or_cubic_cm(_, 10)) end), (function (_) return (get_mass_in_ml_or_cubic_cm(_, 0.72587)) end), make_number_easy_to_say)) -- read from left to right

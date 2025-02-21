@@ -282,60 +282,92 @@ function object_values(any_object)
     return new_array
 end
 
-console_log("# JavaScript-like Object in Lua (hash-table)")
+console_log("-- Variables and Scopes in JavaScript")
 
-friend = {
-    name = "Alisa",
-    country = "Finland",
-    age = 25
-}
+-- global scope
 
-friend = {
-    ["name"] = "Alisa",
-    ["country"] = "Finland",
-    ["age"] = 25
-}
-console_log(string_interpolation("friend: ", json_stringify(friend, { ["pretty"] = true })))
+yyy = "global_scope, 1"
+zzz = "global_scope, 2"
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: global_scope, 1
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
 
-console_log(string_interpolation("friend, get total object keys: ", {#object_keys(friend)}))
--- friend, get total object keys: 3
+-- local scope: function scope, block scope (do end, if then end, for do end, while do end)
 
-console_log(string_interpolation("friend, get country: ", {friend.country}))
--- friend, get country: "Finland"
+-- local scope block scope do end
 
-console_log(string_interpolation("friend, get country: ", {friend["country"]}))
--- friend, get country: "Finland"
-
-console_log(string_interpolation("friend, get country: ", {optional_chaining(function () return (friend["country"]) end)}))
--- friend, get country: "Finland"
-
--- iterate over and print each key-value pair and object entry index
 do
-    object_entries_index = 1
-    for object_key, object_value in pairs(friend) do
-        console_log(string_interpolation("friend, object entries index: ", {object_entries_index}, ", key: ", {object_key}, ", value: ", {object_value}, ", for each loop"))
-        object_entries_index = (object_entries_index + 1)
-    end
+    yyy = "local_scope_block_scope do end, 10"
+    local zzz = "local_scope_block_scope do end, 20" -- "local" instantiate block scope
+    local aaa = "local_scope_block_scope do end, 30" -- "local" instantiate block scope
+    console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope do end, 10
+    console_log(string_interpolation("zzz: ", zzz)) -- zzz: local_scope_block_scope do end, 20
+    console_log(string_interpolation("aaa: ", aaa)) -- aaa: local_scope_block_scope do end, 30
 end
--- friend, object entries index: 1, key: "name", value: "Alisa", for each loop
--- friend, object entries index: 2, key: "age", value: 25, for each loop
--- friend, object entries index: 3, key: "country", value: "Finland", for each loop
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope do end, 10
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
+-- console_log(string_interpolation("aaa: ", aaa)) -- "aaa" is not defined
 
-friend["age"] = 27
-console_log(string_interpolation("update property value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+yyy = "global_scope, 1"
 
-friend["gender"] = "Female"
-console_log(string_interpolation("add property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+-- local scope block scope if then end
 
-friend["country"] = nil
-console_log(string_interpolation("delete property and value, friend: ", json_stringify(friend, { ["pretty"] = true })))
+if (true) then
+    yyy = "local_scope_block_scope if then end, 10"
+    local zzz = "local_scope_block_scope if then end, 20" -- "local" instantiate block scope
+    local aaa = "local_scope_block_scope if then end, 30" -- "local" instantiate block scope
+    console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope if then end, 10
+    console_log(string_interpolation("zzz: ", zzz)) -- zzz: local_scope_block_scope if then end, 20
+    console_log(string_interpolation("aaa: ", aaa)) -- aaa: local_scope_block_scope if then end, 30
+end
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope if then end, 10
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
+-- console_log(string_interpolation("aaa: ", aaa)) -- "aaa" is not defined
 
--- Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
-delivery_response_key_message = "message"
-delivery_response = {
-    [delivery_response_key_message] = "ok"
-}
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
-delivery_response_key_status = "status"
-delivery_response[delivery_response_key_status] = 200
-console_log(string_interpolation("delivery_response: ", json_stringify(delivery_response, { ["pretty"] = true })))
+yyy = "global_scope, 1"
+
+-- local scope block scope for do end
+
+for i = 1, 1, 1 do -- start, stop, step
+    yyy = "local_scope_block_scope for do end, 10"
+    local zzz = "local_scope_block_scope for do end, 20" -- "local" instantiate block scope
+    local aaa = "local_scope_block_scope for do end, 30" -- "local" instantiate block scope
+    console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope for do end, 10
+    console_log(string_interpolation("zzz: ", zzz)) -- zzz: local_scope_block_scope for do end, 20
+    console_log(string_interpolation("aaa: ", aaa)) -- aaa: local_scope_block_scope for do end, 30
+end
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope for do end, 10
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
+-- console_log(string_interpolation("aaa: ", aaa)) -- "aaa" is not defined
+
+yyy = "global_scope, 1"
+
+-- local scope block scope while do end
+
+while (true) do
+    yyy = "local_scope_block_scope while do end, 10"
+    local zzz = "local_scope_block_scope while do end, 20" -- "local" instantiate block scope
+    local aaa = "local_scope_block_scope while do end, 30" -- "local" instantiate block scope
+    console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope while do end, 10
+    console_log(string_interpolation("zzz: ", zzz)) -- zzz: local_scope_block_scope while do end, 20
+    console_log(string_interpolation("aaa: ", aaa)) -- aaa: local_scope_block_scope while do end, 30
+    break
+end
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_block_scope while do end, 10
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
+-- console_log(string_interpolation("aaa: ", aaa)) -- "aaa" is not defined
+
+yyy = "global_scope, 1"
+
+-- local scope function scope
+
+(function ()
+    yyy = "local_scope_function_scope, 100"
+    local zzz = "local_scope_function_scope, 200" -- "local" instantiate block scope
+    local aaa = "local_scope_function_scope, 300" -- "local" instantiate block scope
+    console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_function_scope, 100
+    console_log(string_interpolation("zzz: ", zzz)) -- zzz: local_scope_function_scope, 200
+    console_log(string_interpolation("aaa: ", aaa)) -- aaa: local_scope_function_scope, 300
+end)()
+console_log(string_interpolation("yyy: ", yyy)) -- yyy: local_scope_function_scope, 100
+console_log(string_interpolation("zzz: ", zzz)) -- zzz: global_scope, 2
+-- console_log(string_interpolation("aaa: ", aaa)) -- "aaa" is not defined

@@ -554,20 +554,6 @@ func main() {
 	consoleLog(stringInterpolation("yyy: ", yyy)) // yyy: local_scope_function_scope, 2
 
 	xxx = "local_scope_function_scope, 1"
-	for (true) {
-		xxx = "local_scope_block_scope for{}, 10"
-		var yyy interface{} = "local_scope_block_scope for{}, 20"
-		var aaa interface{} = "local_scope_block_scope for{}, 30"
-		consoleLog(stringInterpolation("xxx: ", xxx)) // xxx: local_scope_block_scope for{}, 10
-		consoleLog(stringInterpolation("yyy: ", yyy)) // yyy: local_scope_block_scope for{}, 20
-		consoleLog(stringInterpolation("aaa: ", aaa)) // aaa: local_scope_block_scope for{}, 30
-		break
-	}
-	// consoleLog(stringInterpolation("aaa: ", aaa)) // "aaa" is not defined
-	consoleLog(stringInterpolation("xxx: ", xxx)) // xxx: local_scope_block_scope for{}, 10
-	consoleLog(stringInterpolation("yyy: ", yyy)) // yyy: local_scope_function_scope, 2
-
-	xxx = "local_scope_function_scope, 1"
 	// local scope function scope
 	func() {
 		xxx = "local_scope_function_scope, 100"

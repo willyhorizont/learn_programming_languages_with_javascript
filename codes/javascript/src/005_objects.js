@@ -92,16 +92,16 @@ Object.entries(friend1).forEach(([objectKey, objectValue], objectEntryIndex) => 
 // friend1, object entry index: 2, key: "age", value: 25, for each loop
 
 friend1["age"] = 27;
-console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
+console.log(`update property value, friend1: ${jsonStringify(friend1, { pretty: true })}`);
 
 friend1["gender"] = "Female";
-console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
+console.log(`add property and value, friend1: ${jsonStringify(friend1, { pretty: true })}`);
 
 friend1.job = "Streamer";
-console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
+console.log(`add property and value, friend1: ${jsonStringify(friend1, { pretty: true })}`);
 
 delete friend1.country;
-console.log(`friend1: ${jsonStringify(friend1, { pretty: true })}`);
+console.log(`delete property and value, friend1: ${jsonStringify(friend1, { pretty: true })}`);
 
 // Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 const deliveryResponseKeyMessage = "message";
@@ -148,13 +148,13 @@ Object.entries(Object.fromEntries([...friend2])).forEach(([objectKey, objectValu
 // friend2, object entry index: 2, key: "age", value: 25, for each loop
 
 friend2.set("age", 27);
-console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`update property value, friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.set("gender", "Female");
-console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`add property and value, friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.set("job", "Streamer");
-console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`add property and value, friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
 
 friend2.delete("country");
-console.log(`friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);
+console.log(`delete property and value, friend2: ${jsonStringify(Object.fromEntries([...friend2]), { pretty: true })}`);

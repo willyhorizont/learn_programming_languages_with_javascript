@@ -518,15 +518,12 @@ func generateNumberSequence(startNumber int, stopNumber int) interface{} {
 }
 
 func main() {
-	consoleLog(stringInterpolation("generateNumberSequence(0, 9): ", jsonStringify(generateNumberSequence(0, 9))));
+	consoleLog(stringInterpolation("generateNumberSequence(0, 9): ", []interface{}{generateNumberSequence(0, 9)}));
 	// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-	consoleLog(stringInterpolation("generateNumberSequence(1, 10): ", jsonStringify(generateNumberSequence(1, 10))));
+	consoleLog(stringInterpolation("generateNumberSequence(1, 10): ", []interface{}{generateNumberSequence(1, 10)}));
 	// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	consoleLog(stringInterpolation("generateNumberSequence(10, 1): ", jsonStringify(generateNumberSequence(10, 1))));
+	consoleLog(stringInterpolation("generateNumberSequence(10, 1): ", []interface{}{generateNumberSequence(10, 1)}));
 	// [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-	consoleLog(stringInterpolation("generateNumberSequence(9, 0): ", jsonStringify(generateNumberSequence(9, 0))));
+	consoleLog(stringInterpolation("generateNumberSequence(9, 0): ", []interface{}{generateNumberSequence(9, 0)}));
 	// [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-	// consoleLog(stringInterpolation("generateNumberSequence(10): ", jsonStringify(generateNumberSequence(10)))); // error
-	// consoleLog(stringInterpolation("generateNumberSequence(1, "bg"): ", jsonStringify(generateNumberSequence(1, "bg")))); // error
-	// consoleLog(stringInterpolation("generateNumberSequence(5, 5): ", jsonStringify(generateNumberSequence(5, 5)))); // error
 }

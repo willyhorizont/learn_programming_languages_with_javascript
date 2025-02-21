@@ -156,5 +156,4 @@ $console_log($string_interpolation("fruits, last element: ", [$optional_chaining
 // fruits, index: 2, item: "orange", for each loop
 
 array_push($fruits, "banana");
-$console_log($string_interpolation("fruits: ", [$fruits]));
-// fruits: ["apple", "mango", "orange", "banana"]
+$console_log($string_interpolation("add item to end, fruits: ", [$fruits]));

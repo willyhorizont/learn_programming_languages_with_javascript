@@ -2,7 +2,7 @@ from numbers import Number
 
 js_like_type = {"Null": "Null", "Boolean": "Boolean", "String": "String", "Numeric": "Numeric", "Object": "Object", "Array": "Array", "Function": "Function"}
 
-array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce_v2(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
+array_reduce = lambda callback_function, any_array, initial_value_or_current_result, array_item_index=0: (initial_value_or_current_result if (array_item_index >= len(any_array)) else array_reduce(callback_function, any_array, (callback_function(initial_value_or_current_result, any_array[array_item_index], array_item_index, any_array)), (array_item_index + 1)))  # '''JavaScript-like Array.reduce() function array_reduce_v2'''
 
 is_like_js_null = lambda anything: (anything is None)
 
@@ -49,6 +49,3 @@ print(f"generate_number_sequence(10, 1): {json_stringify(generate_number_sequenc
 # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 print(f"generate_number_sequence(9, 0): {json_stringify(generate_number_sequence(9, 0))}")
 # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-# print(f"generate_number_sequence(10): {json_stringify(generate_number_sequence(10))}")  # error
-# print(f'generate_number_sequence(1, "bg"): {json_stringify(generate_number_sequence(1, "bg"))}')  # error
-# print(f'generate_number_sequence(5, 5): {json_stringify(generate_number_sequence(5, 5))}')  # error

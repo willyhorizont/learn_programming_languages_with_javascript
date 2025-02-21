@@ -1,10 +1,10 @@
 println("\n# Custom Error and Error Handling in Julia")
 
-give_me_respect::Any = (argument::Any) -> (begin
+function give_me_respect(argument::Any)::Any
     # Custom Error
     if (argument !== "respect") throw(ErrorException("Exception: You should give me \"respect\"!")) end
     return "Thank you for giving me \"respect\"!"
-end)::Any
+end
 
 (() -> begin
     # Error Handling

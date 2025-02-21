@@ -313,6 +313,3 @@ console_log(string_interpolation("generate_number_sequence(10, 1): ", [generate_
 # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 console_log(string_interpolation("generate_number_sequence(9, 0): ", [generate_number_sequence(9, 0)]));
 # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-# console_log(string_interpolation("generate_number_sequence(10): ", [generate_number_sequence(10)])); # error
-# console_log(string_interpolation('generate_number_sequence(1, "bg"): ', [generate_number_sequence(1, "bg")])); # error
-# console_log(string_interpolation('generate_number_sequence(5, 5): ', [generate_number_sequence(5, 5)])); # error

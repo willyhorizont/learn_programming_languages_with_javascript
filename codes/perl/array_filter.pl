@@ -402,7 +402,7 @@ console_log(string_interpolation("products: ", json_stringify($products_ref, "pr
 console_log('# using JavaScript-like Array.filter() function "array_filter_v1"');
 
 {
-    my $products_below_100_ref = array_filter_v1(sub { ((optional_chaining([@_]->[0], "price")) <= 100) }, $products_ref);
+    my $products_below_100_ref = array_filter_v1(sub { (optional_chaining([@_]->[0], "price") <= 100) }, $products_ref);
     console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100_ref, "pretty" => (1 == 1))));
     # products with price <= 100 only: [
     #     {
@@ -411,7 +411,7 @@ console_log('# using JavaScript-like Array.filter() function "array_filter_v1"')
     #     }
     # ]
 
-    my $products_above_100_ref = array_filter_v1(sub { ((optional_chaining([@_]->[0], "price")) > 100) }, $products_ref);
+    my $products_above_100_ref = array_filter_v1(sub { (optional_chaining([@_]->[0], "price") > 100) }, $products_ref);
     console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100_ref, "pretty" => (1 == 1))));
     # products with price > 100 only: [
     #     {
@@ -432,7 +432,7 @@ console_log('# using JavaScript-like Array.filter() function "array_filter_v1"')
 console_log('# using JavaScript-like Array.filter() function "array_filter_v2"');
 
 {
-    my $products_below_100_ref = array_filter_v2(sub { ((optional_chaining([@_]->[0], "price")) <= 100) }, $products_ref);
+    my $products_below_100_ref = array_filter_v2(sub { (optional_chaining([@_]->[0], "price") <= 100) }, $products_ref);
     console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100_ref, "pretty" => (1 == 1))));
     # products with price <= 100 only: [
     #     {
@@ -441,7 +441,7 @@ console_log('# using JavaScript-like Array.filter() function "array_filter_v2"')
     #     }
     # ]
 
-    my $products_above_100_ref = array_filter_v2(sub { ((optional_chaining([@_]->[0], "price")) > 100) }, $products_ref);
+    my $products_above_100_ref = array_filter_v2(sub { (optional_chaining([@_]->[0], "price") > 100) }, $products_ref);
     console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100_ref, "pretty" => (1 == 1))));
     # products with price > 100 only: [
     #     {
@@ -462,7 +462,7 @@ console_log('# using JavaScript-like Array.filter() function "array_filter_v2"')
 console_log('# using JavaScript-like Array.filter() function "array_filter_v3"');
 
 {
-    my $products_below_100_ref = array_filter_v3(sub { ((optional_chaining([@_]->[0], "price")) <= 100) }, $products_ref);
+    my $products_below_100_ref = array_filter_v3(sub { (optional_chaining([@_]->[0], "price") <= 100) }, $products_ref);
     console_log(string_interpolation("products with price <= 100 only: ", json_stringify($products_below_100_ref, "pretty" => (1 == 1))));
     # products with price <= 100 only: [
     #     {
@@ -471,7 +471,7 @@ console_log('# using JavaScript-like Array.filter() function "array_filter_v3"')
     #     }
     # ]
 
-    my $products_above_100_ref = array_filter_v3(sub { ((optional_chaining([@_]->[0], "price")) > 100) }, $products_ref);
+    my $products_above_100_ref = array_filter_v3(sub { (optional_chaining([@_]->[0], "price") > 100) }, $products_ref);
     console_log(string_interpolation("products with price > 100 only: ", json_stringify($products_above_100_ref, "pretty" => (1 == 1))));
     # products with price > 100 only: [
     #     {

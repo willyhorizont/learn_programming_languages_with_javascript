@@ -1,4 +1,13 @@
 =============================changelog==========================================
+(2025/02[Feb]/22[Sat]|02:34[AM]/02:34)
+1.0.87
+New:
+update *.lua, finish *.lua
+TODO:
+add cool hello world in each language
+check everything in each language
+check chaos.txt for more
+=============================changelog==========================================
 (2025/02[Feb]/21[Fri]|01:42[AM]/01:42)
 1.0.86
 New:

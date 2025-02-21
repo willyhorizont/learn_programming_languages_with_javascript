@@ -462,9 +462,8 @@ for (my $array_item_index = 0; ($array_item_index < scalar(@fruits)); $array_ite
 # fruits, index: 2, value: "orange", for loop
 
 push(@fruits, "banana");
-console_log(string_interpolation("fruits: ", [[@fruits]]));
-console_log(string_interpolation("fruits: ", [\@fruits]));
-# fruits: ["apple", "mango", "orange", "banana"]
+console_log(string_interpolation("add item to end, fruits: ", [[@fruits]]));
+console_log(string_interpolation("add item to end, fruits: ", [\@fruits]));
 
 # initialization v2
 my $fruits_ref = ["apple", "mango", "orange"];
@@ -622,5 +621,4 @@ for (my $array_item_index = 0; ($array_item_index < scalar(@{$fruits_ref})); $ar
 # fruits_ref, index: 2, value: "orange", for loop
 
 push(@{$fruits_ref}, "banana");
-console_log(string_interpolation("fruits_ref: ", [$fruits_ref]));
-# fruits_ref: ["apple", "mango", "orange", "banana"]
+console_log(string_interpolation("add item to end, fruits_ref: ", [$fruits_ref]));

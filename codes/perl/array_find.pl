@@ -421,7 +421,7 @@ console_log(string_interpolation("product to find: ", [$product_to_find]));
 console_log('# using JavaScript-like Array.find() function "array_find_v1"');
 
 {
-    my $product_found_ref = array_find_v1(sub { is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find) }, $products_ref);
+    my $product_found_ref = array_find_v1(sub { is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find) }, $products_ref);
     console_log(string_interpolation("product found: ", json_stringify($product_found_ref, "pretty" => (1 == 1))))
     # product found: {
     #     "code": "bubble_gum",
@@ -432,7 +432,7 @@ console_log('# using JavaScript-like Array.find() function "array_find_v1"');
 console_log('# using JavaScript-like Array.find() function "array_find_v2"');
 
 {
-    my $product_found_ref = array_find_v2(sub { is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find) }, $products_ref);
+    my $product_found_ref = array_find_v2(sub { is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find) }, $products_ref);
     console_log(string_interpolation("product found: ", json_stringify($product_found_ref, "pretty" => (1 == 1))))
     # product found: {
     #     "code": "bubble_gum",
@@ -443,7 +443,7 @@ console_log('# using JavaScript-like Array.find() function "array_find_v2"');
 console_log('# using JavaScript-like Array.find() function "array_find_v3"');
 
 {
-    my $product_found_ref = array_find_v3(sub { is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find) }, $products_ref);
+    my $product_found_ref = array_find_v3(sub { is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find) }, $products_ref);
     console_log(string_interpolation("product found: ", json_stringify($product_found_ref, "pretty" => (1 == 1))))
     # product found: {
     #     "code": "bubble_gum",
@@ -454,7 +454,7 @@ console_log('# using JavaScript-like Array.find() function "array_find_v3"');
 console_log('# using JavaScript-like Array.find() function "array_find_v4"');
 
 {
-    my $product_found_ref = array_find_v4(sub { is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find) }, $products_ref);
+    my $product_found_ref = array_find_v4(sub { is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find) }, $products_ref);
     console_log(string_interpolation("product found: ", json_stringify($product_found_ref, "pretty" => (1 == 1))))
     # product found: {
     #     "code": "bubble_gum",

@@ -140,5 +140,4 @@ end
 # fruits, index: 3, value: "orange", for loop
 
 push!(fruits, "banana")
-println("fruits: $(json_stringify(fruits))")
-# fruits: ["apple", "mango", "orange", "banana"]
+println("add item to end, fruits: $(json_stringify(fruits))")

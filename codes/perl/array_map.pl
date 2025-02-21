@@ -457,7 +457,7 @@ console_log(string_interpolation("products: ", json_stringify($products_ref, "pr
 console_log('# using JavaScript-like Array.map() function "array_map_v1"');
 
 {
-    my $products_labeled_ref = array_map_v1(sub { object({(%{[@_]->[0]}, "label" => (((optional_chaining([@_]->[0], "price")) > 100) ? "expensive" : "cheap"))}) }, $products_ref);
+    my $products_labeled_ref = array_map_v1(sub { object({(%{[@_]->[0]}, "label" => ((optional_chaining([@_]->[0], "price") > 100) ? "expensive" : "cheap"))}) }, $products_ref);
     console_log(string_interpolation("labeled products: ", json_stringify($products_labeled_ref, "pretty" => (1 == 1))));
     # labeled products: [
     #     {
@@ -486,7 +486,7 @@ console_log('# using JavaScript-like Array.map() function "array_map_v1"');
 console_log('# using JavaScript-like Array.map() function "array_map_v2"');
 
 {
-    my $products_labeled_ref = array_map_v2(sub { object({(%{[@_]->[0]}, "label" => (((optional_chaining([@_]->[0], "price")) > 100) ? "expensive" : "cheap"))}) }, $products_ref);
+    my $products_labeled_ref = array_map_v2(sub { object({(%{[@_]->[0]}, "label" => ((optional_chaining([@_]->[0], "price") > 100) ? "expensive" : "cheap"))}) }, $products_ref);
     console_log(string_interpolation("labeled products: ", json_stringify($products_labeled_ref, "pretty" => (1 == 1))));
     # labeled products: [
     #     {

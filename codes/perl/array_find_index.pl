@@ -408,7 +408,7 @@ console_log(string_interpolation("product to find: ", [$product_to_find]));
 console_log('# using JavaScript-like Array.findIndex() function "array_find_index_v1"');
 
 {
-    my $product_found_index = array_find_index_v1(sub { (is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find)) }, $products_ref);
+    my $product_found_index = array_find_index_v1(sub { (is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find)) }, $products_ref);
     console_log(string_interpolation("product found index: ", [$product_found_index]));
     # product found index: 0
 }
@@ -416,7 +416,7 @@ console_log('# using JavaScript-like Array.findIndex() function "array_find_inde
 console_log('# using JavaScript-like Array.findIndex() function "array_find_index_v2"');
 
 {
-    my $product_found_index = array_find_index_v2(sub { (is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find)) }, $products_ref);
+    my $product_found_index = array_find_index_v2(sub { (is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find)) }, $products_ref);
     console_log(string_interpolation("product found index: ", [$product_found_index]));
     # product found index: 0
 }
@@ -424,7 +424,7 @@ console_log('# using JavaScript-like Array.findIndex() function "array_find_inde
 console_log('# using JavaScript-like Array.findIndex() function "array_find_index_v3"');
 
 {
-    my $product_found_index = array_find_index_v3(sub { (is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find)) }, $products_ref);
+    my $product_found_index = array_find_index_v3(sub { (is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find)) }, $products_ref);
     console_log(string_interpolation("product found index: ", [$product_found_index]));
     # product found index: 0
 }
@@ -432,7 +432,7 @@ console_log('# using JavaScript-like Array.findIndex() function "array_find_inde
 console_log('# using JavaScript-like Array.findIndex() function "array_find_index_v4"');
 
 {
-    my $product_found_index = array_find_index_v4(sub { (is_triple_equal((optional_chaining([@_]->[0], "code")), $product_to_find)) }, $products_ref);
+    my $product_found_index = array_find_index_v4(sub { (is_triple_equal(optional_chaining([@_]->[0], "code"), $product_to_find)) }, $products_ref);
     console_log(string_interpolation("product found index: ", [$product_found_index]));
     # product found index: 0
 }

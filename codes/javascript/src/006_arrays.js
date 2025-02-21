@@ -122,5 +122,4 @@ fruits.forEach((arrayItem, arrayItemIndex) => console.log(`fruits, index: ${arra
 // fruits, index: 2, item: "orange", for each loop
 
 fruits.push("banana");
-console.log(`fruits: ${jsonStringify(fruits)}`);
-// fruits: ["apple", "mango", "orange", "banana"]
+console.log(`add item to end, fruits: ${jsonStringify(fruits)}`);

@@ -146,13 +146,13 @@ $console_log($string_interpolation("friend, get country: ", [$optional_chaining(
 // friend, object entry index: 2, key: "age", value: 25, for each loop
 
 $friend["age"] = 27;
-$console_log($string_interpolation("friend: ", $json_stringify($friend, pretty: true)));
+$console_log($string_interpolation("update property value, friend: ", $json_stringify($friend, pretty: true)));
 
 $friend["gender"] = "Female";
-$console_log($string_interpolation("friend: ", $json_stringify($friend, pretty: true)));
+$console_log($string_interpolation("add property and value, friend: ", $json_stringify($friend, pretty: true)));
 
 unset($friend["country"]);
-$console_log($string_interpolation("friend: ", $json_stringify($friend, pretty: true)));
+$console_log($string_interpolation("delete property and value, friend: ", $json_stringify($friend, pretty: true)));
 
 // Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 $delivery_response_key_message = "message";

@@ -532,13 +532,13 @@ func main() {
 	}
 
 	friend.(map[string]interface{})["age"] = 27
-	consoleLog(stringInterpolation("friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation("update property value, friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
 
 	friend.(map[string]interface{})["gender"] = "Female"
-	consoleLog(stringInterpolation("friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation("add property and value, friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
 
 	delete(friend.(map[string]interface{}), "country")
-	consoleLog(stringInterpolation("friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
+	consoleLog(stringInterpolation("delete property and value, friend: ", jsonStringify(friend, map[string]interface{}{"pretty": true})))
 
 	// Computed property names: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names
 	var deliveryResponseKeyMessage interface{} = "message"
