@@ -23,7 +23,7 @@ def main():
         "my_function", Python.evaluate('lambda a, b: (a * b)'),
         "my_string", "foo",
         "my_number", 123,
-        "my_bool", True,
+        "my_boolean", True,
         "my_null", None,
         "my_array", [1, 2, 3],
         "my_object", create_new_object(
@@ -149,8 +149,8 @@ def main():
     print("".join("is_like_js_string(my_string): ", is_like_js_string(my_object["my_string"])))
     print("".join("get_type(my_number): ", get_type(my_object["my_number"])))
     print("".join("is_like_js_numeric(my_number): ", is_like_js_numeric(my_object["my_number"])))
-    print("".join("get_type(my_bool): ", get_type(my_object["my_bool"])))
-    print("".join("is_like_js_boolean(my_bool): ", is_like_js_boolean(my_object["my_bool"])))
+    print("".join("get_type(my_boolean): ", get_type(my_object["my_boolean"])))
+    print("".join("is_like_js_boolean(my_boolean): ", is_like_js_boolean(my_object["my_boolean"])))
     print("".join("get_type(my_null): ", get_type(my_object["my_null"])))
     print("".join("is_like_js_null(my_null): ", is_like_js_null(my_object["my_null"])))
     print("".join("get_type(my_array): ", get_type(my_object["my_array"])))

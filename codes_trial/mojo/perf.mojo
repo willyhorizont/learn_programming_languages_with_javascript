@@ -61,7 +61,7 @@ if __name__ == "__main__":
         "my_function": lambda a, b: (a * b),
         "my_string": "foo",
         "my_number": 123,
-        "my_bool": True,
+        "my_boolean": True,
         "my_null": None,
         "my_array": [1, 2, 3],
         "my_object": {

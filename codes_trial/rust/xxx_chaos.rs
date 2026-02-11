@@ -237,7 +237,7 @@ fn main() {
         )])),
         Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_string")), Any::JsLikeString(String::from("foo"))])),
         Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_number")), Any::JsLikeNumeric(RustNumeric::Int(123))])),
-        Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_bool")), Any::JsLikeBoolean(true)])),
+        Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_boolean")), Any::JsLikeBoolean(true)])),
         Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_null")), Any::JsLikeNull(())])),
         Any::JsLikeArray(create_new_object_entry(vec![Any::JsLikeString(String::from("my_array")), Any::JsLikeArray(vec![
             Any::JsLikeNumeric(RustNumeric::Int(1)),

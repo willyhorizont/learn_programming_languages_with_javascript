@@ -1,0 +1,9 @@
+comment.*
+hello_world.*
+conditionals.*
+ternary_operator.*
+loops.*
+objects.*
+arrays.*
+functions.*
+spread_operator.*

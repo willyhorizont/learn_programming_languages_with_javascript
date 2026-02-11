@@ -55,12 +55,12 @@ class yyy_requirements {
         System.out.println("something: " + something);
 
         /*
-        3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+        x. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
         ```javascript
         const myObject = {
             "my_string": "foo",
             "my_number": 17,
-            "my_bool": true,
+            "my_boolean": true,
             "my_null": null,
             "my_object": {
                 "foo": "bar"
@@ -74,7 +74,7 @@ class yyy_requirements {
             {
                 put("my_string", "foo");
                 put("my_number", 17);
-                put("my_bool", true);
+                put("my_boolean", true);
                 put("my_null", null);
                 put("my_object", new HashMap<String, Object>() {
                     {
@@ -87,7 +87,7 @@ class yyy_requirements {
         System.out.println("myObject: " + myObject);
 
         /*
-        4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+        x. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
         ```javascript
         const myArray = ["foo", 17, true, null, [1, 2, 3], {"foo": "bar"}];
         console.log("myArray: ", myArray);
@@ -101,7 +101,7 @@ class yyy_requirements {
         System.out.println("myArray: " + myArray);
 
         /*
-        5. support passing functions as arguments to other functions
+        x. support passing functions as arguments to other functions
         ```javascript
         function sayHello(callbackFunction) {
             console.log("hello");
@@ -121,7 +121,7 @@ class yyy_requirements {
         });
 
         /*
-        6. support returning functions as values from other functions
+        x. support returning functions as values from other functions
         ```javascript
         function multiply(a) {
             return function (b) {
@@ -138,7 +138,7 @@ class yyy_requirements {
         System.out.println("multiplyBy2Result: " + multiplyBy2Result);
 
         /*
-        7. support assigning functions to variables
+        x. support assigning functions to variables
         ```javascript
         const getRectangleArea = function (rectangleWidth, rectangleLength) {
             return rectangleWidth * rectangleLength;

@@ -153,7 +153,7 @@ Module Program
         Dim MyObject As Object = New Dictionary(Of String, Object) From {
             {"my_string", "foo"},
             {"my_number", 17},
-            {"my_bool", true},
+            {"my_boolean", true},
             {"my_null", Nothing},
             {"my_object", New Dictionary(Of String, Object) From {{"foo", "bar"}}},
             {"my_array", New List(Of Object) From {1, 2, 3}}

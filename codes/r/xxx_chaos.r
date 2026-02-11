@@ -44,7 +44,7 @@ cat(paste(sep = "", "end", "\n"))
 my_object <- list(
     "my_string" = "foo",
     "my_number" = 123,
-    "my_bool" = TRUE,
+    "my_boolean" = TRUE,
     "my_null" = NULL,
     "my_object" = list(
         "foo" = "bar",

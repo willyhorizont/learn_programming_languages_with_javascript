@@ -1,10 +1,82 @@
 {
+    "workbench.preferredDarkColorTheme": "Visual Studio 2017 Dark - C++",
+    "workbench.colorTheme": "Visual Studio 2017 Dark - C++",
+    // "workbench.colorTheme": "Visual Studio Dark - C++",
+    // "workbench.colorTheme": "GitHub Dark",
+    // "workbench.colorTheme": "GitHub Dark Default",
+    // "workbench.colorTheme": "GitHub Dark Dimmed",
+    // "workbench.colorTheme": "GitHub Dark High Contrast",
+    // "workbench.colorTheme": "One Dark Pro",
+    // "workbench.colorTheme": "One Dark Pro Darker",
+    // "workbench.colorTheme": "One Dark Pro Flat",
+    // "workbench.colorTheme": "One Dark Pro Mix",
+    // "workbench.colorTheme": "One Dark Pro Night Flat",
+    // "workbench.colorTheme": "Dracula Theme",
+    // "workbench.colorTheme": "Dracula Theme Soft",
+    // "workbench.colorTheme": "Ayu Dark",
+    // "workbench.colorTheme": "Ayu Dark Bordered",
+    // "workbench.colorTheme": "Ayu Mirage",
+    // "workbench.colorTheme": "Ayu Mirage Bordered",
+    // "workbench.colorTheme": "Night Owl",
+    // "workbench.colorTheme": "Night Owl (No Italics)",
+    // "workbench.colorTheme": "One Monokai",
+    "workbench.colorCustomizations": {
+        "editorUnnecessaryCode.border": "#ffee00",
+        "editorUnnecessaryCode.opacity": "#ffee00",
+        // #0A0C10
+        "button.foreground": "#3d222c",
+        "input.background": "#3d222c",
+        "badge.foreground": "#3d222c",
+        "titleBar.activeBackground": "#3d222c",
+        "activityBar.background": "#3d222c",
+        "activityBarBadge.foreground": "#3d222c",
+        "statusBar.background": "#3d222c",
+        "statusBar.noFolderBackground": "#3d222c",
+        "statusBar.debuggingForeground": "#3d222c",
+        "tab.activeBackground": "#3d222c",
+        "tab.hoverBackground": "#3d222c",
+        "tab.activeBorder": "#3d222c",
+        "tab.unfocusedActiveBorder": "#3d222c",
+        "editor.background": "#3d222c",
+        "editor.selectionForeground": "#3d222c",
+        "peekViewResult.background": "#3d222c",
+        // #010409
+        "textBlockQuote.background": "#29161d",
+        "titleBar.inactiveBackground": "#29161d",
+        "sideBar.background": "#29161d",
+        "sideBarSectionHeader.background": "#29161d",
+        "editorGroupHeader.tabsBackground": "#29161d",
+        "tab.inactiveBackground": "#29161d",
+        "editorOverviewRuler.border": "#29161d",
+        "panel.background": "#29161d",
+    },
+
+    "workbench.editor.tabSizing": "fixed",
+    "workbench.editor.tabSizingFixedMinWidth": 38,
+    "workbench.editor.pinnedTabSizing": "normal",
+    "workbench.sideBar.location": "right",
+    "workbench.editor.pinnedTabsOnSeparateRow": true,
+    "workbench.editor.titleScrollbarSizing": "large",
+    "workbench.editor.wrapTabs": false,
+    "workbench.iconTheme": "vscode-icons",
     "editor.fontFamily": "'Source Code Pro', Consolas, 'Courier New', monospace",
+    "editor.maxTokenizationLineLength": 9999999999999999999999999999999999999999999999999999999,
+    "editor.rulers": [],
+    "editor.wordWrap": "off",
+    "html.format.enable": false,
+    "prettier.printWidth": 9999999999999999999999999999999999999999999999999999999,
+    "html.format.wrapLineLength": 9999999999999999999999999999999999999999999999999999999,
+    "prettier.tabWidth": 4,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "[html]": {
+        // "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "code-runner.showRunIconInEditorTitleMenu": true,
+
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "php.suggest.basic": false,
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
-    },
     "window.title": "${rootName}${separator}${activeEditorLong}${dirty}",
     "terminal.integrated.gpuAcceleration": "off",
     "json.maxItemsComputed": 500000,
@@ -12,21 +84,20 @@
     "editor.lineHeight": 27,
     "editor.detectIndentation": false,
     "[json]": {
-      "editor.quickSuggestions": {
-        "strings": true
-      },
-      "editor.suggest.insertMode": "replace",
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace",
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "diffEditor.ignoreTrimWhitespace": false,
     "javascript.validate.enable": false,
     "editor.guides.bracketPairs": "active",
     "editor.bracketPairColorization.enabled": true,
     "material-icon-theme.activeIconPack": "react",
-    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
     "prettier.singleQuote": true,
     "[javascript]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "editor.inlineSuggest.enabled": true,
     "security.workspace.trust.untrustedFiles": "open",
@@ -38,7 +109,7 @@
     "javascript.suggest.paths": false,
     "editor.showFoldingControls": "always",
     "[javascriptreact]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "python.formatting.provider": "none",
     "python.formatting.autopep8Args": [
@@ -59,8 +130,6 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.printWidth": 1000,
-    "workbench.iconTheme": "vscode-icons",
     "go.toolsManagement.autoUpdate": true,
     "C_Cpp.default.cppStandard": "c++17",
     "cmake.configureOnOpen": true,
@@ -90,7 +159,12 @@
     "r.rterm.windows": "C:\\\\Users\\\\willy\\\\AppData\\\\Local\\\\Programs\\\\R-4.3.2\\\\bin\\\\x64\\\\Rterm.exe",
     "files.associations": {
         "*.rmd": "markdown",
-        "*.m": "matlab"
+        "*.m": "matlab",
+        "*.st": "smalltalk",
+        "stdlib.h": "c",
+        "cstdlib": "c",
+        "type_traits": "c",
+        "stdio.h": "c"
     },
     "code-runner.ignoreSelection": true,
     "code-runner.executorMap": {
@@ -115,6 +189,8 @@
         "scala": "cd \"$dir..\\..\\utils\" && python compile_and_run_scala_file.py $dir$fileName", // compile .scala file to .class and run the .class
         "scala2": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"", // compile .scala file to .class and run the .class
         "scala3": "cd $dir && scalac $fileName && scala $fileNameWithoutExt && del \"$dir*.class\"  && del \"$dir*.tasty\"", // compile .scala file to .class and run the .class
+        // "c": "gcc --version",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt && rm -f \"$dir$fileNameWithoutExt\"",
         // "java": "cd $dir && javac $fileName && java $fileNameWithoutExt && del \"$dir*.class\"",
         "java": "cd \"$dir..\\..\\utils\" && python compile_and_run_java_file.py $dir$fileName", // compile .java file to .class and run the .class
         "gdscript": "cd $dir && godot --script --headless $fileName",
@@ -125,7 +201,6 @@
         "mojo": "cd $dir && mojo $fileName",
         "v": "cd $dir && v run $fileName",
         "odin": "cd $dir && odin run $fileName -file",
-        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "zig": "zig run",
         "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
@@ -189,53 +264,11 @@
     "editor.stickyScroll.enabled": false,
     "godotTools.editorPath.godot3": "\"D:\\Programs_Portable\\Godot_v3.5.3-stable_win64.exe\\godot.exe\"",
     "godotTools.editorPath.godot4": "\"D:\\Programs_Portable\\Godot_v4.2.1-stable_win64\\godot.exe\"",
-    "workbench.colorTheme": "Noctis Bordo",
-    "workbench.colorCustomizations":{
-        // "editor.selectionBackground" : "#542400f9",
-        // "editor.inactiveSelectionBackground" : "#b50000fb",
-
-        // "editor.selectionHighlightBackground" : "#003500f0",
-        // "editor.findMatchBackground" : "#322a2df0",
-        // "editor.findMatchHighlightBackground" : "#2c322a3c",
-        // "editor.wordHighlightBackground" : "#690027f0",
-        // "editor.wordHighlightStrongBackground" : "#690027f0",
-        // "editor.wordHighlightTextBackground" : "#322a2d23",
-        // "editor.symbolHighlightBackground" : "#520041f5",
-
-        // // "editor.findRangeHighlightBackground" : "#003500f0",
-        // // "editor.lineHighlightBackground" : "#1f0019f5",
-        // // "editor.rangeHighlightBackground" : "#003500f0",
-        // // "editor.hoverHighlightBackground" : "#520041f5",
-        // // "editor.linkedEditingBackground" : "#1f0019f5",
-        // // "editor.foldBackground" : "#1f0019f5",
-
-        // "editor.selectionHighlightBorder" : "#322a2df0",
-        // "editor.findMatchBorder" : "#fff653f0",
-        // "editor.findMatchHighlightBorder" : "#e76400f0",
-        // "editor.wordHighlightBorder" : "#2c322a3c",
-        // "editor.wordHighlightStrongBorder" : "#2c322a3c",
-        // "editor.wordHighlightTextBorder" : "#fff653f0",
-        // "editor.symbolHighlightBorder" : "#322a2df0",
-
-        // // "editor.findRangeHighlightBorder" : "#00e708f8",
-        // // "editor.lineHighlightBorder" : "#1f0019f5",
-        // // "editor.rangeHighlightBorder" : "#003500f0",
-
-        "editorUnnecessaryCode.background": "#00000019",
-        "editorUnnecessaryCode.border": "#b50000fb",
-        // "terminal.foreground" : "#00FD61",
-        // "terminal.background" : "#000000"
-    },
     "Lua.diagnostics.disable": [
         "lowercase-global",
         "assign-type-mismatch"
     ],
     "editor.multiCursorLimit": 100000,
     "editor.minimap.enabled": true,
-    "workbench.sideBar.location": "right",
-    "workbench.editor.pinnedTabsOnSeparateRow": true,
-    "workbench.editor.tabSizing": "fit",
-    "workbench.editor.titleScrollbarSizing": "large",
-    "workbench.editor.wrapTabs": true,
     "java.project.referencedLibraries": [],
 }

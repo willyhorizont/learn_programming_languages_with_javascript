@@ -1,0 +1,10 @@
+print(range(1, (3 + 1)))
+print(list(range(1, (3 + 1))))
+asd = ((x + x) for x in range(1, (3 + 1)))
+print(list(asd))
+print((any_array_item + any_array_item) for any_array_item in range(1, (3 + 1)))
+print([(any_array_item + any_array_item) for any_array_item in range(1, (3 + 1))])
+print(list(map(lambda any_array_item: (any_array_item + any_array_item), range(1, (3 + 1)))))
+
+print([any_array_item for any_array_item in range(1, (4 + 1)) if ((any_array_item % 2) == 0)])
+print([any_array_item for any_array_item in [1, 2, 3, 4] if ((any_array_item % 2) == 0)])

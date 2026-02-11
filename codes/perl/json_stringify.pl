@@ -326,7 +326,7 @@ my %my_object = (
     },
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => (1 == 1),
+    "my_boolean" => (1 == 1),
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {
@@ -344,7 +344,7 @@ my $my_object_ref = {
     },
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => (1 == 1),
+    "my_boolean" => (1 == 1),
     "my_null" => undef,
     "my_array" => [1, 2, 3],
     "my_object" => {

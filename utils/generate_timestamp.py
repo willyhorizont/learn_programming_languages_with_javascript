@@ -11,7 +11,7 @@ def generate_timestamp(style_in_int: int = 0):
     return datetime.datetime.now().strftime(my_datetime_format[style_in_int])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(generate_timestamp(0))
     print(generate_timestamp(1))
     print(generate_timestamp(2))
