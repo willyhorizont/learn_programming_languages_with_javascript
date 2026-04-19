@@ -1,5 +1,5 @@
 In this repository, I am attempting to learn every programming language that has behavior and capabilities similar to JavaScript, like:
-1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
+x. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
     ```javascript
     let something = "foo";
     console.log(`something: ${something}`);
@@ -17,7 +17,7 @@ In this repository, I am attempting to learn every programming language that has
     ```go
     type Any interface{}
     ```
-2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
+x. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
     ```javascript
     function getModifiedIndentLevel() {
         let indentLevel = 0;
@@ -46,12 +46,12 @@ In this repository, I am attempting to learn every programming language that has
     playGame();
     playGame();
     ```
-3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+x. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
     ```javascript
     const myObject = {
         "my_string": "foo",
         "my_number": 123,
-        "my_bool": true,
+        "my_boolean": true,
         "my_null": null,
         "my_array": [1, 2, 3],
         "my_object": {
@@ -60,12 +60,12 @@ In this repository, I am attempting to learn every programming language that has
     };
     console.log(`myObject: ${myObject}`);
     ```
-4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+x. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
     ```javascript
     const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
     console.log(`myArray: ${myArray}`);
     ```
-5. support passing functions as arguments to other functions
+x. support passing functions as arguments to other functions
     ```javascript
     function sayHello(callbackFunction) {
         console.log("hello");
@@ -79,7 +79,7 @@ In this repository, I am attempting to learn every programming language that has
         console.log("how are you?");
     });
     ```
-6. support returning functions as values from other functions
+x. support returning functions as values from other functions
     ```javascript
     function multiply(a) {
         return function (b) {
@@ -90,7 +90,7 @@ In this repository, I am attempting to learn every programming language that has
     const multiplyBy2Result = multiplyBy2(10);
     console.log(`multiplyBy2Result: ${multiplyBy2Result}`);
     ```
-7. support assigning functions to variables
+x. support assigning functions to variables
     ```javascript
     const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
         return (rectangleWidth * rectangleLength);
@@ -103,7 +103,7 @@ In this repository, I am attempting to learn every programming language that has
     const getRectangleAreaV3 = (rectangleWidth, rectangleLength) => (rectangleWidth * rectangleLength);
     console.log(`getRectangleAreaV3(7, 5): ${getRectangleAreaV3(7, 5)}`);
     ```
-8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+x. support storing functions in data structures like object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure or array/list/slice/ordered-list-data-structure
     ```javascript
     const myArray2 = [
         function (a, b) {
@@ -123,7 +123,7 @@ In this repository, I am attempting to learn every programming language that has
         },
         "my_string": "foo",
         "my_number": 123,
-        "my_bool": true,
+        "my_boolean": true,
         "my_null": null,
         "my_array": [1, 2, 3],
         "my_object": {
@@ -136,7 +136,7 @@ In this repository, I am attempting to learn every programming language that has
 HOW TO RUN THE CODES:
 
 to run JavaScript code:
-1. cd codes/javascript/src
+1. cd codes/javascript
 2. node filename.js
 
 to run Python code:

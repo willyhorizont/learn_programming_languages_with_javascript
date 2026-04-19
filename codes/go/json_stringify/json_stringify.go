@@ -700,7 +700,7 @@ func main() {
 		},
         "my_string": "foo",
         "my_number": 123,
-        "my_bool": true,
+        "my_boolean": true,
         "my_null": nil,
         "my_array": []interface{}{1, 2, 3},
         "my_object": map[string]interface{}{

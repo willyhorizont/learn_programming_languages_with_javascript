@@ -1,0 +1,635 @@
+/* start of willyhorizont.github.io/codes required standard library */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdarg.h>
+
+/* end of willyhorizont.github.io/codes required standard library */
+
+
+
+/* start of willyhorizont.github.io/codes template */
+
+typedef enum { ANY_NUMERIC, ANY_STRING, ANY_NULL, ANY_BOOL, ANY_ARRAY, ANY_OBJECT } AnyType;
+
+typedef enum { ANY_NUMERIC_INT, ANY_NUMERIC_FLOAT } NumericType;
+
+typedef struct any any;
+
+typedef struct {
+    NumericType type;
+    union {
+        long long jsLikeNumericInt;
+        long double jsLikeNumericFloat;
+    } value;
+} JsLikeNumeric;
+
+typedef struct {
+    char* key;
+    any* value;
+} JsLikeObjectEntry;
+
+typedef struct {
+    JsLikeObjectEntry* value;
+    size_t objectKeysLength;
+    size_t memoryCapacity;
+} JsLikeObject;
+
+typedef struct {
+    any** value;
+    size_t length;
+    size_t memoryCapacity;
+} JsLikeArray;
+
+typedef any* (*JsLikeFunctionPointer)(any* firstArgument, ...);
+
+typedef struct {
+    JsLikeFunctionPointer value;
+} JsLikeFunction;
+
+struct any {
+    AnyType type;
+    union {
+        bool jsLikeBoolean;
+        char* jsLikeString;
+        JsLikeNumeric jsLikeNumeric;
+        JsLikeArray jsLikeArray;
+        JsLikeObject jsLikeObject;
+    } value;
+};
+
+void throwNewError(const char* errorMessageInString) {
+    fprintf(stderr, "%s", errorMessageInString);
+    exit(EXIT_FAILURE);
+}
+
+any* createJsLikeNumeric(long double anyNumericInFloat) {
+    char stringBuffer[128];
+    snprintf(stringBuffer, sizeof(stringBuffer), "%.17Lg", anyNumericInFloat);
+
+    char* endOfStringPointer;
+    char* stringBufferForJsLikeNumericInt;
+    bool isAllStringZero = true;
+
+    const char *dotStringIndex = strchr(stringBuffer, '.');
+    if (dotStringIndex != NULL) {
+        const char *afterDotStringIndex = (dotStringIndex + 1);
+        for (const char *restOfStringIndex = afterDotStringIndex; (*restOfStringIndex != '\0'); restOfStringIndex += 1) {
+            if (*restOfStringIndex != '0') {
+                isAllStringZero = false;
+                break;
+            }
+        }
+        if (isAllStringZero) {
+            size_t parseIntStringResultLength = (dotStringIndex - stringBuffer); 
+            stringBuffer[parseIntStringResultLength] = '\0';
+        }
+    }
+
+    long long parseIntStringResult = strtoll(stringBuffer, &endOfStringPointer, 10);
+    if (*endOfStringPointer == '\0') {
+        any* anyNumericInt = malloc(sizeof(any));
+        anyNumericInt->type = ANY_NUMERIC;
+        anyNumericInt->value.jsLikeNumeric.type = ANY_NUMERIC_INT;
+        anyNumericInt->value.jsLikeNumeric.value.jsLikeNumericInt = parseIntStringResult;
+        return anyNumericInt;
+    }
+
+    long double parseFloatStringResult = strtold(stringBuffer, &endOfStringPointer);
+    if (*endOfStringPointer == '\0') {
+        any* anyNumericFloat = malloc(sizeof(any));
+        anyNumericFloat->type = ANY_NUMERIC;
+        anyNumericFloat->value.jsLikeNumeric.type = ANY_NUMERIC_FLOAT;
+        anyNumericFloat->value.jsLikeNumeric.value.jsLikeNumericFloat = parseFloatStringResult;
+        return anyNumericFloat;
+    }
+
+    throwNewError("Error: not a number\n");
+    return NULL;
+}
+
+any* createJsLikeString(const char* anything) {
+    any* newJsLikeString = malloc(sizeof(any));
+    newJsLikeString->type = ANY_STRING;
+    newJsLikeString->value.jsLikeString = strdup(anything);
+    return newJsLikeString;
+}
+
+any* createJsLikeNull() {
+    any* newJsLikeNull = malloc(sizeof(any));
+    newJsLikeNull->type = ANY_NULL;
+    return newJsLikeNull;
+}
+
+any* createJsLikeBoolean(bool anything) {
+    any* newJsLikeBoolean = malloc(sizeof(any));
+    newJsLikeBoolean->type = ANY_BOOL;
+    newJsLikeBoolean->value.jsLikeBoolean = anything;
+    return newJsLikeBoolean;
+}
+
+JsLikeObjectEntry createJsLikeObjectEntry(const char* newObjectKey, any* newObjectValue) {
+    JsLikeObjectEntry newJsLikeObjectEntry;
+    newJsLikeObjectEntry.key = strdup(newObjectKey);
+    newJsLikeObjectEntry.value = newObjectValue;
+    return newJsLikeObjectEntry;
+}
+
+#define createJsLikeArray(...) createJsLikeArrayInner(__VA_ARGS__, NULL)
+any* createJsLikeArrayInner(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    size_t memoryCapacity = 4;
+    size_t newJsLikeArrayLength = 0;
+    any** newJsLikeArrayValue = malloc(sizeof(any*) * memoryCapacity);
+
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        if (newJsLikeArrayLength >= memoryCapacity) {
+            memoryCapacity *= 2;
+            newJsLikeArrayValue = realloc(newJsLikeArrayValue, (sizeof(any*) * memoryCapacity));
+            if (!newJsLikeArrayValue) {
+                perror("realloc");
+                exit(EXIT_FAILURE);
+            }
+        }
+        newJsLikeArrayValue[newJsLikeArrayLength] = currentArgument;
+        newJsLikeArrayLength += 1;
+    }
+
+    va_end(restArguments);
+
+    any* newJsLikeArray = malloc(sizeof(any));
+    newJsLikeArray->type = ANY_ARRAY;
+    newJsLikeArray->value.jsLikeArray.value = newJsLikeArrayValue;
+    newJsLikeArray->value.jsLikeArray.length = newJsLikeArrayLength;
+    newJsLikeArray->value.jsLikeArray.memoryCapacity = memoryCapacity;
+    return newJsLikeArray;
+}
+
+#define createJsLikeObject(...) createJsLikeObjectInner(__VA_ARGS__, NULL)
+any* createJsLikeObjectInner(JsLikeObjectEntry firstObjectEntry, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstObjectEntry);
+
+    size_t memoryCapacity = 4;
+    size_t newJsLikeObjectKeysLength = 0;
+    JsLikeObjectEntry* newJsLikeObjectValue = malloc(sizeof(JsLikeObjectEntry) * memoryCapacity);
+
+    for (JsLikeObjectEntry currentObjectEntry = firstObjectEntry; (currentObjectEntry.key != NULL); currentObjectEntry = va_arg(restArguments, JsLikeObjectEntry)) {
+        if (newJsLikeObjectKeysLength >= memoryCapacity) {
+            memoryCapacity *= 2;
+            newJsLikeObjectValue = realloc(newJsLikeObjectValue, sizeof(JsLikeObjectEntry) * memoryCapacity);
+            if (!newJsLikeObjectValue) {
+                perror("realloc");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        newJsLikeObjectValue[newJsLikeObjectKeysLength] = currentObjectEntry;
+        newJsLikeObjectKeysLength += 1;
+    }
+
+    va_end(restArguments);
+
+    any* newJsLikeObject = malloc(sizeof(any));
+    newJsLikeObject->type = ANY_OBJECT;
+    newJsLikeObject->value.jsLikeObject.value = newJsLikeObjectValue;
+    newJsLikeObject->value.jsLikeObject.objectKeysLength = newJsLikeObjectKeysLength;
+    newJsLikeObject->value.jsLikeObject.memoryCapacity = memoryCapacity;
+    return newJsLikeObject;
+}
+
+any* getJsLikeFunctionParentLocalScopeVariableValue(any* thisFunction, const char* key) {
+    if (!thisFunction || (thisFunction->type != ANY_OBJECT)) return NULL;
+
+    for (size_t i = 0; (i < thisFunction->value.jsLikeObject.objectKeysLength); i += 1) {
+        JsLikeObjectEntry* anyObject = &thisFunction->value.jsLikeObject.value[i];
+        if (strcmp(anyObject->key, key) == 0) return anyObject->value;
+    }
+
+    return NULL;
+}
+
+void setJsLikeFunctionParentLocalScopeVariableValue(any* jsLikeFunction, any* jsLikeFunctionParentLocalScopeVariable) {
+    if (!jsLikeFunction || !jsLikeFunctionParentLocalScopeVariable) return;
+
+    size_t jsLikeFunctionParentLocalScopeVariableExistingKeys = jsLikeFunction->value.jsLikeObject.objectKeysLength;
+    size_t jsLikeFunctionParentLocalScopeVariableParentKeys = jsLikeFunctionParentLocalScopeVariable->value.jsLikeObject.objectKeysLength;
+
+    jsLikeFunction->value.jsLikeObject.value = realloc(jsLikeFunction->value.jsLikeObject.value, (sizeof(JsLikeObjectEntry) * (jsLikeFunctionParentLocalScopeVariableExistingKeys + jsLikeFunctionParentLocalScopeVariableParentKeys)));
+
+    if (!jsLikeFunction->value.jsLikeObject.value) {
+        perror("realloc");
+        exit(EXIT_FAILURE);
+    }
+
+    for (size_t i = 0; (i < jsLikeFunctionParentLocalScopeVariableParentKeys); i += 1) {
+        jsLikeFunction->value.jsLikeObject.value[jsLikeFunctionParentLocalScopeVariableExistingKeys + i] = jsLikeFunctionParentLocalScopeVariable->value.jsLikeObject.value[i];
+    }
+
+    jsLikeFunction->value.jsLikeObject.objectKeysLength += jsLikeFunctionParentLocalScopeVariableParentKeys;
+}
+
+any* createJsLikeFunction(JsLikeFunctionPointer jsLikeFunction, any* jsLikeFunctionParentLocalScopeVariable) {
+    any* newJsLikeFunction = malloc(sizeof(any));
+    newJsLikeFunction->type = ANY_OBJECT; /* treat functions as object */
+
+    /* allocate memory for object keys */
+    newJsLikeFunction->value.jsLikeObject.value = malloc(sizeof(JsLikeObjectEntry));
+    newJsLikeFunction->value.jsLikeObject.objectKeysLength = 1;
+    newJsLikeFunction->value.jsLikeObject.memoryCapacity = 1;
+
+    /* store function pointer */
+    JsLikeFunction* jsLikeFunctionContainer = malloc(sizeof(JsLikeFunction));
+    jsLikeFunctionContainer->value = jsLikeFunction;
+    newJsLikeFunction->value.jsLikeObject.value[0].key = strdup("[object Function]");
+    newJsLikeFunction->value.jsLikeObject.value[0].value = (any*)jsLikeFunctionContainer;
+
+    /* set parent local scope variable */
+    setJsLikeFunctionParentLocalScopeVariableValue(newJsLikeFunction, jsLikeFunctionParentLocalScopeVariable);
+
+    return newJsLikeFunction;
+}
+
+#define callJsLikeFunction(...) callJsLikeFunctionInner(__VA_ARGS__, NULL)
+any* callJsLikeFunctionInner(any* jsLikeFunction, any* firstArgument, ...) {
+    if (!jsLikeFunction || (jsLikeFunction->type != ANY_OBJECT) || (jsLikeFunction->value.jsLikeObject.objectKeysLength == 0)) throwNewError("not a function\n");
+
+    JsLikeFunction* jsLikeFunctionContainer = (JsLikeFunction*)jsLikeFunction->value.jsLikeObject.value[0].value;
+    if (!jsLikeFunctionContainer || !jsLikeFunctionContainer->value) throwNewError("function pointer is null\n");
+
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    // create temporary array to store all arguments + self
+    size_t restArgumentsCapacity = 8;
+    size_t argumentsLength = 0;
+    any** argumentsArray = malloc(sizeof(any*) * restArgumentsCapacity);
+
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        if (argumentsLength >= restArgumentsCapacity) {
+            restArgumentsCapacity *= 2;
+            argumentsArray = realloc(argumentsArray, (sizeof(any*) * restArgumentsCapacity));
+        }
+        argumentsArray[argumentsLength] = currentArgument;
+        argumentsLength += 1;
+    }
+
+    va_end(restArguments);
+
+    // add jsLikeFunction as last argument (like "this")
+    if (argumentsLength >= restArgumentsCapacity) {
+        restArgumentsCapacity += 1;
+        argumentsArray = realloc(argumentsArray, (sizeof(any*) * restArgumentsCapacity));
+    }
+    argumentsArray[argumentsLength] = jsLikeFunction;
+    argumentsLength += 1;
+
+    // call function with first argument (can be interpret va_list inside function)
+    any* jsLikeFunctionCallResult = jsLikeFunctionContainer->value(argumentsArray[0], (argumentsArray + 1));
+
+    free(argumentsArray);
+
+    return jsLikeFunctionCallResult;
+}
+
+void freeMemory(any* anything) {
+    if (!anything) return;
+
+    switch (anything->type) {
+        case ANY_STRING:
+            if (anything->value.jsLikeString) free(anything->value.jsLikeString);
+            break;
+
+        case ANY_ARRAY:
+            if (anything->value.jsLikeArray.value) {
+                for (size_t i = 0; (i < anything->value.jsLikeArray.length); i += 1) {
+                    freeMemory(anything->value.jsLikeArray.value[i]);
+                }
+                free(anything->value.jsLikeArray.value);
+            }
+            break;
+
+        case ANY_OBJECT:
+            if (anything->value.jsLikeObject.value) {
+                for (size_t i = 0; (i < anything->value.jsLikeObject.objectKeysLength); i += 1) {
+                    JsLikeObjectEntry *anyObjectEntry = &anything->value.jsLikeObject.value[i];
+                    if (anyObjectEntry->key) free(anyObjectEntry->key);
+                    if (anyObjectEntry->value) freeMemory(anyObjectEntry->value);
+                }
+                free(anything->value.jsLikeObject.value);
+            }
+            break;
+
+        case ANY_NUMERIC:
+            /* no need to free memory here */
+        case ANY_BOOL:
+            /* no need to free memory here */
+        case ANY_NULL:
+            /* no need to free memory here */
+        default:
+            /* no need to free memory here */
+            break;
+    }
+
+    free(anything);
+}
+
+void reassignValue(any** target, any* newValue) {
+    if (*target != NULL) freeMemory(*target);
+    *target = newValue;
+}
+
+/* end of willyhorizont.github.io/codes template */
+
+
+
+/* start of local scope function of main */
+
+#define sayHello(...) sayHelloInner(__VA_ARGS__, NULL)
+any* sayHelloInner(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+    
+    /*
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+    */
+
+    va_end(restArguments);
+
+    any* callbackFunction = firstArgument;
+    printf("hello\n");
+    callJsLikeFunction(callbackFunction, NULL);
+    freeMemory(callbackFunction);
+
+    return createJsLikeNull();
+}
+
+#define sayHowAreYou(...) sayHowAreYouInner(__VA_ARGS__, NULL)
+any* sayHowAreYouInner(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    /*
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+    */
+
+    va_end(restArguments);
+
+    printf("how are you?\n");
+
+    return createJsLikeNull();
+}
+
+#define multiplyBy(...) multiplyByInner(__VA_ARGS__, NULL)
+any* multiplyByInner(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    /*
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+    */
+
+    any* b = firstArgument;
+    any** restArgs = va_arg(restArguments, any**); // args[1..] include self
+    any* thisFunction = restArgs[0];
+
+    va_end(restArguments);
+
+    any* a = getJsLikeFunctionParentLocalScopeVariableValue(thisFunction, "a");
+
+    if (!a || !b) return createJsLikeNull();
+
+    if (a->type == ANY_NUMERIC && b->type == ANY_NUMERIC) {
+        long double aValue = ((a->value.jsLikeNumeric.type == ANY_NUMERIC_INT) ? a->value.jsLikeNumeric.value.jsLikeNumericInt : a->value.jsLikeNumeric.value.jsLikeNumericFloat);
+        long double bValue = ((b->value.jsLikeNumeric.type == ANY_NUMERIC_INT) ? b->value.jsLikeNumeric.value.jsLikeNumericInt : b->value.jsLikeNumeric.value.jsLikeNumericFloat);
+        return createJsLikeNumeric(aValue * bValue);
+    }
+
+    return createJsLikeNull();
+}
+
+#define multiply(...) multiplyInner(__VA_ARGS__, NULL)
+any* multiplyInner(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    /*
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+    */
+
+    va_end(restArguments);
+
+    any* a = firstArgument;
+
+    return createJsLikeFunction(&multiplyByInner, createJsLikeObject(createJsLikeObjectEntry("a", a), NULL));
+}
+
+any* functionVariadicBase1(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any* functionVariadicBase2(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    any* currentArgument = firstArgument;
+    while (currentArgument != NULL) {
+        // do something with currentArgument
+        currentArgument = va_arg(restArguments, any*);
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any** collectArguments(any* firstArgument, va_list restArguments) {
+    size_t capacity = 4;
+    size_t length = 0;
+    any** args = malloc(sizeof(any*) * capacity);
+
+    any* current = firstArgument;
+    while (current != NULL) {
+        if (length >= capacity) {
+            capacity *= 2;
+            args = realloc(args, sizeof(any*) * capacity);
+        }
+        args[length] = current;
+        length += 1;
+        current = va_arg(restArguments, any*);
+    }
+
+    // sentinel NULL
+    if (length >= capacity) {
+        args = realloc(args, sizeof(any*) * (capacity + 1));
+    }
+    args[length] = NULL;
+
+    return args; // caller bertanggung jawab free()
+}
+
+/* end of local scope function of main */
+
+
+
+int main() {
+    /*
+x. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
+    */
+    any* something = NULL;
+    reassignValue(&something, createJsLikeString("foo"));
+    reassignValue(&something, createJsLikeNumeric(123));
+    reassignValue(&something, createJsLikeNumeric(123.789));
+    reassignValue(&something, createJsLikeNumeric(-123));
+    reassignValue(&something, createJsLikeNumeric(-123.789));
+    reassignValue(&something, createJsLikeBoolean(true));
+    reassignValue(&something, createJsLikeBoolean(false));
+    reassignValue(&something, createJsLikeNull());
+    reassignValue(&something, createJsLikeArray(createJsLikeNumeric(1), createJsLikeNumeric(2), createJsLikeNumeric(3)));
+    reassignValue(&something, createJsLikeObject(createJsLikeObjectEntry("foo", createJsLikeString("bar"))));
+
+    freeMemory(something);
+
+    /*
+x. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
+    */
+   // TODO
+
+    /*
+x. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+    */
+    any* myObject = createJsLikeObject(
+        createJsLikeObjectEntry("my_string", createJsLikeString("foo")),
+        createJsLikeObjectEntry("my_numeric_1", createJsLikeNumeric(123)),
+        createJsLikeObjectEntry("my_numeric_2", createJsLikeNumeric(123.789)),
+        createJsLikeObjectEntry("my_numeric_3", createJsLikeNumeric(-123)),
+        createJsLikeObjectEntry("my_numeric_4", createJsLikeNumeric(-123.789)),
+        createJsLikeObjectEntry("my_boolean_1", createJsLikeBoolean(true)),
+        createJsLikeObjectEntry("my_boolean_2", createJsLikeBoolean(false)),
+        createJsLikeObjectEntry("my_null", createJsLikeNull()),
+        createJsLikeObjectEntry("my_array", createJsLikeArray(createJsLikeNumeric(1), createJsLikeNumeric(2), createJsLikeNumeric(3))),
+        createJsLikeObjectEntry("my_object", createJsLikeObject(createJsLikeObjectEntry("foo", createJsLikeString("bar"))))
+    );
+
+    /*
+x. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+    */
+    any* myArray = createJsLikeArray(
+        createJsLikeString("foo"),
+        createJsLikeNumeric(123),
+        createJsLikeNumeric(123.789),
+        createJsLikeNumeric(-123),
+        createJsLikeNumeric(-123.789),
+        createJsLikeBoolean(true),
+        createJsLikeBoolean(false),
+        createJsLikeNull(),
+        createJsLikeArray(createJsLikeNumeric(1), createJsLikeNumeric(2), createJsLikeNumeric(3)),
+        createJsLikeObject(createJsLikeObjectEntry("foo", createJsLikeString("bar")))
+    );
+
+    /*
+x. support passing functions as arguments to other functions
+    */
+    sayHello(createJsLikeFunction(&sayHowAreYouInner, NULL));
+
+    /*
+x. support returning functions as values from other functions
+    */
+    any* multiplyBy2 = multiply(createJsLikeNumeric(2));
+    any* multiplyBy2Result = callJsLikeFunction(multiplyBy2, createJsLikeNumeric(10));
+    if (multiplyBy2Result->type == ANY_NUMERIC) {
+        printf("multiplyBy2Result: %.17Lg\n", (multiplyBy2Result->value.jsLikeNumeric.type == ANY_NUMERIC_INT ? multiplyBy2Result->value.jsLikeNumeric.value.jsLikeNumericInt : multiplyBy2Result->value.jsLikeNumeric.value.jsLikeNumericFloat));
+    }
+    freeMemory(multiplyBy2);
+
+
+
+    any* myString = createJsLikeString("foo");
+    any* myNumber1 = createJsLikeNumeric(123);
+    any* myNumber2 = createJsLikeNumeric(123.789);
+    any* myNumber3 = createJsLikeNumeric(-123);
+    any* myNumber4 = createJsLikeNumeric(-123.789);
+    any* myBoolean1 = createJsLikeBoolean(true);
+    any* myBoolean2 = createJsLikeBoolean(false);
+    any* myNull = createJsLikeNull();
+
+    if (myString->type == ANY_STRING) {
+        printf("myString: %s\n", myString->value.jsLikeString);
+    } else {
+        printf("myString: not myString\n");
+    }
+
+    if (myNumber1->type == ANY_NUMERIC && myNumber1->value.jsLikeNumeric.type == ANY_NUMERIC_INT) {
+        printf("myNumber1: %lld\n", myNumber1->value.jsLikeNumeric.value.jsLikeNumericInt);
+    } else {
+        printf("myNumber1: not myNumber1\n");
+    }
+
+    if (myNumber2->type == ANY_NUMERIC && myNumber2->value.jsLikeNumeric.type == ANY_NUMERIC_FLOAT) {
+        printf("myNumber2: %.17Lg\n", myNumber2->value.jsLikeNumeric.value.jsLikeNumericFloat);
+    } else {
+        printf("myNumber2: not myNumber2\n");
+    }
+
+    if (myNumber3->type == ANY_NUMERIC && myNumber3->value.jsLikeNumeric.type == ANY_NUMERIC_INT) {
+        printf("myNumber3: %lld\n", myNumber3->value.jsLikeNumeric.value.jsLikeNumericInt);
+    } else {
+        printf("myNumber3: not myNumber3\n");
+    }
+
+    if (myNumber4->type == ANY_NUMERIC && myNumber4->value.jsLikeNumeric.type == ANY_NUMERIC_FLOAT) {
+        printf("myNumber4: %.17Lg\n", myNumber4->value.jsLikeNumeric.value.jsLikeNumericFloat);
+    } else {
+        printf("myNumber4: not myNumber4\n");
+    }
+
+    if (myBoolean1->type == ANY_BOOL) {
+        printf("myBoolean1: %s\n", (myBoolean1->value.jsLikeBoolean ? "true" : "false"));
+    } else {
+        printf("myBoolean1: not myBoolean1\n");
+    }
+
+    if (myBoolean2->type == ANY_BOOL) {
+        printf("myBoolean2: %s\n", (myBoolean2->value.jsLikeBoolean ? "true" : "false"));
+    } else {
+        printf("myBoolean2: not myBoolean2\n");
+    }
+
+    if (myNull->type == ANY_NULL) {
+        printf("myNull: null\n");
+    } else {
+        printf("myNull: not myNull\n");
+    }
+
+    freeMemory(myString);
+    freeMemory(myNumber1);
+    freeMemory(myNumber2);
+    freeMemory(myNumber3);
+    freeMemory(myNumber4);
+    freeMemory(myBoolean1);
+    freeMemory(myBoolean2);
+    freeMemory(myNull);
+    freeMemory(myArray);
+    freeMemory(myObject);
+return 0;}

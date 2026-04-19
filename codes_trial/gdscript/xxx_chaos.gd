@@ -2,7 +2,7 @@ extends SceneTree
 
 
 func _init():
-    # 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
+    # x. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
     # ```javascript
     # let something = "foo";
     # console.log("something:", something);
@@ -33,7 +33,7 @@ func _init():
     something = {"foo": "bar"}
     print("something: ", JSON.print(something, "    "))
 
-    # 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
+    # x. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
     # ```javascript
     # function getModifiedIndentLevel() {
     #     let indent_level = 0;

@@ -231,7 +231,7 @@ $my_object = [
     },
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => true,
+    "my_boolean" => true,
     "my_null" => null,
     "my_array" => [1, 2, 3],
     "my_object" => [

@@ -15,133 +15,139 @@
     Logical NOT (not)
 '''
 
-print("\n# basic conditional control flow\n")
 
-my_age = 10
-print(f"my_age: {my_age}")
-if (my_age > 24):
-    print("you are old")
-elif (my_age > 17):
-    print("you are young")
-else:
-    print("you are under age")
+def main():
+    print("\n# basic conditional control flow\n")
 
-print("\n# equal to (==)\n")
+    my_age = 10
+    print(f"my_age: {my_age}")
+    if (my_age > 24):
+        print("you are old")
+    elif (my_age > 17):
+        print("you are young")
+    else:
+        print("you are under age")
 
-correct_answer = 100
-my_answer = 100.0
-print(f"my_answer: {my_answer}")
-print(f"correct_answer: {correct_answer}")
-print("(my_answer == correct_answer): ")
-if (my_answer == correct_answer):
-    print("Your answer is correct")
-else:
-    print("Your answer is wrong")
+    print("\n# equal to (==)\n")
 
-print("\n# not equal to (!=)\n")
+    correct_answer = 100
+    my_answer = 100.0
+    print(f"my_answer: {my_answer}")
+    print(f"correct_answer: {correct_answer}")
+    print("(my_answer == correct_answer): ")
+    if (my_answer == correct_answer):
+        print("Your answer is correct")
+    else:
+        print("Your answer is wrong")
 
-correct_answer = 100
-my_answer = 25.0
-print(f"my_answer: {my_answer}")
-print(f"correct_answer: {correct_answer}")
-print("(my_answer != correct_answer): ")
-if (my_answer != correct_answer):
-    print("Your answer is correct")
-else:
-    print("Your answer is wrong")
+    print("\n# not equal to (!=)\n")
 
-print("\n# identical to (is)\n")
+    correct_answer = 100
+    my_answer = 25.0
+    print(f"my_answer: {my_answer}")
+    print(f"correct_answer: {correct_answer}")
+    print("(my_answer != correct_answer): ")
+    if (my_answer != correct_answer):
+        print("Your answer is correct")
+    else:
+        print("Your answer is wrong")
 
-correct_answer = 100
-my_answer = 100.0
-print(f"my_answer: {my_answer}")
-print(f"correct_answer: {correct_answer}")
-print("(my_answer is correct_answer): ")
-if (my_answer is correct_answer):
-    print("Your answer is correct")
-else:
-    print("Your answer is wrong")
+    print("\n# identical to (is)\n")
 
-print("\n# not identical to (not)\n")
+    correct_answer = 100
+    my_answer = 100.0
+    print(f"my_answer: {my_answer}")
+    print(f"correct_answer: {correct_answer}")
+    print("(my_answer is correct_answer): ")
+    if (my_answer is correct_answer):
+        print("Your answer is correct")
+    else:
+        print("Your answer is wrong")
 
-correct_answer = 100
-my_answer = 25.0
-print(f"my_answer: {my_answer}")
-print(f"correct_answer: {correct_answer}")
-print("(my_answer is not correct_answer): ")
-if (my_answer is not correct_answer):
-    print("Your answer is correct")
-else:
-    print("Your answer is wrong")
+    print("\n# not identical to (not)\n")
 
-print("\n# greater than (>)\n")
+    correct_answer = 100
+    my_answer = 25.0
+    print(f"my_answer: {my_answer}")
+    print(f"correct_answer: {correct_answer}")
+    print("(my_answer is not correct_answer): ")
+    if (my_answer is not correct_answer):
+        print("Your answer is correct")
+    else:
+        print("Your answer is wrong")
 
-my_age = 70
-print(f"my_age: {my_age}")
-print("(my_age > 50): ")
-if (my_age > 50):
-    print("You are old")
+    print("\n# greater than (>)\n")
 
-print("\n# less than (<)\n")
+    my_age = 70
+    print(f"my_age: {my_age}")
+    print("(my_age > 50): ")
+    if (my_age > 50):
+        print("You are old")
 
-my_age = 16
-print(f"my_age: {my_age}")
-print("(my_age < 20): ")
-if (my_age < 20):
-    print("You are young")
+    print("\n# less than (<)\n")
 
-print("\n# greater than or equal to (>=)\n")
+    my_age = 16
+    print(f"my_age: {my_age}")
+    print("(my_age < 20): ")
+    if (my_age < 20):
+        print("You are young")
 
-my_age = 73
-print(f"my_age: {my_age}")
-print("(my_age >= 65): ")
-if (my_age >= 65):
-    print("You are allowed to retire")
+    print("\n# greater than or equal to (>=)\n")
 
-print("\n# less than or equal to (<=)\n")
+    my_age = 73
+    print(f"my_age: {my_age}")
+    print("(my_age >= 65): ")
+    if (my_age >= 65):
+        print("You are allowed to retire")
 
-my_age = 14
-print(f"my_age: {my_age}")
-print("(my_age <= 16): ")
-if (my_age <= 16):
-    print("You are not allowed to drive")
+    print("\n# less than or equal to (<=)\n")
 
-print("\n# Logical AND (and)\n")
+    my_age = 14
+    print(f"my_age: {my_age}")
+    print("(my_age <= 16): ")
+    if (my_age <= 16):
+        print("You are not allowed to drive")
 
-my_age = 17
-print(f"my_age: {my_age}")
-has_driving_license = False
-print(f"has_driving_license: {has_driving_license}")
-print("((my_age >= 17) and (has_driving_license == True)): ")
-print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
+    print("\n# Logical AND (and)\n")
 
-my_age = 17
-print(f"my_age: {my_age}")
-has_driving_license = True
-print(f"has_driving_license: {has_driving_license}")
-print("((my_age >= 17) and (has_driving_license == True)): ")
-print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
+    my_age = 17
+    print(f"my_age: {my_age}")
+    has_driving_license = False
+    print(f"has_driving_license: {has_driving_license}")
+    print("((my_age >= 17) and (has_driving_license == True)): ")
+    print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
-print("\n# Logical OR (or)\n")
+    my_age = 17
+    print(f"my_age: {my_age}")
+    has_driving_license = True
+    print(f"has_driving_license: {has_driving_license}")
+    print("((my_age >= 17) and (has_driving_license == True)): ")
+    print("You are allowed to drive") if ((my_age >= 17) and (has_driving_license == True)) else print("You are not allowed to drive")
 
-my_age = 2
-print(f"my_age: {my_age}")
-print("((my_age <= 3) or (my_age >= 65)): ")
-if ((my_age <= 3) or (my_age >= 65)):
-    print("You should stay home")
+    print("\n# Logical OR (or)\n")
 
-my_age = 89
-print(f"my_age: {my_age}")
-print("((my_age <= 3) or (my_age >= 65)): ")
-if ((my_age <= 3) or (my_age >= 65)):
-    print("You should stay home")
+    my_age = 2
+    print(f"my_age: {my_age}")
+    print("((my_age <= 3) or (my_age >= 65)): ")
+    if ((my_age <= 3) or (my_age >= 65)):
+        print("You should stay home")
 
-print("\n# Logical NOT (not)\n")
+    my_age = 89
+    print(f"my_age: {my_age}")
+    print("((my_age <= 3) or (my_age >= 65)): ")
+    if ((my_age <= 3) or (my_age >= 65)):
+        print("You should stay home")
 
-can_drive = False
-print(f"can_drive: {can_drive}")
-print(f"not can_drive: {not can_drive}")
+    print("\n# Logical NOT (not)\n")
 
-can_drive = True
-print(f"can_drive: {can_drive}")
-print(f"not can_drive: {not can_drive}")
+    can_drive = False
+    print(f"can_drive: {can_drive}")
+    print(f"not can_drive: {not can_drive}")
+
+    can_drive = True
+    print(f"can_drive: {can_drive}")
+    print(f"not can_drive: {not can_drive}")
+
+
+if __name__ == "__main__":
+    main()

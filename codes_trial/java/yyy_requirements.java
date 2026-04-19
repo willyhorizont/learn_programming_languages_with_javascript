@@ -74,12 +74,12 @@ class yyy_requirements {
         System.out.println("something: " + something);
 
         /*
-        3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+        x. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
         ```javascript
         const myObject = {
             "my_string": "foo",
             "my_number": 123,
-            "my_bool": true,
+            "my_boolean": true,
             "my_null": null,
             "my_object": {
                 "foo": "bar"
@@ -92,7 +92,7 @@ class yyy_requirements {
         HashMap<String, Object> myObject = createNewObject(
             new Pair<String, Object>("my_string", "foo"),
             new Pair<String, Object>("my_number", 123),
-            new Pair<String, Object>("my_bool", true),
+            new Pair<String, Object>("my_boolean", true),
             new Pair<String, Object>("my_null", null),
             new Pair<String, Object>("my_object", createNewObject(new Pair<String, Object>("foo", "bar"))),
             new Pair<String, Object>("my_array", new Object[]{1, 2, 3})
@@ -100,7 +100,7 @@ class yyy_requirements {
         System.out.println("myObject: " + myObject);
 
         /*
-        4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+        x. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
         ```javascript
         const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
         console.log("myArray: ", myArray);
@@ -110,7 +110,7 @@ class yyy_requirements {
         System.out.println("myArray: " + myArray);
 
         /*
-        5. support passing functions as arguments to other functions
+        x. support passing functions as arguments to other functions
         ```javascript
         function sayHello(callbackFunction) {
             console.log("hello");
@@ -130,7 +130,7 @@ class yyy_requirements {
         });
 
         /*
-        6. support returning functions as values from other functions
+        x. support returning functions as values from other functions
         ```javascript
         function multiply(a) {
             return function (b) {
@@ -147,7 +147,7 @@ class yyy_requirements {
         System.out.println("multiplyBy2Result: " + multiplyBy2Result);
 
         /*
-        7. support assigning functions to variables
+        x. support assigning functions to variables
         ```javascript
         const getRectangleArea = function (rectangleWidth, rectangleLength) {
             return rectangleWidth * rectangleLength;
@@ -161,7 +161,7 @@ class yyy_requirements {
         System.out.println("getRectangleArea.apply(7, 5): " + getRectangleArea.apply(7, 5));
 
         /*
-        8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+        x. support storing functions in data structures like object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure or array/list/slice/ordered-list-data-structure
         ```javascript
         const myArray2 = [
             function (a, b) {
@@ -182,7 +182,7 @@ class yyy_requirements {
             },
             "my_string": "foo",
             "my_number": 123,
-            "my_bool": true,
+            "my_boolean": true,
             "my_null": null,
             "my_object": {
                 "foo": "bar"
@@ -207,7 +207,7 @@ class yyy_requirements {
             new Pair<String, Object>("my_function", (LambdaArgs2<Integer, Integer, Integer>) (a, b) -> a * b),
             new Pair<String, Object>("my_string", "foo"),
             new Pair<String, Object>("my_number", 123),
-            new Pair<String, Object>("my_bool", true),
+            new Pair<String, Object>("my_boolean", true),
             new Pair<String, Object>("my_null", null),
             new Pair<String, Object>("my_object", createNewObject(new Pair<String, Object>("foo", "bar"))),
             new Pair<String, Object>("my_array", new Object[]{1, 2, 3})

@@ -1,0 +1,10 @@
+{
+    "name": "javascript",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "type": "module",
+    "keywords": [],
+    "author": "Willy Horizont",
+    "license": "MIT"
+}

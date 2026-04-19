@@ -1,0 +1,111 @@
+data types:
+```
+short
+short int
+signed short
+signed short int
+unsigned short
+unsigned short int
+
+int
+signed int
+unsigned int
+long
+long int
+signed long
+signed long int
+unsigned long
+unsigned long int
+
+long long
+long long int
+signed long long
+signed long long int
+unsigned long long
+unsigned long long int
+
+float
+double
+long double
+```
+
+best way to mimic javascript variadic function is using sentinel value (paling recommend pake NULL) A.K.A.:
+```
+tanda akhir
+Sentinel (special marker)
+terminator khusus
+convention (berhenti di argumen khusus)
+seperti string di c pakai '\0' agar compiler tau kapan string berakhir
+untuk mengkahiri sebuah array/arguments
+
+any* functionVariadicBase1(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any* functionVariadicBase2(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    any* currentArgument = firstArgument;
+    while (currentArgument != NULL) {
+        // do something with currentArgument
+        currentArgument = va_arg(restArguments, any*);
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any* functionVariadicBase3(any* firstArgument, ...) {
+    va_list vaList;
+    va_start(vaList, firstArgument);
+    any** restArguments = va_arg(vaList, any**);
+    va_end(vaList);
+
+    int i = 0;
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = restArguments[i]) {
+        // do something with currentArgument
+        i += 1;
+    }
+
+    return createJsLikeNull();
+}
+```
+
+```
+#include <stdio.h>
+
+struct MyStruct {
+    int value;
+};
+
+int main() {
+    struct MyStruct myStructOne;
+    myStructOne.value = 10;
+
+    struct MyStruct myStructTwo;
+    myStructTwo.value = 20;
+
+    struct MyStruct* myStructTwoPointer = &myStructTwo;
+    myStructTwoPointer->value = 20;  // sama dengan (*myStructTwoPointer).value = 20;
+
+    printf("myStructOne.value = %d\n", myStructOne.value);
+    printf("myStructTwo.value = %d\n", myStructTwo.value);
+
+    printf("myStructTwoPointer->value = %d\n", myStructTwoPointer->value);
+    printf("(*myStructTwoPointer).value = %d\n", (*myStructTwoPointer).value);
+
+    return 0;
+}
+
+```

@@ -123,7 +123,7 @@ my_object::Any = Dict{String, Any}(
     end,
     "my_string" => "foo",
     "my_number" => 123,
-    "my_bool" => true,
+    "my_boolean" => true,
     "my_null" => nothing,
     "my_array" => Vector{Any}([1, 2, 3]),
     "my_object" => Dict{String, Any}(

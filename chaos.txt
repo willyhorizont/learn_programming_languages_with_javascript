@@ -797,7 +797,7 @@ type Object map[string]Any
 
 3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic type and dynamic value
 ```javascript
-const myObject = { "my_string": "foo", "my_number": 17, "my_bool": true, "my_obj": { "foo": "bar" }, "my_array": [1, 2, 3] }
+const myObject = { "my_string": "foo", "my_number": 17, "my_boolean": true, "my_obj": { "foo": "bar" }, "my_array": [1, 2, 3] }
 ```
 
 4. array/list/slice/ordered-list-data-structure can store dynamic type and dynamic value
@@ -805,7 +805,7 @@ const myObject = { "my_string": "foo", "my_number": 17, "my_bool": true, "my_obj
 const myArray = ["foo", 17, true, [1, 2, 3], { "foo": "bar" }]
 ```
 
-5. support passing functions as arguments to other functions
+x. support passing functions as arguments to other functions
 ```javascript
 function sayHello(callbackFunction) {
     console.log("hello");
@@ -816,7 +816,7 @@ sayHello(function () {
 });
 ```
 
-6. support returning functions as values from other functions (closure)
+x. support returning functions as values from other functions (closure)
 ```javascript
 function multiply(a) {
     return function multiplyBy(b) {
@@ -827,7 +827,7 @@ const multiplyBy2 = multiply(2);
 const result = multiplyBy2(10); // 20
 ```
 
-7. support assigning functions to variables
+x. support assigning functions to variables
 ```javascript
 const getRectangleArea = function (rectangleWidth, rectangleLength) {
     return rectangleWidth * rectangleLength;
@@ -835,7 +835,7 @@ const getRectangleArea = function (rectangleWidth, rectangleLength) {
 getRectangleArea(3, 4);
 ```
 
-8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+x. support storing functions in data structures like object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure or array/list/slice/ordered-list-data-structure
 ```javascript
 const myArray = [
     function (rectangleWidth, rectangleLength) {

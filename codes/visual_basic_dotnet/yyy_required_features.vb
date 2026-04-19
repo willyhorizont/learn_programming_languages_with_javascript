@@ -44,7 +44,7 @@ Module Program
     End Function
 
     Sub Main(Args As String())
-' 1. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
+' x. variable can store dynamic data type and dynamic value, variable can inferred data type from value, value of variable can be reassign with different data type or has option to make variable can store dynamic data type and dynamic value
 ' ```javascript
 ' let something = "foo";
 ' console.log(`something: ${something}`);
@@ -75,7 +75,7 @@ Module Program
         Something = New Dictionary(Of String, Object) From {{"foo", "bar"}}
         Console.WriteLine("Something: " & JsonStringify(Something, Pretty:=True))
 
-' 2. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
+' x. it is possible to access and modify variables defined outside of the current scope within nested functions, so it is possible to have closure too
 ' ```javascript
 ' function getModifiedIndentLevel() {
 '     let indentLevel = 0;
@@ -133,12 +133,12 @@ Module Program
         PlayGame()
         PlayGame()
 
-' 3. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
+' x. object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure can store dynamic data type and dynamic value
 ' ```javascript
 ' const myObject = {
 '     "my_string": "foo",
 '     "my_number": 123,
-'     "my_bool": true,
+'     "my_boolean": true,
 '     "my_null": null,
 '     "my_array": [1, 2, 3],
 '     "my_object": {
@@ -150,7 +150,7 @@ Module Program
         Dim MyObject As Object = New Dictionary(Of String, Object) From {
             {"my_string", "foo"},
             {"my_number", 123},
-            {"my_bool", true},
+            {"my_boolean", true},
             {"my_null", Nothing},
             {"my_array", New List(Of Object) From {1, 2, 3}},
             {"my_object", New Dictionary(Of String, Object) From {
@@ -160,7 +160,7 @@ Module Program
         }
         Console.WriteLine("MyObject: " & JsonStringify(MyObject, Pretty:=True))
 
-' 4. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
+' x. array/list/slice/ordered-list-data-structure can store dynamic data type and dynamic value
 ' ```javascript
 ' const myArray = ["foo", 123, true, null, [1, 2, 3], { "foo": "bar" }];
 ' console.log(`myArray: ${myArray}`);
@@ -168,7 +168,7 @@ Module Program
         Dim MyArray As List(Of Object) = New List(Of Object) From {"foo", 123, true, Nothing, New List(Of Object) From {1, 2, 3}, New Dictionary(Of String, Object) From {{"foo", "bar"}}}
         Console.WriteLine("MyArray: " & JsonStringify(MyArray, Pretty:=True))
 
-' 5. support passing functions as arguments to other functions
+' x. support passing functions as arguments to other functions
 ' ```javascript
 ' function sayHello(callbackFunction) {
 '     console.log("hello");
@@ -190,7 +190,7 @@ Module Program
         SayHello(SayHowAreYou)
         SayHello(Sub() Console.WriteLine("how are you?"))
 
-' 6. support returning functions as values from other functions
+' x. support returning functions as values from other functions
 ' ```javascript
 ' function multiply(a) {
 '     return function (b) {
@@ -210,7 +210,7 @@ Module Program
         Dim MultiplyBy2Result = MultiplyBy2(10)
         Console.WriteLine("MultiplyBy2Result: " & MultiplyBy2Result)
 
-' 7. support assigning functions to variables
+' x. support assigning functions to variables
 ' ```javascript
 ' const getRectangleAreaV1 = function (rectangleWidth, rectangleLength) {
 '     return (rectangleWidth * rectangleLength);
@@ -230,7 +230,7 @@ Module Program
         Dim GetRectangleAreaV2 = Function(ByVal RectangleWidth As Integer, ByVal RectangleLength As Integer) (RectangleWidth * RectangleLength)
         Console.WriteLine("GetRectangleAreaV2(7, 5): " & GetRectangleAreaV2(7, 5))
 
-' 8. support storing functions in data structures like array/list/slice/ordered-list-data-structure or object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure
+' x. support storing functions in data structures like object/dictionary/associative-array/hash/hashmap/map/unordered-list-key-value-pair-data-structure or array/list/slice/ordered-list-data-structure
 ' ```javascript
 ' const myArray2 = [
 '     function (a, b) {
@@ -250,7 +250,7 @@ Module Program
 '     },
 '     "my_string": "foo",
 '     "my_number": 123,
-'     "my_bool": true,
+'     "my_boolean": true,
 '     "my_null": null,
 '     "my_array": [1, 2, 3],
 '     "my_object": {
@@ -273,7 +273,7 @@ Module Program
             {"my_function", DirectCast(Function(ByVal A As Integer, ByVal B As Integer) (A * B), Func(Of Integer, Integer, Integer))},
             {"my_string", "foo"},
             {"my_number", 123},
-            {"my_bool", true},
+            {"my_boolean", true},
             {"my_null", Nothing},
             {"my_array", New List(Of Object) From {1, 2, 3}},
             {"my_object", New Dictionary(Of String, Object) From {
