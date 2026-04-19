@@ -1,0 +1,67 @@
+typedef any* (*JsLikeFunctionRef)(any* anything);
+
+any* callJsLikeFunction(any* jsLikeFunction, any* anything) {
+    if (!jsLikeFunction || ((*jsLikeFunction).type != ANY_OBJECT) || (0 == (*jsLikeFunction).value.jsLikeObject.objectKeysLength)) throwNewError("not function\n");
+
+    JsLikeFunction* jsLikeFunctionObject = (JsLikeFunction*)(*jsLikeFunction).value.jsLikeObject.value[0].value;
+    if (!jsLikeFunctionObject || !(*jsLikeFunctionObject).value) throwNewError("function pointer is null\n");
+
+    size_t restArgumentsCapacity = 0;
+    size_t argumentsLength = 0;
+    any** argumentsArray = NULL;
+
+    any* jsLikeFunctionCallResult = NULL;
+
+    if ((*anything).type == ANY_ARRAY) {
+        // jsLikeFunctionCallResult = (*jsLikeFunctionObject).value((*anything).value.jsLikeArray.value);
+        return jsLikeFunctionCallResult;
+    }
+
+    jsLikeFunctionCallResult = (*jsLikeFunctionObject).value(createJsLikeArrayInner(NULL));
+    return jsLikeFunctionCallResult;
+}
+
+any* sayHello(any* jsLikeVariadicArguments) {
+    any* callbackFunction = (*jsLikeVariadicArguments).value.jsLikeArray.value[0];
+    printf("hello\n");
+    callJsLikeFunction(callbackFunction, createJsLikeNull());
+    freeMemory(callbackFunction);
+
+    return createJsLikeNull();
+}
+
+any* sayHowAreYou(any* jsLikeVariadicArguments) {
+    printf("how are you?\n");
+
+    return createJsLikeNull();
+}
+
+any* multiplyBy(any* jsLikeVariadicArguments) {
+    any* b = (*jsLikeVariadicArguments).value.jsLikeArray.value[0];
+    any* this = (*b).value.jsLikeObject.value[0].value;
+    any* a = getJsLikeFunctionParentLocalScopeVariableValue(this, "a");
+
+    if (!a || !b) {
+        return createJsLikeNull();
+    }
+
+    if ((ANY_NUMERIC == (*a).type) && (ANY_NUMERIC == (*b).type)) {
+        long double aInNumeric = ((ANY_NUMERIC_INT == (*a).value.jsLikeNumeric.type) ? (*a).value.jsLikeNumeric.value.jsLikeNumericInt : (*a).value.jsLikeNumeric.value.jsLikeNumericFloat);
+        long double bInNumeric = ((ANY_NUMERIC_INT == (*b).value.jsLikeNumeric.type) ? (*b).value.jsLikeNumeric.value.jsLikeNumericInt : (*b).value.jsLikeNumeric.value.jsLikeNumericFloat);
+
+        return createJsLikeNumeric(aInNumeric * bInNumeric);
+    }
+
+    return createJsLikeNull();
+}
+
+any* multiply(any* jsLikeVariadicArguments) {
+    any* a = (*jsLikeVariadicArguments).value.jsLikeArray.value[0];
+
+    return createJsLikeFunction(&multiplyBy, createJsLikeObject(createJsLikeObjectEntry("a", a)));
+}
+
+sayHello(createJsLikeFunction(&sayHowAreYou, NULL));
+
+any* multiplyBy2 = multiply(createJsLikeNumeric(2));
+any* multiplyBy2Result = callJsLikeFunction(multiplyBy2, createJsLikeNumeric(10));

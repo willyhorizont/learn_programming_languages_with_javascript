@@ -1,0 +1,243 @@
+data types:
+```
+short
+short int
+signed short
+signed short int
+unsigned short
+unsigned short int
+
+int
+signed int
+unsigned int
+long
+long int
+signed long
+signed long int
+unsigned long
+unsigned long int
+
+long long
+long long int
+signed long long
+signed long long int
+unsigned long long
+unsigned long long int
+
+float
+double
+long double
+```
+
+best way to mimic javascript variadic function is using sentinel value (paling recommend pake NULL) A.K.A.:
+```
+tanda akhir
+Sentinel (special marker)
+terminator khusus
+convention (berhenti di argumen khusus)
+seperti string di c pakai '\0' agar compiler tau kapan string berakhir
+untuk mengkahiri sebuah array/arguments
+
+any* functionVariadicBase1(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = va_arg(restArguments, any*)) {
+        // do something with currentArgument
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any* functionVariadicBase2(any* firstArgument, ...) {
+    va_list restArguments;
+    va_start(restArguments, firstArgument);
+
+    any* currentArgument = firstArgument;
+    while (currentArgument != NULL) {
+        // do something with currentArgument
+        currentArgument = va_arg(restArguments, any*);
+    }
+
+    va_end(restArguments);
+
+    return createJsLikeNull();
+}
+
+any* functionVariadicBase3(any* firstArgument, ...) {
+    va_list vaList;
+    va_start(vaList, firstArgument);
+    any** restArguments = va_arg(vaList, any**);
+    va_end(vaList);
+
+    int i = 0;
+    for (any* currentArgument = firstArgument; (currentArgument != NULL); currentArgument = restArguments[i]) {
+        // do something with currentArgument
+        i += 1;
+    }
+
+    return createJsLikeNull();
+}
+```
+
+```
+#include <stdio.h>
+
+struct MyStruct {
+    int value;
+};
+
+int main() {
+    struct MyStruct myStructOne;
+    myStructOne.value = 10;
+
+    struct MyStruct myStructTwo;
+    myStructTwo.value = 20;
+
+    struct MyStruct* myStructTwoPointer = &myStructTwo;
+    myStructTwoPointer->value = 20;  // sama dengan (*myStructTwoPointer).value = 20;
+
+    printf("myStructOne.value = %d\n", myStructOne.value);
+    printf("myStructTwo.value = %d\n", myStructTwo.value);
+
+    printf("myStructTwoPointer->value = %d\n", myStructTwoPointer->value);
+    printf("(*myStructTwoPointer).value = %d\n", (*myStructTwoPointer).value);
+
+    return 0;
+}
+
+```
+
+```
+#define createJsLikeArray(...) createJsLikeArrayInner((any*[]){__VA_ARGS__}, (sizeof((any*[]){__VA_ARGS__}) / sizeof(any*)))
+```
+
+```
+#define createJsLikeArray(...) createJsLikeArrayInner((sizeof((any*[]){__VA_ARGS__}) / sizeof(any*)), __VA_ARGS__)
+```
+
+```
+#define createJsLikeArray(...) createJsLikeArrayInner(__VA_ARGS__, NULL)
+any* createJsLikeArrayInner(any firstArgument, ...) {
+    any* newArray = NULL;
+    any newArrayLength = 0;
+
+    va_list args;
+    va_start(args, firstArgument);
+
+    for (any current = firstArgument; current != -1; current = va_arg(args, any)) {
+        newArrayLength++;
+        newArray = realloc(newArray, newArrayLength * sizeof(any));
+        newArray[newArrayLength - 1] = current;
+    }
+
+    va_end(args);
+
+    // Tambahkan sentinel lagi
+    newArrayLength++;
+    newArray = realloc(newArray, newArrayLength * sizeof(any));
+    newArray[newArrayLength - 1] = -1;
+
+    return newArray;
+}
+```
+
+```
+#define createArray(...) createArrayFromList((int[]){__VA_ARGS__}, sizeof((int[]){__VA_ARGS__})/sizeof(int))
+
+int* createArrayFromList(const int* values, size_t length) {
+    int* newArray = malloc((length + 1) * sizeof(int));
+    for (size_t i = 0; i < length; i++) {
+        newArray[i] = values[i];
+    }
+    newArray[length] = -1; // sentinel otomatis
+    return newArray;
+}
+
+int* myArray = createArray(1, 2, 3);
+```
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+#define createArray(...) createArrayFromList((int[]){__VA_ARGS__}, sizeof((int[]){__VA_ARGS__})/sizeof(int))
+
+int* createArrayFromList(const int* values, size_t length) {
+    int* newArray = malloc((length + 1) * sizeof(int));
+    for (size_t i = 0; i < length; i++) {
+        newArray[i] = values[i];
+    }
+    newArray[length] = -1; // sentinel otomatis
+    return newArray;
+}
+
+int main() {
+    int* myArray = createArray(1, 2, 3);
+
+    for (int i = 0; myArray[i] != -1; i++) {
+        printf("%d\n", myArray[i]);
+    }
+
+    free(myArray);
+    return 0;
+}
+
+```
+
+```
+TODO
+
+any* arrayMap(any* anything) {
+    if ((*anything).type != ANY_ARRAY) return createJsLikeNull();
+
+    any* callbackFunction = (*anything).value.jsLikeArray.value[0];
+    any* anyArray = (*anything).value.jsLikeArray.value[1];
+
+    if (((*callbackFunction).type == ANY_OBJECT) && ((*callbackFunction).value.jsLikeObject.value[0].key != strdup("[object Function]"))) return createJsLikeNull();
+    if ((*anyArray).type == ANY_ARRAY) return createJsLikeNull();
+
+    any** newJsLikeArrayValue = NULL;
+    int arrayItemIndex = 0;
+    while (arrayItemIndex < (*anyArray).value.jsLikeArray.length) {
+        any* arrayItem = (*anyArray).value.jsLikeArray.value[arrayItemIndex];
+        newJsLikeArrayValue[arrayItemIndex] = callJsLikeFunction(callbackFunction, arrayItem, arrayItemIndex, anyArray, NULL);
+
+        arrayItemIndex += 1;
+    }
+    any* newJsLikeArray = malloc(sizeof(any));
+    (*newJsLikeArray).type = ANY_ARRAY;
+    (*newJsLikeArray).value.jsLikeArray.value = newJsLikeArrayValue;
+    (*newJsLikeArray).value.jsLikeArray.length = (*anyArray).value.jsLikeArray.length;
+    (*newJsLikeArray).value.jsLikeArray.memoryCapacity = (*anyArray).value.jsLikeArray.memoryCapacity;
+}
+```
+
+```c
+any* multiplyBy(any* this, any* anything) {
+    if ((*anything).type != ANY_ARRAY) return createJsLikeNull();
+
+    any* a = getJsLikeFunctionParentLocalScopeVariableValue(&this, craeteJsLikeString("a"));
+    any* b = (*anything).value.jsLikeArray.value[0];
+
+    if ((!a || !b) || (!((ANY_NUMERIC == (*a).type) && (ANY_NUMERIC == (*b).type)))) return createJsLikeNull();
+
+    long double aInNumeric = ((ANY_NUMERIC_INT == (*a).value.jsLikeNumeric.type) ? (*a).value.jsLikeNumeric.value.jsLikeNumericInt : (*a).value.jsLikeNumeric.value.jsLikeNumericFloat);
+    long double bInNumeric = ((ANY_NUMERIC_INT == (*b).value.jsLikeNumeric.type) ? (*b).value.jsLikeNumeric.value.jsLikeNumericInt : (*b).value.jsLikeNumeric.value.jsLikeNumericFloat);
+
+    return createJsLikeNumeric(aInNumeric * bInNumeric);
+}
+
+any* multiply(any* this, any* anything) {
+    if ((*anything).type != ANY_ARRAY) return createJsLikeNull();
+
+    any* a = (*anything).value.jsLikeArray.value[0];
+
+    return createJsLikeFunction(createJsLikeObject(createJsLikeObjectEntry("a", a)), &multiplyBy);
+}
+
+any* multiplyBy2 = multiply((JsLikeObjectEntry){ NULL, NULL }, createJsLikeNumeric(2));
+any* multiplyBy2Result = callJsLikeFunction(&multiplyBy2, createJsLikeNumeric(10));
+```
